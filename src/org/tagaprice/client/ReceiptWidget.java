@@ -15,6 +15,10 @@
 package org.tagaprice.client;
 
 
+import org.tagaprice.shared.ProductContainer;
+import org.tagaprice.shared.ReceiptContainer;
+import org.tagaprice.shared.ShopContainer;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;

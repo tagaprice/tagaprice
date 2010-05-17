@@ -3,6 +3,10 @@ package org.tagaprice.client;
 
 import java.util.Date;
 
+import org.tagaprice.shared.ProductContainer;
+import org.tagaprice.shared.ReceiptContainer;
+import org.tagaprice.shared.ShopContainer;
+
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Label;

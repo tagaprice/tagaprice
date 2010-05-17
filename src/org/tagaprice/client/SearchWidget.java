@@ -1,5 +1,7 @@
 package org.tagaprice.client;
 
+import org.tagaprice.shared.EntityContainer;
+
 
 
 public class SearchWidget<T extends EntityContainer>{
