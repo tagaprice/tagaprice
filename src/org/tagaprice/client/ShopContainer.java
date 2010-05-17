@@ -14,6 +14,8 @@
 */
 package org.tagaprice.client;
 
+
+
 /**
  * 
  * Contains all important information to represent a

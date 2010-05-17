@@ -16,6 +16,8 @@ package org.tagaprice.client;
 
 import java.io.Serializable;
 
+
+
 /**
  * Contains all important information to represent a
  * product. 

@@ -1,8 +1,8 @@
 package org.tagaprice.client;
 
-import com.google.gwt.user.client.ui.Widget;
 
-public class SearchWidget<T>{
+
+public class SearchWidget<T extends EntityContainer>{
 	
 	ListWidget<T> widgetList; 
 	

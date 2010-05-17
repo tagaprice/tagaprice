@@ -16,6 +16,8 @@ package org.tagaprice.client;
 
 import java.util.Date;
 
+
+
 /**
  * 
  * Contains all important information to represent a receipt. 

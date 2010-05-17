@@ -14,6 +14,7 @@
 */
 package org.tagaprice.client;
 
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
