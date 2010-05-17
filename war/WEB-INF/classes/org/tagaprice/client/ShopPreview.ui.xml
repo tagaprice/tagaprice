@@ -1,0 +1,20 @@
+<!-- ShopPreview.ui.xml -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui' 
+    xmlns:my='urn:import:org.tagaprice.client'>
+    
+<g:HorizontalPanel ui:field="HoPa1">
+	<g:SimplePanel ui:field="logoPanel" />
+	<g:VerticalPanel ui:field="VePa1">
+		<g:Label ui:field="name">Name</g:Label>
+		<g:HorizontalPanel ui:field="HoPa2">
+			<g:SimplePanel ui:field="ratingPanel" />
+			<g:VerticalPanel  ui:field="VePa2">
+				<g:Label ui:field="street"></g:Label>
+				<g:Label ui:field="city"></g:Label>
+			</g:VerticalPanel>					
+		</g:HorizontalPanel>		
+	</g:VerticalPanel>
+</g:HorizontalPanel>
+</ui:UiBinder>
