@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class ProductPreview extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, ProductPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ProductPreviewContainer productPreviewContainer;
+	private ProductContainer productContainer;
 	private boolean editable;
 	private RatingWidget ratingWidget;
 	private MorphWidget price;
@@ -56,22 +56,22 @@ public class ProductPreview extends Composite {
 	
 	/**
 	 * 
-	 * @param productPreviewContainer
+	 * @param productContainer
 	 * @param editable
 	 * @param handler
 	 */
-	public ProductPreview(ProductPreviewContainer productPreviewContainer, boolean editable, ChangeHandler handler){
-		this(productPreviewContainer, editable);
+	public ProductPreview(ProductContainer productContainer, boolean editable, ChangeHandler handler){
+		this(productContainer, editable);
 		addChangeHandler(handler);
 	}
 	
 	/**
 	 * 
-	 * @param productPreviewContainer 
+	 * @param productContainer 
 	 * @param editable 
 	 */
-	public ProductPreview(ProductPreviewContainer productPreviewContainer, boolean editable) {
-		this.productPreviewContainer=productPreviewContainer;
+	public ProductPreview(ProductContainer productContainer, boolean editable) {
+		this.productContainer=productContainer;
 		this.editable=editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
@@ -94,7 +94,7 @@ public class ProductPreview extends Composite {
 		
 		//HoPa2
 		HoPa2.setWidth("100%");		
-		ratingWidget=new RatingWidget(productPreviewContainer.getRating(), this.editable);
+		ratingWidget=new RatingWidget(productContainer.getRating(), this.editable);
 		ratingPanel.setWidget(ratingWidget);
 		HoPa2.setCellWidth(ratingPanel, "100%");
 		
@@ -104,19 +104,19 @@ public class ProductPreview extends Composite {
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(this.productPreviewContainer.getName());
-		price=new MorphWidget(""+(this.productPreviewContainer.getPrice()/100.00), this.editable);
+		name.setText(this.productContainer.getName());
+		price=new MorphWidget(""+(this.productContainer.getPrice()/100.00), this.editable);
 		price.setWidth("40px");
 		pricePanel.setWidget(price);
 		
-		quantitiy=new MorphWidget(this.productPreviewContainer.getQuantitiy(), this.editable);
+		quantitiy=new MorphWidget(this.productContainer.getQuantitiy(), this.editable);
 		quantitiy.setWidth("40px");
 		quantitiyPanel.setWidget(quantitiy);
 		
-		currency.setText(this.productPreviewContainer.getCurrency());
-		unit.setText(this.productPreviewContainer.getUnit());
+		currency.setText(this.productContainer.getCurrency());
+		unit.setText(this.productContainer.getUnit());
 		
-		if(this.editable && !this.productPreviewContainer.isHasReceipt())
+		if(this.editable && !this.productContainer.isHasReceipt())
 			noReceiptName();
 	}
 	
@@ -137,17 +137,17 @@ public class ProductPreview extends Composite {
 	}
 
 	/**
-	 * Return current ProductPreviewContainer
+	 * Return current productContainer
 	 * @return 
 	 */
-	public ProductPreviewContainer getProductPreviewContainer(){
+	public ProductContainer getProductContainer(){
 		if(editable){
-			this.productPreviewContainer.setPrice((int)(Double.parseDouble(this.price.getText())*100));
-			this.productPreviewContainer.setQuantitiy(this.quantitiy.getText());
-			this.productPreviewContainer.setRating(ratingWidget.getRating());
+			this.productContainer.setPrice((int)(Double.parseDouble(this.price.getText())*100));
+			this.productContainer.setQuantitiy(this.quantitiy.getText());
+			this.productContainer.setRating(ratingWidget.getRating());
 		}
 		
-		return this.productPreviewContainer;
+		return this.productContainer;
 	}
 	
 	/**

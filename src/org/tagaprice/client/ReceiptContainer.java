@@ -14,23 +14,21 @@
 */
 package org.tagaprice.client;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 
- * Contains all important information to represent a
- * receipt. 
+ * Contains all important information to represent a receipt. 
  *
  */
-public class ReceiptContainer implements Serializable {
+public class ReceiptContainer implements EntityContainer {
 
 	private int id;
 	private String name;
 	private Date date;
 	private int bill; //in Cent
-	private ShopPreviewContainer shopPreviewContainer;
-	private ProductPreviewContainer[] productPreviewContainer;
+	private ShopContainer shopContainer;
+	private ProductContainer[] productContainer;
 	
 	/**
 	 * 
@@ -38,22 +36,22 @@ public class ReceiptContainer implements Serializable {
 	 * @param name
 	 * @param date
 	 * @param bill
-	 * @param shopPreviewContainer
-	 * @param productPreviewContainer
+	 * @param shopContainer
+	 * @param productContainer
 	 */
 	public ReceiptContainer(
 			int id,
 			String name,
 			Date date,
 			int bill,
-			ShopPreviewContainer shopPreviewContainer,
-			ProductPreviewContainer[] productPreviewContainer) {
+			ShopContainer shopContainer,
+			ProductContainer[] productContainer) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.bill = bill;
-		this.shopPreviewContainer = shopPreviewContainer;
-		this.productPreviewContainer = productPreviewContainer;
+		this.shopContainer = shopContainer;
+		this.productContainer = productContainer;
 	}
 	
 	/**
@@ -124,33 +122,33 @@ public class ReceiptContainer implements Serializable {
 	 * 
 	 * @return
 	 */
-	public ShopPreviewContainer getShopPreviewContainer() {
-		return shopPreviewContainer;
+	public ShopContainer getShopContainer() {
+		return shopContainer;
 	}
 	
 	/**
 	 * 
 	 * @param shopPreviewContainer
 	 */
-	public void setShopPreviewContainer(ShopPreviewContainer shopPreviewContainer) {
-		this.shopPreviewContainer = shopPreviewContainer;
+	public void setShopPreviewContainer(ShopContainer shopContainer) {
+		this.shopContainer = shopContainer;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public ProductPreviewContainer[] getProductPreviewContainer() {
-		return productPreviewContainer;
+	public ProductContainer[] getProductContainer() {
+		return productContainer;
 	}
 	
 	/**
 	 * 
 	 * @param productPreviewContainer
 	 */
-	public void setProductPreviewContainer(
-			ProductPreviewContainer[] productPreviewContainer) {
-		this.productPreviewContainer = productPreviewContainer;
+	public void setProductContainer(
+			ProductContainer[] productContainer) {
+		this.productContainer = productContainer;
 	}
 	
 }

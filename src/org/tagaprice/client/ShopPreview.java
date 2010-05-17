@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class ShopPreview extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, ShopPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ShopPreviewContainer shopPreviewContainer;
+	private ShopContainer shopContainer;
 	private boolean editable;
 	private RatingWidget ratingWidget;
 	
@@ -53,8 +53,8 @@ public class ShopPreview extends Composite {
 	 * @param productPreviewContainer 
 	 * @param editable 
 	 */
-	public ShopPreview(ShopPreviewContainer shopPreviewContainer, boolean editable) {
-		this.shopPreviewContainer=shopPreviewContainer;
+	public ShopPreview(ShopContainer shopContainer, boolean editable) {
+		this.shopContainer=shopContainer;
 		this.editable=editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
@@ -73,7 +73,7 @@ public class ShopPreview extends Composite {
 		
 		//HoPa2
 		HoPa2.setWidth("100%");		
-		ratingWidget=new RatingWidget(shopPreviewContainer.getRating(), this.editable);
+		ratingWidget=new RatingWidget(shopContainer.getRating(), this.editable);
 		ratingPanel.setWidget(ratingWidget);
 		HoPa2.setCellWidth(ratingPanel, "80px");
 		
@@ -83,19 +83,19 @@ public class ShopPreview extends Composite {
 		city.setStyleName("ShopPreview-Street");
 		
 		//Street
-		if(this.shopPreviewContainer.getStreet()!=null)
-			street.setText(this.shopPreviewContainer.getStreet());
+		if(this.shopContainer.getStreet()!=null)
+			street.setText(this.shopContainer.getStreet());
 		
 		//city
-		if(this.shopPreviewContainer.getCity()!=null)
-			city.setText(this.shopPreviewContainer.getCity());
+		if(this.shopContainer.getCity()!=null)
+			city.setText(this.shopContainer.getCity());
 		
 		
 		logoPanel.add(new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), 50));
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(this.shopPreviewContainer.getName());
+		name.setText(this.shopContainer.getName());
 
 	}
 	
@@ -104,12 +104,12 @@ public class ShopPreview extends Composite {
 	 * Return current ProductPreviewContainer
 	 * @return 
 	 */
-	public ShopPreviewContainer getShopPreviewContainer(){
+	public ShopContainer getshopContainer(){
 		if(editable){
-			this.shopPreviewContainer.setRating(ratingWidget.getRating());
+			this.shopContainer.setRating(ratingWidget.getRating());
 		}
 		
-		return this.shopPreviewContainer;
+		return this.shopContainer;
 	}
 	
 	/**
