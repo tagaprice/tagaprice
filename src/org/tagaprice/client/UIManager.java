@@ -14,11 +14,13 @@
 */
 package org.tagaprice.client;
 
+import org.tagaprice.shared.ReceiptContainer;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -55,17 +57,7 @@ public class UIManager extends Composite implements UIManagerImpl {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
-				ReceiptWidget tempReceipt = new ReceiptWidget(myMng.getReceipt(0, true),true); 
-				
-				myTitlePan.setTitleWidet(
-						"Kassazettel eintragen", 
-						tempReceipt);
-				
-				
-				
-				myMng.saveReceipt(tempReceipt.getReceiptContainer(), true);
-				
+				History.newItem("receipt/new;test");
 			}
 		});
 	}
@@ -85,4 +77,19 @@ public class UIManager extends Composite implements UIManagerImpl {
 		newReceipt.setText("Receipt(1)");
 	}
 	
+	
+	public void saveReceipt(ReceiptContainer receiptContainer, boolean draft){
+		ReceiptWidget tempReceipt = new ReceiptWidget(receiptContainer,true); 
+		myTitlePan.setTitleWidet(
+				"Kassazettel eintragen", 
+				tempReceipt);		
+		myMng.saveReceipt(tempReceipt.getReceiptContainer(), true);
+	}
+	
+	
+	public void home(){
+		myTitlePan.setTitleWidet(
+				"Home", 
+				new HTML("home"));
+	}
 }
