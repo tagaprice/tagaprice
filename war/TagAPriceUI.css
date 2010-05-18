@@ -1,9 +1,5 @@
 /** Add css rules here for your application. */
 
-body, table, select, input {
-	border: 1px solid #9e9b9b;
-}
-
 body {
   color: black;
   margin: 0px;
@@ -50,7 +46,8 @@ input{
 }
 
 
-.Success{
+
+.Awesome{
 	background-color: #beffb5;
 	border: 1px solid #008c00;	
 	font-family: Arial Unicode MS, Arial, sans-serif;
