@@ -27,6 +27,7 @@ import java.util.Date;
 public class ReceiptData implements Entity {
 
 	private int id;
+	private boolean draft;
 	private String name;
 	private Date date;
 	private int bill; //in Cent
@@ -44,12 +45,14 @@ public class ReceiptData implements Entity {
 	 */
 	public ReceiptData(
 			int id,
+			boolean draft,
 			String name,
 			Date date,
 			int bill,
 			ShopData shopData,
 			ArrayList<ProductData> productData) {
 		this.id = id;
+		this.draft = draft;
 		this.name = name;
 		this.date = date;
 		this.bill = bill;
@@ -71,6 +74,22 @@ public class ReceiptData implements Entity {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getDraft() {
+		return draft;
+	}
+	
+	/**
+	 * 
+	 * @param draft
+	 */
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 	
 	/**

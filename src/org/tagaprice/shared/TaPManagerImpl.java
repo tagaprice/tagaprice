@@ -50,7 +50,7 @@ public interface TaPManagerImpl {
 	 * @param receiptContainer
 	 * @param draft
 	 */
-	public void saveReceipt(ReceiptData receiptContainer, boolean draft);
+	public void saveReceipt(ReceiptData receiptContainer);
 	
 	/**
 	 * Returns the UIManager

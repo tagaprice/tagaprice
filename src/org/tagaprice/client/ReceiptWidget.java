@@ -141,7 +141,8 @@ public class ReceiptWidget extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				TaPManager.getInstance().saveReceipt(getReceiptData(), false);
+				receiptData.setId(0);//Now a new receipt will be created.
+				TaPManager.getInstance().saveReceipt(getReceiptData());
 				
 			}
 		});

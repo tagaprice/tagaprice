@@ -47,19 +47,24 @@ public class TaPManager implements TaPManagerImpl {
 			
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				String[] historyToken = event.getValue().split(";");
-				String pageToken[] = historyToken[0].split("/");
+				String[] historyToken = event.getValue().split("&");
 				
 				System.out.println("events: "+event.getValue());
 				
-				if(pageToken[0].equals("home") || event.getValue().equals(" ")){
+				if(historyToken[0].equals("home") || event.getValue().equals(" ")){
 					System.out.println("home");
 					uiMng.home();
-				}else if(pageToken[0].equals("receipt")){
-					if(pageToken[1].equals("new")){
-						System.out.println("new");
-						uiMng.saveReceipt(TaPMng.getReceipt(0, true), true);
-					}
+				}else if(historyToken[0].equals("receipt/edit")){
+					
+					System.out.println("edit"); //GWT.println(nutzten);
+					
+					String[] equalToken = historyToken[1].split("=");
+					
+					
+					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]), true);
+					
+					uiMng.editReceipt(emptyData, true);
+					
 					
 				}
 				
@@ -74,16 +79,52 @@ public class TaPManager implements TaPManagerImpl {
 	@Override
 	public ReceiptData getReceipt(int id, boolean draft) {
 		// TODO Auto-generated method stub
+		System.out.println("getReceipt: id: "+id+", draft: "+draft);
 		
-		ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
+		ReceiptData receiptContainer;
 		
-		ReceiptData receiptContainer = new ReceiptData(
-				15, 
-				"Default title", 
-				new Date(), 
-				0, 
-				null, 
-				myProducts);
+		if(draft==true && id==0){
+			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
+			receiptContainer = new ReceiptData(
+					15, 
+					true,
+					"Default title", 
+					new Date(), 
+					0, 
+					null, 
+					myProducts);
+		}else if(draft==true && id!=0){
+			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
+			myProducts.add(new ProductData(152, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
+			myProducts.add(new ProductData(120, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
+			myProducts.add(new ProductData(12, "Coca Cola 2L", "logo.png", 50, 100, 230, "€", "2", "L",true));
+			
+			receiptContainer = new ReceiptData(
+					id, 
+					true,
+					"Super geile Weihnachten", 
+					new Date(), 
+					0, 
+					new ShopData(15, "Billa Schwedenplatz", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0), 
+					myProducts);
+		}else {
+			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
+			myProducts.add(new ProductData(152, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
+			myProducts.add(new ProductData(120, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
+			myProducts.add(new ProductData(12, "Coca Cola 2L", "logo.png", 50, 100, 230, "€", "2", "L",true));
+			
+			receiptContainer = new ReceiptData(
+					id, 
+					false,
+					"Ostern war teuer", 
+					new Date(), 
+					0, 
+					new ShopData(15, "Hofer Taborstrasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0), 
+					myProducts);
+		}
+		
+		
+		
 		return receiptContainer;
 	}
 
@@ -107,17 +148,9 @@ public class TaPManager implements TaPManagerImpl {
 
 
 	@Override
-	public void saveReceipt(ReceiptData receiptContainer, boolean draft) {
+	public void saveReceipt(ReceiptData receiptContainer) {
 		// TODO Auto-generated method stub
-		
-		
-		//only a test
-		if(draft){
-			uiMng.refreshDraft();
-		}else{
-			uiMng.refreshSave();
-			History.newItem("home;");
-		}
+		System.out.println("Saved receipt or draft");
 		
 	}
 
