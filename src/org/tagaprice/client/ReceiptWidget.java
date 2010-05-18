@@ -17,9 +17,9 @@ package org.tagaprice.client;
 
 import java.util.Iterator;
 
-import org.tagaprice.shared.ProductContainer;
-import org.tagaprice.shared.ReceiptContainer;
-import org.tagaprice.shared.ShopContainer;
+import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.core.client.GWT;
@@ -51,7 +51,7 @@ public class ReceiptWidget extends Composite {
 	MorphWidget title = new MorphWidget("Default title", isEditable);
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
-	ReceiptContainer receiptContainer;
+	ReceiptData receiptData;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -66,20 +66,20 @@ public class ReceiptWidget extends Composite {
 	
 	/**
 	 * 
-	 * @param receiptContainer
+	 * @param receiptData
 	 */
-	public ReceiptWidget(ReceiptContainer receiptContainer, boolean editable){
+	public ReceiptWidget(ReceiptData receiptData, boolean editable){
 		this();
-		this.receiptContainer=receiptContainer;
+		this.receiptData=receiptData;
 		isEditable=editable;
-		title.setText(receiptContainer.getName());
-		date.setDate(receiptContainer.getDate());
+		title.setText(receiptData.getName());
+		date.setDate(receiptData.getDate());
 		
-		if(receiptContainer.getShopContainer()!=null){
-			setShop(receiptContainer.getShopContainer());
+		if(receiptData.getShopData()!=null){
+			setShop(receiptData.getShopData());
 		}
 		
-		Iterator<ProductContainer> myIter = receiptContainer.getProductContainer().iterator();
+		Iterator<ProductData> myIter = receiptData.getProductData().iterator();
 		
 		while(myIter.hasNext()){
 			addProduct(myIter.next());
@@ -141,7 +141,7 @@ public class ReceiptWidget extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				TaPManager.getInstance().saveReceipt(getReceiptContainer(), false);
+				TaPManager.getInstance().saveReceipt(getReceiptData(), false);
 				
 			}
 		});
@@ -154,7 +154,7 @@ public class ReceiptWidget extends Composite {
 	private void refreshPrice(){
 		bill=0;
 		for(int i=0;i<productContainer.getWidgetCount();i++){
-			bill+=((ProductPreview)productContainer.getWidget(i)).getProductContainer().getPrice();
+			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getPrice();
 		}
 		
 		price.setText((bill/100.00)+"");
@@ -164,7 +164,7 @@ public class ReceiptWidget extends Composite {
 	 * 
 	 * @param shop
 	 */
-	public void setShop(ShopContainer shop){
+	public void setShop(ShopData shop){
 		shopChooser.setWidget(new ShopPreview(shop,isEditable));
 	}
 	
@@ -172,16 +172,15 @@ public class ReceiptWidget extends Composite {
 	 * 
 	 * @param product
 	 */
-	public void addProduct(ProductContainer product){
+	public void addProduct(ProductData product){
 		productContainer.add(new ProductPreview(product, isEditable,priceChangeHandler));
 	}
 	
 	
-	public ReceiptContainer getReceiptContainer(){
-		//TODO in ReceiptContainer die akutalisierten anderen Container geben!
+	public ReceiptData getReceiptData(){
+		//TODO in ReceiptData die akutalisierten anderen Data geben!
 		
-		
-		return this.receiptContainer;
+		return this.receiptData;
 	}
 	
 }

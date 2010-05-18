@@ -1,10 +1,10 @@
 package org.tagaprice.client;
 
-import org.tagaprice.shared.EntityContainer;
+import org.tagaprice.shared.Entity;
 
 
 
-public class SearchWidget<T extends EntityContainer>{
+public class SearchWidget<T extends Entity>{
 	
 	ListWidget<T> widgetList; 
 	

@@ -15,7 +15,7 @@
 package org.tagaprice.client;
 
 
-import org.tagaprice.shared.ShopContainer;
+import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class ShopPreview extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, ShopPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ShopContainer shopContainer;
+	private ShopData shopData;
 	private boolean editable;
 	private RatingWidget ratingWidget;
 	
@@ -53,11 +53,11 @@ public class ShopPreview extends Composite {
 	
 	/**
 	 * 
-	 * @param productPreviewContainer 
+	 * @param productData 
 	 * @param editable 
 	 */
-	public ShopPreview(ShopContainer shopContainer, boolean editable) {
-		this.shopContainer=shopContainer;
+	public ShopPreview(ShopData shopData, boolean editable) {
+		this.shopData=shopData;
 		this.editable=editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
@@ -76,7 +76,7 @@ public class ShopPreview extends Composite {
 		
 		//HoPa2
 		HoPa2.setWidth("100%");		
-		ratingWidget=new RatingWidget(shopContainer.getRating(), this.editable);
+		ratingWidget=new RatingWidget(shopData.getRating(), this.editable);
 		ratingPanel.setWidget(ratingWidget);
 		HoPa2.setCellWidth(ratingPanel, "80px");
 		
@@ -86,33 +86,33 @@ public class ShopPreview extends Composite {
 		city.setStyleName("ShopPreview-Street");
 		
 		//Street
-		if(this.shopContainer.getStreet()!=null)
-			street.setText(this.shopContainer.getStreet());
+		if(this.shopData.getStreet()!=null)
+			street.setText(this.shopData.getStreet());
 		
 		//city
-		if(this.shopContainer.getCity()!=null)
-			city.setText(this.shopContainer.getCity());
+		if(this.shopData.getCity()!=null)
+			city.setText(this.shopData.getCity());
 		
 		
 		logoPanel.add(new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), 50));
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(this.shopContainer.getName());
+		name.setText(this.shopData.getName());
 
 	}
 	
 
 	/**
-	 * Return current ProductPreviewContainer
+	 * Return current ProductData
 	 * @return 
 	 */
-	public ShopContainer getshopContainer(){
+	public ShopData getshopData(){
 		if(editable){
-			this.shopContainer.setRating(ratingWidget.getRating());
+			this.shopData.setRating(ratingWidget.getRating());
 		}
 		
-		return this.shopContainer;
+		return this.shopData;
 	}
 	
 	/**

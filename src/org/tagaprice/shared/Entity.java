@@ -16,7 +16,7 @@ package org.tagaprice.shared;
 
 import java.io.Serializable;
 
-public interface EntityContainer extends Serializable{
+public interface Entity extends Serializable{
 
 
 	

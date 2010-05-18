@@ -19,7 +19,7 @@ package org.tagaprice.shared;
  * product. 
  *
  */
-public class ProductContainer implements EntityContainer{
+public class ProductData implements Entity{
 
 	private int id;
 	private String name;
@@ -44,7 +44,7 @@ public class ProductContainer implements EntityContainer{
 	 * @param quantitiy
 	 * @param unit
 	 */
-	public ProductContainer(
+	public ProductData(
 			int id,
 			String name,
 			String imageSrc,
@@ -82,7 +82,7 @@ public class ProductContainer implements EntityContainer{
 	 * @param unit
 	 * @param hasReceipt
 	 */
-	public ProductContainer(
+	public ProductData(
 			int id,
 			String name,
 			String imageSrc,

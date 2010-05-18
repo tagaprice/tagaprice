@@ -72,12 +72,12 @@ public class TaPManager implements TaPManagerImpl {
 	
 	
 	@Override
-	public ReceiptContainer getReceipt(int id, boolean draft) {
+	public ReceiptData getReceipt(int id, boolean draft) {
 		// TODO Auto-generated method stub
 		
-		ArrayList<ProductContainer> myProducts = new ArrayList<ProductContainer>();
+		ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
 		
-		ReceiptContainer receiptContainer = new ReceiptContainer(
+		ReceiptData receiptContainer = new ReceiptData(
 				15, 
 				"Default title", 
 				new Date(), 
@@ -88,13 +88,13 @@ public class TaPManager implements TaPManagerImpl {
 	}
 
 	@Override
-	public ProductContainer getProduct(int id) {
+	public ProductData getProduct(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ShopContainer getShop(int id) {
+	public ShopData getShop(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,7 +107,7 @@ public class TaPManager implements TaPManagerImpl {
 
 
 	@Override
-	public void saveReceipt(ReceiptContainer receiptContainer, boolean draft) {
+	public void saveReceipt(ReceiptData receiptContainer, boolean draft) {
 		// TODO Auto-generated method stub
 		
 		

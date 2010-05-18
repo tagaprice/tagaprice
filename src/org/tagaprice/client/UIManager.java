@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client;
 
-import org.tagaprice.shared.ReceiptContainer;
+import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 
@@ -78,12 +78,12 @@ public class UIManager extends Composite implements UIManagerImpl {
 	}
 	
 	
-	public void saveReceipt(ReceiptContainer receiptContainer, boolean draft){
-		ReceiptWidget tempReceipt = new ReceiptWidget(receiptContainer,true); 
+	public void saveReceipt(ReceiptData receiptData, boolean draft){
+		ReceiptWidget tempReceipt = new ReceiptWidget(receiptData,true); 
 		myTitlePan.setTitleWidet(
 				"Kassazettel eintragen", 
 				tempReceipt);		
-		myMng.saveReceipt(tempReceipt.getReceiptContainer(), true);
+		myMng.saveReceipt(tempReceipt.getReceiptData(), true);
 	}
 	
 	

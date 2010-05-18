@@ -22,7 +22,7 @@ package org.tagaprice.shared;
  * shop. 
  *
  */
-public class ShopContainer implements EntityContainer {
+public class ShopData implements Entity {
 	private static final long serialVersionUID = 1;
 	
 	private int id;
@@ -45,7 +45,7 @@ public class ShopContainer implements EntityContainer {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopContainer(
+	public ShopData(
 			int id,
 			String name,
 			String imageSrc,
@@ -67,7 +67,7 @@ public class ShopContainer implements EntityContainer {
 	 * @param lat
 	 * @param lng
 	 */
-	public ShopContainer(
+	public ShopData(
 			int id,
 			String name,
 			String imageSrc,

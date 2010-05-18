@@ -24,14 +24,14 @@ import java.util.Date;
  * Contains all important information to represent a receipt. 
  *
  */
-public class ReceiptContainer implements EntityContainer {
+public class ReceiptData implements Entity {
 
 	private int id;
 	private String name;
 	private Date date;
 	private int bill; //in Cent
-	private ShopContainer shopContainer;
-	private ArrayList<ProductContainer> productContainer = new ArrayList<ProductContainer>();
+	private ShopData shopData;
+	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
 	
 	/**
 	 * 
@@ -39,22 +39,22 @@ public class ReceiptContainer implements EntityContainer {
 	 * @param name
 	 * @param date
 	 * @param bill
-	 * @param shopContainer
-	 * @param productContainer
+	 * @param shopData
+	 * @param productData
 	 */
-	public ReceiptContainer(
+	public ReceiptData(
 			int id,
 			String name,
 			Date date,
 			int bill,
-			ShopContainer shopContainer,
-			ArrayList<ProductContainer> productContainer) {
+			ShopData shopData,
+			ArrayList<ProductData> productData) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.bill = bill;
-		this.shopContainer = shopContainer;
-		this.productContainer = productContainer;
+		this.shopData = shopData;
+		this.productData = productData;
 	}
 	
 	/**
@@ -125,33 +125,33 @@ public class ReceiptContainer implements EntityContainer {
 	 * 
 	 * @return
 	 */
-	public ShopContainer getShopContainer() {
-		return shopContainer;
+	public ShopData getShopData() {
+		return shopData;
 	}
 	
 	/**
 	 * 
-	 * @param shopPreviewContainer
+	 * @param shopPreview
 	 */
-	public void setShopPreviewContainer(ShopContainer shopContainer) {
-		this.shopContainer = shopContainer;
+	public void setShopData(ShopData shopData) {
+		this.shopData = shopData;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public ArrayList<ProductContainer> getProductContainer() {
-		return productContainer;
+	public ArrayList<ProductData> getProductData() {
+		return productData;
 	}
 	
 	/**
 	 * 
-	 * @param productPreviewContainer
+	 * @param productPreviewData
 	 */
-	public void setProductContainer(
-			ArrayList<ProductContainer> productContainer) {
-		this.productContainer = productContainer;
+	public void setProductData(
+			ArrayList<ProductData> productData) {
+		this.productData = productData;
 	}
 	
 }

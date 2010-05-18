@@ -29,28 +29,28 @@ public interface TaPManagerImpl {
 	 * @param draft Is receipt a draft.
 	 * @return Returns a ReceiptContainer
 	 */
-	public ReceiptContainer getReceipt(int id, boolean draft);
+	public ReceiptData getReceipt(int id, boolean draft);
 	
 	/**
 	 * Returns product by ID.
 	 * @param id
 	 * @return
 	 */
-	public ProductContainer getProduct(int id);
+	public ProductData getProduct(int id);
 	
 	/**
 	 * Returns shop by ID.
 	 * @param id
 	 * @return
 	 */
-	public ShopContainer getShop(int id);
+	public ShopData getShop(int id);
 	
 	/**
 	 * 
 	 * @param receiptContainer
 	 * @param draft
 	 */
-	public void saveReceipt(ReceiptContainer receiptContainer, boolean draft);
+	public void saveReceipt(ReceiptData receiptContainer, boolean draft);
 	
 	/**
 	 * Returns the UIManager
