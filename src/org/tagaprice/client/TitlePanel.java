@@ -16,6 +16,7 @@ package org.tagaprice.client;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,6 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TitlePanel extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
+	SimplePanel siPa = new SimplePanel();
+	Label label = new Label();
 	
 	/**
 	 * 
@@ -40,11 +43,23 @@ public class TitlePanel extends Composite {
 		setStyleName("TitlePanel");
 		
 		//Title
-		Label label = new Label(title);
+		label.setText(title);
 		label.setStyleName("TitlePanel-Title");
 		vePa1.add(label);
 		
 		//widget
-		vePa1.add(widget);
+		siPa.setWidth("100%");
+		vePa1.add(siPa);
+		siPa.setWidget(widget);
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @param widget
+	 */
+	public void setTitleWidet(String title, Widget widget){
+		label.setText(title);
+		siPa.setWidget(widget);
 	}
 }

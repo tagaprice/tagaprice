@@ -14,10 +14,6 @@
 */
 package org.tagaprice.shared;
 
-import java.io.Serializable;
-
-
-
 /**
  * Contains all important information to represent a
  * product. 

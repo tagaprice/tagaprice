@@ -15,13 +15,18 @@
 package org.tagaprice.client;
 
 
+import java.util.Iterator;
+
 import org.tagaprice.shared.ProductContainer;
 import org.tagaprice.shared.ReceiptContainer;
 import org.tagaprice.shared.ShopContainer;
+import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -46,6 +51,7 @@ public class ReceiptWidget extends Composite {
 	MorphWidget title = new MorphWidget("Default title", isEditable);
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
+	ReceiptContainer receiptContainer;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -64,14 +70,22 @@ public class ReceiptWidget extends Composite {
 	 */
 	public ReceiptWidget(ReceiptContainer receiptContainer, boolean editable){
 		this();
+		this.receiptContainer=receiptContainer;
 		isEditable=editable;
 		title.setText(receiptContainer.getName());
 		date.setDate(receiptContainer.getDate());
-		setShop(receiptContainer.getShopContainer());
 		
-		for(int i=0;i<receiptContainer.getProductContainer().length;i++){
-			addProduct(receiptContainer.getProductContainer()[i]);
+		if(receiptContainer.getShopContainer()!=null){
+			setShop(receiptContainer.getShopContainer());
 		}
+		
+		Iterator<ProductContainer> myIter = receiptContainer.getProductContainer().iterator();
+		
+		while(myIter.hasNext()){
+			addProduct(myIter.next());
+		}
+		
+
 		refreshPrice();	
 	}
 	
@@ -123,6 +137,14 @@ public class ReceiptWidget extends Composite {
 		//Save
 		save.setStyleName("Awesome");
 		save.setWidth("100%");
+		save.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				TaPManager.getInstance().saveReceipt(getReceiptContainer(), false);
+				
+			}
+		});
 		
 	}
 	
@@ -152,6 +174,14 @@ public class ReceiptWidget extends Composite {
 	 */
 	public void addProduct(ProductContainer product){
 		productContainer.add(new ProductPreview(product, isEditable,priceChangeHandler));
+	}
+	
+	
+	public ReceiptContainer getReceiptContainer(){
+		//TODO in ReceiptContainer die akutalisierten anderen Container geben!
+		
+		
+		return this.receiptContainer;
 	}
 	
 }

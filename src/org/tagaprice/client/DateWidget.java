@@ -41,7 +41,7 @@ public class DateWidget extends Composite {
 	Date today = new Date();
 	DatePicker picker = new DatePicker();
 	PopupPanel pickerPop = new PopupPanel(true);
-	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM `yy");
+	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM \"yy");
 	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
 	
 	/**

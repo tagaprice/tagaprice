@@ -14,6 +14,7 @@
 */
 package org.tagaprice.shared;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -30,7 +31,7 @@ public class ReceiptContainer implements EntityContainer {
 	private Date date;
 	private int bill; //in Cent
 	private ShopContainer shopContainer;
-	private ProductContainer[] productContainer;
+	private ArrayList<ProductContainer> productContainer = new ArrayList<ProductContainer>();
 	
 	/**
 	 * 
@@ -47,7 +48,7 @@ public class ReceiptContainer implements EntityContainer {
 			Date date,
 			int bill,
 			ShopContainer shopContainer,
-			ProductContainer[] productContainer) {
+			ArrayList<ProductContainer> productContainer) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
@@ -140,7 +141,7 @@ public class ReceiptContainer implements EntityContainer {
 	 * 
 	 * @return
 	 */
-	public ProductContainer[] getProductContainer() {
+	public ArrayList<ProductContainer> getProductContainer() {
 		return productContainer;
 	}
 	
@@ -149,7 +150,7 @@ public class ReceiptContainer implements EntityContainer {
 	 * @param productPreviewContainer
 	 */
 	public void setProductContainer(
-			ProductContainer[] productContainer) {
+			ArrayList<ProductContainer> productContainer) {
 		this.productContainer = productContainer;
 	}
 	
