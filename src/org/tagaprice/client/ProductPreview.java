@@ -119,7 +119,7 @@ public class ProductPreview extends Composite {
 		currency.setText(this.productData.getCurrency());
 		unit.setText(this.productData.getUnit());
 		
-		if(this.editable && !this.productData.isHasReceipt())
+		if(this.editable && !this.productData.hasReceipt())
 			noReceiptName();
 	}
 	
