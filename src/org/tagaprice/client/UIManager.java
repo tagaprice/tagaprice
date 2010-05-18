@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 
-public class UIManager extends Composite implements UIManagerImpl {
+public class UIManager extends Composite {
 	
 	DockPanel myDock = new DockPanel();
 	Label newReceipt = new Label("Receipt(0)");

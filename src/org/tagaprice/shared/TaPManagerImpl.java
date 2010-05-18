@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.client.UIManager;
-import org.tagaprice.client.UIManagerImpl;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;

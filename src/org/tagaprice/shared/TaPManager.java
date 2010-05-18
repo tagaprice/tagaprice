@@ -15,7 +15,6 @@
 package org.tagaprice.shared;
 
 import org.tagaprice.client.UIManager;
-import org.tagaprice.client.UIManagerImpl;
 
 /**
  * Interface for the DAO Manager
