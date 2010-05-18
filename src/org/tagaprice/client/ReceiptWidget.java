@@ -15,6 +15,7 @@
 package org.tagaprice.client;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.tagaprice.shared.ProductData;
@@ -52,6 +53,7 @@ public class ReceiptWidget extends Composite {
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
+	ShopPreview shopPreview;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -141,8 +143,8 @@ public class ReceiptWidget extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				receiptData.setId(0);//Now a new receipt will be created.
-				TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
+				receiptData.setDraft(false);//Now a new receipt will be created.
+				TaPManagerImpl.getInstance().editReceipt(getReceiptData());
 				
 			}
 		});
@@ -166,7 +168,8 @@ public class ReceiptWidget extends Composite {
 	 * @param shop
 	 */
 	public void setShop(ShopData shop){
-		shopChooser.setWidget(new ShopPreview(shop,isEditable));
+		shopPreview=new ShopPreview(shop,isEditable);
+		shopChooser.setWidget(shopPreview);
 	}
 	
 	/**
@@ -179,7 +182,17 @@ public class ReceiptWidget extends Composite {
 	
 	
 	public ReceiptData getReceiptData(){
-		//TODO in ReceiptData die akutalisierten anderen Data geben!
+		this.receiptData.setDate(date.getDate());
+		this.receiptData.setName(title.getText());
+		this.receiptData.setBill(bill);
+		this.receiptData.setShopData(shopPreview.getshopData());
+		
+		ArrayList<ProductData> productList = new ArrayList<ProductData>();
+		
+		for(int i=0;i<productContainer.getWidgetCount();i++){
+			productList.add(((ProductPreview)productContainer.getWidget(i)).getProductData());
+		}
+		this.receiptData.setProductData(productList);
 		
 		return this.receiptData;
 	}

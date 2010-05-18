@@ -38,7 +38,7 @@ public class DateWidget extends Composite {
 	VerticalPanel vePa = new VerticalPanel();
 	Label monthYear = new Label();
 	Label day = new Label();
-	Date today = new Date();
+	Date date = new Date();
 	DatePicker picker = new DatePicker();
 	PopupPanel pickerPop = new PopupPanel(true);
 	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM \"yy");
@@ -61,8 +61,8 @@ public class DateWidget extends Composite {
 		
 		
 		
-		monthYear.setText(monthYearDtF.format(today));
-		day.setText(dayDtF.format(today));
+		monthYear.setText(monthYearDtF.format(date));
+		day.setText(dayDtF.format(date));
 		
 		
 		monthYear.addClickHandler(new ClickHandler() {
@@ -92,6 +92,7 @@ public class DateWidget extends Composite {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				monthYear.setText(monthYearDtF.format(event.getValue()));
 				day.setText(dayDtF.format(event.getValue()));
+				date.setTime(event.getValue().getTime());
 				pickerPop.hide();
 			}
 		});
@@ -116,10 +117,18 @@ public class DateWidget extends Composite {
 	 * @param date
 	 */
 	public void setDate(Date date){
-		today=date;
-		monthYear.setText(monthYearDtF.format(today));
-		day.setText(dayDtF.format(today));
+		this.date=date;
+		monthYear.setText(monthYearDtF.format(this.date));
+		day.setText(dayDtF.format(this.date));
 		picker.setValue(date);
 		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Date getDate(){
+		return this.date;
 	}
 }

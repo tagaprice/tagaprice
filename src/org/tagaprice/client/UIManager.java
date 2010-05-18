@@ -57,7 +57,7 @@ public class UIManager extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				ReceiptData emptyData = myMng.getReceipt(0, true);
+				ReceiptData emptyData = myMng.getReceipt(0);
 				History.newItem("receipt/edit&id="+emptyData.getId());
 			}
 		});
@@ -84,7 +84,7 @@ public class UIManager extends Composite {
 		myTitlePan.setTitleWidet(
 				"Kassazettel eintragen", 
 				tempReceipt);		
-		myMng.saveReceipt(tempReceipt.getReceiptData());
+		myMng.editReceipt(tempReceipt.getReceiptData());
 	}
 	
 	

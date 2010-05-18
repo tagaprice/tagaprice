@@ -24,11 +24,11 @@ public interface TaPManager {
 
 	/**
 	 *  
-	 * @param id Unique Receipt Id (If Id=0 and draft=true you get an empty Draft-Container with a new draft-id )
+	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
 	 * @param draft Is receipt a draft.
 	 * @return Returns a ReceiptContainer
 	 */
-	public ReceiptData getReceipt(int id, boolean draft);
+	public ReceiptData getReceipt(int id);
 	
 	/**
 	 * Returns product by ID.
@@ -49,7 +49,7 @@ public interface TaPManager {
 	 * @param receiptContainer
 	 * @param draft
 	 */
-	public void saveReceipt(ReceiptData receiptData);
+	public void editReceipt(ReceiptData receiptData);
 	
 	/**
 	 * Returns the UIManager
