@@ -1,8 +1,8 @@
 package org.tagaprice.client;
 
 
-import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
+import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Label;
@@ -14,7 +14,7 @@ public class TagAPriceUI implements EntryPoint {
 	RatingWidget disable;
 	Label showRate = new Label("rating: 0");
 	
-	TaPManagerImpl mng = TaPManager.getInstance();
+	TaPManager mng = TaPManagerImpl.getInstance();
 	
 	public void onModuleLoad() {
 		

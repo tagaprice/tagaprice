@@ -20,7 +20,7 @@ import java.util.Iterator;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManager;
+import org.tagaprice.shared.TaPManagerImpl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -142,7 +142,7 @@ public class ReceiptWidget extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				receiptData.setId(0);//Now a new receipt will be created.
-				TaPManager.getInstance().saveReceipt(getReceiptData());
+				TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
 				
 			}
 		});

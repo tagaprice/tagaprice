@@ -15,8 +15,8 @@
 package org.tagaprice.client;
 
 import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
+import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -34,7 +34,7 @@ public class UIManager extends Composite implements UIManagerImpl {
 	Label newReceipt = new Label("Receipt(0)");
 	Label newDraft = new Label("Drafts(0)");
 	HorizontalPanel menu = new HorizontalPanel();
-	TaPManagerImpl myMng = TaPManager.getInstance();
+	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"));
 
 	public UIManager() {
