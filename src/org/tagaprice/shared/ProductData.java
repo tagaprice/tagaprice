@@ -254,7 +254,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @return
 	 */
-	public boolean isHasReceipt() {
+	public boolean hasReceipt() {
 		return hasReceipt;
 	}
 	
