@@ -103,13 +103,13 @@ public class JsonSerializer extends EntitySerializer {
 	public StringBuffer put(ServerResponse response) {
 		// TODO Auto-generated method stub
 		StringBuffer rc = new StringBuffer();
-		rc.append("{\nstatus: \"");
+		rc.append("{\n\"status\": \"");
 		rc.append(response.getStatusName());
-		rc.append("\"\n");
+		rc.append("\",\n\"response\": ");
 		
 		rc.append(putAny(response.getEntity()));
 		
-		rc.append("}");
+		rc.append("\n}");
 		return rc;
 	}
 	
@@ -117,6 +117,11 @@ public class JsonSerializer extends EntitySerializer {
 	public StringBuffer put(ShopData shop) {
 		// TODO Auto-generated method stub
 		StringBuffer rc = new StringBuffer();
+		
+		rc.append("{\n\"id\": ");
+		rc.append(shop.getId());
+		
+		rc.append("\n}");
 		
 		return rc;
 	}
