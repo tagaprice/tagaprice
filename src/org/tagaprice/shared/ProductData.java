@@ -24,9 +24,9 @@ import java.util.ArrayList;
 public class ProductData implements Entity{
 	private static final long serialVersionUID = 1L;
 
-	private int id;
-	private int brandId;
-	private int typeId;
+	private long id;
+	private long brandId;
+	private long typeId;
 	private String name;
 	private String imageSrc;
 	private int progress; //In percent 0-100
@@ -34,7 +34,7 @@ public class ProductData implements Entity{
 	private int price; //In Cents
 	private String currency;
 	private String quantitiy;
-	private String unit;
+	private Unit unit;
 	private boolean hasReceipt;
 	private ArrayList<ProductData> properties = new ArrayList<ProductData>(); 
 	
@@ -63,7 +63,7 @@ public class ProductData implements Entity{
 			int price,
 			String currency,
 			String quantitiy,
-			String unit) {
+			Unit unit) {
 		
 		this(
 				id,
@@ -107,7 +107,7 @@ public class ProductData implements Entity{
 			int price,
 			String currency,
 			String quantitiy,
-			String unit,
+			Unit unit,
 			boolean hasReceipt) {
 		
 		setId(id);
@@ -128,7 +128,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @return
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -136,7 +136,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -145,7 +145,7 @@ public class ProductData implements Entity{
 	/**
 	 * @return the brandId
 	 */
-	public int getBrandId() {
+	public long getBrandId() {
 		return brandId;
 	}
 
@@ -153,7 +153,7 @@ public class ProductData implements Entity{
 	/**
 	 * @param brandId the brandId to set
 	 */
-	public void setBrandId(int brandId) {
+	public void setBrandId(long brandId) {
 		this.brandId = brandId;
 	}
 
@@ -161,7 +161,7 @@ public class ProductData implements Entity{
 	/**
 	 * @return the typeId
 	 */
-	public int getTypeId() {
+	public long getTypeId() {
 		return typeId;
 	}
 
@@ -169,7 +169,7 @@ public class ProductData implements Entity{
 	/**
 	 * @param typeId the typeId to set
 	 */
-	public void setTypeId(int typeId) {
+	public void setTypeId(long typeId) {
 		this.typeId = typeId;
 	}
 
@@ -290,7 +290,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @return
 	 */
-	public String getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
 	
@@ -298,7 +298,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @param unit
 	 */
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 	

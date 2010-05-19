@@ -121,7 +121,7 @@ public class ProductPreview extends EntityPreview {
 		quantitiyPanel.setWidget(quantitiy);
 		
 		currency.setText(productData.getCurrency());
-		unit.setText(productData.getUnit());
+		unit.setText(productData.getUnit().getName());
 		
 		if(editable && !productData.hasReceipt())
 			noReceiptName();
