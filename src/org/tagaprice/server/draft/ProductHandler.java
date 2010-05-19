@@ -17,7 +17,7 @@ package org.tagaprice.server.draft;
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.Responder;
 import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.Quantity;
 
 public class ProductHandler implements ApiCall {
 	@Override
@@ -33,7 +33,7 @@ public class ProductHandler implements ApiCall {
 	}
 	
 	public void doGet(Responder r) {
-		r.setEntity(new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, 120, "€", "1", new Unit(23, "g"), false));
+		r.setEntity(new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, 120, "€", new Quantity(1, 23, "g"), false));
 	}
 
 }

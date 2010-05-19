@@ -40,10 +40,10 @@ public class JsonSerializer extends EntitySerializer {
 		rc.append(product.getCurrency()); /// TODO create a Currency class
 		
 		rc.append("\",\n\"quantity\": ");
-		rc.append(product.getQuantitiy());
+		rc.append(product.getQuantity().getQuantity());
 		
 		rc.append(",\n\"quantityUnit\": \"");
-		rc.append(product.getUnit());
+		rc.append(product.getQuantity().getUnit());
 		
 		rc.append("\",\n\"rating\": ");
 		rc.append(product.getRating());

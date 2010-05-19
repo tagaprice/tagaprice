@@ -33,8 +33,7 @@ public class ProductData implements Entity{
 	private int rating; //in percent 0-100
 	private int price; //In Cents
 	private String currency;
-	private String quantitiy;
-	private Unit unit;
+	private Quantity quantity;
 	private boolean hasReceipt;
 	private ArrayList<ProductData> properties = new ArrayList<ProductData>(); 
 	
@@ -62,8 +61,7 @@ public class ProductData implements Entity{
 			int rating,
 			int price,
 			String currency,
-			String quantitiy,
-			Unit unit) {
+			Quantity quantity) {
 		
 		this(
 				id,
@@ -75,8 +73,7 @@ public class ProductData implements Entity{
 				rating,
 				price,
 				currency,
-				quantitiy,
-				unit,
+				quantity,
 				true);
 	}
 	
@@ -106,8 +103,7 @@ public class ProductData implements Entity{
 			int rating,
 			int price,
 			String currency,
-			String quantitiy,
-			Unit unit,
+			Quantity quantity,
 			boolean hasReceipt) {
 		
 		setId(id);
@@ -118,8 +114,7 @@ public class ProductData implements Entity{
 		setPrice(price);
 		setRating(rating);
 		setCurrency(currency);
-		setQuantitiy(quantitiy);
-		setUnit(unit);
+		setQuantity(quantity);
 		setHasReceipt(hasReceipt);
 		
 	}
@@ -274,32 +269,16 @@ public class ProductData implements Entity{
 	 * 
 	 * @return
 	 */
-	public String getQuantitiy() {
-		return quantitiy;
+	public Quantity getQuantity() {
+		return quantity;
 	}
 	
 	/**
 	 * 
 	 * @param quantitiy
 	 */
-	public void setQuantitiy(String quantitiy) {
-		this.quantitiy = quantitiy;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public Unit getUnit() {
-		return unit;
-	}
-	
-	/**
-	 * 
-	 * @param unit
-	 */
-	public void setUnit(Unit unit) {
-		this.unit = unit;
+	public void setQuantity(Quantity quantity) {
+		this.quantity = quantity;
 	}
 	
 	/**
