@@ -50,6 +50,9 @@ public class UIManager extends Composite {
 	private void init(){
 		myDock.setWidth("400px");
 		
+		//InfoBox
+		myDock.add(infoBox, DockPanel.NORTH);
+		
 		//logo
 		myDock.add(logoPanel, DockPanel.NORTH);
 		logoPanel.setWidth("100%");

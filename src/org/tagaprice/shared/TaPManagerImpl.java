@@ -47,18 +47,14 @@ public class TaPManagerImpl implements TaPManager {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				String[] historyToken = event.getValue().split("&");
-				
-				
+				//TODO Create a Split "=" parser
 				if(historyToken[0].equals("receipt/edit")){
 					String[] equalToken = historyToken[1].split("=");
 					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));
 					uiMng.showReceipt(emptyData);
 				}else if(historyToken[0].equals("product/get")){
-					System.out.println("show product/get");
 					String[] equalToken = historyToken[1].split("=");
-					//TaPMng.getProduct(Integer.parseInt(equalToken[1]));
-					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));
-					
+					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));					
 				} else if(historyToken[0].equals("shop/get")){
 					System.out.println("show shop/get");
 				} else{
