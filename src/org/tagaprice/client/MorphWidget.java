@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * Creates an editable label. 
- *
+ * 
  */
 public class MorphWidget extends SimplePanel {
 

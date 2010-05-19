@@ -39,7 +39,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-/**
+/** 
  * Displays editable receipt including shop and product search.
  *
  */
@@ -194,7 +194,7 @@ public class ReceiptWidget extends Composite {
 		this.receiptData.setDate(date.getDate());	
 		this.receiptData.setName(title.getText());
 		this.receiptData.setBill(bill);		
-		this.receiptData.setShopData(shopPreview.getshopData());
+		this.receiptData.setShopData(shopPreview.getShopData());
 		
 		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){

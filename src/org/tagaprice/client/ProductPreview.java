@@ -99,6 +99,8 @@ public class ProductPreview extends EntityPreview {
 		//SetValues
 		
 		
+		
+		
 		//HoPa2
 		HoPa2.setWidth("100%");		
 		ratingWidget=new RatingWidget(productData.getRating(), editable);

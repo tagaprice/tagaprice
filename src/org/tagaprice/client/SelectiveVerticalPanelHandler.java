@@ -25,5 +25,5 @@ public interface SelectiveVerticalPanelHandler {
 	
 	public void onClick(Widget widget, int index);
 	
-	
+	 
 }

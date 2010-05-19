@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Creates a widget container with standard title 
  * style for the whole project. 
- *
+ * 
  */
 public class TitlePanel extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();

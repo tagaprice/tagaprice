@@ -118,7 +118,7 @@ public class ShopPreview extends EntityPreview {
 	 * Return current ProductData
 	 * @return 
 	 */
-	public ShopData getshopData(){
+	public ShopData getShopData(){
 		if(editable){
 			shopData.setRating(ratingWidget.getRating());
 		}

@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * Shows a success, warning or error info.
- *
+ * 
  */
 public class InfoBox extends Composite {
 	SimplePanel infoBox = new SimplePanel();

@@ -88,7 +88,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 		if(ep instanceof ProductPreview){
 			rc=((ProductPreview) ep).getProductData();
 		}else if(ep instanceof ShopPreview){
-			rc=((ShopPreview) ep).getshopData();
+			rc=((ShopPreview) ep).getShopData();
 		}
 
 		return rc;

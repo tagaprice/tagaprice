@@ -17,7 +17,7 @@ package org.tagaprice.client;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
-
+ 
 /**
  * Is only a Mockup
  *
