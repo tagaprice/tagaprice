@@ -9,6 +9,7 @@ import org.tagaprice.shared.TaPManagerImpl;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -17,6 +18,7 @@ public class SearchWidget extends Composite{
 	
 	private TextBox textBox;
 	private VerticalPanel suggestPanel;
+	private PopupPanel suggestPopup = new PopupPanel(true);
 	private ListWidget<EntityPreview> suggestList; 
 	private TaPManager tapManager;
 	
@@ -31,19 +33,26 @@ public class SearchWidget extends Composite{
 			
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
-				suggestList.removeFromParent();
+				//suggestList.removeFromParent();
 				sendSearchRequest(textBox.getText());				
 			}
 		});
 		
 		suggestPanel.add(textBox);
 		initWidget(suggestPanel);
+		
+		suggestPopup.setWidget(suggestList);
+		suggestPopup.setWidth("400px");
+		
 	}	
 	
 	
 	public void setSuggestions(ArrayList<Entity> suggestData){
 		suggestList = new ListWidget<EntityPreview>(suggestData);
-		suggestPanel.add(suggestList);
+		//suggestPopup.showRelativeTo(textBox);
+		//suggestPanel.add(suggestList);
+		suggestPopup.setWidget(suggestList);
+		suggestPopup.showRelativeTo(suggestPanel);
 	}
 	
 	private void sendSearchRequest(String input){

@@ -28,6 +28,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	
 	public ListWidget(){
 		verticalPanel=new VerticalPanel();
+		verticalPanel.setWidth("100%");
 		initWidget(verticalPanel);
 	}
 	
