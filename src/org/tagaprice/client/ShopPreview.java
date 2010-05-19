@@ -18,8 +18,11 @@ package org.tagaprice.client;
 import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -101,6 +104,14 @@ public class ShopPreview extends EntityPreview {
 		
 		name.setText(shopData.getName());
 
+		
+		//AddListener
+		addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("shop/get&id="+shopData.getId());			
+			}
+		});
 	}
 	
 
@@ -122,6 +133,14 @@ public class ShopPreview extends EntityPreview {
 	 */
 	public boolean isEditable(){
 		return editable;
+	}
+	
+	/**
+	 * 
+	 * @param handler
+	 */
+	public void addClickHandler(ClickHandler handler){
+		addDomHandler(handler, ClickEvent.getType());
 	}
 
 	

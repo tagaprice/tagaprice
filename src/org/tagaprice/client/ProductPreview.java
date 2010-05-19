@@ -19,8 +19,12 @@ import org.tagaprice.shared.ProductData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -77,6 +81,8 @@ public class ProductPreview extends EntityPreview {
 		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
+		
+		
 		//VePa1
 		VePa1.setWidth("100%");
 		VePa1.setStyleName("ProductPreview");
@@ -120,6 +126,15 @@ public class ProductPreview extends EntityPreview {
 		
 		if(editable && !productData.hasReceipt())
 			noReceiptName();
+		
+		
+		//AddListener
+		addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("product/get&id="+productData.getId());			
+			}
+		});
 	}
 	
 
@@ -167,5 +182,13 @@ public class ProductPreview extends EntityPreview {
 	 */
 	public void addChangeHandler(ChangeHandler handler){
 		price.addChangeHandler(handler);
+	}
+	
+	/**
+	 * 
+	 * @param handler
+	 */
+	public void addClickHandler(ClickHandler handler){
+		addDomHandler(handler, ClickEvent.getType());
 	}
 }

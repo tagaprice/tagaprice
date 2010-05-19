@@ -56,7 +56,11 @@ public class TaPManagerImpl implements TaPManager {
 					String[] equalToken = historyToken[1].split("=");					
 					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));		
 					uiMng.showReceipt(emptyData);				
-				}else{
+				}else if(historyToken[0].equals("product/get")){
+					System.out.println("show product/get");
+				} else if(historyToken[0].equals("shop/get")){
+					System.out.println("show shop/get");
+				} else{
 					uiMng.home();
 				}
 				
