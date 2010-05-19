@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared;
 
+import java.util.ArrayList;
+
 /**
  * Contains all important information to represent a
  * product. 
@@ -32,6 +34,7 @@ public class ProductData implements Entity{
 	private String quantitiy;
 	private String unit;
 	private boolean hasReceipt;
+	private ArrayList<ProductData> properties = new ArrayList<ProductData>(); 
 	
 	/**
 	 * 
@@ -265,6 +268,22 @@ public class ProductData implements Entity{
 	 */
 	public void setHasReceipt(boolean hasReceipt) {
 		this.hasReceipt = hasReceipt;
+	}
+
+
+	/**
+	 * @return the properties
+	 */
+	public ArrayList<ProductData> getProperties() {
+		return properties;
+	}
+
+
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setProperties(ArrayList<ProductData> properties) {
+		this.properties = properties;
 	}
 	
 	

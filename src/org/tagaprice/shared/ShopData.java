@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared;
 
+import java.util.ArrayList;
+
 
 
 /**
@@ -35,6 +37,7 @@ public class ShopData implements Entity {
 	private String country;
 	private double lat;
 	private double lng;
+	private ArrayList<ProductData> properties = new ArrayList<ProductData>();
 	
 	
 	/**
@@ -250,4 +253,20 @@ public class ShopData implements Entity {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
+
+	/**
+	 * @return the properties
+	 */
+	public ArrayList<ProductData> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setProperties(ArrayList<ProductData> properties) {
+		this.properties = properties;
+	}
+	
+	
 }
