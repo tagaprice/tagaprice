@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client;
 
-import org.tagaprice.client.propertyhandler.NoTypePropertyHandler;
+import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.shared.ProductData;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -36,7 +36,7 @@ public class ProductWidget extends Composite {
 		
 		
 		//Test add ProptertyHandler
-		vePa1.add(new NoTypePropertyHandler(this.productData.getProperties()));
+		vePa1.add(new DefaultPropertyHandler(this.productData.getProperties()));
 		
 	}
 }

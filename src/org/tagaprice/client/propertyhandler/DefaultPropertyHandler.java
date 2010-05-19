@@ -22,12 +22,12 @@ import org.tagaprice.shared.PropertyData;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
-public class NoTypePropertyHandler extends PropertyHandler {
+public class DefaultPropertyHandler extends PropertyHandler {
 
 	Grid grid = new Grid(0, 3);
 	ArrayList<PropertyData> properties;
 	
-	public NoTypePropertyHandler(ArrayList<PropertyData> properties) {
+	public DefaultPropertyHandler(ArrayList<PropertyData> properties) {
 		super(properties);
 		this.properties=properties;
 		fillGrid();
