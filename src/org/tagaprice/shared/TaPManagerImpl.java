@@ -127,7 +127,13 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ProductData getProduct(int id) {
 		// TODO Auto-generated method stub
-		return new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true);
+		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true);
+		
+		ArrayList<PropertyData> properties = new ArrayList<PropertyData>();
+		properties.add(new PropertyData("weight", "Gewicht", "5", 1, "kg"));
+		
+		test.setProperties(properties);
+		return test;
 	}
 
 	@Override

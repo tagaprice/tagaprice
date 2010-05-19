@@ -35,7 +35,7 @@ public class ProductData implements Entity{
 	private String currency;
 	private Quantity quantity;
 	private boolean hasReceipt;
-	private ArrayList<ProductData> properties = new ArrayList<ProductData>(); 
+	private ArrayList<PropertyData> properties = new ArrayList<PropertyData>(); 
 	
 	/**
 	 * 
@@ -301,7 +301,7 @@ public class ProductData implements Entity{
 	/**
 	 * @return the properties
 	 */
-	public ArrayList<ProductData> getProperties() {
+	public ArrayList<PropertyData> getProperties() {
 		return properties;
 	}
 
@@ -309,7 +309,7 @@ public class ProductData implements Entity{
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(ArrayList<ProductData> properties) {
+	public void setProperties(ArrayList<PropertyData> properties) {
 		this.properties = properties;
 	}
 	

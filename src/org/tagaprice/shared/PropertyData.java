@@ -23,6 +23,7 @@ public class PropertyData implements Entity{
 	private String title;
 	private String value;
 	private int unitId;
+	private String unitTitle;
 	private int readCount=0;
 	
 	
@@ -30,11 +31,13 @@ public class PropertyData implements Entity{
 			String name,
 			String title,
 			String value,
-			int unitId) {
+			int unitId,
+			String unitTitle) {
 		setName(name);
 		setTitle(title);
 		setValue(value);
 		setUnitId(unitId);
+		setUnitTitle(unitTitle);
 	}
 	
 	/**
@@ -95,6 +98,20 @@ public class PropertyData implements Entity{
 	
 	public int getReadCount(){
 		return readCount;
+	}
+
+	/**
+	 * @return the unitTitle
+	 */
+	public String getUnitTitle() {
+		return unitTitle;
+	}
+
+	/**
+	 * @param unitTitle the unitTitle to set
+	 */
+	public void setUnitTitle(String unitTitle) {
+		this.unitTitle = unitTitle;
 	}
 
 	
