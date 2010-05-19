@@ -53,8 +53,7 @@ public class TaPManagerImpl implements TaPManager {
 				if(historyToken[0].equals("receipt/edit")){					
 					String[] equalToken = historyToken[1].split("=");					
 					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));		
-					uiMng.showReceipt(emptyData);
-					//uiMng.saveReceipt(emptyData, true);					
+					uiMng.showReceipt(emptyData);				
 				}else{
 					uiMng.home();
 				}

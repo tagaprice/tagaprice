@@ -25,15 +25,20 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
 public class UIManager extends Composite {
 	
 	DockPanel myDock = new DockPanel();
-	Label newReceipt = new Label("Receipt(0)");
+	Label newReceipt = new Label("Rechnung eintrage");
+	Label oldReceipt = new Label("Haushaltsbuch");
 	Label newDraft = new Label("Drafts(0)");
+	Label logo = new Label("LOGO");
 	HorizontalPanel menu = new HorizontalPanel();
+	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"));
 	SearchWidget sw= new SearchWidget();
@@ -44,16 +49,37 @@ public class UIManager extends Composite {
 	}
 	
 	private void init(){
-		myDock.add(menu, DockPanel.NORTH);
 		myDock.setWidth("400px");
 		
-		menu.add(sw);
+		//logo
+		myDock.add(logoPanel, DockPanel.NORTH);
+		logoPanel.setWidth("100%");
+		logoPanel.add(logo);
+		logoPanel.add(sw);
+		logo.addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("home/");		
+			}
+		});
+		
+		//menu
+		myDock.add(menu, DockPanel.NORTH);		
+		menu.setWidth("100%");
+		menu.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		menu.setStyleName("UIManager-Menu");
 		menu.add(newReceipt);
-		menu.add(new Label("___|___"));
+		menu.add(oldReceipt);
 		menu.add(newDraft);
+		
+		newReceipt.setStyleName("UIManager-Menu-Item");
+		oldReceipt.setStyleName("UIManager-Menu-Item");
+		newDraft.setStyleName("UIManager-Menu-Item");
+		
 		
 		//Center
 		myDock.add(myTitlePan, DockPanel.CENTER);
+		
 		
 		newReceipt.addClickHandler(new ClickHandler() {
 			

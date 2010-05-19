@@ -10,8 +10,12 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public interface MyResources extends ClientBundle {
     public static final MyResources INSTANCE = GWT.create(MyResources.class);
-
+    
     String PATH = "images/";
+    
+    @Source(PATH+"barcode_logo.png")
+    ImageResource logo();
+    
     @Source(PATH+"rating0.png")
     ImageResource rating0();
     

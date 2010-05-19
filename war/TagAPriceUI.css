@@ -46,17 +46,37 @@ input{
 }
 
 
+.UIManager{
+	
+}
 
-.Awesome{
+.UIManager-Menu{
+	background-color: #9e9b9b;
+	margin-bottom: 3px;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.UIManager-Menu-Item{
+	border-left: solid 1px white;
+}
+
+.UIManager-Menu-Item:hover{
+	font-weight: bold;
+	color: #9e9b9b;
+	background-color: white;
+}
+
+
+.Success{
 	background-color: #beffb5;
-	border: 1px solid #008c00;	
 	font-family: Arial Unicode MS, Arial, sans-serif;
   	font-size: small;
 }
 
 .Warning{
 	background-color: #ffeb90;
-	border: 1px solid #ffeb00;
 }
 
 
