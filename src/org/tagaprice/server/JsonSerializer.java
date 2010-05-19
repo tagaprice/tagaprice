@@ -14,6 +14,8 @@
 */
 package org.tagaprice.server;
 
+import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
@@ -22,6 +24,31 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
 public class JsonSerializer extends EntitySerializer {
+	
+	@Override
+	public StringBuffer put(Currency currency) {
+		StringBuffer rc = new StringBuffer();
+		rc.append("{\n\"id\": ");
+		rc.append(currency.getId());
+		rc.append(",\n\"name\": \"");
+		rc.append(currency.getName());
+		rc.append("\"\n}");
+		
+		return rc;
+	}
+
+	@Override
+	public StringBuffer put(Price price) {
+		StringBuffer rc = new StringBuffer();
+		rc.append("{\n\"price\": ");
+		rc.append(price.getPrice());
+		rc.append(",\n\"currency\": ");
+		rc.append(put(price.getCurrency()));
+		rc.append("\n}");
+		
+		return rc;
+	}
+	
 	@Override
 	public StringBuffer put(ProductData product) {
 		StringBuffer rc = new StringBuffer();
@@ -36,12 +63,9 @@ public class JsonSerializer extends EntitySerializer {
 		rc.append(product.getImageSrc());
 		
 		rc.append("\",\n\"price\": ");
-		rc.append(product.getPrice());
+		rc.append(put(product.getPrice()));
 		
-		rc.append(",\n\"currency\": \"");
-		rc.append(product.getCurrency()); /// TODO create a Currency class
-		
-		rc.append("\",\n\"quantity\": ");
+		rc.append(",\n\"quantity\": ");
 		rc.append(put(product.getQuantity()));
 
 		rc.append(",\n\"rating\": ");

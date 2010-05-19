@@ -166,7 +166,7 @@ public class ReceiptWidget extends Composite {
 	private void refreshPrice(){
 		bill=0;
 		for(int i=0;i<productContainer.getWidgetCount();i++){
-			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getPrice();
+			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getPrice().getPrice();
 		}
 		
 		price.setText((bill/100.00)+"");

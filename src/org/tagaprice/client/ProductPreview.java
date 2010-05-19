@@ -112,7 +112,7 @@ public class ProductPreview extends EntityPreview {
 		
 		
 		name.setText(productData.getName());
-		price=new MorphWidget(""+(this.productData.getPrice()/100.00),editable);
+		price=new MorphWidget(""+(this.productData.getPrice().getPrice()/100.00),editable);
 		price.setWidth("40px");
 		pricePanel.setWidget(price);
 		
@@ -120,7 +120,7 @@ public class ProductPreview extends EntityPreview {
 		quantitiy.setWidth("40px");
 		quantitiyPanel.setWidget(quantitiy);
 		
-		currency.setText(productData.getCurrency());
+		currency.setText(productData.getPrice().getCurrency().getName());
 		unit.setText(productData.getQuantity().getUnit().getName());
 		
 		if(editable && !productData.hasReceipt())
@@ -158,7 +158,7 @@ public class ProductPreview extends EntityPreview {
 	 */
 	public ProductData getProductData(){
 		if(editable){
-			productData.setPrice((int)(Double.parseDouble(price.getText())*100));
+			productData.getPrice().setPrice((int)(Double.parseDouble(price.getText())*100));
 			productData.getQuantity().setQuantity(new Integer(quantitiy.getText()));
 			productData.setRating(ratingWidget.getRating());
 		}

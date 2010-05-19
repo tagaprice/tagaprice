@@ -92,9 +92,9 @@ public class TaPManagerImpl implements TaPManager {
 					myProducts);
 		}else if(id==15) {
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", new Quantity(1, 24, "l"),false));
-			myProducts.add(new ProductData(12, 15, 16, "Coca Cola 2L", "logo.png", 50, 100, 230, "€", new Quantity(2, 25, "l"),true));
+			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
+			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
+			myProducts.add(new ProductData(12, 15, 16, "Coca Cola 2L", "logo.png", 50, 100, new Price(230, 23, "€"), new Quantity(2, 25, "l"),true));
 			
 			receiptContainer = new ReceiptData(
 					15, 
@@ -106,8 +106,8 @@ public class TaPManagerImpl implements TaPManager {
 					myProducts);
 		}else{
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", new Quantity(1, 24, "l"),false));
+			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
+			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
 			
 			receiptContainer = new ReceiptData(
 					18, 
@@ -127,7 +127,7 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ProductData getProduct(int id) {
 		// TODO Auto-generated method stub
-		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true);
+		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true);
 		
 		ArrayList<PropertyData> properties = new ArrayList<PropertyData>();
 		properties.add(new PropertyData("weight", "Gewicht", "5", new Unit(1, "kg")));
@@ -171,7 +171,7 @@ public class TaPManagerImpl implements TaPManager {
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
 			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0));
 			tmp.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
-			tmp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, 1200, "€", new Quantity(250, 23, "g")));
+			tmp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, "€"), new Quantity(250, 23, "g")));
 		
 		sw.setSuggestions(tmp);
 		

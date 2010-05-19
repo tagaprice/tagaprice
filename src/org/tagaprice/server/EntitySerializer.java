@@ -14,7 +14,9 @@
 */
 package org.tagaprice.server;
 
+import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
@@ -23,6 +25,8 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
 public abstract class EntitySerializer {
+	public abstract StringBuffer put(Currency currency);
+	public abstract StringBuffer put(Price price);
 	public abstract StringBuffer put(ProductData product);
 	public abstract StringBuffer put(Quantity quantity);
 	public abstract StringBuffer put(ReceiptData receipt);
@@ -33,7 +37,9 @@ public abstract class EntitySerializer {
 	protected StringBuffer putAny(Entity e) {
 		StringBuffer rc = null;
 		
-		if (e instanceof ProductData) rc = put((ProductData) e);
+		if (e instanceof Currency) rc = put((Currency) e);
+		else if (e instanceof Price) rc = put((Price) e);
+		else if (e instanceof ProductData) rc = put((ProductData) e);
 		else if (e instanceof Quantity) rc = put((Quantity) e);
 		else if (e instanceof ReceiptData) rc = put((ReceiptData) e);
 		else if (e instanceof ServerResponse) rc = put((ServerResponse) e);

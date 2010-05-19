@@ -31,8 +31,7 @@ public class ProductData implements Entity{
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
-	private int price; //In Cents
-	private String currency;
+	private Price price;
 	private Quantity quantity;
 	private boolean hasReceipt;
 	private ArrayList<PropertyData> properties = new ArrayList<PropertyData>(); 
@@ -47,9 +46,7 @@ public class ProductData implements Entity{
 	 * @param progress
 	 * @param rating
 	 * @param price
-	 * @param currency
 	 * @param quantitiy
-	 * @param unit
 	 */
 	public ProductData(
 			int id,
@@ -59,8 +56,7 @@ public class ProductData implements Entity{
 			String imageSrc,
 			int progress,
 			int rating,
-			int price,
-			String currency,
+			Price price,
 			Quantity quantity) {
 		
 		this(
@@ -72,7 +68,6 @@ public class ProductData implements Entity{
 				progress,
 				rating,
 				price,
-				currency,
 				quantity,
 				true);
 	}
@@ -88,9 +83,7 @@ public class ProductData implements Entity{
 	 * @param progress
 	 * @param rating
 	 * @param price
-	 * @param currency
 	 * @param quantitiy
-	 * @param unit
 	 * @param hasReceipt
 	 */
 	public ProductData(
@@ -101,8 +94,7 @@ public class ProductData implements Entity{
 			String imageSrc,
 			int progress,
 			int rating,
-			int price,
-			String currency,
+			Price price,
 			Quantity quantity,
 			boolean hasReceipt) {
 		
@@ -113,7 +105,6 @@ public class ProductData implements Entity{
 		setImageSrc(imageSrc);
 		setPrice(price);
 		setRating(rating);
-		setCurrency(currency);
 		setQuantity(quantity);
 		setHasReceipt(hasReceipt);
 		
@@ -237,7 +228,7 @@ public class ProductData implements Entity{
 	 * 
 	 * @return
 	 */
-	public int getPrice() {
+	public Price getPrice() {
 		return price;
 	}
 	
@@ -245,24 +236,8 @@ public class ProductData implements Entity{
 	 * 
 	 * @param price
 	 */
-	public void setPrice(int price) {
+	public void setPrice(Price price) {
 		this.price = price;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCurrency() {
-		return currency;
-	}	
-	
-	/**
-	 * 
-	 * @param currency
-	 */
-	public void setCurrency(String currency) {
-		this.currency = currency;
 	}
 	
 	/**
