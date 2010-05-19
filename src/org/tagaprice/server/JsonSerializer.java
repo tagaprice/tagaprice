@@ -15,9 +15,11 @@
 package org.tagaprice.server;
 
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.Unit;
 
 public class JsonSerializer extends EntitySerializer {
 	@Override
@@ -40,12 +42,9 @@ public class JsonSerializer extends EntitySerializer {
 		rc.append(product.getCurrency()); /// TODO create a Currency class
 		
 		rc.append("\",\n\"quantity\": ");
-		rc.append(product.getQuantity().getQuantity());
-		
-		rc.append(",\n\"quantityUnit\": \"");
-		rc.append(product.getQuantity().getUnit());
-		
-		rc.append("\",\n\"rating\": ");
+		rc.append(put(product.getQuantity()));
+
+		rc.append(",\n\"rating\": ");
 		rc.append(product.getRating());
 		
 		rc.append(",\n\"progress\": ");
@@ -56,10 +55,15 @@ public class JsonSerializer extends EntitySerializer {
 	}
 
 	@Override
-	public StringBuffer put(ShopData shop) {
+	public StringBuffer put(Quantity quantity) {
 		// TODO Auto-generated method stub
 		StringBuffer rc = new StringBuffer();
 		
+		rc.append("{\n\"quantity\": ");
+		rc.append(quantity.getQuantity());
+		rc.append(",\n\"unit\": ");
+		rc.append(put(quantity.getUnit()));
+		rc.append("\n}");
 		return rc;
 	}
 
@@ -85,4 +89,33 @@ public class JsonSerializer extends EntitySerializer {
 		return rc;
 	}
 	
+	@Override
+	public StringBuffer put(ShopData shop) {
+		// TODO Auto-generated method stub
+		StringBuffer rc = new StringBuffer();
+		
+		return rc;
+	}
+
+	@Override
+	public StringBuffer put(Unit unit) {
+		// TODO Auto-generated method stub
+		StringBuffer rc = new StringBuffer();
+		
+		rc.append("{\n\"id\": ");
+		rc.append(unit.getId());
+		
+		rc.append(",\n\"name\": \"");
+		rc.append(unit.getName());
+		rc.append('"');
+		
+		if (unit.getFallbackId() > 0) {
+			rc.append(",\n\"siUnit\": ");
+			rc.append(unit.getFallbackId());
+			rc.append(",\n\"factor\": ");
+			rc.append(unit.getFactor());
+		}
+		rc.append("\n}");
+		return rc;
+	}
 }
