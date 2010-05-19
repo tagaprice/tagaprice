@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public abstract class ApiVersion extends HttpServlet {
+public abstract class ApiManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private HashMap<String, ApiCall> calls = new HashMap<String, ApiCall>();
@@ -38,12 +38,36 @@ public abstract class ApiVersion extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-		String callName = req.getPathInfo();
-		if (callName.substring(0, 1).equals("/")) callName = callName.substring(1);
+		String callParts[] = req.getPathInfo().split("/");
+
+		System.out.println("Part 0: "+callParts[0]);
+		
+		int i = 0;
+		if (callParts[0].equals("")) i++;
+		
+		if (callParts.length < 2+i) {
+			try {
+				resp.sendError(400);
+			} catch (IOException e) {/* ignored */}
+			return;
+		}
+		String callName = callParts[i++];
+		String function = callParts[i++];
 
 		if (calls.containsKey(callName)) {
-			/// TODO parse call and pass it on to the corresponding ApiCall object
-			System.out.println("API call: "+callName); 
+			/// TODO get output format and allocate the corresponding EntitySerializer
+			ApiCall c = calls.get(callName);
+			
+			Responder responder = new Responder(new JsonSerializer());
+
+			c.onCall(function, responder);
+			try {
+				responder.send(resp);
+			} catch (IOException e) {
+				try {
+					resp.sendError(500);
+				} catch (IOException e1) {/* ignored */}
+			}
 		}
 		else {
 			System.err.println("Unknown API call: "+callName);

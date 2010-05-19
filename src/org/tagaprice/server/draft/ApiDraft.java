@@ -14,7 +14,7 @@
 */
 package org.tagaprice.server.draft;
 
-import org.tagaprice.server.ApiVersion;
+import org.tagaprice.server.ApiManager;
 import org.tagaprice.server.DuplicateNameException;
 
 /**
@@ -22,12 +22,10 @@ import org.tagaprice.server.DuplicateNameException;
  * When a stable API version is released, it is copied to ApiVersionXXX
  * (and a new servlet-entry is added to web.xml)
  */
-public class ApiManager extends ApiVersion {
-	public ApiManager() throws DuplicateNameException {
-		registerCall(new GetVersion());
-	}
-
+public class ApiDraft extends ApiManager {
 	private static final long serialVersionUID = 1L;
-	
-	
+
+	public ApiDraft() throws DuplicateNameException {
+		registerCall(new ProductHandler());
+	}
 }
