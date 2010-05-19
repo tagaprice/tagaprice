@@ -117,7 +117,7 @@ public class ReceiptWidget extends Composite {
 		priceChangeHandler = new ChangeHandler() {			
 			@Override
 			public void onChange(ChangeEvent event) {
-				refreshPrice();		
+				refresh();		
 			}
 		};
 		
@@ -127,14 +127,13 @@ public class ReceiptWidget extends Composite {
 			@Override
 			public void onClick(Widget widget, int index) {
 				productContainer.removeWidget(index);
-				refreshPrice();
+				refresh();
 				
 			}
 		});
 		
 		
-		//Refresh the price
-		refreshPrice();		
+			
 		
 		//Save
 		save.setStyleName("Awesome");
@@ -144,10 +143,20 @@ public class ReceiptWidget extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				receiptData.setDraft(false);//Now a new receipt will be created.
-				TaPManagerImpl.getInstance().editReceipt(getReceiptData());
+				TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
 				
 			}
 		});
+		
+	}
+	
+	
+	/**
+	 * Refresh all data and save data
+	 */
+	public void refresh(){
+		refreshPrice();
+		TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
 		
 	}
 	
@@ -182,16 +191,15 @@ public class ReceiptWidget extends Composite {
 	
 	
 	public ReceiptData getReceiptData(){
-		this.receiptData.setDate(date.getDate());
+		this.receiptData.setDate(date.getDate());	
 		this.receiptData.setName(title.getText());
-		this.receiptData.setBill(bill);
+		this.receiptData.setBill(bill);		
 		this.receiptData.setShopData(shopPreview.getshopData());
 		
-		ArrayList<ProductData> productList = new ArrayList<ProductData>();
-		
+		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){
 			productList.add(((ProductPreview)productContainer.getWidget(i)).getProductData());
-		}
+		}		
 		this.receiptData.setProductData(productList);
 		
 		return this.receiptData;

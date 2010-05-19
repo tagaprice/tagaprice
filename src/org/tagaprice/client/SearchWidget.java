@@ -38,11 +38,15 @@ public class SearchWidget extends Composite{
 			}
 		});
 		
-		suggestPanel.add(textBox);
+		suggestPanel.add(textBox);		
 		initWidget(suggestPanel);
 		
-		suggestPopup.setWidget(suggestList);
+		//style
+		textBox.setWidth("100%");
+		suggestPanel.setWidth("100%");
 		suggestPopup.setWidth("400px");
+		
+		suggestPopup.setWidget(suggestList);
 		
 	}	
 	

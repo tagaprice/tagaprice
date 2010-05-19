@@ -49,12 +49,12 @@ public class TaPManagerImpl implements TaPManager {
 			public void onValueChange(ValueChangeEvent<String> event) {
 				String[] historyToken = event.getValue().split("&");
 				
-				System.out.println("events: "+event.getValue());
 				
 				if(historyToken[0].equals("receipt/edit")){					
 					String[] equalToken = historyToken[1].split("=");					
-					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));					
-					uiMng.editReceipt(emptyData, true);					
+					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));		
+					uiMng.showReceipt(emptyData);
+					//uiMng.saveReceipt(emptyData, true);					
 				}else{
 					uiMng.home();
 				}
@@ -70,7 +70,7 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ReceiptData getReceipt(int id) {
 		// TODO Auto-generated method stub
-		System.out.println("getReceipt: id: "+id);
+		//Server Communication
 		
 		ReceiptData receiptContainer;
 		
@@ -92,7 +92,7 @@ public class TaPManagerImpl implements TaPManager {
 			
 			receiptContainer = new ReceiptData(
 					15, 
-					false,
+					true,
 					"Ostern war teuer", 
 					new Date(), 
 					0, 
@@ -138,9 +138,15 @@ public class TaPManagerImpl implements TaPManager {
 
 
 	@Override
-	public void editReceipt(ReceiptData receiptContainer) {
+	public void saveReceipt(ReceiptData receiptContainer) {
 		// TODO Auto-generated method stub
-		System.out.println("Saved receipt or draft");
+		if(receiptContainer.getId()>0 && receiptContainer.getDraft()==true){
+			System.out.println("saveDraft");
+		}else if(receiptContainer.getId()>0 && receiptContainer.getDraft()==false){
+			System.out.println("saveReceipt or change Draft to Receipt");
+		}else{
+			System.out.println("SaveReceipt-Error");
+		}
 		
 	}
 	
@@ -151,7 +157,8 @@ public class TaPManagerImpl implements TaPManager {
 		
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
 			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0));
-			tmp.add(new ShopData(12, "Spar Schonbrunn", "logo.png", 80, 3));
+			tmp.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
+			tmp.add(new ProductData(13, "Gouda Kaese", "logo.png", 50, 50, 1200, "€", "250", "g"));
 		
 		sw.setSuggestions(tmp);
 		
