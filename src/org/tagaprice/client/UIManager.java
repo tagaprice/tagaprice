@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 public class UIManager extends Composite {
 	
@@ -42,6 +43,7 @@ public class UIManager extends Composite {
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"));
 	SearchWidget sw= new SearchWidget();
+	InfoBox infoBox = new InfoBox();
 
 	public UIManager() {
 		initWidget(myDock);
@@ -89,6 +91,8 @@ public class UIManager extends Composite {
 				History.newItem("receipt/edit&id="+emptyData.getId());
 			}
 		});
+		
+		
 	}
 	
 	/**
@@ -120,5 +124,13 @@ public class UIManager extends Composite {
 		myTitlePan.setTitleWidet(
 				"Home", 
 				new HTML("home"));
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public InfoBox getInfoBox(){
+		return infoBox;
 	}
 }

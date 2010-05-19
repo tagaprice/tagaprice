@@ -69,6 +69,21 @@ input{
 }
 
 
+.InfoBox-Success{
+	background-color: #beffb5;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+}
+
+.InfoBox-Warning{
+	background-color: #ffeb90;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+}
+
+.InfoBox-Error{
+	
+}
+
+
 .Success{
 	background-color: #beffb5;
 	font-family: Arial Unicode MS, Arial, sans-serif;
@@ -77,8 +92,15 @@ input{
 
 .Warning{
 	background-color: #ffeb90;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
 }
 
+.Error{	
+	background-color: #ff676e;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+}
 
 
 

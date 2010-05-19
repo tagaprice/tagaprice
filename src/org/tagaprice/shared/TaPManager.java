@@ -14,6 +14,7 @@
 */
 package org.tagaprice.shared;
 
+import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 
@@ -58,7 +59,17 @@ public interface TaPManager {
 	 */
 	public UIManager getUIManager();
 
+	/**
+	 * 
+	 * @param text
+	 * @param searchWidget
+	 */
 	public void search(String text, SearchWidget searchWidget);
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public InfoBox getInfoBox();
 	
 }
