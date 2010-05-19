@@ -16,15 +16,12 @@ package org.tagaprice.shared;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
-
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.TextBox;
 
 
 /**
