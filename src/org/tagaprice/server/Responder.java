@@ -40,7 +40,7 @@ public class Responder extends ServerResponse {
 	
 	public void send(HttpServletResponse resp) throws IOException {
 		StringBuffer data = new StringBuffer();
-		data = serializer.putAny(entity);
+		data = serializer.put(this);
 		
 		resp.setContentType("text/plain"); /// TODO use better content types (e.g. application/json)
 		resp.setCharacterEncoding("utf-8");
