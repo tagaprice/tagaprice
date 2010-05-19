@@ -22,8 +22,8 @@ public class ServerResponse {
 		/// TODO fill this list with useful data
 	}
 	
-	private StatusCode status;
-	private Entity entity;
+	protected StatusCode status;
+	protected Entity entity;
 	
 	public ServerResponse(StatusCode status, Entity entity) {
 		this.status = status;

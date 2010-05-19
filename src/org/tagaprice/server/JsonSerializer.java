@@ -24,16 +24,34 @@ public class JsonSerializer extends EntitySerializer {
 	public StringBuffer put(ProductData product) {
 		StringBuffer rc = new StringBuffer();
 		
-		rc.append("{\nid: ");
+		rc.append("{\n\"id\": ");
 		rc.append(product.getId());
-		rc.append(",\nname: \"");
+		
+		rc.append(",\n\"name\": \"");
 		rc.append(product.getName());
-		rc.append("\",\nprice: ");
+		
+		rc.append("\",\n\"imageSrc\": \"");
+		rc.append(product.getImageSrc());
+		
+		rc.append("\",\n\"price\": ");
 		rc.append(product.getPrice());
-		rc.append(",\ncurrency: \"");
+		
+		rc.append(",\n\"currency\": \"");
 		rc.append(product.getCurrency()); /// TODO create a Currency class
-		/// TODO implement all the rest
-		rc.append("\"\n}");
+		
+		rc.append("\",\n\"quantity\": ");
+		rc.append(product.getQuantitiy());
+		
+		rc.append(",\n\"quantityUnit\": \"");
+		rc.append(product.getUnit());
+		
+		rc.append("\",\n\"rating\": ");
+		rc.append(product.getRating());
+		
+		rc.append(",\n\"progress\": ");
+		rc.append(product.getProgress());
+		
+		rc.append("\n}");
 		return rc;
 	}
 

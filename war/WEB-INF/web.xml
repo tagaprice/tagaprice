@@ -7,7 +7,7 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>ApiDraft</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.ApiManager</servlet-class>
+		<servlet-class>org.tagaprice.server.draft.ApiDraft</servlet-class>
 	</servlet>
 
 	<servlet>
