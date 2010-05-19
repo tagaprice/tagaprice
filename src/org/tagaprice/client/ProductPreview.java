@@ -21,7 +21,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -34,7 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Properties: title, rating, progress, price, quantity
  *
  */
-public class ProductPreview extends Composite {
+public class ProductPreview extends EntityPreview {
 	interface MyUiBinder extends UiBinder<Widget, ProductPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	private ProductData productData;
@@ -73,9 +72,9 @@ public class ProductPreview extends Composite {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public ProductPreview(ProductData productData, boolean editable) {
-		this.productData=productData;
-		this.editable=editable;
+	public ProductPreview(ProductData _productData, boolean _editable) {
+		productData=_productData;
+		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		//VePa1
@@ -97,7 +96,7 @@ public class ProductPreview extends Composite {
 		
 		//HoPa2
 		HoPa2.setWidth("100%");		
-		ratingWidget=new RatingWidget(productData.getRating(), this.editable);
+		ratingWidget=new RatingWidget(productData.getRating(), editable);
 		ratingPanel.setWidget(ratingWidget);
 		HoPa2.setCellWidth(ratingPanel, "100%");
 		
@@ -107,19 +106,19 @@ public class ProductPreview extends Composite {
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(this.productData.getName());
-		price=new MorphWidget(""+(this.productData.getPrice()/100.00), this.editable);
+		name.setText(productData.getName());
+		price=new MorphWidget(""+(this.productData.getPrice()/100.00),editable);
 		price.setWidth("40px");
 		pricePanel.setWidget(price);
 		
-		quantitiy=new MorphWidget(this.productData.getQuantitiy(), this.editable);
+		quantitiy=new MorphWidget(productData.getQuantitiy(), editable);
 		quantitiy.setWidth("40px");
 		quantitiyPanel.setWidget(quantitiy);
 		
-		currency.setText(this.productData.getCurrency());
-		unit.setText(this.productData.getUnit());
+		currency.setText(productData.getCurrency());
+		unit.setText(productData.getUnit());
 		
-		if(this.editable && !this.productData.hasReceipt())
+		if(editable && !productData.hasReceipt())
 			noReceiptName();
 	}
 	
@@ -131,7 +130,7 @@ public class ProductPreview extends Composite {
 		final VerticalPanel VePa1 = new VerticalPanel();
 		VePa1.setWidth("100%");
 		VePa1.setStyleName("Warning");
-		receipt=new MorphWidget("Insert here missing receipt name!", this.editable);
+		receipt=new MorphWidget("Insert here missing receipt name!", editable);
 		receipt.setWidth("100%");
 		VePa1.add(receipt);
 		this.VePa1.add(VePa1);
@@ -145,12 +144,12 @@ public class ProductPreview extends Composite {
 	 */
 	public ProductData getProductData(){
 		if(editable){
-			this.productData.setPrice((int)(Double.parseDouble(this.price.getText())*100));
-			this.productData.setQuantitiy(this.quantitiy.getText());
-			this.productData.setRating(ratingWidget.getRating());
+			productData.setPrice((int)(Double.parseDouble(price.getText())*100));
+			productData.setQuantitiy(quantitiy.getText());
+			productData.setRating(ratingWidget.getRating());
 		}
 		
-		return this.productData;
+		return productData;
 	}
 	
 	/**

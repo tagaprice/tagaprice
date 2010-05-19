@@ -34,9 +34,10 @@ import com.google.gwt.user.client.ui.Widget;
  * Properties: title, rating, progress, address
  *
  */
-public class ShopPreview extends Composite {
+public class ShopPreview extends EntityPreview {
 	interface MyUiBinder extends UiBinder<Widget, ShopPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	
 	private ShopData shopData;
 	private boolean editable;
 	private RatingWidget ratingWidget;
@@ -56,9 +57,9 @@ public class ShopPreview extends Composite {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public ShopPreview(ShopData shopData, boolean editable) {
-		this.shopData=shopData;
-		this.editable=editable;
+	public ShopPreview(ShopData _shopData, boolean _editable) {
+		shopData=_shopData;
+		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
 		
 
@@ -86,19 +87,19 @@ public class ShopPreview extends Composite {
 		city.setStyleName("ShopPreview-Street");
 		
 		//Street
-		if(this.shopData.getStreet()!=null)
-			street.setText(this.shopData.getStreet());
+		if(shopData.getStreet()!=null)
+			street.setText(shopData.getStreet());
 		
 		//city
-		if(this.shopData.getCity()!=null)
-			city.setText(this.shopData.getCity());
+		if(shopData.getCity()!=null)
+			city.setText(shopData.getCity());
 		
 		
 		logoPanel.add(new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), 50));
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(this.shopData.getName());
+		name.setText(shopData.getName());
 
 	}
 	
@@ -109,10 +110,10 @@ public class ShopPreview extends Composite {
 	 */
 	public ShopData getshopData(){
 		if(editable){
-			this.shopData.setRating(ratingWidget.getRating());
+			shopData.setRating(ratingWidget.getRating());
 		}
-		
-		return this.shopData;
+	
+		return shopData;
 	}
 	
 	/**

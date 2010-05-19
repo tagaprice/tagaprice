@@ -36,6 +36,7 @@ public class UIManager extends Composite {
 	HorizontalPanel menu = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"));
+	SearchWidget sw= new SearchWidget();
 
 	public UIManager() {
 		initWidget(myDock);
@@ -46,6 +47,7 @@ public class UIManager extends Composite {
 		myDock.add(menu, DockPanel.NORTH);
 		myDock.setWidth("400px");
 		
+		menu.add(sw);
 		menu.add(newReceipt);
 		menu.add(new Label("___|___"));
 		menu.add(newDraft);

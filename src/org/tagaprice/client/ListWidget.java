@@ -14,9 +14,49 @@
 */
 package org.tagaprice.client;
 
-public class ListWidget<T> {
+import java.util.ArrayList;
 
+import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.ShopData;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+public class ListWidget<T extends EntityPreview> extends Composite{
+
+	private VerticalPanel verticalPanel;
 	
+	public ListWidget(){
+		verticalPanel=new VerticalPanel();
+		initWidget(verticalPanel);
+	}
+	
+	public ListWidget(ArrayList<Entity> entityData){
+		this();
+		populateList(entityData);
+	}
+	
+	private void populateList(ArrayList<Entity> entityData){
+		verticalPanel.clear();
+		
+		for(Entity e: entityData){
+			verticalPanel.add(createPreview(e));
+		}
+		
+	}
+	
+	private EntityPreview createPreview(Entity e){
+		EntityPreview rc = null;
+		
+		if(e instanceof ShopData){
+			rc= new ShopPreview((ShopData)e, false);
+		}else if(e instanceof ProductData){
+			rc=new ProductPreview((ProductData) e, false);
+		}
+		
+		return rc;
+	}
 	
 	
 }
+

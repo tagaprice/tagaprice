@@ -17,6 +17,7 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -142,8 +143,22 @@ public class TaPManagerImpl implements TaPManager {
 		System.out.println("Saved receipt or draft");
 		
 	}
+	
+	
+	public void search(String userInput, SearchWidget sw) {
+		// TODO Auto-generated method stub
+		// send to server
+		
+		ArrayList<Entity> tmp= new ArrayList<Entity>();
+			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0));
+			tmp.add(new ShopData(12, "Spar Schonbrunn", "logo.png", 80, 3));
+		
+		sw.setSuggestions(tmp);
+		
+	}
 
-
+	
+	
 	
 
 	
