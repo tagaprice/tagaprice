@@ -232,3 +232,8 @@ td.datePickerMonth {
   cursor: pointer;
   padding: 0px 4px;
 }
+
+.highlightSuggestion{
+	border: 2px;
+			
+}
