@@ -25,6 +25,10 @@ public class Price implements Entity {
 		setCurrency(currency);
 	}
 	
+	public Price(int price, int currencyId, String currencyName) {
+		this(price, new Currency(currencyId, currencyName));
+	}
+	
 	public int getPrice() {
 		return price;
 	}
