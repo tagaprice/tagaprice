@@ -88,9 +88,9 @@ public class TaPManagerImpl implements TaPManager {
 					myProducts);
 		}else if(id==15) {
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
-			myProducts.add(new ProductData(120, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
-			myProducts.add(new ProductData(12, "Coca Cola 2L", "logo.png", 50, 100, 230, "€", "2", "L",true));
+			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
+			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
+			myProducts.add(new ProductData(12, 15, 16, "Coca Cola 2L", "logo.png", 50, 100, 230, "€", "2", "L",true));
 			
 			receiptContainer = new ReceiptData(
 					15, 
@@ -102,8 +102,8 @@ public class TaPManagerImpl implements TaPManager {
 					myProducts);
 		}else{
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
-			myProducts.add(new ProductData(120, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
+			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true));
+			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, 98, "€", "1", "L",false));
 			
 			receiptContainer = new ReceiptData(
 					18, 
@@ -160,7 +160,7 @@ public class TaPManagerImpl implements TaPManager {
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
 			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0));
 			tmp.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
-			tmp.add(new ProductData(13, "Gouda Kaese", "logo.png", 50, 50, 1200, "€", "250", "g"));
+			tmp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, 1200, "€", "250", "g"));
 		
 		sw.setSuggestions(tmp);
 		

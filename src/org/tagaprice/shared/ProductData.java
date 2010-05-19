@@ -25,6 +25,8 @@ public class ProductData implements Entity{
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	private int brandId;
+	private int typeId;
 	private String name;
 	private String imageSrc;
 	private int progress; //In percent 0-100
@@ -39,6 +41,8 @@ public class ProductData implements Entity{
 	/**
 	 * 
 	 * @param id
+	 * @param brandId
+	 * @param typeId
 	 * @param name
 	 * @param imageSrc
 	 * @param progress
@@ -50,6 +54,8 @@ public class ProductData implements Entity{
 	 */
 	public ProductData(
 			int id,
+			int brandId,
+			int typeId,
 			String name,
 			String imageSrc,
 			int progress,
@@ -61,6 +67,8 @@ public class ProductData implements Entity{
 		
 		this(
 				id,
+				brandId,
+				typeId,
 				name,
 				imageSrc,
 				progress,
@@ -76,6 +84,8 @@ public class ProductData implements Entity{
 	/**
 	 * 
 	 * @param id
+	 * @param brandId
+	 * @param typeId
 	 * @param name
 	 * @param imageSrc
 	 * @param progress
@@ -88,6 +98,8 @@ public class ProductData implements Entity{
 	 */
 	public ProductData(
 			int id,
+			int brandId,
+			int typeId,
 			String name,
 			String imageSrc,
 			int progress,
@@ -99,6 +111,8 @@ public class ProductData implements Entity{
 			boolean hasReceipt) {
 		
 		setId(id);
+		setBrandId(brandId);
+		setTypeId(typeId);
 		setName(name);
 		setImageSrc(imageSrc);
 		setPrice(price);
@@ -126,6 +140,40 @@ public class ProductData implements Entity{
 		this.id = id;
 	}
 	
+	
+	
+	/**
+	 * @return the brandId
+	 */
+	public int getBrandId() {
+		return brandId;
+	}
+
+
+	/**
+	 * @param brandId the brandId to set
+	 */
+	public void setBrandId(int brandId) {
+		this.brandId = brandId;
+	}
+
+
+	/**
+	 * @return the typeId
+	 */
+	public int getTypeId() {
+		return typeId;
+	}
+
+
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
+
+
 	/**
 	 * 
 	 * @return
