@@ -28,7 +28,6 @@ public class ProductHandler implements ApiCall {
 	/// TODO figure out the best way to get the request parameters (e.g. product id, search string, ...
 	@Override
 	public void onCall(String function, Responder r) {
-		System.out.println("productHandler.onCall("+function+");");
 		if (function.equals("get")) doGet(r);
 	}
 	

@@ -40,8 +40,6 @@ public abstract class ApiManager extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 		String callParts[] = req.getPathInfo().split("/");
 
-		System.out.println("Part 0: "+callParts[0]);
-		
 		int i = 0;
 		if (callParts[0].equals("")) i++;
 		
