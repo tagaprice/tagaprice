@@ -55,10 +55,14 @@ public class TaPManagerImpl implements TaPManager {
 					uiMng.showReceipt(emptyData);				
 				}else if(historyToken[0].equals("product/get")){
 					System.out.println("show product/get");
+					String[] equalToken = historyToken[1].split("=");
+					//TaPMng.getProduct(Integer.parseInt(equalToken[1]));
+					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));
+					
 				} else if(historyToken[0].equals("shop/get")){
 					System.out.println("show shop/get");
 				} else{
-					uiMng.home();
+					uiMng.showHome();
 				}
 				
 				
@@ -123,7 +127,7 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ProductData getProduct(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", "260", "g",true);
 	}
 
 	@Override
