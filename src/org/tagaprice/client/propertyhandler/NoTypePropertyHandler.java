@@ -17,14 +17,14 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.tagaprice.shared.ProductData;
+import org.tagaprice.client.MorphWidget;
 import org.tagaprice.shared.PropertyData;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
 public class NoTypePropertyHandler extends PropertyHandler {
 
-	Grid grid = new Grid(0, 2);
+	Grid grid = new Grid(0, 3);
 	ArrayList<PropertyData> properties;
 	
 	public NoTypePropertyHandler(ArrayList<PropertyData> properties) {
@@ -40,9 +40,10 @@ public class NoTypePropertyHandler extends PropertyHandler {
 		while(iter.hasNext()){
 			PropertyData temp = iter.next();
 			if(temp.getReadCount()==0){
-				grid.resize(grid.getRowCount()+1, 2);
+				grid.resize(grid.getRowCount()+1, 3);
 				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getTitle()));
-				grid.setWidget(grid.getRowCount()-1, 1, new Label(temp.getValue()+" "+temp.getUnitTitle()));
+				grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(temp.getValue(),true));
+				grid.setWidget(grid.getRowCount()-1, 2, new Label(temp.getUnit().getName()));
 			}
 			
 		}

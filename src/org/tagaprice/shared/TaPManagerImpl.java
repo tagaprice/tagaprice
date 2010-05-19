@@ -130,7 +130,8 @@ public class TaPManagerImpl implements TaPManager {
 		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, 325, "€", new Quantity(260, 23, "g"),true);
 		
 		ArrayList<PropertyData> properties = new ArrayList<PropertyData>();
-		properties.add(new PropertyData("weight", "Gewicht", "5", 1, "kg"));
+		properties.add(new PropertyData("weight", "Gewicht", "5", new Unit(1, "kg")));
+		properties.add(new PropertyData("fat", "Fett", "150", new Unit(2, "g")));
 		
 		test.setProperties(properties);
 		return test;
