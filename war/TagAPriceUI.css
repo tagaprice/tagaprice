@@ -147,6 +147,17 @@ input{
 	margin-bottom: 3px;
 }
 
+
+.DefaultPropertyHandler, .DefaultPropertyHandler-Row-1, .NutritionFactsPropertyHandler, .NutritionFactsPropertyHandler-Row-1{
+	
+}
+
+.DefaultPropertyHandler-Row1, NutritionFactsPropertyHandler-Row1{
+	background-color: #eaeaea;
+}
+
+
+
 /********* GWT *********/
 
 .gwt-PopupPanel {

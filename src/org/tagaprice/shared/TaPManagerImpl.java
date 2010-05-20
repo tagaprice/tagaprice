@@ -123,11 +123,16 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ProductData getProduct(int id) {
 		// TODO Auto-generated method stub
-		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true);
+		ProductData test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
 		
 		PropertyList properties = new PropertyList();
-		properties.add(new PropertyData("weight", "Gewicht", "5", new Unit(1, "kg")));
-		properties.add(new PropertyData("fat", "Fett", "150", new Unit(2, "g")));
+		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, "kj")));
+		properties.add(new PropertyData("protein", "Eiweiss", "5,3", new Unit(2, "g")));
+		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, "g")));
+		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, "g")));
+		properties.add(new PropertyData("fiber", "Ballaststoffe", "1,9", new Unit(2, "g")));
+		properties.add(new PropertyData("sodium", "Natrium", "0,05", new Unit(2, "g")));
+		properties.add(new PropertyData("unknow", "Unbekannt", "1,05", new Unit(5, "fl")));
 		
 		test.setProperties(properties);
 		return test;

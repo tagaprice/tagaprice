@@ -15,38 +15,50 @@
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ListIterator;
 
 import org.tagaprice.client.MorphWidget;
+import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
 public class DefaultPropertyHandler extends PropertyHandler {
-
-	Grid grid = new Grid(0, 3);
+	
+	Grid grid = new Grid(0, 2);
+	TitlePanel title = new TitlePanel("DefaultProperty", grid);
 	ArrayList<PropertyData> properties;
+	int rowSwap=-1;
+	boolean show=false;
 	
 	public DefaultPropertyHandler(ArrayList<PropertyData> properties) {
 		super(properties);
 		this.properties=properties;
+		grid.setWidth("100%");
+		grid.setStyleName("DefaultPropertyHandler");
 		fillGrid();
 		
-		initWidget(grid);
+		initWidget(title);
 	}
 	
 	private void fillGrid(){
-		Iterator<PropertyData> iter = properties.iterator();
+		ListIterator<PropertyData> iter = properties.listIterator();
 		while(iter.hasNext()){
 			PropertyData temp = iter.next();
 			if(temp.getReadCount()==0){
-				grid.resize(grid.getRowCount()+1, 3);
-				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getTitle()));
+				show=true;
+				grid.resize(grid.getRowCount()+1, 2);
+				grid.getCellFormatter().setWidth(0, 0, "100%");
+				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler-Row"+rowSwap);
+				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler-Row"+rowSwap);
+				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getTitle()+ " ("+temp.getUnit().getName()+")"));
 				grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(temp.getValue(),true));
-				grid.setWidget(grid.getRowCount()-1, 2, new Label(temp.getUnit().getName()));
+				rowSwap*=-1;
 			}
 			
 		}
+		
+		title.setVisible(show);
 	}
 
 }
