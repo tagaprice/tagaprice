@@ -5,18 +5,24 @@
  * use this file except in compliance with the License. 
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: tagaprice
  * Filename: PropertyList.java
  * Date: 20.05.2010
-*/
+ */
 package org.tagaprice.shared;
 
 import java.util.ArrayList;
 
 public class PropertyList extends ArrayList<PropertyData> implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public void add(PropertyList p){
+		for(PropertyData pd: p){
+			this.add(pd);
+		}
+	}
 
 }
