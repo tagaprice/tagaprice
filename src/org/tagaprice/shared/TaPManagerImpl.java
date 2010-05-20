@@ -185,7 +185,14 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public Type getType(long id) {
-		return new Type("Bueroklemmen");
+		Type type=new Type("Bueroklemmen");
+		PropertyList prop = new PropertyList();
+		PropertyData data1 = new PropertyData("pcs"," anzahl", "50", new Unit(23, "stueck"));		
+		PropertyData data2 = new PropertyData("weight"," gewicht", "50", new Unit(22, "gramm"));
+		prop.add(data1);
+		prop.add(data2);
+		type.addPropertyList(prop);
+		return type;
 	}
 
 	
