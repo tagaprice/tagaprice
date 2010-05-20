@@ -16,18 +16,21 @@ package org.tagaprice.server;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 
-public class Responder extends ServerResponse {
+public class ApiCallData extends ServerResponse {
 	private EntitySerializer serializer;
+	private HttpServletRequest req;
 	
-	public Responder(EntitySerializer serializer) {
+	public ApiCallData(HttpServletRequest req, EntitySerializer serializer) {
 		super(StatusCode.Ok, null);
 		
 		this.serializer = serializer;
+		this.req = req;
 	}
 	
 	public void setStatusCode(ServerResponse.StatusCode code) {
@@ -43,5 +46,9 @@ public class Responder extends ServerResponse {
 		resp.setContentType("text/plain; charset=\"utf-8\""); /// TODO use better content types (e.g. application/json)
 
 		serializer.put(this);
+	}
+	
+	public HttpServletRequest getRequest() {
+		return req;
 	}
 }

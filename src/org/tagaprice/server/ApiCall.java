@@ -17,5 +17,5 @@ package org.tagaprice.server;
 public interface ApiCall {
 	public String getName();
 	
-	public void onCall(String function, Responder r);
+	public void onCall(String function, ApiCallData r);
 }

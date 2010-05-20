@@ -15,7 +15,7 @@
 package org.tagaprice.server.draft;
 
 import org.tagaprice.server.ApiCall;
-import org.tagaprice.server.Responder;
+import org.tagaprice.server.ApiCallData;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -31,16 +31,16 @@ public class ProductHandler implements ApiCall {
 
 	/// TODO figure out the best way to get the request parameters (e.g. product id, search string, ...
 	@Override
-	public void onCall(String function, Responder r) {
-		if (function.equals("get")) doGet(r);
+	public void onCall(String function, ApiCallData d) {
+		if (function.equals("get")) doGet(d);
 	}
 	
-	public void doGet(Responder r) {
+	public void doGet(ApiCallData d) {
 		ProductData product = new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false);
 		PropertyList propList = new PropertyList();
 		propList.add(new PropertyData("weight", "Weight", "123", new Unit(23, "g")));
 		product.setProperties(propList);
-		r.setResponse(product);
+		d.setResponse(product);
 	}
 
 }

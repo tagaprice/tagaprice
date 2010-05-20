@@ -54,7 +54,7 @@ public abstract class ApiManager extends HttpServlet {
 			/// TODO get output format and allocate the corresponding EntitySerializer
 			ApiCall c = calls.get(callName);
 			
-			Responder responder = new Responder(new JsonSerializer(resp.getOutputStream()));
+			ApiCallData responder = new ApiCallData(req, new JsonSerializer(resp.getOutputStream()));
 
 			c.onCall(function, responder);
 			
