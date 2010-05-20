@@ -39,6 +39,7 @@ public class PropertyDefinition {
 	}
 	
 	public PropertyDefinition(long id, String name, String title, Datatype type, Unit unit){
+		this.id = id;
 		this.name=name;
 		this.title=title;
 		this.type = type;
@@ -47,6 +48,10 @@ public class PropertyDefinition {
 		minValue=Integer.MIN_VALUE;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
