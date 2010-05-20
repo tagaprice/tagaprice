@@ -19,6 +19,7 @@ import java.io.IOException;
 import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
@@ -31,6 +32,7 @@ public abstract class EntitySerializer {
 	public abstract void put(Currency currency) throws IOException;
 	public abstract void put(Price price) throws IOException;
 	public abstract void put(ProductData product) throws IOException;
+	public abstract void put(PropertyData property) throws IOException;
 	public abstract void put(PropertyList propertyList) throws IOException;
 	public abstract void put(Quantity quantity) throws IOException;
 	public abstract void put(ReceiptData receipt) throws IOException;
@@ -42,6 +44,7 @@ public abstract class EntitySerializer {
 		if (s instanceof Currency) put((Currency) s);
 		else if (s instanceof Price) put((Price) s);
 		else if (s instanceof ProductData) put((ProductData) s);
+		else if (s instanceof PropertyData) put((PropertyData) s);
 		else if (s instanceof PropertyList) put((PropertyList) s);
 		else if (s instanceof Quantity) put((Quantity) s);
 		else if (s instanceof ReceiptData) put((ReceiptData) s);

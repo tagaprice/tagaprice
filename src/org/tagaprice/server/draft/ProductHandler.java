@@ -18,7 +18,10 @@ import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.Responder;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.Unit;
 
 public class ProductHandler implements ApiCall {
 	@Override
@@ -33,7 +36,11 @@ public class ProductHandler implements ApiCall {
 	}
 	
 	public void doGet(Responder r) {
-		r.setResponse(new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false));
+		ProductData product = new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false);
+		PropertyList propList = new PropertyList();
+		propList.add(new PropertyData("weight", "Weight", "123", new Unit(23, "g")));
+		product.setProperties(propList);
+		r.setResponse(product);
 	}
 
 }
