@@ -72,4 +72,11 @@ public interface TaPManager {
 	 */
 	public InfoBox getInfoBox();
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Type getType(long id);
+	
 }

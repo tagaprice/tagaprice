@@ -183,6 +183,13 @@ public class TaPManagerImpl implements TaPManager {
 		return uiMng.getInfoBox();
 	}
 
+	@Override
+	public Type getType(long id) {
+		// TODO Auto-generated method stub
+		// @anca bitte hier einfuegen
+		return null;
+	}
+
 	
 	
 	
