@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared;
 
-public class Unit implements Entity {
+public class Unit implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long id = 0;

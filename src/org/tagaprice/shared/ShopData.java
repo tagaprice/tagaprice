@@ -14,9 +14,6 @@
 */
 package org.tagaprice.shared;
 
-import java.util.ArrayList;
-
-
 
 /**
  * 
@@ -24,7 +21,7 @@ import java.util.ArrayList;
  * shop. 
  *
  */
-public class ShopData implements Entity {
+public class ShopData implements Entity, Serializable {
 	private static final long serialVersionUID = 1;
 	
 	private int id;

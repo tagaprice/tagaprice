@@ -18,12 +18,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.tagaprice.shared.Currency;
-import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
@@ -77,7 +77,7 @@ public class JsonSerializer extends EntitySerializer {
 	@Override
 	public void put(PropertyList propertyList) throws IOException {
 		writeHead();
-		/// TODO
+		
 		writeTail();
 	}
 
@@ -98,7 +98,7 @@ public class JsonSerializer extends EntitySerializer {
 	public void put(ServerResponse response) throws IOException {
 		writeHead();
 		writeVar("status", response.getStatusName());
-		writeVar("response", response.getEntity());
+		writeVar("response", response.getResponse());
 		writeTail();
 	}
 	
@@ -165,7 +165,7 @@ public class JsonSerializer extends EntitySerializer {
 		out.write(new Double(value).toString().getBytes());
 	}
 	
-	protected void writeVar(String name, Entity value) throws IOException {
+	protected void writeVar(String name, Serializable value) throws IOException {
 		writeVarName(name);
 		if (value != null) putAny(value);
 		else out.write("null".getBytes());

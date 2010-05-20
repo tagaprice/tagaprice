@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 
 public class Responder extends ServerResponse {
@@ -34,8 +34,8 @@ public class Responder extends ServerResponse {
 		status = code;
 	}
 	
-	public void setEntity(Entity e) {
-		entity = e;
+	public void setResponse(Serializable r) {
+		response = r;
 	}
 	
 	public void send(HttpServletResponse resp) throws IOException {

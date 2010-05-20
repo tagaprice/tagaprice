@@ -17,12 +17,12 @@ package org.tagaprice.server;
 import java.io.IOException;
 
 import org.tagaprice.shared.Currency;
-import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
@@ -38,15 +38,15 @@ public abstract class EntitySerializer {
 	public abstract void put(ShopData shop) throws IOException;
 	public abstract void put(Unit unit) throws IOException;
 	
-	protected void putAny(Entity e) throws IOException {
-		if (e instanceof Currency) put((Currency) e);
-		else if (e instanceof Price) put((Price) e);
-		else if (e instanceof ProductData) put((ProductData) e);
-		else if (e instanceof PropertyList) put((PropertyList) e);
-		else if (e instanceof Quantity) put((Quantity) e);
-		else if (e instanceof ReceiptData) put((ReceiptData) e);
-		else if (e instanceof ServerResponse) put((ServerResponse) e);
-		else if (e instanceof ShopData) put((ShopData) e);
-		else if (e instanceof Unit) put((Unit) e);
+	protected void putAny(Serializable s) throws IOException {
+		if (s instanceof Currency) put((Currency) s);
+		else if (s instanceof Price) put((Price) s);
+		else if (s instanceof ProductData) put((ProductData) s);
+		else if (s instanceof PropertyList) put((PropertyList) s);
+		else if (s instanceof Quantity) put((Quantity) s);
+		else if (s instanceof ReceiptData) put((ReceiptData) s);
+		else if (s instanceof ServerResponse) put((ServerResponse) s);
+		else if (s instanceof ShopData) put((ShopData) s);
+		else if (s instanceof Unit) put((Unit) s);
 	}
 }

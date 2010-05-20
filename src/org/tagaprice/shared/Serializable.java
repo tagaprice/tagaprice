@@ -9,14 +9,16 @@
 
 /**
  * Project: tagaprice
- * Filename: PropertyList.java
+ * Filename: Serializable.java
  * Date: 20.05.2010
 */
 package org.tagaprice.shared;
 
-import java.util.ArrayList;
-
-public class PropertyList extends ArrayList<PropertyData> implements Serializable {
-	private static final long serialVersionUID = 1L;
+/**
+ * Everything that can be de-/serialized with EntitySerializer
+ * @author Manuel Reithuber
+ *
+ */
+public interface Serializable extends java.io.Serializable {
 
 }

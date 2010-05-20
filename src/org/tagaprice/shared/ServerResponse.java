@@ -23,19 +23,19 @@ public class ServerResponse {
 	}
 	
 	protected StatusCode status;
-	protected Entity entity;
+	protected Serializable response;
 	
-	public ServerResponse(StatusCode status, Entity entity) {
+	public ServerResponse(StatusCode status, Serializable response) {
 		this.status = status;
-		this.entity = entity;
+		this.response = response;
 	}
 	
 	public StatusCode getStatus() {
 		return status;
 	}
 	
-	public Entity getEntity() {
-		return entity;
+	public Serializable getResponse() {
+		return response;
 	}
 	
 	public String getStatusName() {

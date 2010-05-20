@@ -33,7 +33,7 @@ public class ProductHandler implements ApiCall {
 	}
 	
 	public void doGet(Responder r) {
-		r.setEntity(new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false));
+		r.setResponse(new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false));
 	}
 
 }

@@ -31,7 +31,7 @@ public class ShopHandler implements ApiCall {
 	}
 	
 	public void doGet(Responder r) {
-		r.setEntity(new ShopData(123, "ACME Store", null, 80, 25, "Park Avenue 23", "New York", "USA", 0.5, 0.3));
+		r.setResponse(new ShopData(123, "ACME Store", null, 80, 25, "Park Avenue 23", "New York", "USA", 0.5, 0.3));
 	}
 
 }
