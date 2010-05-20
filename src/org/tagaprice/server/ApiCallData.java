@@ -23,10 +23,10 @@ import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 
 public class ApiCallData extends ServerResponse {
-	private EntitySerializer serializer;
+	private Serializer serializer;
 	private HttpServletRequest req;
 	
-	public ApiCallData(HttpServletRequest req, EntitySerializer serializer) {
+	public ApiCallData(HttpServletRequest req, Serializer serializer) {
 		super(StatusCode.Ok, null);
 		
 		this.serializer = serializer;

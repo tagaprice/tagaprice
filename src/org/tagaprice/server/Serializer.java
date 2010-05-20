@@ -28,7 +28,7 @@ import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
-public abstract class EntitySerializer {
+public abstract class Serializer {
 	public abstract void put(Currency currency) throws IOException;
 	public abstract void put(Price price) throws IOException;
 	public abstract void put(ProductData product) throws IOException;

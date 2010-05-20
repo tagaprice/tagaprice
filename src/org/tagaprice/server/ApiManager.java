@@ -62,9 +62,7 @@ public abstract class ApiManager extends HttpServlet {
 		}
 		else {
 			System.err.println("Unknown API call: "+callName);
-			try {
-				resp.sendError(404);
-			} catch (IOException e) {/* ignore */}
+			resp.sendError(404);
 		}
 	}
 }

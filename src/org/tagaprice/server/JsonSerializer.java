@@ -30,7 +30,7 @@ import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
-public class JsonSerializer extends EntitySerializer {
+public class JsonSerializer extends Serializer {
 	private OutputStream out;
 	private boolean firstElem = true;
 	
