@@ -125,7 +125,7 @@ public class TaPManagerImpl implements TaPManager {
 		// TODO Auto-generated method stub
 		ProductData test = new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true);
 		
-		ArrayList<PropertyData> properties = new ArrayList<PropertyData>();
+		PropertyList properties = new PropertyList();
 		properties.add(new PropertyData("weight", "Gewicht", "5", new Unit(1, "kg")));
 		properties.add(new PropertyData("fat", "Fett", "150", new Unit(2, "g")));
 		

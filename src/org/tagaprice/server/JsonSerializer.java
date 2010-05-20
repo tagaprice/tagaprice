@@ -21,6 +21,7 @@ import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ServerResponse;
@@ -66,9 +67,17 @@ public class JsonSerializer extends EntitySerializer {
 		writeVar("quantity", product.getQuantity());
 		writeVar("rating", product.getRating());
 		writeVar("progress", product.getProgress());
-		/// TODO create class PropertyList and introduce the corresponding EntitySerializer-function
-		//writeVar("properties", product.getProperties());
+
+		/// TODO introduce the corresponding EntitySerializer-function
+		writeVar("properties", product.getProperties());
 		
+		writeTail();
+	}
+	
+	@Override
+	public void put(PropertyList propertyList) throws IOException {
+		writeHead();
+		/// TODO
 		writeTail();
 	}
 
@@ -101,8 +110,7 @@ public class JsonSerializer extends EntitySerializer {
 		writeVar("rating", shop.getRating());
 		writeVar("progress", shop.getProgress());
 		// TODO add other properties
-		// TODO create class PropertyList extends ArrayList<PropertyData>
-		//writeVar("properties", shop.getProperties());
+		writeVar("properties", shop.getProperties());
 		writeTail();
 	}
 
@@ -126,6 +134,7 @@ public class JsonSerializer extends EntitySerializer {
 	
 	protected void writeTail() throws IOException {
 		out.write("\n}".getBytes());
+		firstElem = false;
 	}
 	
 	private void writeVarName(String name) throws IOException {

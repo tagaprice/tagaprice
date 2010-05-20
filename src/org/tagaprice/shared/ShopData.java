@@ -39,7 +39,7 @@ public class ShopData implements Entity {
 	private String country;
 	private double lat;
 	private double lng;
-	private ArrayList<PropertyData> properties = new ArrayList<PropertyData>();
+	private PropertyList properties = new PropertyList();
 	
 	
 	/**
@@ -259,16 +259,15 @@ public class ShopData implements Entity {
 	/**
 	 * @return the properties
 	 */
-	public ArrayList<PropertyData> getProperties() {
+	public PropertyList getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(ArrayList<PropertyData> properties) {
+	public void setProperties(PropertyList properties) {
 		this.properties = properties;
 	}
-	
 	
 }
