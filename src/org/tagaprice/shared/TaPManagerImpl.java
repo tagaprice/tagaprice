@@ -185,12 +185,9 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public Type getType(long id) {
-		// TODO Auto-generated method stub
-		// @anca bitte hier einfuegen
-		return null;
+		return new Type("Bueroklemmen");
 	}
 
-	
 	
 	
 

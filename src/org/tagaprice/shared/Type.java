@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared;
 
+import java.util.ArrayList;
+
 public class Type {
 
 	private long id;
@@ -28,10 +30,32 @@ public class Type {
 		
 	}
 	
+	//type is a main category
+	public Type(String _title){
+		title=_title;
+		superType = this;
+	}
+	
 	public PropertyList getProperties(){
 		return properties;
 	}
 	
+	public void addProperties(ArrayList<PropertyData> propData){
+		for(PropertyData pd: propData)
+		properties.add(pd);
+	}
+	
+	public void addPropertyList(PropertyList propList){
+		properties.add(propList);
+	}
+	
+	public long getId(){
+		return id;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
 	
 	
 }
