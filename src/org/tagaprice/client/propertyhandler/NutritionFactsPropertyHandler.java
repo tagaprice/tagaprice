@@ -28,7 +28,7 @@ public class NutritionFactsPropertyHandler extends PropertyHandler {
 
 	Grid grid = new Grid(6, 2);
 	ArrayList<PropertyData> properties;
-	TitlePanel title = new TitlePanel("Nutrition Facts", grid);
+	TitlePanel title = new TitlePanel("Nutrition Facts", grid, TitlePanel.Level.H2);
 	public NutritionFactsPropertyHandler(ArrayList<PropertyData> properties) {
 		super(properties);
 		this.properties=properties;

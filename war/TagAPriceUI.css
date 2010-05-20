@@ -141,8 +141,21 @@ input{
 	padding:2px;
 }
 
-.TitlePanel-Title{
+.TitlePanel-Title-H1{
 	font-size:large;
+	background-color: #eaeaea;
+	margin-bottom: 3px;
+}
+
+.TitlePanel-Title-H2{
+	font-size:medium;
+	background-color: #9e9b9b;
+	margin-bottom: 3px;
+	color:white;
+}
+
+.TitlePanel-Title-H3{
+	font-size:small;
 	background-color: #eaeaea;
 	margin-bottom: 3px;
 }

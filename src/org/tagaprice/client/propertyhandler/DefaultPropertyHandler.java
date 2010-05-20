@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Label;
 public class DefaultPropertyHandler extends PropertyHandler {
 	
 	Grid grid = new Grid(0, 2);
-	TitlePanel title = new TitlePanel("DefaultProperty", grid);
+	TitlePanel title = new TitlePanel("DefaultProperty", grid, TitlePanel.Level.H2);
 	ArrayList<PropertyData> properties;
 	int rowSwap=-1;
 	boolean show=false;

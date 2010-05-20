@@ -38,7 +38,7 @@ public class UIManager extends Composite {
 	HorizontalPanel menu = new HorizontalPanel();
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
-	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"));
+	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"), TitlePanel.Level.H1);
 	SearchWidget sw= new SearchWidget();
 	InfoBox infoBox = new InfoBox();
 

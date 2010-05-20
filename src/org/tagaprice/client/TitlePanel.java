@@ -29,13 +29,16 @@ public class TitlePanel extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
 	SimplePanel siPa = new SimplePanel();
 	Label label = new Label();
+	public enum Level {
+		H1, H2, H3
+	}
 	
 	/**
 	 * 
 	 * @param title Pagetitle
 	 * @param widget
 	 */
-	public TitlePanel(String title, Widget widget) {
+	public TitlePanel(String title, Widget widget, Level level) {
 		vePa1.setWidth("100%");
 		initWidget(vePa1);
 		
@@ -44,7 +47,14 @@ public class TitlePanel extends Composite {
 		
 		//Title
 		label.setText(title);
-		label.setStyleName("TitlePanel-Title");
+		if(level.equals(Level.H1)){
+			label.setStyleName("TitlePanel-Title-H1");
+		}else if(level.equals(Level.H2)){
+			label.setStyleName("TitlePanel-Title-H2");
+		}else if(level.equals(Level.H3)){
+			label.setStyleName("TitlePanel-Title-H3");
+		}
+		
 		vePa1.add(label);
 		
 		//widget
