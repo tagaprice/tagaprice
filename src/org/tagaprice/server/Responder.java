@@ -39,11 +39,9 @@ public class Responder extends ServerResponse {
 	}
 	
 	public void send(HttpServletResponse resp) throws IOException {
-		StringBuffer data = new StringBuffer();
-		data = serializer.put(this);
-		
-		resp.setContentType("text/plain"); /// TODO use better content types (e.g. application/json)
-		resp.setCharacterEncoding("utf-8");
-		resp.getOutputStream().write(data.toString().getBytes());
+		//resp.setCharacterEncoding("utf-8"); /// TODO find out why that doesn't work
+		resp.setContentType("text/plain; charset=\"utf-8\""); /// TODO use better content types (e.g. application/json)
+
+		serializer.put(this);
 	}
 }

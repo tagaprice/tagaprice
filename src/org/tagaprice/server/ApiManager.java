@@ -32,21 +32,19 @@ public abstract class ApiManager extends HttpServlet {
 		calls.put(call.getName(), call);
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		/// TODO remove this test code!
 		doPost(req, resp);
 	}
 	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String callParts[] = req.getPathInfo().split("/");
 
 		int i = 0;
 		if (callParts[0].equals("")) i++;
 		
 		if (callParts.length < 2+i) {
-			try {
-				resp.sendError(400);
-			} catch (IOException e) {/* ignored */}
+			resp.sendError(400);
 			return;
 		}
 		String callName = callParts[i++];
@@ -56,16 +54,11 @@ public abstract class ApiManager extends HttpServlet {
 			/// TODO get output format and allocate the corresponding EntitySerializer
 			ApiCall c = calls.get(callName);
 			
-			Responder responder = new Responder(new JsonSerializer());
+			Responder responder = new Responder(new JsonSerializer(resp.getOutputStream()));
 
 			c.onCall(function, responder);
-			try {
-				responder.send(resp);
-			} catch (IOException e) {
-				try {
-					resp.sendError(500);
-				} catch (IOException e1) {/* ignored */}
-			}
+			
+			responder.send(resp);
 		}
 		else {
 			System.err.println("Unknown API call: "+callName);

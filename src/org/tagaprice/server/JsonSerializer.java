@@ -14,7 +14,11 @@
 */
 package org.tagaprice.server;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
@@ -24,127 +28,130 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
 public class JsonSerializer extends EntitySerializer {
+	private OutputStream out;
+	private boolean firstElem = true;
 	
-	@Override
-	public StringBuffer put(Currency currency) {
-		StringBuffer rc = new StringBuffer();
-		rc.append("{\n\"id\": ");
-		rc.append(currency.getId());
-		rc.append(",\n\"name\": \"");
-		rc.append(currency.getName());
-		rc.append("\"\n}");
-		
-		return rc;
-	}
-
-	@Override
-	public StringBuffer put(Price price) {
-		StringBuffer rc = new StringBuffer();
-		rc.append("{\n\"price\": ");
-		rc.append(price.getPrice());
-		rc.append(",\n\"currency\": ");
-		rc.append(put(price.getCurrency()));
-		rc.append("\n}");
-		
-		return rc;
+	public JsonSerializer(OutputStream out) {
+		this.out = out;
 	}
 	
 	@Override
-	public StringBuffer put(ProductData product) {
-		StringBuffer rc = new StringBuffer();
+	public void put(Currency currency) throws IOException {
+		writeHead();
 		
-		rc.append("{\n\"id\": ");
-		rc.append(product.getId());
+		writeVar("id", currency.getId());
+		writeVar("name", currency.getName());
 		
-		rc.append(",\n\"name\": \"");
-		rc.append(product.getName());
-		
-		rc.append("\",\n\"imageSrc\": \"");
-		rc.append(product.getImageSrc());
-		
-		rc.append("\",\n\"price\": ");
-		rc.append(put(product.getPrice()));
-		
-		rc.append(",\n\"quantity\": ");
-		rc.append(put(product.getQuantity()));
-
-		rc.append(",\n\"rating\": ");
-		rc.append(product.getRating());
-		
-		rc.append(",\n\"progress\": ");
-		rc.append(product.getProgress());
-		
-		rc.append("\n}");
-		return rc;
+		writeTail();
 	}
 
 	@Override
-	public StringBuffer put(Quantity quantity) {
-		// TODO Auto-generated method stub
-		StringBuffer rc = new StringBuffer();
+	public void put(Price price) throws IOException {
+		writeHead();
 		
-		rc.append("{\n\"quantity\": ");
-		rc.append(quantity.getQuantity());
-		rc.append(",\n\"unit\": ");
-		rc.append(put(quantity.getUnit()));
-		rc.append("\n}");
-		return rc;
-	}
-
-	@Override
-	public StringBuffer put(ReceiptData receipt) {
-		// TODO Auto-generated method stub
-		StringBuffer rc = new StringBuffer();
+		writeVar("price", price.getPrice());
+		writeVar("currency", price.getCurrency());
 		
-		return rc;
-	}
-
-	@Override
-	public StringBuffer put(ServerResponse response) {
-		// TODO Auto-generated method stub
-		StringBuffer rc = new StringBuffer();
-		rc.append("{\n\"status\": \"");
-		rc.append(response.getStatusName());
-		rc.append("\",\n\"response\": ");
-		
-		rc.append(putAny(response.getEntity()));
-		
-		rc.append("\n}");
-		return rc;
+		writeTail();
 	}
 	
 	@Override
-	public StringBuffer put(ShopData shop) {
-		// TODO Auto-generated method stub
-		StringBuffer rc = new StringBuffer();
+	public void put(ProductData product) throws IOException {
+		writeHead();
 		
-		rc.append("{\n\"id\": ");
-		rc.append(shop.getId());
+		writeVar("id", product.getId());
+		writeVar("name", product.getName());
+		writeVar("imageSrc", product.getImageSrc());
+		writeVar("price", product.getPrice());
+		writeVar("quantity", product.getQuantity());
+		writeVar("rating", product.getRating());
+		writeVar("progress", product.getProgress());
 		
-		rc.append("\n}");
-		
-		return rc;
+		writeTail();
 	}
 
 	@Override
-	public StringBuffer put(Unit unit) {
+	public void put(Quantity quantity) throws IOException {
+		writeHead();
+		writeVar("quantity", quantity.getQuantity());
+		writeVar("unit", quantity.getUnit());
+		writeTail();
+	}
+
+	@Override
+	public void put(ReceiptData receipt) throws IOException {
 		// TODO Auto-generated method stub
-		StringBuffer rc = new StringBuffer();
-		
-		rc.append("{\n\"id\": ");
-		rc.append(unit.getId());
-		
-		rc.append(",\n\"name\": \"");
-		rc.append(unit.getName());
-		rc.append('"');
+	}
+
+	@Override
+	public void put(ServerResponse response) throws IOException {
+		writeHead();
+		writeVar("status", response.getStatusName());
+		writeVar("response", response.getEntity());
+		writeTail();
+	}
+	
+	@Override
+	public void put(ShopData shop) throws IOException {
+		writeHead();
+		writeVar("id", shop.getId());
+		// TODO Auto-generated method stub
+		writeTail();
+	}
+
+	@Override
+	public void put(Unit unit) throws IOException {
+		writeHead();
+		writeVar("id", unit.getId());
+		writeVar("name", unit.getName());
 		
 		if (unit.getFallbackId() > 0) {
-			rc.append(",\n\"siUnit\": ");
-			rc.append(unit.getFallbackId());
-			rc.append(",\n\"factor\": ");
-			rc.append(unit.getFactor());
+			writeVar("siUnit", unit.getFallbackId());
+			writeVar("factor", unit.getFactor());
 		}
-		rc.append("\n}");
-		return rc;
+		writeTail();
+	}
+	
+	protected void writeHead() throws IOException {
+		out.write("{\n".getBytes());
+		firstElem = true;
+	}
+	
+	protected void writeTail() throws IOException {
+		out.write("\n}".getBytes());
+	}
+	
+	private void writeVarName(String name) throws IOException {
+		if (!firstElem) out.write(",\n".getBytes());
+		out.write("\"".getBytes());
+		out.write(name.getBytes());
+		out.write("\": ".getBytes());
+		firstElem = false;
+	}
+	
+	protected void writeVar(String name, String value) throws IOException {
+		writeVarName(name);
+		if (value != null) {
+			out.write("\"".getBytes());
+			out.write(value.getBytes());
+			out.write("\"".getBytes());
+		}
+		else out.write("null".getBytes());
+	}
+	
+	protected void writeVar(String name, long value) throws IOException {
+		writeVarName(name);
+		out.write(new Long(value).toString().getBytes());
+	}
+	
+	protected void writeVar(String name, double value) throws IOException {
+		writeVarName(name);
+		out.write(new Double(value).toString().getBytes());
+	}
+	
+	protected void writeVar(String name, Entity value) throws IOException {
+		writeVarName(name);
+		if (value != null) putAny(value);
+		else out.write("null".getBytes());
 	}
 }
