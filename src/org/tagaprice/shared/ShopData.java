@@ -32,6 +32,8 @@ public class ShopData implements Entity {
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
+	
+	/// TODO create class Address (instead of the stray fields currently
 	private String street;
 	private String city;
 	private String country;

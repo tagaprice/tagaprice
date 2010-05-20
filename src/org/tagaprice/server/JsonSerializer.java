@@ -66,6 +66,8 @@ public class JsonSerializer extends EntitySerializer {
 		writeVar("quantity", product.getQuantity());
 		writeVar("rating", product.getRating());
 		writeVar("progress", product.getProgress());
+		/// TODO create class PropertyList and introduce the corresponding EntitySerializer-function
+		//writeVar("properties", product.getProperties());
 		
 		writeTail();
 	}
@@ -95,7 +97,12 @@ public class JsonSerializer extends EntitySerializer {
 	public void put(ShopData shop) throws IOException {
 		writeHead();
 		writeVar("id", shop.getId());
-		// TODO Auto-generated method stub
+		writeVar("name", shop.getName());
+		writeVar("rating", shop.getRating());
+		writeVar("progress", shop.getProgress());
+		// TODO add other properties
+		// TODO create class PropertyList extends ArrayList<PropertyData>
+		//writeVar("properties", shop.getProperties());
 		writeTail();
 	}
 
