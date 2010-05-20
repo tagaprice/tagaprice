@@ -27,6 +27,7 @@ public class Type {
 		title=_title;
 		superType = _superType;
 		properties.add(superType.getProperties());
+		properties = new PropertyList();
 		
 	}
 	
@@ -34,6 +35,7 @@ public class Type {
 	public Type(String _title){
 		title=_title;
 		superType = this;
+		properties = new PropertyList();
 	}
 	
 	public PropertyList getProperties(){
