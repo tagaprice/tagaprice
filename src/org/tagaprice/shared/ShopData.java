@@ -21,7 +21,7 @@ package org.tagaprice.shared;
  * shop. 
  *
  */
-public class ShopData implements Entity, Serializable {
+public class ShopData implements Entity {
 	private static final long serialVersionUID = 1;
 	
 	private int id;

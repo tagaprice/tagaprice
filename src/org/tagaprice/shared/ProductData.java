@@ -19,7 +19,7 @@ package org.tagaprice.shared;
  * product. 
  *
  */
-public class ProductData implements Entity, Serializable {
+public class ProductData implements Entity {
 	private static final long serialVersionUID = 1L;
 
 	private long id;

@@ -24,7 +24,7 @@ import java.util.Date;
  * Contains all important information to represent a receipt. 
  *
  */
-public class ReceiptData implements Entity, Serializable {
+public class ReceiptData implements Entity {
 	private static final long serialVersionUID = 1L;
 
 	private int id;

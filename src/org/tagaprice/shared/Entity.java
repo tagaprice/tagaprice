@@ -14,6 +14,6 @@
 */
 package org.tagaprice.shared;
 
-public interface Entity {
+public interface Entity extends Serializable {
 	
 }
