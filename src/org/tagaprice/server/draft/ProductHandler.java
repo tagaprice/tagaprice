@@ -53,13 +53,10 @@ public class ProductHandler implements ApiCall {
 	public void save(ApiCallData d) {
 		JsonDeserializer des = new JsonDeserializer();
 		try {
-			JSONObject json = new JSONObject("{\"status\"=\"ok\", \"type\"=\"price\", \"response\"={\"price\": 120, \"currency\": {\"id\": 23,\"name\": \"€\"}}}");
+			String json = "{\"status\"=\"ok\", \"type\"=\"price\", \"response\"={\"price\": 120, \"currency\": {\"id\": 23,\"name\": \"€\"}}}";
 			ServerResponse response = des.getServerResponse(json);
 			d.setResponse(response);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

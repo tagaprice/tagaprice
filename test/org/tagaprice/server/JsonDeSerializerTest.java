@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.Currency;
@@ -48,8 +47,7 @@ public class JsonDeSerializerTest {
 	public void testCurrency() throws Exception {
 		Currency currency = new Currency(23, "EUR");
 		serializer.put(currency);
-		JSONObject json = new JSONObject(out.toString());
-		Currency newCurrency = deserializer.getCurrency(json);
+		Currency newCurrency = deserializer.getCurrency(out.toString());
 		
 		assertEquals(currency, newCurrency);
 	}
@@ -59,8 +57,7 @@ public class JsonDeSerializerTest {
 		Currency currency = new Currency(23, null);
 		
 		serializer.put(currency);
-		JSONObject json = new JSONObject(out.toString());
-		Currency newCurrency = deserializer.getCurrency(json);
+		Currency newCurrency = deserializer.getCurrency(out.toString());
 		
 		assertEquals(currency, newCurrency);
 	}
@@ -70,8 +67,7 @@ public class JsonDeSerializerTest {
 		Price price = new Price(1234, 23, "EUR");
 		
 		serializer.put(price);
-		JSONObject json = new JSONObject (out.toString());
-		Price newPrice = deserializer.getPrice(json);
+		Price newPrice = deserializer.getPrice(out.toString());
 		
 		assertEquals(price, newPrice);
 	}
@@ -81,8 +77,7 @@ public class JsonDeSerializerTest {
 		Price price = new Price(1234, null);
 		
 		serializer.put(price);
-		JSONObject json = new JSONObject (out.toString());
-		Price newPrice = deserializer.getPrice(json);
+		Price newPrice = deserializer.getPrice(out.toString());
 		
 		assertEquals(price, newPrice);
 	}

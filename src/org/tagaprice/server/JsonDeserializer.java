@@ -33,8 +33,10 @@ import org.tagaprice.shared.ServerResponse.StatusCode;
 
 public class JsonDeserializer extends Deserializer {
 	@Override
-	public Currency getCurrency(JSONObject json) throws IOException {
+	public Currency getCurrency(String data) throws IOException {
 		try {
+			JSONObject json = new JSONObject(data);
+
 			// {"id": 23,"name": "€"}
 			long id = json.getLong("id");
 			String name = json_getString(json, "name");
@@ -45,12 +47,14 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public Price getPrice(JSONObject json) throws IOException {
+	public Price getPrice(String data) throws IOException {
 		Price rc = null;
-		// {"price": 120, "currency": Currency }
 		try {
+			JSONObject json = new JSONObject(data);
+
+			// {"price": 120, "currency": Currency }
 			int price = json.getInt("price");
-			Currency currency = getCurrency(json.getJSONObject("currency"));
+			Currency currency = getCurrency(json.getString("currency"));
 			rc = new Price(price, currency);
 		}
 		catch (JSONException e) {
@@ -60,10 +64,12 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public ProductData getProduct(JSONObject json) throws IOException {
+	public ProductData getProduct(String data) throws IOException {
 		ProductData rc = null;
 		
 		try {
+			JSONObject json = new JSONObject(data);
+			
 			long id = json.getLong("id");
 			long brandId = json.getLong("brandId");
 			long typeId = json.getLong("typeId");
@@ -71,8 +77,8 @@ public class JsonDeserializer extends Deserializer {
 			String imageSrc = json_getString(json, "imgSrc");
 			int progress = json.getInt("progress");
 			int rating = json.getInt("rating");
-			Price price = getPrice(json.getJSONObject("price"));
-			Quantity quantity = getQuantity(json.getJSONObject("quantity"));
+			Price price = getPrice(json.getString("price"));
+			Quantity quantity = getQuantity(json.getString("quantity"));
 			boolean hasReceipt = json.getBoolean("private"); //TODO shouldn't this be done in a different way???
 			
 			rc = new ProductData(id, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
@@ -84,14 +90,16 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public PropertyData getProperty(JSONObject json) throws IOException {
+	public PropertyData getProperty(String data) throws IOException {
 		PropertyData rc = null;
 		
 		try {
+			JSONObject json = new JSONObject(data);
+			
 			String name = json_getString(json, "name");
 			String title = json_getString(json, "title");
 			String value = json_getString(json, "value");
-			Unit unit = getUnit(json.getJSONObject("unit"));
+			Unit unit = getUnit(json.getString("unit"));
 			rc = new PropertyData(name, title, value, unit);
 		}
 		catch (JSONException e) {
@@ -101,7 +109,7 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public PropertyList getPropertyList(JSONObject json) throws IOException {
+	public PropertyList getPropertyList(String data) throws IOException {
 		PropertyList rc = null;
 		
 		try {
@@ -115,13 +123,14 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public Quantity getQuantity(JSONObject json) throws IOException {
+	public Quantity getQuantity(String data) throws IOException {
 		Quantity rc = null;
 		
 		try {
+			JSONObject json = new JSONObject(data);
             // {"quantity": 1, "unit": Unit}
 			int quantity = json.getInt("quantity");
-			Unit unit = getUnit(json.getJSONObject("unit"));
+			Unit unit = getUnit(json.getString("unit"));
 			rc = new Quantity(quantity, unit);
 		}
 		catch (JSONException e) {
@@ -131,10 +140,11 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public ReceiptData getReceipt(JSONObject json) throws IOException {
+	public ReceiptData getReceipt(String data) throws IOException {
 		ReceiptData rc = null;
 		
 		try {
+
 			/// TODO implement me
 			if (rc == null) throw new JSONException("Error: Not yet implemented!");
 		}
@@ -145,14 +155,16 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public ServerResponse getServerResponse(JSONObject json) throws IOException {
+	public ServerResponse getServerResponse(String data) throws IOException {
 		ServerResponse rc = null;
 		try {
+			JSONObject json = new JSONObject(data);
+			
 			String status = json_getString(json, "status");
 			Serializable response = null;
 			if (!json.isNull("response")) {
 				String type = json_getString(json, "type");
-				response = getAny(json.getJSONObject("response"), type);
+				response = getAny(json.getString("response"), type);
 			}
 			rc = new ServerResponse(StatusCode.getByName(status), response);
 		} catch (JSONException e) {
@@ -163,7 +175,7 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public ShopData getShop(JSONObject json) throws IOException {
+	public ShopData getShop(String data) throws IOException {
 		ShopData rc = null;
 		
 		try {
@@ -177,10 +189,11 @@ public class JsonDeserializer extends Deserializer {
 	}
 
 	@Override
-	public Unit getUnit(JSONObject json) throws IOException {
+	public Unit getUnit(String data) throws IOException {
 		Unit rc = null;
 		
 		try {
+			JSONObject json = new JSONObject(data);
 			// {"id": 23, "name": "g"}
 			long id = json.getLong("id");
 			String name = json_getString(json, "name");
