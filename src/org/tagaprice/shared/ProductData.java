@@ -47,9 +47,9 @@ public class ProductData implements Entity {
 	 * @param quantitiy
 	 */
 	public ProductData(
-			int id,
-			int brandId,
-			int typeId,
+			long id,
+			long brandId,
+			long typeId,
 			String name,
 			String imageSrc,
 			int progress,
@@ -85,9 +85,9 @@ public class ProductData implements Entity {
 	 * @param hasReceipt
 	 */
 	public ProductData(
-			int id,
-			int brandId,
-			int typeId,
+			long id,
+			long brandId,
+			long typeId,
 			String name,
 			String imageSrc,
 			int progress,
