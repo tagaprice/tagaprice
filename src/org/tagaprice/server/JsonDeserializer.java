@@ -37,7 +37,7 @@ public class JsonDeserializer extends Deserializer {
 		try {
 			// {"id": 23,"name": "€"}
 			long id = json.getLong("id");
-			String name = json.getString("name");
+			String name = json_getString(json, "name");
 			return new Currency(id, name);
 		} catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -67,8 +67,8 @@ public class JsonDeserializer extends Deserializer {
 			long id = json.getLong("id");
 			long brandId = json.getLong("brandId");
 			long typeId = json.getLong("typeId");
-			String name = json.getString("name");
-			String imageSrc = json.getString("imgSrc");
+			String name = json_getString(json, "name");
+			String imageSrc = json_getString(json, "imgSrc");
 			int progress = json.getInt("progress");
 			int rating = json.getInt("rating");
 			Price price = getPrice(json.getJSONObject("price"));
@@ -88,9 +88,9 @@ public class JsonDeserializer extends Deserializer {
 		PropertyData rc = null;
 		
 		try {
-			String name = json.getString("name");
-			String title = json.getString("title");
-			String value = json.getString("value");
+			String name = json_getString(json, "name");
+			String title = json_getString(json, "title");
+			String value = json_getString(json, "value");
 			Unit unit = getUnit(json.getJSONObject("unit"));
 			rc = new PropertyData(name, title, value, unit);
 		}
@@ -148,10 +148,10 @@ public class JsonDeserializer extends Deserializer {
 	public ServerResponse getServerResponse(JSONObject json) throws IOException {
 		ServerResponse rc = null;
 		try {
-			String status = json.getString("status");
+			String status = json_getString(json, "status");
 			Serializable response = null;
 			if (!json.isNull("response")) {
-				String type = json.getString("type");
+				String type = json_getString(json, "type");
 				response = getAny(json.getJSONObject("response"), type);
 			}
 			rc = new ServerResponse(StatusCode.getByName(status), response);
@@ -183,13 +183,23 @@ public class JsonDeserializer extends Deserializer {
 		try {
 			// {"id": 23, "name": "g"}
 			long id = json.getLong("id");
-			String name = json.getString("name");
+			String name = json_getString(json, "name");
 			rc = new Unit(id, name);
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
 		}
 		return rc;
+	}
+	
+	/**
+	 * bug fixed version of JSONObject.getString() which returns null instead of
+	 * "null" if the JSON value was null
+	 */
+	private String json_getString(JSONObject json, String key) throws JSONException {
+		String value = null;
+		if (!json.isNull(key)) value = json.getString(key);
+		return value;
 	}
 
 }
