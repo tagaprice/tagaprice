@@ -20,7 +20,6 @@ package org.tagaprice.server;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -28,28 +27,24 @@ import org.junit.Test;
 import org.tagaprice.shared.Currency;
 
 /**
- * @author manuel
+ * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
+ * Therefore the Serializable classes have to implement the equals() function.
+ * @author Manuel Reithuber
  *
  */
 public class JsonDeSerializerTest {
 	private JsonSerializer serializer;
 	private JsonDeserializer deserializer;
 	ByteArrayOutputStream out = new ByteArrayOutputStream();
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		serializer = new JsonSerializer(out);
 		deserializer = new JsonDeserializer();
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.Currency)}.
-	 * @throws IOException 
-	 */
 	@Test
-	public void testPutCurrency() throws Exception {
+	public void testCurrency() throws Exception {
 		Currency currency = new Currency(23, "EUR");
 		serializer.put(currency);
 		JSONObject json = new JSONObject(out.toString());
@@ -57,85 +52,60 @@ public class JsonDeSerializerTest {
 		
 		assertEquals(currency, newCurrency);
 	}
-
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.Price)}.
-	 */
+	
 	@Test
-	public void testPutPrice() {
+	public void testCurrency_noName() throws Exception {
+		Currency currency = new Currency(23, null);
+		
+		serializer.put(currency);
+		JSONObject json = new JSONObject(out.toString());
+		Currency newCurrency = deserializer.getCurrency(json);
+		
+		assertEquals(currency, newCurrency);
+	}
+
+	@Test
+	public void testPrice() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.ProductData)}.
-	 */
 	@Test
-	public void testPutProductData() {
+	public void testProductData() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.PropertyData)}.
-	 */
 	@Test
-	public void testPutPropertyData() {
+	public void testPropertyData() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.PropertyList)}.
-	 */
 	@Test
-	public void testPutPropertyList() {
+	public void testPropertyList() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.Quantity)}.
-	 */
 	@Test
-	public void testPutQuantity() {
+	public void testQuantity() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.ReceiptData)}.
-	 */
 	@Test
-	public void testPutReceiptData() {
+	public void testReceiptData() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.ServerResponse)}.
-	 */
 	@Test
-	public void testPutServerResponse() {
+	public void testServerResponse() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.ShopData)}.
-	 */
 	@Test
-	public void testPutShopData() {
+	public void tetShopData() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#put(org.tagaprice.shared.Unit)}.
-	 */
 	@Test
-	public void testPutUnit() {
+	public void testUnit() {
 		fail("Not yet implemented");
 	}
-
-	/**
-	 * Test method for {@link org.tagaprice.server.JsonSerializer#JsonSerializer(java.io.OutputStream)}.
-	 */
-	@Test
-	public void testJsonSerializer() {
-		fail("Not yet implemented");
-	}
-
 }
