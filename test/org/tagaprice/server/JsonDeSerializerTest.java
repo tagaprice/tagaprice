@@ -20,11 +20,16 @@ package org.tagaprice.server;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
+import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.Unit;
 
 /**
  * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
@@ -45,46 +50,64 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testCurrency() throws Exception {
-		Currency currency = new Currency(23, "EUR");
-		serializer.put(currency);
-		Currency newCurrency = deserializer.getCurrency(out.toString());
-		
-		assertEquals(currency, newCurrency);
+		doSerialize(new Currency(23, "EUR"));
 	}
 	
 	@Test
 	public void testCurrency_nullName() throws Exception {
-		Currency currency = new Currency(23, null);
-		
-		serializer.put(currency);
-		Currency newCurrency = deserializer.getCurrency(out.toString());
-		
-		assertEquals(currency, newCurrency);
+		doSerialize(new Currency(23, null));
 	}
 
 	@Test
 	public void testPrice() throws Exception {
-		Price price = new Price(1234, 23, "EUR");
-		
-		serializer.put(price);
-		Price newPrice = deserializer.getPrice(out.toString());
-		
-		assertEquals(price, newPrice);
+		doSerialize(new Price(1234, 23, "EUR"));
 	}
 	
 	@Test
 	public void testPrice_nullCurrency() throws Exception {
-		Price price = new Price(1234, null);
-		
-		serializer.put(price);
-		Price newPrice = deserializer.getPrice(out.toString());
-		
-		assertEquals(price, newPrice);
+		doSerialize(new Price(1234, null));
 	}
 
 	@Test
-	public void testProductData() {
-		fail("Not yet implemented");
+	public void testProduct() throws IOException {
+		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
+				new Quantity(2, new Unit(14, "t")), false));
+	}
+
+	@Test
+	public void testProduct_noBrand() throws IOException {
+		doSerialize(new ProductData(23, -1, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
+				new Quantity(2, new Unit(14, "t")), false));
+	}
+
+	@Test
+	public void testProduct_noName() throws IOException {
+		doSerialize(new ProductData(23, 24, 25, null,
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
+				new Quantity(2, new Unit(14, "t")), false));
+	}
+
+	@Test
+	public void testProduct_noImage() throws IOException {
+		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+				null, 80, 20, new Price(112584, 13, "EUR"),
+				new Quantity(2, new Unit(14, "t")), false));
+	}
+
+	@Test
+	public void testProduct_noPrice() throws IOException {
+		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, null,
+				new Quantity(2, new Unit(14, "t")), false));
+	}
+
+	@Test
+	public void testProduct_noQuantity() throws IOException {
+		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
+				null, false));
 	}
 
 	@Test
@@ -120,5 +143,13 @@ public class JsonDeSerializerTest {
 	@Test
 	public void testUnit() {
 		fail("Not yet implemented");
+	}
+	
+	
+	public void doSerialize(Serializable obj) throws IOException {
+		serializer.putAny(obj);
+		Serializable newObj = deserializer.getAny(out.toString(), obj.getSerializeName());
+		
+		assertEquals(obj, newObj);
 	}
 }
