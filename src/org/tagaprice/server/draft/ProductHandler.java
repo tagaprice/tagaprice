@@ -14,13 +14,19 @@
 */
 package org.tagaprice.server.draft;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
+import org.tagaprice.server.JsonDeserializer;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.Unit;
 
 public class ProductHandler implements ApiCall {
@@ -32,15 +38,31 @@ public class ProductHandler implements ApiCall {
 	/// TODO figure out the best way to get the request parameters (e.g. product id, search string, ...
 	@Override
 	public void onCall(String function, ApiCallData d) {
-		if (function.equals("get")) doGet(d);
+		if (function.equals("get")) get(d);
+		else if (function.equals("save")) save(d);
 	}
 	
-	public void doGet(ApiCallData d) {
+	public void get(ApiCallData d) {
 		ProductData product = new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false);
 		PropertyList propList = new PropertyList();
 		propList.add(new PropertyData("weight", "Weight", "123", new Unit(23, "g")));
 		product.setProperties(propList);
 		d.setResponse(product);
+	}
+	
+	public void save(ApiCallData d) {
+		JsonDeserializer des = new JsonDeserializer();
+		try {
+			JSONObject json = new JSONObject("{\"status\"=\"ok\", \"type\"=\"price\", \"response\"={\"price\": 120, \"currency\": {\"id\": 23,\"name\": \"€\"}}}");
+			ServerResponse response = des.getServerResponse(json);
+			d.setResponse(response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
