@@ -99,6 +99,11 @@ public class PropertyData implements Entity{
 		return readCount;
 	}
 
+	@Override
+	public String getSerializeName() {
+		return "property";
+	}
+
 
 	
 	

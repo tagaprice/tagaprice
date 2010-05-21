@@ -25,4 +25,10 @@ public class PropertyList extends ArrayList<PropertyData> implements Serializabl
 		}
 	}
 
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "propertyList";
+	}
+
 }

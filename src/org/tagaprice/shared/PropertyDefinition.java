@@ -17,8 +17,9 @@ package org.tagaprice.shared;
 /**
  * Describes a property
  * **/
-public class PropertyDefinition {
-	
+public class PropertyDefinition implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private long id;
 	private String name;
 	private String title;
@@ -98,6 +99,12 @@ public class PropertyDefinition {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "propertyDefinition";
 	}
 	
 	

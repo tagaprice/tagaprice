@@ -52,4 +52,9 @@ public class Quantity implements Serializable {
 	public void setUnit(long unitId, String unitName) {
 		setUnit(new Unit(unitId, unitName));
 	}
+
+	@Override
+	public String getSerializeName() {
+		return "quantity";
+	}
 }

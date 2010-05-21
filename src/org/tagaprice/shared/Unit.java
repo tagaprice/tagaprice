@@ -48,4 +48,10 @@ public class Unit implements Serializable {
 	public double getFactor() {
 		return factor;
 	}
+
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "unit";
+	}
 }

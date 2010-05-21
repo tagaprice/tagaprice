@@ -266,5 +266,11 @@ public class ShopData implements Entity {
 	public void setProperties(PropertyList properties) {
 		this.properties = properties;
 	}
+
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "shop";
+	}
 	
 }

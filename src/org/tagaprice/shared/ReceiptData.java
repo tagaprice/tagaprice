@@ -173,5 +173,10 @@ public class ReceiptData implements Entity {
 			ArrayList<ProductData> productData) {
 		this.productData = productData;
 	}
+
+	@Override
+	public String getSerializeName() {
+		return "receipt";
+	}
 	
 }

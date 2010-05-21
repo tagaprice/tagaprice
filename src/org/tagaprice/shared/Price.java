@@ -48,4 +48,9 @@ public class Price implements Serializable {
 	public void setCurrency(long currencyId, String currencyName) {
 		setCurrency(new Currency(currencyId, currencyName));
 	}
+
+	@Override
+	public String getSerializeName() {
+		return "price";
+	}
 }

@@ -32,4 +32,9 @@ public class Currency implements Serializable {
 	public String getName() {
 		return name;
 	}
+
+	@Override
+	public String getSerializeName() {
+		return "currency";
+	}
 }

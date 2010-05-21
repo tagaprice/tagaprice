@@ -285,7 +285,10 @@ public class ProductData implements Entity {
 	public void setProperties(PropertyList properties) {
 		this.properties = properties;
 	}
-	
-	
-	
+
+
+	@Override
+	public String getSerializeName() {
+		return "product";
+	}
 }

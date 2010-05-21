@@ -20,5 +20,5 @@ package org.tagaprice.shared;
  *
  */
 public interface Serializable extends java.io.Serializable {
-
+	public String getSerializeName();
 }
