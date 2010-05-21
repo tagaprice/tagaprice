@@ -34,28 +34,35 @@ import org.tagaprice.shared.ServerResponse.StatusCode;
 public class JsonDeserializer extends Deserializer {
 	@Override
 	public Currency getCurrency(String data) throws IOException {
-		try {
-			JSONObject json = new JSONObject(data);
+		Currency rc = null;
 
-			// {"id": 23,"name": "€"}
-			long id = json.getLong("id");
-			String name = json_getString(json, "name");
-			return new Currency(id, name);
+		try {
+			if (data != null) {
+				JSONObject json = new JSONObject(data);
+	
+				// {"id": 23,"name": "€"}
+				long id = json.getLong("id");
+				String name = json_getString(json, "name");
+				rc = new Currency(id, name);
+			}
 		} catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
 		}
+		return rc;
 	}
 
 	@Override
 	public Price getPrice(String data) throws IOException {
 		Price rc = null;
 		try {
-			JSONObject json = new JSONObject(data);
-
-			// {"price": 120, "currency": Currency }
-			int price = json.getInt("price");
-			Currency currency = getCurrency(json.getString("currency"));
-			rc = new Price(price, currency);
+			if (data != null) {
+				JSONObject json = new JSONObject(data);
+	
+				// {"price": 120, "currency": Currency }
+				int price = json.getInt("price");
+				Currency currency = getCurrency(json_getString(json, "currency"));
+				rc = new Price(price, currency);
+			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -77,8 +84,8 @@ public class JsonDeserializer extends Deserializer {
 			String imageSrc = json_getString(json, "imgSrc");
 			int progress = json.getInt("progress");
 			int rating = json.getInt("rating");
-			Price price = getPrice(json.getString("price"));
-			Quantity quantity = getQuantity(json.getString("quantity"));
+			Price price = getPrice(json_getString(json, "price"));
+			Quantity quantity = getQuantity(json_getString(json, "quantity"));
 			boolean hasReceipt = json.getBoolean("private"); //TODO shouldn't this be done in a different way???
 			
 			rc = new ProductData(id, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
@@ -99,7 +106,7 @@ public class JsonDeserializer extends Deserializer {
 			String name = json_getString(json, "name");
 			String title = json_getString(json, "title");
 			String value = json_getString(json, "value");
-			Unit unit = getUnit(json.getString("unit"));
+			Unit unit = getUnit(json_getString(json, "unit"));
 			rc = new PropertyData(name, title, value, unit);
 		}
 		catch (JSONException e) {
@@ -130,7 +137,7 @@ public class JsonDeserializer extends Deserializer {
 			JSONObject json = new JSONObject(data);
             // {"quantity": 1, "unit": Unit}
 			int quantity = json.getInt("quantity");
-			Unit unit = getUnit(json.getString("unit"));
+			Unit unit = getUnit(json_getString(json, "unit"));
 			rc = new Quantity(quantity, unit);
 		}
 		catch (JSONException e) {
@@ -164,7 +171,7 @@ public class JsonDeserializer extends Deserializer {
 			Serializable response = null;
 			if (!json.isNull("response")) {
 				String type = json_getString(json, "type");
-				response = getAny(json.getString("response"), type);
+				response = getAny(json_getString(json, "response"), type);
 			}
 			rc = new ServerResponse(StatusCode.getByName(status), response);
 		} catch (JSONException e) {
