@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.Price;
 
 /**
  * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
@@ -54,7 +55,7 @@ public class JsonDeSerializerTest {
 	}
 	
 	@Test
-	public void testCurrency_noName() throws Exception {
+	public void testCurrency_nullName() throws Exception {
 		Currency currency = new Currency(23, null);
 		
 		serializer.put(currency);
@@ -65,8 +66,25 @@ public class JsonDeSerializerTest {
 	}
 
 	@Test
-	public void testPrice() {
-		fail("Not yet implemented");
+	public void testPrice() throws Exception {
+		Price price = new Price(1234, 23, "EUR");
+		
+		serializer.put(price);
+		JSONObject json = new JSONObject (out.toString());
+		Price newPrice = deserializer.getPrice(json);
+		
+		assertEquals(price, newPrice);
+	}
+	
+	@Test
+	public void testPrice_nullCurrency() throws Exception {
+		Price price = new Price(1234, null);
+		
+		serializer.put(price);
+		JSONObject json = new JSONObject (out.toString());
+		Price newPrice = deserializer.getPrice(json);
+		
+		assertEquals(price, newPrice);
 	}
 
 	@Test
