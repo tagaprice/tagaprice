@@ -114,7 +114,10 @@ public class JsonSerializer extends Serializer {
 	public void put(ServerResponse response) throws IOException {
 		writeHead();
 		writeVar("status", response.getStatusName(), true);
-		writeVar("response", response.getResponse(), false);
+		if (response.getResponse() != null) {
+			writeVar("type", response.getResponse().getSerializeName(), true);
+			writeVar("response", response.getResponse(), false);
+		}
 		writeTail();
 	}
 	
