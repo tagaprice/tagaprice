@@ -57,4 +57,21 @@ public class Quantity implements Serializable {
 	public String getSerializeName() {
 		return "quantity";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof Quantity) {
+			Quantity q = (Quantity) o;
+			if (getQuantity() != q.getQuantity()) rc = false;
+			else if (getUnit() != null) {
+				if (!getUnit().equals(q.getUnit())) rc = false;
+			}
+			else if (q.getUnit() != null) rc = false;
+		}
+		else rc = false;
+		
+		return rc;
+	}
 }

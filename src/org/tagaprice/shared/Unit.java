@@ -54,4 +54,21 @@ public class Unit implements Serializable {
 		// TODO Auto-generated method stub
 		return "unit";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof Unit) {
+			Unit u = (Unit) o;
+			if (getId() != u.getId()) rc = false;
+			else if (getFactor() != u.getFactor()) rc = false;
+			else if (getName() != null) {
+				if (!getName().equals(u.getName())) rc = false;
+			}
+			else if (u.getName() != null) rc = false;
+			
+		}
+		return rc;
+	}
 }
