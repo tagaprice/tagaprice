@@ -53,4 +53,21 @@ public class Price implements Serializable {
 	public String getSerializeName() {
 		return "price";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+
+		if (o instanceof Price) {
+			Price p = (Price) o;
+			if (getPrice() != p.getPrice()) rc = false;
+			if (getCurrency() != null) {
+				if (!getCurrency().equals(p.getCurrency())) rc = false;
+			}
+			else if (p.getCurrency() != null) rc = false;
+		}
+		else rc = false;
+
+		return rc;
+	}
 }
