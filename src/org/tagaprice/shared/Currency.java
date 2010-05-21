@@ -44,7 +44,10 @@ public class Currency implements Serializable {
 		if (o instanceof Currency) {
 			Currency cur = (Currency) o;
 			if (cur.getId() != getId()) rc = false;
-			if (!cur.getName().equals(getName())) rc = false;
+			if (getName() != null) {
+				if (!getName().equals(cur.getName())) rc = false;
+			}
+			else if (cur.getName() != null) rc = false;
 		}
 		else rc = false;
 		return rc;
