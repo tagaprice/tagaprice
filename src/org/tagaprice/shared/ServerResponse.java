@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared;
 
-public class ServerResponse {
+public class ServerResponse implements Serializable {
 	public enum StatusCode {
 		Ok,
 		AccessDenied,
@@ -46,5 +46,10 @@ public class ServerResponse {
 		else if (status == StatusCode.NotFound) rc = "notfound";
 		
 		return rc;
+	}
+
+	@Override
+	public String getSerializeName() {
+		return "serverResponse";
 	}
 }
