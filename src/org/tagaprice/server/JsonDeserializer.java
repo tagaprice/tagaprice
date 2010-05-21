@@ -61,32 +61,87 @@ public class JsonDeserializer extends Deserializer {
 
 	@Override
 	public ProductData getProduct(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		ProductData rc = null;
+		
+		try {
+			long id = json.getLong("id");
+			long brandId = json.getLong("brandId");
+			long typeId = json.getLong("typeId");
+			String name = json.getString("name");
+			String imageSrc = json.getString("imgSrc");
+			int progress = json.getInt("progress");
+			int rating = json.getInt("rating");
+			Price price = getPrice(json.getJSONObject("price"));
+			Quantity quantity = getQuantity(json.getJSONObject("quantity"));
+			boolean hasReceipt = json.getBoolean("private"); //TODO shouldn't this be done in a different way???
+			
+			rc = new ProductData(id, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
 	public PropertyData getProperty(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		PropertyData rc = null;
+		
+		try {
+			String name = json.getString("name");
+			String title = json.getString("title");
+			String value = json.getString("value");
+			Unit unit = getUnit(json.getJSONObject("unit"));
+			rc = new PropertyData(name, title, value, unit);
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
 	public PropertyList getPropertyList(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		PropertyList rc = null;
+		
+		try {
+			/// TODO implement me
+			if (rc == null) throw new JSONException("Error: Not yet implemented!");
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
 	public Quantity getQuantity(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		Quantity rc = null;
+		
+		try {
+            // {"quantity": 1, "unit": Unit}
+			int quantity = json.getInt("quantity");
+			Unit unit = getUnit(json.getJSONObject("unit"));
+			rc = new Quantity(quantity, unit);
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
 	public ReceiptData getReceipt(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		ReceiptData rc = null;
+		
+		try {
+			/// TODO implement me
+			if (rc == null) throw new JSONException("Error: Not yet implemented!");
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
@@ -109,14 +164,32 @@ public class JsonDeserializer extends Deserializer {
 
 	@Override
 	public ShopData getShop(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		ShopData rc = null;
+		
+		try {
+			/// TODO implement me
+			if (rc == null) throw new JSONException("Error: Not yet implemented!");
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 	@Override
 	public Unit getUnit(JSONObject json) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		Unit rc = null;
+		
+		try {
+			// {"id": 23, "name": "g"}
+			long id = json.getLong("id");
+			String name = json.getString("name");
+			rc = new Unit(id, name);
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
 	}
 
 }
