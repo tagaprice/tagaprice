@@ -37,4 +37,16 @@ public class Currency implements Serializable {
 	public String getSerializeName() {
 		return "currency";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+		if (o instanceof Currency) {
+			Currency cur = (Currency) o;
+			if (cur.getId() != getId()) rc = false;
+			if (!cur.getName().equals(getName())) rc = false;
+		}
+		else rc = false;
+		return rc;
+	}
 }
