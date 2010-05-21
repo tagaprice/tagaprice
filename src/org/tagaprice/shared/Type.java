@@ -21,13 +21,13 @@ public class Type {
 	private long id;
 	private String title;
 	private Type superType;
-	private ArrayList<PropertyDefinition> properties;
+	private ArrayList<PropertyGroup> properties;
 	
 	public Type(String _title, Type _superType){
 		title=_title;
 		superType = _superType;
-		properties.addAll(superType.getProperties());
-		properties = new ArrayList<PropertyDefinition>();
+		properties.addAll(superType.getPropertyGroups());
+		properties = new ArrayList<PropertyGroup>();
 		
 	}
 	
@@ -35,19 +35,19 @@ public class Type {
 	public Type(String _title){
 		title=_title;
 		superType = this;
-		properties = new ArrayList<PropertyDefinition>();
+		properties = new ArrayList<PropertyGroup>();
 	}
 	
-	public ArrayList<PropertyDefinition> getProperties(){
+	public ArrayList<PropertyGroup> getPropertyGroups(){
 		return properties;
 	}
 	
-	public void addProperties(ArrayList<PropertyDefinition> properties){
-		for(PropertyDefinition p: properties)
+	public void addPropertyGroups(ArrayList<PropertyGroup> properties){
+		for(PropertyGroup p: properties)
 		properties.add(p);
 	}
 	
-	public void addProperty(PropertyDefinition property){
+	public void addPropertyGroup(PropertyGroup property){
 		properties.add(property);
 	}	
 	

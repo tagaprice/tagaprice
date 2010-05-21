@@ -30,23 +30,32 @@ public class PropertyDefinition implements Serializable{
 	private int minValue;
 	private int maxValue;
 	private Unit unit;
+	private boolean unique;
 	
-	
-	public PropertyDefinition(long id, String name, String title, Datatype type, int minValue, int maxValue, Unit unit)
-	{ 	this(id, name, title, type, unit);
+	public PropertyDefinition(long id, String name, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
+	{ 	this(id, name, title, type, unit, unique);
   		this.minValue = minValue;
   		this.maxValue = maxValue;
 		
 	}
 	
-	public PropertyDefinition(long id, String name, String title, Datatype type, Unit unit){
+	public PropertyDefinition(long id, String name, String title, Datatype type, Unit unit, boolean unique){
 		this.id = id;
 		this.name=name;
 		this.title=title;
 		this.type = type;
 		this.unit=unit;
+		this.unique = unique;
 		maxValue=Integer.MAX_VALUE;
 		minValue=Integer.MIN_VALUE;
+	}
+
+	public boolean isUnique() {
+		return unique;
+	}
+
+	public void setUnique(boolean unique) {
+		this.unique = unique;
 	}
 
 	public long getId() {

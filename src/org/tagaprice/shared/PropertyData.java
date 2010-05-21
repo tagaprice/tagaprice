@@ -25,7 +25,7 @@ public class PropertyData implements Entity{
 	private String title;
 	private String value;
 	private Unit unit;
-	private int readCount=0;
+	private boolean read;
 	
 	
 	public PropertyData(
@@ -33,6 +33,7 @@ public class PropertyData implements Entity{
 			String title,
 			String value,
 			Unit unit) {
+		read=false;
 		setName(name);
 		setTitle(title);
 		setValue(value);
@@ -91,12 +92,12 @@ public class PropertyData implements Entity{
 	/**
 	 * Increments the readCount. 
 	 */
-	public void incReadCount(){
-		readCount++;
+	public void setRead(boolean read){
+		read=true;
 	}
 	
-	public int getReadCount(){
-		return readCount;
+	public boolean getRead(){
+		return read;
 	}
 
 	@Override

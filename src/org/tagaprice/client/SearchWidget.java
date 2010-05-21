@@ -27,7 +27,7 @@ public class SearchWidget extends Composite{
 	private ListWidget<EntityPreview> suggestList; 
 	private TaPManager tapManager;
 
-
+		
 	public SearchWidget(){
 		tapManager= TaPManagerImpl.getInstance();
 		suggestPanel = new VerticalPanel();
@@ -43,7 +43,11 @@ public class SearchWidget extends Composite{
 				} else if(event.getCharCode()==KeyCodes.KEY_UP){
 					suggestList.highlightPrevSuggestion();
 				}  else if(event.getCharCode()==KeyCodes.KEY_ENTER){	
-					//display page for  suggestList.getSelection();
+						 if(suggestList.getSelection()==null){
+							 // send search request 
+						 }else{
+							 // view 
+						 }
 					
 				}else sendSearchRequest(textBox.getText());
 			}
@@ -74,5 +78,7 @@ public class SearchWidget extends Composite{
 	private void sendSearchRequest(String input){
 		tapManager.search(input, this);
 	}
+	
+	
 
 }

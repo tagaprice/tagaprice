@@ -19,11 +19,7 @@ import java.util.ArrayList;
 public class PropertyList extends ArrayList<PropertyData> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public void add(PropertyList p){
-		for(PropertyData pd: p){
-			this.add(pd);
-		}
-	}
+	
 
 	@Override
 	public String getSerializeName() {

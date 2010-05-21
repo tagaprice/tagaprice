@@ -14,9 +14,12 @@
 */
 package org.tagaprice.client;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
@@ -27,29 +30,36 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ProductWidget extends Composite {
 
 	private ProductData productData;
+	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private TaPManager myMng = TaPManagerImpl.getInstance();
 	
 	public ProductWidget(ProductData productData) {
 		initWidget(vePa1);
 		this.productData=productData;
+		type=myMng.getType(productData.getTypeId());
 		
-		//GetType
+		
 		
 		//style
 		vePa1.setWidth("100%");
 		vePa1.add(new ProductPreview(this.productData, false));
 		
-		registerHandler();
+		
+		for(PropertyGroup pg:type.getPropertyGroups()){
+			registerHandler(pg);
+		}
 	}
 	
 	
-	private void registerHandler(){
+	private void registerHandler(PropertyGroup propGroup){
 		
-		
-		
-		//Test add ProptertyHandler
-		vePa1.add(new NutritionFactsPropertyHandler(this.productData.getProperties()));
-		vePa1.add(new DefaultPropertyHandler(this.productData.getProperties()));
+		if(propGroup.getType().equals(PropertyGroup.GroupType.DEFAULT))
+			vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), propGroup));
+		else if(propGroup.getType().equals(PropertyGroup.GroupType.LIST))
+			vePa1.add(new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup));
+	
 	}
+	
+	
 }

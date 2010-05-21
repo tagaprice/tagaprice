@@ -186,9 +186,10 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public Type getType(long id) {
 		Type type=new Type("Bueroklemmen");
-		PropertyDefinition pd1 = new PropertyDefinition(2, "weight", "gewicht", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"));
-		type.addProperty(pd1); 
-	
+		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.DEFAULT);
+		pg.addGroupElement(new PropertyDefinition(2, "weight", "gewicht", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),false)); 
+		pg.addGroupElement(new PropertyDefinition(3, "sugar", "zucker", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),false));
+		type.addPropertyGroup(pg);
 		return type;
 	}
 

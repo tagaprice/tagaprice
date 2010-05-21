@@ -18,13 +18,18 @@ import java.util.ArrayList;
 
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyGroup;
 
 import com.google.gwt.user.client.ui.Composite;
 
 abstract class PropertyHandler extends Composite {
 
-	public PropertyHandler(ArrayList<PropertyData> properties) {
-		
+	protected ArrayList<PropertyData> properties;
+	protected PropertyGroup propGroup;
+	
+	public PropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup) {
+		this.properties=properties;
+		this.propGroup = propGroup;
 	}
 	
 }

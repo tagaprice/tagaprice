@@ -26,12 +26,11 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	private VerticalPanel verticalPanel;
 	private int currentSelection=-1;
 
-
+	
 	public ListWidget(){
 		verticalPanel=new VerticalPanel();
 		verticalPanel.setWidth("100%");
 		initWidget(verticalPanel);
-
 	}
 
 	public ListWidget(ArrayList<Entity> entityData){
@@ -39,6 +38,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 		populateList(entityData);
 	}
 
+	
 	private void populateList(ArrayList<Entity> entityData){
 		verticalPanel.clear();
 
@@ -71,10 +71,10 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 
 
 	public void highlightPrevSuggestion(){
-		if(currentSelection!=0){
+		if(currentSelection>0){
 			verticalPanel.getWidget(currentSelection).removeStyleName("highlightSuggestion");
 		}
-		if(currentSelection>0){
+		if(currentSelection>=0){
 			currentSelection--;
 			verticalPanel.getWidget(currentSelection).addStyleName("highlightSuggestion");
 		}

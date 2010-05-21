@@ -20,24 +20,26 @@ import java.util.ListIterator;
 import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyGroup;
+
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
 public class DefaultPropertyHandler extends PropertyHandler {
 	
+	
 	Grid grid = new Grid(0, 2);
-	TitlePanel title = new TitlePanel("DefaultProperty", grid, TitlePanel.Level.H2);
-	ArrayList<PropertyData> properties;
+	TitlePanel title;
 	int rowSwap=-1;
 	boolean show=false;
 	
-	public DefaultPropertyHandler(ArrayList<PropertyData> properties) {
-		super(properties);
-		this.properties=properties;
+	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup) {
+		super(properties, propGroup);
 		grid.setWidth("100%");
 		grid.setStyleName("DefaultPropertyHandler");
+	
+		title = new TitlePanel(propGroup.getTitle(), grid, TitlePanel.Level.H2);
 		fillGrid();
-		
 		initWidget(title);
 	}
 	
@@ -45,7 +47,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		ListIterator<PropertyData> iter = properties.listIterator();
 		while(iter.hasNext()){
 			PropertyData temp = iter.next();
-			if(temp.getReadCount()==0){
+			if(temp.getRead()==false){
 				show=true;
 				grid.resize(grid.getRowCount()+1, 2);
 				grid.getCellFormatter().setWidth(0, 0, "100%");

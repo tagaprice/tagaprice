@@ -22,16 +22,21 @@ import java.util.ArrayList;
  * e.g. NutritionFacts is a group consisting of the PropertyDefinition for the Property "sugar", "fat", etc
  * 
  * **/
-
 public class PropertyGroup {
 
+	private String title;
+	public enum GroupType {DEFAULT, LIST}
+	private GroupType type;
 	private ArrayList<PropertyDefinition>  groupElements;
 	
-	public PropertyGroup(ArrayList<PropertyDefinition>  groupElements){
+	public PropertyGroup(String title, GroupType type, ArrayList<PropertyDefinition>  groupElements){
+		this(title, type);
 		this.groupElements = groupElements;
 	}
 	
-	public PropertyGroup(){
+	public PropertyGroup(String title, GroupType type){
+		this.type=type;
+		this.title=title;
 		groupElements = new ArrayList<PropertyDefinition>();
 	}
 	
@@ -46,5 +51,14 @@ public class PropertyGroup {
 	public ArrayList<PropertyDefinition> getGroupElements(){
 		return groupElements;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public GroupType getType() {
+		return type;
+	}
+	
 	
 }
