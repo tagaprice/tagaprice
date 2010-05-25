@@ -63,30 +63,29 @@ public class NutritionFactsPropertyHandler extends PropertyHandler {
 		grid.getCellFormatter().setStyleName(5, 0, "DefaultPropertyHandler-Row1");
 		grid.getCellFormatter().setStyleName(5, 1, "DefaultPropertyHandler-Row1");
 		
-		//FindProperties
-		ListIterator<PropertyData> iter = properties.listIterator();
-		while(iter.hasNext()){
-			PropertyData temp = iter.next();
-			if(temp.getName().equals("energy")){
-				grid.setWidget(0, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
-			}else if(temp.getName().equals("protein")){
-				grid.setWidget(1, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
-			}else if(temp.getName().equals("carbohydrate")){
-				grid.setWidget(2, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
-			}else if(temp.getName().equals("fat")){
-				grid.setWidget(3, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
-			}else if(temp.getName().equals("fiber")){
-				grid.setWidget(4, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
-			}else if(temp.getName().equals("sodium")){
-				grid.setWidget(5, 1, new MorphWidget(temp.getValue(), true));
-				temp.setRead(true);
+		
+		for(PropertyData pl:properties){
+			if(pl.getName().equals("energy")){
+				grid.setWidget(0, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
+			}else if(pl.getName().equals("protein")){
+				grid.setWidget(1, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
+			}else if(pl.getName().equals("carbohydrate")){
+				grid.setWidget(2, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
+			}else if(pl.getName().equals("fat")){
+				grid.setWidget(3, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
+			}else if(pl.getName().equals("fiber")){
+				grid.setWidget(4, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
+			}else if(pl.getName().equals("sodium")){
+				grid.setWidget(5, 1, new MorphWidget(pl.getValue(), true));
+				pl.setRead(true);
 			}
-			
 		}
+		
+		
 	}
 }

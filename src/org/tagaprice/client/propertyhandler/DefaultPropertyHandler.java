@@ -38,7 +38,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		grid.setWidth("100%");
 		grid.setStyleName("DefaultPropertyHandler");
 	
-		title = new TitlePanel(propGroup.getTitle(), grid, TitlePanel.Level.H2);
+		title = new TitlePanel("Unlisted", grid, TitlePanel.Level.H2);
 		fillGrid();
 		initWidget(title);
 	}

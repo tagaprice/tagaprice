@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class PropertyGroup {
 
 	private String title;
-	public enum GroupType {DEFAULT, LIST}
+	public enum GroupType {LIST, NUTRITIONFACTS}
 	private GroupType type;
 	private ArrayList<PropertyDefinition>  groupElements;
 	

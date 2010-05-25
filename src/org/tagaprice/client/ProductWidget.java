@@ -49,16 +49,18 @@ public class ProductWidget extends Composite {
 		for(PropertyGroup pg:type.getPropertyGroups()){
 			registerHandler(pg);
 		}
+		
+		//Is displaying the non uses properties.
+		vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), null));
 	}
 	
 	
 	private void registerHandler(PropertyGroup propGroup){
 		
-		if(propGroup.getType().equals(PropertyGroup.GroupType.DEFAULT))
-			vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), propGroup));
-		else if(propGroup.getType().equals(PropertyGroup.GroupType.LIST))
+		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS))
 			vePa1.add(new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup));
 	
+		
 	}
 	
 	
