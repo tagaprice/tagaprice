@@ -211,11 +211,13 @@ public class JsonDeserializer extends Deserializer {
 		Unit rc = null;
 		
 		try {
-			JSONObject json = new JSONObject(data);
-			// {"id": 23, "name": "g"}
-			long id = json.getLong("id");
-			String name = json_getString(json, "name");
-			rc = new Unit(id, name);
+			if (data != null) {
+				JSONObject json = new JSONObject(data);
+				// {"id": 23, "name": "g"}
+				long id = json.getLong("id");
+				String name = json_getString(json, "name");
+				rc = new Unit(id, name);
+			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
