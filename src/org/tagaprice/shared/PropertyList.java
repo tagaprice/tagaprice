@@ -20,11 +20,11 @@ import java.util.Iterator;
 public class PropertyList extends ArrayList<PropertyData> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
+	public PropertyList() {
+	}
 
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
 		return "propertyList";
 	}
 	

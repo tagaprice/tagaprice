@@ -19,9 +19,13 @@ import java.util.Date;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
+
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 
 
@@ -33,6 +37,7 @@ public class TaPManagerImpl implements TaPManager {
 	
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
+	
 	
 	public static TaPManager getInstance(){
 		if(TaPMng==null){
@@ -55,7 +60,9 @@ public class TaPManagerImpl implements TaPManager {
 					uiMng.showReceipt(emptyData);
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
-					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));					
+					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));	
+					
+					
 				} else if(historyToken[0].equals("shop/get")){
 					System.out.println("show shop/get");
 				} else{
@@ -123,6 +130,8 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public ProductData getProduct(int id) {
+				
+		
 		// TODO Auto-generated method stub
 		ProductData test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
 		

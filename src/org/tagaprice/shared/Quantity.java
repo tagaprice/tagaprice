@@ -20,6 +20,9 @@ public class Quantity implements Serializable {
 	private int quantity;
 	private Unit unit;
 	
+	public Quantity() {
+	}
+	
 	public Quantity(int quantity, Unit unit) {
 		setQuantity(quantity);
 		setUnit(unit);

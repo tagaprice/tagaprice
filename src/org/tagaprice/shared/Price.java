@@ -20,6 +20,9 @@ public class Price implements Serializable {
 	private int price; // price in currency/100
 	private Currency currency;
 	
+	public Price() {
+	}
+	
 	public Price(int price, Currency currency) {
 		setPrice(price);
 		setCurrency(currency);

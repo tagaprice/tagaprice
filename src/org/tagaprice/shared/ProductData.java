@@ -34,6 +34,9 @@ public class ProductData implements Entity {
 	private boolean hasReceipt;
 	private PropertyList properties = new PropertyList(); 
 	
+	public ProductData() {
+	}
+	
 	/**
 	 * 
 	 * @param id
