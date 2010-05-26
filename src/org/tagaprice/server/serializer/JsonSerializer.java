@@ -95,7 +95,8 @@ public class JsonSerializer extends Serializer {
 		
 		writeListHead();
 		while (it.hasNext()) {
-			put(it.next());
+			PropertyData p = it.next();
+			if (p != null) put(p);
 		}
 		writeListTail();
 	}

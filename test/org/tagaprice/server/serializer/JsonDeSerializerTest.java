@@ -30,6 +30,7 @@ import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.Unit;
@@ -53,79 +54,87 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testCurrency() throws Exception {
-		doSerialize(new Currency(23, "EUR"));
+		checkSerializer(new Currency(23, "EUR"));
 	}
 	
 	@Test
 	public void testCurrency_nullName() throws Exception {
-		doSerialize(new Currency(23, null));
+		checkSerializer(new Currency(23, null));
 	}
 
 	@Test
 	public void testPrice() throws Exception {
-		doSerialize(new Price(1234, 23, "EUR"));
+		checkSerializer(new Price(1234, 23, "EUR"));
 	}
 	
 	@Test
 	public void testPrice_nullCurrency() throws Exception {
-		doSerialize(new Price(1234, null));
+		checkSerializer(new Price(1234, null));
 	}
 
 	@Test
 	public void testProduct() throws IOException {
-		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
 				new Quantity(2, new Unit(14, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noBrand() throws IOException {
-		doSerialize(new ProductData(23, -1, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, -1, 25, "ACME Anvil 2t",
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
 				new Quantity(2, new Unit(14, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noName() throws IOException {
-		doSerialize(new ProductData(23, 24, 25, null,
+		checkSerializer(new ProductData(23, 24, 25, null,
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
 				new Quantity(2, new Unit(14, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noImage() throws IOException {
-		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
 				null, 80, 20, new Price(112584, 13, "EUR"),
 				new Quantity(2, new Unit(14, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noPrice() throws IOException {
-		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
 				"/img/foo/bar.jpg", 80, 20, null,
 				new Quantity(2, new Unit(14, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noQuantity() throws IOException {
-		doSerialize(new ProductData(23, 24, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
 				null, false));
 	}
 
 	@Test
 	public void testProperty() throws IOException {
-		doSerialize(new PropertyData("name", "title", "value", new Unit(23, "unitName")));
+		checkSerializer(new PropertyData("name", "title", "value", new Unit(23, "unitName")));
 	}
 
 	@Test
 	public void testProperty_nullValues() throws IOException {
-		doSerialize(new PropertyData(null, null, null, null));
+		checkSerializer(new PropertyData(null, null, null, null));
 	}
 
 	@Test
-	public void testPropertyList() {
-		fail("Not yet implemented");
+	public void testPropertyList() throws IOException {
+		PropertyList list = new PropertyList();
+		list.add(new PropertyData("name", "title", "value", new Unit(23, "unit")));
+		list.add(null);
+		checkSerializer(list);
+	}
+	
+	@Test
+	public void testPropertyLst_empty() throws IOException {
+		checkSerializer(new PropertyList());
 	}
 
 	@Test
@@ -154,7 +163,7 @@ public class JsonDeSerializerTest {
 	}
 	
 	
-	public void doSerialize(Serializable obj) throws IOException {
+	public void checkSerializer(Serializable obj) throws IOException {
 		serializer.putAny(obj);
 		Serializable newObj = deserializer.getAny(out.toString(), obj.getSerializeName());
 		
