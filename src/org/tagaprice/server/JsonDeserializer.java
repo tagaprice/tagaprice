@@ -78,7 +78,10 @@ public class JsonDeserializer extends Deserializer {
 			JSONObject json = new JSONObject(data);
 			
 			long id = json.getLong("id");
-			long brandId = json.getLong("brandId");
+			long brandId = -1;
+			if (json.has("brandId")) {
+				brandId = json.getLong("brandId");
+			}
 			long typeId = json.getLong("typeId");
 			String name = json_getString(json, "name");
 			String imageSrc = json_getString(json, "imgSrc");
@@ -86,11 +89,17 @@ public class JsonDeserializer extends Deserializer {
 			int rating = json.getInt("rating");
 			Price price = getPrice(json_getString(json, "price"));
 			Quantity quantity = getQuantity(json_getString(json, "quantity"));
-			boolean hasReceipt = json.getBoolean("private"); //TODO shouldn't this be done in a different way???
+
+			boolean hasReceipt = true;
+			if (json.has("hasReceipt")) {
+				//TODO shouldn't this be done in a different way???
+				hasReceipt = json.getBoolean("hasReceipt");
+			}
 			
 			rc = new ProductData(id, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
 		}
 		catch (JSONException e) {
+			e.printStackTrace(System.err);
 			throw new IOException("JSON parsing failed", e);
 		}
 		return rc;
@@ -134,11 +143,13 @@ public class JsonDeserializer extends Deserializer {
 		Quantity rc = null;
 		
 		try {
-			JSONObject json = new JSONObject(data);
-            // {"quantity": 1, "unit": Unit}
-			int quantity = json.getInt("quantity");
-			Unit unit = getUnit(json_getString(json, "unit"));
-			rc = new Quantity(quantity, unit);
+			if (data != null) {
+				JSONObject json = new JSONObject(data);
+				// {"quantity": 1, "unit": Unit}
+				int quantity = json.getInt("quantity");
+				Unit unit = getUnit(json_getString(json, "unit"));
+				rc = new Quantity(quantity, unit);
+			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
