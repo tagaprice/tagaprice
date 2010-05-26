@@ -14,13 +14,9 @@
 */
 package org.tagaprice.client;
 
-import org.tagaprice.shared.ServerResponse.StatusCode;
-
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 /**

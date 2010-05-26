@@ -82,8 +82,8 @@ public class ListPropertyHandler extends PropertyHandler {
 			
 			if(!pg.isUnique() || usedDefs.get(pg.getName()).isEmpty()){
 				addToGrid(
-						"+ "+definition.get(pg.getName()).getTitle(), 
-						"new", 
+						definition.get(pg.getName()).getTitle(), 
+						"", 
 						definition.get(pg.getName()).getType(),
 						definition.get(pg.getName()).getUnit().getName());
 			}

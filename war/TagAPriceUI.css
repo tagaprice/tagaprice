@@ -80,7 +80,9 @@ input{
 }
 
 .InfoBox-Error{
-	background-color: #FF1A00;
+	padding: 3px;
+	color:white;
+	background-color: #ff676e;
 	font-family: Arial Unicode MS, Arial, sans-serif;
 }
 
@@ -107,12 +109,13 @@ input{
 
 .MorphWidget{
 	height:18px;
-	margin:1px;
+	margin:1px;	
 }
 
 .MorphWidgetText:hover{
 	height:18px;
 	border: 1px solid #9e9b9b;
+	cursor: text;
 }
 
 .MorphWidgetBox{
@@ -123,6 +126,7 @@ input{
 	border: 1px solid #9e9b9b;
 	min-width:40px;
 	max-width:100px;
+	cursor: text;
 }
 
 

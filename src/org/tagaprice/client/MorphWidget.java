@@ -48,17 +48,20 @@ public class MorphWidget extends SimplePanel {
 		type=_type;
 		this.setStyleName("MorphWidget");
 		
-		textBox.setWidth("100%");
-		label.setWidth("100%");
+		setWidth("80px");
 		
 		
 		
 		if(isEditable){
 			//css
-			label.setStyleName("MorphWidgetText");
+			if(!text.isEmpty()){
+				label.setStyleName("MorphWidgetText");
+			}else{
+				label.setStyleName("MorphWidgetBox");
+			}
 			textBox.setStyleName("MorphWidgetBox");
 			
-			label.addClickHandler(new ClickHandler() {
+			addDomHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
@@ -70,7 +73,9 @@ public class MorphWidget extends SimplePanel {
 					setWidget(textBox);
 					textBox.setFocus(true);
 				}
-			});
+			}, ClickEvent.getType());
+			
+			
 			
 			textBox.addBlurHandler(new BlurHandler() {
 				
@@ -80,37 +85,40 @@ public class MorphWidget extends SimplePanel {
 						textBox=new TextBox();
 					}
 					
-					//TypeControll
-					if(type.equals(Datatype.INT)){
-						try{
-							Integer.parseInt(textBox.getText());
-						} 
-						catch(NumberFormatException nfe) {						
-							System.out.println("noInt");
-							TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Int", BoxType.ERRORBOX);
+					if(!textBox.getText().isEmpty()){
+						label.setStyleName("MorphWidgetText");
+						//TypeControll
+						if(type.equals(Datatype.INT)){
+							try{
+								Integer.parseInt(textBox.getText());
+							} 
+							catch(NumberFormatException nfe) {						
+								System.out.println("noInt");
+								TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Int", BoxType.ERRORBOX);
+							}
+						}else if(type.equals(Datatype.DOUBLE)){
+							try{
+								Double.parseDouble(textBox.getText());
+							} 
+							catch(NumberFormatException nfe) {						
+								System.out.println("noDouble");
+								TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Double", BoxType.ERRORBOX);
+							}
+						}else if(type.equals(Datatype.STRING)){
+							//Do nothing
 						}
-					}else if(type.equals(Datatype.DOUBLE)){
-						try{
-							Double.parseDouble(textBox.getText());
-						} 
-						catch(NumberFormatException nfe) {						
-							System.out.println("noDouble");
-							TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Double", BoxType.ERRORBOX);
-						}
-					}else if(type.equals(Datatype.STRING)){
-						//Do nothing
+					}else{
+						label.setStyleName("MorphWidgetBox");
 					}
 					
-					
-					if(textBox.getText().isEmpty()){
-						textBox.setText("empty");
-					}
 					
 					label.setText(textBox.getText());
 					setWidget(label);
 	
 				}
 			});
+			
+			
 			
 			
 		}
@@ -141,7 +149,7 @@ public class MorphWidget extends SimplePanel {
 	 */
 	public void setWidth(String width){
 		textBox.setWidth(width);
-		//label.setWidth(width);
+		label.setWidth(width);
 	}
 	
 	/**
@@ -151,4 +159,8 @@ public class MorphWidget extends SimplePanel {
 	public void addChangeHandler(ChangeHandler handler){
 		textBox.addChangeHandler(handler);
 	}
+	
+	
+	
+	
 }
