@@ -16,6 +16,7 @@ package org.tagaprice.server.serializer;
 
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tagaprice.shared.Currency;
@@ -110,13 +111,15 @@ public class JsonDeserializer extends Deserializer {
 		PropertyData rc = null;
 		
 		try {
-			JSONObject json = new JSONObject(data);
-			
-			String name = json_getString(json, "name");
-			String title = json_getString(json, "title");
-			String value = json_getString(json, "value");
-			Unit unit = getUnit(json_getString(json, "unit"));
-			rc = new PropertyData(name, title, value, unit);
+			if (data != null) {
+				JSONObject json = new JSONObject(data);
+				
+				String name = json_getString(json, "name");
+				String title = json_getString(json, "title");
+				String value = json_getString(json, "value");
+				Unit unit = getUnit(json_getString(json, "unit"));
+				rc = new PropertyData(name, title, value, unit);
+			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -129,8 +132,14 @@ public class JsonDeserializer extends Deserializer {
 		PropertyList rc = null;
 		
 		try {
-			/// TODO implement me
-			if (rc == null) throw new JSONException("Error: Not yet implemented!");
+			if (data != null) {
+				JSONArray json = new JSONArray(data);
+				rc = new PropertyList();
+				for (int i = 0; i < json.length(); i++) {
+					rc.add(getProperty(json_getString(json, i)));
+				}
+			
+			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -232,6 +241,12 @@ public class JsonDeserializer extends Deserializer {
 	private String json_getString(JSONObject json, String key) throws JSONException {
 		String value = null;
 		if (!json.isNull(key)) value = json.getString(key);
+		return value;
+	}
+	
+	private String json_getString(JSONArray json, int index) throws JSONException {
+		String value = null;
+		if (!json.isNull(index)) value = json.getString(index);
 		return value;
 	}
 
