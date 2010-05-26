@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.tagaprice.client.HorizontalInfoPanel;
 import org.tagaprice.client.MorphWidget;
+import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
@@ -27,6 +29,7 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListPropertyHandler extends PropertyHandler {
 
@@ -34,15 +37,17 @@ public class ListPropertyHandler extends PropertyHandler {
 	HashMap<String, ArrayList<PropertyData>> usedDefs = new HashMap<String, ArrayList<PropertyData>>();
 	TitlePanel title;
 	Grid grid = new Grid(0, 3);
+	VerticalPanel vePa1 = new VerticalPanel();
 	int rowSwap=-1;
 	
 	public ListPropertyHandler(ArrayList<PropertyData> properties,
 			PropertyGroup propGroup) {
 		super(properties, propGroup);
 		grid.setWidth("100%");
+		vePa1.setWidth("100%");
 		grid.setStyleName("DefaultPropertyHandler");
 		
-		title = new TitlePanel(propGroup.getTitle(), grid, TitlePanel.Level.H2);
+		title = new TitlePanel(propGroup.getTitle(), vePa1, TitlePanel.Level.H2);
 		convertToHash();
 		
 		createGrid();
@@ -93,16 +98,33 @@ public class ListPropertyHandler extends PropertyHandler {
 	}
 	
 	private void addToGrid(String title, String value, Datatype type, String unit){
-		grid.resize(grid.getRowCount()+1, 3);
-		grid.getCellFormatter().setWidth(grid.getRowCount()-1, 0, "100%");
-		grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler-Row"+rowSwap);
-		grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler-Row"+rowSwap);
-		grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 2, "DefaultPropertyHandler-Row"+rowSwap);
-		rowSwap*=-1;
+		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
+		MorphWidget mp = new MorphWidget(value,type, true);
+		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			
+			@Override
+			public void onError(Datatype errorType) {
+				temp.showInfo("Error");
+				
+			}
+
+			@Override
+			public void onSuccess(Datatype errorType) {
+				temp.showInfo(false);
+				
+			}
+		});
+		Label lTitle = new Label(title);
+		temp.add(lTitle);
+		temp.getPanel().setCellWidth(lTitle, "100%");
+		temp.add(mp);
+		temp.add(new Label(unit));
 		
-		grid.setWidget(grid.getRowCount()-1, 0, new Label(title));
-		grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(value,type, true));
-		grid.setWidget(grid.getRowCount()-1, 2, new Label(unit));
+		temp.setStyleName("DefaultPropertyHandler-Row"+rowSwap);
+		rowSwap*=-1;
+
+		
+		vePa1.add(temp);
 	}
 	
 	

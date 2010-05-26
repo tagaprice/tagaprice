@@ -35,6 +35,7 @@ public class MorphWidget extends SimplePanel {
 	Label label = new Label();
 	TextBox textBox = new TextBox();
 	Datatype type;
+	MorphWidgetErrorHandler handler;
 
 	/**
 	 * 
@@ -91,18 +92,18 @@ public class MorphWidget extends SimplePanel {
 						if(type.equals(Datatype.INT)){
 							try{
 								Integer.parseInt(textBox.getText());
+								callSuccess(Datatype.INT);
 							} 
-							catch(NumberFormatException nfe) {						
-								System.out.println("noInt");
-								TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Int", BoxType.ERRORBOX);
+							catch(NumberFormatException nfe) {	
+								callError(Datatype.INT);
 							}
 						}else if(type.equals(Datatype.DOUBLE)){
 							try{
 								Double.parseDouble(textBox.getText());
+								callSuccess(Datatype.DOUBLE);
 							} 
-							catch(NumberFormatException nfe) {						
-								System.out.println("noDouble");
-								TaPManagerImpl.getInstance().getInfoBox().showInfo("Input is no Double", BoxType.ERRORBOX);
+							catch(NumberFormatException nfe) {		
+								callError(Datatype.DOUBLE);
 							}
 						}else if(type.equals(Datatype.STRING)){
 							//Do nothing
@@ -116,10 +117,7 @@ public class MorphWidget extends SimplePanel {
 					setWidget(label);
 	
 				}
-			});
-			
-			
-			
+			});			
 			
 		}
 		
@@ -160,7 +158,24 @@ public class MorphWidget extends SimplePanel {
 		textBox.addChangeHandler(handler);
 	}
 	
+	/**
+	 * 
+	 * @param eHandler
+	 */
+	public void addMorphWidgetErrorHandler(MorphWidgetErrorHandler eHandler){
+		handler=eHandler;
+	}
 	
+	
+	private void callError(Datatype errorType){
+		if(handler!=null)
+			handler.onError(errorType);
+	}
+	
+	private void callSuccess(Datatype errorType){
+		if(handler!=null)
+			handler.onSuccess(errorType);
+	}
 	
 	
 }
