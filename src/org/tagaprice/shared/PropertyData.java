@@ -105,7 +105,33 @@ public class PropertyData implements Entity{
 		return "property";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
 
-	
-	
+		if (o instanceof PropertyData) {
+			PropertyData p = (PropertyData) o;
+			if (getName() == null) {
+				if (p.getName() != null) rc = false;
+			}
+			else if (!getName().equals(p.getName())) rc = false;
+			
+			if (getValue() == null) {
+				if (p.getValue() != null) rc = false;
+			}
+			else if (!getValue().equals(p.getValue())) rc = false;
+			
+			if (getTitle() == null) {
+				if (p.getTitle() != null) rc = false;
+			}
+			else if (!getTitle().equals(p.getTitle())) rc = false;
+			
+			if (getUnit() == null) {
+				if (p.getUnit() != null) rc = false; 
+			}
+			else if (!getUnit().equals(p.getUnit())) rc = false;
+		}
+		else rc = false;
+		return rc;
+	}
 }
