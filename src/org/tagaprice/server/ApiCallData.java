@@ -24,6 +24,8 @@ import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.serializer.Serializer;
 
 public class ApiCallData extends ServerResponse {
+	private static final long serialVersionUID = 1L;
+
 	private Serializer serializer;
 	private HttpServletRequest req;
 	

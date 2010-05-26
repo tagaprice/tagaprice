@@ -16,8 +16,6 @@ package org.tagaprice.server.draft;
 
 import java.io.IOException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
 import org.tagaprice.server.serializer.JsonDeserializer;
