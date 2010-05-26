@@ -27,7 +27,7 @@ import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.Unit;
-import org.tagaprice.shared.serialize.JsonDeserializer;
+import org.tagaprice.shared.serializer.JsonDeserializer;
 
 public class ProductHandler implements ApiCall {
 	@Override
