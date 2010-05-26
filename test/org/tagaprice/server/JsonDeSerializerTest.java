@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.Unit;
@@ -111,8 +112,13 @@ public class JsonDeSerializerTest {
 	}
 
 	@Test
-	public void testPropertyData() {
-		fail("Not yet implemented");
+	public void testProperty() throws IOException {
+		doSerialize(new PropertyData("name", "title", "value", new Unit(23, "unitName")));
+	}
+
+	@Test
+	public void testProperty_nullValues() throws IOException {
+		doSerialize(new PropertyData(null, null, null, null));
 	}
 
 	@Test
