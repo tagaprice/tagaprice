@@ -29,7 +29,6 @@ import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
-import org.tagaprice.shared.serializer.Serializer;
 
 public class JsonSerializer extends Serializer {
 	private OutputStream out;

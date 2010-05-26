@@ -30,7 +30,6 @@ import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.ServerResponse.StatusCode;
-import org.tagaprice.shared.serializer.Deserializer;
 
 public class JsonDeserializer extends Deserializer {
 	@Override

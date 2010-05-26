@@ -19,9 +19,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.tagaprice.server.serializer.Serializer;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
-import org.tagaprice.shared.serializer.Serializer;
 
 public class ApiCallData extends ServerResponse {
 	private static final long serialVersionUID = 1L;

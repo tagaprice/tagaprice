@@ -12,7 +12,7 @@
  * Filename: Deserializer.java
  * Date: 20.05.2010
 */
-package org.tagaprice.shared.serializer;
+package org.tagaprice.server.serializer;
 
 import java.io.IOException;
 
