@@ -96,7 +96,7 @@ public class JsonSerializer extends Serializer {
 		writeListHead();
 		while (it.hasNext()) {
 			PropertyData p = it.next();
-			if (p != null) put(p);
+			writeListElem(p);
 		}
 		writeListTail();
 	}
@@ -218,4 +218,15 @@ public class JsonSerializer extends Serializer {
 			else out.write("null".getBytes());
 		}
 	}
+	
+	protected void writeListElem(Serializable elem) throws IOException {
+		if (!firstElem) out.write(",\n".getBytes());
+
+		if (elem != null) putAny(elem);
+		else out.write("null".getBytes());
+
+		firstElem = false;
+	}
+	
+
 }
