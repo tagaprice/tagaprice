@@ -186,10 +186,19 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public Type getType(long id) {
 		Type type=new Type("Food");
-		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.NUTRITIONFACTS);
-		pg.addGroupElement(new PropertyDefinition(2, "weight", "gewicht", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),false)); 
-		pg.addGroupElement(new PropertyDefinition(3, "sugar", "zucker", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),false));
+		
+		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
+		pg.addGroupElement(new PropertyDefinition(2, "energy", "Brennwert", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
+		pg.addGroupElement(new PropertyDefinition(3, "protein", "Eiweiss", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		pg.addGroupElement(new PropertyDefinition(4, "link", "URL", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
 		type.addPropertyGroup(pg);
+		
+		
+		PropertyGroup pg2 =new PropertyGroup("SachenEben", PropertyGroup.GroupType.LIST);
+		pg2.addGroupElement(new PropertyDefinition(7, "fiber", "Ballaststoffe", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		pg2.addGroupElement(new PropertyDefinition(5, "carbohydrate", "Kohlenhydrate", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
+		pg2.addGroupElement(new PropertyDefinition(6, "fat", "Fett", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		type.addPropertyGroup(pg2);
 		return type;
 	}
 

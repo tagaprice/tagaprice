@@ -17,6 +17,7 @@ package org.tagaprice.client;
 import java.util.ArrayList;
 
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
+import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyGroup;
@@ -51,7 +52,8 @@ public class ProductWidget extends Composite {
 		}
 		
 		//Is displaying the non uses properties.
-		vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), null));
+		//vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), null));
+		
 	}
 	
 	
@@ -59,7 +61,12 @@ public class ProductWidget extends Composite {
 		
 		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS))
 			vePa1.add(new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup));
-	
+		else if (propGroup.getType().equals(PropertyGroup.GroupType.LIST))
+			vePa1.add(new ListPropertyHandler(this.productData.getProperties(), propGroup));
+
+		
+
+		
 		
 	}
 	

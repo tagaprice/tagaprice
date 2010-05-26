@@ -50,8 +50,7 @@ public class UIManager extends Composite {
 	private void init(){
 		myDock.setWidth("400px");
 		
-		//InfoBox
-		myDock.add(infoBox, DockPanel.NORTH);
+		
 		
 		//logo
 		myDock.add(logoPanel, DockPanel.NORTH);
@@ -78,6 +77,8 @@ public class UIManager extends Composite {
 		oldReceipt.setStyleName("UIManager-Menu-Item");
 		newDraft.setStyleName("UIManager-Menu-Item");
 		
+		//InfoBox
+		myDock.add(infoBox, DockPanel.NORTH);
 		
 		//Center
 		myDock.add(myTitlePan, DockPanel.CENTER);
