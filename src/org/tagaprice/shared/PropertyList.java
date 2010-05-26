@@ -15,6 +15,7 @@
 package org.tagaprice.shared;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PropertyList extends ArrayList<PropertyData> implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +26,22 @@ public class PropertyList extends ArrayList<PropertyData> implements Serializabl
 	public String getSerializeName() {
 		// TODO Auto-generated method stub
 		return "propertyList";
+	}
+	
+	public boolean euqals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof PropertyList) {
+			PropertyList l = (PropertyList) o;
+			Iterator<PropertyData> it1 = iterator(), it2 = l.iterator();
+			
+			while (rc && it1.hasNext() && it2.hasNext()) {
+				rc = it1.next().equals(it2.next());
+			}
+		}
+		else rc = false;
+		
+		return rc;
 	}
 
 }
