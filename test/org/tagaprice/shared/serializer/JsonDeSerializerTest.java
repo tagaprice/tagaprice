@@ -24,6 +24,8 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.server.serializer.JsonDeserializer;
+import org.tagaprice.server.serializer.JsonSerializer;
 import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
@@ -31,8 +33,6 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.Unit;
-import org.tagaprice.shared.serializer.JsonDeserializer;
-import org.tagaprice.shared.serializer.JsonSerializer;
 
 /**
  * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
