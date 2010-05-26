@@ -14,6 +14,7 @@
 */
 package org.tagaprice.client;
 
+import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.TaPManagerImpl;
@@ -121,7 +122,7 @@ public class UIManager extends Composite {
 	
 	
 	public void showProduct(ProductData productData){
-		ProductWidget tempProduct = new ProductWidget(productData);
+		ProductPage tempProduct = new ProductPage(productData);
 		myTitlePan.setTitleWidet(productData.getName(), tempProduct);
 	}
 	
@@ -138,5 +139,10 @@ public class UIManager extends Composite {
 	 */
 	public InfoBox getInfoBox(){
 		return infoBox;
+	}
+	
+	
+	public void displayPage(Composite page){
+		myTitlePan.setTitleWidet("product", page);
 	}
 }

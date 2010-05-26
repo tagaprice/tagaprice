@@ -71,10 +71,8 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 
 
 	public void highlightPrevSuggestion(){
-		if(currentSelection>0){
-			verticalPanel.getWidget(currentSelection).removeStyleName("highlightSuggestion");
-		}
-		if(currentSelection>=0){
+		if(currentSelection>0)
+		{	verticalPanel.getWidget(currentSelection).removeStyleName("highlightSuggestion");
 			currentSelection--;
 			verticalPanel.getWidget(currentSelection).addStyleName("highlightSuggestion");
 		}

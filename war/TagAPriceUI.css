@@ -261,6 +261,8 @@ td.datePickerMonth {
 }
 
 .highlightSuggestion{
-	border: 2px;
+	border-style:solid;
+	background-color: #F7F7F7;
+	
 			
 }

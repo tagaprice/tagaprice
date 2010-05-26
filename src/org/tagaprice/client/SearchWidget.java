@@ -3,6 +3,8 @@ package org.tagaprice.client;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 
@@ -27,7 +29,7 @@ public class SearchWidget extends Composite{
 	private ListWidget<EntityPreview> suggestList; 
 	private TaPManager tapManager;
 
-		
+
 	public SearchWidget(){
 		tapManager= TaPManagerImpl.getInstance();
 		suggestPanel = new VerticalPanel();
@@ -43,12 +45,18 @@ public class SearchWidget extends Composite{
 				} else if(event.getCharCode()==KeyCodes.KEY_UP){
 					suggestList.highlightPrevSuggestion();
 				}  else if(event.getCharCode()==KeyCodes.KEY_ENTER){	
-						 if(suggestList.getSelection()==null){
-							 // send search request 
-						 }else{
-							 // view 
-						 }
-					
+					if(suggestList.getSelection()==null){
+						// send search request 
+					}else {
+						textBox.setValue(null, false);
+						suggestList.removeFromParent();
+						tapManager.displayPage(new ProductPage(tapManager.getProduct(12)));
+						if(suggestList.getSelection() instanceof ProductData){
+							//tapManager.displayPage(new ProductPage((ProductData) suggestList.getSelection()));
+						}else if(suggestList.getSelection() instanceof ShopData){
+							//tapManager.displayPage(new ShopPage((ShopData) suggestList.getSelection())); 
+						}
+					}
 				}else sendSearchRequest(textBox.getText());
 			}
 
@@ -78,7 +86,7 @@ public class SearchWidget extends Composite{
 	private void sendSearchRequest(String input){
 		tapManager.search(input, this);
 	}
-	
-	
+
+
 
 }

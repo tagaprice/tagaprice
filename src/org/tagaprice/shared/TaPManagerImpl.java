@@ -22,6 +22,7 @@ import org.tagaprice.client.UIManager;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.Composite;
 
 
 /**
@@ -216,5 +217,10 @@ public class TaPManagerImpl implements TaPManager {
 		return type;
 	}
 
+	
+	public void displayPage(Composite page){
+		uiMng.displayPage(page);
+	}
+	
 	
 }

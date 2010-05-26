@@ -18,6 +18,8 @@ import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 
+import com.google.gwt.user.client.ui.Composite;
+
 /**
  * Interface for the DAO Manager
  *
@@ -79,4 +81,6 @@ public interface TaPManager {
 	 */
 	public Type getType(long id);
 	
+	
+	public void displayPage(Composite page);
 }

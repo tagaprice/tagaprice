@@ -28,14 +28,14 @@ import org.tagaprice.shared.Type;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ProductWidget extends Composite {
+public class ProductPage extends Composite {
 
 	private ProductData productData;
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private TaPManager myMng = TaPManagerImpl.getInstance();
 	
-	public ProductWidget(ProductData productData) {
+	public ProductPage(ProductData productData) {
 		initWidget(vePa1);
 		this.productData=productData;
 		type=myMng.getType(productData.getTypeId());
