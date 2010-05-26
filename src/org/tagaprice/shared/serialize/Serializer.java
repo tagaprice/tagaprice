@@ -12,7 +12,7 @@
  * Filename: EntitySender.java
  * Date: 19.05.2010
 */
-package org.tagaprice.server;
+package org.tagaprice.shared.serialize;
 
 import java.io.IOException;
 

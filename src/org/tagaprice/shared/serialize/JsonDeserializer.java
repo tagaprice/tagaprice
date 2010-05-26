@@ -12,7 +12,7 @@
  * Filename: JsonDeserializer.java
  * Date: 20.05.2010
 */
-package org.tagaprice.server;
+package org.tagaprice.shared.serialize;
 
 import java.io.IOException;
 

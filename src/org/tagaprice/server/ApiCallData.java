@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
+import org.tagaprice.shared.serialize.Serializer;
 
 public class ApiCallData extends ServerResponse {
 	private Serializer serializer;

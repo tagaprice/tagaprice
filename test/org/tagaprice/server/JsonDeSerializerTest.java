@@ -31,6 +31,8 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.serialize.JsonDeserializer;
+import org.tagaprice.shared.serialize.JsonSerializer;
 
 /**
  * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
