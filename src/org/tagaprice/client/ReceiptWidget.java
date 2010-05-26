@@ -22,6 +22,7 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.TaPManagerImpl;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -49,7 +50,7 @@ public class ReceiptWidget extends Composite {
 	
 	
 	boolean isEditable=true;
-	MorphWidget title = new MorphWidget("Default title", isEditable);
+	MorphWidget title = new MorphWidget("Default title", Datatype.STRING, isEditable);
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;

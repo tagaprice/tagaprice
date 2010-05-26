@@ -80,7 +80,8 @@ input{
 }
 
 .InfoBox-Error{
-	
+	background-color: #FF1A00;
+	font-family: Arial Unicode MS, Arial, sans-serif;
 }
 
 
@@ -120,6 +121,8 @@ input{
 	padding:0px;
 	margin:0px;
 	border: 1px solid #9e9b9b;
+	min-width:40px;
+	max-width:100px;
 }
 
 

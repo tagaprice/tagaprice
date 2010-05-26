@@ -132,7 +132,8 @@ public class TaPManagerImpl implements TaPManager {
 		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, "g")));
 		properties.add(new PropertyData("fiber", "Ballaststoffe", "1,9", new Unit(2, "g")));
 		properties.add(new PropertyData("sodium", "Natrium", "0,05", new Unit(2, "g")));
-		properties.add(new PropertyData("unknow", "Unbekannt", "1,05", new Unit(5, "fl")));
+		properties.add(new PropertyData("link", "URL", "tagaprice.com", new Unit(5, "fl")));
+		properties.add(new PropertyData("ean", "EAN", "14526486", new Unit(5, "g")));
 		
 		test.setProperties(properties);
 		return test;
@@ -199,6 +200,19 @@ public class TaPManagerImpl implements TaPManager {
 		pg2.addGroupElement(new PropertyDefinition(5, "carbohydrate", "Kohlenhydrate", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
 		pg2.addGroupElement(new PropertyDefinition(6, "fat", "Fett", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
 		type.addPropertyGroup(pg2);
+		
+		
+		PropertyGroup pg3 =new PropertyGroup("Produkt Angaben", PropertyGroup.GroupType.LIST);
+		pg3.addGroupElement(new PropertyDefinition(7, "producer", "Hersteller/Vertrieb", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		pg3.addGroupElement(new PropertyDefinition(7, "ingredient", "Inhaltsstoffe", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
+		pg3.addGroupElement(new PropertyDefinition(7, "ean", "EAN-Nummer", PropertyDefinition.Datatype.INT,new Unit(15, "g"),false));
+		type.addPropertyGroup(pg3);
+		
+		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);
+		pg4.addGroupElement(new PropertyDefinition(7, "created", "Erfasst", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		pg4.addGroupElement(new PropertyDefinition(7, "lastChange", "Letzte Änderung", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		type.addPropertyGroup(pg4);
+		
 		return type;
 	}
 

@@ -16,6 +16,7 @@ package org.tagaprice.client;
 
 
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -114,11 +115,11 @@ public class ProductPreview extends EntityPreview {
 		
 		
 		name.setText(productData.getName());
-		price=new MorphWidget(""+(this.productData.getPrice().getPrice()/100.00),editable);
+		price=new MorphWidget(""+(this.productData.getPrice().getPrice()/100.00),Datatype.DOUBLE, editable);
 		price.setWidth("40px");
 		pricePanel.setWidget(price);
 		
-		quantitiy=new MorphWidget(productData.getQuantity().getQuantity()+"", editable);
+		quantitiy=new MorphWidget(productData.getQuantity().getQuantity()+"", Datatype.INT, editable);
 		quantitiy.setWidth("40px");
 		quantitiyPanel.setWidget(quantitiy);
 		
@@ -146,7 +147,7 @@ public class ProductPreview extends EntityPreview {
 		final VerticalPanel VePa1 = new VerticalPanel();
 		VePa1.setWidth("100%");
 		VePa1.setStyleName("Warning");
-		receipt=new MorphWidget("Insert here missing receipt name!", editable);
+		receipt=new MorphWidget("Insert here missing receipt name!", Datatype.STRING,  editable);
 		receipt.setWidth("100%");
 		VePa1.add(receipt);
 		this.VePa1.add(VePa1);
