@@ -15,7 +15,7 @@
 /**
  * 
  */
-package org.tagaprice.shared.serializer;
+package org.tagaprice.server.serializer;
 
 import static org.junit.Assert.*;
 
