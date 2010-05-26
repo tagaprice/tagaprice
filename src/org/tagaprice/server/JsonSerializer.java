@@ -64,11 +64,14 @@ public class JsonSerializer extends Serializer {
 		
 		writeVar("id", product.getId(), true);
 		writeVar("name", product.getName(), true);
+		writeVar("brandId", product.getBrandId(), false);
+		writeVar("typeId", product.getTypeId(), true);
 		writeVar("imageSrc", product.getImageSrc(), true);
 		writeVar("price", product.getPrice(), true);
 		writeVar("quantity", product.getQuantity(), false);
 		writeVar("rating", product.getRating(), false);
 		writeVar("progress", product.getProgress(), true);
+		writeVar("hasReceipt", product.hasReceipt(), true);
 
 		/// TODO introduce the corresponding EntitySerializer-function
 		writeVar("properties", product.getProperties(), false);
@@ -197,6 +200,13 @@ public class JsonSerializer extends Serializer {
 		if (writeIfNaN || value != Double.NaN) {
 			writeVarName(name);
 			out.write(new Double(value).toString().getBytes());
+		}
+	}
+	
+	protected void writeVar(String name, boolean value, boolean writeIfFalse) throws IOException {
+		if (writeIfFalse || value) {
+			writeVarName(name);
+			out.write((value ? "true" : "false").getBytes());
 		}
 	}
 	
