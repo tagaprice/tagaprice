@@ -189,8 +189,13 @@ public class JsonDeSerializerTest {
 	}
 
 	@Test
-	public void testUnit() {
-		fail("Not yet implemented");
+	public void testUnit() throws IOException {
+		checkSerializer(new Unit(5, "unitName"));
+	}
+	
+	@Test
+	public void testUnit_nullName() throws IOException {
+		checkSerializer(new Unit(5, null));
 	}
 	
 	
