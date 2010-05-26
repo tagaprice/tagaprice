@@ -35,7 +35,9 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.ServerResponse.StatusCode;
 
 /**
  * Checks if Serializable-Objects stay the same after a serialization+deserialization-cycle.
@@ -137,13 +139,23 @@ public class JsonDeSerializerTest {
 	}
 	
 	@Test
-	public void testPropertyLst_empty() throws IOException {
+	public void testPropertyList_empty() throws IOException {
 		checkSerializer(new PropertyList());
 	}
 
 	@Test
-	public void testQuantity() {
-		fail("Not yet implemented");
+	public void testQuantity() throws IOException {
+		checkSerializer(new Quantity(14, new Unit(23, "unitName")));
+	}
+	
+	@Test
+	public void testQuantity_valueOnly() throws IOException {
+		checkSerializer(new Quantity(15));
+	}
+	
+	@Test
+	public void testQuantity_implicitUnit() throws IOException {
+		checkSerializer(new Quantity(13, 14, "unitNAme"));
 	}
 
 	@Test
@@ -152,12 +164,22 @@ public class JsonDeSerializerTest {
 	}
 
 	@Test
-	public void testServerResponse() {
-		fail("Not yet implemented");
+	public void testServerResponse() throws IOException {
+		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, "answer")));
+	}
+	
+	@Test
+	public void testServerResponse_nullResponse() throws IOException {
+		checkSerializer(new ServerResponse(StatusCode.NotFound, null));
+	}
+	
+	@Test
+	public void testServerResponse_accessDenied() throws IOException {
+		checkSerializer(new ServerResponse(StatusCode.AccessDenied, null));
 	}
 
 	@Test
-	public void tetShopData() {
+	public void testShopData() {
 		fail("Not yet implemented");
 	}
 
