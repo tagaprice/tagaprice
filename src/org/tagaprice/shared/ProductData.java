@@ -299,26 +299,26 @@ public class ProductData implements Entity {
 		if (o instanceof ProductData) {
 			ProductData p = (ProductData) o;
 			if (getId() != p.getId()) rc = false;
-			else if (getBrandId() != p.getBrandId()) rc = false;
-			else if (getTypeId() != p.getTypeId()) rc = false;
-			else if (getName() == null) {
+			if (getBrandId() != p.getBrandId()) rc = false;
+			if (getTypeId() != p.getTypeId()) rc = false;
+			if (getName() == null) {
 				if (p.getName() != null) rc = false;
 			}
 			else if (!getName().equals(p.getName())) rc = false;
-			else if (getImageSrc() == null) {
+			if (getImageSrc() == null) {
 				if (p.getImageSrc() != null) rc = false;
 			}
-			else if (getProgress() != p.getProgress()) rc = false;
-			else if (getRating() != p.getRating()) rc = false;
-			else if (getPrice() == null) {
+			if (getProgress() != p.getProgress()) rc = false;
+			if (getRating() != p.getRating()) rc = false;
+			if (getPrice() == null) {
 				if (p.getPrice() != null) rc = false;
 			}
 			else if (!getPrice().equals(p.getPrice())) rc = false;
-			else if (getQuantity() == null) {
+			if (getQuantity() == null) {
 				if (p.getQuantity() != null) rc = false;
 			}
 			else if (!getQuantity().equals(p.getQuantity())) rc = false;
-			else if (hasReceipt() != p.hasReceipt()) rc = false;
+			if (hasReceipt() != p.hasReceipt()) rc = false;
 		}
 		else rc = false;
 		
