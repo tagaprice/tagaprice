@@ -12,7 +12,7 @@
  * Filename: JsonDeserializer.java
  * Date: 20.05.2010
 */
-package org.tagaprice.shared.serializer;
+package org.tagaprice.server.serializer;
 
 import java.io.IOException;
 
@@ -30,6 +30,7 @@ import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.ServerResponse.StatusCode;
+import org.tagaprice.shared.serializer.Deserializer;
 
 public class JsonDeserializer extends Deserializer {
 	@Override

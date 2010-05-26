@@ -12,7 +12,7 @@
  * Filename: JsonSerializer.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.serializer;
+package org.tagaprice.server.serializer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,6 +29,7 @@ import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.serializer.Serializer;
 
 public class JsonSerializer extends Serializer {
 	private OutputStream out;

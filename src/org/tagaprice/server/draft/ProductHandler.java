@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
+import org.tagaprice.server.serializer.JsonDeserializer;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -27,7 +28,6 @@ import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.Unit;
-import org.tagaprice.shared.serializer.JsonDeserializer;
 
 public class ProductHandler implements ApiCall {
 	@Override
