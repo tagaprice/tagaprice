@@ -23,7 +23,7 @@ public class ProductData implements Entity {
 	private static final long serialVersionUID = 1L;
 
 	private long id;
-	private long brandId;
+	private long brandId; // TODO create a Brand class
 	private long typeId;
 	private String name;
 	private String imageSrc;
