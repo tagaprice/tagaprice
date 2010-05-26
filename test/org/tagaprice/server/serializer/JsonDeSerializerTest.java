@@ -22,6 +22,8 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import junit.framework.AssertionFailedError;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.serializer.JsonDeserializer;
@@ -129,6 +131,8 @@ public class JsonDeSerializerTest {
 		PropertyList list = new PropertyList();
 		list.add(new PropertyData("name", "title", "value", new Unit(23, "unit")));
 		list.add(null);
+		list.add(new PropertyData(null, null, null, null));
+
 		checkSerializer(list);
 	}
 	
@@ -164,9 +168,21 @@ public class JsonDeSerializerTest {
 	
 	
 	public void checkSerializer(Serializable obj) throws IOException {
-		serializer.putAny(obj);
-		Serializable newObj = deserializer.getAny(out.toString(), obj.getSerializeName());
-		
-		assertEquals(obj, newObj);
+		try {
+			serializer.putAny(obj);
+			Serializable newObj = deserializer.getAny(out.toString(), obj.getSerializeName());
+
+			assertEquals(obj, newObj);
+		}
+		catch (IOException e) {
+			System.err.println("Invalid JSON:");
+			System.err.println(out.toString());
+			throw e;
+		}
+		catch (AssertionFailedError e) {
+			System.err.println("the objects differ. serialization:");
+			System.err.println(out.toString());
+			throw e;
+		}
 	}
 }
