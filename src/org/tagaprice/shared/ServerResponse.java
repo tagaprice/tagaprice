@@ -31,7 +31,8 @@ public class ServerResponse implements Serializable {
 		
 		public static StatusCode getByName(String name) {
 			StatusCode rc = null;
-			if (name.equals("ok")) rc = Ok;
+			if (name == null) {}
+			else if (name.equals("ok")) rc = Ok;
 			else if (name.equals("accessDenied")) rc = AccessDenied;
 			else if (name.equals("notFound")) rc = NotFound;
 			
@@ -64,11 +65,31 @@ public class ServerResponse implements Serializable {
 	}
 	
 	public String getStatusName() {
-		return status.getName();
+		return status != null ? status.getName() : null;
 	}
 
 	@Override
 	public String getSerializeName() {
 		return "serverResponse";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof ServerResponse) {
+			ServerResponse r = (ServerResponse) o;
+			if (getStatus() == null) {
+				if (r.getStatus() != null) rc = false;
+			}
+			else if (!getStatus().equals(r.getStatus())) rc = false;
+			if (getResponse() == null) {
+				if (r.getResponse() != null) rc = false;
+			}
+			else if (!getResponse().equals(r.getResponse())) rc = false;
+		}
+		else rc = false;
+
+		return rc;
 	}
 }
