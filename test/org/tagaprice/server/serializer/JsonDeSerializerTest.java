@@ -167,12 +167,17 @@ public class JsonDeSerializerTest {
 	public void testServerResponse() throws IOException {
 		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, "answer")));
 	}
-	
+
 	@Test
 	public void testServerResponse_nullResponse() throws IOException {
 		checkSerializer(new ServerResponse(StatusCode.NotFound, null));
 	}
-	
+
+	@Test
+	public void testServerResponse_nullStatus() throws IOException {
+		checkSerializer(new ServerResponse(null, null));
+	}
+
 	@Test
 	public void testServerResponse_accessDenied() throws IOException {
 		checkSerializer(new ServerResponse(StatusCode.AccessDenied, null));
