@@ -20,6 +20,17 @@ import com.google.gwt.user.client.ui.Composite;
 
 public abstract class EntityPreview extends Composite{
 	
+	public EntityPreview(){
+		addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				click();			
+			}
+		});
+	}
+	
+	public void click(){}
+	
 	
 	public void addClickHandler(ClickHandler handler){
 		addDomHandler(handler, ClickEvent.getType());

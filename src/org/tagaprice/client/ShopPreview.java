@@ -104,15 +104,13 @@ public class ShopPreview extends EntityPreview {
 		name.setText(shopData.getName());
 
 
-		//AddListener
-		addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("shop/get&id="+shopData.getId());			
-			}
-		});
 	}
 
+	@Override
+	public void click(){
+		History.newItem("shop/get&id="+shopData.getId());
+	}
+	
 
 	/**
 	 * Return current ProductData
@@ -132,14 +130,6 @@ public class ShopPreview extends EntityPreview {
 	 */
 	public boolean isEditable(){
 		return editable;
-	}
-
-	/**
-	 * 
-	 * @param handler
-	 */
-	public void addClickHandler(ClickHandler handler){
-		addDomHandler(handler, ClickEvent.getType());
 	}
 
 

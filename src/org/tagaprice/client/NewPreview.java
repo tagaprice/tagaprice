@@ -32,6 +32,7 @@ public class NewPreview extends EntityPreview{
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO create new Product/Shop
+				System.out.print("new product/shop");
 			}	
 		});
 

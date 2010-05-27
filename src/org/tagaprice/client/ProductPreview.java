@@ -67,16 +67,24 @@ public class ProductPreview extends EntityPreview {
 	 * @param handler
 	 */
 	public ProductPreview(ProductData productData, boolean editable, ChangeHandler handler){
-		this(productData, editable);
+		super();
+		init(productData, editable);
 		addChangeHandler(handler);
 	}
+	
+	
+	public ProductPreview(ProductData productData, boolean editable){
+		init(productData, editable);
+	}
+	
+	
 	
 	/**
 	 * 
 	 * @param productData 
 	 * @param editable 
 	 */
-	public ProductPreview(ProductData _productData, boolean _editable) {
+	public void init(ProductData _productData, boolean _editable) {
 		productData=_productData;
 		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
@@ -129,23 +137,15 @@ public class ProductPreview extends EntityPreview {
 		if(editable && !productData.hasReceipt())
 			noReceiptName();
 		
-		
-		//AddListener
-		addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				click();	
-			}
-		});
 	}
 	
 
+	@Override
 	public void click(){
 		History.newItem("product/get&id="+productData.getId());		
 	}
 	
-	
-	
+
 	
 	/**
 	 * 

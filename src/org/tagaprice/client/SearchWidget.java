@@ -67,9 +67,8 @@ public class SearchWidget extends Composite{
 				} else if(event.getCharCode()==KeyCodes.KEY_UP){
 					suggestList.highlightPrevSuggestion();
 				}  else if(event.getCharCode()==KeyCodes.KEY_ENTER){	
-					//fire click event in preview 
-					((ProductPreview)suggestList.getSelectionPreview()).click();
-
+					suggestList.getSelectionPreview().click();
+					
 				}  else sendSearchRequest(textBox.getText());
 			}
 
