@@ -17,7 +17,7 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PropertyList extends ArrayList<PropertyData> implements Serializable {
+public class PropertyList extends ArrayList<PropertyData> implements Entity {
 	private static final long serialVersionUID = 1L;
 
 	public PropertyList() {

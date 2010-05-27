@@ -27,6 +27,9 @@ public class PropertyData implements Entity{
 	private Unit unit;
 	private boolean read=false;
 	
+	public PropertyData() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public PropertyData(
 			String name,

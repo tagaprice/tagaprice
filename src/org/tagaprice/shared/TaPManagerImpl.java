@@ -17,11 +17,13 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.InfoBox;
-import org.tagaprice.client.ProductPreview;
+import org.tagaprice.client.ProductHandler;
+import org.tagaprice.client.ProductHandlerAsync;
 import org.tagaprice.client.SearchWidget;
-import org.tagaprice.client.TypeDraftService;
-import org.tagaprice.client.TypeDraftServiceAsync;
+import org.tagaprice.client.TypeHandler;
+import org.tagaprice.client.TypeHandlerAsync;
 import org.tagaprice.client.UIManager;
+import org.tagaprice.client.InfoBox.BoxType;
 
 
 
@@ -40,7 +42,8 @@ public class TaPManagerImpl implements TaPManager {
 	
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
-	TypeDraftServiceAsync greetingService = GWT.create(TypeDraftService.class);
+	private TypeHandlerAsync typeHandler = GWT.create(TypeHandler.class);
+	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
 	
 	
 	public static TaPManager getInstance(){
@@ -82,26 +85,41 @@ public class TaPManagerImpl implements TaPManager {
 	
 	public void showProductPage(final Long id){
 		
-		TaPMng.getType(id, new AsyncCallback<Type>() {
+		TaPMng.getProduct(id, new AsyncCallback<ProductData>() {
 			
 			@Override
-			public void onSuccess(Type result) {
-				uiMng.showProduct(TaPMng.getProduct(id), result);
+			public void onSuccess(final ProductData pResult) {
+				
+				TaPMng.getType(id, new AsyncCallback<Type>() {
+					
+					@Override
+					public void onSuccess(Type tResult) {
+						uiMng.showProduct(pResult, tResult);
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+					}
+				});
+				
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 				
 			}
 		});
+		
+		
+		
 		
 	}
 	
 	
 	@Override
 	public ReceiptData getReceipt(Long id) {
-		// TODO Auto-generated method stub
 		//Server Communication
 		
 		ReceiptData receiptContainer;
@@ -151,10 +169,11 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public ProductData getProduct(Long id) {
-				
+	public void getProduct(Long id, AsyncCallback<ProductData> response) {
 		
-		// TODO Auto-generated method stub
+		productHandler.get(id, response);
+		/*
+		
 		ProductData test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
 		
 		PropertyList properties = new PropertyList();
@@ -169,6 +188,7 @@ public class TaPManagerImpl implements TaPManager {
 		
 		test.setProperties(properties);
 		return test;
+		*/
 	}
 
 	@Override
@@ -218,55 +238,7 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public void getType(long id, AsyncCallback<Type> response) {
-		greetingService.getType(id,response);
-		
-		
-		greetingService.getType(id, new AsyncCallback<Type>() {
-			
-			@Override
-			public void onSuccess(Type result) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		
-		/*
-		Type type=new Type("Food");
-		
-		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
-		pg.addGroupElement(new PropertyDefinition(2, "energy", "Brennwert", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
-		pg.addGroupElement(new PropertyDefinition(3, "protein", "Eiweiss", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
-		pg.addGroupElement(new PropertyDefinition(4, "link", "URL", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
-		type.addPropertyGroup(pg);
-		
-		
-		PropertyGroup pg2 =new PropertyGroup("SachenEben", PropertyGroup.GroupType.LIST);
-		pg2.addGroupElement(new PropertyDefinition(7, "fiber", "Ballaststoffe", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
-		pg2.addGroupElement(new PropertyDefinition(5, "carbohydrate", "Kohlenhydrate", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
-		pg2.addGroupElement(new PropertyDefinition(6, "fat", "Fett", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
-		type.addPropertyGroup(pg2);
-		
-		
-		PropertyGroup pg3 =new PropertyGroup("Produkt Angaben", PropertyGroup.GroupType.LIST);
-		pg3.addGroupElement(new PropertyDefinition(7, "producer", "Hersteller/Vertrieb", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
-		pg3.addGroupElement(new PropertyDefinition(7, "ingredient", "Inhaltsstoffe", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
-		pg3.addGroupElement(new PropertyDefinition(7, "ean", "EAN-Nummer", PropertyDefinition.Datatype.INT,new Unit(15, "g"),false));
-		type.addPropertyGroup(pg3);
-		
-		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);
-		pg4.addGroupElement(new PropertyDefinition(7, "created", "Erfasst", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
-		pg4.addGroupElement(new PropertyDefinition(7, "lastChange", "Letzte Änderung", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
-		type.addPropertyGroup(pg4);
-		
-		return type;
-		*/
+		typeHandler.get(id,response);
 	}
 
 	

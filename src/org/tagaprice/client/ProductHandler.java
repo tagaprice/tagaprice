@@ -9,17 +9,17 @@
 
 /**
  * Project: TagAPrice
- * Filename: TypeDraft.java
+ * Filename: ProductHandler.java
  * Date: 27.05.2010
 */
 package org.tagaprice.client;
 
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.ProductData;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("test/gettype")
-public interface TypeDraftService extends RemoteService {
-	Type getType(long id) throws IllegalArgumentException;
+@RemoteServiceRelativePath("draft/product")
+public interface ProductHandler extends RemoteService {
+	ProductData get(Long id) throws IllegalArgumentException;
 }

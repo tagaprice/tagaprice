@@ -12,9 +12,9 @@
  * Filename: TypeDraftServiceImpl.java
  * Date: 27.05.2010
 */
-package org.tagaprice.server;
+package org.tagaprice.server.draft;
 
-import org.tagaprice.client.TypeDraftService;
+import org.tagaprice.client.TypeHandler;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Type;
@@ -23,10 +23,10 @@ import org.tagaprice.shared.Unit;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class TypeDraftServiceImpl extends RemoteServiceServlet implements TypeDraftService {
+public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler {
 
 	@Override
-	public Type getType(long id) throws IllegalArgumentException {
+	public Type get(long id) throws IllegalArgumentException {
 		
 		Type type=new Type("Food");
 		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);

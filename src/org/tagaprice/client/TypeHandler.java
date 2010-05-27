@@ -9,18 +9,17 @@
 
 /**
  * Project: TagAPrice
- * Filename: TypeDraftAsync.java
+ * Filename: TypeDraft.java
  * Date: 27.05.2010
 */
 package org.tagaprice.client;
 
 import org.tagaprice.shared.Type;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-public interface TypeDraftServiceAsync {
-
-	void getType(long id, AsyncCallback<Type> callback) 
-		throws IllegalArgumentException;
-	
+@RemoteServiceRelativePath("draft/type")
+public interface TypeHandler extends RemoteService {
+	Type get(long id) throws IllegalArgumentException;
 }

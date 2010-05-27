@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared;
 
-public class Price implements Serializable {
+public class Price implements Entity {
 	private static final long serialVersionUID = 1L;
 
 	private int price; // price in currency/100

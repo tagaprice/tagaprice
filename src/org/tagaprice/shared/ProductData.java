@@ -35,6 +35,7 @@ public class ProductData implements Entity {
 	private PropertyList properties = new PropertyList(); 
 	
 	public ProductData() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**

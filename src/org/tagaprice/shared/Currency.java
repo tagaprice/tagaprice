@@ -20,6 +20,10 @@ public class Currency implements Entity {
 	private long id;
 	private String name;
 	
+	public Currency() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Currency(long id, String name) {
 		this.id = id;
 		this.name = name;

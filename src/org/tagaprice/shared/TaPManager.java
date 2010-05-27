@@ -46,7 +46,7 @@ public interface TaPManager {
 	 * @param id
 	 * @return
 	 */
-	public ProductData getProduct(Long id);
+	public void getProduct(Long id, AsyncCallback<ProductData> response);
 	
 	/**
 	 * Returns shop by ID.
