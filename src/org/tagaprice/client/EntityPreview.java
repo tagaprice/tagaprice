@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Composite;
 public abstract class EntityPreview extends Composite{
 	
 	public EntityPreview(){
+
 		addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {

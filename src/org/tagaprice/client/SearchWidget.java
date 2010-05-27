@@ -34,29 +34,14 @@ public class SearchWidget extends Composite{
 	private Filter filter;
 
 
-
-	public SearchWidget(final Filter filter){
-		this.filter = filter;
-
+	public SearchWidget(){
 		tapManager= TaPManagerImpl.getInstance();
 		basePanel = new VerticalPanel();
 		initWidget(basePanel);
 		textBox = new TextBox();
 		basePanel.add(textBox);
 		suggestList = new ListWidget<EntityPreview>();
-
-		if(filter.equals(Filter.SHOP)){
-			verticalSuggest = new VerticalPanel();
-			verticalSuggest.add(suggestList);
-			basePanel.add(verticalSuggest);
-
-		}else {
-			popupSuggest = new PopupPanel(true);
-			popupSuggest.setWidget(suggestList);
-		}
-
-
-
+		
 		textBox.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
@@ -79,11 +64,25 @@ public class SearchWidget extends Composite{
 		textBox.setWidth("100%"); 
 		basePanel.setWidth("100%");
 		basePanel.setWidth("400px");
+	}
+	
 
+	public SearchWidget(final Filter filter){
+		this();
+		
+		this.filter = filter;
+		
+		if(filter.equals(Filter.SHOP)){
+			verticalSuggest = new VerticalPanel();
+			verticalSuggest.add(suggestList);
+			basePanel.add(verticalSuggest);
+
+		}else {
+			popupSuggest = new PopupPanel(true);
+			popupSuggest.setWidget(suggestList);
+		}
 
 	}
-
-
 
 	public void setSuggestions(ArrayList<Entity> suggestData){
 		suggestList.populateList(suggestData);

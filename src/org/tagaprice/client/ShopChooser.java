@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.Composite;
 public class ShopChooser extends Composite{
 
 	public ShopChooser(){
+		initWidget(this);
+		
 		
 	}
 	

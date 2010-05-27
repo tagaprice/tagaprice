@@ -61,6 +61,7 @@ public class ShopPreview extends EntityPreview {
 	 * @param editable 
 	 */
 	public ShopPreview(ShopData _shopData, boolean _editable) {
+		super();
 		shopData=_shopData;
 		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
