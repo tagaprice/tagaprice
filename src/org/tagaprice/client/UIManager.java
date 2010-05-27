@@ -14,6 +14,7 @@
 */
 package org.tagaprice.client;
 
+import org.tagaprice.client.SearchWidget.Filter;
 import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -40,7 +41,7 @@ public class UIManager extends Composite {
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"), TitlePanel.Level.H1);
-	SearchWidget sw= new SearchWidget();
+	SearchWidget sw= new SearchWidget(Filter.ANY);
 	InfoBox infoBox = new InfoBox();
 
 	public UIManager() {
@@ -141,8 +142,4 @@ public class UIManager extends Composite {
 		return infoBox;
 	}
 	
-	
-	public void displayPage(Composite page){
-		myTitlePan.setTitleWidet("product", page);
-	}
 }

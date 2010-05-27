@@ -13,6 +13,7 @@
 			<g:VerticalPanel  ui:field="VePa2">
 				<g:Label ui:field="street"></g:Label>
 				<g:Label ui:field="city"></g:Label>
+				<g:Label ui:field="country"></g:Label>
 			</g:VerticalPanel>					
 		</g:HorizontalPanel>		
 	</g:VerticalPanel>

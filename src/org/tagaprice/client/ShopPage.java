@@ -22,6 +22,9 @@ public class ShopPage extends Composite {
 
 	public ShopPage(ShopData shopData){
 		
+		
+		
+		
 	}
 	
 }
