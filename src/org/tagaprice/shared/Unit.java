@@ -22,6 +22,10 @@ public class Unit implements Entity {
 	private long fallbackId = 0;
 	private double factor = 0;
 
+	public Unit() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Unit(long id, String name, long fallbackId, double factor) {
 		this.id = id;
 		this.name = name;

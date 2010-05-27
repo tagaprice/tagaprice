@@ -15,6 +15,20 @@
 		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
 	</servlet>
 	
+	<!-- BEGIN: Test von Brandi -->
+	<servlet>
+		<servlet-name>getTypeDraft</servlet-name>
+		<servlet-class>org.tagaprice.server.TypeDraftServiceImpl</servlet-class>
+	</servlet>
+	<!-- END: Test von Brandi -->
+	
+	<!-- BEGIN: Test von Brandi -->
+	<servlet-mapping>
+		<servlet-name>getTypeDraft</servlet-name>
+		<url-pattern>/tagapriceui/test/gettype</url-pattern>
+	</servlet-mapping>
+	<!-- END: Test von Brandi -->
+	
 
 	<servlet-mapping>
 		<servlet-name>ApiDraft</servlet-name>
@@ -25,6 +39,8 @@
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<url-pattern>/tagapriceui/junithost</url-pattern>
 	</servlet-mapping>
+	
+	
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

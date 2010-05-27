@@ -18,6 +18,7 @@ import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 
 /**
@@ -79,7 +80,7 @@ public interface TaPManager {
 	 * @param id
 	 * @return
 	 */
-	public Type getType(long id);
+	public void getType(long id, AsyncCallback<Type> response);
 	
 	
 }

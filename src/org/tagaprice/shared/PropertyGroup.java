@@ -22,12 +22,20 @@ import java.util.ArrayList;
  * e.g. NutritionFacts is a group consisting of the PropertyDefinition for the Property "sugar", "fat", etc
  * 
  * **/
-public class PropertyGroup {
+public class PropertyGroup implements Entity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String title;
 	public enum GroupType {LIST, NUTRITIONFACTS}
 	private GroupType type;
 	private ArrayList<PropertyDefinition>  groupElements;
+	
+	public PropertyGroup() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public PropertyGroup(String title, GroupType type, ArrayList<PropertyDefinition>  groupElements){
 		this(title, type);
@@ -58,6 +66,12 @@ public class PropertyGroup {
 
 	public GroupType getType() {
 		return type;
+	}
+
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "PropertyGroup";
 	}
 	
 	

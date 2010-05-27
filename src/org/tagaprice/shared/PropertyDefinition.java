@@ -17,7 +17,7 @@ package org.tagaprice.shared;
 /**
  * Describes a property
  * **/
-public class PropertyDefinition implements Serializable{
+public class PropertyDefinition implements Entity{
 	private static final long serialVersionUID = 1L;
 
 	private long id;
@@ -31,6 +31,10 @@ public class PropertyDefinition implements Serializable{
 	private int maxValue;
 	private Unit unit;
 	private boolean unique;
+	
+	public PropertyDefinition() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public PropertyDefinition(long id, String name, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
 	{ 	this(id, name, title, type, unit, unique);

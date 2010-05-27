@@ -16,12 +16,20 @@ package org.tagaprice.shared;
 
 import java.util.ArrayList;
 
-public class Type {
+public class Type implements Entity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String title;
 	private Type superType;
 	private ArrayList<PropertyGroup> properties;
+	
+	public Type() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Type(String _title, Type _superType){
 		title=_title;
@@ -57,6 +65,12 @@ public class Type {
 	
 	public String getTitle(){
 		return title;
+	}
+
+	@Override
+	public String getSerializeName() {
+		// TODO Auto-generated method stub
+		return "unit";
 	}
 	
 	

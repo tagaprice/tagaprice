@@ -15,7 +15,6 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.SearchWidget.Filter;
-import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.TaPManagerImpl;

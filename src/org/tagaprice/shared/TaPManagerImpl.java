@@ -18,7 +18,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
+import org.tagaprice.client.TypeDraftService;
+import org.tagaprice.client.TypeDraftServiceAsync;
 import org.tagaprice.client.UIManager;
+
 
 
 import com.google.gwt.core.client.GWT;
@@ -26,7 +29,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 
 
 /**
@@ -37,6 +39,7 @@ public class TaPManagerImpl implements TaPManager {
 	
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
+	TypeDraftServiceAsync greetingService = GWT.create(TypeDraftService.class);
 	
 	
 	public static TaPManager getInstance(){
@@ -195,7 +198,27 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public Type getType(long id) {
+	public void getType(long id, AsyncCallback<Type> response) {
+		greetingService.getType(id,response);
+		
+		
+		greetingService.getType(id, new AsyncCallback<Type>() {
+			
+			@Override
+			public void onSuccess(Type result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		/*
 		Type type=new Type("Food");
 		
 		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
@@ -224,6 +247,7 @@ public class TaPManagerImpl implements TaPManager {
 		type.addPropertyGroup(pg4);
 		
 		return type;
+		*/
 	}
 
 	
