@@ -17,6 +17,7 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.InfoBox;
+import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.TypeDraftService;
 import org.tagaprice.client.TypeDraftServiceAsync;
@@ -59,11 +60,11 @@ public class TaPManagerImpl implements TaPManager {
 				//TODO Create a Split "=" parser
 				if(historyToken[0].equals("receipt/edit")){
 					String[] equalToken = historyToken[1].split("=");
-					ReceiptData emptyData = TaPMng.getReceipt(Integer.parseInt(equalToken[1]));
+					ReceiptData emptyData = TaPMng.getReceipt(Long.parseLong(equalToken[1]));
 					uiMng.showReceipt(emptyData);
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
-					uiMng.showProduct(TaPMng.getProduct(Integer.parseInt(equalToken[1])));	
+					TaPMng.showProductPage(Long.parseLong(equalToken[1]));
 					
 					
 				} else if(historyToken[0].equals("shop/get")){
@@ -79,9 +80,27 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 	
+	public void showProductPage(final Long id){
+		
+		TaPMng.getType(id, new AsyncCallback<Type>() {
+			
+			@Override
+			public void onSuccess(Type result) {
+				uiMng.showProduct(TaPMng.getProduct(id), result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+	}
+	
 	
 	@Override
-	public ReceiptData getReceipt(int id) {
+	public ReceiptData getReceipt(Long id) {
 		// TODO Auto-generated method stub
 		//Server Communication
 		
@@ -132,7 +151,7 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public ProductData getProduct(int id) {
+	public ProductData getProduct(Long id) {
 				
 		
 		// TODO Auto-generated method stub
@@ -153,7 +172,7 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public ShopData getShop(int id) {
+	public ShopData getShop(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

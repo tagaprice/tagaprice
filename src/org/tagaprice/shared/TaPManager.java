@@ -26,28 +26,34 @@ import com.google.gwt.user.client.ui.Composite;
  *
  */
 public interface TaPManager {
-
+	
+	/**
+	 * Starts Product Page with id
+	 * @param id
+	 */
+	public void showProductPage(Long id);
+	
 	/**
 	 *  
 	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
 	 * @param draft Is receipt a draft.
 	 * @return Returns a ReceiptContainer
 	 */
-	public ReceiptData getReceipt(int id);
+	public ReceiptData getReceipt(Long id);
 	
 	/**
 	 * Returns product by ID.
 	 * @param id
 	 * @return
 	 */
-	public ProductData getProduct(int id);
+	public ProductData getProduct(Long id);
 	
 	/**
 	 * Returns shop by ID.
 	 * @param id
 	 * @return
 	 */
-	public ShopData getShop(int id);
+	public ShopData getShop(Long id);
 	
 	/**
 	 * 

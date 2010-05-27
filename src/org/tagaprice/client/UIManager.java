@@ -19,6 +19,8 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.TaPManager;
+import org.tagaprice.shared.Type;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
@@ -89,7 +91,8 @@ public class UIManager extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				ReceiptData emptyData = myMng.getReceipt(0);
+				//TODO RPC Change
+				ReceiptData emptyData = myMng.getReceipt(0l);
 				History.newItem("receipt/edit&id="+emptyData.getId());
 			}
 		});
@@ -121,8 +124,8 @@ public class UIManager extends Composite {
 	}
 	
 	
-	public void showProduct(ProductData productData){
-		ProductPage tempProduct = new ProductPage(productData);
+	public void showProduct(ProductData productData, Type type){
+		ProductPage tempProduct = new ProductPage(productData,type);
 		myTitlePan.setTitleWidet(productData.getName(), tempProduct);
 	}
 	

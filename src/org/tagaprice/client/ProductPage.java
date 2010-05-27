@@ -25,7 +25,6 @@ import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -34,37 +33,22 @@ public class ProductPage extends Composite {
 	private ProductData productData;
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
-	private TaPManager myMng = TaPManagerImpl.getInstance();
 	
-	public ProductPage(ProductData _productData) {
+	public ProductPage(ProductData productData, Type type) {
 		initWidget(vePa1);
-		this.productData=_productData;
-		myMng.getType(productData.getTypeId(), new AsyncCallback<Type>() {
-			
-			@Override
-			public void onSuccess(Type result) {
-				// TODO Auto-generated method stub
-				type=result;
-				vePa1.add(new ProductPreview(productData, false));
-				
-				
-				for(PropertyGroup pg:type.getPropertyGroups()){
-					registerHandler(pg);
-				}
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		this.productData=productData;
+		this.type=type;
 		
 		
 		
 		//style
 		vePa1.setWidth("100%");
+		vePa1.add(new ProductPreview(this.productData, false));
 		
+		
+		for(PropertyGroup pg:this.type.getPropertyGroups()){
+			registerHandler(pg);
+		}
 		
 		//Is displaying the non uses properties.
 		//vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), null));
