@@ -5,6 +5,7 @@ import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -44,6 +45,9 @@ public class TagAPriceUI implements EntryPoint {
 		*/
 		
 		RootPanel.get().add(mng.getUIManager());
+		
+		//Starts the history listening on page load!
+		History.fireCurrentHistoryState();
 	}
 }
 
