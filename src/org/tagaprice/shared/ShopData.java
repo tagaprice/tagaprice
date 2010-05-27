@@ -29,13 +29,7 @@ public class ShopData implements Entity {
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
-	
-	/// TODO create class Address (instead of the stray fields currently
-	private String street;
-	private String city;
-	private String country;
-	private double lat;
-	private double lng;
+	private Address address;
 	private PropertyList properties = new PropertyList();
 	
 	
@@ -47,13 +41,8 @@ public class ShopData implements Entity {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopData(
-			int id,
-			String name,
-			String imageSrc,
-			int progress,
-			int rating) {
-		this(id,name, imageSrc, progress, rating, null, null, null, 0.0, 0.0);
+	public ShopData(int id, String name, String imageSrc, int progress,	int rating) {
+		this(id,name, imageSrc, progress, rating, null);
 	}
 	
 	/**
@@ -66,32 +55,17 @@ public class ShopData implements Entity {
 	 * @param street
 	 * @param city
 	 * @param country
-	 * @param lat
-	 * @param lng
 	 */
-	public ShopData(
-			int id,
-			String name,
-			String imageSrc,
-			int progress,
-			int rating,
-			String street,
-			String city,
-			String country,
-			double lat,
-			double lng){
+	public ShopData( int id, String name, String imageSrc, int progress, int rating, Address address){
 		
 		setId(id);
 		setName(name);
 		setImageSrc(imageSrc);
 		setProgress(progress);
 		setRating(rating);
-		setStreet(street);
-		setCity(city);
-		setCountry(country);
-		setLat(lat);
-		setLng(lng);
+		this.address = address;
 	}
+			
 	
 	/**
 	 * 
@@ -177,81 +151,31 @@ public class ShopData implements Entity {
 	 * 
 	 * @return
 	 */
-	public String getStreet() {
-		return street;
+	public Address getAddress() {
+		return address;
 	}
 
-	/**
-	 * 
-	 * @param street
-	 */
-	public void setStreet(String street) {
-		this.street = street;
-	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * 
-	 * @param city
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCountry() {
-		return country;
-	}
-
-	/**
-	 * 
-	 * @param country
-	 */
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
+	
 	/**
 	 * 
 	 * @return
 	 */
 	public double getLat() {
-		return lat;
+		return address.getLat();
 	}
 
-	/**
-	 * 
-	 * @param lat
-	 */
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
+	
 
 	/**
 	 * 
 	 * @return
 	 */
 	public double getLng() {
-		return lng;
+		return address.getLng();
 	}
 
-	/**
-	 * 
-	 * @param lng
-	 */
-	public void setLng(double lng) {
-		this.lng = lng;
-	}
+	
 
 	/**
 	 * @return the properties
@@ -270,7 +194,7 @@ public class ShopData implements Entity {
 	@Override
 	public String getSerializeName() {
 		// TODO Auto-generated method stub
-		return "shop";
+		return "ShopData";
 	}
 	
 }

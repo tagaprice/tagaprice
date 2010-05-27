@@ -82,5 +82,4 @@ public interface TaPManager {
 	public Type getType(long id);
 	
 	
-	public void displayPage(Composite page);
 }

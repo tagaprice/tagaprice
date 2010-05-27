@@ -106,7 +106,7 @@ public class TaPManagerImpl implements TaPManager {
 					"Ostern war teuer", 
 					new Date(), 
 					0, 
-					new ShopData(15, "Hofer Taborstrasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0), 
+					new ShopData(15, "Hofer Taborstrasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
 					myProducts);
 		}else{
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
@@ -119,7 +119,7 @@ public class TaPManagerImpl implements TaPManager {
 					"Weihnachts einkauf", 
 					new Date(), 
 					0, 
-					new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0), 
+					new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
 					myProducts);
 		}
 		
@@ -181,7 +181,7 @@ public class TaPManagerImpl implements TaPManager {
 		// send to server
 		
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
-			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, "Flossgasse 1A", "1020 Wien", "Austria", 0.0, 0.0));
+			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
 			tmp.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
 			tmp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, "€"), new Quantity(250, 23, "g")));
 		
@@ -226,10 +226,6 @@ public class TaPManagerImpl implements TaPManager {
 		return type;
 	}
 
-	
-	public void displayPage(Composite page){
-		uiMng.displayPage(page);
-	}
 	
 	
 }
