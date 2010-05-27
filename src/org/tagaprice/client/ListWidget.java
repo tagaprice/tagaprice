@@ -39,15 +39,19 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	}
 
 	
-	private void populateList(ArrayList<Entity> entityData){
+	public void addSuggestion(EntityPreview preview){
+		verticalPanel.add(preview);
+	}
+	
+	
+	public void populateList(ArrayList<Entity> entityData){
 		verticalPanel.clear();
 
 		for(Entity e: entityData){
 			verticalPanel.add(createPreview(e));
 		}
-
 	}
-
+	
 	private EntityPreview createPreview(Entity e){
 		EntityPreview rc = null;
 
@@ -93,7 +97,9 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	}
 
 
-
+	public EntityPreview getSelectionPreview(){
+		return (EntityPreview) verticalPanel.getWidget(currentSelection);
+	}
 
 
 

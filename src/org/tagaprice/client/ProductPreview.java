@@ -134,12 +134,19 @@ public class ProductPreview extends EntityPreview {
 		addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("product/get&id="+productData.getId());			
+				click();	
 			}
 		});
 	}
 	
 
+	public void click(){
+		History.newItem("product/get&id="+productData.getId());		
+	}
+	
+	
+	
+	
 	/**
 	 * 
 	 */
@@ -186,11 +193,5 @@ public class ProductPreview extends EntityPreview {
 		price.addChangeHandler(handler);
 	}
 	
-	/**
-	 * 
-	 * @param handler
-	 */
-	public void addClickHandler(ClickHandler handler){
-		addDomHandler(handler, ClickEvent.getType());
-	}
+	
 }

@@ -9,22 +9,17 @@
 
 /**
  * Project: TagAPriceUI
- * Filename: PreviewWidget.java
- * Date: May 19, 2010
+ * Filename: ShopChooser.java
+ * Date: May 26, 2010
 */
 package org.tagaprice.client;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 
-public abstract class EntityPreview extends Composite{
-	
-	
-	public void addClickHandler(ClickHandler handler){
-		addDomHandler(handler, ClickEvent.getType());
-	}
+public class ShopChooser extends Composite{
 
-	
+	public ShopChooser(){
+		
+	}
 	
 }
