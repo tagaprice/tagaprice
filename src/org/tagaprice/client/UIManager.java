@@ -118,7 +118,7 @@ public class UIManager extends Composite {
 	
 	public void showReceipt(ReceiptData receiptData){
 		ReceiptWidget tempReceipt = new ReceiptWidget(receiptData,true); 
-		myTitlePan.setTitleWidet(
+		myTitlePan.setTitleWidget(
 				"Kassazettel eintragen", 
 				tempReceipt);
 	}
@@ -126,12 +126,12 @@ public class UIManager extends Composite {
 	
 	public void showProduct(ProductData productData, Type type){
 		ProductPage tempProduct = new ProductPage(productData,type);
-		myTitlePan.setTitleWidet(productData.getName(), tempProduct);
+		myTitlePan.setTitleWidget(productData.getName(), tempProduct);
 	}
 	
 	
 	public void showHome(){
-		myTitlePan.setTitleWidet(
+		myTitlePan.setTitleWidget(
 				"Home", 
 				new HTML("home"));
 	}
@@ -142,6 +142,11 @@ public class UIManager extends Composite {
 	 */
 	public InfoBox getInfoBox(){
 		return infoBox;
+	}
+	
+	
+	public void waitingPage(){
+		myTitlePan.setTitleWidget("Waiting", new Label("Processing..."));
 	}
 	
 }

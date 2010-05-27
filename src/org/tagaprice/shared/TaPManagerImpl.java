@@ -67,9 +67,7 @@ public class TaPManagerImpl implements TaPManager {
 					uiMng.showReceipt(emptyData);
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
-					TaPMng.showProductPage(Long.parseLong(equalToken[1]));
-					
-					
+					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
 				} else if(historyToken[0].equals("shop/get")){
 					System.out.println("show shop/get");
 				} else{
@@ -84,6 +82,7 @@ public class TaPManagerImpl implements TaPManager {
 	
 	
 	public void showProductPage(final Long id){
+		uiMng.waitingPage();
 		
 		TaPMng.getProduct(id, new AsyncCallback<ProductData>() {
 			
@@ -170,25 +169,7 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
-		
 		productHandler.get(id, response);
-		/*
-		
-		ProductData test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
-		
-		PropertyList properties = new PropertyList();
-		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, "kj")));
-		properties.add(new PropertyData("protein", "Eiweiss", "5,3", new Unit(2, "g")));
-		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, "g")));
-		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, "g")));
-		properties.add(new PropertyData("fiber", "Ballaststoffe", "1,9", new Unit(2, "g")));
-		properties.add(new PropertyData("sodium", "Natrium", "0,05", new Unit(2, "g")));
-		properties.add(new PropertyData("link", "URL", "tagaprice.com", new Unit(5, "fl")));
-		properties.add(new PropertyData("ean", "EAN", "14526486", new Unit(5, "g")));
-		
-		test.setProperties(properties);
-		return test;
-		*/
 	}
 
 	@Override

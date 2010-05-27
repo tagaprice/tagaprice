@@ -68,7 +68,7 @@ public class TitlePanel extends Composite {
 	 * @param title
 	 * @param widget
 	 */
-	public void setTitleWidet(String title, Widget widget){
+	public void setTitleWidget(String title, Widget widget){
 		label.setText(title);
 		siPa.setWidget(widget);
 	}

@@ -75,7 +75,7 @@ input{
 }
 
 .InfoBox-Warning{
-	background-color: #ffeb90;
+	background-color: #b5daff;
 	font-family: Arial Unicode MS, Arial, sans-serif;
 }
 
@@ -94,7 +94,7 @@ input{
 }
 
 .Warning{
-	background-color: #ffeb90;
+	background-color: #b5daff;
 	font-family: Arial Unicode MS, Arial, sans-serif;
   	font-size: small;
   	margin-top: 2px;
