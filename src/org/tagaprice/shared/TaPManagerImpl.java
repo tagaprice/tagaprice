@@ -19,6 +19,8 @@ import java.util.Date;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.ProductHandler;
 import org.tagaprice.client.ProductHandlerAsync;
+import org.tagaprice.client.ReceiptHandler;
+import org.tagaprice.client.ReceiptHandlerAsync;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.TypeHandler;
 import org.tagaprice.client.TypeHandlerAsync;
@@ -44,6 +46,7 @@ public class TaPManagerImpl implements TaPManager {
 	private static UIManager uiMng = new UIManager();
 	private TypeHandlerAsync typeHandler = GWT.create(TypeHandler.class);
 	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
+	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
 	
 	
 	public static TaPManager getInstance(){
@@ -61,10 +64,9 @@ public class TaPManagerImpl implements TaPManager {
 			public void onValueChange(ValueChangeEvent<String> event) {
 				String[] historyToken = event.getValue().split("&");
 				//TODO Create a Split "=" parser
-				if(historyToken[0].equals("receipt/edit")){
+				if(historyToken[0].equals("receipt/get")){
 					String[] equalToken = historyToken[1].split("=");
-					ReceiptData emptyData = TaPMng.getReceipt(Long.parseLong(equalToken[1]));
-					uiMng.showReceipt(emptyData);
+					TaPMng.showReceiptPage(Long.parseLong(equalToken[1]));
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
@@ -116,55 +118,27 @@ public class TaPManagerImpl implements TaPManager {
 		
 	}
 	
+	public void showReceiptPage(final Long id){
+		uiMng.waitingPage();
+		
+		getReceipt(id, new AsyncCallback<ReceiptData>() {
+			
+			@Override
+			public void onSuccess(ReceiptData result) {
+				uiMng.showReceipt(result);				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
+			}
+		});
+	}
+	
 	
 	@Override
-	public ReceiptData getReceipt(Long id) {
-		//Server Communication
-		
-		ReceiptData receiptContainer;
-		
-		if(id==0){
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			receiptContainer = new ReceiptData(
-					15, 
-					true,
-					"Default title", 
-					new Date(), 
-					0, 
-					null, 
-					myProducts);
-		}else if(id==15) {
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
-			myProducts.add(new ProductData(12, 15, 16, "Coca Cola 2L", "logo.png", 50, 100, new Price(230, 23, "€"), new Quantity(2, 25, "l"),true));
-			
-			receiptContainer = new ReceiptData(
-					15, 
-					true,
-					"Ostern war teuer", 
-					new Date(), 
-					0, 
-					new ShopData(15, "Hofer Taborstrasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
-					myProducts);
-		}else{
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
-			
-			receiptContainer = new ReceiptData(
-					18, 
-					false,
-					"Weihnachts einkauf", 
-					new Date(), 
-					0, 
-					new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
-					myProducts);
-		}
-		
-		
-		
-		return receiptContainer;
+	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
+		receiptHandler.get(id, response);		
 	}
 
 	@Override

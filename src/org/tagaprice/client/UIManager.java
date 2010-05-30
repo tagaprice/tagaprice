@@ -14,6 +14,7 @@
 */
 package org.tagaprice.client;
 
+import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.Filter;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -24,6 +25,7 @@ import org.tagaprice.shared.Type;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -92,8 +94,18 @@ public class UIManager extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				//TODO RPC Change
-				ReceiptData emptyData = myMng.getReceipt(0l);
-				History.newItem("receipt/edit&id="+emptyData.getId());
+				myMng.getReceipt(0l, new AsyncCallback<ReceiptData>() {
+					
+					@Override
+					public void onSuccess(ReceiptData tResult) {
+						History.newItem("receipt/get&id="+tResult.getId());
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						myMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+					}
+				});
 			}
 		});
 		

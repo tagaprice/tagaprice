@@ -32,6 +32,9 @@ public class ShopData implements Entity {
 	private Address address;
 	private PropertyList properties = new PropertyList();
 	
+	public ShopData() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	/**
 	 * 

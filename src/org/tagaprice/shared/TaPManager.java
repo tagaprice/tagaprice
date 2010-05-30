@@ -19,7 +19,6 @@ import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 
 /**
  * Interface for the DAO Manager
@@ -34,12 +33,19 @@ public interface TaPManager {
 	public void showProductPage(Long id);
 	
 	/**
+	 * Starts Receipt Page
+	 * @param id
+	 */
+	public void showReceiptPage(final Long id);
+	
+	
+	/**
 	 *  
 	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
 	 * @param draft Is receipt a draft.
 	 * @return Returns a ReceiptContainer
 	 */
-	public ReceiptData getReceipt(Long id);
+	public void getReceipt(Long id, AsyncCallback<ReceiptData> response);
 	
 	/**
 	 * Returns product by ID.

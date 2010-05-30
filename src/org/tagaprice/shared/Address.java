@@ -30,6 +30,9 @@ public class Address implements Serializable {
 		return "Address";
 	}
 
+	public Address() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Address(String street, String city, String country, double lat, double lng) {
 		this.street = street;

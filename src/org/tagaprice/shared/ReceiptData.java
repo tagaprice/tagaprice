@@ -35,6 +35,10 @@ public class ReceiptData implements Entity {
 	private ShopData shopData;
 	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
 	
+	public ReceiptData() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * 
 	 * @param id
