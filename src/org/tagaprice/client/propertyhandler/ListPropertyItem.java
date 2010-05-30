@@ -80,7 +80,6 @@ public class ListPropertyItem extends Composite {
 				
 				if(pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
 					if(!definition.isUnique() ){
-						//propertyData.add(pdCp);
 						propertyData.add(new PropertyData(
 								pdCp.getName(), 
 								pdCp.getTitle(), 

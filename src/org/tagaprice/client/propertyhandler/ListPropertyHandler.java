@@ -73,67 +73,12 @@ public class ListPropertyHandler extends PropertyHandler {
 					pg, 
 					usedDefs.get(pg.getName()));
 			vePa1.add(temp);
-			
-			/*
-			if(!usedDefs.get(pg.getName()).isEmpty()){
-				for(PropertyData pd:usedDefs.get(pg.getName())){
-					addToGrid(
-							definition.get(pg.getName()).getTitle(), 
-							pd.getValue(),
-							definition.get(pg.getName()).getType(),
-							definition.get(pg.getName()).getUnit().getName());
-				}
-			}			
-			
-			if(!pg.isUnique() || usedDefs.get(pg.getName()).isEmpty()){
-				addToGrid(
-						definition.get(pg.getName()).getTitle(), 
-						"", 
-						definition.get(pg.getName()).getType(),
-						definition.get(pg.getName()).getUnit().getName());
-			}
-			*/
 		}
 			
 		
 	}
 	
-	private void addToGrid(String title, String value, Datatype type, String unit){
-		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
-		final MorphWidget mp = new MorphWidget(value,type, true);
-		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
-			
-			@Override
-			public void onError(Datatype errorType) {
-				temp.showInfo("Error");
-				
-			}
 
-			@Override
-			public void onSuccess(Datatype errorType) {
-				
-				
-				temp.showInfo(false);
-				
-			}
-
-			@Override
-			public void onEmpty() {				
-				vePa1.remove(temp);
-			}
-		});
-		Label lTitle = new Label(title);
-		temp.add(lTitle);
-		temp.getPanel().setCellWidth(lTitle, "100%");
-		temp.add(mp);
-		temp.add(new Label(unit));
-		
-		temp.setStyleName("DefaultPropertyHandler-Row"+rowSwap);
-		rowSwap*=-1;
-
-		
-		vePa1.add(temp);
-	}
 	
 	
 	
