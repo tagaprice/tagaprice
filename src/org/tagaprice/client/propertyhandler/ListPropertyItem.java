@@ -49,9 +49,7 @@ public class ListPropertyItem extends Composite {
 		fillItems();
 	}
 	
-	private void fillItems(){		
-		
-		
+	private void fillItems(){			
 		for(PropertyData pd:propertyData){
 			addItem(pd);
 		}
@@ -62,40 +60,41 @@ public class ListPropertyItem extends Composite {
 					definition.getTitle(), 
 					"", 
 					definition.getUnit()));
-		}
-		
+		}		
 	}
 	
-	private void addItem(final PropertyData pd){
+	private void addItem(PropertyData pd){
+		final PropertyData pdCp = new PropertyData(
+				pd.getName(), 
+				pd.getTitle(), 
+				pd.getValue(), 
+				pd.getUnit());
 		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
-		final MorphWidget mp = new MorphWidget(pd.getValue(),definition.getType(), true);
-		pd.setName(""+Math.random()); //Copy Error
+		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
 		
 		//Listen
 		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {
-				System.out.println("success");
 				
-				pd.setValue(mp.getText());
-				
-				
-				if(propertyData.contains(pd)){
-					System.out.println("is Including: "+pd.getValue());
-				}else{
-					System.out.println("is not Including: "+pd.getValue());
+				if(pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
+					if(!definition.isUnique() ){
+						//propertyData.add(pdCp);
+						propertyData.add(new PropertyData(
+								pdCp.getName(), 
+								pdCp.getTitle(), 
+								pdCp.getValue(), 
+								pdCp.getUnit()));
+						addItem(new PropertyData(
+								definition.getName(), 
+								definition.getTitle(), 
+								"", 
+								definition.getUnit()));
+					}
 				}
-				
-				if(!definition.isUnique() && !propertyData.contains(pd)){
-					propertyData.add(pd);
-					addItem(new PropertyData(
-							definition.getName(), 
-							definition.getTitle(), 
-							"", 
-							definition.getUnit()));
-				}
-				
+				pdCp.setValue(mp.getText());
+
 				temp.showInfo(false);
 				
 			}
@@ -107,10 +106,11 @@ public class ListPropertyItem extends Composite {
 			
 			@Override
 			public void onEmpty() {
-				System.out.println("on Empty");
-				propertyData.remove(pd);
-				if(!definition.isUnique()){
-					vePa1.remove(temp);
+				if(!pdCp.getValue().isEmpty()){
+					propertyData.remove(pdCp);
+					if(!definition.isUnique()){
+						vePa1.remove(temp);
+					}
 				}
 				temp.showInfo(false);
 			}
