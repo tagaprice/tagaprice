@@ -16,7 +16,6 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.tagaprice.client.HorizontalInfoPanel;
 import org.tagaprice.client.MorphWidget;
@@ -26,8 +25,6 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
-
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -36,16 +33,13 @@ public class ListPropertyHandler extends PropertyHandler {
 	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
 	HashMap<String, ArrayList<PropertyData>> usedDefs = new HashMap<String, ArrayList<PropertyData>>();
 	TitlePanel title;
-	Grid grid = new Grid(0, 3);
 	VerticalPanel vePa1 = new VerticalPanel();
 	int rowSwap=-1;
 	
 	public ListPropertyHandler(ArrayList<PropertyData> properties,
 			PropertyGroup propGroup) {
 		super(properties, propGroup);
-		grid.setWidth("100%");
 		vePa1.setWidth("100%");
-		grid.setStyleName("DefaultPropertyHandler");
 		
 		title = new TitlePanel(propGroup.getTitle(), vePa1, TitlePanel.Level.H2);
 		convertToHash();
@@ -75,6 +69,12 @@ public class ListPropertyHandler extends PropertyHandler {
 	private void createGrid(){
 		
 		for(PropertyDefinition pg:propGroup.getGroupElements()){
+			ListPropertyItem temp = new ListPropertyItem(
+					pg, 
+					usedDefs.get(pg.getName()));
+			vePa1.add(temp);
+			
+			/*
 			if(!usedDefs.get(pg.getName()).isEmpty()){
 				for(PropertyData pd:usedDefs.get(pg.getName())){
 					addToGrid(
@@ -92,6 +92,7 @@ public class ListPropertyHandler extends PropertyHandler {
 						definition.get(pg.getName()).getType(),
 						definition.get(pg.getName()).getUnit().getName());
 			}
+			*/
 		}
 			
 		
@@ -99,7 +100,7 @@ public class ListPropertyHandler extends PropertyHandler {
 	
 	private void addToGrid(String title, String value, Datatype type, String unit){
 		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
-		MorphWidget mp = new MorphWidget(value,type, true);
+		final MorphWidget mp = new MorphWidget(value,type, true);
 		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
 			
 			@Override
@@ -110,8 +111,15 @@ public class ListPropertyHandler extends PropertyHandler {
 
 			@Override
 			public void onSuccess(Datatype errorType) {
+				
+				
 				temp.showInfo(false);
 				
+			}
+
+			@Override
+			public void onEmpty() {				
+				vePa1.remove(temp);
 			}
 		});
 		Label lTitle = new Label(title);

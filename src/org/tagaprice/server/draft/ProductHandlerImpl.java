@@ -42,6 +42,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		properties.add(new PropertyData("sodium", "Natrium", "0,05", new Unit(2, "g")));
 		properties.add(new PropertyData("link", "URL", "tagaprice.com", new Unit(5, "fl")));
 		properties.add(new PropertyData("ean", "EAN", "14526486", new Unit(5, "g")));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, "g")));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, "g")));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, "g")));
 		
 		test.setProperties(properties);
 		

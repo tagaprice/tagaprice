@@ -112,10 +112,17 @@ public class MorphWidget extends SimplePanel {
 							}
 						}else if(type.equals(Datatype.STRING)){
 							//Do nothing
+							callSuccess(Datatype.STRING);
 						}
 					}else{
 						label.setStyleName("MorphWidgetBox");
 					}
+					
+					
+					//If Text is empty and wasn't empty before.
+					if(textBox.getText().isEmpty() && !label.getText().isEmpty())
+						callEmpty();
+					
 					
 					
 					label.setText(textBox.getText());
@@ -181,6 +188,11 @@ public class MorphWidget extends SimplePanel {
 	private void callSuccess(Datatype errorType){
 		if(handler!=null)
 			handler.onSuccess(errorType);
+	}
+	
+	private void callEmpty(){
+		if(handler!=null)
+			handler.onEmpty();
 	}
 	
 	

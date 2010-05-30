@@ -21,4 +21,6 @@ public interface MorphWidgetErrorHandler {
 	public void onError(Datatype errorType);
 	
 	public void onSuccess(Datatype errorType);
+	
+	public void onEmpty();
 }
