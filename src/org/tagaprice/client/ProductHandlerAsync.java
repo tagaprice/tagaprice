@@ -23,4 +23,7 @@ public interface ProductHandlerAsync {
 	void get(Long id, AsyncCallback<ProductData> callback)
 		throws IllegalArgumentException;
 
+	void save(ProductData data, AsyncCallback<ProductData> callback) 
+		throws IllegalArgumentException;
+
 }

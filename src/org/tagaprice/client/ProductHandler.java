@@ -22,4 +22,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("draft/product")
 public interface ProductHandler extends RemoteService {
 	ProductData get(Long id) throws IllegalArgumentException;
+	ProductData save(ProductData data)  throws IllegalArgumentException;
 }

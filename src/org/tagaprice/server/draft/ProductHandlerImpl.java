@@ -26,10 +26,12 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
-
-	@Override
-	public ProductData get(Long id) throws IllegalArgumentException {
-		ProductData test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
+	ProductData test;
+	
+	public ProductHandlerImpl() {
+		// TODO Auto-generated constructor stub
+		//MockMock
+		test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
 		
 		
 		PropertyList properties = new PropertyList();
@@ -47,7 +49,22 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, "g")));
 		
 		test.setProperties(properties);
+	}
+	
+	@Override
+	public ProductData get(Long id) throws IllegalArgumentException {
 		
+		
+		return test;
+	}
+
+	@Override
+	public ProductData save(ProductData data) throws IllegalArgumentException {
+		if(data.getId()==0){
+			System.out.println("new");
+		}else{
+			test=data;
+		}
 		return test;
 	}
 

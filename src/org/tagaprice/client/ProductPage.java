@@ -24,12 +24,21 @@ import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.PropertyList;
+import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
 
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends Composite {
@@ -39,11 +48,14 @@ public class ProductPage extends Composite {
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
+	private InfoBox bottomInfo = new InfoBox();
+	private TaPManager TaPMng = TaPManagerImpl.getInstance();
 
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
 		this.productData=_productData;
+		
 		this.type=_type;
 		
 		
@@ -57,17 +69,68 @@ public class ProductPage extends Composite {
 			
 			@Override
 			public void onSuccess() {
-				TaPManagerImpl.getInstance().getInfoBox().showInfo(new Button("Save Changes!"), BoxType.WARNINGBOX);
-				
-				
-				
-				/*
-				for(IPropertyHandler hl:handlerList){
-					for(PropertyData pd:hl.getPropertyData()){
-						System.out.println(pd.getName()+": "+pd.getValue());
+				HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
+				bottomInfoHoPa.setWidth("100%");
+				bottomInfoHoPa.setHeight("100%");
+				Button topAbort=new Button("Abort", new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						TaPManagerImpl.getInstance().showProductPage(productData.getId());
+						
 					}
-				}
-				// */
+				});
+				final Button topSave=new Button("Save");	
+				topSave.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						topSave.setText("Saving...");
+						
+						//productData.getProperties()
+						PropertyList newList = new PropertyList();
+						
+						for(IPropertyHandler hl:handlerList){
+							for(PropertyData pd:hl.getPropertyData()){
+								newList.add(pd);
+								//System.out.println(pd.getName()+": "+pd.getValue());
+							}
+						}
+						productData.setProperties(newList);
+						
+						TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
+							
+							@Override
+							public void onSuccess(ProductData result) {
+								bottomInfo.setVisible(false);
+								topSave.setText("Save");
+								
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
+								
+							}
+						});						
+						
+					}
+				});
+				bottomInfoHoPa.add(topAbort);
+				bottomInfoHoPa.add(topSave);	
+				bottomInfoHoPa.setCellWidth(topAbort, "100%");
+				bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
+				bottomInfoHoPa.setCellHorizontalAlignment(topSave, HasHorizontalAlignment.ALIGN_RIGHT);				
+				bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
+				bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
+				bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+				
+				//
+				//TaPManagerImpl.getInstance().getInfoBox().showInfo(new Button("Save Changes!"), BoxType.WARNINGBOX);
+				
+				
+				
+				
 
 				
 			}
@@ -85,7 +148,7 @@ public class ProductPage extends Composite {
 		}
 		
 		
-		
+		vePa1.add(bottomInfo);
 	}
 	
 	

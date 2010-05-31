@@ -67,6 +67,7 @@ public class ListPropertyItem extends Composite {
 	private void addItem(final PropertyData pdCp){
 		
 		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
+		temp.setStyleName("DefaultPropertyHandler");
 		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
 		
 		//Listen

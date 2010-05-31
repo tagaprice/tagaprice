@@ -34,7 +34,7 @@ public class InfoBox extends Composite {
 
 	public InfoBox() {
 		initWidget(infoBox);
-		infoBox.setSize("100%", "50px");
+		infoBox.setSize("100%", "40px");
 		infoBox.setVisible(false);		
 	}
 	

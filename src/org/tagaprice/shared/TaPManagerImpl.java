@@ -145,6 +145,11 @@ public class TaPManagerImpl implements TaPManager {
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
 		productHandler.get(id, response);
 	}
+	
+	@Override
+	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
+		productHandler.save(data, response);
+	}
 
 	@Override
 	public ShopData getShop(Long id) {
@@ -195,6 +200,8 @@ public class TaPManagerImpl implements TaPManager {
 	public void getType(long id, AsyncCallback<Type> response) {
 		typeHandler.get(id,response);
 	}
+
+	
 
 	
 	

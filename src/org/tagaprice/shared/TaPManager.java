@@ -55,6 +55,14 @@ public interface TaPManager {
 	public void getProduct(Long id, AsyncCallback<ProductData> response);
 	
 	/**
+	 * Save, create or update a product.
+	 * @param data
+	 * @param response
+	 * @return
+	 */
+	public void saveProduct(ProductData data, AsyncCallback<ProductData> response); 
+	
+	/**
 	 * Returns shop by ID.
 	 * @param id
 	 * @return

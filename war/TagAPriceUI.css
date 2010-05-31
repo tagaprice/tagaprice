@@ -170,6 +170,13 @@ input{
 	margin-bottom: 3px;
 }
 
+.DefaultPropertyHandler{
+	border-bottom: thin solid #eaeaea;	
+}
+
+.DefaultPropertyHandler:hover{
+	background-color: #eaeaea;
+}
 
 .DefaultPropertyHandler, .DefaultPropertyHandler-Row-1, .NutritionFactsPropertyHandler, .NutritionFactsPropertyHandler-Row-1{
 	
