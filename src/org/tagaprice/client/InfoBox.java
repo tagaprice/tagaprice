@@ -18,6 +18,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Shows a success, warning or error info.
@@ -25,8 +26,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class InfoBox extends Composite {
 	SimplePanel infoBox = new SimplePanel();
-	//PopupPanel infoBox = new PopupPanel(false);
-	Label infoText = new Label();
 	public enum BoxType {
 		ERRORBOX, SUCCESSBOX, WARNINGBOX
 	}
@@ -37,10 +36,9 @@ public class InfoBox extends Composite {
 		initWidget(infoBox);
 		infoBox.setSize("100%", "50px");
 		infoBox.setVisible(false);		
-		infoBox.setWidget(infoText);
 	}
 	
-	public void showInfo(String text, BoxType type){
+	public void showInfo(Widget wid, BoxType type){
 		this.type=type;
 		
 		
@@ -54,7 +52,7 @@ public class InfoBox extends Composite {
 			infoBox.setStyleName("InfoBox-Warning");
 		}
 		
-		infoText.setText(text);
+		infoBox.setWidget(wid);
 		infoBox.setVisible(true);
 		/*
 		Timer t = new Timer() {
@@ -65,5 +63,10 @@ public class InfoBox extends Composite {
 		
 		t.schedule(1500);
 		*/
+	}
+	
+	public void showInfo(String text, BoxType type){
+		showInfo(new Label(text), type);
+
 	}
 }

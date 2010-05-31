@@ -28,6 +28,7 @@ import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
 
 
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -56,7 +57,7 @@ public class ProductPage extends Composite {
 			
 			@Override
 			public void onSuccess() {
-				TaPManagerImpl.getInstance().getInfoBox().showInfo("Save Changes", BoxType.WARNINGBOX);
+				TaPManagerImpl.getInstance().getInfoBox().showInfo(new Button("Save Changes!"), BoxType.WARNINGBOX);
 				
 				
 				
