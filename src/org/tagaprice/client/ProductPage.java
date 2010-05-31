@@ -16,14 +16,17 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
+import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
+import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
+
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -33,11 +36,14 @@ public class ProductPage extends Composite {
 	private ProductData productData;
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
+	private PropertyChangeHandler handler;
+	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
+
 	
-	public ProductPage(ProductData productData, Type type) {
+	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
-		this.productData=productData;
-		this.type=type;
+		this.productData=_productData;
+		this.type=_type;
 		
 		
 		
@@ -45,25 +51,55 @@ public class ProductPage extends Composite {
 		vePa1.setWidth("100%");
 		vePa1.add(new ProductPreview(this.productData, false));
 		
+		//Listener
+		handler=new PropertyChangeHandler() {
+			
+			@Override
+			public void onSuccess() {
+				TaPManagerImpl.getInstance().getInfoBox().showInfo("Save Changes", BoxType.WARNINGBOX);
+				
+				
+				
+				/*
+				for(IPropertyHandler hl:handlerList){
+					for(PropertyData pd:hl.getPropertyData()){
+						System.out.println(pd.getName()+": "+pd.getValue());
+					}
+				}
+				// */
+
+				
+			}
+			
+			@Override
+			public void onError() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
 		
 		for(PropertyGroup pg:this.type.getPropertyGroups()){
 			registerHandler(pg);
 		}
 		
-		//Is displaying the non uses properties.
-		//vePa1.add(new DefaultPropertyHandler(this.productData.getProperties(), null));
+		
 		
 	}
 	
 	
 	private void registerHandler(PropertyGroup propGroup){
 		
-		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS))
-			vePa1.add(new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup));
-		else if (propGroup.getType().equals(PropertyGroup.GroupType.LIST))
-			vePa1.add(new ListPropertyHandler(this.productData.getProperties(), propGroup));
+		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
+			NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup, handler);
+			handlerList.add(temp);
+			vePa1.add(temp);
+		}else if (propGroup.getType().equals(PropertyGroup.GroupType.LIST)){
+			ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), propGroup, handler);
+			handlerList.add(temp);
+			vePa1.add(temp);
+		}
 
-		
 
 		
 		

@@ -56,7 +56,7 @@ public class InfoBox extends Composite {
 		
 		infoText.setText(text);
 		infoBox.setVisible(true);
-		
+		/*
 		Timer t = new Timer() {
 			public void run() {				
 				infoBox.setVisible(false);
@@ -64,6 +64,6 @@ public class InfoBox extends Composite {
 		};
 		
 		t.schedule(1500);
-
+		*/
 	}
 }

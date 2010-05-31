@@ -34,8 +34,8 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	int rowSwap=-1;
 	boolean show=false;
 	
-	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup) {
-		super(properties, propGroup);
+	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup, PropertyChangeHandler handler) {
+		super(properties, propGroup, handler);
 		grid.setWidth("100%");
 		grid.setStyleName("DefaultPropertyHandler");
 	

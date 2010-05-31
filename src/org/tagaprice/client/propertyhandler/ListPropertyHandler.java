@@ -16,17 +16,14 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
-import org.tagaprice.client.HorizontalInfoPanel;
-import org.tagaprice.client.MorphWidget;
-import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class ListPropertyHandler extends PropertyHandler {
 
@@ -35,10 +32,12 @@ public class ListPropertyHandler extends PropertyHandler {
 	TitlePanel title;
 	VerticalPanel vePa1 = new VerticalPanel();
 	int rowSwap=-1;
+		
 	
 	public ListPropertyHandler(ArrayList<PropertyData> properties,
-			PropertyGroup propGroup) {
-		super(properties, propGroup);
+			PropertyGroup propGroup, 
+			PropertyChangeHandler handler) {
+		super(properties, propGroup, handler);
 		vePa1.setWidth("100%");
 		
 		title = new TitlePanel(propGroup.getTitle(), vePa1, TitlePanel.Level.H2);
@@ -73,12 +72,26 @@ public class ListPropertyHandler extends PropertyHandler {
 					pg, 
 					usedDefs.get(pg.getName()));
 			vePa1.add(temp);
-		}
 			
-		
+			temp.addChangeHandler(handler);
+
+		}		
 	}
 	
-
+	@Override
+	public ArrayList<PropertyData> getPropertyData(){
+		ArrayList<PropertyData> rProperties = new ArrayList<PropertyData>();
+		
+		
+		for(Widget wg:vePa1){
+			ArrayList<PropertyData> pdList = ((ListPropertyItem)(wg)).getPropertyData();
+			for(PropertyData pd:pdList){
+				rProperties.add(pd);
+			}
+		}		
+		
+		return rProperties;
+	}
 	
 	
 	

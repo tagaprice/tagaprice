@@ -31,6 +31,7 @@ public class ListPropertyItem extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
 	PropertyDefinition definition;
 	ArrayList<PropertyData> propertyData;
+	PropertyChangeHandler handler;
 	
 	
 	public ListPropertyItem(
@@ -63,12 +64,8 @@ public class ListPropertyItem extends Composite {
 		}		
 	}
 	
-	private void addItem(PropertyData pd){
-		final PropertyData pdCp = new PropertyData(
-				pd.getName(), 
-				pd.getTitle(), 
-				pd.getValue(), 
-				pd.getUnit());
+	private void addItem(final PropertyData pdCp){
+		
 		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
 		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
 		
@@ -76,40 +73,57 @@ public class ListPropertyItem extends Composite {
 		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
 			
 			@Override
-			public void onSuccess(Datatype errorType) {
+			public void onSuccess(Datatype errorType) {		
 				
-				if(pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
-					if(!definition.isUnique() ){
-						propertyData.add(new PropertyData(
-								pdCp.getName(), 
-								pdCp.getTitle(), 
-								pdCp.getValue(), 
-								pdCp.getUnit()));
+				//if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
+				if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty()){
+					
+					if(!definition.isUnique() ){						
+						//propertyData.add(pdCp);
 						addItem(new PropertyData(
 								definition.getName(), 
 								definition.getTitle(), 
 								"", 
-								definition.getUnit()));
+								definition.getUnit()));			
+						
+						
 					}
 				}
-				pdCp.setValue(mp.getText());
-
-				temp.showInfo(false);
 				
+				if(!pdCp.getValue().equals(mp.getText())){	
+					if(pdCp.getValue().isEmpty())
+						propertyData.add(pdCp);
+					
+					pdCp.setValue(mp.getText());
+					
+					
+					
+					if(handler!=null)
+						handler.onSuccess();
+					
+				}
+				
+				temp.showInfo(false);				
 			}
 			
 			@Override
 			public void onError(Datatype errorType) {
 				temp.showInfo("Error");
+				if(handler!=null)
+					handler.onError();
 			}
 			
 			@Override
 			public void onEmpty() {
 				if(!pdCp.getValue().isEmpty()){
+					pdCp.setValue("");
 					propertyData.remove(pdCp);
 					if(!definition.isUnique()){
 						vePa1.remove(temp);
 					}
+					
+					handler.onSuccess();
+					
 				}
 				temp.showInfo(false);
 			}
@@ -121,5 +135,14 @@ public class ListPropertyItem extends Composite {
 		temp.add(mp);
 		temp.add(new Label(definition.getUnit().getName()));
 		vePa1.add(temp);
+	}
+	
+	public void addChangeHandler(PropertyChangeHandler handler){
+		this.handler=handler;
+	}
+	
+
+	public ArrayList<PropertyData> getPropertyData(){
+		return propertyData;
 	}
 }

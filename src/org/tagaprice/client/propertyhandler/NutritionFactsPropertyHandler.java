@@ -15,7 +15,6 @@
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.TitlePanel;
@@ -31,8 +30,8 @@ public class NutritionFactsPropertyHandler extends PropertyHandler {
 	Grid grid = new Grid(6, 2);
 	TitlePanel title = new TitlePanel("Nutrition Facts", grid, TitlePanel.Level.H2);
 	
-	public NutritionFactsPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup) {
-		super(properties, propGroup);
+	public NutritionFactsPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup, PropertyChangeHandler handler) {
+		super(properties, propGroup, handler);
 		grid.setWidth("100%");
 		grid.setStyleName("NutritionFactsPropertyHandler");
 		grid.getCellFormatter().setWidth(0, 0, "100%");
