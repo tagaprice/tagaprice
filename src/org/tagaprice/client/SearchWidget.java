@@ -87,7 +87,8 @@ public class SearchWidget extends Composite{
 	public void setSuggestions(ArrayList<Entity> suggestData){
 		suggestList.populateList(suggestData);
 		if(filter.equals(Filter.SHOP)){
-			verticalSuggest.setVisible(true);			
+			suggestList.addSuggestion(new NewPreview("new Shop"));
+			verticalSuggest.setVisible(true);	
 		}else { 
 			suggestList.addSuggestion( new NewPreview("new Product"));
 			if(filter.equals(Filter.ANY))
@@ -96,11 +97,12 @@ public class SearchWidget extends Composite{
 		}
 
 	}
+	
 
 	private void sendSearchRequest(String input){
 		tapManager.search(input, this);
 	}
 
-
+	
 
 }

@@ -26,12 +26,14 @@ import org.tagaprice.client.TypeHandler;
 import org.tagaprice.client.TypeHandlerAsync;
 import org.tagaprice.client.UIManager;
 import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.SearchWidget.Filter;
 
 
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -202,7 +204,15 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	
-
+	@Override
+	public ArrayList<Entity> searchShops(LatLngBounds bounds, SearchWidget sw) {
+		//TODO search for shops/products/both in the bounding box, set suggestions
+		ArrayList<Entity> tmp= new ArrayList<Entity>();
+		tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+		tmp.add(new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+	
+		return tmp;
+	}
 	
 	
 }

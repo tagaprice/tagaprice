@@ -13,9 +13,11 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
+  <inherits name='com.google.gwt.maps.GoogleMaps' />
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.tagaprice.client.TagAPriceUI'/>
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;sensor=false" />
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

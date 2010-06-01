@@ -14,10 +14,14 @@
 */
 package org.tagaprice.shared;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
+import org.tagaprice.client.SearchWidget.Filter;
 
+import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -102,5 +106,8 @@ public interface TaPManager {
 	 */
 	public void getType(long id, AsyncCallback<Type> response);
 	
+	
+	
+	public ArrayList<Entity> searchShops(LatLngBounds bounds, SearchWidget sw);
 	
 }
