@@ -215,4 +215,9 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 	
+	public ShopData getShop(double lat, double lng){
+		return new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865));
+	}
+	
+	
 }

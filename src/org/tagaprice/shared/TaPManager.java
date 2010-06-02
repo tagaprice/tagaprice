@@ -73,6 +73,15 @@ public interface TaPManager {
 	 */
 	public ShopData getShop(Long id);
 	
+	
+	/**
+	 * Returns shop by location
+	 * @param lat Latitude
+	 * @param lng Longitude
+	 * @return
+	 */
+	public ShopData getShop(double lat, double lng);
+	
 	/**
 	 * 
 	 * @param receiptContainer

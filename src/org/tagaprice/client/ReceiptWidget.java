@@ -55,6 +55,7 @@ public class ReceiptWidget extends Composite {
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
+	private ShopChooser shopChooser;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -62,7 +63,7 @@ public class ReceiptWidget extends Composite {
 	@UiField VerticalPanel VePa1;
 	@UiField DateWidget date;
 	@UiField SimplePanel titleContainer;
-	@UiField SimplePanel shopChooser;
+	@UiField SimplePanel shop;
 	@UiField SelectiveVerticalPanel productContainer;
 	@UiField Label price;
 	@UiField Button save;
@@ -73,6 +74,7 @@ public class ReceiptWidget extends Composite {
 	 */
 	public ReceiptWidget(ReceiptData receiptData, boolean editable){
 		this();
+		
 		this.receiptData=receiptData;
 		isEditable=editable;
 		title.setText(receiptData.getName());
@@ -108,7 +110,11 @@ public class ReceiptWidget extends Composite {
 		
 		HoPa1.setCellWidth(date, "50px");
 		
-		//shopChoolser
+		//shopChooser
+		shop = new SimplePanel();
+		shopChooser=new ShopChooser(this);
+		shop.setWidget(shopChooser);
+		VePa1.add(shop);
 		
 		//HoPa2
 		VePa1.setCellHorizontalAlignment(HoPa2, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -177,9 +183,9 @@ public class ReceiptWidget extends Composite {
 	 * 
 	 * @param shop
 	 */
-	public void setShop(ShopData shop){
-		shopPreview=new ShopPreview(shop,isEditable);
-		shopChooser.setWidget(shopPreview);
+	public void setShop(ShopData shopData){
+		shopPreview=new ShopPreview(shopData,isEditable);
+		shop.setWidget(shopPreview);
 	}
 	
 	/**

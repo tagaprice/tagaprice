@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
@@ -34,15 +35,32 @@ public class SearchWidget extends Composite{
 	private Filter filter;
 
 
-	public SearchWidget(){
+	@UiConstructor
+	public SearchWidget(final Filter filter){
+		
+		
+		this.filter = filter;
 		tapManager= TaPManagerImpl.getInstance();
 		basePanel = new VerticalPanel();
 		initWidget(basePanel);
+		basePanel.setWidth("100%");
+		basePanel.setWidth("400px");
 		textBox = new TextBox();
+		//style
+		textBox.setWidth("100%"); 
 		basePanel.add(textBox);
 		suggestList = new ListWidget<EntityPreview>();
 		
-		textBox.addKeyPressHandler(new KeyPressHandler() {
+		if(filter.equals(Filter.SHOP)){
+			verticalSuggest = new VerticalPanel();
+			verticalSuggest.add(suggestList);
+			basePanel.add(verticalSuggest);
+
+		}else {
+			popupSuggest = new PopupPanel(true);
+			popupSuggest.setWidget(suggestList);
+		}
+textBox.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
@@ -58,33 +76,10 @@ public class SearchWidget extends Composite{
 			}
 
 		});
-
-
-		//style
-		textBox.setWidth("100%"); 
-		basePanel.setWidth("100%");
-		basePanel.setWidth("400px");
-	}
-	
-
-	public SearchWidget(final Filter filter){
-		this();
-		
-		this.filter = filter;
-		
-		if(filter.equals(Filter.SHOP)){
-			verticalSuggest = new VerticalPanel();
-			verticalSuggest.add(suggestList);
-			basePanel.add(verticalSuggest);
-
-		}else {
-			popupSuggest = new PopupPanel(true);
-			popupSuggest.setWidget(suggestList);
-		}
-
 	}
 
 	public void setSuggestions(ArrayList<Entity> suggestData){
+		System.out.println("in setSuggestion" + filter.toString());
 		suggestList.populateList(suggestData);
 		if(filter.equals(Filter.SHOP)){
 			suggestList.addSuggestion(new NewPreview("new Shop"));

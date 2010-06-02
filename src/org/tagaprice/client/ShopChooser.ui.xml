@@ -4,7 +4,7 @@ xmlns:my='urn:import:org.tagaprice.client'
 xmlns:map='urn:import:com.google.gwt.maps.client'>
 	
 	<g:VerticalPanel ui:field="verticalPanel">
-		<my:SearchWidget ui:field="searchWidget"></my:SearchWidget>
+		
 		
 	</g:VerticalPanel>
 

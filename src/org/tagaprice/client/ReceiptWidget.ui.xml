@@ -9,9 +9,9 @@ xmlns:my='urn:import:org.tagaprice.client'>
 		<g:SimplePanel ui:field="titleContainer" />
 		<my:DateWidget ui:field="date" />
 	</g:HorizontalPanel>	
-	<g:SimplePanel ui:field="shopChooser" />
+	<g:SimplePanel ui:field="shop" />
 	<my:SelectiveVerticalPanel ui:field="productContainer" selectionType="MINUSBUTTON"></my:SelectiveVerticalPanel>
-	<my:SearchWidget></my:SearchWidget>
+	
 	<g:HorizontalPanel ui:field="HoPa2">
 		<g:Label>Gesamt Preis:</g:Label>
 		<g:Label ui:field="price">0.0</g:Label>

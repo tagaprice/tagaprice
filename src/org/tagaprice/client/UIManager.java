@@ -129,7 +129,7 @@ public class UIManager extends Composite {
 	
 	
 	public void showReceipt(ReceiptData receiptData){
-		ReceiptWidget tempReceipt = new ReceiptWidget(receiptData,true); 
+		ReceiptWidget tempReceipt = new ReceiptWidget(); 
 		myTitlePan.setTitleWidget(
 				"Kassazettel eintragen", 
 				tempReceipt);
