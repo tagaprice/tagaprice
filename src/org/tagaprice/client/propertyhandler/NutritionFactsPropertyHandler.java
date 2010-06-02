@@ -66,22 +66,22 @@ public class NutritionFactsPropertyHandler extends PropertyHandler {
 		
 		for(PropertyData pl:properties){
 			if(pl.getName().equals("energy")){
-				grid.setWidget(0, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(0, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}else if(pl.getName().equals("protein")){
-				grid.setWidget(1, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(1, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}else if(pl.getName().equals("carbohydrate")){
-				grid.setWidget(2, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(2, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}else if(pl.getName().equals("fat")){
-				grid.setWidget(3, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(3, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}else if(pl.getName().equals("fiber")){
-				grid.setWidget(4, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(4, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}else if(pl.getName().equals("sodium")){
-				grid.setWidget(5, 1, new MorphWidget(pl.getValue(), Datatype.STRING, true));
+				grid.setWidget(5, 1, new MorphWidget(pl.getValue(), Datatype.DOUBLE, true));
 				pl.setRead(true);
 			}
 		}

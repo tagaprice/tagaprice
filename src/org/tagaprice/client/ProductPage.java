@@ -17,6 +17,7 @@ package org.tagaprice.client;
 import java.util.ArrayList;
 
 import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
@@ -47,7 +48,7 @@ public class ProductPage extends Composite {
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
 	private InfoBox bottomInfo = new InfoBox();
 	private TaPManager TaPMng = TaPManagerImpl.getInstance();
-
+	private PriceMapWidget priceMap = new PriceMapWidget(PriceMapType.SHOP);
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
@@ -140,6 +141,10 @@ public class ProductPage extends Composite {
 		};
 		
 		
+		//Add Price
+		vePa1.add(priceMap);
+		
+		//Add Properties
 		for(PropertyGroup pg:this.type.getPropertyGroups()){
 			registerHandler(pg);
 		}
