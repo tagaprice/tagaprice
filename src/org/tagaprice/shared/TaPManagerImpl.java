@@ -17,6 +17,8 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.InfoBox;
+import org.tagaprice.client.PriceHandler;
+import org.tagaprice.client.PriceHandlerAsync;
 import org.tagaprice.client.ProductHandler;
 import org.tagaprice.client.ProductHandlerAsync;
 import org.tagaprice.client.ReceiptHandler;
@@ -26,6 +28,7 @@ import org.tagaprice.client.TypeHandler;
 import org.tagaprice.client.TypeHandlerAsync;
 import org.tagaprice.client.UIManager;
 import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.SearchWidget.Filter;
 
 
@@ -49,6 +52,7 @@ public class TaPManagerImpl implements TaPManager {
 	private TypeHandlerAsync typeHandler = GWT.create(TypeHandler.class);
 	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
 	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
+	private PriceHandlerAsync priceHandler = GWT.create(PriceHandler.class);
 	
 	
 	public static TaPManager getInstance(){
@@ -151,6 +155,11 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
 		productHandler.save(data, response);
+	}
+	
+	@Override
+	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response){
+		priceHandler.get(id, bbox, type, response);
 	}
 
 	@Override

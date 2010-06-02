@@ -45,6 +45,16 @@
 		<servlet-name>Receipt</servlet-name>
 		<url-pattern>/tagapriceui/draft/receipt</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Price</servlet-name>
+		<servlet-class>org.tagaprice.server.draft.PriceHandlerImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Price</servlet-name>
+		<url-pattern>/tagapriceui/draft/price</url-pattern>
+	</servlet-mapping>
 	<!-- END: Test von Brandi -->
 
 	<servlet-mapping>
