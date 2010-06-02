@@ -46,18 +46,14 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 					null, 
 					myProducts);
 		}else if(id==15) {
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
-			myProducts.add(new ProductData(12, 15, 16, "Coca Cola 2L", "logo.png", 50, 100, new Price(230, 23, "€"), new Quantity(2, 25, "l"),true));
-			
+			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();	
 			receiptContainer = new ReceiptData(
 					15, 
 					true,
-					"Ostern war teuer", 
+					"Default title", 
 					new Date(), 
 					0, 
-					new ShopData(15, "Hofer Taborstrasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
+					null, 
 					myProducts);
 		}else{
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
