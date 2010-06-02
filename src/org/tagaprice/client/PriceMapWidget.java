@@ -14,11 +14,20 @@
 */
 package org.tagaprice.client;
 
-import org.tagaprice.client.TitlePanel.Level;
+import java.util.ArrayList;
 
+import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.PriceData;
+
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
+import com.google.gwt.maps.client.event.MapMoveEndHandler;
 import com.google.gwt.maps.client.event.MapDragEndHandler.MapDragEndEvent;
+import com.google.gwt.maps.client.event.MapMoveEndHandler.MapMoveEndEvent;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -26,7 +35,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class PriceMapWidget extends Composite {
 
-	public enum PriceMapType {PRODUCT, SHOP, PRODUCTSHOP}
+	public enum PriceMapType {PRODUCT, SHOP, PRODUCTGROUP, SHOPGROUP}
 	
 	private TitlePanel titlePanel;
 	private VerticalPanel vePa1 = new VerticalPanel();
@@ -34,25 +43,48 @@ public class PriceMapWidget extends Composite {
 	private PriceMapType type;
 	private MapWidget map;
 	
-	public PriceMapWidget(PriceMapType myType) {
+	/**
+	 * 
+	 * @param id
+	 * @param myType
+	 */
+	public PriceMapWidget(long id, PriceMapType myType){
 		type=myType;
 		vePa1.setWidth("100%");
-		priceTable.setWidth("100%");
+		priceTable.setWidth("100%");	
 		titlePanel=new TitlePanel("Pricetable", vePa1, Level.H2);
 		
 		
-		if(type.equals(PriceMapType.SHOP) || type.equals(PriceMapType.PRODUCTSHOP)){
-			map=new MapWidget(LatLng.newInstance(48.21267,16.37357),14);
+		if(type.equals(PriceMapType.SHOP) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){
+			Geolocation myGeo = Geolocation.getGeolocation();
+			map=new MapWidget();
+			map.setZoomLevel(14);
+			myGeo.getCurrentPosition(new PositionCallback() {
+				
+				@Override
+				public void onSuccess(Position position) {					
+					map.setCenter(LatLng.newInstance(position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+				}
+				
+				@Override
+				public void onFailure(PositionError error) {
+					// TODO Auto-generated method stub
+					System.out.println("position error");
+				}
+			});
+			
+			
+			
 			map.setWidth("100%");
 			map.setHeight("200px");
 			vePa1.add(map);
 			
-			//MapMoveListen
+			//MapMoveListen			
 			map.addMapDragEndHandler(new MapDragEndHandler() {
 				
 				@Override
 				public void onDragEnd(MapDragEndEvent event) {
-					refreshData();					
+					System.out.println("drag");
 				}
 			});
 		}
@@ -61,14 +93,11 @@ public class PriceMapWidget extends Composite {
 		vePa1.add(priceTable);
 		
 		initWidget(titlePanel);
-		
-		
-		refreshData();
-		
 	}
 	
 	
-	private void refreshData(){
+	
+	private void refreshData(ArrayList<PriceData> list){
 		int pinOff=1;
 		int colOff=0;
 		

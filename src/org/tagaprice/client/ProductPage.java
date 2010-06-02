@@ -48,7 +48,7 @@ public class ProductPage extends Composite {
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
 	private InfoBox bottomInfo = new InfoBox();
 	private TaPManager TaPMng = TaPManagerImpl.getInstance();
-	private PriceMapWidget priceMap = new PriceMapWidget(PriceMapType.SHOP);
+	private PriceMapWidget priceMap;
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
@@ -142,6 +142,7 @@ public class ProductPage extends Composite {
 		
 		
 		//Add Price
+		priceMap = new PriceMapWidget(productData.getId(),PriceMapType.SHOP);
 		vePa1.add(priceMap);
 		
 		//Add Properties
