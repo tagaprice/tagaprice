@@ -184,7 +184,7 @@ public class ReceiptWidget extends Composite {
 	 * @param shop
 	 */
 	public void setShop(ShopData shopData){
-		shopPreview=new ShopPreview(shopData,isEditable);
+		shopPreview=new ShopPreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
 	}
 	

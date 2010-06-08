@@ -52,6 +52,23 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 		}
 	}
 	
+	public void populateShopList(ArrayList<ShopData> shopData){
+		verticalPanel.clear();
+
+		for(ShopData sd: shopData){
+			verticalPanel.add(createPreview(sd));
+		}
+	}
+	
+	public void populateProductList(ArrayList<ProductData> productData){
+		verticalPanel.clear();
+
+		for(ProductData pd: productData){
+			verticalPanel.add(createPreview(pd));
+		}
+		
+	}
+	
 	private EntityPreview createPreview(Entity e){
 		EntityPreview rc = null;
 

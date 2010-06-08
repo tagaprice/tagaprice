@@ -189,9 +189,9 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 	
-	public void search(String userInput, SearchWidget sw) {
+	public void search(String userInput, SearchWidget sw, Filter filter) {
 		// TODO Auto-generated method stub
-		// send to server
+		// send to server search only filter-entities
 		
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
 			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
@@ -214,9 +214,9 @@ public class TaPManagerImpl implements TaPManager {
 
 	
 	@Override
-	public ArrayList<Entity> searchShops(LatLngBounds bounds, SearchWidget sw) {
+	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget sw) {
 		//TODO search for shops/products/both in the bounding box, set suggestions
-		ArrayList<Entity> tmp= new ArrayList<Entity>();
+		ArrayList<ShopData> tmp= new ArrayList<ShopData>();
 		tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
 		tmp.add(new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
 	
@@ -225,6 +225,7 @@ public class TaPManagerImpl implements TaPManager {
 	
 	
 	public ShopData getShop(double lat, double lng){
+		///TODO get shop
 		return new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865));
 	}
 	

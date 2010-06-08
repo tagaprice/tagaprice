@@ -109,8 +109,9 @@ public interface TaPManager {
 	 * 
 	 * @param text
 	 * @param searchWidget
+	 * @param filter 
 	 */
-	public void search(String text, SearchWidget searchWidget);
+	public void search(String text, SearchWidget searchWidget, Filter filter);
 	
 	/**
 	 * 
@@ -127,6 +128,6 @@ public interface TaPManager {
 	
 	
 	
-	public ArrayList<Entity> searchShops(LatLngBounds bounds, SearchWidget sw);
+	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget sw);
 	
 }

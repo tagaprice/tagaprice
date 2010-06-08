@@ -37,8 +37,8 @@ public class SearchWidget extends Composite{
 
 	@UiConstructor
 	public SearchWidget(final Filter filter){
-		
-		
+
+
 		this.filter = filter;
 		tapManager= TaPManagerImpl.getInstance();
 		basePanel = new VerticalPanel();
@@ -50,7 +50,7 @@ public class SearchWidget extends Composite{
 		textBox.setWidth("100%"); 
 		basePanel.add(textBox);
 		suggestList = new ListWidget<EntityPreview>();
-		
+
 		if(filter.equals(Filter.SHOP)){
 			verticalSuggest = new VerticalPanel();
 			verticalSuggest.add(suggestList);
@@ -60,7 +60,7 @@ public class SearchWidget extends Composite{
 			popupSuggest = new PopupPanel(true);
 			popupSuggest.setWidget(suggestList);
 		}
-textBox.addKeyPressHandler(new KeyPressHandler() {
+		textBox.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
@@ -71,33 +71,39 @@ textBox.addKeyPressHandler(new KeyPressHandler() {
 					suggestList.highlightPrevSuggestion();
 				}  else if(event.getCharCode()==KeyCodes.KEY_ENTER){	
 					suggestList.getSelectionPreview().click();
-					
+
 				}  else sendSearchRequest(textBox.getText());
 			}
 
 		});
 	}
 
+	public void setShopSuggestions(ArrayList<ShopData> suggestData){
+		suggestList.populateShopList(suggestData);
+		suggestList.addSuggestion(new NewPreview("new Shop"));
+		verticalSuggest.setVisible(true);	
+	}
+
+
+	public void setProductSuggestions(ArrayList<ProductData> suggestData){
+		suggestList.populateProductList(suggestData);
+		suggestList.addSuggestion(new NewPreview("new Product"));
+		popupSuggest.showRelativeTo(textBox);
+	}
+
 	public void setSuggestions(ArrayList<Entity> suggestData){
-		System.out.println("in setSuggestion" + filter.toString());
 		suggestList.populateList(suggestData);
-		if(filter.equals(Filter.SHOP)){
-			suggestList.addSuggestion(new NewPreview("new Shop"));
-			verticalSuggest.setVisible(true);	
-		}else { 
-			suggestList.addSuggestion( new NewPreview("new Product"));
-			if(filter.equals(Filter.ANY))
-				suggestList.addSuggestion(new NewPreview("new Shop"));
-			popupSuggest.showRelativeTo(textBox);
-		}
-
-	}
-	
-
-	private void sendSearchRequest(String input){
-		tapManager.search(input, this);
+		suggestList.addSuggestion( new NewPreview("new Product"));
+		suggestList.addSuggestion(new NewPreview("new Shop"));
+		popupSuggest.showRelativeTo(textBox);
 	}
 
-	
+
+	private void sendSearchRequest(String input){	
+		
+		tapManager.search(input, this, filter);
+	}
+
+
 
 }

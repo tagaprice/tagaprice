@@ -30,6 +30,7 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.Maps;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.event.MapClickHandler;
+import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.event.MapDragHandler;
 import com.google.gwt.maps.client.event.MapClickHandler.MapClickEvent;
 import com.google.gwt.maps.client.event.MapDragHandler.MapDragEvent;
@@ -50,7 +51,7 @@ public class ShopChooser extends Composite{
 	MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
 	@UiField VerticalPanel verticalPanel;
-	
+
 	private SearchWidget searchWidget;
 
 	private final MapWidget map;
@@ -60,9 +61,9 @@ public class ShopChooser extends Composite{
 
 	public ShopChooser(final ReceiptWidget parent){
 		this.parent = parent;
-		
+
 		tapManager = new TaPManagerImpl();
-		
+
 		verticalPanel = new VerticalPanel();
 
 		searchWidget = new SearchWidget(Filter.SHOP);
@@ -74,7 +75,7 @@ public class ShopChooser extends Composite{
 		map.addControl(new LargeMapControl());
 		//map.addOverlay(new Marker(LatLng.newInstance(48.2092, 16.3728 )));
 		showShopsOnMap();
-		
+
 		verticalPanel.add(map);
 
 		initWidget(verticalPanel);
@@ -87,34 +88,34 @@ public class ShopChooser extends Composite{
 					parent.setShop(tapManager.getShop(event.getOverlayLatLng().getLatitude(), event.getOverlayLatLng().getLongitude()));	
 				}else{
 					//create new shop at latlng
+					
 				}
 			}
 		});
 
 
-		map.addMapDragHandler(new MapDragHandler() {
+		map.addMapDragEndHandler(new MapDragEndHandler() {
 
 			@Override
-			public void onDrag(MapDragEvent event) {
+			public void onDragEnd(MapDragEndEvent event) {
 				showShopsOnMap();
 			}
 		});
 
 	}
-	
+
 	private void showShopsOnMap(){
 		map.clearOverlays();
-		ArrayList<Entity> result = tapManager.searchShops(map.getBounds(), searchWidget);
-		searchWidget.setSuggestions(result);
-		for(Entity sd:result){
-			if(sd instanceof ShopData){
-				if(((ShopData) sd).getAddress()!=null)
-					map.addOverlay(new Marker(LatLng.newInstance(((ShopData) sd).getLat(), ((ShopData) sd).getLng())));
+		
+		ArrayList<ShopData> result = tapManager.searchShops(map.getBounds(), searchWidget);
+		searchWidget.setShopSuggestions(result);
+		for(ShopData sd:result){
+			if(((ShopData) sd).getAddress()!=null)
+				map.addOverlay(new Marker(LatLng.newInstance(((ShopData) sd).getLat(), ((ShopData) sd).getLng())));
 
-			}
 		}				
 
 	}
-	
-	
+
+
 }
