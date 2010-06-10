@@ -45,6 +45,12 @@ public interface TaPManager {
 	
 	
 	/**
+	 * Starts Shop Page with id
+	 * @param id
+	 */
+	public void showShopPage(Long id);
+	
+	/**
 	 *  
 	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
 	 * @param draft Is receipt a draft.

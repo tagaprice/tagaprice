@@ -24,7 +24,7 @@ package org.tagaprice.shared;
 public class ShopData implements Entity {
 	private static final long serialVersionUID = 1;
 	
-	private int id;
+	private long id;
 	private String name;
 	private String imageSrc;
 	private int progress; //In percent 0-100
@@ -59,7 +59,7 @@ public class ShopData implements Entity {
 	 * @param city
 	 * @param country
 	 */
-	public ShopData( int id, String name, String imageSrc, int progress, int rating, Address address){
+	public ShopData( long id, String name, String imageSrc, int progress, int rating, Address address){
 		
 		setId(id);
 		setName(name);
@@ -74,7 +74,7 @@ public class ShopData implements Entity {
 	 * 
 	 * @return
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -82,7 +82,7 @@ public class ShopData implements Entity {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

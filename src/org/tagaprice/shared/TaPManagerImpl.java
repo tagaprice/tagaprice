@@ -77,7 +77,8 @@ public class TaPManagerImpl implements TaPManager {
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
 				} else if(historyToken[0].equals("shop/get")){
-					System.out.println("show shop/get");
+					String[] equalToken = historyToken[1].split("=");
+					TaPMng.showShopPage(Long.parseLong(equalToken[1]));
 				} else{
 					uiMng.showHome();
 				}
@@ -117,11 +118,30 @@ public class TaPManagerImpl implements TaPManager {
 				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 				
 			}
+		});	
+		
+	}
+	
+	public void showShopPage(final Long id){
+		//Create Page
+		uiMng.waitingPage();
+		final ShopData shop = new ShopData(123, "ACME Store", null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
+		PropertyList propList = new PropertyList();
+		propList.add(new PropertyData("type", "Type", "drugstore", null));
+		shop.setProperties(propList);
+		
+		TaPMng.getType(id, new AsyncCallback<Type>() {
+			
+			@Override
+			public void onSuccess(Type tResult) {
+				uiMng.showShop(shop,tResult);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+			}
 		});
-		
-		
-		
-		
 	}
 	
 	public void showReceiptPage(final Long id){

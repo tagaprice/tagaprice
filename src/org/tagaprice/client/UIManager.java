@@ -18,6 +18,7 @@ import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.Filter;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.Type;
@@ -139,6 +140,11 @@ public class UIManager extends Composite {
 	public void showProduct(ProductData productData, Type type){
 		ProductPage tempProduct = new ProductPage(productData,type);
 		myTitlePan.setTitleWidget(productData.getName(), tempProduct);
+	}
+	
+	public void showShop(ShopData shopData, Type type){
+		ShopPage tempShop = new ShopPage(shopData, type);
+		myTitlePan.setTitleWidget(shopData.getName(), tempShop);
 	}
 	
 	

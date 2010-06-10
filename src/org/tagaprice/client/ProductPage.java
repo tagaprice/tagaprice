@@ -165,10 +165,7 @@ public class ProductPage extends Composite {
 			ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), propGroup, handler);
 			handlerList.add(temp);
 			vePa1.add(temp);
-		}
-
-
-		
+		}	
 		
 	}
 	
