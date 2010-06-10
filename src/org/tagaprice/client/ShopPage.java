@@ -56,7 +56,7 @@ public class ShopPage extends Composite {
 		
 		//style
 		vePa1.setWidth("100%");
-		vePa1.add(new ShopPreview(this.shopData, false));
+		vePa1.add(new ShopPreview(this.shopData, true));
 		
 		//Listener
 		handler=new PropertyChangeHandler() {

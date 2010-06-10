@@ -19,7 +19,6 @@ import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.History;
@@ -108,7 +107,9 @@ public class ShopPreview extends EntityPreview {
 	}
 
 	@Override
-	public void click(){
+	public void click(){	
+		//TODO By clicking on the rating widget, the shopPage should not open.
+		
 		History.newItem("shop/get&id="+shopData.getId());
 	}
 	
