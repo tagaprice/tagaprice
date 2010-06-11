@@ -60,7 +60,7 @@ public class UnitDAO {
 			
 			if (!res.next()) throw new NotFoundException("Unit "+id+" not found");
 			
-			rc = new Unit(res.getLong("unit_id"), res.getString("name"), res.getLong("fallback_unit"), res.getDouble("factor"));
+			rc = new Unit(res.getLong("unit_id"), res.getString("title"), res.getLong("fallback_unit"), res.getDouble("factor"));
 		} catch (SQLException e) {
 			throw new NotFoundException("Query Error", e);
 		}
