@@ -1,6 +1,6 @@
 CREATE TABLE locale (
 	locale_id SERIAL NOT NULL,
-	fallback_id INTEGER NOT NULL,
+	fallback_id INTEGER,
 	name varchar(50) NOT NULL,
 	localname varchar(50) NOT NULL,
 
