@@ -56,6 +56,7 @@ public class ReceiptWidget extends Composite {
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
 	private ShopChooser shopChooser;
+	private ProductChooser productChooser;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -65,6 +66,7 @@ public class ReceiptWidget extends Composite {
 	@UiField SimplePanel titleContainer;
 	@UiField SimplePanel shop;
 	@UiField SelectiveVerticalPanel productContainer;
+	@UiField SimplePanel product;
 	@UiField Label price;
 	@UiField Button save;
 	
@@ -139,7 +141,10 @@ public class ReceiptWidget extends Composite {
 			}
 		});
 		
-		
+		product=new SimplePanel();
+		productChooser = new ProductChooser(this);
+		product.setWidget(productChooser);
+		VePa1.add(product);
 			
 		
 		//Save

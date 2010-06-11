@@ -5,13 +5,13 @@
  * use this file except in compliance with the License. 
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPrice
  * Filename: UIManager.java
  * Date: 18.05.2010
-*/
+ */
 package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 
 public class UIManager extends Composite {
-	
+
 	DockPanel myDock = new DockPanel();
 	Label newReceipt = new Label("Rechnung eintrage");
 	Label oldReceipt = new Label("Haushaltsbuch");
@@ -52,12 +52,12 @@ public class UIManager extends Composite {
 		initWidget(myDock);
 		init();
 	}
-	
+
 	private void init(){
 		myDock.setWidth("400px");
-		
-		
-		
+
+
+
 		//logo
 		myDock.add(logoPanel, DockPanel.NORTH);
 		logoPanel.setWidth("100%");
@@ -69,7 +69,7 @@ public class UIManager extends Composite {
 				History.newItem("home/");		
 			}
 		});
-		
+
 		//menu
 		myDock.add(menu, DockPanel.NORTH);		
 		menu.setWidth("100%");
@@ -78,30 +78,30 @@ public class UIManager extends Composite {
 		menu.add(newReceipt);
 		menu.add(oldReceipt);
 		menu.add(newDraft);
-		
+
 		newReceipt.setStyleName("UIManager-Menu-Item");
 		oldReceipt.setStyleName("UIManager-Menu-Item");
 		newDraft.setStyleName("UIManager-Menu-Item");
-		
+
 		//InfoBox
 		myDock.add(infoBox, DockPanel.NORTH);
-		
+
 		//Center
 		myDock.add(myTitlePan, DockPanel.CENTER);
-		
-		
+
+
 		newReceipt.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				//TODO RPC Change
 				myMng.getReceipt(0l, new AsyncCallback<ReceiptData>() {
-					
+
 					@Override
 					public void onSuccess(ReceiptData tResult) {
 						History.newItem("receipt/get&id="+tResult.getId());
 					}
-					
+
 					@Override
 					public void onFailure(Throwable caught) {
 						myMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
@@ -109,17 +109,17 @@ public class UIManager extends Composite {
 				});
 			}
 		});
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Only a test method. 
 	 */
 	public void refreshDraft(){
 		newDraft.setText("Draft(1)");
 	}
-	
+
 	/**
 	 * Only a test method. 
 	 */
@@ -127,33 +127,37 @@ public class UIManager extends Composite {
 		newDraft.setText("Draft(0)");
 		newReceipt.setText("Receipt(1)");
 	}
-	
-	
+
+
 	public void showReceipt(ReceiptData receiptData){
-		ReceiptWidget tempReceipt = new ReceiptWidget(); 
-		myTitlePan.setTitleWidget(
-				"Kassazettel eintragen", 
-				tempReceipt);
+		if(receiptData==null){
+			ReceiptWidget tempReceipt = new ReceiptWidget(); 
+			myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
+		}
+		else {
+			ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
+			myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
+		}
 	}
-	
-	
+
+
 	public void showProduct(ProductData productData, Type type){
 		ProductPage tempProduct = new ProductPage(productData,type);
 		myTitlePan.setTitleWidget(productData.getName(), tempProduct);
 	}
-	
+
 	public void showShop(ShopData shopData, Type type){
 		ShopPage tempShop = new ShopPage(shopData, type);
 		myTitlePan.setTitleWidget(shopData.getName(), tempShop);
 	}
-	
-	
+
+
 	public void showHome(){
 		myTitlePan.setTitleWidget(
 				"Home", 
 				new HTML("home"));
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -161,10 +165,10 @@ public class UIManager extends Composite {
 	public InfoBox getInfoBox(){
 		return infoBox;
 	}
-	
-	
+
+
 	public void waitingPage(){
 		myTitlePan.setTitleWidget("Waiting", new Label("Processing..."));
 	}
-	
+
 }

@@ -33,11 +33,11 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	@Override
 	public ReceiptData get(Long id) throws IllegalArgumentException {
 		//MockMock
-		ReceiptData receiptContainer;
+		ReceiptData receiptData;
 		
 		if(id==0){
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			receiptContainer = new ReceiptData(
+			receiptData = new ReceiptData(
 					15, 
 					true,
 					"Default title", 
@@ -47,7 +47,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 					myProducts);
 		}else if(id==15) {
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();	
-			receiptContainer = new ReceiptData(
+			receiptData = new ReceiptData(
 					15, 
 					true,
 					"Default title", 
@@ -60,7 +60,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
 			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
 			
-			receiptContainer = new ReceiptData(
+			receiptData = new ReceiptData(
 					18, 
 					false,
 					"Weihnachts einkauf", 
@@ -72,7 +72,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		
 		
 		
-		return receiptContainer;
+		return receiptData;
 	}
 
 }

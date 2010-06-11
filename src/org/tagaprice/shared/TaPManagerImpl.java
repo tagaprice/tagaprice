@@ -5,17 +5,16 @@
  * use this file except in compliance with the License. 
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPrice
  * Filename: TaPManager.java
  * Date: 18.05.2010
-*/
+ */
 package org.tagaprice.shared;
 
 import java.util.ArrayList;
-import java.util.Date;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.PriceHandler;
 import org.tagaprice.client.PriceHandlerAsync;
@@ -46,15 +45,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  *
  */
 public class TaPManagerImpl implements TaPManager {
-	
+
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
 	private TypeHandlerAsync typeHandler = GWT.create(TypeHandler.class);
 	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
 	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
 	private PriceHandlerAsync priceHandler = GWT.create(PriceHandler.class);
-	
-	
+
+
 	public static TaPManager getInstance(){
 		if(TaPMng==null){
 			TaPMng=new TaPManagerImpl();
@@ -62,10 +61,10 @@ public class TaPManagerImpl implements TaPManager {
 		}
 		return TaPMng;
 	}
-	
+
 	private static void init(){
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				String[] historyToken = event.getValue().split("&");
@@ -82,43 +81,44 @@ public class TaPManagerImpl implements TaPManager {
 				} else{
 					uiMng.showHome();
 				}
-				
-				
+
+
 			}
 		});
-		
+
 	}
-	
-	
+
+
 	public void showProductPage(final Long id){
 		uiMng.waitingPage();
-		
+
 		TaPMng.getProduct(id, new AsyncCallback<ProductData>() {
-			
+
 			@Override
 			public void onSuccess(final ProductData pResult) {
-				
+
 				TaPMng.getType(id, new AsyncCallback<Type>() {
-					
+
 					@Override
 					public void onSuccess(Type tResult) {
 						uiMng.showProduct(pResult, tResult);
 					}
-					
+
 					@Override
 					public void onFailure(Throwable caught) {
 						TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 					}
 				});
-				
+
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
-				
+
 			}
 		});	
+
 		
 	}
 	
@@ -142,26 +142,27 @@ public class TaPManagerImpl implements TaPManager {
 				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 			}
 		});
+
 	}
-	
+
 	public void showReceiptPage(final Long id){
 		uiMng.waitingPage();
-		
+
 		getReceipt(id, new AsyncCallback<ReceiptData>() {
-			
+
 			@Override
 			public void onSuccess(ReceiptData result) {
 				uiMng.showReceipt(result);				
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
 			}
 		});
 	}
-	
-	
+
+
 	@Override
 	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
 		receiptHandler.get(id, response);		
@@ -171,12 +172,12 @@ public class TaPManagerImpl implements TaPManager {
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
 		productHandler.get(id, response);
 	}
-	
+
 	@Override
 	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
 		productHandler.save(data, response);
 	}
-	
+
 	@Override
 	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response){
 		priceHandler.get(id, bbox, type, response);
@@ -205,21 +206,34 @@ public class TaPManagerImpl implements TaPManager {
 		}else{
 			System.out.println("SaveRecei_superTypept-Error");
 		}
-		
+
 	}
-	
-	
+
+
 	public void search(String userInput, SearchWidget sw, Filter filter) {
 		// TODO Auto-generated method stub
 		// send to server search only filter-entities
-		
-		ArrayList<Entity> tmp= new ArrayList<Entity>();
+		if(filter.equals(Filter.PRODUCT)){
+			ArrayList<ProductData> tmpp= new ArrayList<ProductData>();
+			tmpp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, "€"), new Quantity(250, 23, "g")));
+			sw.setProductSuggestions(tmpp);
+		} else if(filter.equals(Filter.SHOP)){
+			ArrayList<ShopData> tmps= new ArrayList<ShopData>();
+			tmps.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
+			tmps.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
+			tmps.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+			tmps.add(new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+			sw.setShopSuggestions(tmps);
+
+		}else {
+
+			ArrayList<Entity> tmp= new ArrayList<Entity>();
 			tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
 			tmp.add(new ShopData(12, "Amazon.de", "logo.png", 80, 3));
 			tmp.add(new ProductData(13, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, "€"), new Quantity(250, 23, "g")));
-		
-		sw.setSuggestions(tmp);
-		
+
+			sw.setSuggestions(tmp);
+		}
 	}
 
 	@Override
@@ -232,22 +246,22 @@ public class TaPManagerImpl implements TaPManager {
 		typeHandler.get(id,response);
 	}
 
-	
+
 	@Override
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget sw) {
 		//TODO search for shops/products/both in the bounding box, set suggestions
 		ArrayList<ShopData> tmp= new ArrayList<ShopData>();
 		tmp.add(new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
 		tmp.add(new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
-	
+
 		return tmp;
 	}
-	
-	
+
+
 	public ShopData getShop(double lat, double lng){
 		///TODO get shop
 		return new ShopData(15, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865));
 	}
-	
-	
+
+
 }
