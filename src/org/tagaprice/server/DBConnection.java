@@ -66,6 +66,10 @@ public class DBConnection {
 			ds.setDatabaseName(prop.getProperty("db"));
 			ds.setUser(prop.getProperty("user"));
 			ds.setPassword(prop.getProperty("pwd"));
+			ds.setSsl(prop.getProperty("ssl", "true").equals("true"));
+			if (prop.containsKey("sslFactory")) {
+				ds.setSslfactory(prop.getProperty("sslFactory"));
+			}
 			dataSource = ds;
 		}
 	}
