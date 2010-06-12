@@ -20,7 +20,8 @@ public class ServerResponse implements Serializable {
 	public enum StatusCode {
 		Ok(0),
 		AccessDenied(1),
-		NotFound(2);
+		NotFound(2),
+		RequestError(3);
 		/// TODO fill this list with useful data
 		
 		private int value;
@@ -35,6 +36,7 @@ public class ServerResponse implements Serializable {
 			else if (name.equals("ok")) rc = Ok;
 			else if (name.equals("accessDenied")) rc = AccessDenied;
 			else if (name.equals("notFound")) rc = NotFound;
+			else if (name.equals("requestError")) rc = RequestError;
 			
 			return rc;
 		}
@@ -44,6 +46,7 @@ public class ServerResponse implements Serializable {
 			if (value == Ok.value) rc = "ok";
 			else if (value == AccessDenied.value) rc = "accessDenied";
 			else if (value == NotFound.value) rc = "notFound";
+			else if (value == RequestError.value) rc = "requestError";
 			return rc;
 		}
 	}
