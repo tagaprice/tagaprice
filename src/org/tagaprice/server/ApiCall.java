@@ -14,8 +14,10 @@
 */
 package org.tagaprice.server;
 
+import org.tagaprice.shared.exception.RequestException;
+
 public interface ApiCall {
 	public String getName();
 	
-	public void onCall(String function, ApiCallData r);
+	public void onCall(String function, ApiCallData r) throws RequestException;
 }

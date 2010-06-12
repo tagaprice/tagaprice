@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.tagaprice.server.serializer.JsonSerializer;
+import org.tagaprice.shared.RequestError;
+import org.tagaprice.shared.ServerResponse.StatusCode;
+import org.tagaprice.shared.exception.RequestException;
 
 public abstract class ApiManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -58,7 +61,13 @@ public abstract class ApiManager extends HttpServlet {
 			
 			ApiCallData responder = new ApiCallData(req, new JsonSerializer(resp.getOutputStream()));
 
-			c.onCall(function, responder);
+			try {
+				c.onCall(function, responder);
+			}
+			catch (RequestException e) {
+				responder.setStatusCode(StatusCode.RequestError);
+				responder.setResponse(new RequestError(e.getMessage()));
+			}
 			
 			responder.send(resp);
 		}
