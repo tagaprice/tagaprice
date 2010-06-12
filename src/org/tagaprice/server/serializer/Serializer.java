@@ -17,12 +17,14 @@ package org.tagaprice.server.serializer;
 import java.io.IOException;
 
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.List;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.RequestError;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
@@ -36,6 +38,7 @@ public abstract class Serializer {
 	public abstract void put(PropertyList propertyList) throws IOException;
 	public abstract void put(Quantity quantity) throws IOException;
 	public abstract void put(ReceiptData receipt) throws IOException;
+	public abstract void put(RequestError error) throws IOException;
 	public abstract void put(ServerResponse response) throws IOException;
 	public abstract void put(ShopData shop) throws IOException;
 	public abstract void put(Unit unit) throws IOException;
@@ -46,6 +49,7 @@ public abstract class Serializer {
 		else if (s instanceof ProductData) put((ProductData) s);
 		else if (s instanceof PropertyData) put((PropertyData) s);
 		else if (s instanceof PropertyList) put((PropertyList) s);
+		else if (s instanceof RequestError) put((RequestError) s);
 		else if (s instanceof Quantity) put((Quantity) s);
 		else if (s instanceof ReceiptData) put((ReceiptData) s);
 		else if (s instanceof ServerResponse) put((ServerResponse) s);

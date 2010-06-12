@@ -25,6 +25,7 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.RequestError;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
@@ -47,7 +48,7 @@ public class JsonSerializer extends Serializer {
 		
 		writeTail();
 	}
-
+	
 	@Override
 	public void put(Price price) throws IOException {
 		writeHead();
@@ -111,6 +112,10 @@ public class JsonSerializer extends Serializer {
 
 	@Override
 	public void put(ReceiptData receipt) throws IOException {
+		// TODO Auto-generated method stub
+	}
+
+	public void put(RequestError error)  throws IOException {
 		// TODO Auto-generated method stub
 	}
 
