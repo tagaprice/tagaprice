@@ -12,7 +12,7 @@
  * Filename: ReceiptHandlerImpl.java
  * Date: 30.05.2010
 */
-package org.tagaprice.server.api.draft;
+package org.tagaprice.server.rpc;
 
 import java.util.ArrayList;
 import java.util.Date;

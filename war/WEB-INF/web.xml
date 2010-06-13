@@ -18,7 +18,7 @@
 	<!-- BEGIN: Test von Brandi -->
 	<servlet>
 		<servlet-name>Type</servlet-name>
-		<servlet-class>org.tagaprice.server.api.draft.TypeHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.TypeHandlerImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -28,7 +28,7 @@
 
 	<servlet>
 		<servlet-name>Product</servlet-name>
-		<servlet-class>org.tagaprice.server.api.draft.ProductHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.ProductHandlerImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -38,7 +38,7 @@
 	
 	<servlet>
 		<servlet-name>Receipt</servlet-name>
-		<servlet-class>org.tagaprice.server.api.draft.ReceiptHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.ReceiptHandlerImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
@@ -48,7 +48,7 @@
 	
 	<servlet>
 		<servlet-name>Price</servlet-name>
-		<servlet-class>org.tagaprice.server.api.draft.PriceHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.PriceHandlerImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

@@ -12,7 +12,7 @@
  * Filename: TypeDraftServiceImpl.java
  * Date: 27.05.2010
 */
-package org.tagaprice.server.api.draft;
+package org.tagaprice.server.rpc;
 
 import org.tagaprice.client.TypeHandler;
 import org.tagaprice.shared.PropertyDefinition;
