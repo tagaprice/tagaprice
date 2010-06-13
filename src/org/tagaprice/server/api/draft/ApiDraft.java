@@ -12,7 +12,7 @@
  * Filename: ApiVersionDraft.java
  * Date: 19.05.2010
 */
-package org.tagaprice.server.draft;
+package org.tagaprice.server.api.draft;
 
 import org.tagaprice.server.ApiManager;
 import org.tagaprice.server.DuplicateNameException;

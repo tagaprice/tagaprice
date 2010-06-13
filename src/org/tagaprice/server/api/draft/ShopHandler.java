@@ -12,7 +12,7 @@
  * Filename: GetVersion.java
  * Date: 19.05.2010
 */
-package org.tagaprice.server.draft;
+package org.tagaprice.server.api.draft;
 
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;

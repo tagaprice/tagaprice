@@ -12,7 +12,7 @@
  * Filename: PriceHandlerImpl.java
  * Date: 02.06.2010
 */
-package org.tagaprice.server.draft;
+package org.tagaprice.server.api.draft;
 
 import java.util.ArrayList;
 

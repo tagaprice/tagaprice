@@ -12,7 +12,7 @@
  * Filename: ProductHandlerImpl.java
  * Date: 27.05.2010
 */
-package org.tagaprice.server.draft;
+package org.tagaprice.server.api.draft;
 
 import org.tagaprice.client.ProductHandler;
 import org.tagaprice.shared.Price;

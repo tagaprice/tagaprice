@@ -7,7 +7,7 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>ApiDraft</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.ApiDraft</servlet-class>
+		<servlet-class>org.tagaprice.server.api.draft.ApiDraft</servlet-class>
 	</servlet>
 
 	<servlet>
@@ -18,7 +18,7 @@
 	<!-- BEGIN: Test von Brandi -->
 	<servlet>
 		<servlet-name>Type</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.TypeHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.api.draft.TypeHandlerImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -28,7 +28,7 @@
 
 	<servlet>
 		<servlet-name>Product</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.ProductHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.api.draft.ProductHandlerImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -38,7 +38,7 @@
 	
 	<servlet>
 		<servlet-name>Receipt</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.ReceiptHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.api.draft.ReceiptHandlerImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
@@ -48,7 +48,7 @@
 	
 	<servlet>
 		<servlet-name>Price</servlet-name>
-		<servlet-class>org.tagaprice.server.draft.PriceHandlerImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.api.draft.PriceHandlerImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
