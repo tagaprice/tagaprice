@@ -30,7 +30,7 @@ public class ShopData implements Entity {
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
 	private Address address;
-	private PropertyList properties = new PropertyList();
+	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 	
 	public ShopData() {
 		// TODO Auto-generated constructor stub
@@ -183,14 +183,14 @@ public class ShopData implements Entity {
 	/**
 	 * @return the properties
 	 */
-	public PropertyList getProperties() {
+	public SearchResult<PropertyData> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(PropertyList properties) {
+	public void setProperties(SearchResult<PropertyData> properties) {
 		this.properties = properties;
 	}
 

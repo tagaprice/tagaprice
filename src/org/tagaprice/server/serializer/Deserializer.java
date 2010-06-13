@@ -20,7 +20,6 @@ import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
@@ -34,7 +33,6 @@ public abstract class Deserializer {
 	public abstract Price getPrice(String data) throws IOException;
 	public abstract ProductData getProduct(String data) throws IOException;
 	public abstract PropertyData getProperty(String data) throws IOException;
-	public abstract PropertyList getPropertyList(String data) throws IOException;
 	public abstract Quantity getQuantity(String data) throws IOException;
 	public abstract ReceiptData getReceipt(String data) throws IOException;
 	public abstract SearchResult<?> getSearchResult(String data) throws IOException;
@@ -50,7 +48,6 @@ public abstract class Deserializer {
 		else if (type.equals("price")) rc = getPrice(data);
 		else if (type.equals("product")) rc = getProduct(data);
 		else if (type.equals("property")) rc = getProperty(data);
-		else if (type.equals("propertyList")) rc = getPropertyList(data);
 		else if (type.equals("quantity")) rc = getQuantity(data);
 		else if (type.equals("receipt")) rc = getReceipt(data);
 		else if (type.equals("searchResult")) rc = getSearchResult(data);

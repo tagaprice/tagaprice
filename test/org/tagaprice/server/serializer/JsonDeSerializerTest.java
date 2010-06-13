@@ -33,7 +33,6 @@ import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
@@ -127,21 +126,6 @@ public class JsonDeSerializerTest {
 	@Test
 	public void testProperty_nullValues() throws IOException {
 		checkSerializer(new PropertyData(null, null, null, null));
-	}
-
-	@Test
-	public void testPropertyList() throws IOException {
-		PropertyList list = new PropertyList();
-		list.add(new PropertyData("name", "title", "value", new Unit(23, "unit")));
-		list.add(null);
-		list.add(new PropertyData(null, null, null, null));
-
-		checkSerializer(list);
-	}
-	
-	@Test
-	public void testPropertyList_empty() throws IOException {
-		checkSerializer(new PropertyList());
 	}
 
 	@Test

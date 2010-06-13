@@ -32,7 +32,7 @@ public class ProductData implements Entity {
 	private Price price;
 	private Quantity quantity;
 	private boolean hasReceipt;
-	private PropertyList properties = new PropertyList(); 
+	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
 	
 	public ProductData() {
 		// TODO Auto-generated constructor stub
@@ -278,7 +278,7 @@ public class ProductData implements Entity {
 	/**
 	 * @return the properties
 	 */
-	public PropertyList getProperties() {
+	public SearchResult<PropertyData> getProperties() {
 		return properties;
 	}
 
@@ -286,7 +286,7 @@ public class ProductData implements Entity {
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(PropertyList properties) {
+	public void setProperties(SearchResult<PropertyData> properties) {
 		this.properties = properties;
 	}
 

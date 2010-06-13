@@ -21,7 +21,6 @@ import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.RequestError;
@@ -36,7 +35,6 @@ public abstract class Serializer {
 	public abstract void put(Price price, boolean annotateType) throws IOException;
 	public abstract void put(ProductData product, boolean annotateType) throws IOException;
 	public abstract void put(PropertyData property, boolean annotateType) throws IOException;
-	public abstract void put(PropertyList propertyList, boolean annotateType) throws IOException;
 	public abstract void put(Quantity quantity, boolean annotateType) throws IOException;
 	public abstract void put(ReceiptData receipt, boolean annotateType) throws IOException;
 	public abstract void put(RequestError error, boolean annotateType) throws IOException;
@@ -54,7 +52,6 @@ public abstract class Serializer {
 		else if (s instanceof Price) put((Price) s, annotateType);
 		else if (s instanceof ProductData) put((ProductData) s, annotateType);
 		else if (s instanceof PropertyData) put((PropertyData) s, annotateType);
-		else if (s instanceof PropertyList) put((PropertyList) s, annotateType);
 		else if (s instanceof RequestError) put((RequestError) s, annotateType);
 		else if (s instanceof Quantity) put((Quantity) s, annotateType);
 		else if (s instanceof ReceiptData) put((ReceiptData) s, annotateType);

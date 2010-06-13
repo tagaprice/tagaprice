@@ -23,7 +23,6 @@ import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.RequestError;
@@ -113,21 +112,6 @@ public class JsonSerializer extends Serializer {
 		writeType(property, annotateType);
 
 		writeTail();
-	}
-	
-	@Override
-	public void put(PropertyList propertyList, boolean annotateType) throws IOException {
-		Iterator<PropertyData> it = propertyList.iterator();
-		
-		writeListHead();
-		while (it.hasNext()) {
-			PropertyData p = it.next();
-			writeListElem(p, true);
-		}
-
-		writeType(propertyList, annotateType);
-
-		writeListTail();
 	}
 
 	@Override

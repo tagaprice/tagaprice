@@ -23,7 +23,6 @@ import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
@@ -120,26 +119,6 @@ public class JsonDeserializer extends Deserializer {
 				String value = json_getString(json, "value");
 				Unit unit = getUnit(json_getString(json, "unit"));
 				rc = new PropertyData(name, title, value, unit);
-			}
-		}
-		catch (JSONException e) {
-			throw new IOException("JSON parsing failed", e);
-		}
-		return rc;
-	}
-
-	@Override
-	public PropertyList getPropertyList(String data) throws IOException {
-		PropertyList rc = null;
-		
-		try {
-			if (data != null) {
-				JSONArray json = new JSONArray(data);
-				rc = new PropertyList();
-				for (int i = 0; i < json.length(); i++) {
-					rc.add(getProperty(json_getString(json, i)));
-				}
-			
 			}
 		}
 		catch (JSONException e) {

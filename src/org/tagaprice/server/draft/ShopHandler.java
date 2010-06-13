@@ -18,7 +18,7 @@ import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
 
 public class ShopHandler implements ApiCall {
@@ -35,7 +35,7 @@ public class ShopHandler implements ApiCall {
 	
 	public void doGet(ApiCallData d) {
 		ShopData shop = new ShopData(123, "ACME Store", null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
-		PropertyList propList = new PropertyList();
+		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);
 		d.setResponse(shop);

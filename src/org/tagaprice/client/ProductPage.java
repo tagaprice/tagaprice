@@ -25,7 +25,7 @@ import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.PropertyList;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
@@ -86,7 +86,7 @@ public class ProductPage extends Composite {
 						topSave.setText("Saving...");
 						
 						//productData.getProperties()
-						PropertyList newList = new PropertyList();
+						SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
 						
 						for(IPropertyHandler hl:handlerList){
 							for(PropertyData pd:hl.getPropertyData()){

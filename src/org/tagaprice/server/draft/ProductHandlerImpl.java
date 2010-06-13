@@ -18,8 +18,8 @@ import org.tagaprice.client.ProductHandler;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -34,7 +34,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		test = new ProductData(152, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, "€"), new Quantity(125, 23, "g"),true);
 		
 		
-		PropertyList properties = new PropertyList();
+		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 		
 		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, "kj")));
 		properties.add(new PropertyData("protein", "Eiweiss", "5,3", new Unit(2, "g")));

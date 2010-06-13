@@ -24,7 +24,6 @@ import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;

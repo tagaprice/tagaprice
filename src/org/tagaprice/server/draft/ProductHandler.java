@@ -22,8 +22,8 @@ import org.tagaprice.server.serializer.JsonDeserializer;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.Unit;
 
@@ -42,7 +42,7 @@ public class ProductHandler implements ApiCall {
 	
 	public void get(ApiCallData d) {
 		ProductData product = new ProductData(23, 42, 12, "TestProduct" , null, 80, 80, new Price(120, 23, "€"), new Quantity(1, 23, "g"), false);
-		PropertyList propList = new PropertyList();
+		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("weight", "Weight", "123", new Unit(23, "g")));
 		product.setProperties(propList);
 		d.setResponse(product);
