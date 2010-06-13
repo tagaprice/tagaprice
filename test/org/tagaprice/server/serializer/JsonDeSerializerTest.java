@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.tagaprice.server.serializer.JsonDeserializer;
 import org.tagaprice.server.serializer.JsonSerializer;
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -164,6 +165,14 @@ public class JsonDeSerializerTest {
 	}
 
 	@Test
+	public void testSearchResult() throws Exception {
+		SearchResult<Serializable> l = new SearchResult<Serializable>();
+		l.add(new Unit(-123, "unitName", 15, 223));
+		l.add(new Price(4289, 2, "EUR"));
+		checkSerializer(l);
+	}
+
+	@Test
 	public void testServerResponse() throws IOException {
 		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, "answer")));
 	}
@@ -190,7 +199,7 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testUnit() throws IOException {
-		checkSerializer(new Unit(5, "unitName"));
+		checkSerializer(new Unit(5, "unitName", 20, 123.45));
 	}
 	
 	@Test
@@ -209,6 +218,7 @@ public class JsonDeSerializerTest {
 		catch (IOException e) {
 			System.err.println("Invalid JSON:");
 			System.err.println(out.toString());
+			e.printStackTrace(System.err);
 			throw e;
 		}
 		catch (AssertionFailedError e) {
