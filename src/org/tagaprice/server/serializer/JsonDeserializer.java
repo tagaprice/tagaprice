@@ -191,7 +191,7 @@ public class JsonDeserializer extends Deserializer {
 			
 			rc = new SearchResult<Serializable>();
 			for (int i = 0; i < json.length(); i++) {
-				rc.add(getAny(json_getString(json, i), json_getString(json.getJSONObject(i), "entityType")));
+				rc.add(getAny(json_getString(json, i), json_getString(json.getJSONObject(i), "class")));
 			}
 
 		}

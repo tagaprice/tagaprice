@@ -276,7 +276,7 @@ public class JsonSerializer extends Serializer {
 	
 	protected void writeType(Serializable elem, boolean annotateType) throws IOException {
 		if (annotateType) {
-			writeVar("entityType", elem.getSerializeName(), true);
+			writeVar("class", elem.getSerializeName(), true);
 		}
 	}
 	
