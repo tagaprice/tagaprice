@@ -55,6 +55,16 @@
 		<servlet-name>Price</servlet-name>
 		<url-pattern>/tagapriceui/draft/price</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Unit</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.UnitHandlerImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Price</servlet-name>
+		<url-pattern>/tagapriceui/draft/unit</url-pattern>
+	</servlet-mapping>
 	<!-- END: Test von Brandi -->
 
 	<servlet-mapping>
