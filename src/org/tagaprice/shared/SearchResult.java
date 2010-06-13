@@ -25,7 +25,7 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 
 	@Override
 	public String getSerializeName() {
-		return "list";
+		return "searchResult";
 	}
 	
 	public boolean euqals(Object o) {
