@@ -26,7 +26,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	private VerticalPanel verticalPanel;
 	private int currentSelection=-1;
 
-	
+
 	public ListWidget(){
 		verticalPanel=new VerticalPanel();
 		verticalPanel.setWidth("100%");
@@ -38,12 +38,12 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 		populateList(entityData);
 	}
 
-	
+
 	public void addSuggestion(EntityPreview preview){
 		verticalPanel.add(preview);
 	}
-	
-	
+
+
 	public void populateList(ArrayList<Entity> entityData){
 		verticalPanel.clear();
 
@@ -51,7 +51,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 			verticalPanel.add(createPreview(e));
 		}
 	}
-	
+
 	public void populateShopList(ArrayList<ShopData> shopData){
 		verticalPanel.clear();
 
@@ -59,16 +59,16 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 			verticalPanel.add(createPreview(sd));
 		}
 	}
-	
+
 	public void populateProductList(ArrayList<ProductData> productData){
 		verticalPanel.clear();
 
 		for(ProductData pd: productData){
 			verticalPanel.add(createPreview(pd));
 		}
-		
+
 	}
-	
+
 	private EntityPreview createPreview(Entity e){
 		EntityPreview rc = null;
 
@@ -87,15 +87,15 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 		if(currentSelection<verticalPanel.getWidgetCount()-1)	
 			currentSelection++;
 		verticalPanel.getWidget(currentSelection).addStyleName("highlightSuggestion");
-		
+
 	}
 
 
 	public void highlightPrevSuggestion(){
 		if(currentSelection>0)
 		{	verticalPanel.getWidget(currentSelection).removeStyleName("highlightSuggestion");
-			currentSelection--;
-			verticalPanel.getWidget(currentSelection).addStyleName("highlightSuggestion");
+		currentSelection--;
+		verticalPanel.getWidget(currentSelection).addStyleName("highlightSuggestion");
 		}
 	}
 
@@ -115,7 +115,9 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 
 
 	public EntityPreview getSelectionPreview(){
-		return (EntityPreview) verticalPanel.getWidget(currentSelection);
+		EntityPreview rc= (EntityPreview) verticalPanel.getWidget(currentSelection);
+		currentSelection=-1;
+		return rc;
 	}
 
 

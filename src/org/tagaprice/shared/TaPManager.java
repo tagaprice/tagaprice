@@ -20,8 +20,6 @@ import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.SearchWidget;
 import org.tagaprice.client.UIManager;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
-import org.tagaprice.client.SearchWidget.Filter;
-
 import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -111,14 +109,7 @@ public interface TaPManager {
 	 */
 	public UIManager getUIManager();
 
-	/**
-	 * 
-	 * @param text
-	 * @param searchWidget
-	 * @param filter 
-	 */
-	public void search(String text, SearchWidget searchWidget, Filter filter);
-	
+		
 	/**
 	 * 
 	 * @return
@@ -133,7 +124,10 @@ public interface TaPManager {
 	public void getType(long id, AsyncCallback<Type> response);
 	
 	
+	public ArrayList<ShopData> searchShops(LatLngBounds bounds,String searchString,  SearchWidget searchWidget);
 	
-	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget sw);
+	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget);
+
+	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget searchWidget);
 	
 }

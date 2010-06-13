@@ -16,35 +16,52 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.SearchWidget.Filter;
+import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManager;
-import org.tagaprice.shared.TaPManagerImpl;
 
-import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 
-public class ProductChooser extends Composite{
+public class ProductChooser extends SearchWidget{
 
-	private VerticalPanel verticalPanel;
-	private SearchWidget searchWidget;
-	private TaPManager tapManager;
+	
 	private final ReceiptWidget parent;
+	private ListWidget<ProductPreview> productList; 
 	
 	public ProductChooser(final ReceiptWidget parent){
+		super();
 		this.parent =parent;
-		
-		tapManager = new TaPManagerImpl();
-
-		verticalPanel = new VerticalPanel();
-
-		searchWidget = new SearchWidget(Filter.PRODUCT);
-		verticalPanel.add(searchWidget);
-		
-		initWidget(verticalPanel);
+	
+		addTextBox();
+		suggestPanel = new PopupPanel(true);
+		productList = new ListWidget<ProductPreview>();
+		suggestPanel.add(productList);
 			
 	}
+
 	
+	@Override
+	protected ListWidget<ProductPreview> getSuggestionList() {
+		return productList;
+	}
+
+	
+	@Override
+	protected void handleEnterKey() {
+		textBox.setText(null);
+		parent.addProduct(((ProductPreview)productList.getSelectionPreview()).getProductData());
+	}
+
+	
+	@Override
+	protected void sendSearchRequest(String searchString) {
+		setProductSuggestions(tapManager.searchProducts(textBox.getText(), this));	
+	}
+	
+	
+	public void setProductSuggestions(ArrayList<ProductData> suggestData){
+		productList.populateProductList(suggestData);
+		productList.addSuggestion(new NewPreview("new Product"));
+		((PopupPanel) suggestPanel).showRelativeTo(textBox);
+	}
 	
 }

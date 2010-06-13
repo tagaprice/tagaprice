@@ -16,69 +16,50 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.SearchWidget.Filter;
-import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManager;
-import org.tagaprice.shared.TaPManagerImpl;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapType;
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.Maps;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
-import com.google.gwt.maps.client.event.MapDragHandler;
-import com.google.gwt.maps.client.event.MapClickHandler.MapClickEvent;
-import com.google.gwt.maps.client.event.MapDragHandler.MapDragEvent;
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
-public class ShopChooser extends Composite{
+public class ShopChooser extends SearchWidget{
 	interface MyUiBinder extends UiBinder<VerticalPanel, ShopChooser>{}
 	MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
-	@UiField VerticalPanel verticalPanel;
-
-	private SearchWidget searchWidget;
+	//	@UiField VerticalPanel suggestPanel;
 
 	private final MapWidget map;
-	private TaPManager tapManager;
-	private ArrayList<ShopData> shops;
+	//private ArrayList<ShopData> shopsData;
 	private final ReceiptWidget parent;
+	private ListWidget<ShopPreview> shopList; 
+
 
 	public ShopChooser(final ReceiptWidget parent){
+		super();
 		this.parent = parent;
 
-		tapManager = new TaPManagerImpl();
-
-		verticalPanel = new VerticalPanel();
-
-		searchWidget = new SearchWidget(Filter.SHOP);
-		verticalPanel.add(searchWidget);
-
 		map = new MapWidget(LatLng.newInstance(48.2092, 16.3728 ), 11);
-		map.setSize("500px", "500px");
+		map.setSize("400px", "200px");
 		map.addMapType(MapType.getNormalMap());
 		map.addControl(new LargeMapControl());
-		//map.addOverlay(new Marker(LatLng.newInstance(48.2092, 16.3728 )));
-		showShopsOnMap();
+		basePanel.add(map);
 
-		verticalPanel.add(map);
+		addTextBox();
 
-		initWidget(verticalPanel);
+		suggestPanel = new VerticalPanel();
+		shopList =new ListWidget<ShopPreview>();
+		suggestPanel.add(shopList);
+		basePanel.add(suggestPanel);
+
+		showShopsOnMap(null);
 
 		map.addMapClickHandler(new MapClickHandler() {
 
@@ -88,7 +69,7 @@ public class ShopChooser extends Composite{
 					parent.setShop(tapManager.getShop(event.getOverlayLatLng().getLatitude(), event.getOverlayLatLng().getLongitude()));	
 				}else{
 					//create new shop at latlng
-					
+
 				}
 			}
 		});
@@ -98,17 +79,29 @@ public class ShopChooser extends Composite{
 
 			@Override
 			public void onDragEnd(MapDragEndEvent event) {
-				showShopsOnMap();
+				showShopsOnMap(textBox.getText());
 			}
 		});
 
 	}
 
-	private void showShopsOnMap(){
+	@Override
+	protected ListWidget<ShopPreview> getSuggestionList() {	
+		return shopList;
+	}
+
+	/**
+	 * 
+	 * **/
+	private void showShopsOnMap(String searchString){
 		map.clearOverlays();
-		
-		ArrayList<ShopData> result = tapManager.searchShops(map.getBounds(), searchWidget);
-		searchWidget.setShopSuggestions(result);
+		ArrayList<ShopData> result;
+		if(searchString==null){
+			result = tapManager.searchShops(map.getBounds(), this);
+		} else{
+			result = tapManager.searchShops(map.getBounds(), searchString, this);
+		} 
+		setShopSuggestions(result);
 		for(ShopData sd:result){
 			if(((ShopData) sd).getAddress()!=null)
 				map.addOverlay(new Marker(LatLng.newInstance(((ShopData) sd).getLat(), ((ShopData) sd).getLng())));
@@ -116,6 +109,27 @@ public class ShopChooser extends Composite{
 		}				
 
 	}
+
+
+	public void setShopSuggestions(ArrayList<ShopData> suggestData){
+		shopList.populateShopList(suggestData);
+		shopList.addSuggestion(new NewPreview("new Shop"));
+		suggestPanel.setVisible(true);	
+	}
+
+	@Override
+	protected void handleEnterKey() {
+		parent.setShop(((ShopPreview)shopList.getSelectionPreview()).getShopData());
+	}
+
+	@Override
+	protected void sendSearchRequest(String searchString) {
+		showShopsOnMap(searchString);
+
+	}
+
+
+
 
 
 }
