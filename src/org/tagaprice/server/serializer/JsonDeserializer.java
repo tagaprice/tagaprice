@@ -26,6 +26,7 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyList;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ServerResponse;
 import org.tagaprice.shared.ShopData;
@@ -180,6 +181,25 @@ public class JsonDeserializer extends Deserializer {
 		}
 		return rc;
 	}
+	
+	@Override
+	public SearchResult<Serializable> getSearchResult(String data) throws IOException {
+		SearchResult<Serializable> rc = null;
+		
+		try {
+			JSONArray json = new JSONArray(data);
+			
+			rc = new SearchResult<Serializable>();
+			for (int i = 0; i < json.length(); i++) {
+				rc.add(getAny(json_getString(json, i), json_getString(json.getJSONObject(i), "entityType")));
+			}
+
+		}
+		catch (JSONException e) {
+			throw new IOException("JSON parsing failed", e);
+		}
+		return rc;
+	}
 
 	@Override
 	public ServerResponse getServerResponse(String data) throws IOException {
@@ -225,7 +245,12 @@ public class JsonDeserializer extends Deserializer {
 				// {"id": 23, "name": "g"}
 				long id = json.getLong("id");
 				String name = json_getString(json, "name");
-				rc = new Unit(id, name);
+				if (json.has("siUnit") || json.has("factor")) {
+					long fallbackId = json.getLong("siUnit");
+					double factor = json.getDouble("factor");
+					rc = new Unit(id, name, fallbackId, factor);
+				}
+				else rc = new Unit(id, name);
 			}
 		}
 		catch (JSONException e) {
