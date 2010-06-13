@@ -48,7 +48,7 @@ public class ApiCallData extends ServerResponse {
 		//resp.setCharacterEncoding("utf-8"); /// TODO find out why that doesn't work
 		resp.setContentType("text/plain; charset=\"utf-8\""); /// TODO use better content types (e.g. application/json)
 
-		serializer.put(this);
+		serializer.put(this, false);
 	}
 	
 	public HttpServletRequest getRequest() {

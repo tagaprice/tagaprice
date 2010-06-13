@@ -17,7 +17,7 @@ package org.tagaprice.server.serializer;
 import java.io.IOException;
 
 import org.tagaprice.shared.Currency;
-import org.tagaprice.shared.List;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -31,29 +31,35 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 
 public abstract class Serializer {
-	public abstract void put(Currency currency) throws IOException;
-	public abstract void put(Price price) throws IOException;
-	public abstract void put(ProductData product) throws IOException;
-	public abstract void put(PropertyData property) throws IOException;
-	public abstract void put(PropertyList propertyList) throws IOException;
-	public abstract void put(Quantity quantity) throws IOException;
-	public abstract void put(ReceiptData receipt) throws IOException;
-	public abstract void put(RequestError error) throws IOException;
-	public abstract void put(ServerResponse response) throws IOException;
-	public abstract void put(ShopData shop) throws IOException;
-	public abstract void put(Unit unit) throws IOException;
+	public abstract void put(Currency currency, boolean annotateType) throws IOException;
+	public abstract <T extends Serializable> void put(SearchResult<T> list, boolean annotateType) throws IOException;
+	public abstract void put(Price price, boolean annotateType) throws IOException;
+	public abstract void put(ProductData product, boolean annotateType) throws IOException;
+	public abstract void put(PropertyData property, boolean annotateType) throws IOException;
+	public abstract void put(PropertyList propertyList, boolean annotateType) throws IOException;
+	public abstract void put(Quantity quantity, boolean annotateType) throws IOException;
+	public abstract void put(ReceiptData receipt, boolean annotateType) throws IOException;
+	public abstract void put(RequestError error, boolean annotateType) throws IOException;
+	public abstract void put(ServerResponse response, boolean annotateType) throws IOException;
+	public abstract void put(ShopData shop, boolean annotateType) throws IOException;
+	public abstract void put(Unit unit, boolean annotateType) throws IOException;
 	
 	protected void putAny(Serializable s) throws IOException {
-		if (s instanceof Currency) put((Currency) s);
-		else if (s instanceof Price) put((Price) s);
-		else if (s instanceof ProductData) put((ProductData) s);
-		else if (s instanceof PropertyData) put((PropertyData) s);
-		else if (s instanceof PropertyList) put((PropertyList) s);
-		else if (s instanceof RequestError) put((RequestError) s);
-		else if (s instanceof Quantity) put((Quantity) s);
-		else if (s instanceof ReceiptData) put((ReceiptData) s);
-		else if (s instanceof ServerResponse) put((ServerResponse) s);
-		else if (s instanceof ShopData) put((ShopData) s);
-		else if (s instanceof Unit) put((Unit) s);
+		putAny(s, false);
+	}
+	
+	protected void putAny(Serializable s, boolean annotateType) throws IOException {
+		if (s instanceof Currency) put((Currency) s, annotateType);
+		else if (s instanceof SearchResult<?>) put((SearchResult<?>) s, annotateType);
+		else if (s instanceof Price) put((Price) s, annotateType);
+		else if (s instanceof ProductData) put((ProductData) s, annotateType);
+		else if (s instanceof PropertyData) put((PropertyData) s, annotateType);
+		else if (s instanceof PropertyList) put((PropertyList) s, annotateType);
+		else if (s instanceof RequestError) put((RequestError) s, annotateType);
+		else if (s instanceof Quantity) put((Quantity) s, annotateType);
+		else if (s instanceof ReceiptData) put((ReceiptData) s, annotateType);
+		else if (s instanceof ServerResponse) put((ServerResponse) s, annotateType);
+		else if (s instanceof ShopData) put((ShopData) s, annotateType);
+		else if (s instanceof Unit) put((Unit) s, annotateType);
 	}
 }

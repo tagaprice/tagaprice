@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.util.Iterator;
 
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -40,27 +41,46 @@ public class JsonSerializer extends Serializer {
 	}
 	
 	@Override
-	public void put(Currency currency) throws IOException {
+	public void put(Currency currency, boolean annotateType) throws IOException {
 		writeHead();
 		
 		writeVar("id", currency.getId(), true);
 		writeVar("name", currency.getName(), true);
+
+		writeType(currency, annotateType);
 		
 		writeTail();
 	}
 	
 	@Override
-	public void put(Price price) throws IOException {
+	public <T extends Serializable> void put(SearchResult<T> list, boolean annotateType) throws IOException {
+		Iterator<T> it = list.iterator();
+		writeListHead();
+
+		while (it.hasNext()) {
+			T p = it.next();
+			writeListElem(p, true);
+		}
+
+		writeType(list, annotateType);
+
+		writeListTail();
+	}
+
+	@Override
+	public void put(Price price, boolean annotateType) throws IOException {
 		writeHead();
 		
 		writeVar("price", price.getPrice(), true);
-		writeVar("currency", price.getCurrency(), true);
+		writeVar("currency", price.getCurrency(), true, annotateType);
 		
+		writeType(price, annotateType);
+
 		writeTail();
 	}
 	
 	@Override
-	public void put(ProductData product) throws IOException {
+	public void put(ProductData product, boolean annotateType) throws IOException {
 		writeHead();
 		
 		writeVar("id", product.getId(), true);
@@ -68,82 +88,100 @@ public class JsonSerializer extends Serializer {
 		writeVar("brandId", product.getBrandId(), false);
 		writeVar("typeId", product.getTypeId(), true);
 		writeVar("imageSrc", product.getImageSrc(), true);
-		writeVar("price", product.getPrice(), true);
-		writeVar("quantity", product.getQuantity(), false);
+		writeVar("price", product.getPrice(), true, annotateType);
+		writeVar("quantity", product.getQuantity(), false, annotateType);
 		writeVar("rating", product.getRating(), false);
 		writeVar("progress", product.getProgress(), true);
 		writeVar("hasReceipt", product.hasReceipt(), true);
 
 		/// TODO introduce the corresponding EntitySerializer-function
-		writeVar("properties", product.getProperties(), false);
-		
+		writeVar("properties", product.getProperties(), false, annotateType);
+
+		writeType(product, annotateType);
+
 		writeTail();
 	}
 	
 	@Override
-	public void put(PropertyData property) throws IOException {
+	public void put(PropertyData property, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("name", property.getName(), true);
 		writeVar("title", property.getTitle(), true);
 		writeVar("value", property.getValue(), true);
-		writeVar("unit", property.getUnit(), false);
+		writeVar("unit", property.getUnit(), false, annotateType);
+
+		writeType(property, annotateType);
+
 		writeTail();
 	}
 	
 	@Override
-	public void put(PropertyList propertyList) throws IOException {
+	public void put(PropertyList propertyList, boolean annotateType) throws IOException {
 		Iterator<PropertyData> it = propertyList.iterator();
 		
 		writeListHead();
 		while (it.hasNext()) {
 			PropertyData p = it.next();
-			writeListElem(p);
+			writeListElem(p, true);
 		}
+
+		writeType(propertyList, annotateType);
+
 		writeListTail();
 	}
 
 	@Override
-	public void put(Quantity quantity) throws IOException {
+	public void put(Quantity quantity, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("quantity", quantity.getQuantity(), true);
-		writeVar("unit", quantity.getUnit(), true);
+		writeVar("unit", quantity.getUnit(), true, annotateType);
+
+		writeType(quantity, annotateType);
+
 		writeTail();
 	}
 
 	@Override
-	public void put(ReceiptData receipt) throws IOException {
-		// TODO Auto-generated method stub
-	}
-
-	public void put(RequestError error)  throws IOException {
+	public void put(ReceiptData receipt, boolean annotateType) throws IOException {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void put(ServerResponse response) throws IOException {
+	public void put(RequestError error, boolean annotateType)  throws IOException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void put(ServerResponse response, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("status", response.getStatusName(), true);
 		if (response.getResponse() != null) {
 			writeVar("type", response.getResponse().getSerializeName(), true);
-			writeVar("response", response.getResponse(), false);
+			writeVar("response", response.getResponse(), false, annotateType);
 		}
+
+		writeType(response, annotateType);
+
 		writeTail();
 	}
 	
 	@Override
-	public void put(ShopData shop) throws IOException {
+	public void put(ShopData shop, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("id", shop.getId(), true);
 		writeVar("name", shop.getName(), true);
 		writeVar("rating", shop.getRating(), false);
 		writeVar("progress", shop.getProgress(), true);
 		// TODO add other properties
-		writeVar("properties", shop.getProperties(), false);
+		writeVar("properties", shop.getProperties(), false, annotateType);
+
+		writeType(shop, annotateType);
+
 		writeTail();
 	}
 
 	@Override
-	public void put(Unit unit) throws IOException {
+	public void put(Unit unit, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("id", unit.getId(), true);
 		writeVar("name", unit.getName(), true);
@@ -152,6 +190,9 @@ public class JsonSerializer extends Serializer {
 			writeVar("siUnit", unit.getFallbackId(), true);
 			writeVar("factor", unit.getFactor(), true);
 		}
+		
+		writeType(unit, annotateType);
+
 		writeTail();
 	}
 	
@@ -216,21 +257,27 @@ public class JsonSerializer extends Serializer {
 		}
 	}
 	
-	protected void writeVar(String name, Serializable value, boolean writeIfNull) throws IOException {
+	protected void writeVar(String name, Serializable value, boolean writeIfNull, boolean annotateType) throws IOException {
 		if (writeIfNull || value != null) {
 			writeVarName(name);
-			if (value != null) putAny(value);
+			if (value != null) putAny(value, annotateType);
 			else out.write("null".getBytes());
 		}
 	}
 	
-	protected void writeListElem(Serializable elem) throws IOException {
+	protected void writeListElem(Serializable elem, boolean annotateType) throws IOException {
 		if (!firstElem) out.write(",\n".getBytes());
 
-		if (elem != null) putAny(elem);
+		if (elem != null) putAny(elem, annotateType);
 		else out.write("null".getBytes());
 
 		firstElem = false;
+	}
+	
+	protected void writeType(Serializable elem, boolean annotateType) throws IOException {
+		if (annotateType) {
+			writeVar("entityType", elem.getSerializeName(), true);
+		}
 	}
 	
 

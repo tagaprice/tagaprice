@@ -28,5 +28,7 @@ public class ApiDraft extends ApiManager {
 	public ApiDraft() throws DuplicateNameException {
 		registerCall(new ProductHandler());
 		registerCall(new ShopHandler());
+		registerCall(new UnitHandler());
+		
 	}
 }
