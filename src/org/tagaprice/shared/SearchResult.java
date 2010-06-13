@@ -28,7 +28,8 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 		return "searchResult";
 	}
 	
-	public boolean euqals(Object o) {
+	@Override
+	public boolean equals(Object o) {
 		boolean rc = true;
 		
 		if (o instanceof SearchResult<?>) {
@@ -36,32 +37,13 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 			Iterator<?> it1 = iterator(), it2 = l.iterator();
 			
 			while (rc && it1.hasNext() && it2.hasNext()) {
-				rc = it1.next().equals(it2.next());
+				Object a = it1.next(), b = it2.next();
+				rc = a.equals(b);
 			}
 		}
 		else rc = false;
 		
-		return rc;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		boolean rc = false;
-		Iterator<T> it1 = iterator();
-		
-		if (o instanceof SearchResult<?>) {
-			SearchResult<?> l = (SearchResult<?>) o;
-			Iterator<?> it2 = l.iterator();
-			
-			rc = true;
-			while (rc && it1.hasNext() && it2.hasNext()) {
-				rc = it1.next().equals(it2.next());
-			}
-			
-			if (rc) rc = !it1.hasNext() && !it2.hasNext();
-		}
-		
-		return rc;
-	}
 
+		return rc;
+	}
 }
