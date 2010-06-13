@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared;
 
-public class Quantity implements Entity {
+public class Quantity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int quantity;

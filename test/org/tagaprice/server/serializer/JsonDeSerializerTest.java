@@ -151,7 +151,7 @@ public class JsonDeSerializerTest {
 	@Test
 	public void testSearchResult() throws Exception {
 		SearchResult<Serializable> l = new SearchResult<Serializable>();
-		l.add(new Unit(-123, "unitName", 15, 223));
+		l.add(new Unit(-123L, "unitName", 15, 223));
 		l.add(new Price(4289, 2, "EUR"));
 		checkSerializer(l);
 	}
@@ -183,7 +183,7 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testUnit() throws IOException {
-		checkSerializer(new Unit(5, "unitName", 20, 123.45));
+		checkSerializer(new Unit(5L, "unitName", 20, 123.45));
 	}
 	
 	@Test

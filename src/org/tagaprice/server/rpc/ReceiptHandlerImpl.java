@@ -38,7 +38,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		if(id==0){
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
 			receiptData = new ReceiptData(
-					15, 
+					15L, 
 					true,
 					"Default title", 
 					new Date(), 
@@ -48,7 +48,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		}else if(id==15) {
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();	
 			receiptData = new ReceiptData(
-					15, 
+					15L, 
 					true,
 					"Default title", 
 					new Date(), 
@@ -61,7 +61,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
 			
 			receiptData = new ReceiptData(
-					18, 
+					18L, 
 					false,
 					"Weihnachts einkauf", 
 					new Date(), 

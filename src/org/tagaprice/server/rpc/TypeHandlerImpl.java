@@ -30,28 +30,28 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		
 		Type type=new Type("Food");
 		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
-		pg.addGroupElement(new PropertyDefinition(2, "energy", "Brennwert", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
-		pg.addGroupElement(new PropertyDefinition(3, "protein", "Eiweiss", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
-		pg.addGroupElement(new PropertyDefinition(4, "link", "URL", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
+		pg.addGroupElement(new PropertyDefinition(2L, "energy", "Brennwert", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
+		pg.addGroupElement(new PropertyDefinition(3L, "protein", "Eiweiss", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		pg.addGroupElement(new PropertyDefinition(4L, "link", "URL", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
 		type.addPropertyGroup(pg);
 		
 		
 		PropertyGroup pg2 =new PropertyGroup("SachenEben", PropertyGroup.GroupType.LIST);
-		pg2.addGroupElement(new PropertyDefinition(7, "fiber", "Ballaststoffe", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
-		pg2.addGroupElement(new PropertyDefinition(5, "carbohydrate", "Kohlenhydrate", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
-		pg2.addGroupElement(new PropertyDefinition(6, "fat", "Fett", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		pg2.addGroupElement(new PropertyDefinition(7L, "fiber", "Ballaststoffe", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
+		pg2.addGroupElement(new PropertyDefinition(5L, "carbohydrate", "Kohlenhydrate", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true)); 
+		pg2.addGroupElement(new PropertyDefinition(6L, "fat", "Fett", PropertyDefinition.Datatype.DOUBLE,new Unit(15, "g"),true));
 		type.addPropertyGroup(pg2);
 		
 		
 		PropertyGroup pg3 =new PropertyGroup("Produkt Angaben", PropertyGroup.GroupType.LIST);
-		pg3.addGroupElement(new PropertyDefinition(7, "producer", "Hersteller/Vertrieb", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
-		pg3.addGroupElement(new PropertyDefinition(7, "ingredient", "Inhaltsstoffe", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
-		pg3.addGroupElement(new PropertyDefinition(7, "ean", "EAN-Nummer", PropertyDefinition.Datatype.INT,new Unit(15, "g"),false));
+		pg3.addGroupElement(new PropertyDefinition(7L, "producer", "Hersteller/Vertrieb", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		pg3.addGroupElement(new PropertyDefinition(7L, "ingredient", "Inhaltsstoffe", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),false));
+		pg3.addGroupElement(new PropertyDefinition(7L, "ean", "EAN-Nummer", PropertyDefinition.Datatype.INT,new Unit(15, "g"),false));
 		type.addPropertyGroup(pg3);
 		
 		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);
-		pg4.addGroupElement(new PropertyDefinition(7, "created", "Erfasst", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
-		pg4.addGroupElement(new PropertyDefinition(7, "lastChange", "Letzte Änderung", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		pg4.addGroupElement(new PropertyDefinition(7L, "created", "Erfasst", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
+		pg4.addGroupElement(new PropertyDefinition(7L, "lastChange", "Letzte Änderung", PropertyDefinition.Datatype.STRING,new Unit(15, "g"),true));
 		type.addPropertyGroup(pg4);
 		return type;
 	}

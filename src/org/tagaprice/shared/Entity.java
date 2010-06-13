@@ -14,6 +14,16 @@
 */
 package org.tagaprice.shared;
 
-public interface Entity extends Serializable {
+public abstract class Entity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Long id = null;
 	
+	public Entity (Long id) {
+		this.id = id;
+	}
+	
+	public Long getId() {
+		return id;
+	}
 }

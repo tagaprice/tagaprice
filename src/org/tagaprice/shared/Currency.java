@@ -14,23 +14,19 @@
 */
 package org.tagaprice.shared;
 
-public class Currency implements Entity {
+public class Currency extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private long id;
 	private String name;
 	
 	public Currency() {
 		// TODO Auto-generated constructor stub
+		super(null);
 	}
 	
 	public Currency(long id, String name) {
-		this.id = id;
+		super(id);
 		this.name = name;
-	}
-	
-	public long getId() {
-		return id;
 	}
 	
 	public String getName() {

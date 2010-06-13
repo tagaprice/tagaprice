@@ -17,7 +17,7 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SearchResult<T extends Serializable> extends ArrayList<T> implements Entity {
+public class SearchResult<T extends Serializable> extends ArrayList<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public SearchResult() {

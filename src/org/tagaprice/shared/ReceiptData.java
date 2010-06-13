@@ -24,10 +24,9 @@ import java.util.Date;
  * Contains all important information to represent a receipt. 
  *
  */
-public class ReceiptData implements Entity {
+public class ReceiptData extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
 	private boolean draft;
 	private String name;
 	private Date date;
@@ -36,6 +35,7 @@ public class ReceiptData implements Entity {
 	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
 	
 	public ReceiptData() {
+		super(null);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -49,36 +49,20 @@ public class ReceiptData implements Entity {
 	 * @param productData
 	 */
 	public ReceiptData(
-			int id,
+			Long id,
 			boolean draft,
 			String name,
 			Date date,
 			int bill,
 			ShopData shopData,
 			ArrayList<ProductData> productData) {
-		this.id = id;
+		super(id);
 		this.draft = draft;
 		this.name = name;
 		this.date = date;
 		this.bill = bill;
 		this.shopData = shopData;
 		this.productData = productData;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getId() {
-		return id;
-	}
-	
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	/**

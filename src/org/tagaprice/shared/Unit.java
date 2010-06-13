@@ -14,20 +14,19 @@
 */
 package org.tagaprice.shared;
 
-public class Unit implements Entity {
+public class Unit extends Entity {
 	private static final long serialVersionUID = 1L;
 	
-	private long id = 0;
 	private String name;
 	private long fallbackId = 0;
 	private double factor = 0;
 
 	public Unit() {
-		// TODO Auto-generated constructor stub
+		super(null);
 	}
 	
-	public Unit(long id, String name, long fallbackId, double factor) {
-		this.id = id;
+	public Unit(Long id, String name, long fallbackId, double factor) {
+		super(id);
 		this.name = name;
 		this.fallbackId = fallbackId;
 		this.factor = factor;
@@ -36,11 +35,7 @@ public class Unit implements Entity {
 	public Unit(long id, String name) {
 		this(id, name, 0, 0);
 	}
-	
-	public long getId() {
-		return id;
-	}
-	
+
 	public String getName() {
 		return name;
 	}

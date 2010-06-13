@@ -16,22 +16,19 @@ package org.tagaprice.shared;
 
 import java.util.ArrayList;
 
-public class Type implements Entity {
-
-	/**
-	 * 
-	 */
+public class Type extends Entity {
 	private static final long serialVersionUID = 1L;
-	private long id;
+
 	private String title;
 	private Type superType;
 	private ArrayList<PropertyGroup> properties;
 	
 	public Type() {
-		// TODO Auto-generated constructor stub
+		this(null, null);
 	}
 	
 	public Type(String _title, Type _superType){
+		super(null); // TODO check if null is really the desired 
 		title=_title;
 		superType = _superType;
 		properties.addAll(superType.getPropertyGroups());
@@ -40,10 +37,8 @@ public class Type implements Entity {
 	}
 	
 	//type is a main category
-	public Type(String _title){
-		title=_title;
-		superType = this;
-		properties = new ArrayList<PropertyGroup>();
+	public Type(String _title) {
+		this(_title, null);
 	}
 	
 	public ArrayList<PropertyGroup> getPropertyGroups(){
@@ -58,11 +53,7 @@ public class Type implements Entity {
 	public void addPropertyGroup(PropertyGroup property){
 		properties.add(property);
 	}	
-	
-	public long getId(){
-		return id;
-	}
-	
+
 	public String getTitle(){
 		return title;
 	}

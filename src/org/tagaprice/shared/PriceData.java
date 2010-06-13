@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared;
 
-public class PriceData  implements Entity {
+public class PriceData  implements Serializable {
 
 	/**
 	 * 

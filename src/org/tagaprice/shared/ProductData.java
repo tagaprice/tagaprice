@@ -19,10 +19,9 @@ package org.tagaprice.shared;
  * product. 
  *
  */
-public class ProductData implements Entity {
+public class ProductData extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private long id;
 	private long brandId; // TODO create a Brand class
 	private long typeId;
 	private String name;
@@ -36,6 +35,7 @@ public class ProductData implements Entity {
 	
 	public ProductData() {
 		// TODO Auto-generated constructor stub
+		super(null);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class ProductData implements Entity {
 			Quantity quantity,
 			boolean hasReceipt) {
 		
-		setId(id);
+		super(id);
 		setBrandId(brandId);
 		setTypeId(typeId);
 		setName(name);
@@ -111,25 +111,7 @@ public class ProductData implements Entity {
 		setHasReceipt(hasReceipt);
 		
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public long getId() {
-		return id;
-	}
-	
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	
-	
+
 	/**
 	 * @return the brandId
 	 */

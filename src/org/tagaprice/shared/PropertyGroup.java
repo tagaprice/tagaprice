@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * e.g. NutritionFacts is a group consisting of the PropertyDefinition for the Property "sugar", "fat", etc
  * 
  * **/
-public class PropertyGroup implements Entity {
+public class PropertyGroup implements Serializable {
 
 	/**
 	 * 

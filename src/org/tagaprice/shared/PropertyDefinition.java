@@ -17,10 +17,9 @@ package org.tagaprice.shared;
 /**
  * Describes a property
  * **/
-public class PropertyDefinition implements Entity{
+public class PropertyDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private long id;
 	private String name;
 	private String title;
 	public enum Datatype {
@@ -33,6 +32,7 @@ public class PropertyDefinition implements Entity{
 	private boolean unique;
 	
 	public PropertyDefinition() {
+		super(null);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -43,8 +43,8 @@ public class PropertyDefinition implements Entity{
 		
 	}
 	
-	public PropertyDefinition(long id, String name, String title, Datatype type, Unit unit, boolean unique){
-		this.id = id;
+	public PropertyDefinition(Long id, String name, String title, Datatype type, Unit unit, boolean unique){
+		super(id);
 		this.name=name;
 		this.title=title;
 		this.type = type;
@@ -62,10 +62,6 @@ public class PropertyDefinition implements Entity{
 		this.unique = unique;
 	}
 
-	public long getId() {
-		return id;
-	}
-	
 	public String getName() {
 		return name;
 	}
