@@ -12,14 +12,14 @@
  * Filename: ProductHandler.java
  * Date: 27.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.ProductData;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("draft/product")
+@RemoteServiceRelativePath("rpc/product")
 public interface ProductHandler extends RemoteService {
 	ProductData get(Long id) throws IllegalArgumentException;
 	ProductData save(ProductData data)  throws IllegalArgumentException;

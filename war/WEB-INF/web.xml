@@ -15,7 +15,7 @@
 		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
 	</servlet>
 	
-	<!-- BEGIN: Test von Brandi -->
+	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>Type</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.TypeHandlerImpl</servlet-class>
@@ -23,7 +23,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Type</servlet-name>
-		<url-pattern>/tagapriceui/draft/type</url-pattern>
+		<url-pattern>/tagapriceui/rpc/type</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -33,7 +33,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Product</servlet-name>
-		<url-pattern>/tagapriceui/draft/product</url-pattern>
+		<url-pattern>/tagapriceui/rpc/product</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -43,7 +43,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>Receipt</servlet-name>
-		<url-pattern>/tagapriceui/draft/receipt</url-pattern>
+		<url-pattern>/tagapriceui/rpc/receipt</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -53,7 +53,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>Price</servlet-name>
-		<url-pattern>/tagapriceui/draft/price</url-pattern>
+		<url-pattern>/tagapriceui/rpc/price</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -63,9 +63,9 @@
 	
 	<servlet-mapping>
 		<servlet-name>Price</servlet-name>
-		<url-pattern>/tagapriceui/draft/unit</url-pattern>
+		<url-pattern>/tagapriceui/rpc/unit</url-pattern>
 	</servlet-mapping>
-	<!-- END: Test von Brandi -->
+	<!-- END: RPC-->
 
 	<servlet-mapping>
 		<servlet-name>ApiDraft</servlet-name>

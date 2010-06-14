@@ -16,18 +16,18 @@ package org.tagaprice.shared;
 
 import java.util.ArrayList;
 import org.tagaprice.client.InfoBox;
-import org.tagaprice.client.PriceHandler;
-import org.tagaprice.client.PriceHandlerAsync;
-import org.tagaprice.client.ProductHandler;
-import org.tagaprice.client.ProductHandlerAsync;
-import org.tagaprice.client.ReceiptHandler;
-import org.tagaprice.client.ReceiptHandlerAsync;
 import org.tagaprice.client.SearchWidget;
-import org.tagaprice.client.TypeHandler;
-import org.tagaprice.client.TypeHandlerAsync;
 import org.tagaprice.client.UIManager;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.shared.rpc.PriceHandler;
+import org.tagaprice.shared.rpc.PriceHandlerAsync;
+import org.tagaprice.shared.rpc.ProductHandler;
+import org.tagaprice.shared.rpc.ProductHandlerAsync;
+import org.tagaprice.shared.rpc.ReceiptHandler;
+import org.tagaprice.shared.rpc.ReceiptHandlerAsync;
+import org.tagaprice.shared.rpc.TypeHandler;
+import org.tagaprice.shared.rpc.TypeHandlerAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;

@@ -14,11 +14,11 @@
 */
 package org.tagaprice.server.rpc;
 
-import org.tagaprice.client.UnitHandler;
 import org.tagaprice.server.dao.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.rpc.UnitHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

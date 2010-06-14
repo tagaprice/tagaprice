@@ -12,14 +12,14 @@
  * Filename: TypeDraft.java
  * Date: 27.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.Type;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("draft/type")
+@RemoteServiceRelativePath("rpc/type")
 public interface TypeHandler extends RemoteService {
 	Type get(long id) throws IllegalArgumentException;
 }

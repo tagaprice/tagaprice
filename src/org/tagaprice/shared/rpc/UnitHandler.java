@@ -12,7 +12,7 @@
  * Filename: PriceHandler.java
  * Date: 02.06.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
@@ -21,7 +21,7 @@ import org.tagaprice.shared.exception.NotFoundException;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("draft/unit")
+@RemoteServiceRelativePath("rpc/unit")
 public interface UnitHandler extends RemoteService {
 	/**
 	 * request a Unit by ID

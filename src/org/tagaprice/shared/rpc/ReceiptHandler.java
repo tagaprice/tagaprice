@@ -12,14 +12,14 @@
  * Filename: ReceiptHandler.java
  * Date: 30.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.ReceiptData;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("draft/receipt")
+@RemoteServiceRelativePath("rpc/receipt")
 public interface ReceiptHandler extends RemoteService {
 	
 	/**

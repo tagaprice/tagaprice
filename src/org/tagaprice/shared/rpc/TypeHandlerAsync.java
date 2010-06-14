@@ -12,7 +12,7 @@
  * Filename: TypeDraftAsync.java
  * Date: 27.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.Type;
 

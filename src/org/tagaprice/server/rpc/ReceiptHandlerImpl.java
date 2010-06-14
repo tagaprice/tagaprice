@@ -17,13 +17,13 @@ package org.tagaprice.server.rpc;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.tagaprice.client.ReceiptHandler;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.rpc.ReceiptHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

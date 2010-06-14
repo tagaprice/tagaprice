@@ -16,7 +16,6 @@ package org.tagaprice.server.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.PriceHandler;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
@@ -25,6 +24,7 @@ import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.rpc.PriceHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

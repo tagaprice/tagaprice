@@ -14,13 +14,13 @@
 */
 package org.tagaprice.server.rpc;
 
-import org.tagaprice.client.ProductHandler;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.rpc.ProductHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

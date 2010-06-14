@@ -12,20 +12,17 @@
  * Filename: PriceHandlerAsync.java
  * Date: 02.06.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.shared.rpc;
 
-import java.util.ArrayList;
-
-import org.tagaprice.client.PriceMapWidget.PriceMapType;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.PriceData;
+import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.Unit;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface PriceHandlerAsync {
+public interface UnitHandlerAsync {
 
-	void get(Long id, BoundingBox bbox, PriceMapType type,
-			AsyncCallback<ArrayList<PriceData>> callback)
+	void get(long id, AsyncCallback<Unit> callback)
 		throws IllegalArgumentException;
 
+	void getSimilar(long id, AsyncCallback<SearchResult<Unit>> units);
 }
