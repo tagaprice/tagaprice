@@ -25,12 +25,12 @@ import com.google.gwt.user.client.ui.PopupPanel;
 public class ProductSearchWidget extends SearchWidget{
 
 
-	private final ReceiptWidget parent;
+	private ReceiptWidget parent;
 	private ListWidget<ProductPreview> productList; 
 
-	public ProductSearchWidget(final ReceiptWidget parent){
+	public ProductSearchWidget(ReceiptWidget parentReceipt){
 		super();
-		this.parent =parent;
+		parent =parentReceipt;
 
 		addTextBox();
 		suggestPanel = new PopupPanel(true);

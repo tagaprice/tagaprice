@@ -217,24 +217,17 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 
-	public void search(String userInput, SearchWidget sw) {
+	public ArrayList<ShopData> searchShops(String userInput, SearchWidget sw) {
 		// TODO Auto-generated method stub
-			ArrayList<ProductData> tmpp= new ArrayList<ProductData>();
-			tmpp.add(new ProductData(13, 3, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23 ,9, "€", 2), new Quantity(250, 23, 9, "g", 2)));
-		//	sw.setProductSuggestions(tmpp);
+
 			ArrayList<ShopData> tmps= new ArrayList<ShopData>();
 			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
 			tmps.add(new ShopData(12, 3, "Amazon.de", 1, "logo.png", 80, 3));
 			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
 			tmps.add(new ShopData(15, 3, "Spar Schonbrunn", 1, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
-		//	sw.setShopSuggestions(tmps);
 
-			ArrayList<Entity> tmp= new ArrayList<Entity>();
-			tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
-			tmp.add(new ShopData(12, 3, "Amazon.de", 2, "logo.png", 80, 3));
-			tmp.add(new ProductData(13, 3, "Gouda Kaese", 3, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 14, "€", 2), new Quantity(250, 23, 7, "g", 1)));
-
-		//	sw.setSuggestions(tmp);
+		
+		return tmps;
 	}
 
 	@Override

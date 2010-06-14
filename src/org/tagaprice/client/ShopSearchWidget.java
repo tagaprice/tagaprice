@@ -43,9 +43,9 @@ public class ShopSearchWidget extends SearchWidget{
 	private ListWidget<ShopPreview> shopList; 
 
 
-	public ShopSearchWidget(final ReceiptWidget parent){
+	public ShopSearchWidget(ReceiptWidget parentReceipt){
 		super();
-		this.parent = parent;
+		parent = parentReceipt;
 
 		map = new MapWidget(LatLng.newInstance(48.2092, 16.3728 ), 11);
 		map.setSize("400px", "200px");
