@@ -117,8 +117,8 @@ public class ProductPreview extends EntityPreview {
 		HoPa2.setCellWidth(ratingPanel, "100%");
 		
 
-		
-		logoPanel.add(new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), 50));
+		Image progressImage = new Image(MyResources.INSTANCE.productPriview()); 
+		logoPanel.add(new ProgressWidget(progressImage, 50));
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 		
 		
@@ -137,12 +137,23 @@ public class ProductPreview extends EntityPreview {
 		if(editable && !productData.hasReceipt())
 			noReceiptName();
 		
+		
+		
+		//TODO Just for a Test
+		progressImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("product/get&id="+productData.getId());					
+			}
+		});
 	}
 	
 
 	@Override
 	public void click(){
-		History.newItem("product/get&id="+productData.getId());		
+		//TODO Don't call if click is on ratingWidget
+		//History.newItem("product/get&id="+productData.getId());		
 	}
 	
 

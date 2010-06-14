@@ -19,6 +19,7 @@ import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.History;
@@ -96,21 +97,29 @@ public class ShopPreview extends EntityPreview {
 		}
 
 
-
-		logoPanel.add(new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), 50));
+		Image progressImage = new Image(MyResources.INSTANCE.productPriview()); 
+		logoPanel.add(new ProgressWidget(progressImage, 50));
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 
 
 		name.setText(shopData.getName());
 
-
+		//TODO Just for a Test
+		progressImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("shop/get&id="+shopData.getId());				
+			}
+		});
+		
 	}
 
 	@Override
 	public void click(){	
 		//TODO By clicking on the rating widget, the shopPage should not open.
 		
-		History.newItem("shop/get&id="+shopData.getId());
+		//History.newItem("shop/get&id="+shopData.getId());
 	}
 	
 
