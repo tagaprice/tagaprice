@@ -49,7 +49,7 @@ public class UnitDAO {
 	
 	public Unit get(long id) throws NotFoundException {
 		Unit rc = null;
-		String sql = "SELECT unit_id, currentRev, r.title, fallback_unit, factor" +
+		String sql = "SELECT unit_id, r.rev, r.title, fallback_unit, factor" +
 				" FROM unit u INNER JOIN entity e ON (unit_id = ent_id)" +
 				" INNER JOIN entityRevision r ON (r.ent_id = e.ent_id AND r.rev = e.current_revision)" +
 				" WHERE unit_id = ?";
@@ -84,7 +84,7 @@ public class UnitDAO {
 			}
 			
 			// get all units with the given fallback_unit (or unit_id)
-			String sql = "SELECT unit_id, e.currentRev, r.title, fallback_unit, factor" +
+			String sql = "SELECT unit_id, r.rev, r.title, fallback_unit, factor" +
 			" FROM unit u INNER JOIN entity e ON (unit_id = ent_id)" +
 			" INNER JOIN entityRevision r ON (r.ent_id = e.ent_id AND r.rev = e.current_revision)" +
 			" WHERE unit_id = ? OR fallback_unit = ?";
