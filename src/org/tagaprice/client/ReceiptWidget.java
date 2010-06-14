@@ -55,8 +55,8 @@ public class ReceiptWidget extends Composite {
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
-	private ShopChooser shopChooser;
-	private ProductChooser productChooser;
+	private ShopSearchWidget shopChooser;
+	private ProductSearchWidget productChooser;
 	
 	
 	@UiField HorizontalPanel HoPa1;
@@ -114,7 +114,7 @@ public class ReceiptWidget extends Composite {
 		
 		//shopChooser
 		shop = new SimplePanel();
-		shopChooser=new ShopChooser(this);
+		shopChooser=new ShopSearchWidget(this);
 		shop.setWidget(shopChooser);
 		VePa1.add(shop);
 		
@@ -142,7 +142,7 @@ public class ReceiptWidget extends Composite {
 		});
 		
 		product=new SimplePanel();
-		productChooser = new ProductChooser(this);
+		productChooser = new ProductSearchWidget(this);
 		product.setWidget(productChooser);
 		VePa1.add(product);
 			
@@ -191,6 +191,11 @@ public class ReceiptWidget extends Composite {
 	public void setShop(ShopData shopData){
 		shopPreview=new ShopPreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
+	}
+
+	
+	public void setNewShop(){
+		shop.setWidget(new ShopPreview(null, true));
 	}
 	
 	/**

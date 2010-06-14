@@ -16,6 +16,7 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.NewPreview.Filter;
 import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;
@@ -30,8 +31,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
-public class ShopChooser extends SearchWidget{
-	interface MyUiBinder extends UiBinder<VerticalPanel, ShopChooser>{}
+public class ShopSearchWidget extends SearchWidget{
+	interface MyUiBinder extends UiBinder<VerticalPanel, ShopSearchWidget>{}
 	MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
 	//	@UiField VerticalPanel suggestPanel;
@@ -42,7 +43,7 @@ public class ShopChooser extends SearchWidget{
 	private ListWidget<ShopPreview> shopList; 
 
 
-	public ShopChooser(final ReceiptWidget parent){
+	public ShopSearchWidget(final ReceiptWidget parent){
 		super();
 		this.parent = parent;
 
@@ -113,13 +114,15 @@ public class ShopChooser extends SearchWidget{
 
 	public void setShopSuggestions(ArrayList<ShopData> suggestData){
 		shopList.populateShopList(suggestData);
-		shopList.addSuggestion(new NewPreview("new Shop"));
+		shopList.addSuggestion(new NewPreview(Filter.SHOP, parent));
 		suggestPanel.setVisible(true);	
 	}
 
 	@Override
 	protected void handleEnterKey() {
+		if(shopList.getSelectionPreview() instanceof ShopPreview)
 		parent.setShop(((ShopPreview)shopList.getSelectionPreview()).getShopData());
+		else parent.setNewShop();
 	}
 
 	@Override

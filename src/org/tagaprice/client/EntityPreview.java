@@ -30,7 +30,7 @@ public abstract class EntityPreview extends Composite{
 		});
 	}
 	
-	public void click(){}
+	public abstract void click();
 	
 	
 	public void addClickHandler(ClickHandler handler){
