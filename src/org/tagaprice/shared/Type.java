@@ -20,18 +20,19 @@ public class Type extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	private Type superType;
-	private ArrayList<PropertyGroup> properties;
+	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
 	
 	public Type() {
 		this(null, null);
 	}
 	
 	public Type(String name, Type _superType){
-		super(name); // TODO check if null is really the desired 
+		super(name); 
 		superType = _superType;
-		properties.addAll(superType.getPropertyGroups());
-		properties = new ArrayList<PropertyGroup>();
-		
+
+		if (superType != null) {
+			properties.addAll(superType.getPropertyGroups());
+		}
 	}
 	
 	//type is a main category
