@@ -42,8 +42,8 @@ public class ShopData extends Entity {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopData(int id, String name, String imageSrc, int progress,	int rating) {
-		this(id,name, imageSrc, progress, rating, null);
+	public ShopData(long id, int rev, String name, String imageSrc, int progress, int rating) {
+		this(id, rev, name, imageSrc, progress, rating, null);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public class ShopData extends Entity {
 	 * @param city
 	 * @param country
 	 */
-	public ShopData( long id, String name, String imageSrc, int progress, int rating, Address address){
-		super(id, name);
+	public ShopData(long id, int rev, String name, String imageSrc, int progress, int rating, Address address){
+		super(id, rev, name);
 		setImageSrc(imageSrc);
 		setProgress(progress);
 		setRating(rating);
@@ -162,4 +162,5 @@ public class ShopData extends Entity {
 		return "ShopData";
 	}
 	
+	// TODO implement missing ShopData.equals()
 }

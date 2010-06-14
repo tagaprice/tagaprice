@@ -34,15 +34,15 @@ public class PropertyDefinition extends Entity {
 		super();
 	}
 	
-	public PropertyDefinition(long id, String name, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
-	{ 	this(id, name, type, unit, unique);
+	public PropertyDefinition(long id, int rev, String name, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
+	{ 	this(id, rev, name, type, unit, unique);
   		this.minValue = minValue;
   		this.maxValue = maxValue;
 		
 	}
 	
-	public PropertyDefinition(Long id, String name, Datatype type, Unit unit, boolean unique){
-		super(id, name);
+	public PropertyDefinition(Long id, int rev, String name, Datatype type, Unit unit, boolean unique){
+		super(id, rev, name);
 		this.type = type;
 		this.unit=unit;
 		this.unique = unique;
@@ -97,5 +97,5 @@ public class PropertyDefinition extends Entity {
 	}
 	
 	
-	
+	// TODO implement missing PropertyDefinition.equals()
 }

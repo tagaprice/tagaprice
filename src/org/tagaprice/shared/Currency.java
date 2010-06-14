@@ -22,8 +22,12 @@ public class Currency extends Entity {
 		super();
 	}
 	
-	public Currency(long id, String name) {
-		super(id, name);
+	public Currency(String name) {
+		super(name);
+	}
+	
+	public Currency(long id, int rev, String name) {
+		super(id, rev, name);
 	}
 
 	@Override
@@ -33,16 +37,6 @@ public class Currency extends Entity {
 	
 	@Override
 	public boolean equals(Object o) {
-		boolean rc = true;
-		if (o instanceof Currency) {
-			Currency cur = (Currency) o;
-			if (cur.getId() != getId()) rc = false;
-			if (getName() != null) {
-				if (!getName().equals(cur.getName())) rc = false;
-			}
-			else if (cur.getName() != null) rc = false;
-		}
-		else rc = false;
-		return rc;
+		return super.equals(o);
 	}
 }

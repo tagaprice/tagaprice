@@ -58,5 +58,5 @@ public class Type extends Entity {
 		return "unit";
 	}
 	
-	
+	// TODO implement missing Type.equals()
 }

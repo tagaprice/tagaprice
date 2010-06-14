@@ -49,13 +49,14 @@ public class ReceiptData extends Entity {
 	 */
 	public ReceiptData(
 			Long id,
+			int rev,
 			boolean draft,
 			String name,
 			Date date,
 			int bill,
 			ShopData shopData,
 			ArrayList<ProductData> productData) {
-		super(id);
+		super(id, rev);
 		this.draft = draft;
 		this.name = name;
 		this.date = date;
@@ -166,4 +167,5 @@ public class ReceiptData extends Entity {
 		return "receipt";
 	}
 	
+	// TODO implement missing ReceiptData.equals()
 }

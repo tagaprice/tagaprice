@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.util.Iterator;
 
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
@@ -43,8 +44,7 @@ public class JsonSerializer extends Serializer {
 	public void put(Currency currency, boolean annotateType) throws IOException {
 		writeHead();
 		
-		writeVar("id", currency.getId(), true);
-		writeVar("name", currency.getName(), true);
+		writeEntity(currency);
 
 		writeType(currency, annotateType);
 		
@@ -82,8 +82,7 @@ public class JsonSerializer extends Serializer {
 	public void put(ProductData product, boolean annotateType) throws IOException {
 		writeHead();
 		
-		writeVar("id", product.getId(), true);
-		writeVar("name", product.getName(), true);
+		writeEntity(product);
 		writeVar("brandId", product.getBrandId(), false);
 		writeVar("typeId", product.getTypeId(), true);
 		writeVar("imageSrc", product.getImageSrc(), true);
@@ -151,8 +150,7 @@ public class JsonSerializer extends Serializer {
 	@Override
 	public void put(ShopData shop, boolean annotateType) throws IOException {
 		writeHead();
-		writeVar("id", shop.getId(), true);
-		writeVar("name", shop.getName(), true);
+		writeEntity(shop);
 		writeVar("rating", shop.getRating(), false);
 		writeVar("progress", shop.getProgress(), true);
 		// TODO add other properties
@@ -166,8 +164,7 @@ public class JsonSerializer extends Serializer {
 	@Override
 	public void put(Unit unit, boolean annotateType) throws IOException {
 		writeHead();
-		writeVar("id", unit.getId(), true);
-		writeVar("name", unit.getName(), true);
+		writeEntity(unit);
 		
 		if (unit.getFallbackId() > 0) {
 			writeVar("siUnit", unit.getFallbackId(), true);
@@ -246,6 +243,12 @@ public class JsonSerializer extends Serializer {
 			if (value != null) putAny(value, annotateType);
 			else out.write("null".getBytes());
 		}
+	}
+	
+	protected void writeEntity(Entity e) throws IOException {
+		writeVar("id", e.getId(), true);
+		writeVar("rev", e.getRev(), true);
+		writeVar("name", e.getName(), false);
 	}
 	
 	protected void writeListElem(Serializable elem, boolean annotateType) throws IOException {

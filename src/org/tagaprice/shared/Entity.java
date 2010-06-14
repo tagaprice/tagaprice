@@ -19,22 +19,32 @@ public abstract class Entity implements Serializable {
 
 	private Long id = null;
 	private String name;
+	private int rev = 0;
 	
 	public Entity() {
-		this(null, null);
+		this(null, 0, null);
 	}
 	
-	public Entity(Long id) {
-		this(id, null);
+	/*public Entity(Long id) {
+		this(id, null, 0);
+	}*/
+	
+	public Entity(Long id, int rev) {
+		this(id, rev, null);
 	}
 	
 	public Entity(String name) {
-		this(null, name);
+		this(null, 0, name);
 	}
 	
-	public Entity(Long id, String name) {
+	/*public Entity(Long id, String name) {
+		this(id, name, 0);
+	}*/
+	
+	public Entity(Long id, int rev, String name) {
 		this.id = id;
 		this.name = name;
+		this.rev = rev;
 	}
 	
 	public Long getId() {
@@ -47,5 +57,26 @@ public abstract class Entity implements Serializable {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getRev() {
+		return rev;
+	}
+	
+	public boolean equals(Object o) {
+		boolean rc = true; // TODO set to true
+		
+		if (rc && o instanceof Entity) {
+			Entity e = (Entity) o;
+			if (e.getId() != getId()) rc = false;
+			if (getName() != null) {
+				if (!getName().equals(e.getName())) rc = false;
+			}
+			else if (e.getName() != null) rc = false;
+			if (getRev() != e.getRev()) rc = false;
+		}
+		else rc = false;
+
+		return rc;
 	}
 }

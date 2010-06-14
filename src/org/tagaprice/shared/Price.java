@@ -28,8 +28,8 @@ public class Price implements Serializable {
 		setCurrency(currency);
 	}
 	
-	public Price(int price, int currencyId, String currencyName) {
-		this(price, new Currency(currencyId, currencyName));
+	public Price(int price, int currencyId, int currencyRev, String currencyName) {
+		this(price, new Currency(currencyId, currencyRev, currencyName));
 	}
 	
 	public int getPrice() {
@@ -48,8 +48,8 @@ public class Price implements Serializable {
 		this.currency = currency;
 	}
 	
-	public void setCurrency(long currencyId, String currencyName) {
-		setCurrency(new Currency(currencyId, currencyName));
+	public void setCurrency(long currencyId, int rev, String currencyName) {
+		setCurrency(new Currency(currencyId, rev, currencyName));
 	}
 
 	@Override

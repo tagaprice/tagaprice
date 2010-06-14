@@ -24,14 +24,14 @@ public class Unit extends Entity {
 		super();
 	}
 	
-	public Unit(Long id, String name, long fallbackId, double factor) {
-		super(id, name);
+	public Unit(Long id, int rev, String name, long fallbackId, double factor) {
+		super(id, rev, name);
 		this.fallbackId = fallbackId;
 		this.factor = factor;
 	}
 	
-	public Unit(long id, String name) {
-		this(id, name, 0, 0);
+	public Unit(long id, int rev, String name) {
+		this(id, rev, name, 0, 0);
 	}
 
 	public long getFallbackId() {
@@ -50,17 +50,11 @@ public class Unit extends Entity {
 	
 	@Override
 	public boolean equals(Object o) {
-		boolean rc = true;
+		boolean rc = super.equals(o);
 		
-		if (o instanceof Unit) {
+		if (rc && o instanceof Unit) {
 			Unit u = (Unit) o;
-			if (getId() != u.getId()) rc = false;
-			else if (getFactor() != u.getFactor()) rc = false;
-			else if (getName() != null) {
-				if (!getName().equals(u.getName())) rc = false;
-			}
-			else if (u.getName() != null) rc = false;
-			
+			if (getFactor() != u.getFactor()) rc = false;
 		}
 		return rc;
 	}

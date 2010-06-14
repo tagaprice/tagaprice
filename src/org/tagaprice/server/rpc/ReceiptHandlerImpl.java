@@ -38,7 +38,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		if(id==0){
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
 			receiptData = new ReceiptData(
-					15L, 
+					15L, 2,
 					true,
 					"Default title", 
 					new Date(), 
@@ -48,7 +48,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		}else if(id==15) {
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();	
 			receiptData = new ReceiptData(
-					15L, 
+					15L, 3,
 					true,
 					"Default title", 
 					new Date(), 
@@ -57,16 +57,16 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 					myProducts);
 		}else{
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			myProducts.add(new ProductData(152, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, "€"), new Quantity(260, 23, "g"),true));
-			myProducts.add(new ProductData(120, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, "€"), new Quantity(1, 24, "l"),false));
+			myProducts.add(new ProductData(152, 8, 15, 16, "Grouda geschnitten", "logo.png", 20, 80, new Price(325, 23, 8, "€"), new Quantity(260, 23, 3, "g"),true));
+			myProducts.add(new ProductData(120, 3, 15, 16, "Ja!Natürlich Milch 1L", "logo.png", 50, 30, new Price(98, 23, 8, "€"), new Quantity(1, 24, 4, "l"),false));
 			
 			receiptData = new ReceiptData(
-					18L, 
+					18L, 1,
 					false,
 					"Weihnachts einkauf", 
 					new Date(), 
 					0, 
-					new ShopData(15, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
+					new ShopData(15, 9, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
 					myProducts);
 		}
 		

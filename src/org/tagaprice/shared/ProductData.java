@@ -51,6 +51,7 @@ public class ProductData extends Entity {
 	 */
 	public ProductData(
 			long id,
+			int rev,
 			long brandId,
 			long typeId,
 			String name,
@@ -62,6 +63,7 @@ public class ProductData extends Entity {
 		
 		this(
 				id,
+				rev,
 				brandId,
 				typeId,
 				name,
@@ -89,6 +91,7 @@ public class ProductData extends Entity {
 	 */
 	public ProductData(
 			long id,
+			int rev,
 			long brandId,
 			long typeId,
 			String name,
@@ -99,7 +102,7 @@ public class ProductData extends Entity {
 			Quantity quantity,
 			boolean hasReceipt) {
 		
-		super(id);
+		super(id, rev);
 		setBrandId(brandId);
 		setTypeId(typeId);
 		setName(name);
@@ -262,17 +265,12 @@ public class ProductData extends Entity {
 	
 	@Override
 	public boolean equals(Object o) {
-		boolean rc = true;
+		boolean rc = super.equals(o);
 
-		if (o instanceof ProductData) {
+		if (rc && o instanceof ProductData) {
 			ProductData p = (ProductData) o;
-			if (getId() != p.getId()) rc = false;
 			if (getBrandId() != p.getBrandId()) rc = false;
 			if (getTypeId() != p.getTypeId()) rc = false;
-			if (getName() == null) {
-				if (p.getName() != null) rc = false;
-			}
-			else if (!getName().equals(p.getName())) rc = false;
 			if (getImageSrc() == null) {
 				if (p.getImageSrc() != null) rc = false;
 			}

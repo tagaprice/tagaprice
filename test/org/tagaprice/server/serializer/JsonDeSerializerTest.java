@@ -58,17 +58,17 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testCurrency() throws Exception {
-		checkSerializer(new Currency(23, "EUR"));
+		checkSerializer(new Currency(23, 76, "EUR"));
 	}
 	
 	@Test
 	public void testCurrency_nullName() throws Exception {
-		checkSerializer(new Currency(23, null));
+		checkSerializer(new Currency(23, 99, null));
 	}
 
 	@Test
 	public void testPrice() throws Exception {
-		checkSerializer(new Price(1234, 23, "EUR"));
+		checkSerializer(new Price(1234, 23, 5, "EUR"));
 	}
 	
 	@Test
@@ -78,49 +78,49 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProduct() throws IOException {
-		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
-				new Quantity(2, new Unit(14, "t")), false));
+		checkSerializer(new ProductData(23, 2, 24, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 3, "EUR"),
+				new Quantity(2, new Unit(14, 4, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noBrand() throws IOException {
-		checkSerializer(new ProductData(23, -1, 25, "ACME Anvil 2t",
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
-				new Quantity(2, new Unit(14, "t")), false));
+		checkSerializer(new ProductData(23, 5, -1, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR"),
+				new Quantity(2, new Unit(14, 7, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noName() throws IOException {
-		checkSerializer(new ProductData(23, 24, 25, null,
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
-				new Quantity(2, new Unit(14, "t")), false));
+		checkSerializer(new ProductData(23, 5, 24, 25, null,
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 12, "EUR"),
+				new Quantity(2, new Unit(14, 13, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noImage() throws IOException {
-		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
-				null, 80, 20, new Price(112584, 13, "EUR"),
-				new Quantity(2, new Unit(14, "t")), false));
+		checkSerializer(new ProductData(23, 8, 24, 25, "ACME Anvil 2t",
+				null, 80, 20, new Price(112584, 13, 1, "EUR"),
+				new Quantity(2, new Unit(14, 17, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noPrice() throws IOException {
-		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
+		checkSerializer(new ProductData(23, 88, 24, 25, "ACME Anvil 2t",
 				"/img/foo/bar.jpg", 80, 20, null,
-				new Quantity(2, new Unit(14, "t")), false));
+				new Quantity(2, new Unit(14, 7, "t")), false));
 	}
 
 	@Test
 	public void testProduct_noQuantity() throws IOException {
-		checkSerializer(new ProductData(23, 24, 25, "ACME Anvil 2t",
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, "EUR"),
+		checkSerializer(new ProductData(23, 4, 24, 25, "ACME Anvil 2t",
+				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR"),
 				null, false));
 	}
 
 	@Test
 	public void testProperty() throws IOException {
-		checkSerializer(new PropertyData("name", "value", new Unit(23, "unitName")));
+		checkSerializer(new PropertyData("name", "value", new Unit(23, 2, "unitName")));
 	}
 
 	@Test
@@ -130,7 +130,7 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testQuantity() throws IOException {
-		checkSerializer(new Quantity(14, new Unit(23, "unitName")));
+		checkSerializer(new Quantity(14, new Unit(23, 4, "unitName")));
 	}
 	
 	@Test
@@ -140,7 +140,7 @@ public class JsonDeSerializerTest {
 	
 	@Test
 	public void testQuantity_implicitUnit() throws IOException {
-		checkSerializer(new Quantity(13, 14, "unitNAme"));
+		checkSerializer(new Quantity(13, 14, 5, "unitNAme"));
 	}
 
 	@Test
@@ -151,14 +151,14 @@ public class JsonDeSerializerTest {
 	@Test
 	public void testSearchResult() throws Exception {
 		SearchResult<Serializable> l = new SearchResult<Serializable>();
-		l.add(new Unit(-123L, "unitName", 15, 223));
-		l.add(new Price(4289, 2, "EUR"));
+		l.add(new Unit(-123L, 5, "unitName", 15, 223));
+		l.add(new Price(4289, 2, 87, "EUR"));
 		checkSerializer(l);
 	}
 
 	@Test
 	public void testServerResponse() throws IOException {
-		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, "answer")));
+		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, 23, "answer")));
 	}
 
 	@Test
@@ -183,12 +183,12 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testUnit() throws IOException {
-		checkSerializer(new Unit(5L, "unitName", 20, 123.45));
+		checkSerializer(new Unit(5L, 6, "unitName", 20, 123.45));
 	}
 	
 	@Test
 	public void testUnit_nullName() throws IOException {
-		checkSerializer(new Unit(5, null));
+		checkSerializer(new Unit(5, 7, null));
 	}
 	
 	

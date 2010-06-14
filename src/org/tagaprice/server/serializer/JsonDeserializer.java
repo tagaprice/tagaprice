@@ -43,8 +43,9 @@ public class JsonDeserializer extends Deserializer {
 	
 				// {"id": 23,"name": "€"}
 				long id = json.getLong("id");
+				int rev = json.getInt("rev");
 				String name = json_getString(json, "name");
-				rc = new Currency(id, name);
+				rc = new Currency(id, rev, name);
 			}
 		} catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -79,6 +80,7 @@ public class JsonDeserializer extends Deserializer {
 			JSONObject json = new JSONObject(data);
 			
 			long id = json.getLong("id");
+			int rev = json.getInt("rev");
 			long brandId = -1;
 			if (json.has("brandId")) {
 				brandId = json.getLong("brandId");
@@ -97,7 +99,7 @@ public class JsonDeserializer extends Deserializer {
 				hasReceipt = json.getBoolean("hasReceipt");
 			}
 			
-			rc = new ProductData(id, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
+			rc = new ProductData(id, rev, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
 		}
 		catch (JSONException e) {
 			e.printStackTrace(System.err);
@@ -222,13 +224,14 @@ public class JsonDeserializer extends Deserializer {
 				JSONObject json = new JSONObject(data);
 				// {"id": 23, "name": "g"}
 				long id = json.getLong("id");
+				int rev = json.getInt("rev");
 				String name = json_getString(json, "name");
 				if (json.has("siUnit") || json.has("factor")) {
 					long fallbackId = json.getLong("siUnit");
 					double factor = json.getDouble("factor");
-					rc = new Unit(id, name, fallbackId, factor);
+					rc = new Unit(id, rev, name, fallbackId, factor);
 				}
-				else rc = new Unit(id, name);
+				else rc = new Unit(id, rev, name);
 			}
 		}
 		catch (JSONException e) {
