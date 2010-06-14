@@ -31,22 +31,22 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	public ProductHandlerImpl() {
 		// TODO Auto-generated constructor stub
 		//MockMock
-		test = new ProductData(152, 3, 15, 16, "Mousse au Chocolat", "logo.png", 20, 80, new Price(139, 23, 1, "€"), new Quantity(125, 23, 2, "g"),true);
+		test = new ProductData(152, 3, "Mousse au Chocolat", 2, 15, 16, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
 		
 		
 		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 		
-		properties.add(new PropertyData("Brennwert", "2109", new Unit(1, 2, "kj")));
-		properties.add(new PropertyData("Eiweiss", "5,3", new Unit(2, 2, "g")));
-		properties.add(new PropertyData("Kohlenhydrate", "27,5", new Unit(2, 2, "g")));
-		properties.add(new PropertyData("Fett", "41,3", new Unit(2, 2, "g")));
-		properties.add(new PropertyData("Ballaststoffe", "1,9", new Unit(2, 2, "g")));
-		properties.add(new PropertyData("Natrium", "0,05", new Unit(2, 2, "g")));
-		properties.add(new PropertyData("URL", "tagaprice.com", new Unit(5, 2, "fl")));
-		properties.add(new PropertyData("EAN", "14526486", new Unit(5, 2, "g")));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g")));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g")));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g")));
+		properties.add(new PropertyData("Brennwert", "2109", new Unit(1, 2, "kj", 3)));
+		properties.add(new PropertyData("Eiweiss", "5,3", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("Fett", "41,3", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("Natrium", "0,05", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
+		properties.add(new PropertyData("EAN", "14526486", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
 		
 		test.setProperties(properties);
 	}

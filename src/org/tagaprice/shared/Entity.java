@@ -20,31 +20,33 @@ public abstract class Entity implements Serializable {
 	private Long id = null;
 	private String name;
 	private int rev = 0;
+	private int localeId = -1;
 	
 	public Entity() {
-		this(null, 0, null);
+		this(null, 0, null, -1);
 	}
 	
 	/*public Entity(Long id) {
 		this(id, null, 0);
 	}*/
 	
-	public Entity(Long id, int rev) {
-		this(id, rev, null);
+	public Entity(Long id, int rev, int localeId) {
+		this(id, rev, null, localeId);
 	}
 	
-	public Entity(String name) {
-		this(null, 0, name);
+	public Entity(String name, int localeId) {
+		this(null, 0, name, localeId);
 	}
 	
 	/*public Entity(Long id, String name) {
-		this(id, name, 0);
+		this(id, name, 0, );
 	}*/
 	
-	public Entity(Long id, int rev, String name) {
+	public Entity(Long id, int rev, String name, int localeId) {
 		this.id = id;
 		this.name = name;
 		this.rev = rev;
+		this.localeId = localeId;
 	}
 	
 	public Long getId() {
@@ -63,6 +65,10 @@ public abstract class Entity implements Serializable {
 		return rev;
 	}
 	
+	public int getLocaleId() {
+		return localeId;
+	}
+	
 	public boolean equals(Object o) {
 		boolean rc = true; // TODO set to true
 		
@@ -74,6 +80,7 @@ public abstract class Entity implements Serializable {
 			}
 			else if (e.getName() != null) rc = false;
 			if (getRev() != e.getRev()) rc = false;
+			if (getLocaleId() != e.getLocaleId()) rc = false;
 		}
 		else rc = false;
 

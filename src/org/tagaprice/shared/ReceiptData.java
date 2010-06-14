@@ -28,7 +28,6 @@ public class ReceiptData extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	private boolean draft;
-	private String name;
 	private Date date;
 	private int bill; //in Cent
 	private ShopData shopData;
@@ -50,15 +49,15 @@ public class ReceiptData extends Entity {
 	public ReceiptData(
 			Long id,
 			int rev,
-			boolean draft,
 			String name,
+			int localeId,
 			Date date,
 			int bill,
 			ShopData shopData,
-			ArrayList<ProductData> productData) {
-		super(id, rev);
+			ArrayList<ProductData> productData,
+			boolean draft) {
+		super(id, rev, name, localeId);
 		this.draft = draft;
-		this.name = name;
 		this.date = date;
 		this.bill = bill;
 		this.shopData = shopData;
@@ -79,22 +78,6 @@ public class ReceiptData extends Entity {
 	 */
 	public void setDraft(boolean draft) {
 		this.draft = draft;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	/**

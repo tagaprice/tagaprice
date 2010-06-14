@@ -132,7 +132,7 @@ public class TaPManagerImpl implements TaPManager {
 	public void showShopPage(final Long id){
 		//Create Page
 		uiMng.waitingPage();
-		final ShopData shop = new ShopData(123, 2, "ACME Store", null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
+		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("Type", "drugstore", null));
 		shop.setProperties(propList);
@@ -220,19 +220,19 @@ public class TaPManagerImpl implements TaPManager {
 	public void search(String userInput, SearchWidget sw) {
 		// TODO Auto-generated method stub
 			ArrayList<ProductData> tmpp= new ArrayList<ProductData>();
-			tmpp.add(new ProductData(13, 3, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23 ,9, "€"), new Quantity(250, 23, 9, "g")));
+			tmpp.add(new ProductData(13, 3, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23 ,9, "€", 2), new Quantity(250, 23, 9, "g", 2)));
 		//	sw.setProductSuggestions(tmpp);
 			ArrayList<ShopData> tmps= new ArrayList<ShopData>();
-			tmps.add(new ShopData(15, 3, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
-			tmps.add(new ShopData(12, 3, "Amazon.de", "logo.png", 80, 3));
-			tmps.add(new ShopData(15, 3, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
-			tmps.add(new ShopData(15, 3, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
+			tmps.add(new ShopData(12, 3, "Amazon.de", 1, "logo.png", 80, 3));
+			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+			tmps.add(new ShopData(15, 3, "Spar Schonbrunn", 1, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
 		//	sw.setShopSuggestions(tmps);
 
 			ArrayList<Entity> tmp= new ArrayList<Entity>();
-			tmp.add(new ShopData(15, 3, "Billa Flossgasse", "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
-			tmp.add(new ShopData(12, 3, "Amazon.de", "logo.png", 80, 3));
-			tmp.add(new ProductData(13, 3, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, 14, "€"), new Quantity(250, 23, 7, "g")));
+			tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
+			tmp.add(new ShopData(12, 3, "Amazon.de", 2, "logo.png", 80, 3));
+			tmp.add(new ProductData(13, 3, "Gouda Kaese", 3, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 14, "€", 2), new Quantity(250, 23, 7, "g", 1)));
 
 		//	sw.setSuggestions(tmp);
 	}
@@ -252,8 +252,8 @@ public class TaPManagerImpl implements TaPManager {
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget searchWidget){
 		//TODO search for shops/products/both in the bounding box, set suggestions
 		ArrayList<ShopData> tmp= new ArrayList<ShopData>();
-		tmp.add(new ShopData(15, 4, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
-		tmp.add(new ShopData(12, 3, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+		tmp.add(new ShopData(15, 4, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+		tmp.add(new ShopData(12, 3, "Spar Schonbrunn", 1, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
 
 		return tmp;
 	}
@@ -262,8 +262,8 @@ public class TaPManagerImpl implements TaPManager {
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds,String searchString,  SearchWidget searchWidget){
 		//TODO search for shops/products/both in the bounding box, set suggestions
 		ArrayList<ShopData> tmp= new ArrayList<ShopData>();
-		tmp.add(new ShopData(15, 8, "Billa Flossgasse", "logo.png", 80, 50, new Address(48.217883, 16.390475)));
-		tmp.add(new ShopData(14, 7, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+		tmp.add(new ShopData(15, 8, "Billa Flossgasse", 2, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+		tmp.add(new ShopData(14, 7, "Spar Schonbrunn", 2, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
 
 		return tmp;
 	}
@@ -271,13 +271,13 @@ public class TaPManagerImpl implements TaPManager {
 
 	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget){
 		ArrayList<ProductData> tmp= new ArrayList<ProductData>();
-		tmp.add(new ProductData(13, 6, 15, 16, "Gouda Kaese", "logo.png", 50, 50, new Price(1200, 23, 1, "€"), new Quantity(250, 23, 2, "g")));
+		tmp.add(new ProductData(13, 6, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
 		return tmp;
 	}
 	
 	public ShopData getShop(double lat, double lng){
 		///TODO get shop
-		return new ShopData(15, 5, "Spar Schonbrunn", "logo.png", 20, 70, new Address(48.184516, 16.311865));
+		return new ShopData(15, 5, "Spar Schonbrunn", 2, "logo.png", 20, 70, new Address(48.184516, 16.311865));
 	}
 
 

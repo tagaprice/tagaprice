@@ -23,11 +23,11 @@ public class Type extends Entity {
 	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
 	
 	public Type() {
-		this(null, null);
+		super();
 	}
 	
-	public Type(String name, Type _superType){
-		super(name); 
+	public Type(String name, int localeId, Type _superType){
+		super(name, localeId); 
 		superType = _superType;
 
 		if (superType != null) {
@@ -36,8 +36,8 @@ public class Type extends Entity {
 	}
 	
 	//type is a main category
-	public Type(String name) {
-		this(name, null);
+	public Type(String name, int localeId) {
+		this(name, localeId, null);
 	}
 	
 	public ArrayList<PropertyGroup> getPropertyGroups(){

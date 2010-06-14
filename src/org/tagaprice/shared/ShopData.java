@@ -42,8 +42,8 @@ public class ShopData extends Entity {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopData(long id, int rev, String name, String imageSrc, int progress, int rating) {
-		this(id, rev, name, imageSrc, progress, rating, null);
+	public ShopData(long id, int rev, String name, int localeId, String imageSrc, int progress, int rating) {
+		this(id, rev, name, localeId, imageSrc, progress, rating, null);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public class ShopData extends Entity {
 	 * @param city
 	 * @param country
 	 */
-	public ShopData(long id, int rev, String name, String imageSrc, int progress, int rating, Address address){
-		super(id, rev, name);
+	public ShopData(long id, int rev, String name, int localeId, String imageSrc, int progress, int rating, Address address){
+		super(id, rev, name, localeId);
 		setImageSrc(imageSrc);
 		setProgress(progress);
 		setRating(rating);

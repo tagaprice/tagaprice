@@ -40,8 +40,8 @@ public class PriceHandlerImpl  extends RemoteServiceServlet implements PriceHand
 		int c=(int)(Math.random()*10);
 		for(int i=0;i<c;i++){
 			list.add(new PriceData(
-					new ProductData(152, 4, 15, 16, "Mousse au Chocolat", "logo.png", 20, (int)(Math.random()*100), new Price((int)(Math.random()*100), 23, 8, "€"), new Quantity(125, 23, 3, "g"),true), 
-					new ShopData(123, 1825, "ACME Store", null, 80, 25, new Address("Park Avenue 23", "New York", "USA", 48.21211+(-0.001*i), 16.37647+(-0.0001*i)))));
+					new ProductData(152, 4, "Mousse au Chocolat", 1, 15, 16, "logo.png", 20, (int)(Math.random()*100), new Price((int)(Math.random()*100), 23, 8, "€", 1), new Quantity(125, 23, 3, "g", 1),true), 
+					new ShopData(123, 1825, "ACME Store", 2, null, 80, 25, new Address("Park Avenue 23", "New York", "USA", 48.21211+(-0.001*i), 16.37647+(-0.0001*i)))));
 		}
 		
 		

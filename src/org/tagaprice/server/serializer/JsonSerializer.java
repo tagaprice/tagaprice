@@ -248,7 +248,8 @@ public class JsonSerializer extends Serializer {
 	protected void writeEntity(Entity e) throws IOException {
 		writeVar("id", e.getId(), true);
 		writeVar("rev", e.getRev(), true);
-		writeVar("name", e.getName(), false);
+		writeVar("name", e.getName(), true);
+		writeVar("localeId", e.getLocaleId(), true);
 	}
 	
 	protected void writeListElem(Serializable elem, boolean annotateType) throws IOException {

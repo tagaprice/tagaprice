@@ -45,7 +45,8 @@ public class JsonDeserializer extends Deserializer {
 				long id = json.getLong("id");
 				int rev = json.getInt("rev");
 				String name = json_getString(json, "name");
-				rc = new Currency(id, rev, name);
+				int localeId = json.getInt("localeId");
+				rc = new Currency(id, rev, name, localeId);
 			}
 		} catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -81,12 +82,13 @@ public class JsonDeserializer extends Deserializer {
 			
 			long id = json.getLong("id");
 			int rev = json.getInt("rev");
+			String name = json_getString(json, "name");
+			int localeId = json.getInt("localeId");
 			long brandId = -1;
 			if (json.has("brandId")) {
 				brandId = json.getLong("brandId");
 			}
 			long typeId = json.getLong("typeId");
-			String name = json_getString(json, "name");
 			String imageSrc = json_getString(json, "imgSrc");
 			int progress = json.getInt("progress");
 			int rating = json.getInt("rating");
@@ -99,7 +101,7 @@ public class JsonDeserializer extends Deserializer {
 				hasReceipt = json.getBoolean("hasReceipt");
 			}
 			
-			rc = new ProductData(id, rev, brandId, typeId, name, imageSrc, progress, rating, price, quantity, hasReceipt);
+			rc = new ProductData(id, rev, name, localeId, brandId, typeId, imageSrc, progress, rating, price, quantity, hasReceipt);
 		}
 		catch (JSONException e) {
 			e.printStackTrace(System.err);
@@ -226,12 +228,13 @@ public class JsonDeserializer extends Deserializer {
 				long id = json.getLong("id");
 				int rev = json.getInt("rev");
 				String name = json_getString(json, "name");
+				int localeId = json.getInt("localeId");
 				if (json.has("siUnit") || json.has("factor")) {
 					long fallbackId = json.getLong("siUnit");
 					double factor = json.getDouble("factor");
-					rc = new Unit(id, rev, name, fallbackId, factor);
+					rc = new Unit(id, rev, name, localeId, fallbackId, factor);
 				}
-				else rc = new Unit(id, rev, name);
+				else rc = new Unit(id, rev, name, localeId);
 			}
 		}
 		catch (JSONException e) {

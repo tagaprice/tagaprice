@@ -22,12 +22,12 @@ public class Currency extends Entity {
 		super();
 	}
 	
-	public Currency(String name) {
-		super(name);
+	public Currency(String name, int localeId) {
+		super(name, localeId);
 	}
 	
-	public Currency(long id, int rev, String name) {
-		super(id, rev, name);
+	public Currency(long id, int rev, String name, int localeId) {
+		super(id, rev, name, localeId);
 	}
 
 	@Override

@@ -52,9 +52,10 @@ public class ProductData extends Entity {
 	public ProductData(
 			long id,
 			int rev,
+			String name,
+			int localeId,
 			long brandId,
 			long typeId,
-			String name,
 			String imageSrc,
 			int progress,
 			int rating,
@@ -64,9 +65,10 @@ public class ProductData extends Entity {
 		this(
 				id,
 				rev,
+				name,
+				localeId,
 				brandId,
 				typeId,
-				name,
 				imageSrc,
 				progress,
 				rating,
@@ -92,9 +94,10 @@ public class ProductData extends Entity {
 	public ProductData(
 			long id,
 			int rev,
+			String name,
+			int localeId,
 			long brandId,
 			long typeId,
-			String name,
 			String imageSrc,
 			int progress,
 			int rating,
@@ -102,7 +105,7 @@ public class ProductData extends Entity {
 			Quantity quantity,
 			boolean hasReceipt) {
 		
-		super(id, rev);
+		super(id, rev, localeId);
 		setBrandId(brandId);
 		setTypeId(typeId);
 		setName(name);

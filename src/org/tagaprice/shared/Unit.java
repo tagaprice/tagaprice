@@ -24,14 +24,14 @@ public class Unit extends Entity {
 		super();
 	}
 	
-	public Unit(Long id, int rev, String name, long fallbackId, double factor) {
-		super(id, rev, name);
+	public Unit(Long id, int rev, String name, int localeId, long fallbackId, double factor) {
+		super(id, rev, name, localeId);
 		this.fallbackId = fallbackId;
 		this.factor = factor;
 	}
 	
-	public Unit(long id, int rev, String name) {
-		this(id, rev, name, 0, 0);
+	public Unit(long id, int rev, String name, int localeId) {
+		this(id, rev, name, localeId, 0, 0);
 	}
 
 	public long getFallbackId() {
