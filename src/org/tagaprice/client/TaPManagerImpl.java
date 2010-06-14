@@ -12,14 +12,24 @@
  * Filename: TaPManager.java
  * Date: 18.05.2010
  */
-package org.tagaprice.shared;
+package org.tagaprice.client;
 
 import java.util.ArrayList;
-import org.tagaprice.client.InfoBox;
-import org.tagaprice.client.SearchWidget;
-import org.tagaprice.client.UIManager;
+
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.shared.Address;
+import org.tagaprice.shared.BoundingBox;
+import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.Price;
+import org.tagaprice.shared.PriceData;
+import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.Quantity;
+import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.Type;
 import org.tagaprice.shared.rpc.PriceHandler;
 import org.tagaprice.shared.rpc.PriceHandlerAsync;
 import org.tagaprice.shared.rpc.ProductHandler;

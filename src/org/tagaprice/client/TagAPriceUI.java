@@ -1,8 +1,6 @@
 package org.tagaprice.client;
 
 
-import org.tagaprice.shared.TaPManagerImpl;
-import org.tagaprice.shared.TaPManager;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.History;

@@ -14,7 +14,6 @@
 */
 package org.tagaprice.client;
 import org.tagaprice.client.InfoBox.BoxType;
-import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.event.dom.client.BlurEvent;

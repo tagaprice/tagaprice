@@ -25,7 +25,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
 
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -26,8 +26,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.TaPManager;
-import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.Type;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

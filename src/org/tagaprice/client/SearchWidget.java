@@ -1,8 +1,6 @@
 package org.tagaprice.client;
 
 
-import org.tagaprice.shared.TaPManager;
-import org.tagaprice.shared.TaPManagerImpl;
 
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;

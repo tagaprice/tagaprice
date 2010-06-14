@@ -21,7 +21,6 @@ import java.util.Iterator;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManagerImpl;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;

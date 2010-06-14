@@ -18,8 +18,6 @@ import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.TaPManagerImpl;
-import org.tagaprice.shared.TaPManager;
 import org.tagaprice.shared.Type;
 
 import com.google.gwt.event.dom.client.ClickEvent;

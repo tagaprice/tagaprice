@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
-import org.tagaprice.shared.TaPManager;
-import org.tagaprice.shared.TaPManagerImpl;
 
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
