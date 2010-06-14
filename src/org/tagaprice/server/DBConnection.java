@@ -52,12 +52,11 @@ public class DBConnection {
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
 			
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
-			InputStream propStream = cl.getResourceAsStream("conf/jdbc.properties");
-			
-			if (propStream == null) { // jdbc.properties not found => try jdbc_testing.properties
-				propStream = cl.getResourceAsStream("conf/jdbc_testing.properties");
-				if (propStream == null) throw new FileNotFoundException("Error: Couldn't open property file 'jdbc_testing.properties'");
+			InputStream propStream = cl.getResourceAsStream("/jdbc.properties");
+			if (propStream == null) {
+				throw new FileNotFoundException("Error: Couldn't open property file 'jdbc.properties'");
 			}
+
 			prop.load(propStream);
 			propStream.close();
 
