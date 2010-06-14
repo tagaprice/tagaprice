@@ -35,8 +35,7 @@ public class ReceiptData extends Entity {
 	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
 	
 	public ReceiptData() {
-		super(null);
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	/**

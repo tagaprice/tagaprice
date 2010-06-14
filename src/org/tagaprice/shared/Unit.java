@@ -17,17 +17,15 @@ package org.tagaprice.shared;
 public class Unit extends Entity {
 	private static final long serialVersionUID = 1L;
 	
-	private String name;
 	private long fallbackId = 0;
 	private double factor = 0;
 
 	public Unit() {
-		super(null);
+		super();
 	}
 	
 	public Unit(Long id, String name, long fallbackId, double factor) {
-		super(id);
-		this.name = name;
+		super(id, name);
 		this.fallbackId = fallbackId;
 		this.factor = factor;
 	}
@@ -36,10 +34,6 @@ public class Unit extends Entity {
 		this(id, name, 0, 0);
 	}
 
-	public String getName() {
-		return name;
-	}
-	
 	public long getFallbackId() {
 		return fallbackId;
 	}

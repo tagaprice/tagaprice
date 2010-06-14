@@ -24,7 +24,6 @@ public class ProductData extends Entity {
 
 	private long brandId; // TODO create a Brand class
 	private long typeId;
-	private String name;
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
@@ -35,7 +34,7 @@ public class ProductData extends Entity {
 	
 	public ProductData() {
 		// TODO Auto-generated constructor stub
-		super(null);
+		super();
 	}
 	
 	/**
@@ -143,23 +142,6 @@ public class ProductData extends Entity {
 		this.typeId = typeId;
 	}
 
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	/**
 	 * 
 	 * @return

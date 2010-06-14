@@ -18,12 +18,34 @@ public abstract class Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id = null;
+	private String name;
 	
-	public Entity (Long id) {
+	public Entity() {
+		this(null, null);
+	}
+	
+	public Entity(Long id) {
+		this(id, null);
+	}
+	
+	public Entity(String name) {
+		this(null, name);
+	}
+	
+	public Entity(Long id, String name) {
 		this.id = id;
+		this.name = name;
 	}
 	
 	public Long getId() {
 		return id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }

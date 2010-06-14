@@ -20,11 +20,10 @@ package org.tagaprice.shared;
 public class PropertyDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
-	private String title;
 	public enum Datatype {
 	    STRING, DOUBLE, INT	
 	}
+
 	public Datatype type;
 	private int minValue;
 	private int maxValue;
@@ -32,21 +31,18 @@ public class PropertyDefinition extends Entity {
 	private boolean unique;
 	
 	public PropertyDefinition() {
-		super(null);
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	public PropertyDefinition(long id, String name, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
-	{ 	this(id, name, title, type, unit, unique);
+	{ 	this(id, name, type, unit, unique);
   		this.minValue = minValue;
   		this.maxValue = maxValue;
 		
 	}
 	
-	public PropertyDefinition(Long id, String name, String title, Datatype type, Unit unit, boolean unique){
-		super(id);
-		this.name=name;
-		this.title=title;
+	public PropertyDefinition(Long id, String name, Datatype type, Unit unit, boolean unique){
+		super(id, name);
 		this.type = type;
 		this.unit=unit;
 		this.unique = unique;
@@ -60,22 +56,6 @@ public class PropertyDefinition extends Entity {
 
 	public void setUnique(boolean unique) {
 		this.unique = unique;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public Datatype getType() {

@@ -105,7 +105,6 @@ public class JsonSerializer extends Serializer {
 	public void put(PropertyData property, boolean annotateType) throws IOException {
 		writeHead();
 		writeVar("name", property.getName(), true);
-		writeVar("title", property.getTitle(), true);
 		writeVar("value", property.getValue(), true);
 		writeVar("unit", property.getUnit(), false, annotateType);
 

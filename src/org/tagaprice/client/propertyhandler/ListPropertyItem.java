@@ -58,7 +58,6 @@ public class ListPropertyItem extends Composite {
 		if(propertyData.isEmpty() || !definition.isUnique()){
 			addItem(new PropertyData(
 					definition.getName(), 
-					definition.getTitle(), 
 					"", 
 					definition.getUnit()));
 		}		
@@ -83,7 +82,6 @@ public class ListPropertyItem extends Composite {
 						//propertyData.add(pdCp);
 						addItem(new PropertyData(
 								definition.getName(), 
-								definition.getTitle(), 
 								"", 
 								definition.getUnit()));			
 						
@@ -130,7 +128,7 @@ public class ListPropertyItem extends Composite {
 			}
 		});
 		
-		Label lTitle = new Label(definition.getTitle());
+		Label lTitle = new Label(definition.getName());
 		temp.add(lTitle);
 		temp.getPanel().setCellWidth(lTitle, "100%");
 		temp.add(mp);

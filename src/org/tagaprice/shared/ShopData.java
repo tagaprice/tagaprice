@@ -24,7 +24,6 @@ package org.tagaprice.shared;
 public class ShopData extends Entity {
 	private static final long serialVersionUID = 1;
 	
-	private String name;
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
@@ -32,8 +31,7 @@ public class ShopData extends Entity {
 	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 	
 	public ShopData() {
-		super(null);
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	/**
@@ -51,7 +49,6 @@ public class ShopData extends Entity {
 	/**
 	 * 
 	 * @param id
-	 * @param name
 	 * @param imageSrc
 	 * @param progress
 	 * @param rating
@@ -60,30 +57,11 @@ public class ShopData extends Entity {
 	 * @param country
 	 */
 	public ShopData( long id, String name, String imageSrc, int progress, int rating, Address address){
-		
-		super(id);
-		setName(name);
+		super(id, name);
 		setImageSrc(imageSrc);
 		setProgress(progress);
 		setRating(rating);
 		this.address = address;
-	}
-			
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**

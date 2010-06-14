@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class Type extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private String title;
 	private Type superType;
 	private ArrayList<PropertyGroup> properties;
 	
@@ -27,9 +26,8 @@ public class Type extends Entity {
 		this(null, null);
 	}
 	
-	public Type(String _title, Type _superType){
-		super(null); // TODO check if null is really the desired 
-		title=_title;
+	public Type(String name, Type _superType){
+		super(name); // TODO check if null is really the desired 
 		superType = _superType;
 		properties.addAll(superType.getPropertyGroups());
 		properties = new ArrayList<PropertyGroup>();
@@ -37,8 +35,8 @@ public class Type extends Entity {
 	}
 	
 	//type is a main category
-	public Type(String _title) {
-		this(_title, null);
+	public Type(String name) {
+		this(name, null);
 	}
 	
 	public ArrayList<PropertyGroup> getPropertyGroups(){
@@ -53,10 +51,6 @@ public class Type extends Entity {
 	public void addPropertyGroup(PropertyGroup property){
 		properties.add(property);
 	}	
-
-	public String getTitle(){
-		return title;
-	}
 
 	@Override
 	public String getSerializeName() {

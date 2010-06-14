@@ -22,7 +22,6 @@ public class PropertyData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private String title;
 	private String value;
 	private Unit unit;
 	private boolean read=false;
@@ -33,11 +32,9 @@ public class PropertyData implements Serializable {
 	
 	public PropertyData(
 			String name,
-			String title,
 			String value,
 			Unit unit) {
 		setName(name);
-		setTitle(title);
 		setValue(value);
 		setUnit(unit);
 	}
@@ -53,18 +50,6 @@ public class PropertyData implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	/**
 	 * @return the value
@@ -123,11 +108,6 @@ public class PropertyData implements Serializable {
 				if (p.getValue() != null) rc = false;
 			}
 			else if (!getValue().equals(p.getValue())) rc = false;
-			
-			if (getTitle() == null) {
-				if (p.getTitle() != null) rc = false;
-			}
-			else if (!getTitle().equals(p.getTitle())) rc = false;
 			
 			if (getUnit() == null) {
 				if (p.getUnit() != null) rc = false; 

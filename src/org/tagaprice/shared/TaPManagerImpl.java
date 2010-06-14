@@ -124,7 +124,7 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		final ShopData shop = new ShopData(123, "ACME Store", null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
-		propList.add(new PropertyData("type", "Type", "drugstore", null));
+		propList.add(new PropertyData("Type", "drugstore", null));
 		shop.setProperties(propList);
 		
 		TaPMng.getType(id, new AsyncCallback<Type>() {

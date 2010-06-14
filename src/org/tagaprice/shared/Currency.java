@@ -17,20 +17,13 @@ package org.tagaprice.shared;
 public class Currency extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
-	
 	public Currency() {
 		// TODO Auto-generated constructor stub
-		super(null);
+		super();
 	}
 	
 	public Currency(long id, String name) {
-		super(id);
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
+		super(id, name);
 	}
 
 	@Override
