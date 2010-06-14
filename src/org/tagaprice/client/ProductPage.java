@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
@@ -35,6 +36,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends Composite {
@@ -58,7 +61,26 @@ public class ProductPage extends Composite {
 		
 		//style
 		vePa1.setWidth("100%");
-		vePa1.add(new ProductPreview(this.productData, false));
+		
+		//Header
+		HorizontalPanel hoPa1 = new HorizontalPanel();
+		hoPa1.setWidth("100%");
+		vePa1.add(hoPa1);
+		ProgressWidget progressWidget = new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), productData.getProgress());
+		hoPa1.add(progressWidget);
+		
+		VerticalPanel vePa2 = new VerticalPanel();
+		vePa2.setWidth("100%");
+		hoPa1.add(vePa2);
+		hoPa1.setCellWidth(vePa2, "100%");
+		
+		//Type
+		vePa2.add(new Label("Lebensmittel > Milch"));
+		vePa2.add(new Label("Type: Milch"));
+		
+		//Rating
+		vePa2.add(new RatingWidget(this.productData.getRating(), false));
+		
 		
 		//Listener
 		handler=new PropertyChangeHandler() {
@@ -147,6 +169,11 @@ public class ProductPage extends Composite {
 		for(PropertyGroup pg:this.type.getPropertyGroups()){
 			registerHandler(pg);
 		}
+		
+		
+		DefaultPropertyHandler defH = new DefaultPropertyHandler(this.productData.getProperties(), handler);
+		handlerList.add(defH);
+		vePa1.add(defH);
 		
 		
 		vePa1.add(bottomInfo);

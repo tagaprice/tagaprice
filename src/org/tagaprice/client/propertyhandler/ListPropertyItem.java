@@ -53,6 +53,7 @@ public class ListPropertyItem extends Composite {
 	private void fillItems(){			
 		for(PropertyData pd:propertyData){
 			addItem(pd);
+			pd.setRead(true);
 		}
 		
 		if(propertyData.isEmpty() || !definition.isUnique()){

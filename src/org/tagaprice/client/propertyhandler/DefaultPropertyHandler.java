@@ -34,10 +34,9 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	int rowSwap=-1;
 	boolean show=false;
 	
-	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup, PropertyChangeHandler handler) {
-		super(properties, propGroup, handler);
+	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyChangeHandler handler) {
+		super(properties, null, handler);
 		grid.setWidth("100%");
-		grid.setStyleName("DefaultPropertyHandler");
 	
 		title = new TitlePanel("Unlisted", grid, TitlePanel.Level.H2);
 		fillGrid();
@@ -52,8 +51,9 @@ public class DefaultPropertyHandler extends PropertyHandler {
 				show=true;
 				grid.resize(grid.getRowCount()+1, 2);
 				grid.getCellFormatter().setWidth(0, 0, "100%");
-				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler-Row"+rowSwap);
-				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler-Row"+rowSwap);
+				//grid.getRowFormatter().setStyleName(grid.getRowCount()-1, "DefaultPropertyHandler");
+				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler");
+				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler");
 				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getName()+ " ("+temp.getUnit().getName()+")"));
 				grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(temp.getValue(), Datatype.STRING, true));
 				rowSwap*=-1;

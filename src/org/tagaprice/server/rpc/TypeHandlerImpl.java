@@ -45,7 +45,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		PropertyGroup pg3 =new PropertyGroup("Produkt Angaben", PropertyGroup.GroupType.LIST);
 		pg3.addGroupElement(new PropertyDefinition(7L, 3, "Hersteller/Vertrieb", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 11, "g", 2),true));
 		pg3.addGroupElement(new PropertyDefinition(7L, 2, "Inhaltsstoffe", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 12, "g", 2),false));
-		pg3.addGroupElement(new PropertyDefinition(7L, 1, "EAN-Nummer", 3, PropertyDefinition.Datatype.INT,new Unit(15, 13, "g", 2),false));
+		pg3.addGroupElement(new PropertyDefinition(7L, 1, "EAN", 3, PropertyDefinition.Datatype.INT,new Unit(15, 13, "g", 2),false));
 		type.addPropertyGroup(pg3);
 		
 		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);

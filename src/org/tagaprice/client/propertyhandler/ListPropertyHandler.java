@@ -16,8 +16,6 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
