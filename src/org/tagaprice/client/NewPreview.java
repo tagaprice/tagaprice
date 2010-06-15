@@ -18,16 +18,17 @@ import org.tagaprice.shared.ProductData;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 
 public class NewPreview extends EntityPreview{
 
 	public enum Filter {SHOP, PRODUCT};
 	Filter filter;
 	Label label;
-	Composite parent;
+	Widget parent;
 
 
-	public NewPreview(Filter filter, Composite parent){
+	public NewPreview(Filter filter, Widget parent){
 		this.filter = filter;
 		this.parent = parent;
 		if(filter.equals(Filter.SHOP))
@@ -40,15 +41,21 @@ public class NewPreview extends EntityPreview{
 	@Override
 	public void click() {
 		if(filter.equals(Filter.SHOP)){ 
-			if(parent instanceof ReceiptWidget)
+			if(parent instanceof ReceiptWidget){
 				((ReceiptWidget)parent).shop.setWidget(new Label("this is a new shop - currently just a label"));
-		} else {  
-			//create new shop
+			} else { //create new shop page 
+					}
+		} else if(filter.equals(Filter.PRODUCT)){ 
+			if(parent instanceof ReceiptWidget){
+				//create a new product and add to receipt
+			} else { //create new shop page 
+					}  
 		}
 
 	}
 
-
-
-
 }
+
+
+
+

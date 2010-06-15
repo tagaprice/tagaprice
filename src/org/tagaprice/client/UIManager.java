@@ -42,8 +42,7 @@ public class UIManager extends Composite {
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	TitlePanel myTitlePan = new TitlePanel("Home", new Label("HomeSeite"), TitlePanel.Level.H1);
-	///TODO 
-//	SearchWidget sw= new SearchWidget(Filter.ANY);
+	UniversalSearchWidget universalSearch;
 	InfoBox infoBox = new InfoBox();
 
 	public UIManager() {
@@ -54,13 +53,13 @@ public class UIManager extends Composite {
 	private void init(){
 		myDock.setWidth("400px");
 
-
+		universalSearch = new UniversalSearchWidget(logoPanel);
 
 		//logo
 		myDock.add(logoPanel, DockPanel.NORTH);
 		logoPanel.setWidth("100%");
 		logoPanel.add(logo);
-	//	logoPanel.add(sw);
+		logoPanel.add(universalSearch);
 		logo.addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {

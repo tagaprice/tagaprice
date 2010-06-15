@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.BoundingBox;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -134,5 +135,7 @@ public interface TaPManager {
 	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget);
 
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget searchWidget);
+
+	public ArrayList<Entity> search(String text, SearchWidget searchWidget);
 	
 }

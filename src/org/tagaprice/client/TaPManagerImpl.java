@@ -273,5 +273,18 @@ public class TaPManagerImpl implements TaPManager {
 		return new ShopData(15, 5, "Spar Schonbrunn", 2, "logo.png", 20, 70, new Address(48.184516, 16.311865));
 	}
 
+	@Override
+	public ArrayList<Entity> search(String text, SearchWidget searchWidget) {
+		ArrayList<Entity> tmp= new ArrayList<Entity>();
+		tmp.add(new ProductData(13, 6, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
+		tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
+		tmp.add(new ShopData(12, 3, "Amazon.de", 1, "logo.png", 80, 3));
+		tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
+		tmp.add(new ShopData(15, 3, "Spar Schonbrunn", 1, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
+
+
+		return tmp;
+	}
+
 
 }
