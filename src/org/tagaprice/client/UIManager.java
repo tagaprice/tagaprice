@@ -141,12 +141,12 @@ public class UIManager extends Composite {
 
 	public void showProduct(ProductData productData, Type type){
 		ProductPage tempProduct = new ProductPage(productData,type);
-		myTitlePan.setTitleWidget(productData.getName(), tempProduct);
+		myTitlePan.setTitleWidget(productData.getTitle(), tempProduct);
 	}
 
 	public void showShop(ShopData shopData, Type type){
 		ShopPage tempShop = new ShopPage(shopData, type);
-		myTitlePan.setTitleWidget(shopData.getName(), tempShop);
+		myTitlePan.setTitleWidget(shopData.getTitle(), tempShop);
 	}
 
 

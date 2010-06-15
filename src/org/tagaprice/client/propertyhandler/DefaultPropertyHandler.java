@@ -54,7 +54,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 				//grid.getRowFormatter().setStyleName(grid.getRowCount()-1, "DefaultPropertyHandler");
 				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler");
 				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler");
-				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getName()+ " ("+temp.getUnit().getName()+")"));
+				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getName()+ " ("+temp.getUnit().getTitle()+")"));
 				grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(temp.getValue(), Datatype.STRING, true));
 				rowSwap*=-1;
 			}

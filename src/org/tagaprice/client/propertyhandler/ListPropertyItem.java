@@ -58,7 +58,7 @@ public class ListPropertyItem extends Composite {
 		
 		if(propertyData.isEmpty() || !definition.isUnique()){
 			addItem(new PropertyData(
-					definition.getName(), 
+					definition.getTitle(), 
 					"", 
 					definition.getUnit()));
 		}		
@@ -82,7 +82,7 @@ public class ListPropertyItem extends Composite {
 					if(!definition.isUnique() ){						
 						//propertyData.add(pdCp);
 						addItem(new PropertyData(
-								definition.getName(), 
+								definition.getTitle(), 
 								"", 
 								definition.getUnit()));			
 						
@@ -129,11 +129,11 @@ public class ListPropertyItem extends Composite {
 			}
 		});
 		
-		Label lTitle = new Label(definition.getName());
+		Label lTitle = new Label(definition.getTitle());
 		temp.add(lTitle);
 		temp.getPanel().setCellWidth(lTitle, "100%");
 		temp.add(mp);
-		temp.add(new Label(definition.getUnit().getName()));
+		temp.add(new Label(definition.getUnit().getTitle()));
 		vePa1.add(temp);
 	}
 	

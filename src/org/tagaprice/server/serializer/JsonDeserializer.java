@@ -41,10 +41,10 @@ public class JsonDeserializer extends Deserializer {
 			if (data != null) {
 				JSONObject json = new JSONObject(data);
 	
-				// {"id": 23,"name": "€"}
+				// {"id": 23,"title": "€"}
 				long id = json.getLong("id");
 				int rev = json.getInt("rev");
-				String name = json_getString(json, "name");
+				String name = json_getString(json, "title");
 				int localeId = json.getInt("localeId");
 				rc = new Currency(id, rev, name, localeId);
 			}
@@ -82,7 +82,7 @@ public class JsonDeserializer extends Deserializer {
 			
 			long id = json.getLong("id");
 			int rev = json.getInt("rev");
-			String name = json_getString(json, "name");
+			String name = json_getString(json, "title");
 			int localeId = json.getInt("localeId");
 			long brandId = -1;
 			if (json.has("brandId")) {
@@ -118,7 +118,7 @@ public class JsonDeserializer extends Deserializer {
 			if (data != null) {
 				JSONObject json = new JSONObject(data);
 				
-				String name = json_getString(json, "name");
+				String name = json_getString(json, "title");
 				String value = json_getString(json, "value");
 				Unit unit = getUnit(json_getString(json, "unit"));
 				rc = new PropertyData(name, value, unit);
@@ -224,10 +224,10 @@ public class JsonDeserializer extends Deserializer {
 		try {
 			if (data != null) {
 				JSONObject json = new JSONObject(data);
-				// {"id": 23, "name": "g"}
+				// {"id": 23, "title": "g"}
 				long id = json.getLong("id");
 				int rev = json.getInt("rev");
-				String name = json_getString(json, "name");
+				String name = json_getString(json, "title");
 				int localeId = json.getInt("localeId");
 				if (json.has("siUnit") || json.has("factor")) {
 					long fallbackId = json.getLong("siUnit");

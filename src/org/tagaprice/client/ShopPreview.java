@@ -102,7 +102,7 @@ public class ShopPreview extends EntityPreview {
 		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
 
 
-		name.setText(shopData.getName());
+		name.setText(shopData.getTitle());
 
 		//TODO Just for a Test
 		progressImage.addClickHandler(new ClickHandler() {

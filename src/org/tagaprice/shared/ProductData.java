@@ -42,7 +42,7 @@ public class ProductData extends Entity {
 	 * @param id
 	 * @param brandId
 	 * @param typeId
-	 * @param name
+	 * @param title
 	 * @param imageSrc
 	 * @param progress
 	 * @param rating
@@ -52,7 +52,7 @@ public class ProductData extends Entity {
 	public ProductData(
 			long id,
 			int rev,
-			String name,
+			String title,
 			int localeId,
 			long brandId,
 			long typeId,
@@ -65,7 +65,7 @@ public class ProductData extends Entity {
 		this(
 				id,
 				rev,
-				name,
+				title,
 				localeId,
 				brandId,
 				typeId,
@@ -83,7 +83,7 @@ public class ProductData extends Entity {
 	 * @param id
 	 * @param brandId
 	 * @param typeId
-	 * @param name
+	 * @param title
 	 * @param imageSrc
 	 * @param progress
 	 * @param rating
@@ -94,7 +94,7 @@ public class ProductData extends Entity {
 	public ProductData(
 			long id,
 			int rev,
-			String name,
+			String title,
 			int localeId,
 			long brandId,
 			long typeId,
@@ -105,10 +105,9 @@ public class ProductData extends Entity {
 			Quantity quantity,
 			boolean hasReceipt) {
 		
-		super(id, rev, localeId);
+		super(id, rev, title, localeId);
 		setBrandId(brandId);
 		setTypeId(typeId);
-		setName(name);
 		setImageSrc(imageSrc);
 		setPrice(price);
 		setRating(rating);

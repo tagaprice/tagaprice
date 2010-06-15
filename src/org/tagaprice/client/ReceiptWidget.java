@@ -78,7 +78,7 @@ public class ReceiptWidget extends Composite {
 		
 		this.receiptData=receiptData;
 		isEditable=editable;
-		title.setText(receiptData.getName());
+		title.setText(receiptData.getTitle());
 		date.setDate(receiptData.getDate());
 		
 		if(receiptData.getShopData()!=null){
@@ -208,7 +208,7 @@ public class ReceiptWidget extends Composite {
 	
 	public ReceiptData getReceiptData(){
 		this.receiptData.setDate(date.getDate());	
-		this.receiptData.setName(title.getText());
+		this.receiptData.setTitle(title.getText());
 		this.receiptData.setBill(bill);		
 		this.receiptData.setShopData(shopPreview.getShopData());
 		

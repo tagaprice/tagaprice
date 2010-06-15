@@ -18,7 +18,7 @@ public abstract class Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id = null;
-	private String name;
+	private String title;
 	private int rev = 0;
 	private int localeId = -1;
 	
@@ -34,17 +34,17 @@ public abstract class Entity implements Serializable {
 		this(id, rev, null, localeId);
 	}
 	
-	public Entity(String name, int localeId) {
-		this(null, 0, name, localeId);
+	public Entity(String title, int localeId) {
+		this(null, 0, title, localeId);
 	}
 	
 	/*public Entity(Long id, String name) {
 		this(id, name, 0, );
 	}*/
 	
-	public Entity(Long id, int rev, String name, int localeId) {
+	public Entity(Long id, int rev, String title, int localeId) {
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.rev = rev;
 		this.localeId = localeId;
 	}
@@ -53,12 +53,12 @@ public abstract class Entity implements Serializable {
 		return id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public int getRev() {
@@ -75,10 +75,10 @@ public abstract class Entity implements Serializable {
 		if (rc && o instanceof Entity) {
 			Entity e = (Entity) o;
 			if (e.getId() != getId()) rc = false;
-			if (getName() != null) {
-				if (!getName().equals(e.getName())) rc = false;
+			if (getTitle() != null) {
+				if (!getTitle().equals(e.getTitle())) rc = false;
 			}
-			else if (e.getName() != null) rc = false;
+			else if (e.getTitle() != null) rc = false;
 			if (getRev() != e.getRev()) rc = false;
 			if (getLocaleId() != e.getLocaleId()) rc = false;
 		}
