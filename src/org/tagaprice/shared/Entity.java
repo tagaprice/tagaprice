@@ -30,8 +30,11 @@ public abstract class Entity implements Serializable {
 		this(id, null, 0);
 	}*/
 	
-	public Entity(Long id, int rev, int localeId) {
-		this(id, rev, null, localeId);
+	/**
+	 * Constructor used for requesting an Entity from the Database
+	 */
+	public Entity(Long id, int rev) {
+		this(id, rev, null, 0);
 	}
 	
 	public Entity(String title, int localeId) {
@@ -53,6 +56,14 @@ public abstract class Entity implements Serializable {
 		return id;
 	}
 	
+	/**
+	 * This method should just be used by EntityDAO
+	 * @param id new entity ID
+	 */
+	public void _setId(long id) {
+		this.id = id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -65,8 +76,24 @@ public abstract class Entity implements Serializable {
 		return rev;
 	}
 	
+	/**
+	 * This method should just be used by EntityDAO
+	 * @param rev new revision
+	 */
+	public void _setRev(int rev) {
+		this.rev = rev;
+	}
+	
 	public int getLocaleId() {
 		return localeId;
+	}
+	
+	/**
+	 * This method should just be used by EntityDAO
+	 * @param localeId new localeId
+	 */
+	public void _setLocaleId(int localeId) {
+		this.localeId = localeId;
 	}
 	
 	public boolean equals(Object o) {
