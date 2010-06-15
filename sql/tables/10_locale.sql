@@ -1,8 +1,8 @@
 CREATE TABLE locale (
 	locale_id SERIAL NOT NULL,
 	fallback_id INTEGER,
-	name varchar(50) NOT NULL,
-	localname varchar(50) NOT NULL,
+	title varchar(50) NOT NULL,
+	localTitle varchar(50) NOT NULL,
 
 	created_at TIMESTAMP NOT NULL DEFAULT now(),
 
