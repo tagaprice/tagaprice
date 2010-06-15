@@ -16,7 +16,6 @@ package org.tagaprice.client;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -49,7 +48,7 @@ public class ReceiptWidget extends Composite {
 	
 	
 	boolean isEditable=true;
-	MorphWidget title = new MorphWidget("Default title", Datatype.STRING, isEditable);
+//	MorphWidget title = new MorphWidget("Default title", Datatype.STRING, isEditable);
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
@@ -58,11 +57,11 @@ public class ReceiptWidget extends Composite {
 	private ProductSearchWidget productChooser;
 	
 	
-	@UiField HorizontalPanel HoPa1;
-	@UiField HorizontalPanel HoPa2;
-	@UiField VerticalPanel VePa1;
+	@UiField VerticalPanel basePanel;
+	@UiField HorizontalPanel top;
 	@UiField DateWidget date;
-	@UiField SimplePanel titleContainer;
+	@UiField(provided=true) MorphWidget title=new MorphWidget("Default title", Datatype.STRING, isEditable);
+	@UiField HorizontalPanel pricePanel;
 	@UiField SimplePanel shop;
 	@UiField SelectiveVerticalPanel productContainer;
 	@UiField SimplePanel product;
@@ -78,20 +77,18 @@ public class ReceiptWidget extends Composite {
 		
 		this.receiptData=receiptData;
 		isEditable=editable;
-		title.setText(receiptData.getTitle());
+		title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
+			
 		date.setDate(receiptData.getDate());
 		
 		if(receiptData.getShopData()!=null){
 			setShop(receiptData.getShopData());
 		}
 		
-		Iterator<ProductData> myIter = receiptData.getProductData().iterator();
-		
-		while(myIter.hasNext()){
-			addProduct(myIter.next());
+		for(ProductData pd: receiptData.getProductData()){
+			addProduct(pd);
 		}
 		
-
 		refreshPrice();	
 	}
 	
@@ -101,24 +98,22 @@ public class ReceiptWidget extends Composite {
 	public ReceiptWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
+		receiptData=new ReceiptData();
+		
 		//Style
-		//VePa1
-		VePa1.setWidth("100%");
+		basePanel.setWidth("100%");
 		
-		//Hopa1
-		HoPa1.setWidth("100%");
-		titleContainer.setWidget(title);
+		top.setWidth("100%");		
+		top.setCellWidth(date, "50px");
 		
-		HoPa1.setCellWidth(date, "50px");
 		
 		//shopChooser
 		shop = new SimplePanel();
 		shopChooser=new ShopSearchWidget(this);
 		shop.setWidget(shopChooser);
-		VePa1.add(shop);
+		basePanel.insert(shop, 2);
 		
-		//HoPa2
-		VePa1.setCellHorizontalAlignment(HoPa2, HasHorizontalAlignment.ALIGN_RIGHT);
+		basePanel.setCellHorizontalAlignment(pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		
 		//ProductsHandler
@@ -143,7 +138,7 @@ public class ReceiptWidget extends Composite {
 		product=new SimplePanel();
 		productChooser = new ProductSearchWidget(this);
 		product.setWidget(productChooser);
-		VePa1.add(product);
+		basePanel.insert(product, 4);
 			
 		
 		//Save
@@ -160,6 +155,9 @@ public class ReceiptWidget extends Composite {
 		});
 		
 	}
+	
+	
+	
 	
 	
 	/**
@@ -207,18 +205,18 @@ public class ReceiptWidget extends Composite {
 	
 	
 	public ReceiptData getReceiptData(){
-		this.receiptData.setDate(date.getDate());	
-		this.receiptData.setTitle(title.getText());
-		this.receiptData.setBill(bill);		
-		this.receiptData.setShopData(shopPreview.getShopData());
+		receiptData.setDate(date.getDate());	
+		receiptData.setTitle(title.getText());
+		receiptData.setBill(bill);		
+		receiptData.setShopData(shopPreview.getShopData());
 		
 		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){
 			productList.add(((ProductPreview)productContainer.getWidget(i)).getProductData());
 		}		
-		this.receiptData.setProductData(productList);
+		receiptData.setProductData(productList);
 		
-		return this.receiptData;
+		return receiptData;
 	}
 	
 }
