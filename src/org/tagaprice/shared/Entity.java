@@ -97,7 +97,7 @@ public abstract class Entity implements Serializable {
 	}
 	
 	public boolean equals(Object o) {
-		boolean rc = true; // TODO set to true
+		boolean rc = true;
 		
 		if (rc && o instanceof Entity) {
 			Entity e = (Entity) o;

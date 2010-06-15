@@ -27,6 +27,7 @@ public class DBConnection {
 	// shared connection pool
 	private static ConnectionPoolDataSource dataSource;
 	private PooledConnection dbConn;
+	private int transactionDepth = 0;
 	
 	/**
 	 * constructor
@@ -104,15 +105,41 @@ public class DBConnection {
 		return getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
 	
-	public void setAutoCommit(boolean value) throws SQLException {
+	// doesn't work as I expect it...
+	/*public void setAutoCommit(boolean value) throws SQLException {
 		getConnection().setAutoCommit(value);
+	}*/
+	
+	public void begin() throws SQLException {
+		if (transactionDepth == 0) {
+			Statement stmt = getConnection().createStatement();
+			stmt.execute("BEGIN");
+		}
+		transactionDepth++;
 	}
 
 	public void commit() throws SQLException {
-		getConnection().commit();
+		if (transactionDepth>0)  {
+			transactionDepth--;
+			if (transactionDepth == 0) {
+				Statement stmt = getConnection().createStatement();
+				stmt.execute("COMMIT");
+			}
+		}
 	}
 	
 	public void rollback() throws SQLException {
-		getConnection().rollback();
+		if (transactionDepth>0) {
+			transactionDepth--;
+			if (transactionDepth == 0) {
+				Statement stmt = getConnection().createStatement();
+				stmt.execute("ROLLBACK");
+			}
+		}
+	}
+	
+	public void forceRollback() throws SQLException {
+		transactionDepth = 1;
+		rollback();
 	}
 }

@@ -46,8 +46,8 @@ public abstract class EntityDAO {
 	
 	public boolean get(Entity e) throws SQLException {
 		String sql = "SELECT e.ent_id, rev, title, locale_id" +
-			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id AND e.current_revision = r.rev" +
-			" WHERE ent_id = ?";
+			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id AND e.current_revision = r.rev)" +
+			" WHERE e.ent_id = ?";
 		boolean rc = false;
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
@@ -115,7 +115,7 @@ public abstract class EntityDAO {
 		ResultSet res;
 		int rev = e.getRev();
 		
-		db.setAutoCommit(false); // begin transaction
+		db.begin(); // begin transaction
 		
 		// first check that the new revision doesn't exist yet
 		pstmt = db.prepareStatement("SELECT current_revision FROM entity WHERE ent_id = ?");
@@ -135,15 +135,17 @@ public abstract class EntityDAO {
 		pstmt.setInt(1, rev);
 		pstmt.execute();
 		
+		// increment revision in e
+		e._setRev(e.getRev()+1);
+		
 		db.commit();
-		db.setAutoCommit(true);
 	}
 	
 	private void _newEntity(Entity e) throws SQLException, RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		ResultSet res;
 		
-		db.setAutoCommit(false); // start transaction
+		db.begin(); // start transaction
 
 		if (e.getRev() != 0) throw new RevisionCheckException("new entities have to use revision 0");
 		
@@ -154,19 +156,20 @@ public abstract class EntityDAO {
 		pstmt = db.prepareStatement("INSERT INTO entity (locale_id, current_revision) VALUES (?, ?)");
 		pstmt.setLong(1, e.getLocaleId());
 		pstmt.setInt(2, e.getRev()+1);
-		pstmt.execute();
+		pstmt.executeUpdate();
 		
 		// create entityRevision
 		pstmt = db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title) VALUES (currval('entity_ent_id_seq'),?,?)");
 		pstmt.setInt(1, e.getRev()+1);
 		pstmt.setString(2, e.getTitle());
-		pstmt.execute();
+		pstmt.executeUpdate();
 		
 		pstmt = db.prepareStatement("SELECT currval('entity_ent_id_seq') AS ent_id");
 		res = pstmt.executeQuery();
+		res.next();
 		e._setId(res.getLong("ent_id"));
+		e._setRev(1);
 
 		db.commit();
-		db.setAutoCommit(true);
 	}
 }

@@ -35,12 +35,12 @@ public class EntityDAOTest {
 	public class TestDBConnection extends DBConnection {
 		public TestDBConnection() throws FileNotFoundException, IOException, SQLException {
 			super();
-			super.setAutoCommit(false);
+			super.begin();
 		}
 		
 		@Override
-		public void commit() {
-			// DO NOTHING
+		public void commit() throws SQLException {
+			super.rollback();
 		}
 		
 		@Override
@@ -70,22 +70,25 @@ public class EntityDAOTest {
 	
 	private TestDBConnection db;
 	private EntityDAO dao;
+	private LocaleDAO localeDAO;
 
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
 		dao = new EntityDAO(db) {};
+		localeDAO = LocaleDAO.getInstance(db);
 		
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		db.rollback();
+		db.forceRollback();
 	}
 
 	@Test
 	public void testCreate() throws Exception {
-		TestEntity entity = new TestEntity(null, 0, "entityTitle", -8), newEntity;
+		TestEntity entity = new TestEntity(null, 0, "entityTitle", localeDAO.get("English").getId()), newEntity;
 		dao.save(entity);
 		
 		assertNotSame("EntityDAO.save() should set the ID of the entity to the ID of the newly created database entry", null, entity.getId());
