@@ -43,25 +43,32 @@ public abstract class EntityDAO {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
 	}
-	
-	public boolean get(Entity e) throws SQLException {
+
+	public void get(Entity e) throws SQLException, NotFoundException {
 		String sql = "SELECT e.ent_id, rev, title, locale_id" +
-			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id AND e.current_revision = r.rev)" +
-			" WHERE e.ent_id = ?";
-		boolean rc = false;
+			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id";
+		if (e.getRev() == 0) sql += " AND e.current_revision = r.rev";
+		sql += ") WHERE e.ent_id = ?";
+		
+		if (e.getRev() > 0) sql += " AND r.rev = ?";
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, e.getId());
+		if (e.getRev() > 0) pstmt.setLong(2, e.getRev());
 		
 		ResultSet res = pstmt.executeQuery();
 		
-		rc = res.next();
-		e.setTitle(res.getString("title"));
-		e._setRev(res.getInt("rev"));
-		e._setLocaleId(res.getInt("locale_id"));
-		
-		
-		return rc;
+		if (res.next()) {
+			e.setTitle(res.getString("title"));
+			e._setRev(res.getInt("rev"));
+			e._setLocaleId(res.getInt("locale_id"));
+		}
+		else {
+			String msg = "Entity (id: "+e.getId();
+			if (e.getRev()>0) msg += ", rev: "+e.getRev();
+			msg +=") not found!";
+			throw new NotFoundException(msg); 
+		}
 	}
 	
 	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
@@ -71,7 +78,7 @@ public abstract class EntityDAO {
 			
 			Entity eCompare = _getEntity(entity.getId());
 			//if (!entity.equals(eCompare)) { // it should not be possible to save a entity under the wrong ent_id
-			if (eCompare.getRev() != entity.getRev()) {
+			if (eCompare.getTitle() != entity.getTitle()) {
 				// they differ => save changes
 				_newRevision(entity);
 			}
@@ -129,11 +136,13 @@ public abstract class EntityDAO {
 		pstmt.setLong(1, e.getId());
 		pstmt.setInt(2, rev);
 		pstmt.setString(3, e.getTitle());
+		pstmt.executeUpdate();
 
 		// update current_revision in entity
-		pstmt = db.prepareStatement("UPDATE entity SET current_revision = ?");
+		pstmt = db.prepareStatement("UPDATE entity SET current_revision = ? WHERE ent_id = ?");
 		pstmt.setInt(1, rev);
-		pstmt.execute();
+		pstmt.setLong(2, e.getId());
+		pstmt.executeUpdate();
 		
 		// increment revision in e
 		e._setRev(e.getRev()+1);
@@ -153,9 +162,9 @@ public abstract class EntityDAO {
 		localeDAO.require(e.getLocaleId());
 		
 		// create entity
-		pstmt = db.prepareStatement("INSERT INTO entity (locale_id, current_revision) VALUES (?, ?)");
+		pstmt = db.prepareStatement("INSERT INTO entity (locale_id, current_revision) VALUES (?, 1)");
 		pstmt.setLong(1, e.getLocaleId());
-		pstmt.setInt(2, e.getRev()+1);
+		//pstmt.setInt(2, e.getRev()+1);
 		pstmt.executeUpdate();
 		
 		// create entityRevision
@@ -167,7 +176,8 @@ public abstract class EntityDAO {
 		pstmt = db.prepareStatement("SELECT currval('entity_ent_id_seq') AS ent_id");
 		res = pstmt.executeQuery();
 		res.next();
-		e._setId(res.getLong("ent_id"));
+		long id = res.getLong("ent_id");
+		e._setId(id);
 		e._setRev(1);
 
 		db.commit();

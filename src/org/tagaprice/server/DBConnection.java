@@ -27,7 +27,7 @@ public class DBConnection {
 	// shared connection pool
 	private static ConnectionPoolDataSource dataSource;
 	private PooledConnection dbConn;
-	private int transactionDepth = 0;
+	protected int transactionDepth = 0;
 	
 	/**
 	 * constructor

@@ -40,7 +40,7 @@ public class EntityDAOTest {
 		
 		@Override
 		public void commit() throws SQLException {
-			super.rollback();
+			if (transactionDepth > 0) transactionDepth--;
 		}
 		
 		@Override
@@ -82,7 +82,6 @@ public class EntityDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
-		db.rollback();
 		db.forceRollback();
 	}
 
@@ -123,5 +122,31 @@ public class EntityDAOTest {
 		catch (InvalidLocaleException e) {
 			// everything's fine
 		}
+	}
+	
+	@Test
+	public void testSave() throws Exception {
+		TestEntity entity = new TestEntity(null, 0, "title", localeDAO.get("English").getId());
+		dao.save(entity);
+		entity.setTitle("newTitle");
+		dao.save(entity);
+		
+		assertEquals(2, entity.getRev());
+
+		TestEntity e1 = new TestEntity(entity.getId(), 1);
+		TestEntity e2 = new TestEntity(entity.getId(), 2);
+		dao.get(e1);
+		dao.get(e2);
+
+		assertEquals(entity.getId(), e1.getId());
+		assertEquals(1, e1.getRev());
+		assertEquals("title", e1.getTitle());
+		assertEquals(entity.getLocaleId(), e1.getLocaleId());
+
+		assertEquals(entity.getId(), e2.getId());
+		assertEquals(entity.getRev(), e2.getRev());
+		assertEquals(2, e2.getRev());
+		assertEquals("newTitle", e2.getTitle());
+		assertEquals(entity.getLocaleId(), e2.getLocaleId());
 	}
 }
