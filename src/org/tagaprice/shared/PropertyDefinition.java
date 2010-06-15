@@ -24,6 +24,7 @@ public class PropertyDefinition extends Entity {
 	    STRING, DOUBLE, INT	
 	}
 
+	private String name;
 	public Datatype type;
 	private int minValue;
 	private int maxValue;
@@ -34,15 +35,16 @@ public class PropertyDefinition extends Entity {
 		super();
 	}
 	
-	public PropertyDefinition(long id, int rev, String name, int localeId, String title, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
-	{ 	this(id, rev, name, localeId, type, unit, unique);
+	public PropertyDefinition(long id, int rev, String name, String title, int localeId, Datatype type, int minValue, int maxValue, Unit unit, boolean unique)
+	{ 	this(id, rev, name, title, localeId, type, unit, unique);
   		this.minValue = minValue;
   		this.maxValue = maxValue;
 		
 	}
 	
-	public PropertyDefinition(Long id, int rev, String name, int localeId, Datatype type, Unit unit, boolean unique){
+	public PropertyDefinition(Long id, int rev, String name, String title, int localeId, Datatype type, Unit unit, boolean unique){
 		super(id, rev, name, localeId);
+		this.name = name;
 		this.type = type;
 		this.unit=unit;
 		this.unique = unique;
@@ -58,6 +60,14 @@ public class PropertyDefinition extends Entity {
 		this.unique = unique;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public Datatype getType() {
 		return type;
 	}
