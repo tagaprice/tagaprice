@@ -28,8 +28,10 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 
 public abstract class EntityDAO {
 	protected DBConnection db;
+	private LocaleDAO localeDAO;
+	
 	public EntityDAO() throws FileNotFoundException, IOException {
-		db = new DBConnection();
+		this(new DBConnection());
 	}
 	
 	/**
@@ -39,6 +41,7 @@ public abstract class EntityDAO {
 	 */
 	public EntityDAO(DBConnection db) {
 		this.db = db;
+		this.localeDAO = LocaleDAO.getInstance(db);
 	}
 	
 	public boolean get(Entity e) throws SQLException {
@@ -145,11 +148,7 @@ public abstract class EntityDAO {
 		if (e.getRev() != 0) throw new RevisionCheckException("new entities have to use revision 0");
 		
 		// check localeId
-		pstmt = db.prepareStatement("SELECT COUNT(*) FROM locale WHERE locale_id = ?");
-		pstmt.setInt(1, e.getLocaleId());
-		res = pstmt.executeQuery();
-		res.next();
-		if (res.getInt(1) == 0) throw new InvalidLocaleException("Locale id "+e.getLocaleId()+" not found");
+		localeDAO.require(e.getLocaleId());
 		
 		// create entity
 		pstmt = db.prepareStatement("INSERT INTO entity (locale_id, current_revision) VALUES (?, ?)");
