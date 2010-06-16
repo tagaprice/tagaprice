@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared.rpc;
 
+import java.sql.SQLException;
+
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -28,8 +30,9 @@ public interface UnitHandler extends RemoteService {
 	 * @param id Unit ID
 	 * @return the requested Unit object
 	 * @throws NotFoundException if the requested Object wasn't found
+	 * @throws SQLException 
 	 */
-	Unit get(long id) throws IllegalArgumentException, NotFoundException;
+	Unit get(long id) throws IllegalArgumentException, NotFoundException, SQLException;
 
 	/**
 	 * request other units that stand in relation to your requested unit ID

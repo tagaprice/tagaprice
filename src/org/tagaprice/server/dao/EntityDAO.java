@@ -14,8 +14,6 @@
 */
 package org.tagaprice.server.dao;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,14 +24,10 @@ import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public abstract class EntityDAO {
+public class EntityDAO {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
-	
-	public EntityDAO() throws FileNotFoundException, IOException {
-		this(new DBConnection());
-	}
-	
+
 	/**
 	 * Constructor that provides an easy way to supply a modified DBConnection object
 	 * (e.g. with auto-rollback for unit test cases) 

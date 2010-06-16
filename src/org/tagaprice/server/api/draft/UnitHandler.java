@@ -14,6 +14,10 @@
 */
 package org.tagaprice.server.api.draft;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
 import org.tagaprice.server.dao.UnitDAO;
@@ -26,7 +30,7 @@ import org.tagaprice.shared.exception.RequestException;
 public class UnitHandler implements ApiCall {
 	private UnitDAO dao;
 	
-	public UnitHandler() {
+	public UnitHandler() throws FileNotFoundException, IOException {
 		dao = UnitDAO.getInstance();
 	}
 	
@@ -38,12 +42,17 @@ public class UnitHandler implements ApiCall {
 	/// TODO figure out the best way to get the request parameters (e.g. product id, search string, ...
 	@Override
 	public void onCall(String function, ApiCallData d) throws RequestException {
-		if (function.equals("get")) get(d);
-		else if (function.equals("similar")) getSimilar(d);
-		else d.setStatusCode(StatusCode.NotFound);
+		try {
+			if (function.equals("get")) get(d);
+			else if (function.equals("similar")) getSimilar(d);
+			else d.setStatusCode(StatusCode.NotFound);
+		}
+		catch (SQLException e) {
+			throw new RequestException("Database Query Error", e);
+		}
 	}
 	
-	public void get(ApiCallData d) {
+	public void get(ApiCallData d) throws SQLException {
 		try {
 			long id = new Long(d.getRequest().getParameter("id"));
 			Unit unit = dao.get(id);

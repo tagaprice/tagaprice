@@ -28,43 +28,36 @@ import org.tagaprice.shared.exception.NotFoundException;
 public class UnitDAO {
 	private static UnitDAO instance;
 	private DBConnection db;
+	private EntityDAO entityDAO;
 	
 	private UnitDAO(DBConnection db) {
 		this.db = db;
+		entityDAO = new EntityDAO(db);
 	}
 	
-	public static UnitDAO getInstance() {
-		if (instance == null)
-			try {
-				instance = new UnitDAO(new DBConnection());
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public static UnitDAO getInstance() throws FileNotFoundException, IOException {
+		return getInstance(new DBConnection());
+	}
+	
+	public static UnitDAO getInstance(DBConnection db) {
+		if (instance == null) 
+			instance = new UnitDAO(db);
 		return instance;
 	}
 	
-	public Unit get(long id) throws NotFoundException {
+	public Unit get(long id) throws NotFoundException, SQLException {
 		Unit rc = null;
-		String sql = "SELECT unit_id, r.rev, u.locale_id, r.title, fallback_unit, factor" +
-				" FROM unit u INNER JOIN entity e ON (unit_id = ent_id)" +
-				" INNER JOIN entityRevision r ON (r.ent_id = e.ent_id AND r.rev = e.current_revision)" +
-				" WHERE unit_id = ?";
+		String sql = "SELECT unit_id, fallback_unit, factor" +
+		" FROM unit u" +
+		" WHERE unit_id = ?";
 		
-		try {
-			PreparedStatement pstmt = db.prepareStatement(sql);
-			pstmt.setLong(1, id);
-			ResultSet res = pstmt.executeQuery();
-			
-			if (!res.next()) throw new NotFoundException("Unit "+id+" not found");
-			
-			rc = _getUnit(res);
-		} catch (SQLException e) {
-			throw new NotFoundException("Query Error", e);
-		}
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, id);
+		ResultSet res = pstmt.executeQuery();
+		
+		if (!res.next()) throw new NotFoundException("Unit "+id+" not found");
+		
+		rc = _getUnit(res);
 		
 		return rc;
 	}
@@ -84,9 +77,7 @@ public class UnitDAO {
 			}
 			
 			// get all units with the given fallback_unit (or unit_id)
-			String sql = "SELECT unit_id, r.rev, u.locale_id, r.title, fallback_unit, factor" +
-			" FROM unit u INNER JOIN entity e ON (unit_id = ent_id)" +
-			" INNER JOIN entityRevision r ON (r.ent_id = e.ent_id AND r.rev = e.current_revision)" +
+			String sql = "SELECT unit_id, fallback_unit, factor FROM unit u " +
 			" WHERE unit_id = ? OR fallback_unit = ?";
 			
 			pstmt = db.prepareStatement(sql);
@@ -100,7 +91,6 @@ public class UnitDAO {
 
 			return rc;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new NotFoundException("Query Error", e);
 		}
 	}
@@ -109,7 +99,11 @@ public class UnitDAO {
 		return getSimilar(unit.getId());
 	}
 	
-	private Unit _getUnit(ResultSet res) throws SQLException {
-		return new Unit(res.getLong("unit_id"), res.getInt("rev"), res.getString("title"), res.getInt("locale_id"), res.getLong("fallback_unit"), res.getDouble("factor"));
+	private Unit _getUnit(ResultSet res) throws SQLException, NotFoundException {
+		Unit rc =  new Unit(res.getLong("unit_id"), 0, res.getLong("fallback_unit"), res.getDouble("factor"));
+		
+		entityDAO.get(rc);
+		
+		return rc;
 	}
 }

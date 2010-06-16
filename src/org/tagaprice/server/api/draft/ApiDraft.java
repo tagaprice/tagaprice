@@ -14,6 +14,9 @@
 */
 package org.tagaprice.server.api.draft;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.tagaprice.server.ApiManager;
 import org.tagaprice.server.DuplicateNameException;
 
@@ -25,7 +28,7 @@ import org.tagaprice.server.DuplicateNameException;
 public class ApiDraft extends ApiManager {
 	private static final long serialVersionUID = 1L;
 
-	public ApiDraft() throws DuplicateNameException {
+	public ApiDraft() throws DuplicateNameException, FileNotFoundException, IOException {
 		registerCall(new ProductHandler());
 		registerCall(new ShopHandler());
 		registerCall(new UnitHandler());

@@ -14,6 +14,10 @@
 */
 package org.tagaprice.server.rpc;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+
 import org.tagaprice.server.dao.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
@@ -26,12 +30,12 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	private static final long serialVersionUID = 1L;
 	private UnitDAO dao;
 
-	public UnitHandlerImpl() {
+	public UnitHandlerImpl() throws FileNotFoundException, IOException {
 		dao = UnitDAO.getInstance();
 	}
 	
 	@Override
-	public Unit get(long id) throws NotFoundException {
+	public Unit get(long id) throws NotFoundException, SQLException {
 		return dao.get(id);
 	}
 
