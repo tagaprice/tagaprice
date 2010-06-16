@@ -34,6 +34,10 @@ public class Unit extends Entity {
 		this(id, rev, name, localeId, 0, 0);
 	}
 
+	public Unit(long id, int rev, long fallbackId, double factor) {
+		this(id, rev, null, -1, fallbackId, factor);
+	}
+
 	public long getFallbackId() {
 		return fallbackId;
 	}
