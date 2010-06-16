@@ -118,10 +118,11 @@ public class JsonDeserializer extends Deserializer {
 			if (data != null) {
 				JSONObject json = new JSONObject(data);
 				
-				String name = json_getString(json, "title");
+				String name = json_getString(json, "name");
+				String title = json_getString(json, "title");
 				String value = json_getString(json, "value");
 				Unit unit = getUnit(json_getString(json, "unit"));
-				rc = new PropertyData(name, value, unit);
+				rc = new PropertyData(name, title, value, unit);
 			}
 		}
 		catch (JSONException e) {

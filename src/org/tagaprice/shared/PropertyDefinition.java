@@ -43,7 +43,7 @@ public class PropertyDefinition extends Entity {
 	}
 	
 	public PropertyDefinition(Long id, int rev, String name, String title, int localeId, Datatype type, Unit unit, boolean unique){
-		super(id, rev, name, localeId);
+		super(id, rev, title, localeId);
 		this.name = name;
 		this.type = type;
 		this.unit=unit;
@@ -68,6 +68,7 @@ public class PropertyDefinition extends Entity {
 		this.name = name;
 	}
 	
+
 	public Datatype getType() {
 		return type;
 	}

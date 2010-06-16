@@ -36,17 +36,17 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		
 		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 		
-		properties.add(new PropertyData("Brennwert", "2109", new Unit(1, 2, "kj", 3)));
-		properties.add(new PropertyData("Eiweiss", "5,3", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("Fett", "41,3", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("Natrium", "0,05", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
-		properties.add(new PropertyData("EAN", "14526486", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, 2, "kj", 3)));
+		properties.add(new PropertyData("protein","Eiweiss", "5,3", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("sodium", "Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("natrum", "Natrium", "0,05", new Unit(2, 2, "g", 3)));
+		properties.add(new PropertyData("url", "URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
+		properties.add(new PropertyData("ean", "EAN", "14526486", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
 		
 		test.setProperties(properties);
 	}

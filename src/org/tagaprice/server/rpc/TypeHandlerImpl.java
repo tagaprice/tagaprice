@@ -30,7 +30,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		
 		Type type=new Type("Food", 2);
 		PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
-		pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
+		pg.addGroupElement(new PropertyDefinition(2L, 1, "energy2", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
 		pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 7, "g", 1),true));
 		pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,new Unit(15, 6, "g", 1),false));
 		type.addPropertyGroup(pg);
@@ -49,8 +49,8 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		type.addPropertyGroup(pg3);
 		
 		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);
-		pg4.addGroupElement(new PropertyDefinition(7L, 99, "created", "Created", 3, PropertyDefinition.Datatype.STRING,null,true));
-		pg4.addGroupElement(new PropertyDefinition(7L, 98, "lastchange", "Latest changes", 3, PropertyDefinition.Datatype.STRING, null,true));
+		pg4.addGroupElement(new PropertyDefinition(7L, 99, "created", "Created", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 12, "g", 2),true));
+		pg4.addGroupElement(new PropertyDefinition(7L, 98, "lastchange", "Latest changes", 3, PropertyDefinition.Datatype.STRING, new Unit(15, 12, "g", 2),true));
 		type.addPropertyGroup(pg4);
 		return type;
 	}

@@ -51,8 +51,8 @@ public class ListPropertyHandler extends PropertyHandler {
 	 */
 	private void convertToHash(){
 		for(PropertyDefinition pg:propGroup.getGroupElements()){
-			definition.put(pg.getTitle(), pg);
-			usedDefs.put(pg.getTitle(), new ArrayList<PropertyData>());
+			definition.put(pg.getName(), pg);
+			usedDefs.put(pg.getName(), new ArrayList<PropertyData>());
 		}
 		
 		
@@ -68,7 +68,7 @@ public class ListPropertyHandler extends PropertyHandler {
 		for(PropertyDefinition pg:propGroup.getGroupElements()){
 			ListPropertyItem temp = new ListPropertyItem(
 					pg, 
-					usedDefs.get(pg.getTitle()));
+					usedDefs.get(pg.getName()));
 			vePa1.add(temp);
 			
 			temp.addChangeHandler(handler);

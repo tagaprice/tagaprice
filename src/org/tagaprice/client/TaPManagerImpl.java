@@ -108,6 +108,8 @@ public class TaPManagerImpl implements TaPManager {
 
 					@Override
 					public void onSuccess(Type tResult) {
+						System.out.println("TaPManagerImpl: name: "+tResult.getPropertyGroups().get(0).getGroupElements().get(0).getName()+" | title: "+tResult.getPropertyGroups().get(0).getGroupElements().get(0).getTitle());
+
 						uiMng.showProduct(pResult, tResult);
 					}
 
@@ -134,7 +136,7 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
-		propList.add(new PropertyData("Type", "drugstore", null));
+		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);
 		
 		TaPMng.getType(id, new AsyncCallback<Type>() {

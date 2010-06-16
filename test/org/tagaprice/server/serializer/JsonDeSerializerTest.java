@@ -120,12 +120,12 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProperty() throws IOException {
-		checkSerializer(new PropertyData("name", "value", new Unit(23, 2, "unitName", 1)));
+		checkSerializer(new PropertyData("name", "title", "value", new Unit(23, 2, "unitName", 1)));
 	}
 
 	@Test
 	public void testProperty_nullValues() throws IOException {
-		checkSerializer(new PropertyData(null, null, null));
+		checkSerializer(new PropertyData(null, null, null, null));
 	}
 
 	@Test

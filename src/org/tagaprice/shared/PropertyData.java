@@ -23,6 +23,7 @@ public class PropertyData implements Serializable {
 
 	private String name;
 	private String value;
+	private String title;
 	private Unit unit;
 	private boolean read=false;
 	
@@ -32,9 +33,11 @@ public class PropertyData implements Serializable {
 	
 	public PropertyData(
 			String name,
+			String title,
 			String value,
 			Unit unit) {
 		setName(name);
+		setTitle(title);
 		setValue(value);
 		setUnit(unit);
 	}
@@ -51,6 +54,24 @@ public class PropertyData implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	/**
 	 * @return the value
 	 */

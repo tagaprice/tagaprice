@@ -50,18 +50,20 @@ public class ListPropertyItem extends Composite {
 		fillItems();
 	}
 	
-	private void fillItems(){			
+	private void fillItems(){	
 		for(PropertyData pd:propertyData){
 			addItem(pd);
 			pd.setRead(true);
 		}
 		
-		if(propertyData.isEmpty() || !definition.isUnique()){
+		if(propertyData.isEmpty() || !definition.isUnique()){			
 			addItem(new PropertyData(
-					definition.getTitle(), 
+					definition.getName(), 
+					definition.getTitle(),
 					"", 
 					definition.getUnit()));
-		}		
+			
+		}	
 	}
 	
 	private void addItem(final PropertyData pdCp){
@@ -69,6 +71,8 @@ public class ListPropertyItem extends Composite {
 		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
 		temp.setStyleName("DefaultPropertyHandler");
 		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
+		
+		
 		
 		//Listen
 		mp.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
@@ -81,10 +85,14 @@ public class ListPropertyItem extends Composite {
 					
 					if(!definition.isUnique() ){						
 						//propertyData.add(pdCp);
+						
 						addItem(new PropertyData(
+								definition.getName(), 
 								definition.getTitle(), 
 								"", 
-								definition.getUnit()));			
+								definition.getUnit()));
+						
+									
 						
 						
 					}
@@ -129,11 +137,13 @@ public class ListPropertyItem extends Composite {
 			}
 		});
 		
+		
 		Label lTitle = new Label(definition.getTitle());
 		temp.add(lTitle);
 		temp.getPanel().setCellWidth(lTitle, "100%");
 		temp.add(mp);
-		temp.add(new Label(definition.getUnit().getTitle()));
+		if(definition.getUnit()!=null)
+			temp.add(new Label(definition.getUnit().getTitle()));
 		vePa1.add(temp);
 	}
 	
