@@ -32,7 +32,7 @@ public interface UnitHandler extends RemoteService {
 	 * @throws NotFoundException if the requested Object wasn't found
 	 * @throws SQLException 
 	 */
-	Unit get(long id) throws IllegalArgumentException, NotFoundException, SQLException;
+	Unit get(long id) throws IllegalArgumentException, NotFoundException;
 
 	/**
 	 * request other units that stand in relation to your requested unit ID

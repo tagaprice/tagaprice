@@ -35,8 +35,13 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	}
 	
 	@Override
-	public Unit get(long id) throws NotFoundException, SQLException {
-		return dao.get(id);
+	public Unit get(long id) throws NotFoundException {
+		try {
+			return dao.get(id);
+		}
+		catch (SQLException e) {
+			throw new NotFoundException("DB Query Error", e);
+		}
 	}
 
 	@Override
