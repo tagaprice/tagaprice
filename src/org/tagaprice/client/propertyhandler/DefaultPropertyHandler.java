@@ -20,7 +20,6 @@ import java.util.ListIterator;
 import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.user.client.ui.Grid;
@@ -33,12 +32,13 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	TitlePanel title;
 	int rowSwap=-1;
 	boolean show=false;
+	ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
 	
 	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyChangeHandler handler) {
 		super(properties, null, handler);
 		
 		//Remove Non Used
-		ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
+		
 		ListIterator<PropertyData> iter = properties.listIterator();
 		while(iter.hasNext()){
 			PropertyData temp = iter.next();
@@ -46,7 +46,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 				noReadproperties.add(temp);
 			}
 		}
-		properties=noReadproperties;
+		
 		
 		grid.setWidth("100%");
 	
@@ -56,7 +56,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	}
 	
 	private void fillGrid(){
-		ListIterator<PropertyData> iter = properties.listIterator();
+		ListIterator<PropertyData> iter = noReadproperties.listIterator();
 		while(iter.hasNext()){
 			PropertyData temp = iter.next();
 			if(temp.getRead()==false){
@@ -77,7 +77,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	}
 	
 	public ArrayList<PropertyData> getPropertyData(){
-		return properties;
+		return noReadproperties;
 		
 	}
 

@@ -15,7 +15,6 @@
 package org.tagaprice.client;
 
 import java.util.ArrayList;
-
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
@@ -37,7 +36,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -52,6 +50,7 @@ public class ProductPage extends Composite {
 	private TaPManager TaPMng = TaPManagerImpl.getInstance();
 	private PriceMapWidget priceMap;
 	private SimplePanel typeWidgetContainer = new SimplePanel();
+	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
@@ -90,72 +89,7 @@ public class ProductPage extends Composite {
 			
 			@Override
 			public void onSuccess() {
-				HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
-				bottomInfoHoPa.setWidth("100%");
-				bottomInfoHoPa.setHeight("100%");
-				Button topAbort=new Button("Abort", new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						TaPManagerImpl.getInstance().showProductPage(productData.getId());
-						
-					}
-				});
-				final Button topSave=new Button("Save");	
-				topSave.addClickHandler(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						topSave.setText("Saving...");
-						
-						//productData.getProperties()
-						SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
-						int i=0;
-						for(IPropertyHandler hl:handlerList){
-							for(PropertyData pd:hl.getPropertyData()){
-								newList.add(pd);
-								System.out.println(i+": "+pd.getName()+": "+pd.getValue());
-							}
-							i++;
-						}
-						productData.setProperties(newList);
-						
-						
-						TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
-							
-							@Override
-							public void onSuccess(ProductData result) {
-								bottomInfo.setVisible(false);
-								topSave.setText("Save");
-								
-							}
-							
-							@Override
-							public void onFailure(Throwable caught) {
-								TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
-								
-							}
-						});						
-						
-					}
-				});
-				bottomInfoHoPa.add(topAbort);
-				bottomInfoHoPa.add(topSave);	
-				bottomInfoHoPa.setCellWidth(topAbort, "100%");
-				bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
-				bottomInfoHoPa.setCellHorizontalAlignment(topSave, HasHorizontalAlignment.ALIGN_RIGHT);				
-				bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
-				bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
-				bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
-				
-				//
-				//TaPManagerImpl.getInstance().getInfoBox().showInfo(new Button("Save Changes!"), BoxType.WARNINGBOX);
-				
-				
-				
-				
-
-				
+				showSave();				
 			}
 			
 			@Override
@@ -172,6 +106,8 @@ public class ProductPage extends Composite {
 		
 		
 		//Create and Register Handler
+		vePa1.add(propertyHandlerContainer);
+		propertyHandlerContainer.setWidth("100%");
 		registerHandler();
 		
 		
@@ -195,6 +131,7 @@ public class ProductPage extends Composite {
 						type=result;
 						drawTypeWidget();	
 						registerHandler();
+						showSave();	
 					}
 
 				});
@@ -207,6 +144,15 @@ public class ProductPage extends Composite {
 	
 	
 	private void registerHandler(){
+		handlerList.clear();
+		
+		for(PropertyData pd:productData.getProperties()){
+			pd.setRead(false);
+		}
+		
+		
+		VerticalPanel hVePa = new VerticalPanel();
+		hVePa.setWidth("100%");
 		
 		//Add Properties
 		for(PropertyGroup pg:this.type.getPropertyGroups()){
@@ -214,19 +160,80 @@ public class ProductPage extends Composite {
 			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
 				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.productData.getProperties(), pg, handler);
 				handlerList.add(temp);
-				vePa1.add(temp);
+				hVePa.add(temp);
 			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){
 				ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), pg, handler);
 				handlerList.add(temp);
-				vePa1.add(temp);
+				hVePa.add(temp);
 			}	
 		}
 		
 		DefaultPropertyHandler defH = new DefaultPropertyHandler(this.productData.getProperties(), handler);
 		handlerList.add(defH);
-		vePa1.add(defH);
+		hVePa.add(defH);
 		
+		propertyHandlerContainer.setWidget(hVePa);
 	}
 	
+	private void showSave(){
+		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
+		bottomInfoHoPa.setWidth("100%");
+		bottomInfoHoPa.setHeight("100%");
+		Button topAbort=new Button("Abort", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				TaPManagerImpl.getInstance().showProductPage(productData.getId());
+				
+			}
+		});
+		final Button topSave=new Button("Save");	
+		topSave.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				topSave.setText("Saving...");
+				
+				//productData.getProperties()
+				SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
+				int i=0;
+				for(IPropertyHandler hl:handlerList){
+					for(PropertyData pd:hl.getPropertyData()){
+						newList.add(pd);
+						System.out.println(i+": "+pd.getName()+": "+pd.getValue());
+					}
+					i++;
+				}
+				productData.setProperties(newList);
+				
+				
+				TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
+					
+					@Override
+					public void onSuccess(ProductData result) {
+						bottomInfo.setVisible(false);
+						topSave.setText("Save");
+						
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
+						
+					}
+				});						
+				
+			}
+		});
+		bottomInfoHoPa.add(topAbort);
+		bottomInfoHoPa.add(topSave);	
+		bottomInfoHoPa.setCellWidth(topAbort, "100%");
+		bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
+		bottomInfoHoPa.setCellHorizontalAlignment(topSave, HasHorizontalAlignment.ALIGN_RIGHT);				
+		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+
+	}
 	
 }
