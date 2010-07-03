@@ -36,6 +36,18 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	
 	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyChangeHandler handler) {
 		super(properties, null, handler);
+		
+		//Remove Non Used
+		ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
+		ListIterator<PropertyData> iter = properties.listIterator();
+		while(iter.hasNext()){
+			PropertyData temp = iter.next();
+			if(temp.getRead()==false){
+				noReadproperties.add(temp);
+			}
+		}
+		properties=noReadproperties;
+		
 		grid.setWidth("100%");
 	
 		title = new TitlePanel("Unlisted", grid, TitlePanel.Level.H2);
@@ -62,6 +74,11 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		}
 		
 		title.setVisible(show);
+	}
+	
+	public ArrayList<PropertyData> getPropertyData(){
+		return properties;
+		
 	}
 
 }

@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared.rpc;
 
+import java.util.ArrayList;
+
 import org.tagaprice.shared.Type;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -22,5 +24,9 @@ public interface TypeHandlerAsync {
 
 	void get(long id, AsyncCallback<Type> callback) 
 		throws IllegalArgumentException;
+
+	void getTypeList(Type type, AsyncCallback<ArrayList<Type>> callback)
+		throws IllegalArgumentException;
+
 	
 }

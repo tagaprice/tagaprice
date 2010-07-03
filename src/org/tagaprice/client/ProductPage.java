@@ -38,6 +38,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends Composite {
@@ -50,6 +51,7 @@ public class ProductPage extends Composite {
 	private InfoBox bottomInfo = new InfoBox();
 	private TaPManager TaPMng = TaPManagerImpl.getInstance();
 	private PriceMapWidget priceMap;
+	private SimplePanel typeWidgetContainer = new SimplePanel();
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		initWidget(vePa1);
@@ -75,8 +77,9 @@ public class ProductPage extends Composite {
 		hoPa1.setCellWidth(vePa2, "100%");
 		
 		//Type
-		vePa2.add(new Label("Lebensmittel > Milch"));
-		vePa2.add(new Label("Type: Milch"));
+		vePa2.add(typeWidgetContainer);	
+		drawTypeWidget();
+
 		
 		//Rating
 		vePa2.add(new RatingWidget(this.productData.getRating(), false));
@@ -107,14 +110,16 @@ public class ProductPage extends Composite {
 						
 						//productData.getProperties()
 						SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
-						
+						int i=0;
 						for(IPropertyHandler hl:handlerList){
 							for(PropertyData pd:hl.getPropertyData()){
 								newList.add(pd);
-								//System.out.println(pd.getName()+": "+pd.getValue());
+								System.out.println(i+": "+pd.getName()+": "+pd.getValue());
 							}
+							i++;
 						}
 						productData.setProperties(newList);
+						
 						
 						TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
 							
@@ -165,32 +170,61 @@ public class ProductPage extends Composite {
 		priceMap = new PriceMapWidget(productData.getId(),PriceMapType.SHOP);
 		vePa1.add(priceMap);
 		
-		//Add Properties
-		for(PropertyGroup pg:this.type.getPropertyGroups()){
-			registerHandler(pg);
-		}
 		
-		
-		DefaultPropertyHandler defH = new DefaultPropertyHandler(this.productData.getProperties(), handler);
-		handlerList.add(defH);
-		vePa1.add(defH);
+		//Create and Register Handler
+		registerHandler();
 		
 		
 		vePa1.add(bottomInfo);
 	}
 	
+	private void drawTypeWidget(){
+		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
+			@Override
+			public void onChange(Type newType) {
+				
+				//Get type and set type
+				TaPMng.getType(newType.getLocaleId(), new AsyncCallback<Type>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						TaPMng.getInfoBox().showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
+					}
+
+					@Override
+					public void onSuccess(Type result) {
+						type=result;
+						drawTypeWidget();	
+						registerHandler();
+					}
+
+				});
+				
+				
+				
+			}
+		}));
+	}
 	
-	private void registerHandler(PropertyGroup propGroup){
+	
+	private void registerHandler(){
 		
-		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
-			NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.productData.getProperties(), propGroup, handler);
-			handlerList.add(temp);
-			vePa1.add(temp);
-		}else if (propGroup.getType().equals(PropertyGroup.GroupType.LIST)){
-			ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), propGroup, handler);
-			handlerList.add(temp);
-			vePa1.add(temp);
-		}	
+		//Add Properties
+		for(PropertyGroup pg:this.type.getPropertyGroups()){
+		
+			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
+				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.productData.getProperties(), pg, handler);
+				handlerList.add(temp);
+				vePa1.add(temp);
+			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){
+				ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), pg, handler);
+				handlerList.add(temp);
+				vePa1.add(temp);
+			}	
+		}
+		
+		DefaultPropertyHandler defH = new DefaultPropertyHandler(this.productData.getProperties(), handler);
+		handlerList.add(defH);
+		vePa1.add(defH);
 		
 	}
 	

@@ -26,8 +26,14 @@ public class Type extends Entity {
 		super();
 	}
 	
-	public Type(String name, int localeId, Type _superType){
-		super(name, localeId); 
+	/**
+	 * 
+	 * @param title
+	 * @param localeId Identifies the type by the Location
+ 	 * @param _superType
+	 */
+	public Type(String title, int localeId, Type _superType){
+		super(title, localeId); 
 		superType = _superType;
 
 		if (superType != null) {
@@ -36,8 +42,8 @@ public class Type extends Entity {
 	}
 	
 	//type is a main category
-	public Type(String name, int localeId) {
-		this(name, localeId, null);
+	public Type(String title, int localeId) {
+		this(title, localeId, null);
 	}
 	
 	public ArrayList<PropertyGroup> getPropertyGroups(){
@@ -51,7 +57,11 @@ public class Type extends Entity {
 	
 	public void addPropertyGroup(PropertyGroup property){
 		properties.add(property);
-	}	
+	}
+	
+	public Type getSuperType(){
+		return superType;
+	}
 
 	@Override
 	public String getSerializeName() {

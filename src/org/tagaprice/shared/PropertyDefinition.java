@@ -42,7 +42,7 @@ public class PropertyDefinition extends Entity {
 		
 	}
 	
-	public PropertyDefinition(Long id, int rev, String name, String title, int localeId, Datatype type, Unit unit, boolean unique){
+	public PropertyDefinition(long id, int rev, String name, String title, int localeId, Datatype type, Unit unit, boolean unique){
 		super(id, rev, title, localeId);
 		this.name = name;
 		this.type = type;

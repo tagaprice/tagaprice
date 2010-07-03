@@ -17,28 +17,86 @@ package org.tagaprice.shared;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 public class PropertyDefinitionTest {
 
 	private PropertyDefinition def;
+	private Long id=2l;
+	private int rev=1;
 	private String name = "name";
 	private String title = "titel";
+	private int localeId=1;
+	private Datatype type = PropertyDefinition.Datatype.DOUBLE;
+	private int minValue=0;
+	private int maxValue=50;
+	private Unit unit=new Unit(15, 8, "g", 1);
+	private boolean unique=true;
 	
 	@Before
 	public void setUp() throws Exception{
-		def = new PropertyDefinition(2L, 1, name, title, 1, PropertyDefinition.Datatype.DOUBLE, new Unit(15, 8, "g", 1),true);
+		def = new PropertyDefinition(
+				id, 
+				rev, 
+				name, 
+				title, 
+				localeId, 
+				type, 
+				minValue,
+				maxValue,
+				unit,
+				unique);
+	}
+	
+	@Test
+	public void testId(){
+		assertTrue(id.equals(def.getId()));
+	}
+	
+	@Test
+	public void testRev(){
+		assertTrue(rev==def.getRev());
 	}
 	
 	
 	@Test
 	public void testTitle(){
-		System.out.println(title+" | "+def.getTitle());
 		assertTrue(title.equals(def.getTitle()));
 	}
 	
 	@Test
 	public void testName(){
-		System.out.println(name+" | "+def.getName());
 		assertTrue(name.equals(def.getName()));
+	}
+	
+	@Test
+	public void testLocalId(){
+		assertTrue(localeId==def.getLocaleId());
+	}
+	
+	@Test
+	public void testType(){
+		assertTrue(type.equals(def.getType()));
+	}
+	
+	@Test
+	public void testMinValue(){
+		assertTrue(minValue==def.getMinValue());
+	}
+	
+	@Test
+	public void testMaxValue(){
+		assertTrue(maxValue==def.getMaxValue());
+	}
+	
+	@Test
+	public void testUnit(){
+		//Is it possible to insert here an other Unit-Test?
+		assertTrue(false);
+	}
+	
+	@Test
+	public void testUnique(){
+		assertTrue(unique==def.isUnique());
 	}
 }

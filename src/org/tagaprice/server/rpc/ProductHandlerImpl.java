@@ -31,13 +31,16 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	public ProductHandlerImpl() {
 		// TODO Auto-generated constructor stub
 		//MockMock
-		test = new ProductData(152, 3, "Mousse au Chocolat", 2, 15, 16, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
+		test = new ProductData(152, 3, "Mousse au Chocolat", 2, 15, 20, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
 		
 		
 		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 		
 		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, 2, "kj", 3)));
 		properties.add(new PropertyData("protein","Eiweiss", "5,3", new Unit(2, 2, "g", 3)));
+
+		
+		
 		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
 		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, 2, "g", 3)));
 		properties.add(new PropertyData("sodium", "Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));
@@ -47,6 +50,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
 		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
 		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
+		properties.add(new PropertyData("url", "URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
 		
 		test.setProperties(properties);
 	}

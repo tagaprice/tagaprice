@@ -128,6 +128,14 @@ public interface TaPManager {
 	 */
 	public void getType(long id, AsyncCallback<Type> response);
 	
+	/**
+	 * 
+	 * @param type
+	 * @param response
+	 */
+	public void getTypeList(Type type, AsyncCallback<ArrayList<Type>> response);
+	
+	
 	public ArrayList<ShopData> searchShops(String userInput, SearchWidget sw);
 	
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds,String searchString,  SearchWidget searchWidget);

@@ -104,12 +104,10 @@ public class TaPManagerImpl implements TaPManager {
 			@Override
 			public void onSuccess(final ProductData pResult) {
 
-				TaPMng.getType(id, new AsyncCallback<Type>() {
+				TaPMng.getType(pResult.getTypeId(), new AsyncCallback<Type>() {
 
 					@Override
 					public void onSuccess(Type tResult) {
-						System.out.println("TaPManagerImpl: name: "+tResult.getPropertyGroups().get(0).getGroupElements().get(0).getName()+" | title: "+tResult.getPropertyGroups().get(0).getGroupElements().get(0).getTitle());
-
 						uiMng.showProduct(pResult, tResult);
 					}
 
@@ -240,6 +238,11 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public void getType(long id, AsyncCallback<Type> response) {
 		typeHandler.get(id,response);
+	}
+	
+	@Override
+	public void getTypeList(Type type, AsyncCallback<ArrayList<Type>> response){
+		typeHandler.getTypeList(type, response);
 	}
 
 
