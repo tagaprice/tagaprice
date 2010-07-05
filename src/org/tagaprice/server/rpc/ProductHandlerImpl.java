@@ -36,11 +36,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		
 		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 		
-		properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, 2, "kj", 3)));
-		properties.add(new PropertyData("protein","Eiweiss", "5,3", new Unit(2, 2, "g", 3)));
-
-		
-		
+		//properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, 2, "kj", 3)));
+		properties.add(new PropertyData("protein","Eiweiss", "5,3", new Unit(2, 2, "g", 3)));		
 		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
 		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, 2, "g", 3)));
 		properties.add(new PropertyData("sodium", "Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));

@@ -15,6 +15,7 @@
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
 
 import org.tagaprice.client.MorphWidget;
@@ -24,56 +25,36 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DefaultPropertyHandler extends PropertyHandler {
 	
 	
-	Grid grid = new Grid(0, 2);
+	VerticalPanel vePa1 = new VerticalPanel();
 	TitlePanel title;
 	int rowSwap=-1;
 	boolean show=false;
 	ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
 	
-	public DefaultPropertyHandler(ArrayList<PropertyData> properties, PropertyChangeHandler handler) {
-		super(properties, null, handler);
+	public DefaultPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyChangeHandler handler) {
+		super(hashProperties, null, handler);
 		
-		//Remove Non Used
+		//Remove Non Used		
 		
-		ListIterator<PropertyData> iter = properties.listIterator();
-		while(iter.hasNext()){
-			PropertyData temp = iter.next();
-			if(temp.getRead()==false){
-				noReadproperties.add(temp);
-			}
-		}
-		
-		
-		grid.setWidth("100%");
+		vePa1.setWidth("100%");
 	
-		title = new TitlePanel("Unlisted", grid, TitlePanel.Level.H2);
+		title = new TitlePanel("Unlisted", vePa1, TitlePanel.Level.H2);
 		fillGrid();
 		initWidget(title);
 	}
 	
 	private void fillGrid(){
-		ListIterator<PropertyData> iter = noReadproperties.listIterator();
-		while(iter.hasNext()){
-			PropertyData temp = iter.next();
-			if(temp.getRead()==false){
-				show=true;
-				grid.resize(grid.getRowCount()+1, 2);
-				grid.getCellFormatter().setWidth(0, 0, "100%");
-				//grid.getRowFormatter().setStyleName(grid.getRowCount()-1, "DefaultPropertyHandler");
-				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 0, "DefaultPropertyHandler");
-				grid.getCellFormatter().setStyleName(grid.getRowCount()-1, 1, "DefaultPropertyHandler");
-				grid.setWidget(grid.getRowCount()-1, 0, new Label(temp.getName()+ " ("+temp.getUnit().getTitle()+")"));
-				grid.setWidget(grid.getRowCount()-1, 1, new MorphWidget(temp.getValue(), Datatype.STRING, true));
-				rowSwap*=-1;
+		for(String ks:hashProperties.keySet()){
+			for(PropertyData pd:hashProperties.get(ks)){
+				if(!pd.getRead())
+					vePa1.add(new Label(pd.getTitle()+" | "+pd.getName()+" | "+pd.getValue()));
 			}
-			
 		}
-		
-		title.setVisible(show);
 	}
 	
 	public ArrayList<PropertyData> getPropertyData(){

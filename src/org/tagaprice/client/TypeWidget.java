@@ -25,8 +25,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -47,6 +49,7 @@ public class TypeWidget extends Composite{
 				
 		//hoPa1.setWidth("100%");
 		initWidget(hoPa1);
+		setStyleName("TypeWidget");
 		
 		createMenu();
 	}
@@ -58,14 +61,16 @@ public class TypeWidget extends Composite{
 		hoPa1.clear();
 		do{
 			final Type innerType = iterType;
-			Button typeButton = new Button(iterType.getTitle());
-			hoPa1.insert(typeButton, 0);
-			final Button arrow = new Button(">");
+			Label typeLabel = new Label(iterType.getTitle());
+			typeLabel.setStyleName("TypeWidget-Item");
+			hoPa1.insert(typeLabel, 0);
+			final Image arrow = new Image(MyResources.INSTANCE.typeSelectRight());
+			//final Button arrow = new Button(">");
 			hoPa1.insert(arrow,1);			
 			final String sType=iterType.getTitle();	
 			
 			//Open Product by Type
-			typeButton.addClickHandler(new ClickHandler() {
+			typeLabel.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
@@ -89,8 +94,8 @@ public class TypeWidget extends Composite{
 							VerticalPanel vePa1 = new VerticalPanel();
 							//vePa1.add(new Button("---"));
 							for(final Type ty:result){
-								Button tsb= new Button(ty.getTitle());
-								tsb.setWidth("100%");
+								Label tsb=new Label(ty.getTitle());
+								tsb.setStyleName("TypeWidget-Item");
 								tsb.addClickHandler(new ClickHandler() {									
 									@Override
 									public void onClick(ClickEvent event) {
@@ -117,7 +122,7 @@ public class TypeWidget extends Composite{
 		
 
 		//Root elem
-		final Button rootB = new Button(">");
+		final Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
 		rootB.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -131,8 +136,8 @@ public class TypeWidget extends Composite{
 						VerticalPanel vePa1 = new VerticalPanel();
 						//vePa1.add(new Button("---"));
 						for(final Type ty:result){
-							Button tsb= new Button(ty.getTitle());
-							tsb.setWidth("100%");
+							Label tsb=new Label(ty.getTitle());
+							tsb.setStyleName("TypeWidget-Item");
 							tsb.addClickHandler(new ClickHandler() {									
 								@Override
 								public void onClick(ClickEvent event) {

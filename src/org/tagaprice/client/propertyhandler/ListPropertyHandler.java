@@ -26,16 +26,16 @@ import com.google.gwt.user.client.ui.Widget;
 public class ListPropertyHandler extends PropertyHandler {
 
 	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
-	HashMap<String, ArrayList<PropertyData>> usedDefs = new HashMap<String, ArrayList<PropertyData>>();
 	TitlePanel title;
 	VerticalPanel vePa1 = new VerticalPanel();
-	int rowSwap=-1;
+	//int rowSwap=-1;
 		
 	
-	public ListPropertyHandler(ArrayList<PropertyData> properties,
+	public ListPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties,
 			PropertyGroup propGroup, 
 			PropertyChangeHandler handler) {
-		super(properties, propGroup, handler);
+		super(hashProperties, propGroup, handler);
+		
 		vePa1.setWidth("100%");
 		
 		title = new TitlePanel(propGroup.getTitle(), vePa1, TitlePanel.Level.H2);
@@ -52,43 +52,26 @@ public class ListPropertyHandler extends PropertyHandler {
 	private void convertToHash(){
 		for(PropertyDefinition pg:propGroup.getGroupElements()){
 			definition.put(pg.getName(), pg);
-			usedDefs.put(pg.getName(), new ArrayList<PropertyData>());
-		}
-		
-		
-		for(PropertyData pd:properties){
-			if(usedDefs.get(pd.getName())!=null)
-				usedDefs.get(pd.getName()).add(pd);
 		}
 	}
 	
 	
 	private void createGrid(){
 		
-		for(PropertyDefinition pg:propGroup.getGroupElements()){
+		for(PropertyDefinition pg:propGroup.getGroupElements()){			
+			if(hashProperties.get(pg.getName())==null){
+				hashProperties.put(pg.getName(), new ArrayList<PropertyData>());
+			}
+			
+			
 			ListPropertyItem temp = new ListPropertyItem(
-					pg, 
-					usedDefs.get(pg.getName()));
+						pg, 
+						hashProperties.get(pg.getName()));
 			vePa1.add(temp);
 			
 			temp.addChangeHandler(handler);
-
+			
 		}		
-	}
-	
-	@Override
-	public ArrayList<PropertyData> getPropertyData(){
-		ArrayList<PropertyData> rProperties = new ArrayList<PropertyData>();
-		
-		
-		for(Widget wg:vePa1){
-			ArrayList<PropertyData> pdList = ((ListPropertyItem)(wg)).getPropertyData();
-			for(PropertyData pd:pdList){
-				rProperties.add(pd);
-			}
-		}		
-		
-		return rProperties;
 	}
 	
 	

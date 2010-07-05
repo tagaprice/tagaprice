@@ -65,5 +65,13 @@ public interface MyResources extends ClientBundle {
     
     @Source(PATH+"plusInactive.png")
     ImageResource plusInactive();
+    
+    
+    //TypeSelect
+    @Source(PATH+"typeSelectRight.png")
+    ImageResource typeSelectRight();
+    
+    @Source(PATH+"typeSelectDown.png")
+    ImageResource typeSelectDown();
 }
 

@@ -182,11 +182,28 @@ input{
 	
 }
 
-.DefaultPropertyHandler-Row1, NutritionFactsPropertyHandler-Row1{
+.DefaultPropertyHandler-Row1, .NutritionFactsPropertyHandler-Row1{
 	background-color: #eaeaea;
 }
 
+.highlightSuggestion{
+	border-style:solid;
+	background-color: #eaeaea;
+	
+			
+}
 
+
+.TypeWidget{	
+}
+
+.TypeWidget-Item{
+	
+	cursor: pointer;
+}
+.TypeWidget-Item:hover{
+	background-color: #eaeaea;
+}
 
 /********* GWT *********/
 
@@ -274,9 +291,4 @@ td.datePickerMonth {
   padding: 0px 4px;
 }
 
-.highlightSuggestion{
-	border-style:solid;
-	background-color: #F7F7F7;
-	
-			
-}
+

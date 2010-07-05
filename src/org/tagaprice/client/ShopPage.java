@@ -121,13 +121,17 @@ public class ShopPage extends Composite {
 	private void registerHandler(PropertyGroup propGroup){
 		
 		if(propGroup.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
+			//TODO
+			/*
 			NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.shopData.getProperties(), propGroup, handler);
 			handlerList.add(temp);
 			vePa1.add(temp);
+			*/
 		}else if (propGroup.getType().equals(PropertyGroup.GroupType.LIST)){
-			ListPropertyHandler temp= new ListPropertyHandler(this.shopData.getProperties(), propGroup, handler);
-			handlerList.add(temp);
-			vePa1.add(temp);
+			//TODO
+			//ListPropertyHandler temp= new ListPropertyHandler(this.shopData.getProperties(), propGroup, handler);
+			//handlerList.add(temp);
+			//vePa1.add(temp);
 		}			
 	}
 }

@@ -15,9 +15,10 @@
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.tagaprice.shared.PropertyData;
 
 public interface IPropertyHandler {
-	public ArrayList<PropertyData> getPropertyData();
+	public HashMap<String, ArrayList<PropertyData>> getHashProperties();
 }

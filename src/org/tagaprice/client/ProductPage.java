@@ -15,6 +15,7 @@
 package org.tagaprice.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
@@ -36,12 +37,14 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends Composite {
 
 	private ProductData productData;
+	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
@@ -59,6 +62,13 @@ public class ProductPage extends Composite {
 		this.type=_type;
 		
 		
+		//Move PropertyData to hashPropertyData
+		for(PropertyData pd:this.productData.getProperties()){
+			if(hashProperties.get(pd.getName())==null){
+				hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+			}			
+			hashProperties.get(pd.getName()).add(pd);
+		}
 		
 		//style
 		vePa1.setWidth("100%");
@@ -146,31 +156,41 @@ public class ProductPage extends Composite {
 	private void registerHandler(){
 		handlerList.clear();
 		
-		for(PropertyData pd:productData.getProperties()){
-			pd.setRead(false);
+		for(String ks:hashProperties.keySet()){
+			for(PropertyData pd:hashProperties.get(ks)){
+				pd.setRead(false);
+			}
 		}
 		
 		
 		VerticalPanel hVePa = new VerticalPanel();
 		hVePa.setWidth("100%");
 		
+		
 		//Add Properties
 		for(PropertyGroup pg:this.type.getPropertyGroups()){
-		
+			
 			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
-				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(this.productData.getProperties(), pg, handler);
+				/*
+				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(hashProperties, pg, handler);
 				handlerList.add(temp);
 				hVePa.add(temp);
-			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){
-				ListPropertyHandler temp= new ListPropertyHandler(this.productData.getProperties(), pg, handler);
+				*/
+			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){				
+				ListPropertyHandler temp= new ListPropertyHandler(hashProperties, pg, handler);
 				handlerList.add(temp);
 				hVePa.add(temp);
+				
 			}	
+			
 		}
 		
-		DefaultPropertyHandler defH = new DefaultPropertyHandler(this.productData.getProperties(), handler);
+		
+		DefaultPropertyHandler defH = new DefaultPropertyHandler(hashProperties, handler);
 		handlerList.add(defH);
 		hVePa.add(defH);
+		
+		
 		
 		propertyHandlerContainer.setWidget(hVePa);
 	}
@@ -196,9 +216,9 @@ public class ProductPage extends Composite {
 				
 				//productData.getProperties()
 				SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
-				int i=0;
-				for(IPropertyHandler hl:handlerList){
-					for(PropertyData pd:hl.getPropertyData()){
+				int i=0;				
+				for(String ks:hashProperties.keySet()){
+					for(PropertyData pd:hashProperties.get(ks)){
 						newList.add(pd);
 						System.out.println(i+": "+pd.getName()+": "+pd.getValue());
 					}

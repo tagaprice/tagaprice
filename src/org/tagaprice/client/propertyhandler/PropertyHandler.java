@@ -15,6 +15,7 @@
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
@@ -23,12 +24,12 @@ import com.google.gwt.user.client.ui.Composite;
 
 abstract class PropertyHandler extends Composite implements IPropertyHandler {
 
-	protected ArrayList<PropertyData> properties;
+	protected HashMap<String, ArrayList<PropertyData>> hashProperties;
 	protected PropertyGroup propGroup;
 	PropertyChangeHandler handler;
 	
-	public PropertyHandler(ArrayList<PropertyData> properties, PropertyGroup propGroup, PropertyChangeHandler handler) {
-		this.properties=properties;
+	public PropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyGroup propGroup, PropertyChangeHandler handler) {
+		this.hashProperties=hashProperties;
 		this.propGroup = propGroup;
 		this.handler=handler;
 	}
@@ -38,9 +39,9 @@ abstract class PropertyHandler extends Composite implements IPropertyHandler {
 		this.handler=handler;
 	}
 	
-	public ArrayList<PropertyData> getPropertyData(){
-		return properties;
-		
+	public HashMap<String, ArrayList<PropertyData>> getHashProperties(){
+		return hashProperties;
 	}
 	
+
 }
