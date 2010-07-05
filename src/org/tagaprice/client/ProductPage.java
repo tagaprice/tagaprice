@@ -26,6 +26,7 @@ import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Type;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -128,6 +129,9 @@ public class ProductPage extends Composite {
 			@Override
 			public void onChange(Type newType) {
 				
+				
+				
+				
 				//Get type and set type
 				TaPMng.getType(newType.getLocaleId(), new AsyncCallback<Type>() {
 					@Override
@@ -213,34 +217,28 @@ public class ProductPage extends Composite {
 			public void onClick(ClickEvent event) {
 				topSave.setText("Saving...");
 				
-				//productData.getProperties()
-				SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
-				int i=0;				
-				for(String ks:hashProperties.keySet()){
-					for(PropertyData pd:hashProperties.get(ks)){
-						newList.add(pd);
-						System.out.println(i+": "+pd.getName()+": "+pd.getValue());
-					}
-					i++;
+				productData.setProperties(hashToPropertyList(hashProperties));
+				
+				//Validate Data
+				if(PropertyValidator.isValid(type, productData.getProperties())){				
+					TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
+						
+						@Override
+						public void onSuccess(ProductData result) {
+							bottomInfo.setVisible(false);
+							topSave.setText("Save");
+							
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
+							
+						}
+					});	
+				}else{
+					TaPMng.getInfoBox().showInfo("SaveFail: Invalide Data", BoxType.WARNINGBOX);
 				}
-				productData.setProperties(newList);
-				
-				
-				TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
-					
-					@Override
-					public void onSuccess(ProductData result) {
-						bottomInfo.setVisible(false);
-						topSave.setText("Save");
-						
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
-						
-					}
-				});						
 				
 			}
 		});
@@ -253,6 +251,19 @@ public class ProductPage extends Composite {
 		bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 
+	}
+	
+	
+	private SearchResult<PropertyData> hashToPropertyList(HashMap<String, ArrayList<PropertyData>> hashProperties){
+		SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
+		
+		for(String ks:hashProperties.keySet()){
+			for(PropertyData pd:hashProperties.get(ks)){
+				newList.add(pd);
+				//System.out.println(pd.getName()+": "+pd.getValue());
+			}
+		}
+		return newList;
 	}
 	
 }

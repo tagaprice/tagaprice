@@ -17,6 +17,7 @@ package org.tagaprice.server.rpc;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
@@ -61,6 +62,15 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 
 	@Override
 	public ProductData save(ProductData data) throws IllegalArgumentException {
+		TypeHandlerImpl th = new TypeHandlerImpl();
+		
+		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){
+			System.out.println("save VALID");
+		}else{
+			System.out.println("save InVALID");
+		}
+		
+		
 		if(data.getId()==0){
 			System.out.println("new");
 		}else{
