@@ -16,14 +16,8 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ListIterator;
-
-import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
-
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -57,9 +51,6 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		}
 	}
 	
-	public ArrayList<PropertyData> getPropertyData(){
-		return noReadproperties;
-		
-	}
+	
 
 }

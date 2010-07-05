@@ -8,17 +8,11 @@
 */
 
 /**
- * Project: TagAPrice
+ * Project: TagAPriceUI
  * Filename: IPropertyHandler.java
- * Date: 31.05.2010
+ * Date: 05.07.2010
 */
 package org.tagaprice.client.propertyhandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.tagaprice.shared.PropertyData;
-
 public interface IPropertyHandler {
-	public HashMap<String, ArrayList<PropertyData>> getHashProperties();
 }

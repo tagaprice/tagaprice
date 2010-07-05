@@ -152,7 +152,4 @@ public class ListPropertyItem extends Composite {
 	}
 	
 
-	public ArrayList<PropertyData> getPropertyData(){
-		return propertyData;
-	}
 }

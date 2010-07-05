@@ -38,10 +38,5 @@ abstract class PropertyHandler extends Composite implements IPropertyHandler {
 	public void addChangeHandler(PropertyChangeHandler handler){
 		this.handler=handler;
 	}
-	
-	public HashMap<String, ArrayList<PropertyData>> getHashProperties(){
-		return hashProperties;
-	}
-	
 
 }

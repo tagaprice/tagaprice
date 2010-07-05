@@ -16,12 +16,12 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
-import org.tagaprice.client.propertyhandler.NutritionFactsPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -37,7 +37,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 

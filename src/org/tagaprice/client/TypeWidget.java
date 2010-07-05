@@ -21,6 +21,8 @@ import org.tagaprice.shared.Type;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -79,12 +81,10 @@ public class TypeWidget extends Composite{
 				}
 			});
 			
-					
-			
-			arrow.addClickHandler(new ClickHandler() {
+			arrow.addMouseOverHandler(new MouseOverHandler() {
 				
 				@Override
-				public void onClick(ClickEvent event) {
+				public void onMouseOver(MouseOverEvent event) {
 					typeItems.setWidget(new Label("Loading..."));					
 					TaPMng.getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
 						
@@ -100,6 +100,7 @@ public class TypeWidget extends Composite{
 									@Override
 									public void onClick(ClickEvent event) {
 										handler.onChange(ty);
+										typeItems.hide();
 									}
 								});
 								
@@ -115,18 +116,21 @@ public class TypeWidget extends Composite{
 					});				
 					
 					typeItems.showRelativeTo(arrow);
+					
 				}
 			});
+			
 			
 		}while((iterType=iterType.getSuperType())!=null);
 		
 
 		//Root elem
 		final Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
-		rootB.addClickHandler(new ClickHandler() {
+		
+		rootB.addMouseOverHandler(new MouseOverHandler() {
 			
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onMouseOver(MouseOverEvent event) {
 				typeItems.setWidget(new Label("Loading..."));					
 				TaPMng.getTypeList(new Type("root", 2), new AsyncCallback<ArrayList<Type>>() {
 					
@@ -141,7 +145,9 @@ public class TypeWidget extends Composite{
 							tsb.addClickHandler(new ClickHandler() {									
 								@Override
 								public void onClick(ClickEvent event) {
+									
 									handler.onChange(ty);
+									typeItems.hide();
 								}
 							});
 							
@@ -157,8 +163,10 @@ public class TypeWidget extends Composite{
 				});				
 				
 				typeItems.showRelativeTo(rootB);
+				
 			}
 		});
+		
 		hoPa1.insert(rootB,0);	
 	}
 }

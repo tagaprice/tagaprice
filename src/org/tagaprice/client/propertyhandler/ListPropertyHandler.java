@@ -16,12 +16,12 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 public class ListPropertyHandler extends PropertyHandler {
 
