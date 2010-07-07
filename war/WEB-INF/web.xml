@@ -65,6 +65,16 @@
 		<servlet-name>Price</servlet-name>
 		<url-pattern>/tagapriceui/rpc/unit</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>User</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.UserHandlerImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>User</servlet-name>
+		<url-pattern>/tagapriceui/rpc/user</url-pattern>
+	</servlet-mapping>
 	<!-- END: RPC-->
 
 	<servlet-mapping>

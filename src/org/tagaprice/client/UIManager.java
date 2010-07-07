@@ -15,11 +15,14 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.user.RegistrationPage;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
@@ -35,7 +38,7 @@ public class UIManager extends Composite {
 
 	DockPanel myDock = new DockPanel();
 	Label newReceipt = new Label("Rechnung eintrage");
-	Label oldReceipt = new Label("Haushaltsbuch");
+	Label register = new Label("Register");
 	Label newDraft = new Label("Drafts(0)");
 	Label logo = new Label("LOGO");
 	HorizontalPanel menu = new HorizontalPanel();
@@ -73,11 +76,11 @@ public class UIManager extends Composite {
 		menu.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		menu.setStyleName("UIManager-Menu");
 		menu.add(newReceipt);
-		menu.add(oldReceipt);
+		menu.add(register);
 		menu.add(newDraft);
 
 		newReceipt.setStyleName("UIManager-Menu-Item");
-		oldReceipt.setStyleName("UIManager-Menu-Item");
+		register.setStyleName("UIManager-Menu-Item");
 		newDraft.setStyleName("UIManager-Menu-Item");
 
 		//InfoBox
@@ -86,7 +89,7 @@ public class UIManager extends Composite {
 		//Center
 		myDock.add(myTitlePan, DockPanel.CENTER);
 
-
+		//new Receipt
 		newReceipt.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -104,6 +107,16 @@ public class UIManager extends Composite {
 						myMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 					}
 				});
+			}
+		});
+		
+		//new Registration
+		register.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("user/registration/new");
+				
 			}
 		});
 
@@ -126,15 +139,31 @@ public class UIManager extends Composite {
 	}
 
 
-	public void showReceipt(ReceiptData receiptData){
-		if(receiptData==null){
-			ReceiptWidget tempReceipt = new ReceiptWidget(); 
-			myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
-		}
-		else {
-			ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
-			myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
-		}
+	public void showReceipt(final ReceiptData receiptData){
+		
+		GWT.runAsync(new RunAsyncCallback() {
+
+			@Override
+			public void onFailure(Throwable reason) {
+				System.err.println("code Download Failed");					
+			}
+
+			@Override
+			public void onSuccess() {
+				if(receiptData==null){
+					ReceiptWidget tempReceipt = new ReceiptWidget(); 
+					myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
+				}
+				else {
+					ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
+					myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
+				}
+				
+			}
+			
+		});
+		
+		
 	}
 
 
@@ -146,6 +175,26 @@ public class UIManager extends Composite {
 	public void showShop(ShopData shopData, Type type){
 		ShopPage tempShop = new ShopPage(shopData, type);
 		myTitlePan.setTitleWidget(shopData.getTitle(), tempShop);
+	}
+	
+	public void showUserRegistrationPage(final String verificationCode){
+		
+		GWT.runAsync(new RunAsyncCallback() {
+			
+			@Override
+			public void onSuccess() {
+				RegistrationPage tempRegi = new RegistrationPage(verificationCode);
+				myTitlePan.setTitleWidget("Registration", tempRegi);
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable reason) {
+				System.err.println("code Download Failed");			
+			}
+		});
+		
+		
 	}
 
 

@@ -82,10 +82,12 @@ public class TaPManagerImpl implements TaPManager {
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
-				} else if(historyToken[0].equals("shop/get")){
+				}else if(historyToken[0].equals("shop/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showShopPage(Long.parseLong(equalToken[1]));
-				} else{
+				}else if(historyToken[0].equals("user/registration/new")){ 
+					TaPMng.showUserRegistrationPage(null);
+				}else{
 					uiMng.showHome();
 				}
 
@@ -289,6 +291,14 @@ public class TaPManagerImpl implements TaPManager {
 
 
 		return tmp;
+	}
+
+	@Override
+	public void showUserRegistrationPage(String verificationCode) {
+		uiMng.waitingPage();
+		uiMng.showUserRegistrationPage(verificationCode);
+		
+		
 	}
 
 

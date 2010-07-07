@@ -16,7 +16,6 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.PriceMapWidget;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
