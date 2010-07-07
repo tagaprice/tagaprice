@@ -20,4 +20,6 @@ public interface UserHandlerAsync {
 
 	void isEmailEvalable(String email, AsyncCallback<Boolean> callback);
 
+	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback);
+
 }

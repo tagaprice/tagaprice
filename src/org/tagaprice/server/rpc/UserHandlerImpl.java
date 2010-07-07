@@ -30,4 +30,15 @@ public class UserHandlerImpl extends RemoteServiceServlet implements UserHandler
 		return true;
 	}
 
+	@Override
+	public boolean isUsernameEvalabel(String username)
+			throws IllegalArgumentException {
+		
+		if(username.equals("superuser")){
+			return false;
+		}
+		
+		return true;
+	}
+
 }
