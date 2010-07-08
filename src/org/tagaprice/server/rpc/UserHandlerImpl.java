@@ -34,9 +34,31 @@ public class UserHandlerImpl extends RemoteServiceServlet implements UserHandler
 	public boolean isUsernameEvalabel(String username)
 			throws IllegalArgumentException {
 		
-		if(username.equals("superuser")){
+		if(username.equals("superuser") || username.length()<5){
 			return false;
 		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean registerNewUser(String username, String password,
+			String confirmPassword, String email, String confirmEmail,
+			String language, String street, String zip, String county,
+			String country, double latitude, double longitude, boolean gtc)
+			throws IllegalArgumentException {
+		
+		//Check Valid
+		if(!(isUsernameEvalabel(username) &&
+				password.equals(confirmPassword) &&
+				isEmailEvalable(email) &&
+				email.equals(confirmEmail) &&
+				gtc))
+			return false;
+		
+		//Start with saving and sending confirm email
+		
+		
 		
 		return true;
 	}

@@ -21,5 +21,19 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface UserHandler extends RemoteService {
 	boolean isUsernameEvalabel(String username) throws IllegalArgumentException;	
 	boolean isEmailEvalable(String email) throws IllegalArgumentException;
+	boolean registerNewUser(
+			String username, 
+			String password,
+			String confirmPassword,
+			String email, 
+			String confirmEmail,
+			String language, 
+			String street, 
+			String zip, 
+			String county,
+			String country,
+			double latitude,
+			double longitude,
+			boolean gtc) throws IllegalArgumentException;
 	
 }

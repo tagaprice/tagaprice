@@ -17,27 +17,32 @@ package org.tagaprice.client.user;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.shared.rpc.UserHandler;
 import org.tagaprice.shared.rpc.UserHandlerAsync;
-
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;
-import com.google.gwt.maps.client.event.MarkerDragEndHandler.MarkerDragEndEvent;
 import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -46,9 +51,33 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class RegistrationPage extends Composite {
 
-	VerticalPanel vePa1 = new VerticalPanel();
+	private VerticalPanel vePa1 = new VerticalPanel();
 	private UserHandlerAsync userHandler = GWT.create(UserHandler.class);
-	LatLng latLng;
+	private TextBox userName = new TextBox();
+	private Label userNameLabel = new Label("Username (More the 5 letters)");
+	private PasswordTextBox passwort = new PasswordTextBox();
+	private Label passwortLabel = new Label("Password (bad)");
+	private PasswordTextBox passwortConfirm = new PasswordTextBox();
+	private Label passwortConfirmLabel = new Label("Confirm Password (equal)");
+	private TextBox email = new TextBox();
+	private Label emailLabel = new Label("Email (not valid)");
+	private TextBox emailConfirm = new TextBox();
+	private Label emailConfirmLabel = new Label("Confirm Email (equal)");
+	
+	//Address
+	private ListBox language = new ListBox();
+	private LatLng latLng;
+	private Geolocation myGeo = Geolocation.getGeolocation();
+	private Geocoder geoCoder = new Geocoder();
+	private MapWidget map = new MapWidget();
+	private Marker marker;	
+	private TextBox street = new TextBox();
+	private TextBox zip = new TextBox();
+	private TextBox county = new TextBox();
+	private TextBox country = new TextBox();
+	
+	//AGB
+	CheckBox gtc = new CheckBox("I agree.");
 	
 	/**
 	 * Start a new user Registration
@@ -56,55 +85,45 @@ public class RegistrationPage extends Composite {
 	 */
 	public RegistrationPage(String verificationCode) {
 		initWidget(vePa1);
+		setStyleName("RegistrationPage");
 		
 		vePa1.setWidth("100%");
-		
-		
-		if(verificationCode==null)
-			drawRegistartion();
-	}
-	
-	private void drawRegistartion(){
-		final TextBox userName = new TextBox();
-		final Label userNameLabel = new Label("More the 5 letters");
-		final PasswordTextBox passwort = new PasswordTextBox();
-		final Label passwortLabel = new Label("bad");
-		final PasswordTextBox passwortConfirm = new PasswordTextBox();
-		final Label passwortConfirmLabel = new Label("equal");
-		final TextBox email = new TextBox();
-		final Label emailLabel = new Label("not valid");
-		final TextBox emailConfirm = new TextBox();
-		final Label emailConfirmLabel = new Label("equal");
+				
 		
 		
 		//Text
 		vePa1.add(new Label("Hier steht vielleicht ein wenig Text. "));
 		
 		//User Data
-		Grid userData = new Grid(10,2);
+		Grid userData = new Grid(10,1);
 		userData.setWidth("100%");
 		userData.getCellFormatter().setWidth(0, 0, "100%");
-		userData.setText(0, 0, "Username");
-		userData.setWidget(0, 1, userName);
-		userData.setWidget(1, 1, userNameLabel);
+		userData.setWidget(0, 0, userNameLabel);
+		userData.setWidget(1, 0, userName);
 		
-		userData.setText(2, 0, "Password");
-		userData.setWidget(2, 1, passwort);
-		userData.setWidget(3, 1, passwortLabel);
+		userData.setWidget(2, 0, passwortLabel);
+		userData.setWidget(3, 0, passwort);
 		
-		userData.setText(4, 0, "Confirm Password");
-		userData.setWidget(4, 1, passwortConfirm);
-		userData.setWidget(5, 1, passwortConfirmLabel);
+		userData.setWidget(4, 0, passwortConfirmLabel);
+		userData.setWidget(5, 0, passwortConfirm);		
 		
+		userData.setWidget(6, 0, emailLabel);
+		userData.setWidget(7, 0, email);		
 		
-		userData.setText(6, 0, "Email");
-		userData.setWidget(6, 1, email);
-		userData.setWidget(7, 1, emailLabel);
+		userData.setWidget(8, 0, emailConfirmLabel);
+		userData.setWidget(9, 0, emailConfirm);
 		
-		
-		userData.setText(8, 0, "Confirm Email");
-		userData.setWidget(8, 1, emailConfirm);
-		userData.setWidget(9, 1, emailConfirmLabel);
+		//grid-Style
+		userData.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(2, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(3, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(4, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(5, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(6, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(7, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(8, 0, "RegistrationPage-Row");
+		userData.getCellFormatter().setStyleName(9, 0, "RegistrationPage-Row");
 		
 		
 		//Validate Data		
@@ -113,17 +132,17 @@ public class RegistrationPage extends Composite {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if(userName.getText().trim().length()<5){
-					userNameLabel.setText("More the 5 letters");
+					userNameLabel.setText("Username (More the 5 letters)");
 				}else{
-					userNameLabel.setText("Check if used...");
+					userNameLabel.setText("Username (Check if used...)");
 					userHandler.isUsernameEvalabel(userName.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {
 							if(result){
-								userNameLabel.setText("evalable");
+								userNameLabel.setText("Username (evalable)");
 							}else{
-								userNameLabel.setText("username aready used");
+								userNameLabel.setText("Username (aready in use)");
 							}
 							
 						}
@@ -142,14 +161,14 @@ public class RegistrationPage extends Composite {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if(passwort.getText().trim().length()<5){
-					passwortLabel.setText("bad");
+					passwortLabel.setText("Password (bad)");
 				}else if(passwort.getText().trim().length()<8){
-					passwortLabel.setText("ok");
+					passwortLabel.setText("Password (ok)");
 				}else if(passwort.getText().trim().length()>8){
-					passwortLabel.setText("good");
+					passwortLabel.setText("Password (good)");
 				}
 				passwortConfirm.setText("");
-				passwortConfirmLabel.setText("not equal");
+				passwortConfirmLabel.setText("Password (not equal)");
 			}
 		});
 		
@@ -158,9 +177,9 @@ public class RegistrationPage extends Composite {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if(passwort.getText().trim().equals(passwortConfirm.getText().trim())){
-					passwortConfirmLabel.setText("equal");
+					passwortConfirmLabel.setText("Confirm Password (equal)");
 				}else{
-					passwortConfirmLabel.setText("not equal");
+					passwortConfirmLabel.setText("Confirm Password (not equal)");
 				}
 				
 			}
@@ -171,7 +190,7 @@ public class RegistrationPage extends Composite {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if(email.getText().trim().matches(".+@.+\\.[a-z]+")){
-					emailLabel.setText("Check if used...");
+					emailLabel.setText("Email (Check if used...)");
 					
 					userHandler.isEmailEvalable(email.getText().trim(), new AsyncCallback<Boolean>() {
 						
@@ -179,9 +198,9 @@ public class RegistrationPage extends Composite {
 						public void onSuccess(Boolean result) {
 							
 							if(result){
-								emailLabel.setText("evalable");
+								emailLabel.setText("Email (evalable)");
 							}else{
-								emailLabel.setText("email aready used");
+								emailLabel.setText("Email (aready in use)");
 							}
 							
 						}
@@ -192,10 +211,10 @@ public class RegistrationPage extends Composite {
 						}
 					});
 				}else{
-					emailLabel.setText("not valid");
+					emailLabel.setText("Email (not valid)");
 				}
 				emailConfirm.setText("");
-				emailConfirmLabel.setText("not equal");
+				emailConfirmLabel.setText("Email (not equal)");
 			}
 		});
 		
@@ -204,9 +223,9 @@ public class RegistrationPage extends Composite {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if(email.getText().trim().equals(emailConfirm.getText().trim())){
-					emailConfirmLabel.setText("equal");
+					emailConfirmLabel.setText("Confirm Email (equal)");
 				}else{
-					emailConfirmLabel.setText("not equal");
+					emailConfirmLabel.setText("Confirm Email (not equal)");
 				}
 				
 			}
@@ -231,48 +250,64 @@ public class RegistrationPage extends Composite {
 		optionalVePa.setWidth("100%");
 		
 		//Language
-		Grid languageGrid = new Grid(1, 2);
+		Grid languageGrid = new Grid(2, 1);
 		languageGrid.setWidth("100%");
-		languageGrid.getCellFormatter().setWidth(0, 0, "100%");
+		languageGrid.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
+		languageGrid.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
 		optionalVePa.add(languageGrid);
 		
-		ListBox language = new ListBox();
+		
 		language.addItem("British-English", "en-uk");
 		language.addItem("US-Englisch", "en-us");
 		language.addItem("German","de-de");
 		
 		languageGrid.setText(0, 0, "Language");
-		languageGrid.setWidget(0, 1, language);
+		languageGrid.setWidget(1, 0, language);
 		
 		
 		//Address
-		Geolocation myGeo = Geolocation.getGeolocation();
-		final Geocoder geoCoder = new Geocoder();
-		final MapWidget map = new MapWidget();
+		
 		latLng = LatLng.newInstance(map.getCenter().getLatitude(), map.getCenter().getLongitude());
 		MarkerOptions makerOption = MarkerOptions.newInstance();
 		makerOption.setDraggable(true);
-		final Marker marker = new Marker(latLng, makerOption);
+		marker = new Marker(latLng, makerOption);
 		map.addOverlay(marker);
 		map.setWidth("100%");
 		map.setHeight("200px");
 		map.setZoomLevel(14);
-		myGeo.getCurrentPosition(new PositionCallback() {
-			
-			@Override
-			public void onSuccess(Position position) {
-				latLng=LatLng.newInstance(position.getCoords().getLatitude(), position.getCoords().getLongitude());
-				map.setCenter(latLng);				
-				marker.setLatLng(latLng);
-			}
-			
-			@Override
-			public void onFailure(PositionError error) {
-				// TODO Auto-generated method stub
-				System.out.println("position error");
-			}
-		});
 		optionalVePa.add(map);
+		
+		//Style
+		Grid optionalGrid = new Grid(8, 1);
+		optionalGrid.setWidth("100%");
+		optionalGrid.getCellFormatter().setWidth(0, 0, "100%");
+		optionalVePa.add(optionalGrid);
+		
+
+		
+		//address
+		optionalGrid.setText(0, 0, "Street");
+		optionalGrid.setWidget(1, 0, street);
+		optionalGrid.setText(2, 0, "ZIP");
+		optionalGrid.setWidget(3, 0, zip);
+		optionalGrid.setText(4, 0, "County");
+		optionalGrid.setWidget(5, 0, county);
+		optionalGrid.setText(6, 0, "Country");
+		optionalGrid.setWidget(7, 0, country);
+		
+		//Style
+		
+		optionalGrid.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(2, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(3, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(4, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(5, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(6, 0, "RegistrationPage-Row");
+		optionalGrid.getCellFormatter().setStyleName(7, 0, "RegistrationPage-Row");
+		
+		setAutoPosition();	
+		
 		
 		//Drag Marker
 		map.setPinchToZoom(true);
@@ -281,46 +316,159 @@ public class RegistrationPage extends Composite {
 			
 			@Override
 			public void onDragEnd(MarkerDragEndEvent event) {
-				latLng=marker.getLatLng();
-				System.out.println("dragged");
+				latLng=marker.getLatLng();				
+				setLocationByPoint(latLng);
 				
-				
-				geoCoder.getLocations(latLng, new LocationCallback() {
-					
-					@Override
-					public void onSuccess(JsArray<Placemark> locations) {
-						// TODO Auto-generated method stub
-						System.out.println("Country: "+locations.get(0).getCountry());
-					}
-					
-					@Override
-					public void onFailure(int statusCode) {
-						// TODO Auto-generated method stub
-						System.err.println("geoCoder error");
-					}
-				});
 			}
 		});
 		
 		
-		Grid optionalGrid = new Grid(5, 2);
-		optionalGrid.setWidth("100%");
-		optionalGrid.getCellFormatter().setWidth(0, 0, "100%");
-		optionalVePa.add(optionalGrid);
+		//Auto Show Button
+		HorizontalPanel autoShowHoPa = new HorizontalPanel();
+		Button show = new Button("Show");
+		Button auto = new Button("Auto");
+		autoShowHoPa.add(auto);
+		autoShowHoPa.add(show);		
+		optionalVePa.add(autoShowHoPa);
+		optionalVePa.setCellHorizontalAlignment(autoShowHoPa, HasHorizontalAlignment.ALIGN_LEFT);
+		
+		auto.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				setAutoPosition();				
+			}
+		});
 		
 		
-		
-		
-		
-		//address
-		optionalGrid.setText(1, 0, "Street");
-		optionalGrid.setText(2, 0, "ZIP");
-		optionalGrid.setText(3, 0, "County");
-		optionalGrid.setText(4, 0, "Country");
+		show.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				geoCoder.getLatLng(
+						street.getText().trim()+", "
+						+zip.getText().trim()+", "
+						+county.getText().trim()+", "
+						+country.getText().trim(), new LatLngCallback() {					
+					@Override
+					public void onSuccess(LatLng point) {
+						latLng=point;
+						map.setCenter(latLng);				
+						marker.setLatLng(latLng);
+					}					
+					@Override
+					public void onFailure() {
+						// TODO Auto-generated method stub
+						System.err.println("find LatLng error");
+					}
+				});
+				
+			}
+		});
 		
 		
 		
 		vePa1.add(new TitlePanel("Optional", optionalVePa, TitlePanel.Level.H2));
 		
+		
+		//AGB
+		VerticalPanel gtcVePa = new VerticalPanel();
+		gtcVePa.setWidth("100%");
+		
+		gtcVePa.add(new Label("You have to agree with your general terms and conditions!"));
+		gtcVePa.add(gtc);
+		vePa1.add(new TitlePanel("general terms and conditions ", gtcVePa, TitlePanel.Level.H2));
+		
+		
+		//TODO Register
+		Button register = new Button("register");
+		vePa1.add(register);
+		
+		register.addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				if(!userName.getText().trim().isEmpty() &&
+						passwort.getText().trim().equals(passwortConfirm.getText().trim()) &&
+						email.getText().trim().equals(emailConfirm.getText().trim()) && 
+						gtc.getValue()){
+				
+					userHandler.registerNewUser(
+							userName.getText().trim(), 
+							passwort.getText().trim(), 
+							passwortConfirm.getText().trim(), 
+							email.getText().trim(), 
+							emailConfirm.getText().trim(), 
+							language.getValue(language.getSelectedIndex()).trim(), 
+							street.getText().trim(), 
+							zip.getText().trim(), 
+							county.getText().trim(), 
+							country.getText().trim(), 
+							latLng.getLatitude(), 
+							latLng.getLongitude(), 
+							gtc.getValue(), new AsyncCallback<Boolean>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									System.err.println("Registartion failt");
+									
+								}
+
+								@Override
+								public void onSuccess(Boolean result) {
+									// TODO Auto-generated method stub
+									if(result){
+										System.out.println("registration OK");
+									}else{
+										System.out.println("registration FAIL");
+									}
+								}
+							});	
+				}else{
+					System.out.println("nicht alles richtig!!!");
+				}
+				
+				
+						
+			}
+		});
+		
+	}
+	
+	private void setLocationByPoint(LatLng latLng){
+		geoCoder.getLocations(latLng, new LocationCallback() {
+			
+			@Override
+			public void onSuccess(JsArray<Placemark> locations) {
+				street.setText(locations.get(0).getStreet());
+				zip.setText(locations.get(0).getPostalCode());
+				county.setText(locations.get(0).getCity());
+				country.setText(locations.get(0).getCountry());
+			}
+			
+			@Override
+			public void onFailure(int statusCode) {
+				// TODO Auto-generated method stub
+				System.err.println("geoCoder error");
+			}
+		});
+	}
+	
+	private void setAutoPosition(){
+		myGeo.getCurrentPosition(new PositionCallback() {
+			
+			@Override
+			public void onSuccess(Position position) {
+				latLng=LatLng.newInstance(position.getCoords().getLatitude(), position.getCoords().getLongitude());
+				map.setCenter(latLng);				
+				marker.setLatLng(latLng);
+				setLocationByPoint(latLng);
+			}
+			
+			@Override
+			public void onFailure(PositionError error) {
+				// TODO Auto-generated method stub
+				System.out.println("position error");
+			}
+		});
 	}
 }

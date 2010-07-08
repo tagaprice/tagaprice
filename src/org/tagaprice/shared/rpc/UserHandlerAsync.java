@@ -22,4 +22,10 @@ public interface UserHandlerAsync {
 
 	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback);
 
+	void registerNewUser(String username, String password,
+			String confirmPassword, String email, String confirmEmail,
+			String language, String street, String zip, String county,
+			String country, double latitude, double longitude, boolean gtc,
+			AsyncCallback<Boolean> callback);
+
 }

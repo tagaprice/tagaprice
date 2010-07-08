@@ -24,8 +24,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -167,9 +169,15 @@ public class MorphWidget extends SimplePanel {
 	 * 
 	 * @param handler
 	 */
-	public void addChangeHandler(ChangeHandler handler){
-		textBox.addChangeHandler(handler);
+	public HandlerRegistration addChangeHandler(ChangeHandler handler){
+		return textBox.addChangeHandler(handler);
 	}
+	
+	
+	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler){
+		return textBox.addKeyUpHandler(handler);
+	}
+		
 	
 	/**
 	 * 
@@ -194,6 +202,7 @@ public class MorphWidget extends SimplePanel {
 		if(handler!=null)
 			handler.onEmpty();
 	}
+	
 	
 	
 }

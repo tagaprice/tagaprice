@@ -128,7 +128,7 @@ input{
 	margin:0px;
 	border: 1px solid #9e9b9b;
 	min-width:40px;
-	max-width:100px;
+	/*max-width:100px;*/
 	cursor: text;
 }
 
@@ -201,6 +201,18 @@ input{
 	cursor: pointer;
 }
 .TypeWidget-Item:hover{
+	background-color: #eaeaea;
+}
+
+
+.RegistrationPage{
+}
+
+.RegistrationPage-Row{
+	border-bottom: thin solid #eaeaea;
+}
+
+.RegistrationPage-Row:hover{
 	background-color: #eaeaea;
 }
 
