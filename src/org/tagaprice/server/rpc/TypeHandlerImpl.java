@@ -92,8 +92,8 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	public ArrayList<Type> getTypeList(Type type)
 			throws IllegalArgumentException {
 		
-		ArrayList<Type> types = new ArrayList<Type>();		
-		
+		ArrayList<Type> types = new ArrayList<Type>();
+	
 		if(type.getTitle().equals("root")){
 			types.add(new Type("nahrung", 4));
 			types.add(new Type("werkzeug", 5));

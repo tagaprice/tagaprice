@@ -56,13 +56,18 @@ public class ProductDAO {
 		//Get Entitiy Data
 		eDao.get(p);
 		
+		//Get Product Data
+		//TODO ...
 		
-		String sql = "SELECT ep.value, pr.name, pr.title, u.unit_id, u.fallback_unit, u.factor " +
+		//Get Property Data
+		String sql = "SELECT ep.value, pr.name, pr.title, u.unit_id, u.fallback_unit, u.factor, e.current_revision " +
 				"FROM entityproperty ep " +
 				"INNER JOIN property pr " +
 				"ON (pr.prop_id = ep.prop_id) " +
 				"INNER JOIN unit u " +
 				"ON (ep.unit_id = u.unit_id) " +
+				"INNER JOIN entity e " +
+				"ON (e.ent_id = u.unit_id) " +
 				"WHERE (ep.ent_id = ?)";
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
@@ -78,41 +83,12 @@ public class ProductDAO {
 					res.getString("value"), 
 					new Unit(
 							res.getLong("unit_id"), 
-							0, //TODO get Revision
+							res.getInt("current_revision"), //TODO get Revision
 							res.getLong("fallback_unit"), 
 							res.getDouble("factor"))));
 		}
 		p.setProperties(sr);
 		
-		/*
-		
-		//Get Properties
-		String sql = "SELECT p.name, p.title " +
-				"FROM property p INNER JOIN entityProperty ep " +
-				"ON (p.prop_id = ep.prop_id)" +
-				"INNER JOIN unit u " +
-				"ON (ep.unit_id = u.unit_id) " +
-				"WHERE p.prop_id = ?";
-		
-		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setLong(1, p.getId());
-		
-		ResultSet res = pstmt.executeQuery();
-		
-		
-		SearchResult<PropertyData> sr = new SearchResult<PropertyData>();
-		while(res.next()){
-			sr.add(new PropertyData(
-					res.getString("p.name"), 
-					res.getString("p.title"), 
-					res.getString("ep.value"), 
-					new Unit(
-							res.getLong("u.unit_id"), 
-							0, //TODO get Revision
-							res.getLong("u.fallback_unit"), 
-							res.getDouble("u.factor"))));
-		}
-		*/
 	}
 	
 }
