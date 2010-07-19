@@ -216,6 +216,14 @@ input{
 	background-color: #eaeaea;
 }
 
+.HomePage{
+}
+
+.HomePage-Grid{
+	text-align: center;	
+}
+
+
 /********* GWT *********/
 
 .gwt-PopupPanel {
