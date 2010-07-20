@@ -100,18 +100,23 @@ public class RegistrationPage extends Composite {
 		userData.getCellFormatter().setWidth(0, 0, "100%");
 		userData.setWidget(0, 0, userNameLabel);
 		userData.setWidget(1, 0, userName);
+		userName.setWidth("100%");
 		
 		userData.setWidget(2, 0, passwortLabel);
 		userData.setWidget(3, 0, passwort);
+		passwort.setWidth("100%");
 		
 		userData.setWidget(4, 0, passwortConfirmLabel);
 		userData.setWidget(5, 0, passwortConfirm);		
+		passwortConfirm.setWidth("100%");
 		
 		userData.setWidget(6, 0, emailLabel);
-		userData.setWidget(7, 0, email);		
+		userData.setWidget(7, 0, email);
+		email.setWidth("100%");
 		
 		userData.setWidget(8, 0, emailConfirmLabel);
 		userData.setWidget(9, 0, emailConfirm);
+		emailConfirm.setWidth("100%");
 		
 		//grid-Style
 		userData.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
@@ -256,7 +261,7 @@ public class RegistrationPage extends Composite {
 		languageGrid.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
 		optionalVePa.add(languageGrid);
 		
-		
+		language.setWidth("100%");
 		language.addItem("British-English", "en-uk");
 		language.addItem("US-Englisch", "en-us");
 		language.addItem("German","de-de");
@@ -296,6 +301,10 @@ public class RegistrationPage extends Composite {
 		optionalGrid.setWidget(7, 0, country);
 		
 		//Style
+		street.setWidth("100%");
+		zip.setWidth("100%");
+		county.setWidth("100%");
+		country.setWidth("100%");
 		
 		optionalGrid.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
 		optionalGrid.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
@@ -325,8 +334,11 @@ public class RegistrationPage extends Composite {
 		
 		//Auto Show Button
 		HorizontalPanel autoShowHoPa = new HorizontalPanel();
+		autoShowHoPa.setWidth("100%");
 		Button show = new Button("Show");
+		show.setWidth("100%");
 		Button auto = new Button("Auto");
+		auto.setWidth("100%");
 		autoShowHoPa.add(auto);
 		autoShowHoPa.add(show);		
 		optionalVePa.add(autoShowHoPa);
@@ -380,6 +392,7 @@ public class RegistrationPage extends Composite {
 		
 		//TODO Register
 		Button register = new Button("register");
+		register.setWidth("100%");
 		vePa1.add(register);
 		
 		register.addClickHandler(new ClickHandler() {			
