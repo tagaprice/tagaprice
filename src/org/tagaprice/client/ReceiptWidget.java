@@ -17,6 +17,7 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
@@ -55,6 +56,7 @@ public class ReceiptWidget extends Composite {
 	ShopPreview shopPreview;
 	private ShopSearchWidget shopChooser;
 	private ProductSearchWidget productChooser;
+	SelectiveVerticalPanel productContainer = new SelectiveVerticalPanel(SelectionType.MINUSBUTTON);
 	
 	
 	@UiField VerticalPanel basePanel;
@@ -63,7 +65,7 @@ public class ReceiptWidget extends Composite {
 	@UiField(provided=true) MorphWidget title=new MorphWidget("Default title", Datatype.STRING, isEditable);
 	@UiField HorizontalPanel pricePanel;
 	@UiField SimplePanel shop;
-	@UiField SelectiveVerticalPanel productContainer;
+	@UiField SimplePanel veProductContainer;
 	@UiField SimplePanel product;
 	@UiField Label price;
 	@UiField Button save;
@@ -76,6 +78,8 @@ public class ReceiptWidget extends Composite {
 		this();
 		
 		this.receiptData=receiptData;
+		veProductContainer.setWidget(productContainer);
+		
 		isEditable=editable;
 		title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
 			

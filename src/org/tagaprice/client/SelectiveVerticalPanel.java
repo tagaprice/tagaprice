@@ -32,8 +32,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class SelectiveVerticalPanel extends Composite {
 
-	public static final String PLUSBUTTON = "PLUSBUTTON"; 
-	public static final String MINUSBUTTON = "MINUSBUTTON"; 
+	public enum SelectionType {PLUSBUTTON, MINUSBUTTON, NOBUTTON}
 	
 	VerticalPanel vePa1 = new VerticalPanel();
 	ImageResource topImage;
@@ -44,16 +43,18 @@ public class SelectiveVerticalPanel extends Composite {
 	 * 
 	 * @param selectionType Is the ImageType (e.g. SelectiveVerticalPanel.PLUSBUTTON)
 	 */
-	public @UiConstructor SelectiveVerticalPanel(String selectionType) {
+	public @UiConstructor SelectiveVerticalPanel(SelectionType selectionType) {
 		initWidget(vePa1);
 		vePa1.setWidth("100%");
 		
-		if(selectionType.equals(PLUSBUTTON)){
+		if(selectionType.equals(SelectionType.PLUSBUTTON)){
 			topImage=(MyResources.INSTANCE.plusActive());
 			bottomImage=(MyResources.INSTANCE.plusInactive());
-		}else if(selectionType.equals(MINUSBUTTON)){
+		}else if(selectionType.equals(SelectionType.MINUSBUTTON)){
 			topImage=(MyResources.INSTANCE.minusActive());
 			bottomImage=(MyResources.INSTANCE.minusInactive());
+		}else if(selectionType.equals(SelectionType.NOBUTTON)){
+			//TODO implement this
 		}
 		
 	}
