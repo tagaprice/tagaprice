@@ -12,6 +12,13 @@ function getScript() {
 	echo 'COMMIT;'
 }
 
+function inject() {
+	dir=$1
+	getScript "$1"|psql tagaprice -f -
+}
 
+inject tables
 
-getScript tables| psql tagaprice -f - $*
+if [ "$TESTDATA" ]; then
+	inject testdata
+fi
