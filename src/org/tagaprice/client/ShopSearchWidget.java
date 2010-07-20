@@ -48,7 +48,7 @@ public class ShopSearchWidget extends SearchWidget{
 		parent = parentReceipt;
 
 		map = new MapWidget(LatLng.newInstance(48.2092, 16.3728 ), 11);
-		map.setSize("400px", "200px");
+		map.setSize("100%", "200px");
 		map.addMapType(MapType.getNormalMap());
 		map.addControl(new LargeMapControl());
 		basePanel.add(map);
@@ -56,6 +56,7 @@ public class ShopSearchWidget extends SearchWidget{
 		addTextBox();
 
 		suggestPanel = new VerticalPanel();
+		suggestPanel.setWidth("100%");
 		shopList =new ListWidget<ShopPreview>();
 		suggestPanel.add(shopList);
 		basePanel.add(suggestPanel);

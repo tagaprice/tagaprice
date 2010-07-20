@@ -28,12 +28,13 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
 public class UIManager extends Composite {
 
 	DockPanel myDock = new DockPanel();
-	Label home = new Label("[...]");
+	Image home = new Image(MyResources.INSTANCE.home());
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
@@ -47,7 +48,7 @@ public class UIManager extends Composite {
 	}
 
 	private void init(){
-		myDock.setWidth("400px");
+		myDock.setWidth("100%");
 
 		universalSearch = new UniversalSearchWidget(logoPanel);
 

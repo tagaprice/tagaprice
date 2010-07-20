@@ -73,5 +73,9 @@ public interface MyResources extends ClientBundle {
     
     @Source(PATH+"typeSelectDown.png")
     ImageResource typeSelectDown();
+    
+    //HomeButton
+    @Source(PATH+"home.png")
+    ImageResource home();
 }
 

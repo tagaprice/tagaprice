@@ -29,7 +29,7 @@ public abstract class SearchWidget extends Composite{
 		basePanel = new VerticalPanel();
 		initWidget(basePanel);
 		basePanel.setWidth("100%");
-		basePanel.setWidth("400px");
+		//basePanel.setWidth("100%");
 		textBox = new TextBox();
 		//style
 		textBox.setWidth("100%"); 

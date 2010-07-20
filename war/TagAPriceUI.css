@@ -146,13 +146,12 @@ input{
 	font-size: large;
 }
 
-.TitlePanel{
-	
+.TitlePanel{	
 	padding:2px;
 }
 
 .TitlePanel-Title-H1{
-	font-size:large;
+	font-size:medium;
 	background-color: #eaeaea;
 	margin-bottom: 3px;
 }
