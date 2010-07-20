@@ -51,7 +51,20 @@ public class PriceMapWidget extends Composite {
 	/**
 	 * 
 	 * @param id
-	 * @param myType
+	 * @param myType 
+	 * 
+	 * myType = PRODUCT (id=Product_id)
+	 * Shows a map with shops in which you can find this product plus a price table.
+	 *  
+	 * myType = SHOP (id=shop_id)
+	 * Shows a grid with all products you can find in a shop plus a price table.
+	 * 
+	 * 
+	 * myType = PRODUCTGROUP (id=product_group_id (e.g. Milk id))
+	 * Shows a map with shops in which you can find this product-types plus a price table.
+	 * 
+	 * myType = SHOPGROUP (id=shop_group_id (e.g. Billa id))
+	 * Shows a map with all shops of shop_group. (Maybe this should be changed to Brand-Group)
 	 */
 	public PriceMapWidget(long id, PriceMapType myType){
 		type=myType;
@@ -61,7 +74,7 @@ public class PriceMapWidget extends Composite {
 		titlePanel=new TitlePanel("Pricetable", vePa1, Level.H2);
 		
 		
-		if(type.equals(PriceMapType.SHOP) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){
+		if(type.equals(PriceMapType.PRODUCT) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){
 			Geolocation myGeo = Geolocation.getGeolocation();
 			map=new MapWidget();
 			map.setZoomLevel(14);

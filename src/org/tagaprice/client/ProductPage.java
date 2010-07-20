@@ -111,7 +111,7 @@ public class ProductPage extends Composite {
 		
 		
 		//Add Price
-		priceMap = new PriceMapWidget(productData.getId(),PriceMapType.SHOP);
+		priceMap = new PriceMapWidget(productData.getId(),PriceMapType.PRODUCT);
 		vePa1.add(priceMap);
 		
 		
