@@ -13,12 +13,12 @@ function getScript() {
 }
 
 function inject() {
-	dir=$1
-	getScript "$1"|psql tagaprice -f -
+	dir=shift
+	getScript "$1"|psql tagaprice -f - $*
 }
 
-inject tables
+inject tables $*
 
 if [ "$TESTDATA" ]; then
-	inject testdata
+	inject testdata $*
 fi
