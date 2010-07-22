@@ -42,8 +42,8 @@ public class ShopData extends Entity {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopData(long id, int rev, String name, int localeId, String imageSrc, int progress, int rating) {
-		this(id, rev, name, localeId, imageSrc, progress, rating, null);
+	public ShopData(long id, int rev, String title, int localeId, String imageSrc, int progress, int rating) {
+		this(id, rev, title, localeId, imageSrc, progress, rating, null);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public class ShopData extends Entity {
 	 * @param city
 	 * @param country
 	 */
-	public ShopData(long id, int rev, String name, int localeId, String imageSrc, int progress, int rating, Address address){
-		super(id, rev, name, localeId);
+	public ShopData(long id, int rev, String title, int localeId, String imageSrc, int progress, int rating, Address address){
+		super(id, rev, title, localeId);
 		setImageSrc(imageSrc);
 		setProgress(progress);
 		setRating(rating);
@@ -158,8 +158,7 @@ public class ShopData extends Entity {
 
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
-		return "ShopData";
+		return "shop";
 	}
 	
 	// TODO implement missing ShopData.equals()

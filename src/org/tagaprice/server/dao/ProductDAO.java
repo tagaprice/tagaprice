@@ -14,8 +14,6 @@
 */
 package org.tagaprice.server.dao;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,26 +22,20 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 
-import com.google.gwt.core.ext.typeinfo.NotFoundException;
-
-public class ProductDAO {
+public class ProductDAO implements DAOClass<ProductData> {
 	private static ProductDAO instance;
-	private static EntityDAO eDao;
-	private static UnitDAO uDao;
-	protected DBConnection db;
+	private EntityDAO eDao;
+	private UnitDAO uDao;
+	private DBConnection db;
 	
 
-	public static ProductDAO getInstance() throws FileNotFoundException, IOException { 
-		return getInstance(new DBConnection());
-	}
-	
 	public static ProductDAO getInstance(DBConnection db){
 		if(instance == null){
 			instance = new ProductDAO(db);
-			eDao = new EntityDAO(db);
-			uDao = UnitDAO.getInstance(db);
 		}
 		return instance;
 	}
@@ -52,8 +44,8 @@ public class ProductDAO {
 		this.db=db;
 	}
 	
-	
-	public void get(ProductData p) throws SQLException, NotFoundException, org.tagaprice.shared.exception.NotFoundException {
+	@Override
+	public void get(ProductData p) throws SQLException, NotFoundException, NotFoundException {
 		
 		//Get Entitiy Data
 		eDao.get(p);
@@ -85,5 +77,11 @@ public class ProductDAO {
 		p.setProperties(sr);
 		
 	}
-	
+
+	@Override
+	public void save(ProductData entity) throws SQLException, NotFoundException,
+			RevisionCheckException, InvalidLocaleException {
+		// TODO Auto-generated method stub
+		throw new SQLException("Not yet implemented");
+	}
 }

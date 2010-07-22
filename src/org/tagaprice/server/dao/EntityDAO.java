@@ -24,22 +24,37 @@ import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class EntityDAO {
+/**
+ * DAO class for the database table all Entities inherit
+ * 
+ * Other DAO-Classes (e.g. ProductDAO) use this to handle the revisioning stuff
+ * Note: Don't inherit this Class (which isn't possible anyway...) but use getInstance() instead
+ * @author Manuel Reithuber
+ */
+public class EntityDAO implements DAOClass<Entity> {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
+	private static EntityDAO instance = null;
 
 	/**
 	 * Constructor that provides an easy way to supply a modified DBConnection object
 	 * (e.g. with auto-rollback for unit test cases) 
 	 * @param db DBConnection object
 	 */
-	public EntityDAO(DBConnection db) {
+	private EntityDAO(DBConnection db) {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
 	}
+	
+	public static EntityDAO getInstance(DBConnection db) {
+		if (instance == null) {
+			instance = new EntityDAO(db);
+		}
+		return instance;
+	}
 
 	public void get(Entity e) throws SQLException, NotFoundException {
-		String sql = "SELECT e.ent_id, rev, title, locale_id" +
+		String sql = "SELECT e.ent_id, rev, title, locale_id, e.creator, r.creator AS revCreator " +
 			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id";
 		if (e.getRev() == 0) sql += " AND e.current_revision = r.rev";
 		sql += ") WHERE e.ent_id = ?";
@@ -56,6 +71,8 @@ public class EntityDAO {
 			e.setTitle(res.getString("title"));
 			e._setRev(res.getInt("rev"));
 			e._setLocaleId(res.getInt("locale_id"));
+			e._setCreatorId(res.getLong("creator"));
+			e._setRevCreatorId(res.getLong("revcreator"));
 		}
 		else {
 			String msg = "Entity (id: "+e.getId();
@@ -86,8 +103,9 @@ public class EntityDAO {
 	}
 	
 	private Entity _getEntity(long id) throws SQLException, NotFoundException {
+		// TODO try to remove duplicate code (in get() and _getEntity())
 		Entity rc = null;
-		String sql = "SELECT e.ent_id, e.created_at AS entityDate, r.created_at AS revDate, rev, title, locale_id" +
+		String sql = "SELECT e.ent_id, e.created_at AS entityDate, r.created_at AS revDate, rev, title, locale_id, e.creator, r.creator AS revCreator" +
 			" FROM entity e INNER JOIN entityRevision r" +
 			" ON (e.ent_id = r.ent_id AND e.current_revision = r.rev)" +
 			" WHERE e.ent_id = ?";
@@ -106,6 +124,9 @@ public class EntityDAO {
 				return "privateEntityImpl";
 			}
 		};
+		
+		rc._setCreatorId(res.getLong("creator"));
+		rc._setRevCreatorId(res.getLong("revcreator"));
 
 		return rc;
 	}
@@ -126,10 +147,11 @@ public class EntityDAO {
 		if (res.getInt("current_revision") != rev++) throw new RevisionCheckException("Revision out of date: "+rev);
 		
 		// create new EntityRevision element
-		pstmt = db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title) VALUES (?,?,?)");
+		pstmt = db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title, creator) VALUES (?, ?, ?, ?)");
 		pstmt.setLong(1, e.getId());
 		pstmt.setInt(2, rev);
 		pstmt.setString(3, e.getTitle());
+		pstmt.setLong(4, e.getRevCreatorId());
 		pstmt.executeUpdate();
 
 		// update current_revision in entity
@@ -156,24 +178,40 @@ public class EntityDAO {
 		localeDAO.require(e.getLocaleId());
 		
 		// create entity
-		pstmt = db.prepareStatement("INSERT INTO entity (locale_id, current_revision) VALUES (?, 1)");
+		String sql;
+		if (e.getCreatorId() == -2) {
+			sql = "INSERT INTO entity (locale_id, current_revision, creator) VALUES (?, 1, currval('entity_ent_id_seq'))";
+		}
+		else sql = "INSERT INTO entity (locale_id, current_revision, creator) VALUES (?, 1, ?)";
+		pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, e.getLocaleId());
-		//pstmt.setInt(2, e.getRev()+1);
+		if (e.getCreatorId() != -2) pstmt.setLong(2, e.getCreatorId());
 		pstmt.executeUpdate();
-		
-		// create entityRevision
-		pstmt = db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title) VALUES (currval('entity_ent_id_seq'),?,?)");
-		pstmt.setInt(1, e.getRev()+1);
-		pstmt.setString(2, e.getTitle());
-		pstmt.executeUpdate();
-		
+
+		// Query current ent_id
 		pstmt = db.prepareStatement("SELECT currval('entity_ent_id_seq') AS ent_id");
 		res = pstmt.executeQuery();
 		res.next();
+
 		long id = res.getLong("ent_id");
+
+		if (e.getCreatorId() == -2) {
+			e._setCreatorId(id);
+			e._setRevCreatorId(id);
+		}
+
+		// create entityRevision
+		sql = "INSERT INTO entityRevision(ent_id, rev, title, creator) VALUES "
+			+"(currval('entity_ent_id_seq'), ?, ?, ?)";
+		pstmt = db.prepareStatement(sql);
+		pstmt.setInt(1, e.getRev()+1);
+		pstmt.setString(2, e.getTitle());
+		pstmt.setLong(3, e.getRevCreatorId());
+		pstmt.executeUpdate();
+		
+		db.commit();
+
 		e._setId(id);
 		e._setRev(1);
-
-		db.commit();
 	}
 }

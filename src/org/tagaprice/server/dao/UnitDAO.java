@@ -23,16 +23,18 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class UnitDAO {
+public class UnitDAO implements DAOClass<Unit> {
 	private static UnitDAO instance;
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	
 	private UnitDAO(DBConnection db) {
+		entityDAO = EntityDAO.getInstance(db);
 		this.db = db;
-		entityDAO = new EntityDAO(db);
 	}
 	
 	public static UnitDAO getInstance() throws FileNotFoundException, IOException {
@@ -44,6 +46,7 @@ public class UnitDAO {
 			instance = new UnitDAO(db);
 		return instance;
 	}
+	
 	
 	public Unit get(long id) throws NotFoundException, SQLException {
 		Unit rc = null;
@@ -99,11 +102,46 @@ public class UnitDAO {
 		return getSimilar(unit.getId());
 	}
 	
+	@Override
+	public void save(Unit unit) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
+		Long id = unit.getId();
+		PreparedStatement pstmt;
+		
+		if (id == null) {
+			// create new unit
+			entityDAO.save(unit);
+			pstmt = db.prepareStatement("INSERT INTO unit (unit_id, fallback_unit, factor) VALUES (?,?,?)");
+			pstmt.setLong(1, unit.getId());
+			pstmt.setLong(2, unit.getFallbackId());
+			pstmt.setDouble(3, unit.getFactor());
+			pstmt.executeUpdate();
+		}
+		else {
+			// first check if the entity is a unit
+			pstmt = db.prepareStatement("SELECT unit_id FROM unit WHERE unit_id = ?");
+			pstmt.setLong(1, unit.getId());
+			ResultSet res = pstmt.executeQuery();
+			if (!res.next()) throw new NotFoundException("Unit not found! (id="+unit.getId()+")");
+			
+			// check if we have to update the current unit data
+			Unit refUnit = new Unit();
+			refUnit._setId(unit.getId());
+			get(refUnit);
+			if (!)
+		}
+	}
+	
 	private Unit _getUnit(ResultSet res) throws SQLException, NotFoundException {
 		Unit rc =  new Unit(res.getLong("unit_id"), 0, res.getLong("fallback_unit"), res.getDouble("factor"));
 		
 		entityDAO.get(rc);
 		
 		return rc;
+	}
+
+	@Override
+	public void get(Unit unit) throws SQLException, NotFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 }

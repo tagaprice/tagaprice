@@ -21,6 +21,8 @@ public abstract class Entity implements Serializable {
 	private String title;
 	private int rev = 0;
 	private int localeId = -1;
+	private long creatorId = -1;
+	private long revCreatorId = -1;
 	
 	public Entity() {
 		this(null, 0, null, -1);
@@ -33,7 +35,7 @@ public abstract class Entity implements Serializable {
 	/**
 	 * Constructor used for requesting an Entity from the Database
 	 */
-	public Entity(Long id, int rev) {
+	public Entity(Long id, int rev, long creatorId, long revCreatorId) {
 		this(id, rev, null, 0);
 	}
 	
@@ -84,6 +86,31 @@ public abstract class Entity implements Serializable {
 		this.rev = rev;
 	}
 	
+	
+	public long getCreatorId() {
+		return creatorId;
+	}
+	
+	/**
+	 * This method should just be called by EntityDAO
+	 * @param creatorId Creator ID
+	 */
+	public void _setCreatorId(long creatorId) {
+		this.creatorId = creatorId;
+	}
+	
+	public long getRevCreatorId() {
+		return revCreatorId;
+	}
+	
+	/**
+	 * This method should just be called by EntityDAO
+	 * @param revCreatorId revision's creator ID
+	 */
+	public void _setRevCreatorId(long revCreatorId) {
+		this.revCreatorId = revCreatorId;
+	}
+	
 	public int getLocaleId() {
 		return localeId;
 	}
@@ -108,6 +135,8 @@ public abstract class Entity implements Serializable {
 			else if (e.getTitle() != null) rc = false;
 			if (getRev() != e.getRev()) rc = false;
 			if (getLocaleId() != e.getLocaleId()) rc = false;
+			if (getCreatorId() != e.getCreatorId()) rc = false;
+			if (getRevCreatorId() != e.getRevCreatorId()) rc = false;
 		}
 		else rc = false;
 

@@ -19,18 +19,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.EntityDAO;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.Quantity;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.ProductHandler;
 
-import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -88,13 +84,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (org.tagaprice.shared.exception.NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
-		
-		
 		return pd;
 	}
 
