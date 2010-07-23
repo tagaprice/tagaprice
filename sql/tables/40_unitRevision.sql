@@ -9,7 +9,10 @@ CREATE TABLE unitRevision (
 	PRIMARY KEY (unit_id, rev),
 	FOREIGN KEY (unit_id) REFERENCES unit(unit_id),
 	FOREIGN KEY (base_id) REFERENCES unit(unit_id),
-	CHECK (base_id IS NULL = factor IS NULL)
+	FOREIGN KEY (unit_id, rev) REFERENCES entityRevision(ent_id, rev),
+	
+	CHECK (base_id IS NULL = factor IS NULL), -- either none or both have to be set
+	CHECK (factor != 0)
 );
 
 ALTER TABLE unit ADD CONSTRAINT fkey_unit_currentRev FOREIGN KEY (unit_id, currentRevision) REFERENCES unitRevision(unit_id, rev) DEFERRABLE INITIALLY DEFERRED;
