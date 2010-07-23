@@ -3,23 +3,29 @@
 IFS='
 '
 
-function getScript() {
+function injectScript() {
 	dir=$1
-	echo 'BEGIN;'
 	for file in "$dir/"*.sql; do
-		echo '\i' $file
+		export ON_ERROR_STOP=1
+		echo -e "\033[32mInjecting '$file'\033[0m"
+		
+		if ! psql -v ON_ERROR_STOP=1 tagaprice -f "$file"; then
+			echo -e "\033[31mError\033[0m"
+			return 1
+		fi
 	done
-	echo 'COMMIT;'
 }
 
 function inject() {
 	dir="$1"
 	shift
-	getScript "$dir"|psql tagaprice -f - $*
+	#getScript "$dir"|psql tagaprice -f - $*
+	injectScript "$dir"
+	return $?
 }
 
-inject tables $*
-
-if [ "$TESTDATA" ]; then
-	inject testdata $*
+if inject tables $*; then
+	if [ "$TESTDATA" ]; then
+		inject testdata $*
+	fi
 fi
