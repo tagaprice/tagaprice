@@ -13,8 +13,9 @@ function getScript() {
 }
 
 function inject() {
-	dir=shift
-	getScript "$1"|psql tagaprice -f - $*
+	dir="$1"
+	shift
+	getScript "$dir"|psql tagaprice -f - $*
 }
 
 inject tables $*
