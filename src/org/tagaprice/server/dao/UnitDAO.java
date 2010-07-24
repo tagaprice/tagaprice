@@ -127,7 +127,6 @@ public class UnitDAO implements DAOClass<Unit> {
 			Unit refUnit = new Unit();
 			refUnit._setId(unit.getId());
 			get(refUnit);
-			if (!)
 		}
 	}
 	
