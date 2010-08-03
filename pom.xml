@@ -6,6 +6,19 @@
 	<packaging>war</packaging>
 	<name>tagAprice</name>
 	<url>http://www.tagaprice.org</url>
+
+	<repositories>
+		<repository>
+			<id>tagaprice-repo</id>
+			<name>tagaprice maven repository</name>
+			<layout>default</layout>
+			<url>http://mvnrepo.tagaprice.org/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<issueManagement>
 		<system>Trac</system>
 		<url>https://trac.tagaprice.org</url>
@@ -23,7 +36,6 @@
 			<groupId>com.google.gwt.google-apis</groupId> 
 			<artifactId>gwt-maps</artifactId> 
 			<version>1.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -33,8 +45,7 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-html5</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
+			<version>0.1_20100803</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -56,7 +67,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<webXml>war/WEB-INF/web.xml</webXml>
+					<webXml>${basedir}/src/main/resources/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
 			<plugin>
