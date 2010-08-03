@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="war/WEB-INF/lib/src"/>
-	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="src" path="src/main/java/"/>
+	<classpathentry kind="src" path="src/main/resources/"/>
+	<classpathentry kind="src" output="test-classes" path="src/test/java/"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-maps.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-html5-geolocation.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/postgresql-8.4-701.jdbc4.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/conf"/>
-	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+	<classpathentry kind="lib" path="src/main/resources/WEB-INF/lib/gwt-maps.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/WEB-INF/lib/gwt-html5-geolocation.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/WEB-INF/lib/postgresql-8.4-701.jdbc4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/WEB-INF/conf"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
