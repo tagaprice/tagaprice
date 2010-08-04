@@ -21,7 +21,7 @@
 
 	<issueManagement>
 		<system>Trac</system>
-		<url>https://trac.tagaprice.org</url>
+		<url>https://dev.tagaprice.org</url>
 	</issueManagement>
 	<scm>
 		<url>https://svn.fakeroot.at/tagaprice</url>
