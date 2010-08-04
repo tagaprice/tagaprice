@@ -81,7 +81,8 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>1.2</version>
 				<configuration>
-					<runTarget>org.tagaprice.TagAPriceUI/TagAPriceUI.html</runTarget>
+					<runTarget>TagAPriceUI.html</runTarget>
+					<hostedWebapp>target/classes</hostedWebapp>
 				</configuration>
 			</plugin>
 		</plugins>
