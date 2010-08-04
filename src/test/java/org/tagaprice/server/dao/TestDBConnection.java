@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
+import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 
 public class TestDBConnection extends DBConnection {
@@ -36,7 +37,12 @@ public class TestDBConnection extends DBConnection {
 	
 	@Override
 	public InputStream _loadResourceFile(String fileName) throws FileNotFoundException {
-		File file = new File("war/WEB-INF/conf/jdbc.properties");
+		File file = new File("target/test-classes/WEB-INF/conf/jdbc.properties");
 		return new FileInputStream(file);
+	}
+	
+	@Test
+	public void notATest() {
+		// TODO find a way providing this class without it being treated like a JUnit testS
 	}
 }
