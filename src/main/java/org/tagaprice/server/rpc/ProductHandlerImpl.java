@@ -74,8 +74,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	public ProductData get(Long id) throws IllegalArgumentException {
 		ProductData pd = new ProductData();
 		pd._setId(id);
-		//pd._setId(63);
+		pd._setId(63);
 		
+		/*
 		try {
 			pDao.get(pd);
 		} catch (NotFoundException e) {
@@ -85,8 +86,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return pd;
+		 */
+		 
+		return 	new ProductData(152, 3, "Mousse au Chocolat", 2, 15, 20, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
 	}
 
 	@Override
