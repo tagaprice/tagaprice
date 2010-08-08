@@ -15,7 +15,6 @@
 package org.tagaprice.server.dao;
 
 import static org.junit.Assert.*;
-import junit.extensions.TestDecorator;
 
 import org.junit.Before;
 import org.junit.Test;
