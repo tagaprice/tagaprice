@@ -34,6 +34,7 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class EntityDAO implements DAOClass<Entity> {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
+	private PropertyDAO propertyDAO;
 	private static EntityDAO instance = null;
 
 	/**
@@ -80,6 +81,9 @@ public class EntityDAO implements DAOClass<Entity> {
 			msg +=") not found!";
 			throw new NotFoundException(msg); 
 		}
+		
+		// get properties
+		propertyDAO.get(e);
 	}
 	
 	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
@@ -100,6 +104,8 @@ public class EntityDAO implements DAOClass<Entity> {
 			_newEntity(entity);
 		}
 		
+		// save properties
+		propertyDAO.save(entity);
 	}
 	
 	private Entity _getEntity(long id) throws SQLException, NotFoundException {

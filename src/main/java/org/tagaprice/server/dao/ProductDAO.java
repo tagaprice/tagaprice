@@ -20,16 +20,13 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class ProductDAO implements DAOClass<ProductData> {
 	private static ProductDAO instance;
-	private EntityDAO eDao;
-	private UnitDAO uDao;
+	private EntityDAO entityDAO;
 	private DBConnection db;
 	
 
@@ -48,34 +45,21 @@ public class ProductDAO implements DAOClass<ProductData> {
 	public void get(ProductData p) throws SQLException, NotFoundException, NotFoundException {
 		
 		//Get Entitiy Data
-		eDao.get(p);
+		entityDAO.get(p);
 		
 		//Get Product Data
-		//TODO ...
-		
-		//Get Property Data
-		
-		String sql = "SELECT ep.value, pr.name, pr.title, ep.unit_id " +
-				"FROM entityproperty ep " +
-				"INNER JOIN property pr " +
-				"ON (pr.prop_id = ep.prop_id) " +
-				"WHERE (ep.ent_id = ?) ";
-		
+		String sql = "SELECT brand_id, type_id, imageurl " +
+				"FROM productrevision " +
+				"INNER JOIN ENTITY ON(ent_id = prod_id AND current_revision = rev) " +
+				"WHERE prod_id = ?";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, p.getId());
 		ResultSet res = pstmt.executeQuery();
 		
-		SearchResult<PropertyData> sr = new SearchResult<PropertyData>();
-		
-		while(res.next()){
-			sr.add(new PropertyData(
-					res.getString("name"), 
-					res.getString("title"), 
-					res.getString("value"), 
-					uDao.get(res.getLong("unit_id"))));
-		}
-		p.setProperties(sr);
-		
+		if (!res.next()) throw new NotFoundException("Product not found");
+		p.setBrandId(res.getLong("brand_id"));
+		p.setTypeId(res.getLong("type_id"));
+		p.setImageSrc(res.getString("image_url"));		
 	}
 
 	@Override
