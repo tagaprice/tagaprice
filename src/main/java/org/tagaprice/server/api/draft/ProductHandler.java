@@ -41,7 +41,7 @@ public class ProductHandler implements ApiCall {
 	}
 	
 	public void get(ApiCallData d) {
-		ProductData product = new ProductData(23, 15, "TestProduct", 1, 42, 12, null, 80, 80, new Price(120, 23, 8, "€", 1), new Quantity(1, 23, 2, "g", 1), false);
+		ProductData product = new ProductData(23L, 15, "TestProduct", 1, 42L, 12L, null, 80, 80, new Price(120, 23, 8, "€", 1), new Quantity(1, 23, 2, "g", 1), false);
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("weight", "Weight", "123", new Unit(23, 3, "g", 1)));
 		product.setProperties(propList);

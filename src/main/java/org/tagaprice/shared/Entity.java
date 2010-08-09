@@ -23,7 +23,9 @@ public abstract class Entity implements Serializable {
 	private int localeId = -1;
 	private long creatorId = -1;
 	private long revCreatorId = -1;
-	
+
+	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
+
 	public Entity() {
 		this(null, 0, null, -1);
 	}
@@ -122,6 +124,20 @@ public abstract class Entity implements Serializable {
 	public void _setLocaleId(int localeId) {
 		this.localeId = localeId;
 	}
+		
+	/**
+	 * @return the properties
+	 */
+	public SearchResult<PropertyData> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setProperties(SearchResult<PropertyData> properties) {
+		this.properties = properties;
+	}
 	
 	public boolean equals(Object o) {
 		boolean rc = true;
@@ -137,6 +153,7 @@ public abstract class Entity implements Serializable {
 			if (getLocaleId() != e.getLocaleId()) rc = false;
 			if (getCreatorId() != e.getCreatorId()) rc = false;
 			if (getRevCreatorId() != e.getRevCreatorId()) rc = false;
+			if (!getProperties().equals(e.getProperties())) rc = false;
 		}
 		else rc = false;
 

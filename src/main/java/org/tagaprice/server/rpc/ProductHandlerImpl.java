@@ -47,7 +47,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		
 		// TODO Auto-generated constructor stub
 		//MockMock
-		test = new ProductData(152, 3, "Mousse au Chocolat", 2, 15, 20, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
+		test = new ProductData(152L, 3, "Mousse au Chocolat", 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
 
 		
 		/*

@@ -22,15 +22,14 @@ package org.tagaprice.shared;
 public class ProductData extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private long brandId; // TODO create a Brand class
-	private long typeId;
+	private Long brandId; // TODO create a Brand class
+	private Long typeId;
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
 	private Price price;
 	private Quantity quantity;
 	private boolean hasReceipt;
-	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
 	
 	public ProductData() {
 		// TODO Auto-generated constructor stub
@@ -50,12 +49,12 @@ public class ProductData extends Entity {
 	 * @param quantitiy
 	 */
 	public ProductData(
-			long id,
+			Long id,
 			int rev,
 			String title,
 			int localeId,
-			long brandId,
-			long typeId,
+			Long brandId,
+			Long typeId,
 			String imageSrc,
 			int progress,
 			int rating,
@@ -92,12 +91,12 @@ public class ProductData extends Entity {
 	 * @param hasReceipt
 	 */
 	public ProductData(
-			long id,
+			Long id,
 			int rev,
 			String title,
 			int localeId,
-			long brandId,
-			long typeId,
+			Long brandId,
+			Long typeId,
 			String imageSrc,
 			int progress,
 			int rating,
@@ -113,13 +112,12 @@ public class ProductData extends Entity {
 		setRating(rating);
 		setQuantity(quantity);
 		setHasReceipt(hasReceipt);
-		
 	}
 
 	/**
 	 * @return the brandId
 	 */
-	public long getBrandId() {
+	public Long getBrandId() {
 		return brandId;
 	}
 
@@ -127,7 +125,7 @@ public class ProductData extends Entity {
 	/**
 	 * @param brandId the brandId to set
 	 */
-	public void setBrandId(long brandId) {
+	public void setBrandId(Long brandId) {
 		this.brandId = brandId;
 	}
 
@@ -135,7 +133,7 @@ public class ProductData extends Entity {
 	/**
 	 * @return the typeId
 	 */
-	public long getTypeId() {
+	public Long getTypeId() {
 		return typeId;
 	}
 
@@ -143,7 +141,7 @@ public class ProductData extends Entity {
 	/**
 	 * @param typeId the typeId to set
 	 */
-	public void setTypeId(long typeId) {
+	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 
@@ -242,23 +240,6 @@ public class ProductData extends Entity {
 	public void setHasReceipt(boolean hasReceipt) {
 		this.hasReceipt = hasReceipt;
 	}
-
-
-	/**
-	 * @return the properties
-	 */
-	public SearchResult<PropertyData> getProperties() {
-		return properties;
-	}
-
-
-	/**
-	 * @param properties the properties to set
-	 */
-	public void setProperties(SearchResult<PropertyData> properties) {
-		this.properties = properties;
-	}
-
 
 	@Override
 	public String getSerializeName() {
