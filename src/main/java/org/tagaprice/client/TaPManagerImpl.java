@@ -271,7 +271,7 @@ public class TaPManagerImpl implements TaPManager {
 
 	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget){
 		ArrayList<ProductData> tmp= new ArrayList<ProductData>();
-		tmp.add(new ProductData(13, 6, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
+		tmp.add(new ProductData(13l, 6, "Gouda Kaese", 2, 15l, 16l, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
 		return tmp;
 	}
 	
@@ -283,7 +283,7 @@ public class TaPManagerImpl implements TaPManager {
 	@Override
 	public ArrayList<Entity> search(String text, SearchWidget searchWidget) {
 		ArrayList<Entity> tmp= new ArrayList<Entity>();
-		tmp.add(new ProductData(13, 6, "Gouda Kaese", 2, 15, 16, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
+		tmp.add(new ProductData(13l, 6, "Gouda Kaese", 2, 15l, 16l, "logo.png", 50, 50, new Price(1200, 23, 1, "€", 1), new Quantity(250, 23, 2, "g", 2)));
 		tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
 		tmp.add(new ShopData(12, 3, "Amazon.de", 1, "logo.png", 80, 3));
 		tmp.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
