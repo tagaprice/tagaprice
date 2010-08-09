@@ -20,6 +20,7 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
+import org.tagaprice.server.dao.PropertyDAO;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
@@ -33,10 +34,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
 	ProductData test;
 	ProductDAO pDao;
+	PropertyDAO proDao;
 	
 	public ProductHandlerImpl() {
 		try {
-			pDao = ProductDAO.getInstance(new DBConnection());
+			DBConnection dbConn = new DBConnection();
+			pDao = ProductDAO.getInstance(dbConn);
+			proDao = PropertyDAO.getInstance(dbConn);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,46 +53,38 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		//MockMock
 		test = new ProductData(152L, 3, "Mousse au Chocolat", 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
 
-		
-		/*
-		SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
-		
-		//properties.add(new PropertyData("energy", "Brennwert", "2109", new Unit(1, 2, "kj", 3)));
-		properties.add(new PropertyData("protein","Eiweiss", "5,3", new Unit(2, 2, "g", 3)));		
-		properties.add(new PropertyData("carbohydrate", "Kohlenhydrate", "27,5", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("fat", "Fett", "41,3", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("sodium", "Ballaststoffe", "1,9", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("natrum", "Natrium", "0,05", new Unit(2, 2, "g", 3)));
-		properties.add(new PropertyData("url", "URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
-		properties.add(new PropertyData("ean", "EAN", "14526486", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("ean", "EAN", "24422", new Unit(5, 2, "g", 3)));
-		properties.add(new PropertyData("url", "URL", "tagaprice.com", new Unit(5, 2, "fl", 3)));
-		
-		test.setProperties(properties);
-		*/
 	}
 	
 	@Override
 	public ProductData get(Long id) throws IllegalArgumentException {
 		ProductData pd = new ProductData();
 		pd._setId(id);
-		pd._setId(63);
 		
-		/*
+		
+		//Get Product Data
 		try {
 			pDao.get(pd);
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		 */
+		
+		
+		//Get Properties
+		try {
+			proDao.get(pd);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 
-		return 	new ProductData(152l, 3, "Mousse au Chocolat", 2, 15l, 20l, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
+		return 	pd;
 	}
 
 	@Override
