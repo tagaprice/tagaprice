@@ -164,16 +164,6 @@ public interface TaPManager {
 	 */
 	public void search(String sText, ShopData shopData, AsyncCallback<ArrayList<Entity>> callback);
 	
-	@Deprecated
-	public ArrayList<ShopData> searchShops(String userInput, SearchWidget sw);
-	@Deprecated
-	public ArrayList<ShopData> searchShops(LatLngBounds bounds, String searchString,  SearchWidget searchWidget);
-	@Deprecated
-	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget);
-	@Deprecated
-	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget searchWidget);
-	@Deprecated
-	public ArrayList<Entity> search(String text, SearchWidget searchWidget);
 	
 	
 	

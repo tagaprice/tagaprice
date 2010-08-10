@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+@Deprecated
 public abstract class SearchWidget extends Composite{
 
 	protected TextBox textBox;
