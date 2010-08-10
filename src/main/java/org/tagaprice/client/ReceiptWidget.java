@@ -16,7 +16,7 @@ package org.tagaprice.client;
 
 
 import java.util.ArrayList;
-import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -54,8 +54,8 @@ public class ReceiptWidget extends Composite {
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
 	
-	private SearchWidget2 shopChooser2 = new SearchWidget2(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
-	private SearchWidget2 productChooser2;
+	private SearchWidget shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
+	private SearchWidget productChooser2;
 	
 	SelectiveVerticalPanel productContainer = new SelectiveVerticalPanel(SelectionType.MINUSBUTTON);
 	
@@ -199,7 +199,7 @@ public class ReceiptWidget extends Composite {
 		shop.setWidget(shopPreview);
 		
 		product=new SimplePanel();
-		productChooser2 = new SearchWidget2(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON, shopData);
+		productChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON, shopData);
 		product.setWidget(productChooser2);
 		basePanel.insert(product, 4);
 		

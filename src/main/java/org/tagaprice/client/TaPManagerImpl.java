@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
-import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
@@ -223,19 +223,6 @@ public class TaPManagerImpl implements TaPManager {
 
 	}
 
-
-	public ArrayList<ShopData> searchShops(String userInput, SearchWidget sw) {
-		// TODO Auto-generated method stub
-
-			ArrayList<ShopData> tmps= new ArrayList<ShopData>();
-			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
-			tmps.add(new ShopData(12, 3, "Amazon.de", 1, "logo.png", 80, 3));
-			tmps.add(new ShopData(15, 3, "Billa Flossgasse", 1, "logo.png", 80, 50, new Address(48.217883, 16.390475)));
-			tmps.add(new ShopData(15, 3, "Spar Schonbrunn", 1, "logo.png", 20, 70, new Address(48.184516, 16.311865)));
-
-		
-		return tmps;
-	}
 
 	@Override
 	public InfoBox getInfoBox() {

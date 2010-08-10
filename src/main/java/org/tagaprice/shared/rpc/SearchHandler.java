@@ -2,7 +2,7 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ShopData;

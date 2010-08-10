@@ -14,7 +14,7 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.user.RegistrationPage;
 import org.tagaprice.shared.ProductData;
@@ -65,7 +65,7 @@ public class UIManager extends Composite {
 		});
 
 		//Search
-		myDock.add(new SearchWidget2(SearchType.PRODCUT, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
+		myDock.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
 
 		
 		//InfoBox
