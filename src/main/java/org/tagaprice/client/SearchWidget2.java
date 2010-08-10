@@ -14,12 +14,22 @@
 */
 package org.tagaprice.client;
 
+import java.util.ArrayList;
+
+import org.hamcrest.core.IsInstanceOf;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.BoundingBox;
+import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
 
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -34,13 +44,162 @@ public class SearchWidget2 extends Composite {
 	private VerticalPanel vePa2 = new VerticalPanel();
 	private SelectiveVerticalPanel selVePa;
 	private PopupPanel popPa;
+	TaPManager myMng = TaPManagerImpl.getInstance();
+	
+	//Constructor Values
+	private SearchType _searchType;
+	private boolean _showNew;
+	private boolean _popup;
+	private SelectionType _selectionType;
+	private BoundingBox _bbox=null;
+	private ShopData _shopData=null;
 	
 	public SearchWidget2(
-			String search, 
 			SearchType searchType,
 			boolean showNew, 
 			boolean popup,
 			SelectionType selectionType) {
+		
+		init(searchType, showNew, popup, selectionType);	
+		
+		
+		//Search		
+		searchBox.addKeyDownHandler(new KeyDownHandler() {
+			
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				
+				myMng.search(searchBox.getText(), new AsyncCallback<ArrayList<Entity>>() {
+					
+					@Override
+					public void onSuccess(ArrayList<Entity> result) {
+						selVePa.clear();
+						if(_popup)
+							popPa.showRelativeTo(searchBox);
+						
+						for(Entity sResult:result){
+							if(sResult instanceof ProductData){
+								selVePa.add(new ProductPreview((ProductData)sResult, false));
+							}else if(sResult instanceof ShopData){
+								selVePa.add(new ShopPreview((ShopData)sResult, false));
+							}
+						}
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						System.out.println("error at searching");
+						
+					}
+				});				
+			}
+		});
+	}
+	
+	
+	public SearchWidget2(
+			SearchType searchType,
+			boolean showNew, 
+			boolean popup,
+			SelectionType selectionType,
+			BoundingBox bbox) {
+		_bbox=bbox;
+		init(searchType, showNew, popup, selectionType);	
+		
+		
+		//Search		
+		searchBox.addKeyDownHandler(new KeyDownHandler() {
+			
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+								
+				
+				myMng.search(searchBox.getText(), _bbox,  new AsyncCallback<ArrayList<Entity>>() {
+					
+					@Override
+					public void onSuccess(ArrayList<Entity> result) {
+						selVePa.clear();
+						if(_popup)
+							popPa.showRelativeTo(searchBox);
+						
+						for(Entity sResult:result){
+							if(sResult instanceof ProductData){
+								selVePa.add(new ProductPreview((ProductData)sResult, false));
+							}else if(sResult instanceof ShopData){
+								selVePa.add(new ShopPreview((ShopData)sResult, false));
+							}
+						}
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						System.out.println("error at searching");
+						
+					}
+				});				
+			}
+		});
+		
+		
+	}
+	
+	public SearchWidget2(
+			SearchType searchType,
+			boolean showNew, 
+			boolean popup,
+			SelectionType selectionType,
+			ShopData shopData) {
+		_shopData=shopData;
+		init(searchType, showNew, popup, selectionType);	
+		
+		//Search		
+		searchBox.addKeyDownHandler(new KeyDownHandler() {
+			
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				
+				myMng.search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
+					
+					@Override
+					public void onSuccess(ArrayList<Entity> result) {
+						selVePa.clear();
+						if(_popup)
+							popPa.showRelativeTo(searchBox);
+						
+						for(Entity sResult:result){
+							if(sResult instanceof ProductData){
+								selVePa.add(new ProductPreview((ProductData)sResult, false));
+							}else if(sResult instanceof ShopData){
+								selVePa.add(new ShopPreview((ShopData)sResult, false));
+							}
+						}
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						System.out.println("error at searching");
+						
+					}
+				});				
+			}
+		});
+	}
+	
+	
+	private void init(
+			SearchType searchType,
+			boolean showNew, 
+			boolean popup,
+			SelectionType selectionType){
+		//Constructor Values
+		_searchType=searchType;
+		_showNew=showNew;
+		_popup=popup;
+		_selectionType=selectionType;
+		
 		
 		
 		initWidget(vePa1);
@@ -54,9 +213,10 @@ public class SearchWidget2 extends Composite {
 		selVePa.setWidth("100%");
 		
 		//popup
-		if(popup){
+		if(_popup){
 			popPa=new PopupPanel(true);
 			popPa.setWidget(vePa2);
+			popPa.setWidth("100%");
 		}else{
 			vePa1.add(vePa2);
 		}
@@ -64,12 +224,12 @@ public class SearchWidget2 extends Composite {
 		
 		vePa2.add(selVePa);
 		
-		if(showNew){
+		if(_showNew){
 			boolean product = false;
 			boolean shop = false;
-			if(searchType.equals(SearchType.PRODCUT)){
+			if(_searchType.equals(SearchType.PRODCUT)){
 				product=true;
-			}else if(searchType.equals(SearchType.SHOP)){
+			}else if(_searchType.equals(SearchType.SHOP)){
 				shop=true;
 			}else{
 				product=true;
@@ -104,26 +264,5 @@ public class SearchWidget2 extends Composite {
 				});
 			}
 		}
-	}
-	
-	
-	public SearchWidget2(
-			String search, 
-			SearchType searchType,
-			boolean showNew, 
-			boolean popup,
-			SelectionType selectionType,
-			BoundingBox bbox) {
-		this(search, searchType, showNew, popup, selectionType);
-	}
-	
-	public SearchWidget2(
-			String search,
-			SearchType searchType,
-			boolean showNew, 
-			boolean popup,
-			SelectionType selectionType,
-			ShopData shopData) {
-		this(search, searchType, showNew, popup, selectionType);
 	}
 }
