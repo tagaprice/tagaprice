@@ -29,7 +29,7 @@ import org.tagaprice.shared.rpc.PriceHandler;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class PriceHandlerImpl  extends RemoteServiceServlet implements PriceHandler {
+public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandler {
 
 	@Override
 	public ArrayList<PriceData> get(Long id, BoundingBox bbox, PriceMapType type)
