@@ -38,6 +38,7 @@ public class SelectiveVerticalPanel extends Composite {
 	ImageResource topImage;
 	ImageResource bottomImage;
 	SelectiveVerticalPanelHandler externalHandler;
+	SelectionType _selectionType;
 	
 	/**
 	 * 
@@ -46,15 +47,16 @@ public class SelectiveVerticalPanel extends Composite {
 	public @UiConstructor SelectiveVerticalPanel(SelectionType selectionType) {
 		initWidget(vePa1);
 		vePa1.setWidth("100%");
+		_selectionType=selectionType;
 		
-		if(selectionType.equals(SelectionType.PLUSBUTTON)){
+		if(_selectionType.equals(SelectionType.PLUSBUTTON)){
 			topImage=(MyResources.INSTANCE.plusActive());
 			bottomImage=(MyResources.INSTANCE.plusInactive());
-		}else if(selectionType.equals(SelectionType.MINUSBUTTON)){
+		}else if(_selectionType.equals(SelectionType.MINUSBUTTON)){
 			topImage=(MyResources.INSTANCE.minusActive());
 			bottomImage=(MyResources.INSTANCE.minusInactive());
-		}else if(selectionType.equals(SelectionType.NOBUTTON)){
-			//TODO implement this
+		}else if(_selectionType.equals(SelectionType.NOBUTTON)){
+			//Do nothing here!
 		}
 		
 	}
@@ -65,29 +67,36 @@ public class SelectiveVerticalPanel extends Composite {
 	 */
 	public void add(final Widget w){
 		final HorizontalPanel hoPa = new HorizontalPanel();
-		PushButton puBa = new PushButton(new Image(topImage), new Image(bottomImage));
 		hoPa.setWidth("100%");
 		
 		
-		//insert Button
-		hoPa.add(puBa);
-		hoPa.setCellWidth(puBa, MyResources.INSTANCE.minusActive().getWidth()+"px");
-		hoPa.setCellVerticalAlignment(puBa, HasVerticalAlignment.ALIGN_MIDDLE);
+		if(!_selectionType.equals(SelectionType.NOBUTTON)){
+			PushButton puBa = new PushButton(new Image(topImage), new Image(bottomImage));
+				
+			//insert Button
+			hoPa.add(puBa);
+			hoPa.setCellWidth(puBa, MyResources.INSTANCE.minusActive().getWidth()+"px");
+			hoPa.setCellVerticalAlignment(puBa, HasVerticalAlignment.ALIGN_MIDDLE);
+			
+			//handler
+			puBa.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					if(externalHandler!=null)
+						externalHandler.onClick(w,vePa1.getWidgetIndex(hoPa));
+					
+				}
+			});
+		}
+		
+		
 		hoPa.add(w);
 		vePa1.add(hoPa);
 		
 		
-		//handler
-		puBa.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				if(externalHandler!=null)
-					externalHandler.onClick(w,vePa1.getWidgetIndex(hoPa));
-				
-			}
-		});
+		
 	}
 	
 	/**
