@@ -17,6 +17,7 @@ package org.tagaprice.client;
 import java.util.ArrayList;
 
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.client.SearchWidget2.SearchType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PriceData;
@@ -24,7 +25,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
-
 import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -146,7 +146,7 @@ public interface TaPManager {
 	 * @param sText
 	 * @param callback
 	 */
-	public void search(String sText, AsyncCallback<ArrayList<Entity>> callback);
+	public void search(String sText, SearchType searchType, AsyncCallback<ArrayList<Entity>> callback);
 	
 	/**
 	 * 
@@ -154,7 +154,7 @@ public interface TaPManager {
 	 * @param bbox
 	 * @param callback
 	 */
-	public void search(String sText, BoundingBox bbox, AsyncCallback<ArrayList<Entity>> callback);
+	public void search(String sText, SearchType searchType, BoundingBox bbox, AsyncCallback<ArrayList<Entity>> callback);
 	
 	/**
 	 * 

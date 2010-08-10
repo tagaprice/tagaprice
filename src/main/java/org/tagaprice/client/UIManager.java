@@ -14,12 +14,13 @@
  */
 package org.tagaprice.client;
 
+import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.user.RegistrationPage;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -39,7 +40,6 @@ public class UIManager extends Composite {
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
 	TitlePanel myTitlePan = new TitlePanel("Home", homePage, TitlePanel.Level.H1);
-	UniversalSearchWidget universalSearch;
 	InfoBox infoBox = new InfoBox();
 
 	public UIManager() {
@@ -49,9 +49,6 @@ public class UIManager extends Composite {
 
 	private void init(){
 		myDock.setWidth("100%");
-
-		universalSearch = new UniversalSearchWidget(logoPanel);
-
 		
 		
 		
@@ -67,11 +64,10 @@ public class UIManager extends Composite {
 			}
 		});
 
-		//Serach
-		myDock.add(universalSearch, DockPanel.NORTH);
+		//Search
+		myDock.add(new SearchWidget2(SearchType.PRODCUT, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
 
-
-
+		
 		//InfoBox
 		myDock.add(infoBox, DockPanel.NORTH);
 

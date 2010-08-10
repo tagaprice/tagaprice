@@ -69,7 +69,7 @@ public class SearchWidget2 extends Composite {
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
 				
-				myMng.search(searchBox.getText(), new AsyncCallback<ArrayList<Entity>>() {
+				myMng.search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
@@ -115,7 +115,7 @@ public class SearchWidget2 extends Composite {
 			public void onKeyDown(KeyDownEvent event) {
 								
 				
-				myMng.search(searchBox.getText(), _bbox,  new AsyncCallback<ArrayList<Entity>>() {
+				myMng.search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
@@ -209,7 +209,7 @@ public class SearchWidget2 extends Composite {
 		vePa2.setWidth("100%");
 		
 		//
-		selVePa = new SelectiveVerticalPanel(selectionType);
+		selVePa = new SelectiveVerticalPanel(_selectionType);
 		selVePa.setWidth("100%");
 		
 		//popup
@@ -264,5 +264,9 @@ public class SearchWidget2 extends Composite {
 				});
 			}
 		}
+	}
+	
+	public SelectiveVerticalPanel getSelectiveVerticalPanel(){
+		return selVePa;
 	}
 }

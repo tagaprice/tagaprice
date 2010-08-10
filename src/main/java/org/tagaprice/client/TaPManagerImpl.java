@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.client.SearchWidget2.SearchType;
+import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
@@ -307,15 +309,15 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public void search(String sText, AsyncCallback<ArrayList<Entity>> callback) {
-		searchHandler.search(sText, callback);
+	public void search(String sText, SearchType searchType, AsyncCallback<ArrayList<Entity>> callback) {
+		searchHandler.search(sText, searchType, callback);
 		
 	}
 
 	@Override
-	public void search(String sText, BoundingBox bbox,
+	public void search(String sText, SearchType searchType, BoundingBox bbox,
 			AsyncCallback<ArrayList<Entity>> callback) {
-		searchHandler.search(sText, bbox, callback);
+		searchHandler.search(sText, searchType, bbox, callback);
 		
 	}
 

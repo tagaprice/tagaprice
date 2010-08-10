@@ -16,13 +16,12 @@ package org.tagaprice.client;
 
 
 import java.util.ArrayList;
-
+import org.tagaprice.client.SearchWidget2.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -40,7 +39,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /** 
- * Displays editable receipt including shop and product search.
+ * Displays edit able receipt including shop and product search.
  *
  */
 public class ReceiptWidget extends Composite {
@@ -54,8 +53,10 @@ public class ReceiptWidget extends Composite {
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
-	private ShopSearchWidget shopChooser;
-	private ProductSearchWidget productChooser;
+	
+	private SearchWidget2 shopChooser2 = new SearchWidget2(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
+	private SearchWidget2 productChooser2;
+	
 	SelectiveVerticalPanel productContainer = new SelectiveVerticalPanel(SelectionType.MINUSBUTTON);
 	
 	
@@ -113,12 +114,19 @@ public class ReceiptWidget extends Composite {
 		
 		//shopChooser
 		shop = new SimplePanel();
-		shopChooser=new ShopSearchWidget(this);
-		shop.setWidget(shopChooser);
-		basePanel.insert(shop, 2);
-		
+		shop.setWidget(shopChooser2);
+		basePanel.insert(shop, 2);		
 		basePanel.setCellHorizontalAlignment(pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
+		//Listen on Select
+		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {
+			
+			@Override
+			public void onClick(Widget widget, int index) {
+				setShop(((ShopPreview)widget).getShopData());
+			}
+		});
+		
 		
 		//ProductsHandler
 		priceChangeHandler = new ChangeHandler() {			
@@ -138,12 +146,9 @@ public class ReceiptWidget extends Composite {
 				
 			}
 		});
-		
-		product=new SimplePanel();
-		productChooser = new ProductSearchWidget(this);
-		product.setWidget(productChooser);
-		basePanel.insert(product, 4);
 			
+		
+		
 		
 		//Save
 		save.setStyleName("Awesome");
@@ -192,6 +197,19 @@ public class ReceiptWidget extends Composite {
 	public void setShop(ShopData shopData){
 		shopPreview=new ShopPreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
+		
+		product=new SimplePanel();
+		productChooser2 = new SearchWidget2(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON, shopData);
+		product.setWidget(productChooser2);
+		basePanel.insert(product, 4);
+		
+		//ProductChooserListener
+		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {			
+			@Override
+			public void onClick(Widget widget, int index) {
+				addProduct(((ProductPreview)widget).getProductData());				
+			}
+		});
 	}
 
 	
@@ -204,7 +222,8 @@ public class ReceiptWidget extends Composite {
 	 * @param product
 	 */
 	public void addProduct(ProductData product){
-		productContainer.add(new ProductPreview(product, isEditable,priceChangeHandler));
+		productContainer.add(new ProductPreview(product, isEditable, priceChangeHandler));
+		refresh();
 	}
 	
 	
