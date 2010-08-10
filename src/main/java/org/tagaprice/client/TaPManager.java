@@ -141,15 +141,41 @@ public interface TaPManager {
 	 */
 	public void showUserRegistrationPage(String verificationCode);
 	
+	/**
+	 * 
+	 * @param sText
+	 * @param callback
+	 */
+	public void search(String sText, AsyncCallback<ArrayList<Entity>> callback);
 	
+	/**
+	 * 
+	 * @param sText
+	 * @param bbox
+	 * @param callback
+	 */
+	public void search(String sText, BoundingBox bbox, AsyncCallback<ArrayList<Entity>> callback);
+	
+	/**
+	 * 
+	 * @param sText
+	 * @param shopData
+	 * @param callback
+	 */
+	public void search(String sText, ShopData shopData, AsyncCallback<ArrayList<Entity>> callback);
+	
+	@Deprecated
 	public ArrayList<ShopData> searchShops(String userInput, SearchWidget sw);
-	
-	public ArrayList<ShopData> searchShops(LatLngBounds bounds,String searchString,  SearchWidget searchWidget);
-	
+	@Deprecated
+	public ArrayList<ShopData> searchShops(LatLngBounds bounds, String searchString,  SearchWidget searchWidget);
+	@Deprecated
 	public ArrayList<ProductData> searchProducts(String searchString, SearchWidget searchWidget);
-
+	@Deprecated
 	public ArrayList<ShopData> searchShops(LatLngBounds bounds, SearchWidget searchWidget);
-
+	@Deprecated
 	public ArrayList<Entity> search(String text, SearchWidget searchWidget);
+	
+	
+	
 	
 }

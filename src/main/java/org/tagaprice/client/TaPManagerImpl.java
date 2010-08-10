@@ -36,6 +36,8 @@ import org.tagaprice.shared.rpc.ProductHandler;
 import org.tagaprice.shared.rpc.ProductHandlerAsync;
 import org.tagaprice.shared.rpc.ReceiptHandler;
 import org.tagaprice.shared.rpc.ReceiptHandlerAsync;
+import org.tagaprice.shared.rpc.SearchHandler;
+import org.tagaprice.shared.rpc.SearchHandlerAsync;
 import org.tagaprice.shared.rpc.TypeHandler;
 import org.tagaprice.shared.rpc.TypeHandlerAsync;
 
@@ -59,6 +61,7 @@ public class TaPManagerImpl implements TaPManager {
 	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
 	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
 	private PriceHandlerAsync priceHandler = GWT.create(PriceHandler.class);
+	private SearchHandlerAsync searchHandler = GWT.create(SearchHandler.class);
 
 
 	public static TaPManager getInstance(){
@@ -300,6 +303,26 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		uiMng.showUserRegistrationPage(verificationCode);
 		
+		
+	}
+
+	@Override
+	public void search(String sText, AsyncCallback<ArrayList<Entity>> callback) {
+		searchHandler.search(sText, callback);
+		
+	}
+
+	@Override
+	public void search(String sText, BoundingBox bbox,
+			AsyncCallback<ArrayList<Entity>> callback) {
+		searchHandler.search(sText, bbox, callback);
+		
+	}
+
+	@Override
+	public void search(String sText, ShopData shopData,
+			AsyncCallback<ArrayList<Entity>> callback) {
+		searchHandler.search(sText, shopData, callback);
 		
 	}
 
