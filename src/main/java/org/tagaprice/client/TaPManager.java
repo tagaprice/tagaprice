@@ -25,7 +25,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
-import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -115,11 +114,7 @@ public interface TaPManager {
 	public UIManager getUIManager();
 
 		
-	/**
-	 * 
-	 * @return
-	 */
-	public InfoBox getInfoBox();
+
 	
 	/**
 	 * 

@@ -26,13 +26,12 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
-public class UIManager extends Composite {
+public class UIManager extends InfoBoxComposite {
 
 	DockPanel myDock = new DockPanel();
 	Image home = new Image(MyResources.INSTANCE.home());
@@ -40,10 +39,9 @@ public class UIManager extends Composite {
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
 	TitlePanel myTitlePan = new TitlePanel("Home", homePage, TitlePanel.Level.H1);
-	InfoBox infoBox = new InfoBox();
 
 	public UIManager() {
-		initWidget(myDock);
+		init(myDock);
 		init();
 	}
 
@@ -109,17 +107,19 @@ public class UIManager extends Composite {
 
 
 	public void showProduct(ProductData productData, Type type){
+		waitingPage();
 		ProductPage tempProduct = new ProductPage(productData,type);
 		myTitlePan.setTitleWidget(productData.getTitle(), tempProduct);
 	}
 
 	public void showShop(ShopData shopData, Type type){
+		waitingPage();
 		ShopPage tempShop = new ShopPage(shopData, type);
 		myTitlePan.setTitleWidget(shopData.getTitle(), tempShop);
 	}
 	
 	public void showUserRegistrationPage(final String verificationCode){
-		
+		waitingPage();
 		GWT.runAsync(new RunAsyncCallback() {
 			
 			@Override

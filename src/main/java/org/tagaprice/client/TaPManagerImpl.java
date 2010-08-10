@@ -19,15 +19,12 @@ import java.util.ArrayList;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.SearchWidget.SearchType;
-import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.Price;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
@@ -42,11 +39,9 @@ import org.tagaprice.shared.rpc.SearchHandler;
 import org.tagaprice.shared.rpc.SearchHandlerAsync;
 import org.tagaprice.shared.rpc.TypeHandler;
 import org.tagaprice.shared.rpc.TypeHandlerAsync;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.maps.client.geom.LatLngBounds;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -120,7 +115,7 @@ public class TaPManagerImpl implements TaPManager {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+						uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 					}
 				});
 
@@ -128,7 +123,7 @@ public class TaPManagerImpl implements TaPManager {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 
 			}
 		});	
@@ -153,7 +148,7 @@ public class TaPManagerImpl implements TaPManager {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 			}
 		});
 
@@ -171,7 +166,7 @@ public class TaPManagerImpl implements TaPManager {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				TaPMng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
+				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
 			}
 		});
 	}
@@ -224,10 +219,7 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 
-	@Override
-	public InfoBox getInfoBox() {
-		return uiMng.getInfoBox();
-	}
+
 
 	@Override
 	public void getType(long id, AsyncCallback<Type> response) {

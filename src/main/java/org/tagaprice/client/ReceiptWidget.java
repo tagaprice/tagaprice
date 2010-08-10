@@ -30,7 +30,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -42,7 +41,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Displays edit able receipt including shop and product search.
  *
  */
-public class ReceiptWidget extends Composite {
+public class ReceiptWidget extends InfoBoxComposite {
 	interface MyUiBinder extends UiBinder<Widget, ReceiptWidget>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	
@@ -101,7 +100,7 @@ public class ReceiptWidget extends Composite {
 	 * 
 	 */
 	public ReceiptWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
+		init(uiBinder.createAndBindUi(this));
 		
 		receiptData=new ReceiptData();
 		
@@ -159,7 +158,7 @@ public class ReceiptWidget extends Composite {
 			public void onClick(ClickEvent event) {
 				receiptData.setDraft(false);//Now a new receipt will be created.
 				TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
-				TaPManagerImpl.getInstance().getInfoBox().showInfo("Successfully saved", InfoBox.BoxType.WARNINGBOX);
+				showInfo("Successfully saved", InfoBox.BoxType.WARNINGBOX);
 			}
 		});
 		

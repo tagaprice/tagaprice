@@ -111,7 +111,7 @@ public class TypeWidget extends Composite{
 						
 						@Override
 						public void onFailure(Throwable caught) {
-							TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
+							//TODO TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
 						}
 					});				
 					
@@ -158,7 +158,7 @@ public class TypeWidget extends Composite{
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
+						//TODO TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
 					}
 				});				
 				

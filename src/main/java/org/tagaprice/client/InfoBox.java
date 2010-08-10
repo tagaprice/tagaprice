@@ -14,7 +14,6 @@
 */
 package org.tagaprice.client;
 
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -67,6 +66,5 @@ public class InfoBox extends Composite {
 	
 	public void showInfo(String text, BoxType type){
 		showInfo(new Label(text), type);
-
 	}
 }

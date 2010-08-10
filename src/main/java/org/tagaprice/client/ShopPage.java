@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ShopPage extends Composite {
+public class ShopPage extends InfoBoxComposite {
 
 	private ShopData shopData;
 	private Type type;
@@ -58,9 +58,10 @@ public class ShopPage extends Composite {
 	private PriceMapWidget priceMap;
 	
 	public ShopPage(ShopData _shopData, Type _type){
-		initWidget(vePa1);
+		init(vePa1);
 		this.shopData=_shopData;
 		this.type=_type;
+		
 		
 		//Move PropertyData to hashPropertyData
 		for(PropertyData pd:this.shopData.getProperties()){
@@ -123,7 +124,7 @@ public class ShopPage extends Composite {
 				TaPMng.getType(newType.getLocaleId(), new AsyncCallback<Type>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						TaPMng.getInfoBox().showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
+						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
 					}
 
 					@Override

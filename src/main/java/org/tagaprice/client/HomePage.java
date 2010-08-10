@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
-public class HomePage extends Composite {
+public class HomePage extends InfoBoxComposite {
 
 	TaPManager Mng = TaPManagerImpl.getInstance();
 	
@@ -38,7 +38,7 @@ public class HomePage extends Composite {
 	Image registerImage = new Image(MyResources.INSTANCE.productPriview());
 	
 	public HomePage() {
-		initWidget(grid);
+		init(grid);
 		setStyleName("HomePage");
 		
 		
@@ -95,7 +95,7 @@ public class HomePage extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Mng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+						showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 					}
 				});		
 			}
@@ -114,7 +114,7 @@ public class HomePage extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Mng.getInfoBox().showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+						showInfo("Fail: "+caught, BoxType.WARNINGBOX);
 					}
 				});		
 			}

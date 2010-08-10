@@ -16,7 +16,6 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
@@ -41,7 +40,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ProductPage extends Composite {
+public class ProductPage extends InfoBoxComposite {
 
 	private ProductData productData;
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
@@ -56,10 +55,11 @@ public class ProductPage extends Composite {
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	
 	public ProductPage(ProductData _productData, Type _type) {
-		initWidget(vePa1);
+		init(vePa1);
 		this.productData=_productData;
 		
 		this.type=_type;
+		
 		
 		
 		//Move PropertyData to hashPropertyData
@@ -136,7 +136,7 @@ public class ProductPage extends Composite {
 				TaPMng.getType(newType.getLocaleId(), new AsyncCallback<Type>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						TaPMng.getInfoBox().showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
+						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
 					}
 
 					@Override
@@ -232,12 +232,12 @@ public class ProductPage extends Composite {
 						
 						@Override
 						public void onFailure(Throwable caught) {
-							TaPMng.getInfoBox().showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
+							showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
 							
 						}
 					});	
 				}else{
-					TaPMng.getInfoBox().showInfo("SaveFail: Invalide Data", BoxType.WARNINGBOX);
+					showInfo("SaveFail: Invalide Data", BoxType.WARNINGBOX);
 				}
 				
 			}
