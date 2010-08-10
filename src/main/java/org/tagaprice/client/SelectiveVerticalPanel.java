@@ -124,4 +124,11 @@ public class SelectiveVerticalPanel extends Composite {
 	public Widget getWidget(int index){
 		return ((HorizontalPanel)vePa1.getWidget(index)).getWidget(1);
 	}
+	
+	/**
+	 * 
+	 */
+	public void clear(){
+		vePa1.clear();
+	}
 }
