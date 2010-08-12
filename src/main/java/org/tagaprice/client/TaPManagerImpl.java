@@ -82,6 +82,12 @@ public class TaPManagerImpl implements TaPManager {
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
+				}else if(historyToken[0].equals("product/new")){
+					//String[] equalToken = historyToken[1].split("=");
+					//TaPMng.showProductPage(Long.parseLong(equalToken[1]));
+					//TODO Get Product name from GET param
+					
+					TaPMng.newProductPage();
 				}else if(historyToken[0].equals("shop/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showShopPage(Long.parseLong(equalToken[1]));
@@ -127,7 +133,28 @@ public class TaPManagerImpl implements TaPManager {
 
 			}
 		});	
+		
+	}
+	
 
+	@Override
+	public void newProductPage() {		
+		newProductPage("Default Title");
+	}
+
+	@Override
+	public void newProductPage(String title) {
+		uiMng.waitingPage();
+		
+		
+		
+		ProductData pData = new ProductData();
+		pData.setTitle(title);
+		
+		//Error on this page
+		uiMng.showProduct(
+				pData,
+				new Type("root", 0));
 		
 	}
 	
@@ -264,6 +291,7 @@ public class TaPManagerImpl implements TaPManager {
 		searchHandler.search(sText, shopData, callback);
 		
 	}
+
 
 
 }

@@ -14,6 +14,7 @@
  */
 package org.tagaprice.client;
 
+import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.user.RegistrationPage;
@@ -30,6 +31,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public class UIManager extends InfoBoxComposite {
 
@@ -38,7 +40,8 @@ public class UIManager extends InfoBoxComposite {
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
-	TitlePanel myTitlePan = new TitlePanel("Home", homePage, TitlePanel.Level.H1);
+	//TitlePanel myTitlePan = new TitlePanel("Home", homePage, TitlePanel.Level.H1);
+	SimplePanel centerPage = new SimplePanel();
 
 	public UIManager() {
 		init(myDock);
@@ -63,32 +66,34 @@ public class UIManager extends InfoBoxComposite {
 
 
 		//Center
-		myDock.add(myTitlePan, DockPanel.CENTER);
-
-
+		//myDock.add(myTitlePan, DockPanel.CENTER);
+		centerPage.setWidth("100%");
+		myDock.add(centerPage, DockPanel.CENTER);
 
 	}
 
 
 
 	public void showReceipt(final ReceiptData receiptData){
-		
+		waitingPage();
 		GWT.runAsync(new RunAsyncCallback() {
 
 			@Override
 			public void onFailure(Throwable reason) {
-				System.err.println("code Download Failed");					
+				showInfo("code Download Failed", BoxType.WARNINGBOX);
 			}
 
 			@Override
 			public void onSuccess() {
 				if(receiptData==null){
 					ReceiptWidget tempReceipt = new ReceiptWidget(); 
-					myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
+					//myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
+					centerPage.setWidget(tempReceipt);
 				}
 				else {
 					ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
-					myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
+					//myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
+					centerPage.setWidget(tempReceipt);
 				}
 				
 			}
@@ -102,13 +107,13 @@ public class UIManager extends InfoBoxComposite {
 	public void showProduct(ProductData productData, Type type){
 		waitingPage();
 		ProductPage tempProduct = new ProductPage(productData,type);
-		myTitlePan.setTitleWidget(productData.getTitle(), tempProduct);
+		centerPage.setWidget(tempProduct);
 	}
 
 	public void showShop(ShopData shopData, Type type){
 		waitingPage();
 		ShopPage tempShop = new ShopPage(shopData, type);
-		myTitlePan.setTitleWidget(shopData.getTitle(), tempShop);
+		centerPage.setWidget(tempShop);
 	}
 	
 	public void showUserRegistrationPage(final String verificationCode){
@@ -118,13 +123,13 @@ public class UIManager extends InfoBoxComposite {
 			@Override
 			public void onSuccess() {
 				RegistrationPage tempRegi = new RegistrationPage(verificationCode);
-				myTitlePan.setTitleWidget("Registration", tempRegi);
+				centerPage.setWidget(tempRegi);
 				
 			}
 			
 			@Override
 			public void onFailure(Throwable reason) {
-				System.err.println("code Download Failed");			
+				showInfo("code Download Failed", BoxType.WARNINGBOX);
 			}
 		});
 		
@@ -133,16 +138,15 @@ public class UIManager extends InfoBoxComposite {
 
 
 	public void showHome(){
-		myTitlePan.setTitleWidget(
-				"Home", 
-				homePage);
+		waitingPage();
+		centerPage.setWidget(homePage);
 	}
 
 
 
 
 	public void waitingPage(){
-		myTitlePan.setTitleWidget("Waiting", new Label("Processing..."));
+		centerPage.setWidget(new Label("Waiting..."));
 	}
 
 }

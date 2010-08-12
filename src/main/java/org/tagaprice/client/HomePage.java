@@ -37,6 +37,9 @@ public class HomePage extends InfoBoxComposite {
 	Label registerLable = new Label("Registrieren");
 	Image registerImage = new Image(MyResources.INSTANCE.productPriview());
 	
+	Label newProductLabel = new Label("New Product");
+	Image newProductImage = new Image(MyResources.INSTANCE.productPriview());
+	
 	public HomePage() {
 		init(grid);
 		setStyleName("HomePage");
@@ -57,8 +60,8 @@ public class HomePage extends InfoBoxComposite {
 		grid.setWidget(0, 1, registerImage);
 		grid.setWidget(1, 1, registerLable);
 		
-		grid.setWidget(0, 2, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(1, 2, new Label("Label"));
+		grid.setWidget(0, 2, newProductImage);
+		grid.setWidget(1, 2, newProductLabel);
 		
 		
 		grid.setWidget(3, 0, new Image(MyResources.INSTANCE.productPriview()));
@@ -134,6 +137,15 @@ public class HomePage extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				History.newItem("user/registration/new");				
+			}
+		});
+		
+		
+		newProductImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("product/new");				
 			}
 		});
 	}

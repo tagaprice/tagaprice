@@ -39,6 +39,18 @@ public interface TaPManager {
 	 */
 	public void showProductPage(Long id);
 	
+	
+	/**
+	 * 
+	 */
+	public void newProductPage();
+	
+	/**
+	 * 
+	 * @param title
+	 */
+	public void newProductPage(String title);
+	
 	/**
 	 * Starts Receipt Page
 	 * @param id
