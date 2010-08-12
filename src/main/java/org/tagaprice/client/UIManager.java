@@ -42,10 +42,6 @@ public class UIManager extends InfoBoxComposite {
 
 	public UIManager() {
 		init(myDock);
-		init();
-	}
-
-	private void init(){
 		myDock.setWidth("100%");
 		
 		
@@ -65,17 +61,14 @@ public class UIManager extends InfoBoxComposite {
 		//Search
 		myDock.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
 
-		
-		//InfoBox
-		myDock.add(infoBox, DockPanel.NORTH);
 
 		//Center
 		myDock.add(myTitlePan, DockPanel.CENTER);
 
 
 
-
 	}
+
 
 
 	public void showReceipt(final ReceiptData receiptData){
@@ -145,13 +138,7 @@ public class UIManager extends InfoBoxComposite {
 				homePage);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public InfoBox getInfoBox(){
-		return infoBox;
-	}
+
 
 
 	public void waitingPage(){

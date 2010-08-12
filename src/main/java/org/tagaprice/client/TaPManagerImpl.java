@@ -115,7 +115,7 @@ public class TaPManagerImpl implements TaPManager {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+						uiMng.showInfo("Fail type: "+caught, BoxType.WARNINGBOX);
 					}
 				});
 
@@ -123,7 +123,7 @@ public class TaPManagerImpl implements TaPManager {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+				uiMng.showInfo("Fail product: "+caught, BoxType.WARNINGBOX);
 
 			}
 		});	

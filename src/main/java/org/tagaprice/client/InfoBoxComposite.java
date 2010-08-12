@@ -7,8 +7,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class InfoBoxComposite extends Composite {
-	InfoBox infoBox = new InfoBox();
-	VerticalPanel vePa1 = new VerticalPanel();
+	private InfoBox infoBox = new InfoBox();
+	private VerticalPanel vePa1 = new VerticalPanel();
 	
 	public InfoBoxComposite() {
 		initWidget(vePa1);
