@@ -223,6 +223,16 @@ input{
 }
 
 
+.LogoPanel{
+
+	border-bottom-color: #9e9b9b;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	
+	margin-bottom: 2px;
+}
+
+
 /********* GWT *********/
 
 .gwt-PopupPanel {

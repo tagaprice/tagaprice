@@ -40,20 +40,21 @@ public class UIManager extends InfoBoxComposite {
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
-	//TitlePanel myTitlePan = new TitlePanel("Home", homePage, TitlePanel.Level.H1);
 	SimplePanel centerPage = new SimplePanel();
 
 	public UIManager() {
 		init(myDock);
-		myDock.setWidth("100%");
+		myDock.setWidth("99%");
 		
 		
 		
 		//logo
 		myDock.add(logoPanel, DockPanel.NORTH);
 		logoPanel.setWidth("100%");
+		logoPanel.setStyleName("LogoPanel");
 		logoPanel.add(home);
-		logoPanel.add(new Label("TagAPrice"));
+		logoPanel.setCellWidth(home, "25px");
+		logoPanel.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON));
 		home.addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -62,7 +63,7 @@ public class UIManager extends InfoBoxComposite {
 		});
 
 		//Search
-		myDock.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
+		//myDock.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
 
 
 		//Center
