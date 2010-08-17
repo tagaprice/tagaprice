@@ -25,7 +25,7 @@ import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class EntityDAOTest {
-	private class TestEntity extends Entity {
+	public static class TestEntity extends Entity {
 		private static final long serialVersionUID = 1L;
 
 		public TestEntity(Long id, int rev, String title, int localeId, long creatorId) {
