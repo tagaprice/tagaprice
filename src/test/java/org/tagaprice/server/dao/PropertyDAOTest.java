@@ -17,7 +17,7 @@ public class PropertyDAOTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		db = new TestDBConnection();
+		db = new EntityDAOTest.TestDBConnection();
 		localeId = LocaleDAO.getInstance().get("en").getId();
 		Account a = new Account("propertyTestAccount", localeId);
 		AccountDAO.getInstance(db).save(a);

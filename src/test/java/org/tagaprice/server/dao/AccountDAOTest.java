@@ -28,7 +28,7 @@ public class AccountDAOTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		db = new TestDBConnection();
+		db = new EntityDAOTest.TestDBConnection();
 		dao = AccountDAO.getInstance(db);
 		
 		testAccount = new Account(null, 0, "testAccount", LocaleDAO.getInstance().get("English").getId());

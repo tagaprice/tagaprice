@@ -15,16 +15,43 @@
 package org.tagaprice.server.dao;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.Account;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class EntityDAOTest {
+	public static class TestDBConnection extends DBConnection {
+		public TestDBConnection() throws FileNotFoundException, IOException, SQLException {
+			super();
+			super.begin();
+		}
+		
+		@Override
+		public void commit() throws SQLException {
+			if (transactionDepth > 0) transactionDepth--;
+		}
+		
+		@Override
+		public InputStream _loadResourceFile(String fileName) throws FileNotFoundException {
+			File file = new File("target/test-classes/WEB-INF/conf/jdbc.properties");
+			return new FileInputStream(file);
+		}
+	}
+	
 	public static class TestEntity extends Entity {
 		private static final long serialVersionUID = 1L;
 
