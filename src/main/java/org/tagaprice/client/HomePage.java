@@ -34,11 +34,17 @@ public class HomePage extends InfoBoxComposite {
 	Label newReceiptLabel = new Label("Rechnung eintrage");
 	Image newReceiptImage = new Image(MyResources.INSTANCE.productPriview());
 	
-	Label registerLable = new Label("Registrieren");
+	Label registerLable = new Label("Sign Up");
 	Image registerImage = new Image(MyResources.INSTANCE.productPriview());
 	
 	Label newProductLabel = new Label("New Product");
 	Image newProductImage = new Image(MyResources.INSTANCE.productPriview());
+	
+	Label newShopLabel = new Label("New Shop");
+	Image newShopImage = new Image(MyResources.INSTANCE.productPriview());
+	
+	Label draftLabel = new Label("Drafts");
+	Image draftImage = new Image(MyResources.INSTANCE.productPriview());
 	
 	public HomePage() {
 		init(grid);
@@ -64,11 +70,11 @@ public class HomePage extends InfoBoxComposite {
 		grid.setWidget(1, 2, newProductLabel);
 		
 		
-		grid.setWidget(3, 0, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(4, 0, new Label("Label"));
+		grid.setWidget(3, 0, newShopImage);
+		grid.setWidget(4, 0, newShopLabel);
 		
-		grid.setWidget(3, 1, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(4, 1, new Label("Label"));
+		grid.setWidget(3, 1, draftImage);
+		grid.setWidget(4, 1, draftLabel);
 		
 		grid.setWidget(3, 2, new Image(MyResources.INSTANCE.productPriview()));
 		grid.setWidget(4, 2, new Label("Label"));

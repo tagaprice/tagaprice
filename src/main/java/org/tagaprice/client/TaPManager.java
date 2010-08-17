@@ -79,6 +79,8 @@ public interface TaPManager {
 	 */
 	public void getProduct(Long id, AsyncCallback<ProductData> response);
 	
+	
+	
 	/**
 	 * Save, create or update a product.
 	 * @param data
@@ -124,8 +126,6 @@ public interface TaPManager {
 	 * @return
 	 */
 	public UIManager getUIManager();
-
-		
 
 	
 	/**

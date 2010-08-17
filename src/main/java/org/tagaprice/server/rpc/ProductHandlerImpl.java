@@ -55,6 +55,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 
 	}
 	
+	
+	
 	@Override
 	public ProductData get(Long id) throws IllegalArgumentException {
 		ProductData pd = new ProductData();

@@ -25,5 +25,7 @@ public interface ProductHandlerAsync {
 
 	void save(ProductData data, AsyncCallback<ProductData> callback) 
 		throws IllegalArgumentException;
+	
+	
 
 }

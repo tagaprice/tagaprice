@@ -22,9 +22,11 @@ import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.Price;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
@@ -85,7 +87,7 @@ public class TaPManagerImpl implements TaPManager {
 				}else if(historyToken[0].equals("product/new")){
 					//String[] equalToken = historyToken[1].split("=");
 					//TaPMng.showProductPage(Long.parseLong(equalToken[1]));
-					//TODO Get Product name from GET param
+					//TODO Get Product name from GET parameters 
 					
 					TaPMng.newProductPage();
 				}else if(historyToken[0].equals("shop/get")){
@@ -147,14 +149,10 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		
 		
-		
-		ProductData pData = new ProductData();
-		pData.setTitle(title);
-		
-		//Error on this page
+		ProductData pd = new ProductData(0L, 0, title, 2, 0L, 0L, "logo.png", 0, 0, null, null, false);
 		uiMng.showProduct(
-				pData,
-				new Type("root", 0));
+				pd,
+				new Type("root", 2));		
 		
 	}
 	
@@ -208,6 +206,8 @@ public class TaPManagerImpl implements TaPManager {
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
 		productHandler.get(id, response);
 	}
+	
+
 
 	@Override
 	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
@@ -291,6 +291,8 @@ public class TaPManagerImpl implements TaPManager {
 		searchHandler.search(sText, shopData, callback);
 		
 	}
+
+	
 
 
 
