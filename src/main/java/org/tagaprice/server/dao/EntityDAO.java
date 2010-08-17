@@ -45,6 +45,7 @@ public class EntityDAO implements DAOClass<Entity> {
 	private EntityDAO(DBConnection db) {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
+		//this.propertyDAO = PropertyDAO.getInstance(db);
 	}
 	
 	public static EntityDAO getInstance(DBConnection db) {
@@ -83,7 +84,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		}
 		
 		// get properties
-		propertyDAO.get(e);
+		//propertyDAO.get(e);
 	}
 	
 	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {

@@ -39,6 +39,7 @@ public class ProductDAO implements DAOClass<ProductData> {
 	
 	private ProductDAO(DBConnection db) {
 		this.db=db;
+		entityDAO=EntityDAO.getInstance(db);
 	}
 	
 	@Override
@@ -46,6 +47,8 @@ public class ProductDAO implements DAOClass<ProductData> {
 		
 		//Get Entitiy Data
 		entityDAO.get(p);
+		
+		System.out.println("i:1");
 		
 		//Get Product Data
 		String sql = "SELECT brand_id, type_id, imageurl " +
@@ -59,7 +62,9 @@ public class ProductDAO implements DAOClass<ProductData> {
 		if (!res.next()) throw new NotFoundException("Product not found");
 		p.setBrandId(res.getLong("brand_id"));
 		p.setTypeId(res.getLong("type_id"));
-		p.setImageSrc(res.getString("image_url"));		
+		p.setImageSrc(res.getString("imageurl"));	
+		
+		System.out.println("i:2");
 	}
 
 	@Override

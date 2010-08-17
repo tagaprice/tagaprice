@@ -24,7 +24,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		
 		if(searchType.equals(SearchType.ALL)){
-			mockUp.add(new ProductData(152L, 3, "Mousse au Chocolat "+Math.random(), 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true));
+			mockUp.add(new ProductData(9L, 3, "Mousse au Chocolat "+Math.random(), 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true));
 			mockUp.add(new ProductData(152L, 3, "test essen"+Math.random(), 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true));
 			mockUp.add(new ShopData(15, 3, "Billa Flossgasse_"+Math.random(), 1, 30l, "logo.png", 80, 50, new Address("Flossgasse 1A", "1020 Wien", "Austria")));
 			mockUp.add(new ShopData(12, 3, "Amazon.de "+Math.random(), 1, 30l, "logo.png", 80, 3));

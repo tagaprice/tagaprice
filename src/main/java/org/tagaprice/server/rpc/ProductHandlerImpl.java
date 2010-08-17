@@ -34,13 +34,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
 	ProductData test;
 	ProductDAO pDao;
-	PropertyDAO proDao;
 	
 	public ProductHandlerImpl() {
 		try {
 			DBConnection dbConn = new DBConnection();
 			pDao = ProductDAO.getInstance(dbConn);
-			proDao = PropertyDAO.getInstance(dbConn);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,33 +57,29 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	
 	@Override
 	public ProductData get(Long id) throws IllegalArgumentException {
+		System.out.println("in 1");
 		ProductData pd = new ProductData();
 		pd._setId(id);
 		
 		
 		//Get Product Data
 		try {
+			System.out.println("in 2");
 			pDao.get(pd);
 		} catch (SQLException e) {
+			System.out.println("in 3");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotFoundException e) {
+			System.out.println("in 4");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("in 5");
 		
 		
-		//Get Properties
-		try {
-			proDao.get(pd);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
+		
+		System.out.println("in 9");
 		return 	pd;
 	}
 
