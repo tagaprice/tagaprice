@@ -24,11 +24,11 @@ package org.tagaprice.shared;
 public class ShopData extends Entity {
 	private static final long serialVersionUID = 1;
 	
+	private Long typeId;
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100
 	private Address address;
-	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>();
 	
 	public ShopData() {
 		super();
@@ -42,8 +42,25 @@ public class ShopData extends Entity {
 	 * @param progress
 	 * @param rating
 	 */
-	public ShopData(long id, int rev, String title, int localeId, String imageSrc, int progress, int rating) {
-		this(id, rev, title, localeId, imageSrc, progress, rating, null);
+	public ShopData(
+			long id, 
+			int rev, 
+			String title, 
+			int localeId, 
+			Long typeId,
+			String imageSrc, 
+			int progress, 
+			int rating) {
+		this(
+				id, 
+				rev, 
+				title, 
+				localeId, 
+				typeId,
+				imageSrc, 
+				progress, 
+				rating, 
+				null);
 	}
 	
 	/**
@@ -56,7 +73,16 @@ public class ShopData extends Entity {
 	 * @param city
 	 * @param country
 	 */
-	public ShopData(long id, int rev, String title, int localeId, String imageSrc, int progress, int rating, Address address){
+	public ShopData(
+			long id, 
+			int rev, 
+			String title, 
+			int localeId, 
+			Long typeId,
+			String imageSrc, 
+			int progress, 
+			int rating, 
+			Address address){
 		super(id, rev, title, localeId);
 		setImageSrc(imageSrc);
 		setProgress(progress);
@@ -142,23 +168,21 @@ public class ShopData extends Entity {
 
 	
 
-	/**
-	 * @return the properties
-	 */
-	public SearchResult<PropertyData> getProperties() {
-		return properties;
-	}
-
-	/**
-	 * @param properties the properties to set
-	 */
-	public void setProperties(SearchResult<PropertyData> properties) {
-		this.properties = properties;
-	}
-
 	@Override
 	public String getSerializeName() {
 		return "shop";
+	}
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	// TODO implement missing ShopData.equals()

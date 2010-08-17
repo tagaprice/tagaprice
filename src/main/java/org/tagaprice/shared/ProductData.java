@@ -39,14 +39,16 @@ public class ProductData extends Entity {
 	/**
 	 * 
 	 * @param id
+	 * @param rev
+	 * @param title
+	 * @param localeId
 	 * @param brandId
 	 * @param typeId
-	 * @param title
 	 * @param imageSrc
 	 * @param progress
 	 * @param rating
 	 * @param price
-	 * @param quantitiy
+	 * @param quantity
 	 */
 	public ProductData(
 			Long id,
@@ -80,14 +82,16 @@ public class ProductData extends Entity {
 	/**
 	 * 
 	 * @param id
+	 * @param rev
+	 * @param title
+	 * @param localeId
 	 * @param brandId
 	 * @param typeId
-	 * @param title
 	 * @param imageSrc
 	 * @param progress
 	 * @param rating
 	 * @param price
-	 * @param quantitiy
+	 * @param quantity
 	 * @param hasReceipt
 	 */
 	public ProductData(

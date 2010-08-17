@@ -34,7 +34,7 @@ public class ShopHandler implements ApiCall {
 	}
 	
 	public void doGet(ApiCallData d) {
-		ShopData shop = new ShopData(123, 5, "ACME Store", 2, null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
+		ShopData shop = new ShopData(123, 5, "ACME Store", 2, 30l, null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);

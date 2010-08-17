@@ -46,6 +46,7 @@
 		<url-pattern>/tagapriceui/rpc/shop</url-pattern>
 	</servlet-mapping>
 	
+	
 	<servlet>
 		<servlet-name>Receipt</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ReceiptHandlerImpl</servlet-class>
