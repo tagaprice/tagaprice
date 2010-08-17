@@ -78,42 +78,42 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProduct() throws IOException {
-		checkSerializer(new ProductData(23, 2, "ACME Anvil 2t", 1, 24, 25,
+		checkSerializer(new ProductData(23L, 2, "ACME Anvil 2t", 1, 24L, 25L,
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 3, "EUR", 1),
 				new Quantity(2, new Unit(14, 4, "t", 1)), false));
 	}
 
 	@Test
 	public void testProduct_noBrand() throws IOException {
-		checkSerializer(new ProductData(23, 5, "ACME Anvil 2t", 2, -1, 25,
+		checkSerializer(new ProductData(23L, 5, "ACME Anvil 2t", 2, null, 25L,
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR", 2),
 				new Quantity(2, new Unit(14, 7, "t", 2)), false));
 	}
 
 	@Test
 	public void testProduct_noName() throws IOException {
-		checkSerializer(new ProductData(23, 5, null, -1, 24, 25,
+		checkSerializer(new ProductData(23L, 5, null, -1, 24L, 25L,
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 12, "EUR", 3),
 				new Quantity(2, new Unit(14, 13, "t", 3)), false));
 	}
 
 	@Test
 	public void testProduct_noImage() throws IOException {
-		checkSerializer(new ProductData(23, 8, "ACME Anvil 2t", 2, 24, 25,
+		checkSerializer(new ProductData(23L, 8, "ACME Anvil 2t", 2, 24L, 25L,
 				null, 80, 20, new Price(112584, 13, 1, "EUR", 2),
 				new Quantity(2, new Unit(14, 17, "t", 2)), false));
 	}
 
 	@Test
 	public void testProduct_noPrice() throws IOException {
-		checkSerializer(new ProductData(23, 88, "ACME Anvil 2t", 2, 24, 25,
+		checkSerializer(new ProductData(23L, 88, "ACME Anvil 2t", 2, 24L, 25L,
 				"/img/foo/bar.jpg", 80, 20, null,
 				new Quantity(2, new Unit(14, 7, "t", 18)), false));
 	}
 
 	@Test
 	public void testProduct_noQuantity() throws IOException {
-		checkSerializer(new ProductData(23, 4, "ACME Anvil 2t", 4, 24, 25,
+		checkSerializer(new ProductData(23L, 4, "ACME Anvil 2t", 4, 24L, 25L,
 				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR", 4),
 				null, false));
 	}
