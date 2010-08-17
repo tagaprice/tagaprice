@@ -41,15 +41,24 @@ public interface TaPManager {
 	
 	
 	/**
-	 * 
-	 */
-	public void newProductPage();
-	
-	/**
-	 * 
+	 * Creates empty productPage
 	 * @param title
 	 */
 	public void newProductPage(String title);
+	
+	
+	/**
+	 * Starts Shop Page with id
+	 * @param id
+	 */
+	public void showShopPage(Long id);
+	
+	/**
+	 * Creates empty shopPage. 
+	 * @param title
+	 */
+	public void newShopPage(String title);
+	
 	
 	/**
 	 * Starts Receipt Page
@@ -58,11 +67,7 @@ public interface TaPManager {
 	public void showReceiptPage(final Long id);
 	
 	
-	/**
-	 * Starts Shop Page with id
-	 * @param id
-	 */
-	public void showShopPage(Long id);
+
 	
 	/**
 	 *  

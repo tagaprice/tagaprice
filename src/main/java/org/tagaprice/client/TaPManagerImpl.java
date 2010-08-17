@@ -89,10 +89,15 @@ public class TaPManagerImpl implements TaPManager {
 					//TaPMng.showProductPage(Long.parseLong(equalToken[1]));
 					//TODO Get Product name from GET parameters 
 					
-					TaPMng.newProductPage();
+					TaPMng.newProductPage(null);
 				}else if(historyToken[0].equals("shop/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showShopPage(Long.parseLong(equalToken[1]));
+				}else if(historyToken[0].equals("shop/new")){
+					
+					//TODO get title parameter from GET parameters 
+					TaPMng.newShopPage(null);
+					
 				}else if(historyToken[0].equals("user/registration/new")){ 
 					TaPMng.showUserRegistrationPage(null);
 				}else{
@@ -139,15 +144,12 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 
-	@Override
-	public void newProductPage() {		
-		newProductPage("Default Title");
-	}
 
 	@Override
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
+		if(title==null) title="Default Title"; //Change this to language
 		
 		ProductData pd = new ProductData(0L, 0, title, 2, 0L, 0L, "logo.png", 0, 0, null, null, false);
 		uiMng.showProduct(
@@ -178,6 +180,21 @@ public class TaPManagerImpl implements TaPManager {
 		});
 
 	}
+	
+	
+	@Override
+	public void newShopPage(String title) {	
+		uiMng.waitingPage();
+		
+		if(title==null) title="Default Title"; //Change this to language
+		
+		uiMng.showShop(
+				new ShopData(123, 2, "ACME Store", 3, null, 80, 25, new Address("Park Avenue 23", "New York", "USA")), 
+				new Type("root", 2));
+		
+		
+	}
+	
 
 	public void showReceiptPage(final Long id){
 		uiMng.waitingPage();

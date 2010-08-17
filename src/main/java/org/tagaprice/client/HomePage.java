@@ -154,5 +154,29 @@ public class HomePage extends InfoBoxComposite {
 				History.newItem("product/new");				
 			}
 		});
+		
+		newProductLabel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("product/new");				
+			}
+		});
+		
+		newShopImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("shop/new");				
+			}
+		});
+		
+		newShopLabel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("shop/new");				
+			}
+		});
 	}
 }
