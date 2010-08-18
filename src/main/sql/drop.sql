@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS brand;
 DROP TABLE IF EXISTS entityProperty;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS typeRevision;
+DROP TABLE IF EXISTS propertyRevision;
 
 DROP TABLE IF EXISTS currency;
 DROP TABLE IF EXISTS productType;
