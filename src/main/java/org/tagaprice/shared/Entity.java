@@ -199,7 +199,7 @@ public abstract class Entity implements Serializable {
 	 * @param b second Object
 	 * @return true if they're equal, false otherwise
 	 */
-	protected boolean _compare(Object a, Object b) {
+	public static boolean _compare(Object a, Object b) {
 		return a == null ? b == null : a.equals(b);
 	}
 	
