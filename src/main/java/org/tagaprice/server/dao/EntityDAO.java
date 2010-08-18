@@ -84,7 +84,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		}
 		
 		// get properties
-		//propertyDAO.get(e);
+		propertyDAO.get(e);
 	}
 	
 	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
