@@ -33,4 +33,18 @@ public class Country implements Serializable {
 		return localTitle;
 	}
 	
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof Country) {
+			Country c = (Country) o;
+			
+			if (!Entity._compare(getCode(), c.getCode())) rc = false;
+			if (!Entity._compare(getTitle(), c.getTitle())) rc = false;
+			if (!Entity._compare(getLocalTitle(), c.getLocalTitle())) rc = false;
+		}
+		else rc = false;
+		
+		return rc;
+	}
 }
