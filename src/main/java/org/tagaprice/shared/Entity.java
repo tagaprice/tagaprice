@@ -181,19 +181,26 @@ public abstract class Entity implements Serializable {
 		if (rc && o instanceof Entity) {
 			Entity e = (Entity) o;
 			if (e.getId() != getId()) rc = false;
-			if (getTitle() != null) {
-				if (!getTitle().equals(e.getTitle())) rc = false;
-			}
-			else if (e.getTitle() != null) rc = false;
 			if (getRev() != e.getRev()) rc = false;
-			if (getLocaleId() != e.getLocaleId()) rc = false;
-			if (getCreatorId() != e.getCreatorId()) rc = false;
-			if (getRevCreatorId() != e.getRevCreatorId()) rc = false;
-			if (!getProperties().equals(e.getProperties())) rc = false;
+			if (!_compare(getTitle(), e.getTitle())) rc = false;
+			if (!_compare(getLocaleId(), e.getLocaleId())) rc = false;
+			if (!_compare(getCreatorId(), e.getCreatorId())) rc = false;
+			if (!_compare(getRevCreatorId(), e.getRevCreatorId())) rc = false;
+			if (!_compare(getProperties(), e.getProperties())) rc = false;
 		}
 		else rc = false;
 
 		return rc;
+	}
+	
+	/**
+	 * compare two objects and return true if either both of them are null or they're equal
+	 * @param a first Object
+	 * @param b second Object
+	 * @return true if they're equal, false otherwise
+	 */
+	protected boolean _compare(Object a, Object b) {
+		return a == null ? b == null : a.equals(b);
 	}
 	
 	public String toString() {
