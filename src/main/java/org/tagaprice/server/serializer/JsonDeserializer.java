@@ -78,12 +78,12 @@ public class JsonDeserializer extends Deserializer {
 		try {
 			JSONObject json = new JSONObject(data);
 			
-			long brandId = -1;
+			Long brandId = null;
 			if (json.has("brandId")) {
 				brandId = json.getLong("brandId");
 			}
 			long typeId = json.getLong("typeId");
-			String imageSrc = json_getString(json, "imgSrc");
+			String imageSrc = json_getString(json, "imageSrc");
 			int progress = json.getInt("progress");
 			int rating = json.getInt("rating");
 			Price price = getPrice(json_getString(json, "price"));
