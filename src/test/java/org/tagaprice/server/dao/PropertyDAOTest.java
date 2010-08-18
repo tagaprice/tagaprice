@@ -11,6 +11,7 @@ import org.tagaprice.shared.Account;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 public class PropertyDAOTest {
 	private TestEntity testEntity;
@@ -32,7 +33,7 @@ public class PropertyDAOTest {
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 		
-		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, null, null, null, null, true);
+		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
 		propDefDAO.save(testPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
