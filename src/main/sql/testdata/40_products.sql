@@ -31,9 +31,9 @@ INSERT INTO entityproperty (eprop_id, prop_id, ent_id, value, min_rev)
 VALUES
 (1, 10, 9, '20', 1);
 
-INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, uniq)
+INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, type, uniq)
 VALUES
-(10,1, 'energy',0,10,true);
+(10,1, 'energy',0,10, 'double',true);
 
 
 /* ***** Prop 2 ***** */
@@ -43,7 +43,7 @@ VALUES
 
 INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
 VALUES
-(11,1, 'kmh', '2010-08-18', 1);
+(11,1, 'kph', '2010-08-18', 1);
 
 INSERT INTO property (prop_id) VALUES (11);
 
@@ -51,9 +51,9 @@ INSERT INTO entityproperty (eprop_id, prop_id, ent_id, value, min_rev)
 VALUES
 (2, 11, 9, '180', 1);
 
-INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, uniq)
+INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, type, uniq)
 VALUES
-(11,1, 'kmh',0,10,true);
+(11,1, 'kph',0,10, 'int', true);
 
 /* ************** */
 COMMIT;

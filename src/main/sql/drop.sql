@@ -6,11 +6,12 @@ DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS typeRevision;
 DROP TABLE IF EXISTS propertyRevision;
 
+DROP TYPE IF EXISTS propertyType;
+
 DROP TABLE IF EXISTS currency;
 DROP TABLE IF EXISTS productType;
 DROP TABLE IF EXISTS property;
 
-ALTER TABLE unit DROP CONSTRAINT fkey_unit_currentRev;
 DROP TABLE unitRevision;
 DROP TABLE IF EXISTS unit;
 
