@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS entityProperty;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS typeRevision;
 DROP TABLE IF EXISTS propertyRevision;
+DROP TABLE IF EXISTS shop;
 
 DROP TYPE IF EXISTS propertyType;
 
@@ -24,3 +25,4 @@ DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS entity;
 
 DROP TABLE IF EXISTS locale;
+DROP TABLE IF EXISTS country;
