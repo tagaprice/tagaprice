@@ -1,11 +1,11 @@
 BEGIN;
-INSERT INTO entity (locale_id, created_at, current_revision, creator) 
+INSERT INTO entity (locale_id, current_revision, creator) 
 VALUES 
-(1,'2010-08-18',1,1);
+(1,1,1);
 
-INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
+INSERT INTO entityrevision (ent_id, rev, title, creator) 
 VALUES
-(currval('entity_ent_id_seq'), 1, 'First Product', '2010-08-18', 1);
+(currval('entity_ent_id_seq'), 1, 'First Product', 1);
 
 INSERT INTO product (prod_id) VALUES (currval('entity_ent_id_seq'));
 
@@ -16,25 +16,25 @@ VALUES
 
 
 /* INSERT TYPE */
-INSERT INTO entity (ent_id, locale_id, created_at, current_revision, creator) 
+INSERT INTO entity (ent_id, locale_id, current_revision, creator) 
 VALUES 
-(20,1,'2010-08-18',1,1);
+(20,1,1,1);
 
-INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
+INSERT INTO entityrevision (ent_id, rev, title, creator) 
 VALUES
-(20,1, 'eisen', '2010-08-18', 1);
+(20,1, 'eisen', 1);
 INSERT INTO producttype (type_id) VALUES (20);
 
 
 /* INSERT PROPERTIES*/
 /* ***** Prop 1 ***** */
-INSERT INTO entity (locale_id, created_at, current_revision, creator) 
+INSERT INTO entity (locale_id, current_revision, creator) 
 VALUES 
-(1,'2010-08-18',1,1);
+(1,1,1);
 
-INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
+INSERT INTO entityrevision (ent_id, rev, title, creator) 
 VALUES
-(currval('entity_ent_id_seq'), 1, 'energy', '2010-08-18', 1);
+(currval('entity_ent_id_seq'), 1, 'energy', 1);
 
 INSERT INTO property (prop_id) VALUES (currval('entity_ent_id_seq'));
 
@@ -48,13 +48,13 @@ VALUES
 
 
 /* ***** Prop 2 ***** */
-INSERT INTO entity (locale_id, created_at, current_revision, creator) 
+INSERT INTO entity (locale_id, current_revision, creator) 
 VALUES 
-(1,'2010-08-18',1,1);
+(1,1,1);
 
-INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
+INSERT INTO entityrevision (ent_id, rev, title, creator) 
 VALUES
-(currval('entity_ent_id_seq'),1, 'kph', '2010-08-18', 1);
+(currval('entity_ent_id_seq'),1, 'kph', 1);
 
 INSERT INTO property (prop_id) VALUES (currval('entity_ent_id_seq'));
 
