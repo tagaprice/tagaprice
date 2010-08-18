@@ -48,7 +48,6 @@ public class ProductDAO implements DAOClass<ProductData> {
 		//Get Entitiy Data
 		entityDAO.get(p);
 		
-		System.out.println("i:1");
 		
 		//Get Product Data
 		String sql = "SELECT brand_id, type_id, imageurl " +
@@ -64,7 +63,6 @@ public class ProductDAO implements DAOClass<ProductData> {
 		p.setTypeId(res.getLong("type_id"));
 		p.setImageSrc(res.getString("imageurl"));	
 		
-		System.out.println("i:2");
 	}
 
 	@Override
