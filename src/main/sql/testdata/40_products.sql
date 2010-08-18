@@ -1,10 +1,5 @@
 BEGIN;
-<<<<<<< .mine
 INSERT INTO entity (locale_id, created_at, current_revision, creator) 
-=======
-/* INSERT PRODUCT */
-INSERT INTO entity (ent_id, locale_id, created_at, current_revision, creator) 
->>>>>>> .r353
 VALUES 
 (1,'2010-08-18',1,1);
 
@@ -16,11 +11,7 @@ INSERT INTO product (prod_id) VALUES (9);
 
 INSERT INTO productrevision (prod_id, rev, type_id, imageurl)
 VALUES
-<<<<<<< .mine
-(currval('entity_ent_id_seq'), 1,'nix.png');
-=======
-(9, 1, 20, 'nix.png');
->>>>>>> .r353
+(currval('entity_ent_id_seq'), 1, (SELECT type_id FROM productType LIMIT 1),'nix.png');
 
 
 
