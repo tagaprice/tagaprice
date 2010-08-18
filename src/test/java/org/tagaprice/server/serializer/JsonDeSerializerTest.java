@@ -210,7 +210,10 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testUnit() throws IOException {
-		checkSerializer(new Unit(5L, 6, "unitName", 8, 20L, 123.45));
+		Unit u = new Unit(5L, 6, "unitName", 8, 20L, 123.45);
+		u._setLocaleId(-4);
+		u._setCreatorId(14L);
+		checkSerializer(u);
 	}
 	
 	@Test
