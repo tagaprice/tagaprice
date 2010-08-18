@@ -74,4 +74,10 @@ public class Account extends Entity {
 		return rc;
 	}
 
+	@Override
+	public String toString() {
+		return "Account {\n" +
+				super.toString()+
+				"}\n";
+	}
 }
