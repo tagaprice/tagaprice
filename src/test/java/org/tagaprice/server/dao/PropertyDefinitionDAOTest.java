@@ -1,7 +1,6 @@
 package org.tagaprice.server.dao;
 
 import static org.junit.Assert.*;
-import junit.extensions.TestDecorator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,8 +8,6 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.Account;
 import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.Type;
-import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 public class PropertyDefinitionDAOTest {
