@@ -1,4 +1,5 @@
 BEGIN;
+/* INSERT PRODUCT */
 INSERT INTO entity (ent_id, locale_id, created_at, current_revision, creator) 
 VALUES 
 (9,1,'2010-08-18',1,1);
@@ -9,10 +10,21 @@ VALUES
 
 INSERT INTO product (prod_id) VALUES (9);
 
-INSERT INTO productrevision (prod_id, rev,  imageurl)
+INSERT INTO productrevision (prod_id, rev, type_id, imageurl)
 VALUES
-(9,1,'nix.png');
+(9, 1, 20, 'nix.png');
 
+
+
+/* INSERT TYPE */
+INSERT INTO entity (ent_id, locale_id, created_at, current_revision, creator) 
+VALUES 
+(20,1,'2010-08-18',1,1);
+
+INSERT INTO entityrevision (ent_id, rev, title, created_at, creator) 
+VALUES
+(20,1, 'eisen', '2010-08-18', 1);
+INSERT INTO producttype (type_id) VALUES (20);
 
 
 /* INSERT PROPERTIES*/
