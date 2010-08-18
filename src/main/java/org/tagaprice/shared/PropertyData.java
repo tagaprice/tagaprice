@@ -127,4 +127,13 @@ public class PropertyData implements Serializable {
 		else rc = false;
 		return rc;
 	}
+	
+	@Override
+	public String toString() {
+		return "PropertyData {\n" +
+				"name: " + getName() +
+				"\nvalue: " + getValue() +
+				"\nunit: "+getUnit() +
+			"\n}\n";
+	}
 }
