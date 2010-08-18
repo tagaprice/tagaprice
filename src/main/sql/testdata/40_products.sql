@@ -7,7 +7,7 @@ INSERT INTO entityrevision (ent_id, rev, title, created_at, creator)
 VALUES
 (currval('entity_ent_id_seq'), 1, 'First Product', '2010-08-18', 1);
 
-INSERT INTO product (prod_id) VALUES (9);
+INSERT INTO product (prod_id) VALUES (currval('entity_ent_id_seq'));
 
 INSERT INTO productrevision (prod_id, rev, type_id, imageurl)
 VALUES
@@ -40,7 +40,7 @@ INSERT INTO property (prop_id) VALUES (currval('entity_ent_id_seq'));
 
 INSERT INTO entityproperty (prop_id, ent_id, value, min_rev)
 VALUES
-(currval('entity_ent_id_seq'), 9, '20', 1);
+(currval('entity_ent_id_seq'), (SELECT max(prod_id) FROM product), '20', 1);
 
 INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, type, uniq)
 VALUES
@@ -60,7 +60,7 @@ INSERT INTO property (prop_id) VALUES (currval('entity_ent_id_seq'));
 
 INSERT INTO entityproperty (prop_id, ent_id, value, min_rev)
 VALUES
-(currval('entity_ent_id_seq'), 9, '180', 1);
+(currval('entity_ent_id_seq'), (SELECT max(prod_id) FROM product), '180', 1);
 
 INSERT INTO propertyrevision (prop_id, rev, name, minvalue, maxvalue, type, uniq)
 VALUES
