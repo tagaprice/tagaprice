@@ -46,4 +46,14 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 
 		return rc;
 	}
+	
+	public String toString() {
+		String rc = "SearchResult(count="+size()+") {\n";
+		Iterator<T> it = iterator();
+		while(it.hasNext()) {
+			rc += it.next().toString()+"\n";
+		}
+		rc += "}";
+		return rc;
+	}
 }
