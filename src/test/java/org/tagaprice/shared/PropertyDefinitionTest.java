@@ -26,10 +26,10 @@ public class PropertyDefinitionTest {
 	private int rev=1;
 	private String name = "name";
 	private String title = "titel";
-	private int localeId=1;
+	private Integer localeId=1;
 	private Datatype type = PropertyDefinition.Datatype.DOUBLE;
-	private int minValue=0;
-	private int maxValue=50;
+	private Integer minValue=0;
+	private Integer maxValue=50;
 	private Unit unit=new Unit(15, 8, "g", 1, null, 0);
 	private boolean unique=true;
 	
@@ -50,53 +50,52 @@ public class PropertyDefinitionTest {
 	
 	@Test
 	public void testId(){
-		assertTrue(id.equals(def.getId()));
+		assertEquals(id, def.getId());
 	}
 	
 	@Test
 	public void testRev(){
-		assertTrue(rev==def.getRev());
+		assertEquals(rev, def.getRev());
 	}
 	
 	
 	@Test
 	public void testTitle(){
-		assertTrue(title.equals(def.getTitle()));
+		assertEquals(title, def.getTitle());
 	}
 	
 	@Test
 	public void testName(){
-		assertTrue(name.equals(def.getName()));
+		assertEquals(name, def.getName());
 	}
 	
 	@Test
 	public void testLocaleId(){
-		assertTrue(localeId==def.getLocaleId());
+		assertEquals(localeId, def.getLocaleId());
 	}
 	
 	@Test
 	public void testType(){
-		assertTrue(type.equals(def.getType()));
+		assertEquals(type, def.getType());
 	}
 	
 	@Test
 	public void testMinValue(){
-		assertTrue(minValue==def.getMinValue());
+		assertEquals(minValue, def.getMinValue());
 	}
 	
 	@Test
 	public void testMaxValue(){
-		assertTrue(maxValue==def.getMaxValue());
+		assertEquals(maxValue, def.getMaxValue());
 	}
 	
 	@Test
 	public void testUnit() {
-		// TODO add another Test here?
-		fail("not yet implemented");
+		assertEquals(unit, def.getUnit());
 	}
 	
 	@Test
 	public void testUnique(){
-		assertTrue(unique==def.isUnique());
+		assertEquals(unique, def.isUnique());
 	}
 }
