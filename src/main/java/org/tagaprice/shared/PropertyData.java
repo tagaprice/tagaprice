@@ -120,20 +120,9 @@ public class PropertyData implements Serializable {
 
 		if (o instanceof PropertyData) {
 			PropertyData p = (PropertyData) o;
-			if (getName() == null) {
-				if (p.getName() != null) rc = false;
-			}
-			else if (!getName().equals(p.getName())) rc = false;
-			
-			if (getValue() == null) {
-				if (p.getValue() != null) rc = false;
-			}
-			else if (!getValue().equals(p.getValue())) rc = false;
-			
-			if (getUnit() == null) {
-				if (p.getUnit() != null) rc = false; 
-			}
-			else if (!getUnit().equals(p.getUnit())) rc = false;
+			if (!Entity._compare(getName(), p.getName())) rc = false;
+			if (!Entity._compare(getValue(), p.getValue())) rc = false;
+			if (!Entity._compare(getUnit(), p.getUnit())) rc = false;
 		}
 		else rc = false;
 		return rc;
