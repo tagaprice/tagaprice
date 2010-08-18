@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tagaprice.shared.Currency;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
@@ -42,11 +43,8 @@ public class JsonDeserializer extends Deserializer {
 				JSONObject json = new JSONObject(data);
 	
 				// {"id": 23,"title": "€"}
-				long id = json.getLong("id");
-				int rev = json.getInt("rev");
-				String name = json_getString(json, "title");
-				int localeId = json.getInt("localeId");
-				rc = new Currency(id, rev, name, localeId);
+				rc = new Currency();
+				_getEntity(rc, json);
 			}
 		} catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
@@ -232,27 +230,29 @@ public class JsonDeserializer extends Deserializer {
 			if (data != null) {
 				JSONObject json = new JSONObject(data);
 				// {"id": 23, "title": "g"}
-				long id = json.getLong("id");
-				int rev = json.getInt("rev");
-				String name = json_getString(json, "title");
-				Integer localeId = json.getInt("localeId");
-				Long creatorId = json.getLong("creatorId");
-				Long revCreatorId = json.getLong("revCreatorId");
 				Long standardId = null;
 				double factor = 0;
 				if (json.has("siUnit") || json.has("factor")) {
 					standardId = json.getLong("siUnit");
 					factor = json.getDouble("factor");
 				}
-				rc = new Unit(id, rev, name, revCreatorId, standardId, factor);
-				rc._setLocaleId(localeId);
-				rc._setCreatorId(creatorId);
+				rc = new Unit(null, 0, 0, standardId, factor);
+				_getEntity(rc, json);
 			}
 		}
 		catch (JSONException e) {
 			throw new IOException("JSON parsing failed", e);
 		}
 		return rc;
+	}
+	
+	private void _getEntity(Entity e, JSONObject json) throws JSONException {
+		e._setId(json.getLong("id"));
+		e._setRev(json.getInt("rev"));
+		e.setTitle(json_getString(json, "title"));
+		e._setLocaleId(json.getInt("localeId"));
+		e._setCreatorId(json.getLong("creatorId"));
+		e._setRevCreatorId(json.getLong("revCreatorId"));
 	}
 	
 	/**

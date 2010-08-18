@@ -58,7 +58,10 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testCurrency() throws Exception {
-		checkSerializer(new Currency(23, 76, "EUR", 1));
+		Currency c = new Currency(23, 76, "EUR", 1);
+		c._setLocaleId(-4);
+		c._setCreatorId(123L);
+		checkSerializer(c);
 	}
 	
 	@Test
