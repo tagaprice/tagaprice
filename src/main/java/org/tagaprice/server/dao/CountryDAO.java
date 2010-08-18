@@ -9,7 +9,7 @@ import org.tagaprice.shared.Country;
 import org.tagaprice.shared.exception.NotFoundException;
 
 public class CountryDAO {
-	private static CountryDAO instance;
+	private static CountryDAO instance = null;
 	private DBConnection db;
 
 	private CountryDAO(DBConnection db) {
