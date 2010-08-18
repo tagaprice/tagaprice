@@ -15,7 +15,4 @@ CREATE TABLE unitRevision (
 	CHECK (factor != 0)
 );
 
-ALTER TABLE unit ADD CONSTRAINT fkey_unit_currentRev FOREIGN KEY (unit_id, currentRevision) REFERENCES unitRevision(unit_id, rev) DEFERRABLE INITIALLY DEFERRED;
-
-
 COMMIT;
