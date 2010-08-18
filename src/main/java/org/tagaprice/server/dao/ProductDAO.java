@@ -46,9 +46,10 @@ public class ProductDAO implements DAOClass<ProductData> {
 	@Override
 	public void get(ProductData p) throws SQLException, NotFoundException, NotFoundException {
 		
-		//Get Entitiy Data
+		//Get Entity Data
 		entityDAO.get(p);
 		
+		// TODO implement fetching of a specific shop revision
 		
 		//Get Product Data
 		String sql = "SELECT brand_id, type_id, imageurl " +
