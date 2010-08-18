@@ -132,8 +132,6 @@ public class ShopData extends Entity {
 	public Address getAddress() {
 		return address;
 	}
-
-
 	
 	/**
 	 * 
@@ -143,8 +141,6 @@ public class ShopData extends Entity {
 		return address.getLat();
 	}
 
-	
-
 	/**
 	 * 
 	 * @return
@@ -152,8 +148,6 @@ public class ShopData extends Entity {
 	public Double getLng() {
 		return address.getLng();
 	}
-
-	
 
 	@Override
 	public String getSerializeName() {
@@ -172,5 +166,19 @@ public class ShopData extends Entity {
 		this.address = address;
 	}
 	
-	// TODO implement missing ShopData.equals()
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof ShopData) {
+			ShopData s = (ShopData) o;
+			
+			if (!super.equals(s)) rc = false;
+			if (!_compare(getTypeId(), s.getTypeId())) rc = false;
+			if (!_compare(getImageSrc(), s.getImageSrc())) rc = false;
+			if (getProgress() != s.getProgress()) rc = false;
+			if (getRating() != s.getRating()) rc = false;
+			if (!_compare(getAddress(), s.getAddress())) rc = false;
+		}
+		return rc;
+	}
 }
