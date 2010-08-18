@@ -3,7 +3,7 @@ CREATE TABLE entityProperty (
 	prop_id BIGINT NOT NULL,
 	ent_id BIGINT NOT NULL,
 	value text NOT NULL,
-	unit_id BIGINT NOT NULL,
+	unit_id BIGINT,
 
 	min_rev INTEGER NOT NULL,
 	max_rev INTEGER NULL,
