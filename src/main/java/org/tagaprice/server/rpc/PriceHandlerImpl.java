@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
+import org.tagaprice.shared.Country;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
@@ -42,7 +43,7 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 		for(int i=0;i<c;i++){
 			list.add(new PriceData(
 					new ProductData(152L, 4, "Mousse au Chocolat", 1, 15L, 16L, "logo.png", new Quantity(125, new Unit(23, 3, "g", 1, null, 0))), 
-					new ShopData(123, 1825, "ACME Store", 2, 30l,  null, new Address("Park Avenue 23", "New York", "USA", 48.21211+(-0.001*i), 16.37647+(-0.0001*i))),
+					new ShopData(123, 1825, "ACME Store", 2, 30l,  null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null), 48.21211+(-0.001*i), 16.37647+(-0.0001*i))),
 					new Price((int)(Math.random()*100), 23, 8, "€", 1)));
 		}
 		

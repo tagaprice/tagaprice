@@ -21,6 +21,7 @@ import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
+import org.tagaprice.shared.Country;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
@@ -157,7 +158,7 @@ public class TaPManagerImpl implements TaPManager {
 	public void showShopPage(final Long id){
 		//Create Page
 		uiMng.waitingPage();
-		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", "USA"));
+		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);
@@ -185,7 +186,7 @@ public class TaPManagerImpl implements TaPManager {
 		if(title==null) title="Default Title"; //Change this to language
 		
 		uiMng.showShop(
-				new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", "USA")), 
+				new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null))), 
 				new Type("root", 2, 1, null));
 		
 		

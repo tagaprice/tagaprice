@@ -1,6 +1,7 @@
 package org.tagaprice.server.rpc;
 
 import org.tagaprice.shared.Address;
+import org.tagaprice.shared.Country;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
@@ -17,7 +18,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	public ShopData get(Long id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		
-		ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", "USA"));
+		ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);

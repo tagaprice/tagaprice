@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.shared.Address;
+import org.tagaprice.shared.Country;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
@@ -70,7 +71,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 					"Christmas shopping", 2,
 					new Date(), 
 					0, 
-					new ShopData(15, 9, "Billa Flossgasse", 3, 30l, "logo.png", new Address("Flossgasse 1A", "1020 Wien", "Austria")), 
+					new ShopData(15, 9, "Billa Flossgasse", 3, 30l, "logo.png", new Address("Flossgasse 1A", "1020 Wien", new Country("at", "Austria", "Österreich"))), 
 					myProducts,
 					false);
 		}

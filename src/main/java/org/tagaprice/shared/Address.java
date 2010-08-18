@@ -20,9 +20,9 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String street;
 	private String city;
-	private String country;
-	private double lat;
-	private double lng;
+	private Country country;
+	private Double lat;
+	private Double lng;
 	
 	
 	@Override
@@ -34,7 +34,7 @@ public class Address implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Address(String street, String city, String country, double lat, double lng) {
+	public Address(String street, String city, Country country, Double lat, Double lng) {
 		this.street = street;
 		this.city = city;
 		this.country = country;
@@ -43,14 +43,14 @@ public class Address implements Serializable {
 	}
 
 
-	public Address(String street, String city, String country) {
+	public Address(String street, String city, Country country) {
 		this.street = street;
 		this.city = city;
 		this.country = country;
 	}
 
 
-	public Address(double lat, double lng) {
+	public Address(Double lat, Double lng) {
 		this.lat = lat;
 		this.lng = lng;
 	}
@@ -66,21 +66,28 @@ public class Address implements Serializable {
 	}
 
 
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
 
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
 
-	public double getLng() {
+	public Double getLng() {
 		return lng;
 	}
 	
+	public void setCoordinates(Double lat, Double lng) {
+		this.lat = lat;
+		this.lng = lng;
+	}
 	
-	
-	
+	public void setAddress(String street, String city, Country country) {
+		this.street = street;
+		this.city = city;
+		this.country = country;
+	}
 }
