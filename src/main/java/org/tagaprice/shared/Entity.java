@@ -149,7 +149,7 @@ public abstract class Entity implements Serializable {
 		this.revCreatorId = revCreatorId;
 	}
 	
-	public int getLocaleId() {
+	public Integer getLocaleId() {
 		return localeId;
 	}
 	
@@ -157,7 +157,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be used by EntityDAO
 	 * @param localeId new localeId
 	 */
-	public void _setLocaleId(int localeId) {
+	public void _setLocaleId(Integer localeId) {
 		this.localeId = localeId;
 	}
 		
