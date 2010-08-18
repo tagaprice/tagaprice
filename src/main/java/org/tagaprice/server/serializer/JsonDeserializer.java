@@ -235,14 +235,18 @@ public class JsonDeserializer extends Deserializer {
 				long id = json.getLong("id");
 				int rev = json.getInt("rev");
 				String name = json_getString(json, "title");
-				int localeId = json.getInt("localeId");
+				Integer localeId = json.getInt("localeId");
+				Long creatorId = json.getLong("creatorId");
+				Long revCreatorId = json.getLong("revCreatorId");
 				Long standardId = null;
 				double factor = 0;
 				if (json.has("siUnit") || json.has("factor")) {
 					standardId = json.getLong("siUnit");
 					factor = json.getDouble("factor");
 				}
-				else rc = new Unit(id, rev, name, localeId, standardId, factor);
+				rc = new Unit(id, rev, name, revCreatorId, standardId, factor);
+				rc._setLocaleId(localeId);
+				rc._setCreatorId(creatorId);
 			}
 		}
 		catch (JSONException e) {

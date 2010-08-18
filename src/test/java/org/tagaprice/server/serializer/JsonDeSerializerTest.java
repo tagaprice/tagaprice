@@ -141,7 +141,13 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProperty() throws IOException {
-		checkSerializer(new PropertyData("name", "title", "value", new Unit(23, 2, "unitName", 1, null, 0)));
+		Unit unit = new Unit(23, 2, "unitName", 1, null, 0);
+		PropertyData prop = new PropertyData("name", "title", "value", unit);
+		unit._setLocaleId(15);
+		unit._setCreatorId(-3L);
+		unit._setRevCreatorId(-5L);
+		
+		checkSerializer(prop);
 	}
 
 	@Test

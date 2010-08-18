@@ -250,6 +250,8 @@ public class JsonSerializer extends Serializer {
 		writeVar("rev", e.getRev(), true);
 		writeVar("title", e.getTitle(), true);
 		writeVar("localeId", e.getLocaleId(), true);
+		writeVar("creatorId", e.getCreatorId(), true);
+		writeVar("revCreatorId", e.getRevCreatorId(), true);
 	}
 	
 	protected void writeListElem(Serializable elem, boolean annotateType) throws IOException {
