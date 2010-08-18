@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS productRevision;
+DROP TABLE IF EXISTS shopRevision;
 
 DROP TABLE IF EXISTS brand;
 DROP TABLE IF EXISTS entityProperty;
