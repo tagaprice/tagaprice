@@ -8,6 +8,7 @@ import java.sql.Types;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -33,7 +34,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	
 	@Override
 	public void get(PropertyDefinition prop) throws SQLException, NotFoundException {
-		String sql = "SELECT name, minValue, maxValue, unit_id, uniq FROM propertyRevision WHERE prop_id = ?";
+		String sql = "SELECT name, minValue, maxValue, type, uniq FROM propertyRevision WHERE prop_id = ?";
 		PreparedStatement pstmt;
 		if (prop.getRev() > 0) {
 			pstmt = db.prepareStatement(sql +  " AND rev = ?");
@@ -51,9 +52,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		else prop.setMinValue(null);
 		if (res.getString("maxvalue") != null) prop.setMaxValue(res.getInt("maxvalue"));
 		else prop.setMaxValue(null);
-		Unit u = new Unit(res.getLong("unit_id"));
-		unitDAO.get(u);
-		prop.setUnit(u);
+		prop.setType(Datatype.valueOf(res.getString("type").toUpperCase()));
 		prop.setUnique(res.getBoolean("uniq"));
 
 		entityDAO.get(prop);
@@ -73,7 +72,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		}
 		else if (prop.getRev() < 1) throw new RevisionCheckException("invalid revision: "+prop.getRev());
 		
-		sql = "INSERT INTO propertyRevision (prop_id, rev, name, minValue, maxValue, unit_id, uniq) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		sql = "INSERT INTO propertyRevision (prop_id, rev, name, minValue, maxValue, type, uniq) VALUES (?, ?, ?, ?, ?, ?::propertyType, ?)";
 		pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, prop.getId());
 		pstmt.setInt(2, prop.getRev());
@@ -85,9 +84,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		if (prop.getMaxValue() != null) pstmt.setInt(5, prop.getMaxValue());
 		else pstmt.setNull(5, Types.INTEGER);
 		
-		if (prop.getUnit() != null) pstmt.setLong(6, prop.getUnit().getId());
-		else pstmt.setNull(6, Types.BIGINT);
-		
+		pstmt.setString(6, prop.getType().name().toLowerCase());
 		pstmt.setBoolean(7, prop.isUnique());
 		
 		pstmt.executeUpdate();
