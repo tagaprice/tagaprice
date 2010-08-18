@@ -179,6 +179,8 @@ public class ShopData extends Entity {
 			if (getRating() != s.getRating()) rc = false;
 			if (!_compare(getAddress(), s.getAddress())) rc = false;
 		}
+		else rc = false;
+		
 		return rc;
 	}
 }
