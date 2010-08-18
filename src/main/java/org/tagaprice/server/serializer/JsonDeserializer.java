@@ -78,11 +78,6 @@ public class JsonDeserializer extends Deserializer {
 		try {
 			JSONObject json = new JSONObject(data);
 			
-			long id = json.getLong("id");
-			int rev = json.getInt("rev");
-			String title = json_getString(json, "title");
-			long creatorId = json.getLong("creatorId");
-			int localeId = json.getInt("localeId");
 			long brandId = -1;
 			if (json.has("brandId")) {
 				brandId = json.getLong("brandId");
@@ -100,11 +95,15 @@ public class JsonDeserializer extends Deserializer {
 				hasReceipt = json.getBoolean("hasReceipt");
 			}
 			
-			rc = new ProductData(id, rev, title, creatorId, brandId, typeId, imageSrc, quantity);
+			rc = new ProductData();
+			_getEntity(rc, json);
+			rc.setBrandId(brandId);
+			rc.setTypeId(typeId);
+			rc.setImageSrc(imageSrc);
+			rc.setQuantity(quantity);
 			rc.setProgress(progress);
 			rc.setRating(rating);
 			rc.setAvgPrice(price);
-			rc._setLocaleId(localeId);
 			rc.setHasReceipt(hasReceipt);
 		}
 		catch (JSONException e) {
