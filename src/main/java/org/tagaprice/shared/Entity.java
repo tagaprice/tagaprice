@@ -195,4 +195,16 @@ public abstract class Entity implements Serializable {
 
 		return rc;
 	}
+	
+	public String toString() {
+		return "Entity {\n" +
+				"id: " + getId() +
+				"\nrev: " + getRev() +
+				"\ntitle: "+getTitle() +
+				"\nlocale: "+getLocaleId() +
+				"\ncreator: "+getCreatorId()+
+				"\nrevCreator: "+getRevCreatorId()+
+				"\nproperties: "+getProperties().toString()+
+				"\n}\n";
+	}
 }
