@@ -228,25 +228,32 @@ public class ProductData extends Entity {
 
 		if (rc && o instanceof ProductData) {
 			ProductData p = (ProductData) o;
-			if (getBrandId() != p.getBrandId()) rc = false;
-			if (getTypeId() != p.getTypeId()) rc = false;
-			if (getImageSrc() == null) {
-				if (p.getImageSrc() != null) rc = false;
-			}
+			if (!_compare(getBrandId(), p.getBrandId())) rc = false;
+			if (!_compare(getTypeId(), p.getTypeId())) rc = false;
+			if (!_compare(getImageSrc(), p.getImageSrc())) rc = false;
 			if (getProgress() != p.getProgress()) rc = false;
 			if (getRating() != p.getRating()) rc = false;
-			if (getAvgPrice() == null) {
-				if (p.getAvgPrice() != null) rc = false;
-			}
-			else if (!getAvgPrice().equals(p.getAvgPrice())) rc = false;
-			if (getQuantity() == null) {
-				if (p.getQuantity() != null) rc = false;
-			}
-			else if (!getQuantity().equals(p.getQuantity())) rc = false;
+			if (!_compare(getAvgPrice(), p.getAvgPrice())) rc = false;
+			if (!_compare(getQuantity(), p.getQuantity())) rc = false;
 			if (hasReceipt() != p.hasReceipt()) rc = false;
 		}
 		else rc = false;
 		
 		return rc;
+	}
+	
+	@Override
+	public String toString() {
+		return "Product {\n" +
+				"brandId: " + getBrandId() +
+				"\ntypeId: " + getTypeId() +
+				"\nimageSrc: " + getImageSrc() +
+				"\nprogress: " + + getProgress() +
+				"\nrating: " + getRating() +
+				"\navgPrice: " + getAvgPrice() +
+				"\nquantity: " + getQuantity() +
+				"\nhasReceipt: " + hasReceipt() + "\n" +
+				super.toString() +
+				"}\n";
 	}
 }
