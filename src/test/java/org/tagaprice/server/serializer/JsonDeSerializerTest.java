@@ -66,12 +66,19 @@ public class JsonDeSerializerTest {
 	
 	@Test
 	public void testCurrency_nullName() throws Exception {
-		checkSerializer(new Currency(23, 99, null, 1));
+		Currency c = new Currency(23, 99, null, 1);
+		c._setLocaleId(18);
+		c._setCreatorId(11L);
+		checkSerializer(c);
 	}
 
 	@Test
 	public void testPrice() throws Exception {
-		checkSerializer(new Price(1234, 23, 5, "EUR", 1));
+		Currency c = new Currency(23, 5, "EUR", 1);
+		Price p = new Price(1234, c);
+		c._setLocaleId(17);
+		c._setCreatorId(10L);
+		checkSerializer(p);
 	}
 	
 	@Test
@@ -81,11 +88,21 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProduct() throws IOException {
+		Unit u = new Unit(14, 4, "t", 1, null, 0);
+		Quantity q = new Quantity(2, u);
+		Currency c = new Currency(12, 2, "€", 13);
 		ProductData p = new ProductData(23L, 2, "ACME Anvil 2t", 1, 24L, 25L,
-				"/img/foo/bar.jpg", new Quantity(2, new Unit(14, 4, "t", 1, null, 0)));
+				"/img/foo/bar.jpg", q);
 		p.setRating(50);
 		p.setProgress(73);
-		p.setAvgPrice(new Price(254, 12, 2, "€", 13));
+		p.setAvgPrice(new Price(254, c));
+		p._setLocaleId(-4);
+		p._setCreatorId(17L);
+		u._setLocaleId(-3);
+		u._setCreatorId(16L);
+		c._setLocaleId(98);
+		c._setCreatorId(1436L);
+		
 		checkSerializer(p);
 	}
 
