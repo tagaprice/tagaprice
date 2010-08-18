@@ -25,7 +25,8 @@ public class PropertyDefinitionTest {
 	private Long id=2l;
 	private int rev=1;
 	private String name = "name";
-	private String title = "titel";
+	private String title = "title";
+	private Long creatorId = 13L;
 	private Integer localeId=1;
 	private Datatype type = PropertyDefinition.Datatype.DOUBLE;
 	private Integer minValue=0;
@@ -40,12 +41,13 @@ public class PropertyDefinitionTest {
 				rev, 
 				name, 
 				title, 
-				localeId, 
+				creatorId, 
 				type, 
 				minValue,
 				maxValue,
 				unit,
 				unique);
+		def._setLocaleId(localeId);
 	}
 	
 	@Test
