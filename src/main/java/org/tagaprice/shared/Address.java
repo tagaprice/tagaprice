@@ -90,4 +90,21 @@ public class Address implements Serializable {
 		this.city = city;
 		this.country = country;
 	}
+	
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof Address) {
+			Address a = (Address) o;
+			
+			if (!Entity._compare(getStreet(), a.getStreet())) rc = false;
+			if (!Entity._compare(getCity(), a.getCity())) rc = false;
+			if (!Entity._compare(getCountry(), a.getCountry())) rc = false;
+			if (!Entity._compare(getLat(), a.getLat())) rc = false;
+			if (!Entity._compare(getLng(), a.getLng())) rc = false;
+		}
+		else rc = false;
+		
+		return rc;
+	}
 }
