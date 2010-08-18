@@ -1,15 +1,32 @@
 package org.tagaprice.server.dao;
 
 import static org.junit.Assert.*;
+import junit.extensions.TestDecorator;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.server.DBConnection;
+import org.tagaprice.shared.Account;
+import org.tagaprice.shared.PropertyDefinition;
+import org.tagaprice.shared.Type;
+import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 public class PropertyDefinitionDAOTest {
+	private PropertyDefinitionDAO dao;
+	private DBConnection db;
+	private int localeId;
+	private long uid;
 
 	@Before
 	public void setUp() throws Exception {
+		db = new EntityDAOTest.TestDBConnection();
+		dao = PropertyDefinitionDAO.getInstance(db);
+		localeId = LocaleDAO.getInstance(db).get("English").getId();
+		Account a = new Account("testAccount", localeId);
+		AccountDAO.getInstance(db).save(a);
+		uid = a.getId();
 	}
 
 	@After
@@ -17,8 +34,12 @@ public class PropertyDefinitionDAOTest {
 	}
 
 	@Test
-	public void testCreate() {
-		fail("Not yet implemented");
+	public void testCreate() throws Exception {
+		PropertyDefinition pdef = new PropertyDefinition("testWeight", "Test property named 'weight'", localeId, uid, Datatype.STRING, 5, 27, null, true);
+		dao.save(pdef);
+		PropertyDefinition pdef2 = new PropertyDefinition(pdef.getId());
+		dao.get(pdef2);
+		assertEquals(pdef, pdef2);
 	}
 
 }
