@@ -28,7 +28,7 @@ public class ShopData extends Entity {
 	private String imageSrc;
 	private int progress; //In percent 0-100
 	private int rating; //in percent 0-100, -1 means unrated
-	private Address address;
+	private Address address = new Address();
 	
 	/**
 	 * default constructor
@@ -139,7 +139,7 @@ public class ShopData extends Entity {
 	 * 
 	 * @return
 	 */
-	public double getLat() {
+	public Double getLat() {
 		return address.getLat();
 	}
 
@@ -149,7 +149,7 @@ public class ShopData extends Entity {
 	 * 
 	 * @return
 	 */
-	public double getLng() {
+	public Double getLng() {
 		return address.getLng();
 	}
 
