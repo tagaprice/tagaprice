@@ -53,6 +53,10 @@ public class PropertyDAOTest {
 		dao.save(testEntity);
 		TestEntity e = new TestEntity(testEntity.getId());
 		e._setLocaleId(testEntity.getLocaleId());
+		e._setCreatorId(testEntity.getCreatorId());
+		e._setRev(testEntity.getRev());
+		e.setTitle(testEntity.getTitle());
+		e._setRevCreatorId(testEntity.getRevCreatorId());
 		dao.get(e);
 		assertEquals(testEntity, e);
 	}
