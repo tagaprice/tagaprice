@@ -83,7 +83,7 @@ public class JsonSerializer extends Serializer {
 		writeHead();
 		
 		writeEntity(product);
-		writeVar("brandId", product.getBrandId(), false);
+		if (product.getBrandId() != null) writeVar("brandId", product.getBrandId(), false);
 		writeVar("typeId", product.getTypeId(), true);
 		writeVar("imageSrc", product.getImageSrc(), true);
 		writeVar("price", product.getAvgPrice(), true, annotateType);
