@@ -17,6 +17,7 @@ package org.tagaprice.server.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.ProductData;
@@ -59,16 +60,42 @@ public class ProductDAO implements DAOClass<ProductData> {
 		ResultSet res = pstmt.executeQuery();
 		
 		if (!res.next()) throw new NotFoundException("Product not found");
-		p.setBrandId(res.getLong("brand_id"));
-		p.setTypeId(res.getLong("type_id"));
+		
+		if (res.getString("brand_id") != null) p.setBrandId(res.getLong("brand_id"));
+		else p.setBrandId(null);
+		if (res.getString("type_id") != null) p.setTypeId(res.getLong("type_id"));
+		else p.setTypeId(null);
 		p.setImageSrc(res.getString("imageurl"));	
 		
 	}
 
 	@Override
-	public void save(ProductData entity) throws SQLException, NotFoundException,
+	public void save(ProductData prod) throws SQLException, NotFoundException,
 			RevisionCheckException, InvalidLocaleException {
-		// TODO Auto-generated method stub
-		throw new SQLException("Not yet implemented");
+		PreparedStatement pstmt;
+		
+		entityDAO.save(prod);
+		if (prod.getRev() == 1) {
+			// create a new Product
+			pstmt = db.prepareStatement("INSERT INTO product (prod_id) VALUES (?)");
+			pstmt.setLong(1, prod.getId());
+			pstmt.executeUpdate();
+		}
+		else if (prod.getRev() < 1) throw new RevisionCheckException("invalid revision: "+prod.getRev());
+
+		String sql = "INSERT INTO productRevision (prod_id, rev, brand_id, type_id, imageUrl) VALUES (?, ?, ?, ?, ?)";
+		pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, prod.getId());
+		pstmt.setInt(2, prod.getRev());
+
+		if (prod.getBrandId() != null) pstmt.setLong(3, prod.getBrandId());
+		else pstmt.setNull(3, Types.BIGINT);
+		
+		if (prod.getTypeId() != null) pstmt.setLong(4, prod.getTypeId());
+		else pstmt.setNull(4, Types.BIGINT);
+
+		pstmt.setString(5, prod.getImageSrc());
+		
+		pstmt.executeUpdate();
 	}
 }
