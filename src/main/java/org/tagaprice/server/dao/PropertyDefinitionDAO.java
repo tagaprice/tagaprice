@@ -7,7 +7,6 @@ import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -17,7 +16,6 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	private static PropertyDefinitionDAO instance = null;
 	private DBConnection db;
 	private EntityDAO entityDAO;
-	private UnitDAO unitDAO;
 	
 	private PropertyDefinitionDAO(DBConnection db) {
 		this.db = db;
@@ -27,7 +25,6 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		if (instance == null) {
 			instance = new PropertyDefinitionDAO(db);
 			instance.entityDAO = EntityDAO.getInstance(db);
-			instance.unitDAO = UnitDAO.getInstance(db);
 		}
 		return instance;
 	}
