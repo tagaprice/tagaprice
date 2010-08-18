@@ -2,14 +2,11 @@ package org.tagaprice.server.dao;
 
 import static org.junit.Assert.*;
 
-import java.sql.SQLException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
 import org.tagaprice.shared.Country;
-import org.tagaprice.shared.exception.NotFoundException;
 
 public class CountryDAOTest {
 	TestDBConnection db;
