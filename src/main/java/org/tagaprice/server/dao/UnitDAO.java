@@ -42,27 +42,8 @@ public class UnitDAO implements DAOClass<Unit> {
 	}
 	
 	public static UnitDAO getInstance(DBConnection db) {
-		if (instance == null) 
-			instance = new UnitDAO(db);
+		if (instance == null) instance = new UnitDAO(db);
 		return instance;
-	}
-	
-	
-	public Unit get(long id) throws NotFoundException, SQLException {
-		Unit rc = null;
-		String sql = "SELECT unit_id, fallback_unit, factor" +
-		" FROM unit u" +
-		" WHERE unit_id = ?";
-		
-		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setLong(1, id);
-		ResultSet res = pstmt.executeQuery();
-		
-		if (!res.next()) throw new NotFoundException("Unit "+id+" not found");
-		
-		rc = _getUnit(res);
-		
-		return rc;
 	}
 	
 	public SearchResult<Unit> getSimilar(long id) throws NotFoundException {
@@ -112,7 +93,7 @@ public class UnitDAO implements DAOClass<Unit> {
 			entityDAO.save(unit);
 			pstmt = db.prepareStatement("INSERT INTO unit (unit_id, fallback_unit, factor) VALUES (?,?,?)");
 			pstmt.setLong(1, unit.getId());
-			pstmt.setLong(2, unit.getFallbackId());
+			pstmt.setLong(2, unit.getStandardId());
 			pstmt.setDouble(3, unit.getFactor());
 			pstmt.executeUpdate();
 		}
@@ -131,7 +112,7 @@ public class UnitDAO implements DAOClass<Unit> {
 	}
 	
 	private Unit _getUnit(ResultSet res) throws SQLException, NotFoundException {
-		Unit rc =  new Unit(res.getLong("unit_id"), 0, res.getLong("fallback_unit"), res.getDouble("factor"));
+		Unit rc = new Unit(res.getLong("unit_id"), 0, null, 0, res.getLong("fallback_unit"), res.getDouble("factor"));
 		
 		entityDAO.get(rc);
 		
@@ -140,7 +121,20 @@ public class UnitDAO implements DAOClass<Unit> {
 
 	@Override
 	public void get(Unit unit) throws SQLException, NotFoundException {
-		// TODO Auto-generated method stub
+		String sql = "SELECT base_id, factor " +
+				"FROM entity e INNER JOIN unitrevision r ON (e.ent_id = r.unit_id AND e.current_revision = r.rev) " +
+				"WHERE unit_id = ?";
 		
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, unit.getId());
+		ResultSet res = pstmt.executeQuery();
+		
+		if (!res.next()) throw new NotFoundException("Unit "+unit.getId()+" not found");
+		
+		unit._setStandardId(res.getLong("fallback_unit"));
+		unit._setFactor(res.getDouble("factor"));
+				
+		entityDAO.get(unit);
+
 	}
 }

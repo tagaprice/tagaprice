@@ -14,9 +14,6 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.shared.ProductData;
-
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 

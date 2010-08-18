@@ -55,7 +55,8 @@ public class UnitHandler implements ApiCall {
 	public void get(ApiCallData d) throws SQLException {
 		try {
 			long id = new Long(d.getRequest().getParameter("id"));
-			Unit unit = dao.get(id);
+			Unit unit = new Unit(id);
+			dao.get(unit);
 			d.setResponse(unit);
 		}
 		catch (NotFoundException e) {

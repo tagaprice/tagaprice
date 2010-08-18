@@ -20,11 +20,8 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
-import org.tagaprice.server.dao.PropertyDAO;
-import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.ProductHandler;
 
@@ -32,7 +29,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
-	ProductData test;
 	ProductDAO pDao;
 	
 	public ProductHandlerImpl() {
@@ -46,11 +42,6 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// TODO Auto-generated constructor stub
-		//MockMock
-		test = new ProductData(152L, 3, "Mousse au Chocolat", 2, 15L, 20L, "logo.png", 20, 80, new Price(139, 23, 1, "€", 1), new Quantity(125, 23, 2, "g", 1),true);
-
 	}
 	
 	
@@ -97,10 +88,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		
 		if(data.getId()==0){
 			System.out.println("new");
-		}else{
-			test=data;
 		}
-		return test;
+		return data;
 	}
 
 }

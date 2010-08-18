@@ -27,69 +27,56 @@ public class ShopData extends Entity {
 	private Long typeId;
 	private String imageSrc;
 	private int progress; //In percent 0-100
-	private int rating; //in percent 0-100
+	private int rating; //in percent 0-100, -1 means unrated
 	private Address address;
 	
+	/**
+	 * default constructor
+	 */
 	public ShopData() {
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @param name
-	 * @param imageSrc
-	 * @param progress
-	 * @param rating
+	 * constructor for querying a shop's current revision (using ShopDAO) 
+	 * @param id Shop ID
 	 */
-	public ShopData(
-			long id, 
-			int rev, 
-			String title, 
-			int localeId, 
-			Long typeId,
-			String imageSrc, 
-			int progress, 
-			int rating) {
-		this(
-				id, 
-				rev, 
-				title, 
-				localeId, 
-				typeId,
-				imageSrc, 
-				progress, 
-				rating, 
-				null);
+	public ShopData(long id) {
+		super(id);
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @param imageSrc
-	 * @param progress
-	 * @param rating
-	 * @param street
-	 * @param city
-	 * @param country
+	 * constructor for querying a specific shop revision (using ShopDAO) 
+	 * @param id Shop ID
+	 * @param rev Shop revision
 	 */
-	public ShopData(
-			long id, 
-			int rev, 
-			String title, 
-			int localeId, 
-			Long typeId,
-			String imageSrc, 
-			int progress, 
-			int rating, 
-			Address address){
-		super(id, rev, title, localeId);
-		setImageSrc(imageSrc);
-		setProgress(progress);
-		setRating(rating);
-		this.address = address;
+	public ShopData(long id, int rev) {
+		super(id, rev);
 	}
 
+	/**
+	 * constructor for saving a new Shop (using ShopDAO)
+	 * @param title descriptive Shop Name (must not be empty)
+	 * @param localeId shop's locale ID
+	 * @param creatorId shop's creator
+	 * @param typeId shop type (may be null)
+	 * @param imageSrc shop photo or logo URL (may be null)
+	 * @param address shop address (may be null)
+	 */
+	public ShopData(String title, int localeId, long creatorId, Long typeId, String imageSrc, Address address) {
+		super(title, localeId, creatorId);
+		this.typeId = typeId;
+		this.imageSrc = imageSrc;
+		this.address = address;
+	}
+	
+	public ShopData(long id, int rev, String title, long creatorId, Long typeId, String imageSrc, Address address) {
+		super(id, rev, title, creatorId);
+		this.typeId = typeId;
+		this.imageSrc = imageSrc;
+		this.address = address;
+	}
+	
 	/**
 	 * 
 	 * @return

@@ -82,7 +82,8 @@ public class JsonDeserializer extends Deserializer {
 			
 			long id = json.getLong("id");
 			int rev = json.getInt("rev");
-			String name = json_getString(json, "title");
+			String title = json_getString(json, "title");
+			long creatorId = json.getLong("creatorId");
 			int localeId = json.getInt("localeId");
 			long brandId = -1;
 			if (json.has("brandId")) {
@@ -101,7 +102,12 @@ public class JsonDeserializer extends Deserializer {
 				hasReceipt = json.getBoolean("hasReceipt");
 			}
 			
-			rc = new ProductData(id, rev, name, localeId, brandId, typeId, imageSrc, progress, rating, price, quantity, hasReceipt);
+			rc = new ProductData(id, rev, title, creatorId, brandId, typeId, imageSrc, quantity);
+			rc.setProgress(progress);
+			rc.setRating(rating);
+			rc.setAvgPrice(price);
+			rc._setLocaleId(localeId);
+			rc.setHasReceipt(hasReceipt);
 		}
 		catch (JSONException e) {
 			e.printStackTrace(System.err);
@@ -230,12 +236,13 @@ public class JsonDeserializer extends Deserializer {
 				int rev = json.getInt("rev");
 				String name = json_getString(json, "title");
 				int localeId = json.getInt("localeId");
+				Long standardId = null;
+				double factor = 0;
 				if (json.has("siUnit") || json.has("factor")) {
-					long fallbackId = json.getLong("siUnit");
-					double factor = json.getDouble("factor");
-					rc = new Unit(id, rev, name, localeId, fallbackId, factor);
+					standardId = json.getLong("siUnit");
+					factor = json.getDouble("factor");
 				}
-				else rc = new Unit(id, rev, name, localeId);
+				else rc = new Unit(id, rev, name, localeId, standardId, factor);
 			}
 		}
 		catch (JSONException e) {

@@ -128,14 +128,14 @@ public class TypeWidget extends Composite{
 
 		//Root elem
 		final Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
-		final int localId = type.getLocaleId();
+		final int localeId = type.getLocaleId();
 		
 		rootB.addMouseOverHandler(new MouseOverHandler() {
 			
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				typeItems.setWidget(new Label("Loading..."));					
-				TaPMng.getTypeList(new Type("root", localId), new AsyncCallback<ArrayList<Type>>() {
+				TaPMng.getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Type> result) {

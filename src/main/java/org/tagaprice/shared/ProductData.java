@@ -25,99 +25,73 @@ public class ProductData extends Entity {
 	private Long brandId; // TODO create a Brand class
 	private Long typeId;
 	private String imageSrc;
-	private int progress; //In percent 0-100
-	private int rating; //in percent 0-100
-	private Price price;
-	private Quantity quantity;
+	private int progress = 0; //In percent 0-100
+	private int rating = -1; //in percent 0-100, -1 means unrated
+	private Price avgPrice;
+	private Quantity quantity = null;
 	private boolean hasReceipt;
 	
+	/**
+	 * default constructor (used for serialization)
+	 */
 	public ProductData() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @param rev
-	 * @param title
-	 * @param localeId
-	 * @param brandId
-	 * @param typeId
-	 * @param imageSrc
-	 * @param progress
-	 * @param rating
-	 * @param price
-	 * @param quantity
+	 * constructor for querying a Product's current revision 
+	 * @param id Product ID
 	 */
-	public ProductData(
-			Long id,
-			int rev,
-			String title,
-			int localeId,
-			Long brandId,
-			Long typeId,
-			String imageSrc,
-			int progress,
-			int rating,
-			Price price,
-			Quantity quantity) {
-		
-		this(
-				id,
-				rev,
-				title,
-				localeId,
-				brandId,
-				typeId,
-				imageSrc,
-				progress,
-				rating,
-				price,
-				quantity,
-				true);
+	public ProductData(Long id) {
+		super(id);
 	}
 	
-
 	/**
-	 * 
-	 * @param id
-	 * @param rev
-	 * @param title
-	 * @param localeId
-	 * @param brandId
-	 * @param typeId
-	 * @param imageSrc
-	 * @param progress
-	 * @param rating
-	 * @param price
-	 * @param quantity
-	 * @param hasReceipt
+	 * query a specific product revision (using ProductDAO)
+	 * @param id Poduct ID
+	 * @param rev revision
 	 */
-	public ProductData(
-			Long id,
-			int rev,
-			String title,
-			int localeId,
-			Long brandId,
-			Long typeId,
-			String imageSrc,
-			int progress,
-			int rating,
-			Price price,
-			Quantity quantity,
-			boolean hasReceipt) {
-		
-		super(id, rev, title, localeId);
-		setBrandId(brandId);
-		setTypeId(typeId);
-		setImageSrc(imageSrc);
-		setPrice(price);
-		setRating(rating);
-		setQuantity(quantity);
-		setHasReceipt(hasReceipt);
+	public ProductData(Long id, int rev) {
+		super(id, rev);
 	}
-
+	
+	/**
+	 * constructor for creating a new Product (using ProductDAO)
+	 * @param title descriptive Product title (must not be empty or NULL)
+	 * @param localeId Product locale
+	 * @param creatorId Product's creator
+	 * @param brandId Product Brand (may be null if not yet set)
+	 * @param typeId ProductType (may be null if not yet set)
+	 * @param imageSrc image file URL (may be null if not yet set)
+	 * @param qty Product quantity (e.g. weight, volume, ...)
+	 */
+	public ProductData(String title, int localeId, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+		super(title, localeId, creatorId);
+		this.brandId = brandId;
+		this.typeId = typeId;
+		this.imageSrc = imageSrc;
+		this.quantity = qty;
+	}
+	
+	/**
+	 * constructor for saving an existing Product
+	 * @param id Product ID
+	 * @param rev last existing revision (will be checked by ProductDAO to detect concurrent storage attempts) 
+	 * @param title (new) descriptive Product name
+	 * @param creatorId revision's creator ID
+	 * @param brandId (new) Brand ID (might be null)
+	 * @param typeId (new) ProductType ID (might be null)
+	 * @param imageSrc (new) image source URL (might be null)
+	 * @param qty (new) quantity (e.g. weight) 
+	 */
+	public ProductData(long id, int rev, String title, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+		super(id, rev, title, creatorId);
+		this.brandId = brandId;
+		this.typeId = typeId;
+		this.imageSrc = imageSrc;
+		this.quantity = qty;
+	}
+	
 	/**
 	 * @return the brandId
 	 */
@@ -198,19 +172,17 @@ public class ProductData extends Entity {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return product's average price
 	 */
-	public Price getPrice() {
-		return price;
+	public Price getAvgPrice() {
+		return avgPrice;
 	}
 	
 	/**
-	 * 
-	 * @param price
+	 * @param price product's average price
 	 */
-	public void setPrice(Price price) {
-		this.price = price;
+	public void setAvgPrice(Price price) {
+		this.avgPrice = price;
 	}
 	
 	/**
@@ -263,10 +235,10 @@ public class ProductData extends Entity {
 			}
 			if (getProgress() != p.getProgress()) rc = false;
 			if (getRating() != p.getRating()) rc = false;
-			if (getPrice() == null) {
-				if (p.getPrice() != null) rc = false;
+			if (getAvgPrice() == null) {
+				if (p.getAvgPrice() != null) rc = false;
 			}
-			else if (!getPrice().equals(p.getPrice())) rc = false;
+			else if (!getAvgPrice().equals(p.getAvgPrice())) rc = false;
 			if (getQuantity() == null) {
 				if (p.getQuantity() != null) rc = false;
 			}

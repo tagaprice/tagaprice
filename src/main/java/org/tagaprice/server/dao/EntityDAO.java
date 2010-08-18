@@ -45,7 +45,7 @@ public class EntityDAO implements DAOClass<Entity> {
 	private EntityDAO(DBConnection db) {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
-		//this.propertyDAO = PropertyDAO.getInstance(db);
+		this.propertyDAO = PropertyDAO.getInstance(db);
 	}
 	
 	public static EntityDAO getInstance(DBConnection db) {
@@ -123,7 +123,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		
 		if (!res.next()) throw new NotFoundException("didn't find entity with the ID "+id);
 		
-		rc = new Entity(res.getLong("ent_id"), res.getInt("rev"), res.getString("title"), res.getInt("locale_id")) {
+		rc = new Entity(res.getLong("ent_id"), res.getInt("rev"), res.getString("title"), res.getInt("locale_id"), res.getLong("creator"), res.getLong("revcreator")) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -186,13 +186,13 @@ public class EntityDAO implements DAOClass<Entity> {
 		
 		// create entity
 		String sql;
-		if (e.getCreatorId() == -2) {
+		if (e.getCreatorId() == null) {
 			sql = "INSERT INTO entity (locale_id, current_revision, creator) VALUES (?, 1, currval('entity_ent_id_seq'))";
 		}
 		else sql = "INSERT INTO entity (locale_id, current_revision, creator) VALUES (?, 1, ?)";
 		pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, e.getLocaleId());
-		if (e.getCreatorId() != -2) pstmt.setLong(2, e.getCreatorId());
+		if (e.getCreatorId() != null) pstmt.setLong(2, e.getCreatorId());
 		pstmt.executeUpdate();
 
 		// Query current ent_id
@@ -202,7 +202,7 @@ public class EntityDAO implements DAOClass<Entity> {
 
 		long id = res.getLong("ent_id");
 
-		if (e.getCreatorId() == -2) {
+		if (e.getCreatorId() == null) {
 			e._setCreatorId(id);
 			e._setRevCreatorId(id);
 		}

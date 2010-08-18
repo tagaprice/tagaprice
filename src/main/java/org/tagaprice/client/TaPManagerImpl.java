@@ -22,11 +22,9 @@ import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.Price;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
@@ -151,17 +149,15 @@ public class TaPManagerImpl implements TaPManager {
 		
 		if(title==null) title="Default Title"; //Change this to language
 		
-		ProductData pd = new ProductData(0L, 0, title, 2, 0L, 0L, "logo.png", 0, 0, null, null, false);
-		uiMng.showProduct(
-				pd,
-				new Type("root", 2));		
+		ProductData pd = new ProductData(0, 0, title, 2, null, null, "logo.png", null);
+		uiMng.showProduct(pd, new Type("root", 2, 1, null));		
 		
 	}
 	
 	public void showShopPage(final Long id){
 		//Create Page
 		uiMng.waitingPage();
-		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l,  null, 80, 25, new Address("Park Avenue 23", "New York", "USA"));
+		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", "USA"));
 		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
 		propList.add(new PropertyData("type", "Type", "drugstore", null));
 		shop.setProperties(propList);
@@ -189,8 +185,8 @@ public class TaPManagerImpl implements TaPManager {
 		if(title==null) title="Default Title"; //Change this to language
 		
 		uiMng.showShop(
-				new ShopData(123, 2, "ACME Store", 3, 30l, null, 80, 25, new Address("Park Avenue 23", "New York", "USA")), 
-				new Type("root", 2));
+				new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", "USA")), 
+				new Type("root", 2, 1, null));
 		
 		
 	}
@@ -278,7 +274,7 @@ public class TaPManagerImpl implements TaPManager {
 	
 	public ShopData getShop(double lat, double lng){
 		///TODO get shop
-		return new ShopData(15, 5, "Spar Schonbrunn", 2, 30l, "logo.png", 20, 70, new Address(48.184516, 16.311865));
+		return new ShopData(15, 5, "Spar Schonbrunn", 2, 30l, "logo.png", new Address(48.184516, 16.311865));
 	}
 
 	@Override

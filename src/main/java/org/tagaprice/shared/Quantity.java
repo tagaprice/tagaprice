@@ -28,10 +28,6 @@ public class Quantity implements Serializable {
 		setUnit(unit);
 	}
 	
-	public Quantity(int quantity, long unitId, int unitRev, String unitName, int unitLocale) {
-		this(quantity, new Unit(unitId, unitRev, unitName, unitLocale));
-	}
-	
 	public Quantity(int quantity) {
 		this(quantity, null);
 	}
@@ -50,10 +46,6 @@ public class Quantity implements Serializable {
 	
 	public void setUnit(Unit unit) {
 		this.unit = unit;
-	}
-	
-	public void setUnit(long unitId, int rev, String unitName, int localeId) {
-		setUnit(new Unit(unitId, rev, unitName, localeId));
 	}
 
 	@Override

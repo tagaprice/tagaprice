@@ -17,17 +17,49 @@ package org.tagaprice.shared;
 public class Currency extends Entity {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * default constructor (required for serialization)
+	 */
 	public Currency() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
 	
-	public Currency(String name, int localeId) {
-		super(name, localeId);
+	/**
+	 * constructor used to query the current revision of an existing Currency
+	 * @param id Currency ID
+	 */
+	public Currency(long id) {
+		super(id);
 	}
 	
-	public Currency(long id, int rev, String name, int localeId) {
-		super(id, rev, name, localeId);
+	/**
+	 * constructor used to query a specific revision of an existing Currency
+	 * @param id Currency ID
+	 * @param rev revision
+	 */
+	public Currency(long id, int rev) {
+		super(id, rev);
+	}
+
+	/**
+	 * constructor used to create a new Currency
+	 * @param title descriptive Currency name
+	 * @param localeId Locale
+	 * @param creatorId Currency's creator 
+	 */
+	public Currency(String title, int localeId, long creatorId) {
+		super(title, localeId, creatorId);
+	}
+	
+	/**
+	 * constructor used to save an existing Currency
+	 * @param id Currency ID
+	 * @param rev last existing revision (will be checked by CurrencyDAO to detect concurrent storage requests)
+	 * @param title descriptive Currency name
+	 * @param creatorId revision's creator
+	 */
+	public Currency(long id, int rev, String title, long creatorId) {
+		super(id, rev, title, creatorId);
 	}
 
 	@Override

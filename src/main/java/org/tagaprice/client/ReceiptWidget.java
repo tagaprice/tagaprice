@@ -85,8 +85,8 @@ public class ReceiptWidget extends InfoBoxComposite {
 			
 		date.setDate(receiptData.getDate());
 		
-		if(receiptData.getShopData()!=null){
-			setShop(receiptData.getShopData());
+		if(receiptData.getShop()!=null){
+			setShop(receiptData.getShop());
 		}
 		
 		for(ProductData pd: receiptData.getProductData()){
@@ -183,7 +183,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 	private void refreshPrice(){
 		bill=0;
 		for(int i=0;i<productContainer.getWidgetCount();i++){
-			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getPrice().getPrice();
+			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
 		}
 		
 		price.setText((bill/100.00)+"");
@@ -230,7 +230,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 		receiptData.setDate(date.getDate());	
 		receiptData.setTitle(title.getText());
 		receiptData.setBill(bill);		
-		receiptData.setShopData(shopPreview.getShopData());
+		receiptData.setShop(shopPreview.getShopData());
 		
 		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){

@@ -22,23 +22,44 @@ public class Account extends Entity {
 	 */
 	public Account() {}
 
+	/**
+	 * constcructor used to query an account's current revision from the database
+	 * (using AccountDAO) 
+	 * @param id Account ID
+	 */
+	public Account(Long id) {
+		super(id);
+	}
+	
+	/**
+	 * constructor used to query a specific revision from the DB
+	 *(using AccountDAO)
+	 * @param id Account ID
+	 * @param rev account revision
+	 */
 	public Account(Long id, int rev) {
-		super(id, rev, id, id);
-		// TODO check if it would make sense to save creator or revCreator somewhere
-		//    (e.g. to see if one of the admins changed some user-properties)
+		super(id, rev);
 	}
 
 	/**
-	 * @param title
+	 * constructor used to create a new Account
+	 * @param title Account's descriptive name (e.g. "Administrator")
 	 * @param localeId the Locale of an account just tells us which locale the user prefers
 	 *     (a user isn't locked into a single local version of the site)
 	 */
 	public Account(String title, int localeId) {
-		super(title, localeId);
+		super(title, localeId, null);
 	}
 
-	public Account(Long id, int rev, String title, int localeId) {
-		super(id, rev, title, localeId);
+	/**
+	 * constructor used to update an existing Account
+	 * @param id Account ID
+	 * @param rev current Account revision (will be checked by AccountDAO to detect concurrent storage requests)
+	 * @param title Account's (new) descriptive name (e.g. "Administrator")
+	 * @param revCreatorId revision creator (most times this will be the user himself, but sometimes admins will change a user's details)
+	 */
+	public Account(Long id, int rev, String title, Long revCreatorId) {
+		super(id, rev, title, revCreatorId);
 	}
 
 	@Override

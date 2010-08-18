@@ -17,38 +17,80 @@ package org.tagaprice.shared;
 public class Unit extends Entity {
 	private static final long serialVersionUID = 1L;
 	
-	private long fallbackId = 0;
+	private Long standardId = null;
 	private double factor = 0;
 
+	/**
+	 * default constructor (needed for serialization)
+	 */
 	public Unit() {
 		super();
 	}
 	
-	public Unit(Long id, int rev, String name, int localeId, long fallbackId, double factor) {
-		super(id, rev, name, localeId);
-		this.fallbackId = fallbackId;
+	/**
+	 * constructor for querying a Unit's current revision (using UnitDAO)
+	 * @param id Unit ID
+	 */
+	public Unit(long id) {
+		super(id);
+	}
+	
+	/**
+	 * constructor for querying a specific Unit revision (using UnitDAO)
+	 * @param id Unit ID
+	 * @param rev Unit revision
+	 */
+	public Unit(long id, int rev) {
+		super(id, rev);
+	}
+
+	/**
+	 * constructor for saving a new Unit (using UnitDAO)
+	 * @param title descriptive Unit name
+	 * @param localeId current locale
+	 * @param creatorId currently logged in user
+	 * @param standardId standard (SI) Unit ID (may be null)
+	 * @param factor factor to calculate between the standard Unit and this one
+	 */
+	public Unit(String title, int localeId, long creatorId, Long standardId, double factor) {
+		super(title, localeId, creatorId);
+		this.standardId = standardId;
 		this.factor = factor;
 	}
 	
-	public Unit(long id, int rev, String name, int localeId) {
-		this(id, rev, name, localeId, 0, 0);
+	/**
+	 * constructor for saving an existing Unit (using UnitDAO)
+	 * @param id Unit ID
+	 * @param rev current revision (will be checked by UnitDAO to detect concurrent storage attempts)
+	 * @param title descriptive Unit name
+	 * @param creatorId currently logged in user
+	 * @param standardId standard (SI) Unit ID (may be null)
+	 * @param factor factor to calculate between the standard Unit and this one
+	 */
+	public Unit(long id, int rev, String title, long creatorId, Long standardId, double factor) {
+		super(id, rev, title, creatorId);
+		this.standardId = standardId;
+		this.factor = factor;
 	}
 
-	public Unit(long id, int rev, long fallbackId, double factor) {
-		this(id, rev, null, -1, fallbackId, factor);
+	public Long getStandardId() {
+		return standardId;
 	}
-
-	public long getFallbackId() {
-		return fallbackId;
+	
+	public void _setStandardId(Long standardId) {
+		this.standardId = standardId;
 	}
 	
 	public double getFactor() {
 		return factor;
 	}
+	
+	public void _setFactor(double factor) {
+		this.factor = factor;
+	}
 
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
 		return "unit";
 	}
 	

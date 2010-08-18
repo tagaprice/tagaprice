@@ -17,8 +17,6 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-
 /**
  * 
  * Contains all important information to represent a receipt. 
@@ -30,38 +28,58 @@ public class ReceiptData extends Entity {
 	private boolean draft;
 	private Date date;
 	private int bill; //in Cent
-	private ShopData shopData;
+	private ShopData shop;
 	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
 	
+	/**
+	 * default constructor (needed for serialization)
+	 */
 	public ReceiptData() {
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @param name
-	 * @param date
-	 * @param bill
-	 * @param shopData
-	 * @param productData
+	 * constructor used for querying the current revision of a Receipt from the database (using ReceiptDAO)
+	 * @param id Receipt ID
 	 */
-	public ReceiptData(
-			Long id,
-			int rev,
-			String name,
-			int localeId,
-			Date date,
-			int bill,
-			ShopData shopData,
-			ArrayList<ProductData> productData,
-			boolean draft) {
-		super(id, rev, name, localeId);
-		this.draft = draft;
+	public ReceiptData(long id) {
+		super(id);
+	}
+	
+	/**
+	 * constructor used for querying a specific revision of a Receipt from the database (using ReceiptDAO)
+	 * @param id Receipt ID
+	 * @param rev requested revision
+	 */
+	public ReceiptData(long id, int rev) {
+		super(id, rev);
+	}
+	
+	/**
+	 * constructor used to store a new Receipt into the database (using ReceiptDAO) 
+	 * @param title descriptive receipt name (should not be empty)
+	 * @param localeId receipt locale
+	 * @param creatorId receipt's creator
+	 * @param date receipt date
+	 * @param bill TODO what's that for?
+	 * @param shop Shop ID
+	 * @param products
+	 * @param draft
+	 */
+	public ReceiptData(String title, int localeId, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+		super(title, localeId, creatorId);
 		this.date = date;
 		this.bill = bill;
-		this.shopData = shopData;
-		this.productData = productData;
+		this.shop = shop;
+		this.productData = products;
+	}
+	
+	public ReceiptData(long id, int rev, String title, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+		super(id, rev, title, creatorId);
+		this.date = date;
+		this.bill = bill;
+		this.shop = shop;
+		this.productData = products;
 	}
 	
 	/**
@@ -116,16 +134,16 @@ public class ReceiptData extends Entity {
 	 * 
 	 * @return
 	 */
-	public ShopData getShopData() {
-		return shopData;
+	public ShopData getShop() {
+		return shop;
 	}
 	
 	/**
 	 * 
-	 * @param shopPreview
+	 * @param shop Shop
 	 */
-	public void setShopData(ShopData shopData) {
-		this.shopData = shopData;
+	public void setShop(ShopData shop) {
+		this.shop = shop;
 	}
 	
 	/**

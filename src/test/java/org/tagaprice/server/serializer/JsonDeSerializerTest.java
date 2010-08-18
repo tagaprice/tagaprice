@@ -78,49 +78,70 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testProduct() throws IOException {
-		checkSerializer(new ProductData(23L, 2, "ACME Anvil 2t", 1, 24L, 25L,
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 3, "EUR", 1),
-				new Quantity(2, new Unit(14, 4, "t", 1)), false));
+		ProductData p = new ProductData(23L, 2, "ACME Anvil 2t", 1, 24L, 25L,
+				"/img/foo/bar.jpg", new Quantity(2, new Unit(14, 4, "t", 1, null, 0)));
+		p.setRating(50);
+		p.setProgress(73);
+		p.setAvgPrice(new Price(254, 12, 2, "€", 13));
+		checkSerializer(p);
 	}
 
 	@Test
 	public void testProduct_noBrand() throws IOException {
-		checkSerializer(new ProductData(23L, 5, "ACME Anvil 2t", 2, null, 25L,
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR", 2),
-				new Quantity(2, new Unit(14, 7, "t", 2)), false));
+		ProductData p = new ProductData(23L, 5, "ACME Anvil 2t", 2, null, 25L,
+				"/img/foo/bar.jpg", new Quantity(2, new Unit(14, 7, "t", 2, null, 0)));
+		p.setRating(80);
+		p.setProgress(20);
+		p.setAvgPrice(new Price(112584, 13, 6, "EUR", 2));
+		checkSerializer(p);
 	}
 
 	@Test
 	public void testProduct_noName() throws IOException {
-		checkSerializer(new ProductData(23L, 5, null, -1, 24L, 25L,
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 12, "EUR", 3),
-				new Quantity(2, new Unit(14, 13, "t", 3)), false));
+		ProductData p = new ProductData(23L, 5, null, -1, 24L, 25L,
+				"/img/foo/bar.jpg", new Quantity(2, new Unit(14, 13, "t", 3, null, 0)));
+		p.setProgress(20);
+		p.setRating(80);
+		p.setAvgPrice(new Price(112584, 13, 12, "EUR", 3));
+
+		checkSerializer(p);
 	}
 
 	@Test
 	public void testProduct_noImage() throws IOException {
-		checkSerializer(new ProductData(23L, 8, "ACME Anvil 2t", 2, 24L, 25L,
-				null, 80, 20, new Price(112584, 13, 1, "EUR", 2),
-				new Quantity(2, new Unit(14, 17, "t", 2)), false));
+		ProductData p = new ProductData(23L, 8, "ACME Anvil 2t", 2, 24L, 25L,
+				null,
+				new Quantity(2, new Unit(14, 17, "t", 2, null, 0)));
+		p.setProgress(80);
+		p.setRating(20);
+		p.setAvgPrice(new Price(112584, 13, 1, "EUR", 2));
+		checkSerializer(p);
+		
 	}
 
 	@Test
 	public void testProduct_noPrice() throws IOException {
-		checkSerializer(new ProductData(23L, 88, "ACME Anvil 2t", 2, 24L, 25L,
-				"/img/foo/bar.jpg", 80, 20, null,
-				new Quantity(2, new Unit(14, 7, "t", 18)), false));
+		ProductData p = new ProductData(23L, 88, "ACME Anvil 2t", 2, 24L, 25L,
+				"/img/foo/bar.jpg", new Quantity(2, new Unit(14, 7, "t", 18, null, 0)));
+		p.setRating(81);
+		p.setProgress(19);
+		checkSerializer(p);
 	}
 
 	@Test
 	public void testProduct_noQuantity() throws IOException {
-		checkSerializer(new ProductData(23L, 4, "ACME Anvil 2t", 4, 24L, 25L,
-				"/img/foo/bar.jpg", 80, 20, new Price(112584, 13, 6, "EUR", 4),
-				null, false));
+		ProductData p = new ProductData(23L, 4, "ACME Anvil 2t", 4, 24L, 25L,
+				"/img/foo/bar.jpg",
+				null);
+		p.setRating(80);
+		p.setProgress(20);
+		p.setAvgPrice(new Price(112584, 13, 6, "EUR", 4));
+		checkSerializer(p);
 	}
 
 	@Test
 	public void testProperty() throws IOException {
-		checkSerializer(new PropertyData("name", "title", "value", new Unit(23, 2, "unitName", 1)));
+		checkSerializer(new PropertyData("name", "title", "value", new Unit(23, 2, "unitName", 1, null, 0)));
 	}
 
 	@Test
@@ -130,7 +151,7 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testQuantity() throws IOException {
-		checkSerializer(new Quantity(14, new Unit(23, 4, "unitName", 2)));
+		checkSerializer(new Quantity(14, new Unit(23, 4, "unitName", 2, null, 0)));
 	}
 	
 	@Test
@@ -140,7 +161,7 @@ public class JsonDeSerializerTest {
 	
 	@Test
 	public void testQuantity_implicitUnit() throws IOException {
-		checkSerializer(new Quantity(13, 14, 5, "unitName", 8));
+		checkSerializer(new Quantity(13, new Unit(14, 5, "unitName", 8, null, 0)));
 	}
 
 	@Test
@@ -151,14 +172,14 @@ public class JsonDeSerializerTest {
 	@Test
 	public void testSearchResult() throws Exception {
 		SearchResult<Serializable> l = new SearchResult<Serializable>();
-		l.add(new Unit(-123L, 5, "unitName", 6, 15, 223));
+		l.add(new Unit(-123L, 5, "unitName", 6, 15L, 100));
 		l.add(new Price(4289, 2, 87, "EUR", 3));
 		checkSerializer(l);
 	}
 
 	@Test
 	public void testServerResponse() throws IOException {
-		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, 23, "answer", 0)));
+		checkSerializer(new ServerResponse(StatusCode.Ok, new Unit(42, 23, "answer", 0, null, 0)));
 	}
 
 	@Test
@@ -183,12 +204,12 @@ public class JsonDeSerializerTest {
 
 	@Test
 	public void testUnit() throws IOException {
-		checkSerializer(new Unit(5L, 6, "unitName", 8, 20, 123.45));
+		checkSerializer(new Unit(5L, 6, "unitName", 8, 20L, 123.45));
 	}
 	
 	@Test
 	public void testUnit_nullName() throws IOException {
-		checkSerializer(new Unit(5, 7, null, -1));
+		checkSerializer(new Unit(5, 7, null, -1, null, 0));
 	}
 	
 	

@@ -86,7 +86,7 @@ public class JsonSerializer extends Serializer {
 		writeVar("brandId", product.getBrandId(), false);
 		writeVar("typeId", product.getTypeId(), true);
 		writeVar("imageSrc", product.getImageSrc(), true);
-		writeVar("price", product.getPrice(), true, annotateType);
+		writeVar("price", product.getAvgPrice(), true, annotateType);
 		writeVar("quantity", product.getQuantity(), false, annotateType);
 		writeVar("rating", product.getRating(), false);
 		writeVar("progress", product.getProgress(), true);
@@ -166,8 +166,8 @@ public class JsonSerializer extends Serializer {
 		writeHead();
 		writeEntity(unit);
 		
-		if (unit.getFallbackId() > 0) {
-			writeVar("siUnit", unit.getFallbackId(), true);
+		if (unit.getStandardId() != null) {
+			writeVar("siUnit", unit.getStandardId(), true);
 			writeVar("factor", unit.getFactor(), true);
 		}
 		

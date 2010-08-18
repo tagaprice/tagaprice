@@ -26,9 +26,6 @@ import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
-import com.google.gwt.maps.client.event.MapMoveEndHandler;
-import com.google.gwt.maps.client.event.MapDragEndHandler.MapDragEndEvent;
-import com.google.gwt.maps.client.event.MapMoveEndHandler.MapMoveEndEvent;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -183,7 +180,7 @@ public class PriceMapWidget extends Composite {
 			priceTable.setText(row, 0+pinOff, pd.getShopData().getTitle());
 			priceTable.setWidget(row, 2+pinOff+colOff, new RatingWidget(pd.getProductData().getRating(), false));
 			priceTable.setText(row, 3+pinOff+colOff, "1-1-01");
-			priceTable.setText(row, 4+pinOff+colOff, ""+pd.getProductData().getPrice().getPrice());
+			priceTable.setText(row, 4+pinOff+colOff, ""+pd.getProductData().getAvgPrice().getPrice());
 			
 			map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData().getAddress().getLat(), pd.getShopData().getAddress().getLng())));
 			

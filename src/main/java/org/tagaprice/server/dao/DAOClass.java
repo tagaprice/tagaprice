@@ -16,7 +16,7 @@ package org.tagaprice.server.dao;
 
 import java.sql.SQLException;
 
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -25,7 +25,7 @@ import org.tagaprice.shared.exception.RevisionCheckException;
  * Specifies the methods all DAO-Classes have to implement
  * @author Manuel Reithuber
  */
-public interface DAOClass<T extends Entity> {
+public interface DAOClass<T extends Serializable> {
 	
 	public void get(T entity) throws SQLException, NotFoundException;
 	public void save(T entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException;

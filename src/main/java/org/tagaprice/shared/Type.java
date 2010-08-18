@@ -22,28 +22,53 @@ public class Type extends Entity {
 	private Type superType;
 	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
 	
+	/**
+	 * default constructor (needed for serialization)
+	 */
 	public Type() {
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param title
-	 * @param localeId Identifies the type by the Location
- 	 * @param _superType
+	 * constructor for querying a Type (using TypeDAO)
+	 * @param id Type ID
 	 */
-	public Type(String title, int localeId, Type _superType){
-		super(title, localeId); 
-		superType = _superType;
-
-		if (superType != null) {
-			properties.addAll(superType.getPropertyGroups());
-		}
+	public Type(long id) {
+		super(id);
 	}
 	
-	//type is a main category
-	public Type(String title, int localeId) {
-		this(title, localeId, null);
+	/**
+	 * constructor for querying a specific Type revision (using TypeDAO) 
+	 * @param id Type ID
+	 * @param rev Type revision
+	 */
+	public Type(long id, int rev) {
+		super(id, rev);
+	}
+	
+	/**
+	 * constructor for saving a new Type (using TypeDAO)
+	 * @param title descriptive Type name
+	 * @param localeId Type's locale
+	 * @param creatorId Type's creator (usually the currently logged in User)
+	 * @param superType reference to a supertype (may be null)
+	 */
+	public Type(String title, int localeId, long creatorId, Type superType) {
+		super(title, localeId, creatorId);
+		this.superType = superType;
+	}
+	
+	/**
+	 * constructor for saving changes of an existing Type (using TypeDAO)
+	 * @param typeId Type ID
+	 * @param rev Type revision (will be checked by TypeDAO to prevent concurrent write attempts)
+	 * @param title (new) descriptive Type name
+	 * @param creatorId Type revision's creator (usually the currently logged in User)
+	 * @param superType (new) reference to a supertype (may be null)
+	 */
+	public Type(long typeId, int rev, String title, long creatorId, Type superType) {
+		super(typeId, rev, title, creatorId);
+		this.superType = superType;
 	}
 	
 	public ArrayList<PropertyGroup> getPropertyGroups(){

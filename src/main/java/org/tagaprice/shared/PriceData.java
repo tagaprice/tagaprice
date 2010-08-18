@@ -23,6 +23,7 @@ public class PriceData  implements Serializable {
 	
 	private ProductData productData;
 	private ShopData shopData;
+	private Price price;
 	
 	public PriceData() {
 	}
@@ -32,9 +33,10 @@ public class PriceData  implements Serializable {
 		this.productData=productData;
 	}
 	
-	public PriceData(ProductData productData, ShopData shopData){
+	public PriceData(ProductData productData, ShopData shopData, Price p){
 		this(productData);
 		this.shopData=shopData;
+		this.price = p;
 	}
 	
 	@Override
@@ -58,5 +60,11 @@ public class PriceData  implements Serializable {
 		this.shopData = shopData;
 	}
 
+	public Price getPrice() {
+		return price;
+	}
 	
+	public void setPrice(Price p) {
+		this.price = p;
+	}
 }

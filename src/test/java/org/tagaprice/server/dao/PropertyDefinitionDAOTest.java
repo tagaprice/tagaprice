@@ -6,26 +6,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ProductDAOTest extends EntityDAOTest {
+public class PropertyDefinitionDAOTest {
 
 	@Before
 	public void setUp() throws Exception {
-		super.setUp();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		super.tearDown();
 	}
 
 	@Test
 	public void testCreate() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testSave() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 }

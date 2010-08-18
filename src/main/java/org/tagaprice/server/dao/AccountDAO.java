@@ -60,13 +60,12 @@ public class AccountDAO implements DAOClass<Account> {
 		
 		if (a.getId() == null) {
 			// create a new account
-			if (a.getCreatorId() == -1) a._setCreatorId(-2);
 			entityDAO.save(a);
 
 			pstmt = db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
 			pstmt.setLong(1, a.getId());
 			pstmt.executeUpdate();
-			if (a.getCreatorId() < 0) {
+			if (a.getCreatorId() == null) {
 				a._setCreatorId(a.getId());
 				a._setRevCreatorId(a.getId());
 			}

@@ -20,40 +20,76 @@ public abstract class Entity implements Serializable {
 	private Long id = null;
 	private String title;
 	private int rev = 0;
-	private int localeId = -1;
-	private long creatorId = -1;
-	private long revCreatorId = -1;
+	private Integer localeId = -1;
+	private Long creatorId = null;
+	private Long revCreatorId = null;
 
 	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
 
+	/**
+	 * default constructor (required for serialization)
+	 */
 	public Entity() {
-		this(null, 0, null, -1);
+		this(null, 0, null, null, null, null);
 	}
-	
-	/*public Entity(Long id) {
-		this(id, null, 0);
-	}*/
 	
 	/**
-	 * Constructor used for requesting an Entity from the Database
+	 * constructor used to request the last revision of an Entity from the database
+	 * (in combination with EntityDAO)
+	 * @param id Entity ID 
 	 */
-	public Entity(Long id, int rev, long creatorId, long revCreatorId) {
-		this(id, rev, null, 0);
+	public Entity(Long id) {
+		this(id, 0);
 	}
 	
-	public Entity(String title, int localeId) {
-		this(null, 0, title, localeId);
+	/**
+	 * constructor used to query a specific revision of an Entity from the database
+	 * (in combination with EntityDAO)
+	 * @param id Entity ID
+	 * @param rev Entity revision (must be > 0)
+	 */
+	public Entity(Long id, int rev) {
+		this(id, rev, null, null, null, null);
 	}
 	
-	/*public Entity(Long id, String name) {
-		this(id, name, 0, );
-	}*/
+	/**
+	 * Constructor used to save an existing Entity into the database
+	 *
+	 * @param id Entity ID
+	 * @param rev current entity revision (will be checked by the EntityDAO)
+	 * @param title (new) Entity title
+	 * @param revCreatorId revision's creator
+	 */
+	public Entity(Long id, int rev, String title, Long revCreatorId) {
+		this(id, rev, title, null, null, revCreatorId);
+	}
 	
-	public Entity(Long id, int rev, String title, int localeId) {
+	/**
+	 * constructor for storing a new entity in the database 
+	 * @param title new Entity's title
+	 * @param localeId new Entity's locale
+	 * @param creatorId new Entity's creator
+	 */
+	public Entity(String title, int localeId, Long creatorId) {
+		this(null, 0, title, localeId, creatorId, creatorId);
+	}
+	
+	/**
+	 * full constructor
+	 * @param id Entity ID
+	 * @param rev revision nr (starting at 1, 0 has a special meaning depending on the action you're performing)
+	 * @param title Entity Title 
+	 * @param localeId Entity locale
+	 * @param creatorId Entity creator ID
+	 * @param revCreatorId revision creator ID
+	 */
+	public Entity(Long id, int rev, String title, Integer localeId, Long creatorId, Long revCreatorId) {
 		this.id = id;
 		this.title = title;
 		this.rev = rev;
 		this.localeId = localeId;
+		this.creatorId = creatorId;
+		this.revCreatorId = revCreatorId;
 	}
 	
 	public Long getId() {
@@ -89,7 +125,7 @@ public abstract class Entity implements Serializable {
 	}
 	
 	
-	public long getCreatorId() {
+	public Long getCreatorId() {
 		return creatorId;
 	}
 	
@@ -97,11 +133,11 @@ public abstract class Entity implements Serializable {
 	 * This method should just be called by EntityDAO
 	 * @param creatorId Creator ID
 	 */
-	public void _setCreatorId(long creatorId) {
+	public void _setCreatorId(Long creatorId) {
 		this.creatorId = creatorId;
 	}
 	
-	public long getRevCreatorId() {
+	public Long getRevCreatorId() {
 		return revCreatorId;
 	}
 	
@@ -109,7 +145,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be called by EntityDAO
 	 * @param revCreatorId revision's creator ID
 	 */
-	public void _setRevCreatorId(long revCreatorId) {
+	public void _setRevCreatorId(Long revCreatorId) {
 		this.revCreatorId = revCreatorId;
 	}
 	

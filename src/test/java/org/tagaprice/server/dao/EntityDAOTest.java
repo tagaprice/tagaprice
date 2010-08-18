@@ -55,12 +55,28 @@ public class EntityDAOTest {
 	public static class TestEntity extends Entity {
 		private static final long serialVersionUID = 1L;
 
-		public TestEntity(Long id, int rev, String title, int localeId, long creatorId) {
-			super(id, rev, title, localeId);
+		public TestEntity() {
+			super();
 		}
 		
-		public TestEntity(Long id, int rev, long creatorId, long revCreatorId) {
-			super(id, rev, creatorId, revCreatorId);
+		public TestEntity(Long id) {
+			super(id);
+		}
+		
+		public TestEntity(Long id, int rev) {
+			super(id, rev);
+		}
+		
+		public TestEntity(Long id, int rev, String title, Long revCreatorId) {
+			super(id, rev, title, revCreatorId);
+		}		
+
+		public TestEntity(String title, int localeId, Long creatorId) {
+			super(title, localeId, creatorId);
+		}
+		
+		public TestEntity(Long id, int rev, String title, Integer localeId, Long creatorId, Long revCreatorId) {
+			super(id, rev, title, localeId, creatorId, revCreatorId);
 		}
 
 		@Override
@@ -91,11 +107,11 @@ public class EntityDAOTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		TestEntity entity = new TestEntity(null, 0, "entityTitle", localeDAO.get("English").getId(), testAccount.getId()), newEntity;
+		TestEntity entity = new TestEntity("entityTitle", localeDAO.get("English").getId(), testAccount.getId()), newEntity;
 		dao.save(entity);
 		
 		assertNotSame("EntityDAO.save() should set the ID of the entity to the ID of the newly created database entry", null, entity.getId());
-		newEntity = new TestEntity(entity.getId(), entity.getRev(), testAccount.getId(), testAccount.getId());
+		newEntity = new TestEntity(entity.getId(), entity.getRev());
 		
 		dao.get(newEntity);
 		
@@ -107,38 +123,46 @@ public class EntityDAOTest {
 	 */
 	@Test
 	public void testCreate_invalidRevision() throws Exception {
-		TestEntity entity = new TestEntity(null, 13, testAccount.getId(), testAccount.getId());
+		TestEntity entity = new TestEntity(null, 13, "title", localeDAO.get("English").getId(), testAccount.getId(), testAccount.getId());
 		try {
 			dao.save(entity);
-			fail("RevisionCheckException should've been thrown already.");
+			fail("RevisionCheckException should've been thrown.");
 		} catch (RevisionCheckException e) {
 			// everything's fine
 		}
 	}
 	
+	/**
+	 * try to create an entity with an invalid locale ID
+	 */
 	@Test
 	public void testCreate_invalidLocale() throws Exception {
-		TestEntity entity = new TestEntity(null, 0, "title", -1, testAccount.getId());
+		TestEntity entity = new TestEntity("title", -1, testAccount.getId());
 		try {
 			dao.save(entity);
-			fail("InvalidLocaleException should've been thrown already");
+			fail("InvalidLocaleException should've been thrown");
 		}
 		catch (InvalidLocaleException e) {
 			// everything's fine
 		}
 	}
 	
+	/**
+	 * trying to successfully save an Entity
+	 * @throws Exception
+	 */
 	@Test
 	public void testSave() throws Exception {
-		TestEntity entity = new TestEntity(null, 0, "title", localeDAO.get("English").getId(), testAccount.getId());
+		TestEntity entity = new TestEntity("title", localeDAO.get("English").getId(), testAccount.getId());
 		dao.save(entity);
 		entity.setTitle("newTitle");
 		dao.save(entity);
 		
 		assertEquals(2, entity.getRev());
 
-		TestEntity e1 = new TestEntity(entity.getId(), 1, testAccount.getId(), testAccount.getId());
-		TestEntity e2 = new TestEntity(entity.getId(), 2, testAccount.getId(), testAccount.getId());
+		// new revisions
+		TestEntity e1 = new TestEntity(entity.getId(), 1);
+		TestEntity e2 = new TestEntity(entity.getId(), 2);
 		dao.get(e1);
 		dao.get(e2);
 
@@ -154,9 +178,9 @@ public class EntityDAOTest {
 		assertEquals(entity.getLocaleId(), e2.getLocaleId());
 	}
 	
-/*	@Test
+	@Test
 	public void testSave_changedCreator() throws Exception {
-		TestEntity entity = new TestEntity(null, 0, "title", localeDAO.get("English").getId(), testAccount.getId());
+		TestEntity entity = new TestEntity("title", localeDAO.get("English").getId(), testAccount.getId());
 		dao.save(entity);
 		entity._setCreatorId(entity.getCreatorId()-1);
 		try {
@@ -166,5 +190,5 @@ public class EntityDAOTest {
 		catch (Exception e) {
 			// everything alright
 		}
-	}*/
+	}
 }

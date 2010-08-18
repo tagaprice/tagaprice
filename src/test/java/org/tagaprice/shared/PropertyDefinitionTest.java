@@ -30,7 +30,7 @@ public class PropertyDefinitionTest {
 	private Datatype type = PropertyDefinition.Datatype.DOUBLE;
 	private int minValue=0;
 	private int maxValue=50;
-	private Unit unit=new Unit(15, 8, "g", 1);
+	private Unit unit=new Unit(15, 8, "g", 1, null, 0);
 	private boolean unique=true;
 	
 	@Before
@@ -70,7 +70,7 @@ public class PropertyDefinitionTest {
 	}
 	
 	@Test
-	public void testLocalId(){
+	public void testLocaleId(){
 		assertTrue(localeId==def.getLocaleId());
 	}
 	
@@ -90,9 +90,9 @@ public class PropertyDefinitionTest {
 	}
 	
 	@Test
-	public void testUnit(){
-		//Is it possible to insert here an other Unit-Test?
-		assertTrue(false);
+	public void testUnit() {
+		// TODO add another Test here?
+		fail("not yet implemented");
 	}
 	
 	@Test

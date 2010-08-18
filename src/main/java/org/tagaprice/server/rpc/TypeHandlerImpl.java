@@ -32,32 +32,32 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		Type type;
 		
 		if(id==20){			
-			type = new Type("eisen", 20, new Type("metall", 10, new Type("werkzeug", 5)));
+			type = new Type("eisen", 20, 25, new Type("metall", 10, 15, new Type("werkzeug", 1, 5, null)));
 			PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
-			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 7, "g", 1),true));
-			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,new Unit(15, 6, "g", 1),false));
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,0, 15, new Unit(15, 8, "g", 1, null, 0),true)); 
+			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE, -5, 20, new Unit(15, 7, "g", 1, null, 0),true));
+			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,-10, 25, new Unit(15, 6, "g", 1, null, 0),false));
 			type.addPropertyGroup(pg);
 			PropertyGroup pg5 = new PropertyGroup("NUTRITIONFACTS", PropertyGroup.GroupType.LIST);
-			pg5.addGroupElement(new PropertyDefinition(2L, 1, "ean", "BAR", 1, PropertyDefinition.Datatype.STRING,new Unit(15, 8, "g", 1),false)); 
+			pg5.addGroupElement(new PropertyDefinition(2L, 1, "ean", "BAR", 1, PropertyDefinition.Datatype.STRING, 1, 14, new Unit(15, 8, "g", 1, null, 0),false)); 
 
 			type.addPropertyGroup(pg5);
 		}else if(id==10){
-			type = new Type("metall", 10, new Type("werkzeug", 5));
+			type = new Type("metall", 10, 11, new Type("werkzeug", 5, 6, null));
 			PropertyGroup pg =new PropertyGroup("speedeigenschaften", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
-			pg.addGroupElement(new PropertyDefinition(3L, 2, "kw", "KW", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 7, "g", 1),true));
-			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,new Unit(15, 6, "g", 1),false));
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,4, 7, new Unit(15, 8, "g", 1, null, 0),true)); 
+			pg.addGroupElement(new PropertyDefinition(3L, 2, "kw", "KW", 1, PropertyDefinition.Datatype.DOUBLE,0, 1000, new Unit(15, 7, "g", 1, null, 0),true));
+			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,15, 2000, new Unit(15, 6, "g", 1, null, 0),false));
 			type.addPropertyGroup(pg);
 		}else if(id==5){			
-			type=new Type("werkzeug", 5);
+			type=new Type("werkzeug", 5, 6, null);
 			PropertyGroup pg =new PropertyGroup("werkzeug", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,100, 200, new Unit(15, 8, "g", 1, null, 0),true)); 
 			type.addPropertyGroup(pg);
-		}else{			
-			type=new Type("auto", 6);
+		}else{
+			type=new Type("auto", 6, 7, null);
 			PropertyGroup pg =new PropertyGroup("auto", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 1),true)); 
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,99, 101, new Unit(15, 8, "g", 1, null, 0),true)); 
 			type.addPropertyGroup(pg);
 		}
 		
@@ -95,34 +95,34 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		ArrayList<Type> types = new ArrayList<Type>();
 	
 		if(type.getTitle().equals("root")){
-			types.add(new Type("nahrung", 4));
-			types.add(new Type("werkzeug", 5));
-			types.add(new Type("auto", 6));
+			types.add(new Type("nahrung", 4, -4, null));
+			types.add(new Type("werkzeug", 5, -5, null));
+			types.add(new Type("auto", 6, -6, null));
 		}else if(type.getTitle().equals("nahrung")){
-			types.add(new Type("flussig", 7, type));
-			types.add(new Type("fest", 8, type));				
+			types.add(new Type("flussig", 7, -7, type));
+			types.add(new Type("fest", 8, -8, type));				
 		}else if(type.getTitle().equals("werkzeug")){
-			types.add(new Type("holz", 9, type));
-			types.add(new Type("metall", 10, type));
+			types.add(new Type("holz", 9, -9, type));
+			types.add(new Type("metall", 10, -10, type));
 		}else if(type.getTitle().equals("auto")){
-			types.add(new Type("lkw", 11, type));
-			types.add(new Type("pkw", 12, type));
+			types.add(new Type("lkw", 11, -11, type));
+			types.add(new Type("pkw", 12, -12, type));
 			
 		}else if(type.getTitle().equals("flussig")){
-			types.add(new Type("milch", 13, type));
-			types.add(new Type("tee", 14, type));
+			types.add(new Type("milch", 13, -13, type));
+			types.add(new Type("tee", 14, -14, type));
 		}else if(type.getTitle().equals("fest")){
-			types.add(new Type("rind", 15, type));
-			types.add(new Type("pute", 16, type));
+			types.add(new Type("rind", 15, -15, type));
+			types.add(new Type("pute", 16, -16, type));
 		}else if(type.getTitle().equals("holz")){
-			types.add(new Type("kirsche", 17, type));
-			types.add(new Type("birne", 18, type));
+			types.add(new Type("kirsche", 17, -17, type));
+			types.add(new Type("birne", 18, -18, type));
 		}else if(type.getTitle().equals("metall")){
-			types.add(new Type("alu", 19, type));
-			types.add(new Type("eisen", 20, type));
+			types.add(new Type("alu", 19, -19, type));
+			types.add(new Type("eisen", 20, -20, type));
 		}else if(type.getTitle().equals("Food")){
-			types.add(new Type("food1", 21, type));
-			types.add(new Type("food2", 22, type));
+			types.add(new Type("food1", 21, -21, type));
+			types.add(new Type("food2", 22, -22, type));
 		}
 			
 		
