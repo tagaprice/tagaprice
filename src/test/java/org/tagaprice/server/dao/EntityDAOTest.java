@@ -177,18 +177,4 @@ public class EntityDAOTest {
 		assertEquals("newTitle", e2.getTitle());
 		assertEquals(entity.getLocaleId(), e2.getLocaleId());
 	}
-	
-	@Test
-	public void testSave_changedCreator() throws Exception {
-		TestEntity entity = new TestEntity("title", localeDAO.get("English").getId(), testAccount.getId());
-		dao.save(entity);
-		entity._setCreatorId(entity.getCreatorId()-1);
-		try {
-			dao.save(entity);
-			fail("It shouldn't be possible to change an entity's creator!");
-		}
-		catch (Exception e) {
-			// everything alright
-		}
-	}
 }
