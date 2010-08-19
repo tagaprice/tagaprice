@@ -15,17 +15,19 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 public class PropertyDAOTest {
 	private TestEntity testEntity;
-	private PropertyDefinition testPropDef;
+	private PropertyDefinition testPropDef, newPropDef;
 	private int localeId;
 	private long uid;
 	private DBConnection db;
-	private PropertyDAO dao;
+	//private PropertyDAO dao;
+	private EntityDAO dao;
 	private PropertyDefinitionDAO propDefDAO;
 	
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
-		dao = PropertyDAO.getInstance(db);
+		//dao = PropertyDAO.getInstance(db);
+		dao = EntityDAO.getInstance(db);
 		propDefDAO = PropertyDefinitionDAO.getInstance(db);
 		
 		localeId = LocaleDAO.getInstance().get("English").getId();
@@ -35,10 +37,12 @@ public class PropertyDAOTest {
 		
 		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
 		propDefDAO.save(testPropDef);
+		newPropDef = new PropertyDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
+		propDefDAO.save(newPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
 
-		EntityDAO.getInstance(db).save(testEntity);
+		dao.save(testEntity);
 		
 		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
 		props.add(new PropertyData(testPropDef.getName(), "propTitle", "propValue", null));
@@ -51,16 +55,28 @@ public class PropertyDAOTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		dao.save(testEntity);
 		TestEntity e = new TestEntity(testEntity.getId());
-		e._setLocaleId(testEntity.getLocaleId());
-		e._setCreatorId(testEntity.getCreatorId());
-		e._setRev(testEntity.getRev());
-		e.setTitle(testEntity.getTitle());
-		e._setRevCreatorId(testEntity.getRevCreatorId());
 		dao.get(e);
 		assertEquals(testEntity, e);
 	}
 	
-	// TODO add a little more testing (e.g. revision handling, with/without units)
+	@Test
+	public void testRev() throws Exception {
+		testEntity.getProperties().add(new PropertyData(newPropDef.getName(), "new test property", "foobar", null));
+		dao.save(testEntity);
+		
+		assertEquals(2, testEntity.getRev());
+		
+		TestEntity e1, e2;
+		
+		e1 = new TestEntity(testEntity.getId(), 1);
+		dao.get(e1);
+		e2 = new TestEntity(testEntity.getId(), 2);
+		dao.get(e2);
+		
+		assertEquals(1, e1.getRev());
+		assertEquals(2, e1.getProperties().size());
+		
+		assertEquals(testEntity, e2);
+	}
 }
