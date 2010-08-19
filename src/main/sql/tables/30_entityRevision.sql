@@ -9,7 +9,8 @@ CREATE TABLE entityRevision (
 
 	PRIMARY KEY (ent_id, rev),
 	FOREIGN KEY (ent_id) REFERENCES entity(ent_id),
-	FOREIGN KEY (group_id) REFERENCES entity (ent_id)
+	FOREIGN KEY (group_id) REFERENCES entity (ent_id),
+	CHECK (rev >= 1)
 );
 
 ALTER TABLE entity ADD CONSTRAINT fkey_currentRev
