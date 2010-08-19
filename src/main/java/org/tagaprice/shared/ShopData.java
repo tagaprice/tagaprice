@@ -138,7 +138,7 @@ public class ShopData extends Entity {
 	 * @return
 	 */
 	public Double getLat() {
-		return address.getLat();
+		return address != null ? address.getLat() : null;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class ShopData extends Entity {
 	 * @return
 	 */
 	public Double getLng() {
-		return address.getLng();
+		return address != null ? address.getLng() : null;
 	}
 
 	@Override
