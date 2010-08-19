@@ -104,20 +104,18 @@ public interface TaPManager {
 	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response);
 	
 	/**
-	 * Returns shop by ID.
+	 * 
 	 * @param id
-	 * @return
+	 * @param response
 	 */
-	public ShopData getShop(Long id);
-	
+	public void getShop(Long id, AsyncCallback<ShopData> response);
 	
 	/**
-	 * Returns shop by location
-	 * @param lat Latitude
-	 * @param lng Longitude
-	 * @return
+	 * 
+	 * @param data
+	 * @param response
 	 */
-	public ShopData getShop(double lat, double lng);
+	public void saveShop(ShopData data, AsyncCallback<ShopData> response);
 	
 	/**
 	 * 

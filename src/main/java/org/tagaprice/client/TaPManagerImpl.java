@@ -39,6 +39,8 @@ import org.tagaprice.shared.rpc.ReceiptHandler;
 import org.tagaprice.shared.rpc.ReceiptHandlerAsync;
 import org.tagaprice.shared.rpc.SearchHandler;
 import org.tagaprice.shared.rpc.SearchHandlerAsync;
+import org.tagaprice.shared.rpc.ShopHandler;
+import org.tagaprice.shared.rpc.ShopHandlerAsync;
 import org.tagaprice.shared.rpc.TypeHandler;
 import org.tagaprice.shared.rpc.TypeHandlerAsync;
 import com.google.gwt.core.client.GWT;
@@ -61,6 +63,7 @@ public class TaPManagerImpl implements TaPManager {
 	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
 	private PriceHandlerAsync priceHandler = GWT.create(PriceHandler.class);
 	private SearchHandlerAsync searchHandler = GWT.create(SearchHandler.class);
+	private ShopHandlerAsync shopHandler = GWT.create(ShopHandler.class);
 
 
 	public static TaPManager getInstance(){
@@ -159,21 +162,31 @@ public class TaPManagerImpl implements TaPManager {
 	public void showShopPage(final Long id){
 		//Create Page
 		uiMng.waitingPage();
-		final ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
-		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
-		propList.add(new PropertyData("type", "Type", "drugstore", null));
-		shop.setProperties(propList);
+				
 		
-		TaPMng.getType(id, new AsyncCallback<Type>() {
+		TaPMng.getShop(id, new AsyncCallback<ShopData>() {
 			
 			@Override
-			public void onSuccess(Type tResult) {
-				uiMng.showShop(shop,tResult);
+			public void onSuccess(final ShopData result) {
+				TaPMng.getType(result.getTypeId(), new AsyncCallback<Type>() {
+
+					@Override
+					public void onSuccess(Type tResult) {
+						uiMng.showShop(result, tResult);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						uiMng.showInfo("Fail type: "+caught, BoxType.WARNINGBOX);
+					}
+				});
+				
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+				uiMng.showInfo("Fail shop: "+caught, BoxType.WARNINGBOX);
+				
 			}
 		});
 
@@ -185,10 +198,9 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		
 		if(title==null) title="Default Title"; //Change this to language
+		ShopData sd = new ShopData(title, 1, 1l, 20l, "logo.png", new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
 		
-		uiMng.showShop(
-				new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null))), 
-				new Type("root", 2, 1, null));
+		uiMng.showShop(sd,new Type("root", 2, 1, null));
 		
 		
 	}
@@ -235,9 +247,13 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	@Override
-	public ShopData getShop(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void getShop(Long id, AsyncCallback<ShopData> response) {
+		shopHandler.get(id, response);		
+	}
+	
+	@Override
+	public void saveShop(ShopData data, AsyncCallback<ShopData> response) {
+		shopHandler.save(data, response);
 	}
 
 
@@ -274,10 +290,6 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 	
-	public ShopData getShop(double lat, double lng){
-		///TODO get shop
-		return new ShopData(15, 5, "Spar Schonbrunn", 2, 30l, "logo.png", new Address(48.184516, 16.311865));
-	}
 
 	@Override
 	public void showUserRegistrationPage(String verificationCode) {
