@@ -106,7 +106,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		}
 		
 		// save properties
-		//propertyDAO.save(entity);
+		propertyDAO.save(entity);
 	}
 	
 	private Entity _getEntity(long id) throws SQLException, NotFoundException {
