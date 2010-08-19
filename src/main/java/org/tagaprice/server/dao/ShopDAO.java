@@ -39,10 +39,11 @@ public class ShopDAO implements DAOClass<ShopData> {
 		//Get Shop Data
 		String sql = "SELECT type_id, imageUrl, lat, lng, street, city, country_code " +
 				"FROM shopRevision " +
-				"INNER JOIN ENTITY ON(ent_id = shop_id AND current_revision = rev) " +
-				"WHERE shop_id = ?";
+				"INNER JOIN ENTITY ON(ent_id = shop_id) " +
+				"WHERE shop_id = ? AND rev = ?";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, shop.getId());
+		pstmt.setLong(2, shop.getRev());
 		ResultSet res = pstmt.executeQuery();
 		
 		if (!res.next()) throw new NotFoundException("Shop not found");
