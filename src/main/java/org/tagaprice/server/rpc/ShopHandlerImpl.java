@@ -3,16 +3,9 @@ package org.tagaprice.server.rpc;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import javax.print.attribute.standard.PDLOverrideSupported;
-
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ShopDAO;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.Country;
-import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
