@@ -42,5 +42,25 @@ public class ShopDAOTest {
 		dao.get(shop);
 		assertEquals(testShop, shop);
 	}
+	
+	@Test
+	public void testRev() throws Exception {
+		ShopData shop, shop1, shop2;
+		shop = new ShopData("testshop title", localeId, uid, -16L, null, new Address());
+		dao.save(shop);
+		shop.setTitle("test-product v2");
+		shop.setImageSrc("/foo/bar.png");
+		dao.save(shop);
+		assertEquals("shop revision should be 2 after two save() calls", 2, shop.getRev());
+		
+		shop2 = new ShopData(shop.getId());
+		dao.get(shop2);
+		assertEquals(shop, shop2);
+		
+		shop1 = new ShopData(shop.getId(), 1);
+		dao.get(shop1);
+		assertEquals(null, shop1.getImageSrc());
+		assertEquals("shop1.title is wrong", "testshop title", shop1.getTitle());
+	}
 
 }
