@@ -74,12 +74,13 @@ public class SearchWidget extends Composite {
 						if(_popup)
 							popPa.showRelativeTo(searchBox);
 						
-						for(Entity sResult:result){
+						for(Entity sResult:result){							
 							if(sResult instanceof ProductData){
 								selVePa.add(new ProductPreview((ProductData)sResult, false));
 							}else if(sResult instanceof ShopData){
 								selVePa.add(new ShopPreview((ShopData)sResult, false));
 							}
+							
 						}
 					}
 					
