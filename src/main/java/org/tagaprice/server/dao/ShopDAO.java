@@ -57,10 +57,12 @@ public class ShopDAO implements DAOClass<ShopData> {
 		}
 		else shop.getAddress().setCoordinates(null, null);
 		
+		String countryCode = res.getString("country_code"); 
+		
 		shop.getAddress().setAddress(
 				res.getString("street"),
 				res.getString("city"),
-				countryDAO.get(res.getString("country_code")));
+				countryCode != null ? countryDAO.get(countryCode) : null);
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public class ShopDAO implements DAOClass<ShopData> {
 		
 		entityDAO.save(shop);
 		if (shop.getRev() == 1) {
-			// create a new Product
+			// create a new Shop
 			pstmt = db.prepareStatement("INSERT INTO shop (shop_id) VALUES (?)");
 			pstmt.setLong(1, shop.getId());
 			pstmt.executeUpdate();
@@ -96,9 +98,19 @@ public class ShopDAO implements DAOClass<ShopData> {
 			pstmt.setNull(6, Types.DOUBLE);
 		}
 		
-		pstmt.setString(7, shop.getAddress().getStreet());
-		pstmt.setString(8, shop.getAddress().getCity());
-		pstmt.setString(9, shop.getAddress().getCountry().getCode());
+		if (shop.getAddress() != null) {
+			pstmt.setString(7, shop.getAddress().getStreet());
+			pstmt.setString(8, shop.getAddress().getCity());
+			if (shop.getAddress().getCountry() != null)
+				pstmt.setString(9, shop.getAddress().getCountry().getCode());
+			else pstmt.setNull(9, Types.VARCHAR);
+ 
+		}
+		else {
+			pstmt.setNull(7, Types.VARCHAR);
+			pstmt.setNull(8, Types.VARCHAR);
+			pstmt.setNull(9, Types.VARCHAR);
+		}
 
 		pstmt.executeUpdate();
 	}
