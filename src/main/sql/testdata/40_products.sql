@@ -11,7 +11,7 @@ INSERT INTO product (prod_id) VALUES (currval('entity_ent_id_seq'));
 
 INSERT INTO productrevision (prod_id, rev, type_id, imageurl)
 VALUES
-(currval('entity_ent_id_seq'), 1, (SELECT type_id FROM productType LIMIT 1),'nix.png');
+(currval('entity_ent_id_seq'), 1, 20,'nix.png');
 
 
 

@@ -34,30 +34,30 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		if(id==20){			
 			type = new Type("eisen", 20, 25, new Type("metall", 10, 15, new Type("werkzeug", 1, 5, null)));
 			PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,0, 15, new Unit(15, 8, "g", 1, null, 0),true)); 
-			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE, -5, 20, new Unit(15, 7, "g", 1, null, 0),true));
-			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,-10, 25, new Unit(15, 6, "g", 1, null, 0),false));
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,0, 15, null,true)); 
+			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE, -5, 20, null,true));
+			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,-10, 25, null,false));
 			type.addPropertyGroup(pg);
 			PropertyGroup pg5 = new PropertyGroup("NUTRITIONFACTS", PropertyGroup.GroupType.LIST);
-			pg5.addGroupElement(new PropertyDefinition(2L, 1, "ean", "BAR", 1, PropertyDefinition.Datatype.STRING, 1, 14, new Unit(15, 8, "g", 1, null, 0),false)); 
+			pg5.addGroupElement(new PropertyDefinition(2L, 1, "ean", "BAR", 1, PropertyDefinition.Datatype.STRING, 1, 14, null,false)); 
 
 			type.addPropertyGroup(pg5);
 		}else if(id==10){
 			type = new Type("metall", 10, 11, new Type("werkzeug", 5, 6, null));
 			PropertyGroup pg =new PropertyGroup("speedeigenschaften", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,4, 7, new Unit(15, 8, "g", 1, null, 0),true)); 
-			pg.addGroupElement(new PropertyDefinition(3L, 2, "kw", "KW", 1, PropertyDefinition.Datatype.DOUBLE,0, 1000, new Unit(15, 7, "g", 1, null, 0),true));
-			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,15, 2000, new Unit(15, 6, "g", 1, null, 0),false));
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,4, 7, null ,true)); 
+			pg.addGroupElement(new PropertyDefinition(3L, 2, "kw", "KW", 1, PropertyDefinition.Datatype.DOUBLE,0, 1000, null,true));
+			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,15, 2000, null,false));
 			type.addPropertyGroup(pg);
 		}else if(id==5){			
 			type=new Type("werkzeug", 5, 6, null);
 			PropertyGroup pg =new PropertyGroup("werkzeug", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,100, 200, new Unit(15, 8, "g", 1, null, 0),true)); 
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,100, 200, null,true)); 
 			type.addPropertyGroup(pg);
 		}else{
 			type=new Type("auto", 6, 7, null);
 			PropertyGroup pg =new PropertyGroup("auto", PropertyGroup.GroupType.LIST);
-			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,99, 101, new Unit(15, 8, "g", 1, null, 0),true)); 
+			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,99, 101, null,true)); 
 			type.addPropertyGroup(pg);
 		}
 		

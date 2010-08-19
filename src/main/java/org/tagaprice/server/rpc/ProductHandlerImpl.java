@@ -22,7 +22,9 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
+import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ProductHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -73,14 +75,36 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		
 		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){
 			System.out.println("save VALID");
+			
+			
+			//STD user with ID=1
+			data._setCreatorId(1l);
+			
+			try {
+				pDao.save(data);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RevisionCheckException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidLocaleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
 		}else{
 			System.out.println("save InVALID");
 		}
 		
 		
-		if(data.getId()==0){
-			System.out.println("new");
-		}
+		
 		return data;
 	}
 

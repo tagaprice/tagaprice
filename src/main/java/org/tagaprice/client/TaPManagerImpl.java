@@ -26,6 +26,7 @@ import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
@@ -148,10 +149,10 @@ public class TaPManagerImpl implements TaPManager {
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
-		if(title==null) title="Default Title"; //Change this to language
-		
-		ProductData pd = new ProductData(0, 0, title, 2, null, null, "logo.png", null);
-		uiMng.showProduct(pd, new Type("root", 2, 1, null));		
+		if(title==null) title="Default Title "; //Change this to language
+		ProductData pd3 = new ProductData(title , 1, 1l, 2l, 20l, "logo.png", null);
+
+		uiMng.showProduct(pd3, new Type("root", 2, 1, null));		
 		
 	}
 	

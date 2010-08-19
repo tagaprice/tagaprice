@@ -147,6 +147,11 @@ public class MorphWidget extends SimplePanel {
 	public void setText(String text){
 		textBox.setText(text);
 		label.setText(text);
+		if(!text.isEmpty()){
+			label.setStyleName("MorphWidgetText");
+		}else{
+			label.setStyleName("MorphWidgetBox");
+		}
 	}
 	
 	

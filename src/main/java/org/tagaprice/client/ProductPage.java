@@ -26,16 +26,21 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyValidator;
+import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Type;
+import org.tagaprice.shared.PropertyDefinition.Datatype;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -52,6 +57,7 @@ public class ProductPage extends InfoBoxComposite {
 	private PriceMapWidget priceMap;
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
+	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
 	
 	public ProductPage(ProductData _productData, Type _type) {
 		init(vePa1);
@@ -75,6 +81,10 @@ public class ProductPage extends InfoBoxComposite {
 		//Header
 		HorizontalPanel hoPa1 = new HorizontalPanel();
 		hoPa1.setWidth("100%");
+		vePa1.add(titleMorph);
+		
+		titleMorph.setText(productData.getTitle());
+		titleMorph.setWidth("100%");
 		vePa1.add(hoPa1);
 		ProgressWidget progressWidget = new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), productData.getProgress());
 		hoPa1.add(progressWidget);
@@ -109,10 +119,34 @@ public class ProductPage extends InfoBoxComposite {
 		};
 		
 		
-		//Add Price
-		priceMap = new PriceMapWidget(productData.getId(),PriceMapType.PRODUCT);
-		vePa1.add(priceMap);
+		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			
+			@Override
+			public void onSuccess(Datatype errorType) {
+				
+				if(!productData.getTitle().equals(titleMorph.getText())){
+					productData.setTitle(titleMorph.getText());
+					showSave();				
+				}
+			}
+			
+			@Override
+			public void onError(Datatype errorType) {
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void onEmpty() {
+				// TODO Auto-generated method stub
+			}
+		});
 		
+		
+		//Add Price
+		if(productData.getId()!=null){
+			priceMap = new PriceMapWidget(productData.getId(),PriceMapType.PRODUCT);
+			vePa1.add(priceMap);
+		}
 		
 		//Create and Register Handler
 		vePa1.add(propertyHandlerContainer);
@@ -205,7 +239,12 @@ public class ProductPage extends InfoBoxComposite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				TaPManagerImpl.getInstance().showProductPage(productData.getId());
+				if(productData.getId()==null){
+					History.newItem("home/");
+				}else{
+					TaPManagerImpl.getInstance().showProductPage(productData.getId());
+				}
+				
 				
 			}
 		});
@@ -216,6 +255,9 @@ public class ProductPage extends InfoBoxComposite {
 			public void onClick(ClickEvent event) {
 				topSave.setText("Saving...");
 				
+				
+				//productData = new ProductData(0, 0, "test", 1l, 1l, 20l, "logo.png", null);
+				//productData = new ProductData("test",1, 1l, 2l, 20l, "logo.png", null);
 				productData.setProperties(hashToPropertyList(hashProperties));
 				
 				//Validate Data
@@ -226,6 +268,10 @@ public class ProductPage extends InfoBoxComposite {
 						public void onSuccess(ProductData result) {
 							bottomInfo.setVisible(false);
 							topSave.setText("Save");
+							if(productData.getId()==null){
+								History.newItem("product/get&id="+result.getId());
+							}
+							
 							
 						}
 						
