@@ -49,15 +49,16 @@ public class ProductDAO implements DAOClass<ProductData> {
 		//Get Entity Data
 		entityDAO.get(p);
 		
-		// TODO implement fetching of a specific shop revision
+		// TODO implement fetching of a specific product revision
 		
 		//Get Product Data
 		String sql = "SELECT brand_id, type_id, imageurl " +
 				"FROM productrevision " +
-				"INNER JOIN ENTITY ON(ent_id = prod_id AND current_revision = rev) " +
-				"WHERE prod_id = ?";
+				"INNER JOIN ENTITY ON(ent_id = prod_id) " +
+				"WHERE prod_id = ? AND rev = ?";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, p.getId());
+		pstmt.setLong(2, p.getRev());
 		ResultSet res = pstmt.executeQuery();
 		
 		if (!res.next()) throw new NotFoundException("Product not found");
