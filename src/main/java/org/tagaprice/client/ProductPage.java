@@ -81,8 +81,7 @@ public class ProductPage extends InfoBoxComposite {
 		//Header
 		HorizontalPanel hoPa1 = new HorizontalPanel();
 		hoPa1.setWidth("100%");
-		vePa1.add(titleMorph);
-		
+		vePa1.add(titleMorph);		
 		titleMorph.setText(productData.getTitle());
 		titleMorph.setWidth("100%");
 		vePa1.add(hoPa1);
@@ -256,13 +255,11 @@ public class ProductPage extends InfoBoxComposite {
 				topSave.setText("Saving...");
 				
 				
-				//productData = new ProductData(0, 0, "test", 1l, 1l, 20l, "logo.png", null);
-				//productData = new ProductData("test",1, 1l, 2l, 20l, "logo.png", null);
 				productData.setProperties(hashToPropertyList(hashProperties));
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, productData.getProperties())){				
-					TaPManagerImpl.getInstance().saveProduct(productData, new AsyncCallback<ProductData>() {
+					TaPMng.saveProduct(productData, new AsyncCallback<ProductData>() {
 						
 						@Override
 						public void onSuccess(ProductData result) {
