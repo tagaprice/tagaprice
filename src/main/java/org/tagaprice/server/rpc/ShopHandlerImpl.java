@@ -1,29 +1,61 @@
 package org.tagaprice.server.rpc;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.print.attribute.standard.PDLOverrideSupported;
+
+import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.Country;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ShopHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler{
-
+	ShopDAO sDao;
+	
+	public ShopHandlerImpl() {
+		DBConnection db;
+		try {
+			db = new DBConnection();
+			sDao = ShopDAO.getInsance(db);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@Override
 	public ShopData get(Long id) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		
-		ShopData shop = new ShopData(123, 2, "ACME Store", 3, 30l, null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
-		SearchResult<PropertyData> propList = new SearchResult<PropertyData>();
-		propList.add(new PropertyData("type", "Type", "drugstore", null));
-		shop.setProperties(propList);
+		ShopData sd = new ShopData();
+		sd._setId(id);
 		
-		return shop;
+		try {
+			sDao.get(sd);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return sd;
 	}
 
 	@Override
@@ -33,16 +65,31 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		
 		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){
 			System.out.println("save VALID");
+			
+			data._setCreatorId(1l);
+			
+			try {
+				sDao.save(data);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RevisionCheckException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidLocaleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+			
+			
 		}else{
 			System.out.println("save InVALID");
 		}
 		
-		
-		if(data.getId()==0){
-			System.out.println("new");
-		}else{
-			//SAVE	
-		}
+
 		return data;
 	}
 
