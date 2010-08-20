@@ -110,6 +110,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 		top.setWidth("100%");		
 		top.setCellWidth(date, "50px");
 		
+		title.setWidth("100%");
 		
 		//shopChooser
 		shop = new SimplePanel();
@@ -198,7 +199,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 		shop.setWidget(shopPreview);
 		
 		product=new SimplePanel();
-		productChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON, shopData);
+		productChooser2 = new SearchWidget(SearchType.SHOP, true, true, SelectionType.PLUSBUTTON, shopData);
 		product.setWidget(productChooser2);
 		basePanel.insert(product, 4);
 		
@@ -206,7 +207,8 @@ public class ReceiptWidget extends InfoBoxComposite {
 		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
-				addProduct(((ProductPreview)widget).getProductData());				
+				addProduct(((ProductPreview)widget).getProductData());	
+				productChooser2.hideSuggest();
 			}
 		});
 	}
