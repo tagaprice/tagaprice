@@ -31,6 +31,8 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
@@ -145,8 +147,26 @@ public class ShopPage extends InfoBoxComposite {
 		
 		//Add Price
 		if(shopData.getId()!=null){
-			priceMap = new PriceMapWidget(shopData.getId(),PriceMapType.SHOP);
-			vePa1.add(priceMap);
+			final SimplePanel priceMapContaier = new SimplePanel();
+			priceMapContaier.setWidth("100%");
+			vePa1.add(priceMapContaier);
+			
+			GWT.runAsync(new RunAsyncCallback() {
+				
+				@Override
+				public void onSuccess() {
+					priceMap = new PriceMapWidget(shopData.getId(),PriceMapType.SHOP);
+					priceMapContaier.setWidget(priceMap);					
+				}
+				
+				@Override
+				public void onFailure(Throwable reason) {
+					showInfo("Download Error at PriceWidget", BoxType.WARNINGBOX);
+					
+				}
+			});
+			
+			
 		}
 		
 		
