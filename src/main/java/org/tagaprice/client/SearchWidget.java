@@ -21,9 +21,14 @@ import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.rpc.SearchHandler;
+import org.tagaprice.shared.rpc.SearchHandlerAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -65,8 +70,8 @@ public class SearchWidget extends Composite {
 			
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
-				
-				myMng.search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
+				SearchHandlerAsync searchHandler = GWT.create(SearchHandler.class);
+				searchHandler.search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
@@ -262,9 +267,23 @@ public class SearchWidget extends Composite {
 				});
 			}
 		}
+		
+		
+		searchBox.addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				if(popPa!=null && !searchBox.getText().isEmpty())
+					popPa.showRelativeTo(searchBox);
+			}
+		});
 	}
 	
 	public SelectiveVerticalPanel getSelectiveVerticalPanel(){
 		return selVePa;
+	}
+	
+	public void hideSuggest(){
+		popPa.hide();
 	}
 }
