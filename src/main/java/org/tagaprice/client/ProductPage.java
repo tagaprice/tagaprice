@@ -256,6 +256,8 @@ public class ProductPage extends InfoBoxComposite {
 				
 				
 				productData.setProperties(hashToPropertyList(hashProperties));
+				productData.setTypeId(new Long(type.getLocaleId()));
+				
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, productData.getProperties())){				

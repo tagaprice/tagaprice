@@ -31,8 +31,8 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	public Type get(long id) throws IllegalArgumentException {
 		Type type;
 		
-		if(id==20){			
-			type = new Type("eisen", 20, 25, new Type("metall", 10, 15, new Type("werkzeug", 1, 5, null)));
+		if(id==9){			
+			type = new Type("eisen", 9, 25, new Type("metall", 10, 15, new Type("werkzeug", 1, 5, null)));
 			PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,0, 15, null,true)); 
 			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE, -5, 20, null,true));
@@ -54,6 +54,8 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 			PropertyGroup pg =new PropertyGroup("werkzeug", PropertyGroup.GroupType.LIST);
 			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,100, 200, null,true)); 
 			type.addPropertyGroup(pg);
+		}else if(id==0){			
+			type=new Type("root", 0, 6, null);
 		}else{
 			type=new Type("auto", 6, 7, null);
 			PropertyGroup pg =new PropertyGroup("auto", PropertyGroup.GroupType.LIST);
@@ -62,27 +64,6 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		}
 		
 		
-		/*
-		PropertyGroup pg2 =new PropertyGroup("Random Stuff", PropertyGroup.GroupType.LIST);
-		pg2.addGroupElement(new PropertyDefinition(7L, 5, "sodium", "Sodium", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 6, "g", 2),true));
-		pg2.addGroupElement(new PropertyDefinition(5L, 6, "carbohydrate", "Carbohydrate", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 7, "g", 2),true)); 
-		pg2.addGroupElement(new PropertyDefinition(6L, 7, "fat", "Fat", 1, PropertyDefinition.Datatype.DOUBLE,new Unit(15, 8, "g", 2),true));
-		type.addPropertyGroup(pg2);
-			
-		PropertyGroup pg3 =new PropertyGroup("Produkt Angaben", PropertyGroup.GroupType.LIST);
-		pg3.addGroupElement(new PropertyDefinition(7L, 3, "brand", "Brand", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 11, "g", 2),true));
-		pg3.addGroupElement(new PropertyDefinition(7L, 2, "ingredients", "Ingredients", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 12, "g", 2),false));
-		pg3.addGroupElement(new PropertyDefinition(7L, 1, "ean", "Barcode", 3, PropertyDefinition.Datatype.INT,new Unit(15, 13, "g", 2),false));
-		type.addPropertyGroup(pg3);
-		
-		PropertyGroup pg4 =new PropertyGroup("Versionskontrolle", PropertyGroup.GroupType.LIST);
-		pg4.addGroupElement(new PropertyDefinition(7L, 99, "created", "Created", 3, PropertyDefinition.Datatype.STRING,new Unit(15, 12, "g", 2),true));
-		pg4.addGroupElement(new PropertyDefinition(7L, 98, "lastchange", "Latest changes", 3, PropertyDefinition.Datatype.STRING, new Unit(15, 12, "g", 2),true));
-		type.addPropertyGroup(pg4);
-		
-		PropertyGroup pg5 = new PropertyGroup("NUTRITIONFACTS", PropertyGroup.GroupType.NUTRITIONFACTS);
-		type.addPropertyGroup(pg5);
-		*/
 		
 		
 		return type;
@@ -119,7 +100,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 			types.add(new Type("birne", 18, -18, type));
 		}else if(type.getTitle().equals("metall")){
 			types.add(new Type("alu", 19, -19, type));
-			types.add(new Type("eisen", 20, -20, type));
+			types.add(new Type("eisen", 9, -20, type));
 		}else if(type.getTitle().equals("Food")){
 			types.add(new Type("food1", 21, -21, type));
 			types.add(new Type("food2", 22, -22, type));

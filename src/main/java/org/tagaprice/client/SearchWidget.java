@@ -31,6 +31,7 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -247,8 +248,7 @@ public class SearchWidget extends Composite {
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						System.out.println("new Product");
+						History.newItem("product/new");
 					}
 				});
 			}
@@ -261,8 +261,7 @@ public class SearchWidget extends Composite {
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						System.out.println("new Shop");
+						History.newItem("shop/new");
 					}
 				});
 			}

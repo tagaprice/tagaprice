@@ -153,7 +153,7 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		
 		if(title==null) title="Default Title "; //Change this to language
-		ProductData pd3 = new ProductData(title , 1, 1l, 2l, 20l, "logo.png", null);
+		ProductData pd3 = new ProductData(title , 1, 1l, 2l, 0l, "logo.png", null);
 
 		uiMng.showProduct(pd3, new Type("root", 2, 1, null));		
 		
@@ -198,7 +198,7 @@ public class TaPManagerImpl implements TaPManager {
 		uiMng.waitingPage();
 		
 		if(title==null) title="Default Title"; //Change this to language
-		ShopData sd = new ShopData(title, 1, 1l, 20l, "logo.png", new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
+		ShopData sd = new ShopData(title, 1, 1l, 0l, "logo.png", new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
 		
 		uiMng.showShop(sd,new Type("root", 2, 1, null));
 		

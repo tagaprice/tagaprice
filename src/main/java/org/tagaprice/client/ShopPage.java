@@ -255,6 +255,8 @@ public class ShopPage extends InfoBoxComposite {
 				topSave.setText("Saving...");
 				
 				shopData.setProperties(hashToPropertyList(hashProperties));
+				shopData.setTypeId(new Long(type.getLocaleId()));
+				
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, shopData.getProperties())){	
