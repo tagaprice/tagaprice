@@ -16,7 +16,6 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.ReceiptData;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
@@ -44,6 +43,9 @@ public class HomePage extends InfoBoxComposite {
 	
 	Label draftLabel = new Label("Drafts");
 	Image draftImage = new Image(MyResources.INSTANCE.productPriview());
+	
+	Label loginLabel = new Label("Login");
+	Image loginImage = new Image(MyResources.INSTANCE.productPriview());
 	
 	public HomePage() {
 		init(grid);
@@ -75,8 +77,8 @@ public class HomePage extends InfoBoxComposite {
 		grid.setWidget(3, 1, draftImage);
 		grid.setWidget(4, 1, draftLabel);
 		
-		grid.setWidget(3, 2, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(4, 2, new Label("Label"));
+		grid.setWidget(3, 2, loginImage);
+		grid.setWidget(4, 2, loginLabel);
 		
 		
 		grid.setWidget(6, 0, new Image(MyResources.INSTANCE.productPriview()));
@@ -175,6 +177,22 @@ public class HomePage extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				History.newItem("shop/new");				
+			}
+		});
+		
+		loginImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("login/");				
+			}
+		});
+		
+		loginLabel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("login/");				
 			}
 		});
 	}
