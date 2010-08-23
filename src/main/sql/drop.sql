@@ -14,11 +14,12 @@ DROP TABLE IF EXISTS currency;
 DROP TABLE IF EXISTS productType;
 DROP TABLE IF EXISTS property;
 
-DROP TABLE unitRevision;
+DROP TABLE IF EXISTS unitRevision;
 DROP TABLE IF EXISTS unit;
 
 ALTER TABLE entity DROP CONSTRAINT fkey_currentRev;
 DROP TABLE IF EXISTS entityRevision;
+DROP TABLE IF EXISTS localAccount;
 
 ALTER TABLE entity DROP CONSTRAINT fkey_entity_creator;
 DROP TABLE IF EXISTS account;
