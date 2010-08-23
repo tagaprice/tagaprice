@@ -106,7 +106,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			char c;
 			if (n < 26) c = (char)(n+(int)'a');
 			else if (n < 52) c = (char)(n-26+(int)'A');
-			else c = (char) (n-52);
+			else c = (char) (n-52+(int)'0');
 			rc += c;
 		}
 		return rc;
