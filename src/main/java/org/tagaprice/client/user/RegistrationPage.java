@@ -43,6 +43,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -55,8 +56,8 @@ public class RegistrationPage extends Composite {
 	private UserHandlerAsync userHandler = GWT.create(UserHandler.class);
 	private TextBox userName = new TextBox();
 	private Label userNameLabel = new Label("Username (More the 5 letters)");
-	private PasswordTextBox passwort = new PasswordTextBox();
-	private Label passwortLabel = new Label("Password (bad)");
+	private PasswordTextBox password = new PasswordTextBox();
+	private Label passwordLabel = new Label("Password (bad)");
 	private PasswordTextBox passwortConfirm = new PasswordTextBox();
 	private Label passwortConfirmLabel = new Label("Confirm Password (equal)");
 	private TextBox email = new TextBox();
@@ -102,9 +103,9 @@ public class RegistrationPage extends Composite {
 		userData.setWidget(1, 0, userName);
 		userName.setWidth("100%");
 		
-		userData.setWidget(2, 0, passwortLabel);
-		userData.setWidget(3, 0, passwort);
-		passwort.setWidth("100%");
+		userData.setWidget(2, 0, passwordLabel);
+		userData.setWidget(3, 0, password);
+		password.setWidth("100%");
 		
 		userData.setWidget(4, 0, passwortConfirmLabel);
 		userData.setWidget(5, 0, passwortConfirm);		
@@ -161,16 +162,16 @@ public class RegistrationPage extends Composite {
 			}
 		});
 		
-		passwort.addKeyUpHandler(new KeyUpHandler() {
+		password.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if(passwort.getText().trim().length()<5){
-					passwortLabel.setText("Password (bad)");
-				}else if(passwort.getText().trim().length()<8){
-					passwortLabel.setText("Password (ok)");
-				}else if(passwort.getText().trim().length()>8){
-					passwortLabel.setText("Password (good)");
+				if(password.getText().trim().length()<5){
+					passwordLabel.setText("Password (bad)");
+				}else if(password.getText().trim().length()<8){
+					passwordLabel.setText("Password (ok)");
+				}else if(password.getText().trim().length()>8){
+					passwordLabel.setText("Password (good)");
 				}
 				passwortConfirm.setText("");
 				passwortConfirmLabel.setText("Password (not equal)");
@@ -181,7 +182,7 @@ public class RegistrationPage extends Composite {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if(passwort.getText().trim().equals(passwortConfirm.getText().trim())){
+				if(password.getText().trim().equals(passwortConfirm.getText().trim())){
 					passwortConfirmLabel.setText("Confirm Password (equal)");
 				}else{
 					passwortConfirmLabel.setText("Confirm Password (not equal)");
@@ -244,8 +245,9 @@ public class RegistrationPage extends Composite {
 		VerticalPanel altConn = new VerticalPanel();
 		altConn.setWidth("100%");
 		
-		altConn.add(new Label("Twitter"));
-		altConn.add(new Label("Facebook"));
+		
+		altConn.add(new Image("http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
+		altConn.add(new Image("http://developers.facebook.com/images/devsite/login-button.png"));
 		
 		vePa1.add(new TitlePanel("Alternatve Connetions", altConn, TitlePanel.Level.H2));
 		
@@ -400,13 +402,13 @@ public class RegistrationPage extends Composite {
 			public void onClick(ClickEvent event) {
 				
 				if(!userName.getText().trim().isEmpty() &&
-						passwort.getText().trim().equals(passwortConfirm.getText().trim()) &&
+						password.getText().trim().equals(passwortConfirm.getText().trim()) &&
 						email.getText().trim().equals(emailConfirm.getText().trim()) && 
 						gtc.getValue()){
 				
 					userHandler.registerNewUser(
 							userName.getText().trim(), 
-							passwort.getText().trim(), 
+							password.getText().trim(), 
 							passwortConfirm.getText().trim(), 
 							email.getText().trim(), 
 							emailConfirm.getText().trim(), 

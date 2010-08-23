@@ -21,6 +21,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class UserHandlerImpl extends RemoteServiceServlet implements UserHandler {
 
+	String username = "root";
+	String password = "tagaprice";
+	boolean loggedIn = false;
+	
+	public UserHandlerImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public boolean isEmailEvalable(String email) throws IllegalArgumentException {
 		
@@ -61,6 +69,20 @@ public class UserHandlerImpl extends RemoteServiceServlet implements UserHandler
 		
 		
 		return true;
+	}
+	
+	@Override
+	public boolean login(String username, String password)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+		//Check in DB if user is available. 
+		if(username.equals(this.username) && password.equals(this.password)){
+			loggedIn=true;
+		}
+		
+		
+		return loggedIn;
 	}
 
 }

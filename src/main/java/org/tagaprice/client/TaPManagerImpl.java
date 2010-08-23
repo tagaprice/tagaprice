@@ -103,6 +103,8 @@ public class TaPManagerImpl implements TaPManager {
 					
 				}else if(historyToken[0].equals("user/registration/new")){ 
 					TaPMng.showUserRegistrationPage(null);
+				}else if(historyToken[0].equals("user/login")){ 
+					TaPMng.showUserLogin();
 				}else{
 					uiMng.showHome();
 				}
@@ -265,7 +267,6 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public void saveReceipt(ReceiptData receiptContainer) {
-		// TODO Auto-generated method stub
 		if(receiptContainer.getId()>0 && receiptContainer.getDraft()==true){
 			System.out.println("saveDraft");
 		}else if(receiptContainer.getId()>0 && receiptContainer.getDraft()==false){
@@ -293,10 +294,12 @@ public class TaPManagerImpl implements TaPManager {
 
 	@Override
 	public void showUserRegistrationPage(String verificationCode) {
-		uiMng.waitingPage();
-		uiMng.showUserRegistrationPage(verificationCode);
-		
-		
+		uiMng.showUserRegistrationPage(verificationCode);		
+	}
+	
+	@Override
+	public void showUserLogin() {
+		uiMng.showUserLogin();		
 	}
 
 	@Override

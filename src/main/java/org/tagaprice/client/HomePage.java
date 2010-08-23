@@ -184,7 +184,7 @@ public class HomePage extends InfoBoxComposite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("login/");				
+				History.newItem("user/login");				
 			}
 		});
 		
@@ -192,7 +192,7 @@ public class HomePage extends InfoBoxComposite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("login/");				
+				History.newItem("user/login");				
 			}
 		});
 	}

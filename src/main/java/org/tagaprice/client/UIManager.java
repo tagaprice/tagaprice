@@ -17,6 +17,7 @@ package org.tagaprice.client;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
+import org.tagaprice.client.user.LoginPage;
 import org.tagaprice.client.user.RegistrationPage;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
@@ -135,6 +136,25 @@ public class UIManager extends InfoBoxComposite {
 		});
 		
 		
+	}
+	
+	
+	public void showUserLogin(){
+		waitingPage();
+		GWT.runAsync(new RunAsyncCallback() {
+			
+			@Override
+			public void onSuccess() {
+				centerPage.setWidget(new LoginPage());
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable reason) {
+				showInfo("Download fail at UserLogin", BoxType.WARNINGBOX);
+				
+			}
+		});
 	}
 
 

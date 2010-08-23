@@ -27,5 +27,7 @@ public interface UserHandlerAsync {
 			String language, String street, String zip, String county,
 			String country, double latitude, double longitude, boolean gtc,
 			AsyncCallback<Boolean> callback);
+	
+	void login(String username, String password, AsyncCallback<Boolean> callback) ;
 
 }

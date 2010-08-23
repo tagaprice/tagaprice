@@ -153,6 +153,12 @@ public interface TaPManager {
 	
 	/**
 	 * 
+	 */
+	public void showUserLogin();
+	
+	
+	/**
+	 * 
 	 * @param sText
 	 * @param callback
 	 */

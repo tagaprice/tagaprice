@@ -36,4 +36,6 @@ public interface UserHandler extends RemoteService {
 			double longitude,
 			boolean gtc) throws IllegalArgumentException;
 	
+	boolean login(String username, String password) throws IllegalArgumentException;
+	
 }
