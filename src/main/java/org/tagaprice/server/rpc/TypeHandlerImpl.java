@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Type;
-import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.rpc.TypeHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

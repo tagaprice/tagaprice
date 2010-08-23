@@ -26,7 +26,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
@@ -42,7 +41,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
