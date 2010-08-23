@@ -53,7 +53,7 @@ public class LoginPage extends InfoBoxComposite{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				/*
 				userHandler.login(userName.getText().trim(), password.getText().trim(), new AsyncCallback<Boolean>() {
 					
 					@Override
@@ -71,7 +71,7 @@ public class LoginPage extends InfoBoxComposite{
 						
 					}
 				});
-				
+				*/
 				
 			}
 		});

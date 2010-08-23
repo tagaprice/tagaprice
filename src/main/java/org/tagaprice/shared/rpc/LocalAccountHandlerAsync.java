@@ -14,18 +14,22 @@
 */
 package org.tagaprice.shared.rpc;
 
+import org.tagaprice.shared.Address;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface LocalAccountHandlerAsync {
-
-	void isEmailEvalable(String email, AsyncCallback<Boolean> callback);
-
 	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback);
+	void checkMailAvailability(String email, AsyncCallback<Boolean> callback);
 
-	void registerNewUser(String username, String password,
-			String confirmPassword, String email, String confirmEmail,
-			String language, String street, String zip, String county,
-			String country, double latitude, double longitude, boolean gtc,
+	void registerNewUser(
+			String username, 
+			String password,
+			String confirmPassword, 
+			String email, 
+			String confirmEmail,
+			Address address, 
+			boolean gtc,
 			AsyncCallback<Boolean> callback);
 	
 	void login(String username, String password, AsyncCallback<Boolean> callback) ;

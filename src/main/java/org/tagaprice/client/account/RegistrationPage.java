@@ -15,6 +15,7 @@
 package org.tagaprice.client.account;
 
 import org.tagaprice.client.TitlePanel;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.code.gwt.geolocation.client.Geolocation;
@@ -141,7 +142,7 @@ public class RegistrationPage extends Composite {
 					userNameLabel.setText("Username (More the 5 letters)");
 				}else{
 					userNameLabel.setText("Username (Check if used...)");
-					userHandler.isUsernameEvalabel(userName.getText().trim(), new AsyncCallback<Boolean>() {
+					userHandler.checkMailAvailability(userName.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {
@@ -198,7 +199,7 @@ public class RegistrationPage extends Composite {
 				if(email.getText().trim().matches(".+@.+\\.[a-z]+")){
 					emailLabel.setText("Email (Check if used...)");
 					
-					userHandler.isEmailEvalable(email.getText().trim(), new AsyncCallback<Boolean>() {
+					userHandler.isUsernameEvalabel(email.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {
@@ -412,13 +413,7 @@ public class RegistrationPage extends Composite {
 							passwortConfirm.getText().trim(), 
 							email.getText().trim(), 
 							emailConfirm.getText().trim(), 
-							language.getValue(language.getSelectedIndex()).trim(), 
-							street.getText().trim(), 
-							zip.getText().trim(), 
-							county.getText().trim(), 
-							country.getText().trim(), 
-							latLng.getLatitude(), 
-							latLng.getLongitude(), 
+							new Address(), 
 							gtc.getValue(), new AsyncCallback<Boolean>() {
 
 								@Override
