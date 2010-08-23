@@ -14,6 +14,11 @@
 */
 package org.tagaprice.server.rpc;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -21,21 +26,27 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class LocalAccountHandlerImpl extends RemoteServiceServlet implements LocalAccountHandler {
 
+	
+	LocalAccountDAO lDao;
 	String username = "root";
 	String password = "tagaprice";
 	boolean loggedIn = false;
 	
 	public LocalAccountHandlerImpl() {
-		// TODO Auto-generated constructor stub
+		try {
+			lDao = LocalAccountDAO.getInstance(new DBConnection());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	public boolean isEmailEvalable(String email) throws IllegalArgumentException {
-		
-		if(email.equals("a@a.a")){
-			return false;
-		}
-		return true;
+		return lDao.isEmailEvalable(email);
 	}
 
 	@Override

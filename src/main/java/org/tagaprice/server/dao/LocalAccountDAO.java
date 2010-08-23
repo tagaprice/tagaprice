@@ -23,6 +23,12 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 		this.db=db;
 	}
 	
+	
+	public boolean isEmailEvalable(String email){
+		
+		return false;
+	}
+	
 	@Override
 	public void get(LocalAccountData entity) throws SQLException, NotFoundException {
 		// TODO Auto-generated method stub
