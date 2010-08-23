@@ -42,7 +42,7 @@ public class EntityDAO implements DAOClass<Entity> {
 	 * (e.g. with auto-rollback for unit test cases) 
 	 * @param db DBConnection object
 	 */
-	private EntityDAO(DBConnection db) {
+	protected EntityDAO(DBConnection db) {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
 		this.propertyDAO = PropertyDAO.getInstance(db);
@@ -173,7 +173,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		db.commit();
 	}
 	
-	private void _newEntity(Entity e) throws SQLException, RevisionCheckException, InvalidLocaleException {
+	private void _newEntity(Entity e) throws SQLException, RevisionCheckException, InvalidLocaleException, NotFoundException {
 		PreparedStatement pstmt;
 		ResultSet res;
 		
@@ -201,11 +201,9 @@ public class EntityDAO implements DAOClass<Entity> {
 		res.next();
 
 		long id = res.getLong("ent_id");
+		e._setId(id);
 
-		if (e.getCreatorId() == null) {
-			e._setCreatorId(id);
-			e._setRevCreatorId(id);
-		}
+		if (e.getCreatorId() == null) resolveCreator(e);
 
 		// create entityRevision
 		sql = "INSERT INTO entityRevision(ent_id, rev, title, creator) VALUES "
@@ -217,8 +215,10 @@ public class EntityDAO implements DAOClass<Entity> {
 		pstmt.executeUpdate();
 		
 		db.commit();
-
-		e._setId(id);
 		e._setRev(1);
+	}
+	
+	protected void resolveCreator(Entity e) throws NotFoundException {
+		throw new NotFoundException("Creator not found: null");
 	}
 }

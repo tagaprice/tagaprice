@@ -20,6 +20,7 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.AccountData;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -30,7 +31,12 @@ public class AccountDAO implements DAOClass<AccountData> {
 	private static AccountDAO instance = null;
 	
 	private AccountDAO(DBConnection db) {
-		entityDAO = EntityDAO.getInstance(db);
+		entityDAO = new EntityDAO(db) {
+			protected void resolveCreator(Entity e) {
+				e._setCreatorId(e.getId());
+				e._setRevCreatorId(e.getId());
+			}
+		};
 		this.db = db;
 	}
 
