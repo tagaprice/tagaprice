@@ -1,6 +1,6 @@
 package org.tagaprice.shared;
 
-public class LocalAccountData extends Entity {
+public class LocalAccountData extends AccountData {
 
 	/**
 	 * Contains all important information to represent a
@@ -8,15 +8,6 @@ public class LocalAccountData extends Entity {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String password;
-	private String email;
-	private String language;
-	private String street;
-	private String zip;
-	private String county;
-	private String country;
-	private double latitude;
-	private double longitude;
-	
 	
 	/**
 	 * default constructor (used for serialization)
@@ -30,7 +21,7 @@ public class LocalAccountData extends Entity {
 	 * constructor for querying a LocalAccount's current revision 
 	 * @param id Product ID
 	 */
-	public LocalAccountData(Long id) {
+	public LocalAccountData(long id) {
 		super(id);
 	}
 	
@@ -39,7 +30,7 @@ public class LocalAccountData extends Entity {
 	 * @param id user ID
 	 * @param rev revision
 	 */
-	public LocalAccountData(Long id, int rev) {
+	public LocalAccountData(long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -62,28 +53,13 @@ public class LocalAccountData extends Entity {
 	public LocalAccountData(
 			String title, 
 			int localeId,
-			Long creatorId,
-			String password, 
-			String email, 
-			String language, 
-			String street, 
-			String zip, 
-			String county,
-			String country, 
-			double latitude, 
-			double longitude){
-		super(title, localeId, creatorId);
+			Long creatorId, 
+			String mail,
+			String password,
+			Address address) {
+		super(title, localeId, mail, address);
 		
-		setPassword(password);
-		setEmail(email);
-		setLanguage(language);
-		setStreet(street);
-		setZip(zip);
-		setCounty(county);
-		setCountry(country);
-		setLanguage(language);
-		setLanguage(language);
-		
+		this.password = password;
 	}
 	
 	/**
@@ -106,28 +82,13 @@ public class LocalAccountData extends Entity {
 			long id, 
 			int rev,
 			String title, 
-			long creatorId,
+			long revCreatorId,
+			String mail, 
 			String password, 
-			String email, 
-			String language, 
-			String street, 
-			String zip, 
-			String county,
-			String country, 
-			double latitude, 
-			double longitude){
-		super(id, rev, title, creatorId);	
+			Address address){
+		super(id, rev, title, revCreatorId, mail, address);	
 		
-		setPassword(password);
-		setEmail(email);
-		setLanguage(language);
-		setStreet(street);
-		setZip(zip);
-		setCounty(county);
-		setCountry(country);
-		setLanguage(language);
-		setLanguage(language);
-		
+		this.password = password;
 	}
 
 
@@ -141,107 +102,9 @@ public class LocalAccountData extends Entity {
 		this.password = password;
 	}
 
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-
-	public String getLanguage() {
-		return language;
-	}
-
-
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-
-
-	public String getStreet() {
-		return street;
-	}
-
-
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-
-
-	public String getZip() {
-		return zip;
-	}
-
-
-
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-
-
-
-	public String getCounty() {
-		return county;
-	}
-
-
-
-	public void setCounty(String county) {
-		this.county = county;
-	}
-
-
-
-	public String getCountry() {
-		return country;
-	}
-
-
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-
-
 	@Override
 	public String getSerializeName() {
-		return "AccountData";
+		return "localAccount";
 	}
 	
 	

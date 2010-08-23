@@ -20,6 +20,7 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -50,7 +51,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public boolean isEmailEvalable(String email) throws IllegalArgumentException {		
+	public boolean checkMailAvailability(String email) throws IllegalArgumentException {		
 		try {
 			return lDao.isEmailEvalable(email);
 		} catch (SQLException e) {
@@ -85,8 +86,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	@Override
 	public boolean registerNewUser(String username, String password,
 			String confirmPassword, String email, String confirmEmail,
-			String language, String street, String zip, String county,
-			String country, double latitude, double longitude, boolean gtc)
+			Address address, boolean gtc)
 			throws IllegalArgumentException {
 		
 		/*
@@ -105,9 +105,8 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		try {
 			LocalAccountData entity = new LocalAccountData(
 					username, 1, null, 
-					password, email, 
-					language, street, zip, 
-					county, country, latitude, longitude);
+					email, password, 
+					address);
 			lDao.save(entity);
 			System.out.println("new user");
 		} catch (SQLException e) {

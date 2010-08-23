@@ -3,21 +3,19 @@ package org.tagaprice.server.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class LocalAccountDAO implements DAOClass<LocalAccountData>{
+public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	private DBConnection db;
 	private static LocalAccountDAO instance;
-	private static AccountDAO aDao;
-	private Long userId = 1l;
 	
-	private EntityDAO entityDAO;
+	private AccountDAO accountDAO;
 	
 	public static LocalAccountDAO getInstance(DBConnection db){
 		if(instance == null){
@@ -28,8 +26,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 	
 	private LocalAccountDAO(DBConnection db) {
 		this.db=db;
-		aDao = AccountDAO.getInstance(db);
-		entityDAO = EntityDAO.getInstance(db);
+		accountDAO = AccountDAO.getInstance(db);
 	}
 	
 	
@@ -71,40 +68,46 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 	}
 	
 	@Override
-	public void get(LocalAccountData entity) throws SQLException, NotFoundException {
-		// TODO Auto-generated method stub
-		
+	public void get(LocalAccountData account) throws SQLException, NotFoundException {
+		// password won't be set anyway
+		accountDAO.get(account);
 	}
 
 	@Override
-	public void save(LocalAccountData entity) throws SQLException,
+	public void save(LocalAccountData account) throws SQLException,
 			NotFoundException, RevisionCheckException, InvalidLocaleException {
-		// TODO Auto-generated method stub
+		accountDAO.save(account);
 		
-		
-		
-		//Create or update account
-		AccountData aData;
-		//aData = new AccountData(entity.getTitle(), entity.getLocaleId());
-		//System.out.println("oldid: "+aData.getId());
-		//entityDAO.save(aData);
-		
-		
-		
-		
-		if(entity.getCreatorId()==null){
-			
-			aData = new AccountData(entity.getTitle(), entity.getLocaleId(), null, null);
-			System.out.println("newid: "+aData.getId());
-		}else{
-			//TODO Change UserId to loggedin User
-			aData = new AccountData(entity.getId(), entity.getRev(), entity.getTitle(), userId, null, null);
-			System.out.println("updateid: "+aData.getId());
-		}		
-		aDao.save(aData);
-		
-		
-		//Create or Update LocalAccount
+		if (account.getRev() == 1) {
+			PreparedStatement pstmt = db.prepareStatement("INSERT INTO localAccount (uid, password, salt) VALUES (?, md5(?|?, ?)");
+			String salt = _generateSalt(10);
+			pstmt.setLong(1, account.getId());
+			pstmt.setString(2, account.getPassword());
+			pstmt.setString(3, salt);
+			pstmt.setString(4, salt);
+		}
+		else if (account.getRev() < 1) throw new RevisionCheckException("invalid revision: "+account.getRev());
+		else if (account.getPassword() != null) {
+			// TODO save the password (if changed)
+			PreparedStatement pstmt = db.prepareStatement("UPDATE localAccount SET password = md5(?||salt) WHERE uid = ?);");
+			pstmt.setString(1, account.getPassword());
+			pstmt.setLong(2, account.getId());
+			pstmt.executeUpdate();
+		}
 	}
 
+	private static String _generateSalt(int len) {
+		Random rnd = new Random(System.currentTimeMillis());
+		String rc = "";
+
+		for (int i = 0; i < len; i++) {
+			int n = rnd.nextInt(62);
+			char c;
+			if (n < 26) c = (char)(n+(int)'a');
+			else if (n < 52) c = (char)(n-26+(int)'A');
+			else c = (char) (n-52);
+			rc += c;
+		}
+		return rc;
+	}
 }
