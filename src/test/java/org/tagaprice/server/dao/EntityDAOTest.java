@@ -28,7 +28,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Account;
+import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -89,14 +89,14 @@ public class EntityDAOTest {
 	protected TestDBConnection db;
 	private EntityDAO dao;
 	private LocaleDAO localeDAO;
-	private Account testAccount;
+	private AccountData testAccount;
 
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
 		dao = EntityDAO.getInstance(db);
 		localeDAO = LocaleDAO.getInstance(db);
-		testAccount = new Account("testAccount", LocaleDAO.getInstance().get("English").getId());
+		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId());
 		AccountDAO.getInstance(db).save(testAccount);
 	}
 

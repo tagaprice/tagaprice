@@ -16,9 +16,11 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
+import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -45,19 +47,36 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public boolean isEmailEvalable(String email) throws IllegalArgumentException {
-		return lDao.isEmailEvalable(email);
+	public boolean isEmailEvalable(String email) throws IllegalArgumentException {		
+		try {
+			return lDao.isEmailEvalable(email);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
 	public boolean isUsernameEvalabel(String username)
 			throws IllegalArgumentException {
 		
-		if(username.equals("superuser") || username.length()<5){
-			return false;
+		if(username.length()>=5){
+			try {
+				return lDao.isUsernameEvalabel(username);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		return true;
+		return false;
 	}
 
 	@Override

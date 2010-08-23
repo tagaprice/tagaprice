@@ -148,7 +148,7 @@ public class RegistrationPage extends Composite {
 							if(result){
 								userNameLabel.setText("Username (evalable)");
 							}else{
-								userNameLabel.setText("Username (aready in use)");
+								userNameLabel.setText("Username (already in use)");
 							}
 							
 						}
@@ -206,7 +206,7 @@ public class RegistrationPage extends Composite {
 							if(result){
 								emailLabel.setText("Email (evalable)");
 							}else{
-								emailLabel.setText("Email (aready in use)");
+								emailLabel.setText("Email (already in use)");
 							}
 							
 						}

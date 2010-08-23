@@ -19,26 +19,26 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Account;
+import org.tagaprice.shared.AccountData;
 
 public class AccountDAOTest {
 	private AccountDAO dao;
 	private DBConnection db;
-	private Account testAccount;
+	private AccountData testAccount;
 	
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = AccountDAO.getInstance(db);
 		
-		testAccount = new Account("testAccount", LocaleDAO.getInstance().get("English").getId());
+		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId());
 		dao.save(testAccount);
 		assertNotNull(testAccount.getId());
 	}
 
 	@Test
 	public void testCreate() throws Exception {
-		Account a = new Account(testAccount.getId(), 0);
+		AccountData a = new AccountData(testAccount.getId(), 0);
 		dao.get(a);
 		assertEquals(a, testAccount);
 	}

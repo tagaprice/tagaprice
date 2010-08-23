@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Account;
+import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.ProductData;
 
 public class ProductDAOTest {
@@ -20,7 +20,7 @@ public class ProductDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = ProductDAO.getInstance(db);
 		localeId = LocaleDAO.getInstance(db).get("English").getId();
-		Account a = new Account("testAccount", localeId);
+		AccountData a = new AccountData("testAccount", localeId);
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 

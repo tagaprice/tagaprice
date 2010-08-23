@@ -1,12 +1,12 @@
 package org.tagaprice.shared;
 
-public class LocalAccountData implements Serializable {
+public class LocalAccountData extends Entity {
 
 	/**
-	 * 
+	 * Contains all important information to represent a
+	 * LocalAccount. 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String username; 
 	private String password;
 	private String email;
 	private String language;
@@ -17,12 +17,38 @@ public class LocalAccountData implements Serializable {
 	private double latitude;
 	private double longitude;
 	
+	
+	/**
+	 * default constructor (used for serialization)
+	 */
 	public LocalAccountData() {
+		super();
+	}
+	
+	
+	/**
+	 * constructor for querying a LocalAccount's current revision 
+	 * @param id Product ID
+	 */
+	public LocalAccountData(Long id) {
+		super(id);
 	}
 	
 	/**
-	 * 
-	 * @param username
+	 * query a specific LocalAccount revision
+	 * @param id user ID
+	 * @param rev revision
+	 */
+	public LocalAccountData(Long id, int rev) {
+		super(id, rev);
+	}
+	
+	
+	/**
+	 * constructor for creating a new LocalAccount
+	 * @param title
+	 * @param localeId
+	 * @param creatorId
 	 * @param password
 	 * @param email
 	 * @param language
@@ -34,7 +60,9 @@ public class LocalAccountData implements Serializable {
 	 * @param longitude
 	 */
 	public LocalAccountData(
-			String username, 
+			String title, 
+			int localeId,
+			long creatorId,
 			String password, 
 			String email, 
 			String language, 
@@ -44,7 +72,8 @@ public class LocalAccountData implements Serializable {
 			String country, 
 			double latitude, 
 			double longitude){
-		setUsername(username);
+		super(title, localeId, creatorId);
+		
 		setPassword(password);
 		setEmail(email);
 		setLanguage(language);
@@ -54,18 +83,52 @@ public class LocalAccountData implements Serializable {
 		setCountry(country);
 		setLanguage(language);
 		setLanguage(language);
+		
 	}
-
-	public String getUsername() {
-		return username;
+	
+	/**
+	 * constructor for saving existing Project
+	 * @param id
+	 * @param rev
+	 * @param title
+	 * @param creatorId
+	 * @param password
+	 * @param email
+	 * @param language
+	 * @param street
+	 * @param zip
+	 * @param county
+	 * @param country
+	 * @param latitude
+	 * @param longitude
+	 */
+	public LocalAccountData(
+			long id, 
+			int rev,
+			String title, 
+			long creatorId,
+			String password, 
+			String email, 
+			String language, 
+			String street, 
+			String zip, 
+			String county,
+			String country, 
+			double latitude, 
+			double longitude){
+		super(id, rev, title, creatorId);	
+		
+		setPassword(password);
+		setEmail(email);
+		setLanguage(language);
+		setStreet(street);
+		setZip(zip);
+		setCounty(county);
+		setCountry(country);
+		setLanguage(language);
+		setLanguage(language);
+		
 	}
-
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 
 
 	public String getPassword() {
