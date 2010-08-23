@@ -21,7 +21,7 @@ public class PropertyDefinitionDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = PropertyDefinitionDAO.getInstance(db);
 		localeId = LocaleDAO.getInstance(db).get("English").getId();
-		AccountData a = new AccountData("testAccount", localeId);
+		AccountData a = new AccountData("testAccount", localeId, "foo@test.invalid", null);
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 	}

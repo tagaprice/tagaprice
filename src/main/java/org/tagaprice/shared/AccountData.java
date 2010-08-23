@@ -17,6 +17,9 @@ package org.tagaprice.shared;
 public class AccountData extends Entity {
 	private static final long serialVersionUID = 1L;
 
+	private String mail;
+	private Address address;
+
 	/**
 	 * Default constructor needed for serialization
 	 */
@@ -47,8 +50,10 @@ public class AccountData extends Entity {
 	 * @param localeId the Locale of an account just tells us which locale the user prefers
 	 *     (a user isn't locked into a single local version of the site)
 	 */
-	public AccountData(String title, int localeId) {
+	public AccountData(String title, int localeId, String mail, Address address) {
 		super(title, localeId, null);
+		this.mail = mail;
+		this.address = address;
 	}
 
 	/**
@@ -58,8 +63,10 @@ public class AccountData extends Entity {
 	 * @param title Account's (new) descriptive name (e.g. "Administrator")
 	 * @param revCreatorId revision creator (most times this will be the user himself, but sometimes admins will change a user's details)
 	 */
-	public AccountData(Long id, int rev, String title, Long revCreatorId) {
+	public AccountData(Long id, int rev, String title, Long revCreatorId, String mail, Address address) {
 		super(id, rev, title, revCreatorId);
+		this.mail = mail;
+		this.address = address;
 	}
 
 	@Override
@@ -77,7 +84,25 @@ public class AccountData extends Entity {
 	@Override
 	public String toString() {
 		return "Account {\n" +
+				"mail: "+getMail()+
+				"\naddress: "+getAddress()+"\n"+
 				super.toString()+
 				"}\n";
+	}
+	
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	
+	public String getMail() {
+		return mail;
+	}
+	
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	public Address getAddress() {
+		return address;
 	}
 }

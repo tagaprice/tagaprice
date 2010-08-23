@@ -31,7 +31,7 @@ public class PropertyDAOTest {
 		propDefDAO = PropertyDefinitionDAO.getInstance(db);
 		
 		localeId = LocaleDAO.getInstance().get("English").getId();
-		AccountData a = new AccountData("propertyTestAccount", localeId);
+		AccountData a = new AccountData("propertyTestAccount", localeId, null, null);
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 		

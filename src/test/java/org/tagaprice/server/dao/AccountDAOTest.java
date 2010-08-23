@@ -31,7 +31,7 @@ public class AccountDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = AccountDAO.getInstance(db);
 		
-		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId());
+		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId(), "mailaddress@example.org", null);
 		dao.save(testAccount);
 		assertNotNull(testAccount.getId());
 	}

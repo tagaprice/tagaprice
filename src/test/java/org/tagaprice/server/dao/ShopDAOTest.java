@@ -22,7 +22,7 @@ public class ShopDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = ShopDAO.getInsance(db);
 		localeId = LocaleDAO.getInstance(db).get("English").getId();
-		AccountData a = new AccountData("Testaccount", localeId);
+		AccountData a = new AccountData("Testaccount", localeId, "bar@test.invalid", null);
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 		

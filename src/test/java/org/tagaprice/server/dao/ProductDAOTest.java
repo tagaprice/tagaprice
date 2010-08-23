@@ -20,7 +20,7 @@ public class ProductDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = ProductDAO.getInstance(db);
 		localeId = LocaleDAO.getInstance(db).get("English").getId();
-		AccountData a = new AccountData("testAccount", localeId);
+		AccountData a = new AccountData("testAccount", localeId, "address@example.com", null);
 		AccountDAO.getInstance(db).save(a);
 		uid = a.getId();
 

@@ -94,11 +94,11 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 		
 		if(entity.getCreatorId()==null){
 			
-			aData = new AccountData(entity.getTitle(), entity.getLocaleId());
+			aData = new AccountData(entity.getTitle(), entity.getLocaleId(), null, null);
 			System.out.println("newid: "+aData.getId());
 		}else{
 			//TODO Change UserId to loggedin User
-			aData = new AccountData(entity.getId(), entity.getRev(), entity.getTitle(), userId);
+			aData = new AccountData(entity.getId(), entity.getRev(), entity.getTitle(), userId, null, null);
 			System.out.println("updateid: "+aData.getId());
 		}		
 		aDao.save(aData);
