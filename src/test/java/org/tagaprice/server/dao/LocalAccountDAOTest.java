@@ -30,6 +30,7 @@ public class LocalAccountDAOTest {
 		LocalAccountData account = new LocalAccountData("testAccount", localeId, null, "mail@foo.invalid", "my secret password", null);
 		dao.save(account);
 		LocalAccountData a2 = new LocalAccountData(account.getId());
+		dao.get(a2);
 		assertEquals("Accounts don't match!", account, a2);
 	}
 
