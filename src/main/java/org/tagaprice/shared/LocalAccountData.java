@@ -62,7 +62,7 @@ public class LocalAccountData extends Entity {
 	public LocalAccountData(
 			String title, 
 			int localeId,
-			long creatorId,
+			Long creatorId,
 			String password, 
 			String email, 
 			String language, 

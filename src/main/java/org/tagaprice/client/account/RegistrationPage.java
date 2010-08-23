@@ -424,7 +424,7 @@ public class RegistrationPage extends Composite {
 								@Override
 								public void onFailure(Throwable caught) {
 									// TODO Auto-generated method stub
-									System.err.println("Registartion failt");
+									System.err.println("Registartion failt+ "+caught);
 									
 								}
 

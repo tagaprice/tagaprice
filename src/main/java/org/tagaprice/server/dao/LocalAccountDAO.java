@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -13,16 +14,22 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 	private DBConnection db;
 	private static LocalAccountDAO instance;
+	private static AccountDAO aDao;
+	private Long userId = 1l;
+	
+	private EntityDAO entityDAO;
 	
 	public static LocalAccountDAO getInstance(DBConnection db){
-		if(instance == null)
+		if(instance == null){
 			instance = new LocalAccountDAO(db);
-		
+		}
 		return instance;
 	}
 	
 	private LocalAccountDAO(DBConnection db) {
 		this.db=db;
+		aDao = AccountDAO.getInstance(db);
+		entityDAO = EntityDAO.getInstance(db);
 	}
 	
 	
@@ -74,6 +81,30 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData>{
 			NotFoundException, RevisionCheckException, InvalidLocaleException {
 		// TODO Auto-generated method stub
 		
+		
+		
+		//Create or update account
+		AccountData aData;
+		//aData = new AccountData(entity.getTitle(), entity.getLocaleId());
+		//System.out.println("oldid: "+aData.getId());
+		//entityDAO.save(aData);
+		
+		
+		
+		
+		if(entity.getCreatorId()==null){
+			
+			aData = new AccountData(entity.getTitle(), entity.getLocaleId());
+			System.out.println("newid: "+aData.getId());
+		}else{
+			//TODO Change UserId to loggedin User
+			aData = new AccountData(entity.getId(), entity.getRev(), entity.getTitle(), userId);
+			System.out.println("updateid: "+aData.getId());
+		}		
+		aDao.save(aData);
+		
+		
+		//Create or Update LocalAccount
 	}
 
 }

@@ -20,7 +20,10 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
+import org.tagaprice.shared.LocalAccountData;
+import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -86,6 +89,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			String country, double latitude, double longitude, boolean gtc)
 			throws IllegalArgumentException {
 		
+		/*
 		//Check Valid
 		if(!(isUsernameEvalabel(username) &&
 				password.equals(confirmPassword) &&
@@ -93,10 +97,32 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 				email.equals(confirmEmail) &&
 				gtc))
 			return false;
-		
+		*/
 		//Start with saving and sending confirm email
 		
 		
+		
+		try {
+			LocalAccountData entity = new LocalAccountData(
+					username, 1, null, 
+					password, email, 
+					language, street, zip, 
+					county, country, latitude, longitude);
+			lDao.save(entity);
+			System.out.println("new user");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RevisionCheckException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidLocaleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return true;
 	}
