@@ -79,12 +79,13 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		accountDAO.save(account);
 		
 		if (account.getRev() == 1) {
-			PreparedStatement pstmt = db.prepareStatement("INSERT INTO localAccount (uid, password, salt) VALUES (?, md5(?|?, ?)");
+			PreparedStatement pstmt = db.prepareStatement("INSERT INTO localAccount (uid, password, salt) VALUES (?, md5(?||?), ?)");
 			String salt = _generateSalt(10);
 			pstmt.setLong(1, account.getId());
 			pstmt.setString(2, account.getPassword());
 			pstmt.setString(3, salt);
 			pstmt.setString(4, salt);
+			pstmt.executeUpdate();
 		}
 		else if (account.getRev() < 1) throw new RevisionCheckException("invalid revision: "+account.getRev());
 		else if (account.getPassword() != null) {
