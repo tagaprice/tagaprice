@@ -4,8 +4,8 @@ import org.tagaprice.client.InfoBoxComposite;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
-import org.tagaprice.shared.rpc.UserHandler;
-import org.tagaprice.shared.rpc.UserHandlerAsync;
+import org.tagaprice.shared.rpc.LocalAccountHandler;
+import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,7 +24,7 @@ public class LoginPage extends InfoBoxComposite{
 	private Label passwordLabel = new Label("Password");
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button loginButton = new Button("Login");
-	private UserHandlerAsync userHandler = GWT.create(UserHandler.class);
+	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
 	
 	
 	public LoginPage() {

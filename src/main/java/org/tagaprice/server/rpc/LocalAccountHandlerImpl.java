@@ -14,18 +14,18 @@
 */
 package org.tagaprice.server.rpc;
 
-import org.tagaprice.shared.rpc.UserHandler;
+import org.tagaprice.shared.rpc.LocalAccountHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class UserHandlerImpl extends RemoteServiceServlet implements UserHandler {
+public class LocalAccountHandlerImpl extends RemoteServiceServlet implements LocalAccountHandler {
 
 	String username = "root";
 	String password = "tagaprice";
 	boolean loggedIn = false;
 	
-	public UserHandlerImpl() {
+	public LocalAccountHandlerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	

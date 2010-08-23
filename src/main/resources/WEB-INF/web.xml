@@ -78,13 +78,13 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>User</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.UserHandlerImpl</servlet-class>
+		<servlet-name>Account</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.LocalAccountHandlerImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>User</servlet-name>
-		<url-pattern>/tagapriceui/rpc/user</url-pattern>
+		<servlet-name>Account</servlet-name>
+		<url-pattern>/tagapriceui/rpc/account</url-pattern>
 	</servlet-mapping>
 	
 	

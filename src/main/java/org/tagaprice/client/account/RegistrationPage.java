@@ -15,8 +15,8 @@
 package org.tagaprice.client.account;
 
 import org.tagaprice.client.TitlePanel;
-import org.tagaprice.shared.rpc.UserHandler;
-import org.tagaprice.shared.rpc.UserHandlerAsync;
+import org.tagaprice.shared.rpc.LocalAccountHandler;
+import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
@@ -53,7 +53,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class RegistrationPage extends Composite {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
-	private UserHandlerAsync userHandler = GWT.create(UserHandler.class);
+	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
 	private TextBox userName = new TextBox();
 	private Label userNameLabel = new Label("Username (More the 5 letters)");
 	private PasswordTextBox password = new PasswordTextBox();

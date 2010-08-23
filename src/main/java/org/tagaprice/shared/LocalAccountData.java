@@ -1,6 +1,6 @@
 package org.tagaprice.shared;
 
-public class AccountData implements Serializable {
+public class LocalAccountData implements Serializable {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class AccountData implements Serializable {
 	private double latitude;
 	private double longitude;
 	
-	public AccountData() {
+	public LocalAccountData() {
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class AccountData implements Serializable {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public AccountData(
+	public LocalAccountData(
 			String username, 
 			String password, 
 			String email, 

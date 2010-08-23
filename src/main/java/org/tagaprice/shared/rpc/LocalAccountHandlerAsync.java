@@ -16,7 +16,7 @@ package org.tagaprice.shared.rpc;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface UserHandlerAsync {
+public interface LocalAccountHandlerAsync {
 
 	void isEmailEvalable(String email, AsyncCallback<Boolean> callback);
 
