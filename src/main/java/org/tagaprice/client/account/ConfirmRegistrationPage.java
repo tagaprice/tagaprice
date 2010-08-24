@@ -2,32 +2,52 @@ package org.tagaprice.client.account;
 
 import org.tagaprice.client.InfoBoxComposite;
 import org.tagaprice.client.TitlePanel;
+import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.rpc.LocalAccountHandler;
+import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public class ConfirmRegistrationPage extends InfoBoxComposite{
 
-	VerticalPanel vePa1 = new VerticalPanel();
+	SimplePanel siPa1 = new SimplePanel();
+	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
 	
 	public ConfirmRegistrationPage() {
 		_init();
 		// TODO Auto-generated constructor stub		
-		vePa1.add(new TitlePanel("Confirm", new Label("Please check your email account and follow the confirm link to finish the registration!"), Level.H2));
+		siPa1.setWidget(new TitlePanel("Confirm", new Label("Please check your email account and follow the confirm link to finish the registration!"), Level.H2));
 		
 	}
 	
 	public ConfirmRegistrationPage(String confirm) {
 		_init();
-		// TODO Auto-generated constructor stub
-		vePa1.add(new Label("Confirm: "+confirm));
+		siPa1.setWidget(new Label("Please wait while we check you confirmation!"));
+		userHandler.confirm(confirm, new AsyncCallback<Boolean>() {
+			
+			@Override
+			public void onSuccess(Boolean result) {
+				siPa1.setWidget(new Label("Thanks for your registration: "+result));
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				showInfo("Problem at confirming your email!", BoxType.WARNINGBOX);				
+			}
+		});
+		
+		
+		
 	}
 	
 	
 	private void _init(){
-		vePa1.setWidth("100%");
-		init(vePa1);
+		siPa1.setWidth("100%");
+		init(siPa1);
 	}
 	
 	

@@ -196,6 +196,16 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	@Override
 	public boolean confirm(String confirm) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
+		try {
+			return dao.confirm(confirm);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
 		return false;
 	}
 

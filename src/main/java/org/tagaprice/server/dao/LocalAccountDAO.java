@@ -58,6 +58,23 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		return false;
 	}
 	
+	public boolean confirm(String confirm) throws SQLException, NotFoundException, NotFoundException{
+		String sql = "" +
+				"UPDATE account " +
+				"SET locked='false' " +
+				"WHERE (uid = " +
+					"(SELECT uid FROM confirmaccount " +
+					"WHERE (confirm=?)))";
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setString(1, confirm);	
+		
+		if(pstmt.executeUpdate()==1) 
+			return true;
+		
+		return false;
+	}
+	
+	
 	@Override
 	public void get(LocalAccountData account) throws SQLException, NotFoundException {
 		// password won't be set anyway
