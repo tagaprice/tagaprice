@@ -31,9 +31,13 @@ public class AccountDAO implements DAOClass<AccountData> {
 	
 	public AccountDAO(DBConnection db) {
 		entityDAO = new EntityDAO(db) {
-			protected void resolveCreator(Entity e) {
+			@Override
+			protected void resolveCreator(Entity e) throws SQLException {
 				e._setCreatorId(e.getId());
 				e._setRevCreatorId(e.getId());
+				PreparedStatement pstmt = db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
+				pstmt.setLong(1, e.getId());
+				pstmt.executeUpdate();
 			}
 		};
 		this.db = db;
@@ -61,23 +65,9 @@ public class AccountDAO implements DAOClass<AccountData> {
 
 		/// TODO mail checking
 		/// TODO if the mail address changes, a confirmation mail has to be sent 
-		if (a.getRev() == 1) {
-			// create a new account
-			pstmt = db.prepareStatement("INSERT INTO account (uid, mail) VALUES (?, ?)");
-			pstmt.setLong(1, a.getId());
-			pstmt.setString(2, a.getMail());
-			pstmt.executeUpdate();
-		}
-		else { // positive account ID => save an already existing account
-			pstmt = db.prepareStatement("UPDATE account SET mail = ? WHERE uid = ?");
-			pstmt.setString(1, a.getMail());
-			pstmt.setLong(2, a.getId());
-			ResultSet res = pstmt.executeQuery();
-
-			if (!res.next()) throw new NotFoundException("Account not found (id="+a.getId()+")");
-			
-			// account already exists => save changes
-		}
+		pstmt = db.prepareStatement("UPDATE account SET mail = ? WHERE uid = ?");
+		pstmt.setString(1, a.getMail());
+		pstmt.setLong(2, a.getId());
+		pstmt.executeUpdate();
 	}
-
 }

@@ -210,7 +210,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		e._setRev(1);
 	}
 	
-	protected void resolveCreator(Entity e) throws NotFoundException {
+	protected void resolveCreator(Entity e) throws NotFoundException, SQLException {
 		throw new NotFoundException("Creator not found: null");
 	}
 }
