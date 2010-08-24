@@ -26,19 +26,10 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class ProductDAO implements DAOClass<ProductData> {
-	private static ProductDAO instance;
 	private EntityDAO entityDAO;
 	private DBConnection db;
 	
-
-	public static ProductDAO getInstance(DBConnection db){
-		if(instance == null){
-			instance = new ProductDAO(db);
-		}
-		return instance;
-	}
-	
-	private ProductDAO(DBConnection db) {
+	public ProductDAO(DBConnection db) {
 		this.db=db;
 		entityDAO= new EntityDAO(db);
 	}

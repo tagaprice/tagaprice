@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
@@ -31,7 +32,7 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	private UnitDAO dao;
 
 	public UnitHandlerImpl() throws FileNotFoundException, IOException {
-		dao = UnitDAO.getInstance();
+		dao = new UnitDAO(new DBConnection());
 	}
 	
 	@Override

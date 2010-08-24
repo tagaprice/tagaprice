@@ -14,8 +14,6 @@
 */
 package org.tagaprice.server.dao;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,22 +26,12 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class UnitDAO implements DAOClass<Unit> {
-	private static UnitDAO instance;
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	
-	private UnitDAO(DBConnection db) {
+	public UnitDAO(DBConnection db) {
 		entityDAO = new EntityDAO(db);
 		this.db = db;
-	}
-	
-	public static UnitDAO getInstance() throws FileNotFoundException, IOException {
-		return getInstance(new DBConnection());
-	}
-	
-	public static UnitDAO getInstance(DBConnection db) {
-		if (instance == null) instance = new UnitDAO(db);
-		return instance;
 	}
 	
 	public SearchResult<Unit> getSimilar(long id) throws NotFoundException {

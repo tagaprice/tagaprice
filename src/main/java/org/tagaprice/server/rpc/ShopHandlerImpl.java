@@ -22,7 +22,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		DBConnection db;
 		try {
 			db = new DBConnection();
-			sDao = ShopDAO.getInsance(db);
+			sDao = new ShopDAO(db);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

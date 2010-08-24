@@ -36,7 +36,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	public ProductHandlerImpl() {
 		try {
 			DBConnection dbConn = new DBConnection();
-			pDao = ProductDAO.getInstance(dbConn);
+			pDao = new ProductDAO(dbConn);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

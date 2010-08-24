@@ -28,11 +28,11 @@ public class PropertyDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		//dao = PropertyDAO.getInstance(db);
 		dao = new EntityDAO(db);
-		propDefDAO = PropertyDefinitionDAO.getInstance(db);
+		propDefDAO = new PropertyDefinitionDAO(db);
 		
-		localeId = LocaleDAO.getInstance().get("English").getId();
+		localeId = new LocaleDAO(db).get("English").getId();
 		AccountData a = new AccountData("propertyTestAccount", localeId, null, null);
-		AccountDAO.getInstance(db).save(a);
+		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
 		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);

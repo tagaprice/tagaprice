@@ -13,20 +13,12 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
-	private static PropertyDefinitionDAO instance = null;
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	
-	private PropertyDefinitionDAO(DBConnection db) {
+	public PropertyDefinitionDAO(DBConnection db) {
 		this.db = db;
-	}
-	
-	public static PropertyDefinitionDAO getInstance(DBConnection db) {
-		if (instance == null) {
-			instance = new PropertyDefinitionDAO(db);
-			instance.entityDAO = new EntityDAO(db);
-		}
-		return instance;
+		entityDAO = new EntityDAO(db);
 	}
 	
 	@Override

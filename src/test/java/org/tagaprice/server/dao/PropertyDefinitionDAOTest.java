@@ -19,10 +19,10 @@ public class PropertyDefinitionDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
-		dao = PropertyDefinitionDAO.getInstance(db);
-		localeId = LocaleDAO.getInstance(db).get("English").getId();
+		dao = new PropertyDefinitionDAO(db);
+		localeId = new LocaleDAO(db).get("English").getId();
 		AccountData a = new AccountData("testAccount", localeId, "foo@test.invalid", null);
-		AccountDAO.getInstance(db).save(a);
+		new AccountDAO(db).save(a);
 		uid = a.getId();
 	}
 

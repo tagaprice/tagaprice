@@ -17,21 +17,13 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class PropertyDAO implements DAOClass<Entity> {
-	private static PropertyDAO instance = null;
 	private DBConnection db;
 	private UnitDAO unitDAO;
 
-	private PropertyDAO(DBConnection db) {
+	public PropertyDAO(DBConnection db) {
 		this.db = db;
 	}
 	
-	public static PropertyDAO getInstance(DBConnection db) {
-		if (instance == null) {
-			instance = new PropertyDAO(db);
-			instance.unitDAO = UnitDAO.getInstance(db);
-		}
-		return instance;
-	}
 	/**
 	 * Get the properties of an entity
 	 */

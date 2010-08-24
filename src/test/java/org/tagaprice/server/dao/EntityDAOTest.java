@@ -101,9 +101,9 @@ public class EntityDAOTest {
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
 		dao = new EntityDAO(db);
-		localeDAO = LocaleDAO.getInstance(db);
-		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId(), "mail@example.net", null);
-		AccountDAO.getInstance(db).save(testAccount);
+		localeDAO = new LocaleDAO(db);
+		testAccount = new AccountData("testAccount", localeDAO.get("English").getId(), "mail@example.net", null);
+		new AccountDAO(db).save(testAccount);
 	}
 
 	@After

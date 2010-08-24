@@ -9,16 +9,10 @@ import org.tagaprice.shared.Country;
 import org.tagaprice.shared.exception.NotFoundException;
 
 public class CountryDAO {
-	private static CountryDAO instance = null;
 	private DBConnection db;
 
-	private CountryDAO(DBConnection db) {
+	public CountryDAO(DBConnection db) {
 		this.db = db;
-	}
-	
-	public static CountryDAO getInstance(DBConnection db) {
-		if (instance == null) instance = new CountryDAO(db);
-		return instance;
 	}
 	
 	public Country get(String code) throws SQLException, NotFoundException {

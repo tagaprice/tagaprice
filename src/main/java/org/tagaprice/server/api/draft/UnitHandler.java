@@ -20,6 +20,7 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.ApiCall;
 import org.tagaprice.server.ApiCallData;
+import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
@@ -31,7 +32,7 @@ public class UnitHandler implements ApiCall {
 	private UnitDAO dao;
 	
 	public UnitHandler() throws FileNotFoundException, IOException {
-		dao = UnitDAO.getInstance();
+		dao = new UnitDAO(new DBConnection());
 	}
 	
 	@Override

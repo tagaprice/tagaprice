@@ -30,9 +30,9 @@ public class AccountDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
-		dao = AccountDAO.getInstance(db);
+		dao = new AccountDAO(db);
 		
-		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId(), "mailaddress@example.org", null);
+		testAccount = new AccountData("testAccount", new LocaleDAO(db).get("English").getId(), "mailaddress@example.org", null);
 		dao.save(testAccount);
 		assertNotNull(testAccount.getId());
 	}

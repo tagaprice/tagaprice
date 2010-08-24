@@ -14,7 +14,7 @@ public class CountryDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
-		dao = CountryDAO.getInstance(db);
+		dao = new CountryDAO(db);
 	}
 
 	@After

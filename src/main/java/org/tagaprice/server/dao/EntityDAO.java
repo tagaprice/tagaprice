@@ -43,8 +43,8 @@ public class EntityDAO implements DAOClass<Entity> {
 	 */
 	public EntityDAO(DBConnection db) {
 		this.db = db;
-		this.localeDAO = LocaleDAO.getInstance(db);
-		this.propertyDAO = PropertyDAO.getInstance(db);
+		this.localeDAO = new LocaleDAO(db);
+		this.propertyDAO = new PropertyDAO(db);
 	}
 
 	public void get(Entity e) throws SQLException, NotFoundException {

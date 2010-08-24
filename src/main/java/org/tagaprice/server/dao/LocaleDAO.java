@@ -14,8 +14,6 @@
 */
 package org.tagaprice.server.dao;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,24 +23,10 @@ import org.tagaprice.shared.Locale;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 
 public class LocaleDAO {
-	private static LocaleDAO instance;
 	private DBConnection db;
 
-	private LocaleDAO() throws FileNotFoundException, IOException {
-		this(new DBConnection());
-	}
-
-	/**
-	 * Constructor that provides an easy way to supply a modified DBConnection object
-	 * (e.g. with auto-rollback for unit test cases) 
-	 * @param db DBConnection object
-	 */
-	private LocaleDAO(DBConnection db) {
+	public LocaleDAO(DBConnection db) {
 		this.db = db;
-
-		if (instance == null) {
-			instance = this;
-		}
 	}
 	
 	public boolean exists(int id) throws SQLException {
@@ -73,17 +57,5 @@ public class LocaleDAO {
 		if (!res.next()) throw new InvalidLocaleException("Locale '"+title+"' not found!");
 		
 		return new Locale(res.getInt("locale_id"), res.getInt("fallback_id"), res.getString("title"), res.getString("localtitle"));
-	}
-
-	public static LocaleDAO getInstance() throws FileNotFoundException, IOException {
-		if (instance == null) {
-			new LocaleDAO();
-		}
-		return instance;
-	}
-	
-	public static LocaleDAO getInstance(DBConnection db) {
-		if (instance == null) new LocaleDAO(db);
-		return instance;
 	}
 }

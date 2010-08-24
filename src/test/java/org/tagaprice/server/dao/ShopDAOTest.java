@@ -20,13 +20,13 @@ public class ShopDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
-		dao = ShopDAO.getInsance(db);
-		localeId = LocaleDAO.getInstance(db).get("English").getId();
+		dao = new ShopDAO(db);
+		localeId = new LocaleDAO(db).get("English").getId();
 		AccountData a = new AccountData("Testaccount", localeId, "bar@test.invalid", null);
-		AccountDAO.getInstance(db).save(a);
+		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
-		Address address = new Address("street", "city", CountryDAO.getInstance(db).get("us"), -2.564, 132.863);
+		Address address = new Address("street", "city", new CountryDAO(db).get("us"), -2.564, 132.863);
 		testShop = new ShopData("testshop title", localeId, uid, -16L, null, address);
 		
 	}

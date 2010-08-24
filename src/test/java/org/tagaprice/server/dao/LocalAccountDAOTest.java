@@ -24,8 +24,8 @@ public class LocalAccountDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
-		dao = LocalAccountDAO.getInstance(db);
-		localeId = LocaleDAO.getInstance(db).get("English").getId();
+		dao = new LocalAccountDAO(db);
+		localeId = new LocaleDAO(db).get("English").getId();
 	}
 
 	@After

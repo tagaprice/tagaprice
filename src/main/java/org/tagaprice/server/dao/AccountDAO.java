@@ -28,9 +28,8 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class AccountDAO implements DAOClass<AccountData> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
-	private static AccountDAO instance = null;
 	
-	private AccountDAO(DBConnection db) {
+	public AccountDAO(DBConnection db) {
 		entityDAO = new EntityDAO(db) {
 			protected void resolveCreator(Entity e) {
 				e._setCreatorId(e.getId());
@@ -38,13 +37,6 @@ public class AccountDAO implements DAOClass<AccountData> {
 			}
 		};
 		this.db = db;
-	}
-
-	public static AccountDAO getInstance(DBConnection db) {
-		if (instance == null) {
-			instance = new AccountDAO(db);
-		}
-		return instance;
 	}
 
 	@Override

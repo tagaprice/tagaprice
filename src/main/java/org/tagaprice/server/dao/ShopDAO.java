@@ -12,22 +12,14 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class ShopDAO implements DAOClass<ShopData> {
-	private static ShopDAO instance = null;
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	private CountryDAO countryDAO;
 	
-	private ShopDAO(DBConnection db) {
+	public ShopDAO(DBConnection db) {
 		this.db = db;
-	}
-	
-	public static ShopDAO getInsance(DBConnection db) {
-		if (instance == null) {
-			instance = new ShopDAO(db);
-			instance.entityDAO = new EntityDAO(db);
-			instance.countryDAO = CountryDAO.getInstance(db);
-		}
-		return instance;
+		entityDAO = new EntityDAO(db);
+		countryDAO = new CountryDAO(db);
 	}
 
 	@Override

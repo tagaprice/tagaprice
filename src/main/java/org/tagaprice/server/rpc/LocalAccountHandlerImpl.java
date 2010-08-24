@@ -42,8 +42,8 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	public LocalAccountHandlerImpl() {
 		try {
 			db = new DBConnection();
-			lDao = LocalAccountDAO.getInstance(db);
-			localeId = LocaleDAO.getInstance(db).get("English").getId();
+			lDao = new LocalAccountDAO(db);
+			localeId = new LocaleDAO(db).get("English").getId();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -13,20 +13,11 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	private DBConnection db;
-	private static LocalAccountDAO instance;
-	
 	private AccountDAO accountDAO;
 	
-	public static LocalAccountDAO getInstance(DBConnection db){
-		if(instance == null){
-			instance = new LocalAccountDAO(db);
-		}
-		return instance;
-	}
-	
-	private LocalAccountDAO(DBConnection db) {
+	public LocalAccountDAO(DBConnection db) {
 		this.db=db;
-		accountDAO = AccountDAO.getInstance(db);
+		accountDAO = new AccountDAO(db);
 	}
 	
 	
