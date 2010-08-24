@@ -76,8 +76,13 @@ public class AccountData extends Entity {
 	
 	@Override
 	public boolean equals(Object o) {
-		boolean rc = false;
-		if (o instanceof AccountData) rc = super.equals(o);
+		boolean rc = true;
+		if (o instanceof AccountData) {
+			AccountData a = (AccountData) o;
+			if (!super.equals(o)) rc = false;
+			if (!_compare(getMail(), a.getMail())) rc = false;
+		}
+		else rc = false;
 		return rc;
 	}
 
