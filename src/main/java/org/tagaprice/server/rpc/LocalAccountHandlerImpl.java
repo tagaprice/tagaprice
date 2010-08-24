@@ -20,6 +20,8 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
+import org.tagaprice.server.dao.LocaleDAO;
+import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
@@ -31,8 +33,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class LocalAccountHandlerImpl extends RemoteServiceServlet implements LocalAccountHandler {
-
-	
+	private DBConnection db;
+	private int localeId;
 	LocalAccountDAO lDao;
 	String username = "root";
 	String password = "tagaprice";
@@ -40,11 +42,19 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	
 	public LocalAccountHandlerImpl() {
 		try {
-			lDao = LocalAccountDAO.getInstance(new DBConnection());
+			db = new DBConnection();
+			lDao = LocalAccountDAO.getInstance(db);
+			localeId = LocaleDAO.getInstance(db).get("English").getId();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidLocaleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -103,11 +113,17 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 		
 		try {
-			LocalAccountData entity = new LocalAccountData(
-					username, 1, null, 
-					email, password, 
-					address);
-			lDao.save(entity);
+			/*
+			LocalAccountData account = new LocalAccountData(
+					username, 
+					localeId, 
+					null, 
+					email, 
+					password, 
+					null);*/
+			LocalAccountData account = new LocalAccountData("testAccount", localeId, null, "mail@foo.invalid", "my secret password", null);
+
+			lDao.save(account);
 			System.out.println("new user");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

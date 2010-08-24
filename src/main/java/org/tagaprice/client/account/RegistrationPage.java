@@ -142,7 +142,7 @@ public class RegistrationPage extends Composite {
 					userNameLabel.setText("Username (More the 5 letters)");
 				}else{
 					userNameLabel.setText("Username (Check if used...)");
-					userHandler.checkMailAvailability(userName.getText().trim(), new AsyncCallback<Boolean>() {
+					userHandler.isUsernameEvalabel(userName.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {
@@ -175,7 +175,7 @@ public class RegistrationPage extends Composite {
 					passwordLabel.setText("Password (good)");
 				}
 				passwortConfirm.setText("");
-				passwortConfirmLabel.setText("Password (not equal)");
+				passwortConfirmLabel.setText("Confirm Password (not equal)");
 			}
 		});
 		
@@ -199,7 +199,7 @@ public class RegistrationPage extends Composite {
 				if(email.getText().trim().matches(".+@.+\\.[a-z]+")){
 					emailLabel.setText("Email (Check if used...)");
 					
-					userHandler.isUsernameEvalabel(email.getText().trim(), new AsyncCallback<Boolean>() {
+					userHandler.checkMailAvailability(email.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {
@@ -221,7 +221,7 @@ public class RegistrationPage extends Composite {
 					emailLabel.setText("Email (not valid)");
 				}
 				emailConfirm.setText("");
-				emailConfirmLabel.setText("Email (not equal)");
+				emailConfirmLabel.setText("Confirm Email (not equal)");
 			}
 		});
 		
