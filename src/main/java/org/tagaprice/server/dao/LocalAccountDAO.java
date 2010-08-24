@@ -77,6 +77,13 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			pstmt.setString(3, salt);
 			pstmt.setString(4, salt);
 			pstmt.executeUpdate();
+			
+			//Add confirmHash
+			PreparedStatement pstmt2 = db.prepareStatement("INSERT INTO confirmAccount (uid, confirm) VALUES (?, md5(?))");
+			String salt2 = _generateSalt(10);
+			pstmt2.setLong(1, account.getId());
+			pstmt2.setString(2, salt2);
+			pstmt2.executeUpdate();
 		}
 		else if (account.getRev() < 1) throw new RevisionCheckException("invalid revision: "+account.getRev());
 		else if (account.getPassword() != null) {

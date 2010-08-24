@@ -39,6 +39,7 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -87,7 +88,7 @@ public class RegistrationPage extends InfoBoxComposite {
 	 * Start a new user Registration
 	 * @param varificationCode If not null user has just being verified.
 	 */
-	public RegistrationPage(String verificationCode) {
+	public RegistrationPage() {
 		init(vePa1);
 		setStyleName("RegistrationPage");
 		
@@ -429,7 +430,7 @@ public class RegistrationPage extends InfoBoxComposite {
 								public void onSuccess(Boolean result) {
 									// TODO Auto-generated method stub
 									if(result){
-										showInfo("Die Registrierung hat funtioniert. Sie haben an die Adresse: "+email.getText().trim()+" ein Nachricht bekommen zum bestätigen.", BoxType.WARNINGBOX);
+										History.newItem("user/registration/confirm");
 									}else{
 										showInfo("Bitte die eingabe nochmals kontrollieren!", BoxType.WARNINGBOX);
 									}

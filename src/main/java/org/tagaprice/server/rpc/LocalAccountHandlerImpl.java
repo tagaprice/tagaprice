@@ -136,7 +136,17 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			String pwdHash = res.getString("password");			
 			if(!md5(password+salt).equals(pwdHash)){
 				return false;
-			}			
+			}
+			
+			
+			//Send Email
+			sql = "SELECT confirm FROM confirmaccount WHERE uid = ?";
+			pstmt = db.prepareStatement(sql);
+			pstmt.setLong(1, account.getId());
+			res = pstmt.executeQuery();
+			res.next();
+			System.out.println("send Mail: "+res.getString("confirm"));
+			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

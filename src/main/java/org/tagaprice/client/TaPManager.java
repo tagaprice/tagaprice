@@ -149,7 +149,7 @@ public interface TaPManager {
 	 * Start a new user Registration
 	 * @param varificationCode If not null user has just being verified.
 	 */
-	public void showUserRegistrationPage(String verificationCode);
+	public void showUserRegistrationPage();
 	
 	/**
 	 * 

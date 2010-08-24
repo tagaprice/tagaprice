@@ -99,7 +99,17 @@ public class TaPManagerImpl implements TaPManager {
 					TaPMng.newShopPage(null);
 					
 				}else if(historyToken[0].equals("user/registration/new")){ 
-					TaPMng.showUserRegistrationPage(null);
+					TaPMng.showUserRegistrationPage();
+				}else if(historyToken[0].equals("user/registration/confirm")){ 
+										
+					if(historyToken.length>1){	
+						String[] equalToken = historyToken[1].split("=");
+						if(equalToken[0].equals("confirm") && !equalToken[1].isEmpty())
+							uiMng.showConfirmRegistartionPage(equalToken[1]);
+					}else{
+						uiMng.showConfirmRegistartionPage(null);
+					}
+					
 				}else if(historyToken[0].equals("user/login")){ 
 					TaPMng.showUserLogin();
 				}else{
@@ -290,8 +300,8 @@ public class TaPManagerImpl implements TaPManager {
 	
 
 	@Override
-	public void showUserRegistrationPage(String verificationCode) {
-		uiMng.showUserRegistrationPage(verificationCode);		
+	public void showUserRegistrationPage() {
+		uiMng.showUserRegistrationPage();		
 	}
 	
 	@Override

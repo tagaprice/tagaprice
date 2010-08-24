@@ -17,6 +17,7 @@ package org.tagaprice.client;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
+import org.tagaprice.client.account.ConfirmRegistrationPage;
 import org.tagaprice.client.account.LoginPage;
 import org.tagaprice.client.account.RegistrationPage;
 import org.tagaprice.shared.ProductData;
@@ -118,13 +119,13 @@ public class UIManager extends InfoBoxComposite {
 		centerPage.setWidget(tempShop);
 	}
 	
-	public void showUserRegistrationPage(final String verificationCode){
+	public void showUserRegistrationPage(){
 		waitingPage();
 		GWT.runAsync(new RunAsyncCallback() {
 			
 			@Override
 			public void onSuccess() {
-				RegistrationPage tempRegi = new RegistrationPage(verificationCode);
+				RegistrationPage tempRegi = new RegistrationPage();
 				centerPage.setWidget(tempRegi);
 				
 			}
@@ -133,9 +134,31 @@ public class UIManager extends InfoBoxComposite {
 			public void onFailure(Throwable reason) {
 				showInfo("code Download Failed", BoxType.WARNINGBOX);
 			}
+		});	
+		
+	}
+	
+	public void showConfirmRegistartionPage(final String confirm){
+		waitingPage();
+		GWT.runAsync(new RunAsyncCallback() {
+			
+			@Override
+			public void onSuccess() {
+				ConfirmRegistrationPage confPage;
+				
+				if(confirm == null)
+					confPage = new ConfirmRegistrationPage();
+				else
+					confPage = new ConfirmRegistrationPage(confirm);
+				
+				centerPage.setWidget(confPage);
+			}
+			
+			@Override
+			public void onFailure(Throwable reason) {
+				showInfo("code Download Failed", BoxType.WARNINGBOX);				
+			}
 		});
-		
-		
 	}
 	
 	
