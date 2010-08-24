@@ -48,15 +48,16 @@ public class AccountDAO implements DAOClass<AccountData> {
 	}
 
 	@Override
-	public void get(AccountData entity) throws SQLException, NotFoundException {
+	public void get(AccountData account) throws SQLException, NotFoundException {
 		// check if it's really an account
-		PreparedStatement pstmt = db.prepareStatement("SELECT uid FROM account WHERE uid = ?");
-		pstmt.setLong(1, entity.getId());
+		PreparedStatement pstmt = db.prepareStatement("SELECT uid, mail FROM account WHERE uid = ?");
+		pstmt.setLong(1, account.getId());
 		ResultSet res = pstmt.executeQuery();
 		if (res.next()) {
-			entityDAO.get(entity);
+			account.setMail(res.getString("mail"));
+			entityDAO.get(account);
 		}
-		else throw new NotFoundException("account not found: id "+entity.getId());
+		else throw new NotFoundException("account not found: id "+account.getId());
 	}
 
 	@Override
@@ -64,28 +65,26 @@ public class AccountDAO implements DAOClass<AccountData> {
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
-		if (a.getId() == null) {
-			// create a new account
-			entityDAO.save(a);
+		entityDAO.save(a);
 
-			pstmt = db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
+		/// TODO mail checking
+		/// TODO if the mail address changes, a confirmation mail has to be sent 
+		if (a.getRev() == 1) {
+			// create a new account
+			pstmt = db.prepareStatement("INSERT INTO account (uid, mail) VALUES (?, ?)");
 			pstmt.setLong(1, a.getId());
+			pstmt.setString(2, a.getMail());
 			pstmt.executeUpdate();
-			if (a.getCreatorId() == null) {
-				a._setCreatorId(a.getId());
-				a._setRevCreatorId(a.getId());
-			}
 		}
 		else { // positive account ID => save an already existing account
-			// first check if there really is an account with that ID
-			pstmt = db.prepareStatement("SELECT uid FROM account WHERE uid = ?");
-			pstmt.setLong(1, a.getId());
+			pstmt = db.prepareStatement("UPDATE account SET mail = ? WHERE uid = ?");
+			pstmt.setString(1, a.getMail());
+			pstmt.setLong(2, a.getId());
 			ResultSet res = pstmt.executeQuery();
 
 			if (!res.next()) throw new NotFoundException("Account not found (id="+a.getId()+")");
 			
 			// account already exists => save changes
-			entityDAO.save(a);
 		}
 	}
 
