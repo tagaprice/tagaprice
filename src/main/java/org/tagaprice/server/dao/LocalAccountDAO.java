@@ -27,7 +27,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		}
 		
 		
-		String sql = "SELECT *  FROM localaccount WHERE (email = ?)";
+		String sql = "SELECT *  FROM account WHERE (mail = ?)";
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, email);

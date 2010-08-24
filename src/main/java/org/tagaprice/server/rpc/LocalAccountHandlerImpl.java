@@ -16,11 +16,16 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.server.dao.LocaleDAO;
+import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
@@ -33,16 +38,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class LocalAccountHandlerImpl extends RemoteServiceServlet implements LocalAccountHandler {
 	private DBConnection db;
+	private LocalAccountDAO dao;
 	private int localeId;
-	LocalAccountDAO lDao;
-	String username = "root";
-	String password = "tagaprice";
-	boolean loggedIn = false;
 	
 	public LocalAccountHandlerImpl() {
 		try {
 			db = new DBConnection();
-			lDao = new LocalAccountDAO(db);
+			dao = new LocalAccountDAO(db);
 			localeId = new LocaleDAO(db).get("English").getId();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -56,13 +58,14 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		} catch (InvalidLocaleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+		
 	}
 	
 	@Override
 	public boolean checkMailAvailability(String email) throws IllegalArgumentException {		
 		try {
-			return lDao.isEmailEvalable(email);
+			return dao.isEmailEvalable(email);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,7 +82,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 		if(username.length()>=5){
 			try {
-				return lDao.isUsernameEvalabel(username);
+				return dao.isUsernameEvalabel(username);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -98,32 +101,43 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			Address address, boolean gtc)
 			throws IllegalArgumentException {
 		
-		/*
+		
 		//Check Valid
 		if(!(isUsernameEvalabel(username) &&
 				password.equals(confirmPassword) &&
-				isEmailEvalable(email) &&
+				checkMailAvailability(email) &&
 				email.equals(confirmEmail) &&
 				gtc))
 			return false;
-		*/
+		
 		//Start with saving and sending confirm email
 		
 		
 		
 		try {
-			/*
+			
 			LocalAccountData account = new LocalAccountData(
 					username, 
 					localeId, 
 					null, 
 					email, 
 					password, 
-					null);*/
-			LocalAccountData account = new LocalAccountData("testAccount", localeId, null, "mail@foo.invalid", "my secret password", null);
+					null);
 
-			lDao.save(account);
-			System.out.println("new user");
+			dao.save(account);
+			
+			//Test if the password is saved correctly
+			String sql = "SELECT password, salt FROM localaccount WHERE uid = ?";
+			PreparedStatement pstmt = db.prepareStatement(sql);
+			pstmt.setLong(1, account.getId());
+			ResultSet res = pstmt.executeQuery();			
+			res.next();
+			String salt = res.getString("salt");
+			String pwdHash = res.getString("password");			
+			if(!md5(password+salt).equals(pwdHash)){
+				return false;
+			}			
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,9 +150,12 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		} catch (InvalidLocaleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -146,13 +163,24 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		
-		//Check in DB if user is available. 
-		if(username.equals(this.username) && password.equals(this.password)){
-			loggedIn=true;
-		}
 		
 		
-		return loggedIn;
+		return false;
+	}
+	
+	public static String md5(String in) throws NoSuchAlgorithmException {
+		// calculate hash 
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+	    md5.update(in.getBytes());
+	    byte[] hash = md5.digest();
+	    StringBuffer rc = new StringBuffer();
+        for (int i=0; i<hash.length; i++) {
+        	String hex = "0"+Integer.toHexString(0xFF & hash[i]);
+        	if (hex.length()>2) hex = hex.substring(hex.length()-2);
+            rc.append(hex);
+        }
+        
+        return rc.toString();
 	}
 
 }

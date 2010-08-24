@@ -14,7 +14,9 @@
 */
 package org.tagaprice.client.account;
 
+import org.tagaprice.client.InfoBoxComposite;
 import org.tagaprice.client.TitlePanel;
+import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
@@ -51,7 +53,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class RegistrationPage extends Composite {
+public class RegistrationPage extends InfoBoxComposite {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
@@ -86,7 +88,7 @@ public class RegistrationPage extends Composite {
 	 * @param varificationCode If not null user has just being verified.
 	 */
 	public RegistrationPage(String verificationCode) {
-		initWidget(vePa1);
+		init(vePa1);
 		setStyleName("RegistrationPage");
 		
 		vePa1.setWidth("100%");
@@ -406,7 +408,7 @@ public class RegistrationPage extends Composite {
 						password.getText().trim().equals(passwortConfirm.getText().trim()) &&
 						email.getText().trim().equals(emailConfirm.getText().trim()) && 
 						gtc.getValue()){
-				
+					showInfo("Waiting...", BoxType.WARNINGBOX);
 					userHandler.registerNewUser(
 							userName.getText().trim(), 
 							password.getText().trim(), 
@@ -427,14 +429,14 @@ public class RegistrationPage extends Composite {
 								public void onSuccess(Boolean result) {
 									// TODO Auto-generated method stub
 									if(result){
-										System.out.println("registration OK");
+										showInfo("Die Registrierung hat funtioniert. Sie haben an die Adresse: "+email.getText().trim()+" ein Nachricht bekommen zum bestätigen.", BoxType.WARNINGBOX);
 									}else{
-										System.out.println("registration FAIL");
+										showInfo("Bitte die eingabe nochmals kontrollieren!", BoxType.WARNINGBOX);
 									}
 								}
 							});	
 				}else{
-					System.out.println("nicht alles richtig!!!");
+					showInfo("Bitte die eingabe nochmals kontrollieren!", BoxType.WARNINGBOX);
 				}
 				
 				
