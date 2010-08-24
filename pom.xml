@@ -73,7 +73,6 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<buildOutputDirectory>target/WEB-INF/classes</buildOutputDirectory>
-					<webXml>${basedir}/src/main/resources/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -84,7 +83,17 @@
 					<runTarget>TagAPriceUI.html</runTarget>
 					<hostedWebapp>target/classes</hostedWebapp>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
