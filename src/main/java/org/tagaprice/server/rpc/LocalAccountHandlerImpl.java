@@ -25,7 +25,6 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.server.dao.LocaleDAO;
-import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
