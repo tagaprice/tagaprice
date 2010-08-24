@@ -4,7 +4,7 @@ CREATE TABLE account (
 	uid BIGINT NOT NULL,
 	mail VARCHAR(200),
 	last_login TIMESTAMP,
-
+	locked boolean NOT NULL DEFAULT true,
 	
 	PRIMARY KEY (uid),
 	FOREIGN KEY (uid) REFERENCES entity (ent_id),
