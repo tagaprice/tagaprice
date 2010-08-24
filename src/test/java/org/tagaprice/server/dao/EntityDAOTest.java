@@ -46,6 +46,12 @@ public class EntityDAOTest {
 		}
 		
 		@Override
+		public void forceRollback() throws SQLException {
+			super.forceRollback();
+			super.begin();
+		}
+		
+		@Override
 		public InputStream _loadResourceFile(String fileName) throws FileNotFoundException {
 			File file = new File("target/test-classes/WEB-INF/conf/jdbc.properties");
 			return new FileInputStream(file);
@@ -94,7 +100,7 @@ public class EntityDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
-		dao = EntityDAO.getInstance(db);
+		dao = new EntityDAO(db);
 		localeDAO = LocaleDAO.getInstance(db);
 		testAccount = new AccountData("testAccount", LocaleDAO.getInstance().get("English").getId(), "mail@example.net", null);
 		AccountDAO.getInstance(db).save(testAccount);

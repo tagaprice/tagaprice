@@ -24,7 +24,7 @@ public class ShopDAO implements DAOClass<ShopData> {
 	public static ShopDAO getInsance(DBConnection db) {
 		if (instance == null) {
 			instance = new ShopDAO(db);
-			instance.entityDAO = EntityDAO.getInstance(db);
+			instance.entityDAO = new EntityDAO(db);
 			instance.countryDAO = CountryDAO.getInstance(db);
 		}
 		return instance;

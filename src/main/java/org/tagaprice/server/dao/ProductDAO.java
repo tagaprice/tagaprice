@@ -40,7 +40,7 @@ public class ProductDAO implements DAOClass<ProductData> {
 	
 	private ProductDAO(DBConnection db) {
 		this.db=db;
-		entityDAO=EntityDAO.getInstance(db);
+		entityDAO= new EntityDAO(db);
 	}
 	
 	@Override

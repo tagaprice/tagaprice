@@ -24,7 +24,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	public static PropertyDefinitionDAO getInstance(DBConnection db) {
 		if (instance == null) {
 			instance = new PropertyDefinitionDAO(db);
-			instance.entityDAO = EntityDAO.getInstance(db);
+			instance.entityDAO = new EntityDAO(db);
 		}
 		return instance;
 	}

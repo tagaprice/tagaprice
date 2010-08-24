@@ -27,7 +27,7 @@ public class PropertyDAOTest {
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
 		//dao = PropertyDAO.getInstance(db);
-		dao = EntityDAO.getInstance(db);
+		dao = new EntityDAO(db);
 		propDefDAO = PropertyDefinitionDAO.getInstance(db);
 		
 		localeId = LocaleDAO.getInstance().get("English").getId();

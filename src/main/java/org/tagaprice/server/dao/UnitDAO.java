@@ -33,7 +33,7 @@ public class UnitDAO implements DAOClass<Unit> {
 	private EntityDAO entityDAO;
 	
 	private UnitDAO(DBConnection db) {
-		entityDAO = EntityDAO.getInstance(db);
+		entityDAO = new EntityDAO(db);
 		this.db = db;
 	}
 	

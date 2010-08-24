@@ -35,24 +35,16 @@ public class EntityDAO implements DAOClass<Entity> {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
 	private PropertyDAO propertyDAO;
-	private static EntityDAO instance = null;
 
 	/**
 	 * Constructor that provides an easy way to supply a modified DBConnection object
 	 * (e.g. with auto-rollback for unit test cases) 
 	 * @param db DBConnection object
 	 */
-	protected EntityDAO(DBConnection db) {
+	public EntityDAO(DBConnection db) {
 		this.db = db;
 		this.localeDAO = LocaleDAO.getInstance(db);
 		this.propertyDAO = PropertyDAO.getInstance(db);
-	}
-	
-	public static EntityDAO getInstance(DBConnection db) {
-		if (instance == null) {
-			instance = new EntityDAO(db);
-		}
-		return instance;
 	}
 
 	public void get(Entity e) throws SQLException, NotFoundException {
