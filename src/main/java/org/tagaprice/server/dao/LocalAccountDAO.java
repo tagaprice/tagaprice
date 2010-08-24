@@ -64,7 +64,8 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 				"SET locked='false' " +
 				"WHERE (uid = " +
 					"(SELECT uid FROM confirmaccount " +
-					"WHERE (confirm=?)))";
+					"WHERE (confirm=?) " +
+					"AND (confirm_date BETWEEN (NOW() - INTERVAL '1 day') AND NOW())))";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, confirm);	
 		
