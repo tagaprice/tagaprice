@@ -101,6 +101,19 @@ public class LocalAccountData extends AccountData {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean rc = true;
+		
+		if (o instanceof LocalAccountData) {
+			LocalAccountData a = (LocalAccountData) o;
+			if (!super.equals(a)) rc = false;
+		}
+		else rc = false;
+		
+		return rc;
+	}
 
 	@Override
 	public String getSerializeName() {
