@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS session;
 DROP TABLE IF EXISTS productRevision;
 DROP TABLE IF EXISTS shopRevision;
 
