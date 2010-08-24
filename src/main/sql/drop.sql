@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS unit;
 ALTER TABLE entity DROP CONSTRAINT fkey_currentRev;
 DROP TABLE IF EXISTS entityRevision;
 DROP TABLE IF EXISTS localAccount;
+DROP TABLE IF EXISTS confirmaccount;
 
 ALTER TABLE entity DROP CONSTRAINT fkey_entity_creator;
 DROP TABLE IF EXISTS account;
