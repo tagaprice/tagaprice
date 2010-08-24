@@ -180,7 +180,7 @@ public abstract class Entity implements Serializable {
 		
 		if (rc && o instanceof Entity) {
 			Entity e = (Entity) o;
-			if (e.getId() != getId()) rc = false;
+			if (!_compare(getId(), e.getId())) rc = false;
 			if (getRev() != e.getRev()) rc = false;
 			if (!_compare(getTitle(), e.getTitle())) rc = false;
 			if (!_compare(getLocaleId(), e.getLocaleId())) rc = false;
