@@ -193,4 +193,10 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
         return rc.toString();
 	}
 
+	@Override
+	public boolean confirm(String confirm) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
