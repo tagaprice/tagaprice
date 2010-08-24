@@ -31,7 +31,13 @@ public class ConfirmRegistrationPage extends InfoBoxComposite{
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				siPa1.setWidget(new Label("Thanks for your registration: "+result));
+				if(result){
+					siPa1.setWidget(new Label("Thank you for joining TagAPrice"));
+				}else{
+					siPa1.setWidget(new Label("Ubs! Problem at registration!"));
+
+				}
+				
 			}
 			
 			@Override
