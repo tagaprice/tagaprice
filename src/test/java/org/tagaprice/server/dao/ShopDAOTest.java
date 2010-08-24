@@ -33,6 +33,7 @@ public class ShopDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
+		db.forceRollback();
 	}
 
 	@Test

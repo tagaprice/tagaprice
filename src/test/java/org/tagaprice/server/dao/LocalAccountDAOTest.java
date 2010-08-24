@@ -30,6 +30,7 @@ public class LocalAccountDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
+		db.forceRollback();
 	}
 	
 	@Test

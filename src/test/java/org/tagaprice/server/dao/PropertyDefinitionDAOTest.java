@@ -28,6 +28,7 @@ public class PropertyDefinitionDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
+		db.forceRollback();
 	}
 
 	@Test

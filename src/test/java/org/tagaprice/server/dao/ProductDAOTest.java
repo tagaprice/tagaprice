@@ -28,7 +28,7 @@ public class ProductDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
-		db.rollback();
+		db.forceRollback();
 	}
 
 	@Test
