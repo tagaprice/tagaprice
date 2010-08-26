@@ -185,6 +185,9 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return null;
@@ -192,14 +195,16 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	
 	@Override
 	public Long getId() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-		//System.out.println("serverSid: "+Cookies.getCookie("TaPSId"));
 		Cookie[] cooks=this.getThreadLocalRequest().getCookies();
 		
 		if(cooks.length>0 
 				&& cooks[0].getName().equals("TaPSId")){
-			return loginDao.getId(cooks[0].getValue());
+			try {
+				return loginDao.getId(cooks[0].getValue());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
@@ -211,7 +216,12 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 		if(cooks.length>0 
 				&& cooks[0].getName().equals("TaPSId")){
-			return loginDao.logout(cooks[0].getValue());
+			try {
+				return loginDao.logout(cooks[0].getValue());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return false;
 	}
