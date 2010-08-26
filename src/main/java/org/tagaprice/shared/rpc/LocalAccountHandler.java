@@ -42,7 +42,7 @@ public interface LocalAccountHandler extends RemoteService {
 	String login(String username, String password) throws IllegalArgumentException;
 	
 	
-	boolean isLoggedIn() throws IllegalArgumentException;
+	Long getId() throws IllegalArgumentException;
 	
 	boolean logout() throws IllegalArgumentException;
 	

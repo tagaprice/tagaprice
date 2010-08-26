@@ -34,7 +34,7 @@ public interface LocalAccountHandlerAsync {
 	
 	void login(String username, String password, AsyncCallback<String> callback);
 	
-	void isLoggedIn(AsyncCallback<Boolean> callback);
+	void getId(AsyncCallback<Long> callback);
 	
 	void logout(AsyncCallback<Boolean> callback);
 	

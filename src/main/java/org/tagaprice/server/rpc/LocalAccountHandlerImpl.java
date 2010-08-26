@@ -22,9 +22,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.Cookie;
+
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.server.dao.LocaleDAO;
+import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
@@ -39,14 +42,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class LocalAccountHandlerImpl extends RemoteServiceServlet implements LocalAccountHandler {
 	private DBConnection db;
 	private LocalAccountDAO dao;
+	private LoginDAO loginDao;
 	private int localeId;
 	
-	private String session=null;
+	private String session="theSessionID";
 	
 	public LocalAccountHandlerImpl() {
 		try {
 			db = new DBConnection();
 			dao = new LocalAccountDAO(db);
+			loginDao = new LoginDAO(db);
 			localeId = new LocaleDAO(db).get("English").getId();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -172,34 +177,42 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	
 	@Override
 	public String login(String username, String password)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+			throws IllegalArgumentException {		
 		
-		if(username.equals("test") && password.equals("test")){
-			session="theSessionID";
-			return session;
+		
+		try {
+			return loginDao.login(username, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		return session;
+		return null;
 	}
 	
 	@Override
-	public boolean isLoggedIn() throws IllegalArgumentException {
+	public Long getId() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		
 		//System.out.println("serverSid: "+Cookies.getCookie("TaPSId"));
+		Cookie[] cooks=this.getThreadLocalRequest().getCookies();
 		
+		if(cooks.length>0 
+				&& cooks[0].getName().equals("TaPSId")){
+			return loginDao.getId(cooks[0].getValue());
+		}
 		
-		if(session!=null)
-			return true;
-		
-		return false;
+		return null;
 	}
 	
 	@Override
 	public boolean logout() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		session=null;
+		Cookie[] cooks=this.getThreadLocalRequest().getCookies();
+		
+		if(cooks.length>0 
+				&& cooks[0].getName().equals("TaPSId")){
+			return loginDao.logout(cooks[0].getValue());
+		}
 		return false;
 	}
 	

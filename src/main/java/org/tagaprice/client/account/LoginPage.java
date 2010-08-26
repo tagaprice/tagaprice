@@ -9,6 +9,7 @@ import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
@@ -53,15 +54,45 @@ public class LoginPage extends InfoBoxComposite{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				/*
-				userHandler.login(userName.getText().trim(), password.getText().trim(), new AsyncCallback<Boolean>() {
+				System.out.println("send");
+				
+				userHandler.login(userName.getText().trim(), password.getText().trim(), new AsyncCallback<String>() {
 					
 					@Override
-					public void onSuccess(Boolean result) {
-						// TODO Auto-generated method stub
-						if(result)
+					public void onSuccess(String result) {
+						
+						System.out.println("result: "+result);
+						
+						if(result!=null){
+							Cookies.setCookie("TaPSId", result);
+							
+							
 							showInfo("succsessfull Login", BoxType.WARNINGBOX);
-						else
+							
+							
+							userHandler.getId(new AsyncCallback<Long>() {
+								
+								@Override
+								public void onSuccess(Long result) {
+									// TODO Auto-generated method stub
+									if(result!=null){
+										System.out.println("Id: "+result);
+									}else{
+										System.out.println("cookieTest: ERROR");
+									}
+								}
+								
+								@Override
+								public void onFailure(Throwable caught) {
+									showInfo("Test Error", BoxType.WARNINGBOX);	
+									
+								}
+							});
+							
+							
+							
+							System.out.println("testCookie:"+Cookies.getCookie("TaPSId"));
+						}else
 							showInfo("Please Check your password and username", BoxType.WARNINGBOX);		
 					}
 					
@@ -71,7 +102,7 @@ public class LoginPage extends InfoBoxComposite{
 						
 					}
 				});
-				*/
+				
 				
 			}
 		});
