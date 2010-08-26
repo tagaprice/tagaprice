@@ -29,15 +29,23 @@ public class LoginPage extends InfoBoxComposite{
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
 	
 	
-	public LoginPage() {
+	public LoginPage(boolean loggedIn) {
 		init(vePa1);
 		vePa1.setWidth("100%");
 		
+		if(loggedIn){
+			showLoggedIn();
+		}else{
+			showNotLoggedIn();
+		}
+		
+		/*
 		if(Cookies.getCookie("TaPSId")==null)		
 			showNotLoggedIn();
 		else {
 			showLoggedIn();
 		}
+		*/
 		
 	}
 	

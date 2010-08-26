@@ -162,13 +162,13 @@ public class UIManager extends InfoBoxComposite {
 	}
 	
 	
-	public void showUserLogin(){
+	public void showUserLogin(final boolean loggedIn){
 		waitingPage();
 		GWT.runAsync(new RunAsyncCallback() {
 			
 			@Override
 			public void onSuccess() {
-				centerPage.setWidget(new LoginPage());
+				centerPage.setWidget(new LoginPage(loggedIn));
 				
 			}
 			
