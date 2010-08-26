@@ -6,7 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.tagaprice.server.DBConnection;
+
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginDAO {
 
@@ -102,7 +107,17 @@ public class LoginDAO {
 		return true;
 	}
 	
-	public static String md5(String in) throws NoSuchAlgorithmException {
+	
+	public String getSid(Cookie[] cookies){
+			
+		if(cookies.length>0	&& cookies[0].getName().equals("TaPSId")){
+			return cookies[0].getValue();			
+		}		
+		return null;
+	}
+	
+	
+	public String md5(String in) throws NoSuchAlgorithmException {
 		// calculate hash 
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
 	    md5.update(in.getBytes());

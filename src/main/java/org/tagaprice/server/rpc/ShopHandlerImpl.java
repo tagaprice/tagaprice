@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.ShopData;
@@ -17,12 +18,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler{
 	ShopDAO sDao;
+	LoginDAO loginDao; 
 	
 	public ShopHandlerImpl() {
 		DBConnection db;
 		try {
 			db = new DBConnection();
 			sDao = new ShopDAO(db);
+			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +39,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	@Override
 	public ShopData get(Long id) throws IllegalArgumentException {
 		
-		ShopData sd = new ShopData();
+		ShopData sd = new ShopData();				
 		sd._setId(id);
 		
 		try {
@@ -56,13 +59,10 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		// TODO Auto-generated method stub		
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
-		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){
-			System.out.println("save VALID");
-			
-			data._setCreatorId(1l);
-			
-			try {
-				sDao.save(data);
+		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){		
+			try {				
+				data._setCreatorId(loginDao.getId(getSid()));
+				sDao.save(data);				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -77,13 +77,16 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 				e.printStackTrace();
 			}			
 			
-			
 		}else{
 			System.out.println("save InVALID");
 		}
 		
 
 		return data;
+	}
+	
+	private String getSid(){
+		return loginDao.getSid(this.getThreadLocalRequest().getCookies());
 	}
 
 }

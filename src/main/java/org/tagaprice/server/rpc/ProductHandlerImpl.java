@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
@@ -32,11 +33,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
 	ProductDAO pDao;
-	
+	LoginDAO loginDao; 
+
 	public ProductHandlerImpl() {
+		DBConnection db;
 		try {
-			DBConnection dbConn = new DBConnection();
-			pDao = new ProductDAO(dbConn);
+			db = new DBConnection();
+			pDao = new ProductDAO(db);
+			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,14 +77,10 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		// TODO Auto-generated method stub
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
-		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){
-			System.out.println("save VALID");
-			
-			
-			//STD user with ID=1
-			data._setCreatorId(1l);
+		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){			
 			
 			try {
+				data._setCreatorId(loginDao.getId(getSid()));
 				pDao.save(data);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -94,18 +94,17 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			} catch (InvalidLocaleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-			
+			}		
 			
 			
 		}else{
 			System.out.println("save InVALID");
 		}
 		
-		
-		
 		return data;
 	}
 
+	private String getSid(){
+		return loginDao.getSid(this.getThreadLocalRequest().getCookies());
+	}
 }
