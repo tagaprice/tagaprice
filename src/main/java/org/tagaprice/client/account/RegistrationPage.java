@@ -150,7 +150,7 @@ public class RegistrationPage extends InfoBoxComposite {
 						@Override
 						public void onSuccess(Boolean result) {
 							if(result){
-								userNameLabel.setText("Username (evalable)");
+								userNameLabel.setText("Username (available)");
 							}else{
 								userNameLabel.setText("Username (already in use)");
 							}
@@ -208,7 +208,7 @@ public class RegistrationPage extends InfoBoxComposite {
 						public void onSuccess(Boolean result) {
 							
 							if(result){
-								emailLabel.setText("Email (evalable)");
+								emailLabel.setText("Email (available)");
 							}else{
 								emailLabel.setText("Email (already in use)");
 							}
