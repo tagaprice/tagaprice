@@ -32,6 +32,7 @@ import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -39,6 +40,8 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	private DBConnection db;
 	private LocalAccountDAO dao;
 	private int localeId;
+	
+	private String session=null;
 	
 	public LocalAccountHandlerImpl() {
 		try {
@@ -168,11 +171,27 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public boolean login(String username, String password)
+	public String login(String username, String password)
 			throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		
+		if(username.equals("test") && password.equals("test")){
+			session="theSessionID";
+			return session;
+		}
 		
+		return session;
+	}
+	
+	@Override
+	public boolean isLoggedIn() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+		//System.out.println("serverSid: "+Cookies.getCookie("TaPSId"));
+		
+		
+		if(session!=null)
+			return true;
 		
 		return false;
 	}
@@ -180,6 +199,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	@Override
 	public boolean logout() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
+		session=null;
 		return false;
 	}
 	

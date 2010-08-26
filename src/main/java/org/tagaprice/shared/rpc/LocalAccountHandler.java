@@ -32,7 +32,17 @@ public interface LocalAccountHandler extends RemoteService {
 			Address address,
 			boolean gtc) throws IllegalArgumentException;
 	
-	boolean login(String username, String password) throws IllegalArgumentException;
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return SessionID
+	 * @throws IllegalArgumentException
+	 */
+	String login(String username, String password) throws IllegalArgumentException;
+	
+	
+	boolean isLoggedIn() throws IllegalArgumentException;
 	
 	boolean logout() throws IllegalArgumentException;
 	

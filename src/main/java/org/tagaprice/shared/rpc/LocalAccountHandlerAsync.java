@@ -32,9 +32,11 @@ public interface LocalAccountHandlerAsync {
 			boolean gtc,
 			AsyncCallback<Boolean> callback);
 	
-	void login(String username, String password, AsyncCallback<Boolean> callback);
+	void login(String username, String password, AsyncCallback<String> callback);
 	
-	void logout();
+	void isLoggedIn(AsyncCallback<Boolean> callback);
+	
+	void logout(AsyncCallback<Boolean> callback);
 	
 	void confirm(String confirm, AsyncCallback<Boolean> callback);
 
