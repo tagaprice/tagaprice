@@ -34,6 +34,8 @@ public interface LocalAccountHandlerAsync {
 	
 	void login(String username, String password, AsyncCallback<Boolean> callback);
 	
+	void logout();
+	
 	void confirm(String confirm, AsyncCallback<Boolean> callback);
 
 }

@@ -177,6 +177,12 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		return false;
 	}
 	
+	@Override
+	public boolean logout() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	public static String md5(String in) throws NoSuchAlgorithmException {
 		// calculate hash 
 		MessageDigest md5 = MessageDigest.getInstance("MD5");

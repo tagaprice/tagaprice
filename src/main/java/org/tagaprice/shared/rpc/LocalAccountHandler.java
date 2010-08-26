@@ -34,6 +34,8 @@ public interface LocalAccountHandler extends RemoteService {
 	
 	boolean login(String username, String password) throws IllegalArgumentException;
 	
+	boolean logout() throws IllegalArgumentException;
+	
 	boolean confirm(String confirm) throws IllegalArgumentException;
 	
 }
