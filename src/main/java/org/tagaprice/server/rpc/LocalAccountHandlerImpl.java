@@ -212,6 +212,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	
 	@Override
 	public boolean logout() throws IllegalArgumentException {
+		
 		Cookie[] cooks=this.getThreadLocalRequest().getCookies();
 		
 		if(cooks.length>0 

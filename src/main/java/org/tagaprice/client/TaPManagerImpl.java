@@ -110,7 +110,8 @@ public class TaPManagerImpl implements TaPManager {
 						uiMng.showConfirmRegistartionPage(null);
 					}
 					
-				}else if(historyToken[0].equals("user/login")){ 
+				}else if(historyToken[0].equals("user/login") 
+						|| historyToken[0].equals("user/logout")){ 
 					TaPMng.showUserLogin();
 				}else{
 					uiMng.showHome();

@@ -10,6 +10,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
@@ -32,7 +33,15 @@ public class LoginPage extends InfoBoxComposite{
 		init(vePa1);
 		vePa1.setWidth("100%");
 		
+		if(Cookies.getCookie("TaPSId")==null)		
+			showNotLoggedIn();
+		else {
+			showLoggedIn();
+		}
 		
+	}
+	
+	private void showNotLoggedIn(){
 		//UserLogin
 		VerticalPanel vePa2 = new VerticalPanel();
 		vePa2.setWidth("100%");
@@ -65,33 +74,8 @@ public class LoginPage extends InfoBoxComposite{
 						
 						if(result!=null){
 							Cookies.setCookie("TaPSId", result);
-							
-							
 							showInfo("succsessfull Login", BoxType.WARNINGBOX);
-							
-							
-							userHandler.getId(new AsyncCallback<Long>() {
-								
-								@Override
-								public void onSuccess(Long result) {
-									// TODO Auto-generated method stub
-									if(result!=null){
-										System.out.println("Id: "+result);
-									}else{
-										System.out.println("cookieTest: ERROR");
-									}
-								}
-								
-								@Override
-								public void onFailure(Throwable caught) {
-									showInfo("Test Error", BoxType.WARNINGBOX);	
-									
-								}
-							});
-							
-							
-							
-							System.out.println("testCookie:"+Cookies.getCookie("TaPSId"));
+							History.newItem("user/logout");					
 						}else
 							showInfo("Please Check your password and username", BoxType.WARNINGBOX);		
 					}
@@ -117,7 +101,35 @@ public class LoginPage extends InfoBoxComposite{
 		
 		vePa1.add(new TitlePanel("Alternative Login", vePa3, Level.H2));
 		
-		
-		
+	}
+	
+	private void showLoggedIn(){
+		vePa1.add(new Label("Your are logged in!"));
+		vePa1.add(new Button("Logout", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				userHandler.logout(new AsyncCallback<Boolean>() {
+					
+					@Override
+					public void onSuccess(Boolean result) {
+						if(result){
+							Cookies.removeCookie("TaPSId");
+							showInfo("You are logged out", BoxType.WARNINGBOX);						
+							History.newItem("user/login");
+						}else{
+							Cookies.removeCookie("TaPSId");
+							showInfo("Problem at logout!", BoxType.WARNINGBOX);						
+						}
+					}
+					
+					@Override
+					public void onFailure(Throwable arg0) {
+						showInfo("Problem at logout!", BoxType.WARNINGBOX);						
+					}
+				});
+				
+			}
+		}));
 	}
 }

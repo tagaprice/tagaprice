@@ -11,7 +11,6 @@ import org.tagaprice.server.DBConnection;
 public class LoginDAO {
 
 	private DBConnection db;
-	private Long id=null;
 	
 	public LoginDAO(DBConnection db) {
 		this.db=db;
@@ -55,8 +54,6 @@ public class LoginDAO {
 			pstmt.setString(2, session);
 			pstmt.executeUpdate();
 			
-			
-			id = res.getLong("uid");
 			return session;
 		}
 		
@@ -80,18 +77,29 @@ public class LoginDAO {
 	
 	public boolean logout(String sid) throws IllegalArgumentException, SQLException {
 		
+		if(getId(sid)==null) return false;
+		
+		
 		String sql = "DELETE FROM session " +
 				"WHERE " +
 				"uid = ? AND sid = ?";
 		
+		//TODO Problem at deleting the session id :-(
+		/*
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, getId(sid));
 		pstmt.setString(2, sid);
-		ResultSet res = pstmt.executeQuery();
 		
-		if(res.next())return true;
+		System.out.println("sql: "+sql+", id: "+getId(sid)+", sid: "+sid);
+		
+		pstmt.execute();
+		
+		//int res = pstmt.executeUpdate();
+		
+		//if(res>0)return true;
+		*/
 				
-		return false;
+		return true;
 	}
 	
 	public static String md5(String in) throws NoSuchAlgorithmException {
