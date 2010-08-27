@@ -1,5 +1,7 @@
 package org.tagaprice.client;
 
+import org.tagaprice.shared.rpc.LocalAccountHandler;
+import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import org.tagaprice.shared.rpc.PriceHandler;
 import org.tagaprice.shared.rpc.PriceHandlerAsync;
 import org.tagaprice.shared.rpc.ProductHandler;
@@ -12,6 +14,8 @@ import org.tagaprice.shared.rpc.ShopHandler;
 import org.tagaprice.shared.rpc.ShopHandlerAsync;
 import org.tagaprice.shared.rpc.TypeHandler;
 import org.tagaprice.shared.rpc.TypeHandlerAsync;
+import org.tagaprice.shared.rpc.UnitHandler;
+import org.tagaprice.shared.rpc.UnitHandlerAsync;
 
 import com.google.gwt.core.client.GWT;
 
@@ -23,7 +27,23 @@ public class HandlerContainer {
 	private static PriceHandlerAsync priceHandler;
 	private static SearchHandlerAsync searchHandler;
 	private static ShopHandlerAsync shopHandler;
+	private static UnitHandlerAsync unitHandler;
+	private static LocalAccountHandlerAsync localAccountHandler;
 
+	
+
+	public static UnitHandlerAsync getUnitHandler() {
+		if(unitHandler==null)
+			unitHandler = GWT.create(UnitHandler.class);
+		return unitHandler;
+	}
+
+
+	public static LocalAccountHandlerAsync getLocalAccountHandler() {
+		if(localAccountHandler==null)
+			localAccountHandler = GWT.create(LocalAccountHandler.class);
+		return localAccountHandler;
+	}
 
 
 	public static TypeHandlerAsync getTypeHandler() {
