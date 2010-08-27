@@ -280,7 +280,8 @@ public class ShopPage extends InfoBoxComposite {
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, shopData.getProperties())){	
-					TaPMng.saveShop(shopData, new AsyncCallback<ShopData>() {
+				
+					HandlerManager.getShopHandler().save(shopData, new AsyncCallback<ShopData>() {
 						
 						@Override
 						public void onSuccess(ShopData result) {

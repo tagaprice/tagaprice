@@ -164,8 +164,7 @@ public class TaPManager {
 		//Create Page
 		uiMng.waitingPage();
 				
-		
-		TaPMng.getShop(id, new AsyncCallback<ShopData>() {
+		HandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
 			
 			@Override
 			public void onSuccess(final ShopData result) {
@@ -273,23 +272,6 @@ public class TaPManager {
 		HandlerManager.getPriceHandler().get(id, bbox, type, response);
 	}
 
-	/**
-	 * 
-	 * @param id
-	 * @param response
-	 */
-	public void getShop(Long id, AsyncCallback<ShopData> response) {
-		HandlerManager.getShopHandler().get(id, response);		
-	}
-	
-	/**
-	 * 
-	 * @param data
-	 * @param response
-	 */
-	public void saveShop(ShopData data, AsyncCallback<ShopData> response) {
-		HandlerManager.getShopHandler().save(data, response);
-	}
 
 
 	/**
@@ -318,12 +300,6 @@ public class TaPManager {
 	}
 
 
-
-
-	
-
-
-	
 
 	/**
 	 * Start a new user Registration
