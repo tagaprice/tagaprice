@@ -38,14 +38,7 @@ public class LoginPage extends InfoBoxComposite{
 		}else{
 			showNotLoggedIn();
 		}
-		
-		/*
-		if(Cookies.getCookie("TaPSId")==null)		
-			showNotLoggedIn();
-		else {
-			showLoggedIn();
-		}
-		*/
+	
 		
 	}
 	

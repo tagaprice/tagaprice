@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -45,21 +46,68 @@ public class LoginDAO {
 		String pwdHash = res.getString("password");	
 		
 		if(md5(password+salt).equals(pwdHash)){		
-			String session = md5("username"+Math.random());
 			
-			//TODO check if sid is in use
+			//is Sid available and between 24h
+			sql = "SELECT uid, sid, last_active FROM session " +
+					"WHERE uid = ? " +
+					"AND (last_active BETWEEN (NOW() - INTERVAL '1 day') AND NOW())";
 			
-			sql = "INSERT INTO session " +
+			pstmt = db.prepareStatement(sql);
+			pstmt.setLong(1, res.getLong("uid"));
+			ResultSet res2 = pstmt.executeQuery();
+			
+			if(res2.next()){
+				//An valid Sid is available!
+				
+				//Update last_active
+				sql = "UPDATE session " +
+						"SET last_active = NOW() " +
+						"WHERE uid = ?";
+				pstmt = db.prepareStatement(sql);
+				pstmt.setLong(1, res.getLong("uid"));
+				
+				if(pstmt.executeUpdate()==0)return null;
+				
+				return res2.getString("sid");
+			}else{
+				//No Sid, or no Valid Sid is available!
+				String session = md5(generateSalt(20));
+				
+				//UID available?
+				sql = "SELECT * FROM session " +
+						"WHERE uid = ?";
+				pstmt = db.prepareStatement(sql);
+				pstmt.setLong(1, res.getLong("uid"));
+				ResultSet res3 = pstmt.executeQuery();
+				
+				if(res3.next()){
+					//UID available 
+					sql = "UPDATE session " +
+							"SET last_active = NOW(), " +
+							"sid = ? " +
+							"WHERE uid = ?";
+					pstmt = db.prepareStatement(sql);
+					pstmt.setString(1, session);
+					pstmt.setLong(2, res.getLong("uid"));
+					
+					if(pstmt.executeUpdate()==0)return null;
+					
+				}else{
+					//No Session entry in DB
+					sql = "INSERT INTO session " +
 					"(uid, sid) " +
 					"VALUES " +
 					"(?,?)";
 			
-			pstmt = db.prepareStatement(sql);
-			pstmt.setLong(1, res.getLong("uid"));
-			pstmt.setString(2, session);
-			pstmt.executeUpdate();
+					pstmt = db.prepareStatement(sql);
+					pstmt.setLong(1, res.getLong("uid"));
+					pstmt.setString(2, session);
+					pstmt.executeUpdate();
+				}			
+				
+				return session;
+			}					
 			
-			return session;
 		}
 		
 		return null;
@@ -85,24 +133,17 @@ public class LoginDAO {
 		if(getId(sid)==null) return false;
 		
 		
-		String sql = "DELETE FROM session " +
-				"WHERE " +
-				"uid = ? AND sid = ?";
+		String sql = "" +
+				"UPDATE session " +
+				"SET last_active = (NOW() - INTERVAL '1 year') " +
+				"WHERE sid = ?";
+		//Can't ask db for UID!!!		
 		
-		//TODO Problem at deleting the session id :-(
-		/*
 		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setLong(1, getId(sid));
-		pstmt.setString(2, sid);
+		pstmt.setString(1, sid);
+				
+		if(pstmt.executeUpdate()==0)return false;
 		
-		System.out.println("sql: "+sql+", id: "+getId(sid)+", sid: "+sid);
-		
-		pstmt.execute();
-		
-		//int res = pstmt.executeUpdate();
-		
-		//if(res>0)return true;
-		*/
 				
 		return true;
 	}
@@ -130,5 +171,20 @@ public class LoginDAO {
         }
         
         return rc.toString();
+	}
+	
+	public String generateSalt(int len) {
+		Random rnd = new Random(System.currentTimeMillis());
+		String rc = "";
+
+		for (int i = 0; i < len; i++) {
+			int n = rnd.nextInt(62);
+			char c;
+			if (n < 26) c = (char)(n+(int)'a');
+			else if (n < 52) c = (char)(n-26+(int)'A');
+			else c = (char) (n-52+(int)'0');
+			rc += c;
+		}
+		return rc;
 	}
 }
