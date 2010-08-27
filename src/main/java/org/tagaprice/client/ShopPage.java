@@ -191,7 +191,7 @@ public class ShopPage extends InfoBoxComposite {
 				
 				
 				//Get type and set type
-				TaPMng.getType(newType.getLocaleId(), new AsyncCallback<Type>() {
+				HandlerManager.getTypeHandler().get(newType.getLocaleId(), new AsyncCallback<Type>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);

@@ -88,7 +88,7 @@ public class TypeWidget extends Composite{
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
 						typeItems.setWidget(new Label("Loading..."));					
-						TaPMng.getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
+						HandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
 							
 							@Override
 							public void onSuccess(ArrayList<Type> result) {
@@ -135,7 +135,7 @@ public class TypeWidget extends Composite{
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				typeItems.setWidget(new Label("Loading..."));					
-				TaPMng.getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
+				HandlerManager.getTypeHandler().getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Type> result) {
