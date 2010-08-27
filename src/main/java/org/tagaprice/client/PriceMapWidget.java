@@ -115,7 +115,8 @@ public class PriceMapWidget extends Composite {
 	
 	private void getPrices(){
 		//Get Prices
-		mng.getPrice(id, 
+		HandlerManager.getPriceHandler().get(
+				id, 
 				new BoundingBox(
 						map.getBounds().getSouthWest().getLatitude(), 
 						map.getBounds().getSouthWest().getLongitude(), 

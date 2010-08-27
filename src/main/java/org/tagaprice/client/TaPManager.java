@@ -261,18 +261,6 @@ public class TaPManager {
 		HandlerManager.getProductHandler().save(data, response);
 	}
 
-	/**
-	 * Get price by Shop, Product, ProductGroup, ShopGroup
-	 * @param id
-	 * @param bbox
-	 * @param type
-	 * @param response
-	 */
-	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response){
-		HandlerManager.getPriceHandler().get(id, bbox, type, response);
-	}
-
-
 
 	/**
 	 * Returns the UIManager
