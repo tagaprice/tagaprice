@@ -112,7 +112,7 @@ public class TaPManager {
 	public void showProductPage(final Long id){
 		uiMng.waitingPage();
 
-		TaPMng.getProduct(id, new AsyncCallback<ProductData>() {
+		HandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
 
 			@Override
 			public void onSuccess(final ProductData pResult) {
@@ -238,27 +238,6 @@ public class TaPManager {
 	 */
 	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
 		HandlerManager.getReceiptHandler().get(id, response);		
-	}
-
-	/**
-	 * Returns product by ID.
-	 * @param id
-	 * @return
-	 */
-	public void getProduct(Long id, AsyncCallback<ProductData> response) {
-		HandlerManager.getProductHandler().get(id, response);
-	}
-	
-
-
-	/**
-	 * Save, create or update a product.
-	 * @param data
-	 * @param response
-	 * @return
-	 */
-	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
-		HandlerManager.getProductHandler().save(data, response);
 	}
 
 

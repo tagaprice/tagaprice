@@ -278,7 +278,9 @@ public class ProductPage extends InfoBoxComposite {
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, productData.getProperties())){				
-					TaPMng.saveProduct(productData, new AsyncCallback<ProductData>() {
+					HandlerManager.getProductHandler().save(
+							productData, 
+							new AsyncCallback<ProductData>() {
 						
 						@Override
 						public void onSuccess(ProductData result) {
