@@ -16,41 +16,31 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.ReceiptData;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HomePage extends InfoBoxComposite {
 
 	TaPManager Mng = TaPManager.getInstance();
 	
-	Grid grid = new Grid(9, 3);
-	Label newReceiptLabel = new Label("Rechnung eintrage");
-	Image newReceiptImage = new Image(MyResources.INSTANCE.productPriview());
-	
-	Label registerLable = new Label("Sign Up");
-	Image registerImage = new Image(MyResources.INSTANCE.productPriview());
-	
-	Label newProductLabel = new Label("New Product");
-	Image newProductImage = new Image(MyResources.INSTANCE.productPriview());
-	
-	Label newShopLabel = new Label("New Shop");
-	Image newShopImage = new Image(MyResources.INSTANCE.productPriview());
-	
-	Label draftLabel = new Label("Drafts");
-	Image draftImage = new Image(MyResources.INSTANCE.productPriview());
-	
-	Label loginLabel = new Label("Login");
-	Image loginImage = new Image(MyResources.INSTANCE.productPriview());
+	Grid grid = new Grid(2, 3);
+	ImageTextButton newReceipt = new ImageTextButton("add Receipt", new Image(MyResources.INSTANCE.productPriview()), "receipt/get");
+
 	
 	public HomePage() {
 		init(grid);
 		setStyleName("HomePage");
-		
 		
 		grid.setWidth("100%");
 		grid.setStyleName("HomePage-Grid");
@@ -58,142 +48,87 @@ public class HomePage extends InfoBoxComposite {
 		grid.getCellFormatter().setWidth(0, 0, "33%");
 		grid.getCellFormatter().setWidth(0, 1, "33%");
 		grid.getCellFormatter().setWidth(0, 2, "33%");
-		
+		grid.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+		grid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_CENTER);
+		grid.getCellFormatter().setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_CENTER);
+		grid.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
+		grid.getCellFormatter().setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_CENTER);
+		grid.getCellFormatter().setHorizontalAlignment(1, 2, HasHorizontalAlignment.ALIGN_CENTER);
+
 		//
 		
-		grid.setWidget(0, 0, newReceiptImage);
-		grid.setWidget(1, 0, newReceiptLabel);
 		
-		grid.setWidget(0, 1, registerImage);
-		grid.setWidget(1, 1, registerLable);
+		grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(MyResources.INSTANCE.productPriview()), "product/new"));
+		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(MyResources.INSTANCE.productPriview()), "shop/new"));		
 		
-		grid.setWidget(0, 2, newProductImage);
-		grid.setWidget(1, 2, newProductLabel);
-		
-		
-		grid.setWidget(3, 0, newShopImage);
-		grid.setWidget(4, 0, newShopLabel);
-		
-		grid.setWidget(3, 1, draftImage);
-		grid.setWidget(4, 1, draftLabel);
-		
-		grid.setWidget(3, 2, loginImage);
-		grid.setWidget(4, 2, loginLabel);
-		
-		
-		grid.setWidget(6, 0, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(7, 0, new Label("Label"));
-		
-		grid.setWidget(6, 1, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(7, 1, new Label("Label"));
-		
-		grid.setWidget(6, 2, new Image(MyResources.INSTANCE.productPriview()));
-		grid.setWidget(7, 2, new Label("Label"));
-		
-		
-		//Listener
-		newReceiptImage.addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				//TODO RPC Change
-				HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
+		if(Cookies.getCookie("TaPSId")!=null){
+			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(MyResources.INSTANCE.productPriview()), "user/logout"));	
+			grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(MyResources.INSTANCE.productPriview()), new ClickHandler() {			
+				@Override
+				public void onClick(ClickEvent event) {
+					TaPManager.getInstance().getUIManager().waitingPage();
+					
+					HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
 
-					@Override
-					public void onSuccess(ReceiptData tResult) {
-						History.newItem("receipt/get&id="+tResult.getId());
-					}
+						@Override
+						public void onSuccess(ReceiptData tResult) {
+							History.newItem("receipt/get&id="+tResult.getId());
+						}
 
-					@Override
-					public void onFailure(Throwable caught) {
-						showInfo("Fail: "+caught, BoxType.WARNINGBOX);
-					}
-				});		
-			}
-		});
-		
-		newReceiptLabel.addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				//TODO RPC Change
-				HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
+						@Override
+						public void onFailure(Throwable caught) {
+							showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+						}
+					});		
+				}
+			}));
+			grid.setWidget(1, 1, new ImageTextButton("Drafts", new Image(MyResources.INSTANCE.productPriview()), "receipt/drafts"));
+		}else{
+			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(MyResources.INSTANCE.productPriview()), "user/login"));	
+			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(MyResources.INSTANCE.productPriview()), "user/registration/new"));		
+		}
 
-					@Override
-					public void onSuccess(ReceiptData tResult) {
-						History.newItem("receipt/get&id="+tResult.getId());
-					}
+		
+		
 
-					@Override
-					public void onFailure(Throwable caught) {
-						showInfo("Fail: "+caught, BoxType.WARNINGBOX);
-					}
-				});		
-			}
-		});
-		
-		
-		registerLable.addClickHandler(new ClickHandler() {
+	}
+}
+
+class ImageTextButton extends Composite {
+	VerticalPanel vePa1 = new VerticalPanel();
+	Label label;
+	Image image;
+	
+	public ImageTextButton(String text, Image pic, ClickHandler handler){
+		init(text, pic);
+		addClickHandler(handler);
+	}
+	
+	public ImageTextButton(String text, Image pic, final String link) {
+		init(text, pic);
+
+		addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("user/registration/new");				
+				History.newItem(link);				
 			}
 		});
 		
-		registerImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("user/registration/new");				
-			}
-		});
+	}
+	
+	private void init(String text, Image pic){
+		initWidget(vePa1);
+		label = new Label(text);
+		image = pic;
 		
-		
-		newProductImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("product/new");				
-			}
-		});
-		
-		newProductLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("product/new");				
-			}
-		});
-		
-		newShopImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("shop/new");				
-			}
-		});
-		
-		newShopLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("shop/new");				
-			}
-		});
-		
-		loginImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("user/login");				
-			}
-		});
-		
-		loginLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("user/login");				
-			}
-		});
+		vePa1.add(image);
+		vePa1.setCellHorizontalAlignment(image, HasHorizontalAlignment.ALIGN_CENTER);
+		vePa1.add(label);
+		vePa1.setCellHorizontalAlignment(label, HasHorizontalAlignment.ALIGN_CENTER);
+	}
+	
+	private void addClickHandler(ClickHandler handler){
+		addDomHandler(handler,ClickEvent.getType());
 	}
 }

@@ -41,7 +41,6 @@ public class UIManager extends InfoBoxComposite {
 	Image home = new Image(MyResources.INSTANCE.home());
 	HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManager.getInstance();
-	HomePage homePage = new HomePage();
 	SimplePanel centerPage = new SimplePanel();
 
 	public UIManager() {
@@ -183,7 +182,7 @@ public class UIManager extends InfoBoxComposite {
 
 	public void showHome(){
 		waitingPage();
-		centerPage.setWidget(homePage);
+		centerPage.setWidget(new HomePage());
 	}
 
 

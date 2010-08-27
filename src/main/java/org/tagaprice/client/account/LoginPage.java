@@ -76,7 +76,7 @@ public class LoginPage extends InfoBoxComposite{
 						if(result!=null){
 							Cookies.setCookie("TaPSId", result);
 							showInfo("succsessfull Login", BoxType.WARNINGBOX);
-							History.newItem("user/logout");					
+							History.newItem("home/");					
 						}else
 							showInfo("Please Check your password and username", BoxType.WARNINGBOX);		
 					}
@@ -117,7 +117,7 @@ public class LoginPage extends InfoBoxComposite{
 						if(result){
 							Cookies.removeCookie("TaPSId");
 							showInfo("You are logged out", BoxType.WARNINGBOX);						
-							History.newItem("user/login");
+							History.newItem("home/");
 						}else{
 							Cookies.removeCookie("TaPSId");
 							showInfo("Problem at logout!", BoxType.WARNINGBOX);						

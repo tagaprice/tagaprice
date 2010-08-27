@@ -221,7 +221,7 @@ public class TaPManager {
 			}
 		});
 	}
-
+	
 
 	/**
 	 * Returns the UIManager
