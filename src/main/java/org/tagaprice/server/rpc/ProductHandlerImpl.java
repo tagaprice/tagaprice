@@ -42,11 +42,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			pDao = new ProductDAO(db);
 			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
 	}
 	
@@ -62,11 +60,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		try {
 			pDao.get(pd);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
 
 		return 	pd;
@@ -74,7 +70,6 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 
 	@Override
 	public ProductData save(ProductData data) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
 		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){			
@@ -83,17 +78,13 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 				data._setCreatorId(loginDao.getId(getSid()));
 				pDao.save(data);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (RevisionCheckException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (InvalidLocaleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			}		
 			
 			

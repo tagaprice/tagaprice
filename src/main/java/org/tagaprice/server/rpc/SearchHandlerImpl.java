@@ -35,11 +35,9 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			pDao = new ProductDAO(db);
 			sDao = new ShopDAO(db);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
 	}
 	

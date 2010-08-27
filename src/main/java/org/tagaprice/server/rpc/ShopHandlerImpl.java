@@ -27,11 +27,9 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 			sDao = new ShopDAO(db);
 			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
 		
 	}
@@ -45,11 +43,9 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		try {
 			sDao.get(sd);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}		
 		return sd;
 	}
@@ -64,17 +60,13 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 				data._setCreatorId(loginDao.getId(getSid()));
 				sDao.save(data);				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (RevisionCheckException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (InvalidLocaleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			}			
 			
 		}else{

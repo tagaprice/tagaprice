@@ -47,17 +47,13 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			loginDao = new LoginDAO(db);
 			localeId = new LocaleDAO(db).get("English").getId();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (InvalidLocaleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} 
 		
 	}
@@ -67,13 +63,10 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		try {
 			return dao.isEmailEvalable(email);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
-		return false;
 	}
 
 	@Override
@@ -84,11 +77,9 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			try {
 				return dao.isUsernameEvalabel(username);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IllegalArgumentException(e);
 			}
 		}
 		
@@ -149,40 +140,30 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 			
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (RevisionCheckException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (InvalidLocaleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
-		
-		return false;
 	}
 	
 	@Override
 	public String login(String username, String password)
 			throws IllegalArgumentException {		
-				
-		try {
-			return loginDao.login(username, password);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		return null;
+			try {
+				return loginDao.login(username, password);
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException(e);
+			} catch (SQLException e) {
+				throw new IllegalArgumentException(e);
+			}		
+		
 	}
 	
 	@Override
@@ -191,11 +172,8 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		try {
 			return loginDao.getId(getSid());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}
-		
-		return null;
 	}
 	
 	@Override
@@ -204,28 +182,20 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		try {
 			return loginDao.logout(getSid());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}	
-		
-		return false;
 	}
 	
 
 	@Override
 	public boolean confirm(String confirm) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		try {
 			return dao.confirm(confirm);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException(e);
 		}	
-		
-		return false;
 	}
 	
 	private String getSid(){
