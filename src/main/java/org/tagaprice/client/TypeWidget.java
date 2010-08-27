@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class TypeWidget extends Composite{
 
-	TaPManager TaPMng = TaPManagerImpl.getInstance();
+	TaPManagerImpl TaPMng = TaPManagerImpl.getInstance();
 	Type type;
 	HorizontalPanel hoPa1=new HorizontalPanel();
 	PopupPanel typeItems = new PopupPanel(true);

@@ -28,19 +28,6 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
-import org.tagaprice.shared.rpc.PriceHandler;
-import org.tagaprice.shared.rpc.PriceHandlerAsync;
-import org.tagaprice.shared.rpc.ProductHandler;
-import org.tagaprice.shared.rpc.ProductHandlerAsync;
-import org.tagaprice.shared.rpc.ReceiptHandler;
-import org.tagaprice.shared.rpc.ReceiptHandlerAsync;
-import org.tagaprice.shared.rpc.SearchHandler;
-import org.tagaprice.shared.rpc.SearchHandlerAsync;
-import org.tagaprice.shared.rpc.ShopHandler;
-import org.tagaprice.shared.rpc.ShopHandlerAsync;
-import org.tagaprice.shared.rpc.TypeHandler;
-import org.tagaprice.shared.rpc.TypeHandlerAsync;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
@@ -51,19 +38,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * DAO Manger
  *
  */
-public class TaPManagerImpl implements TaPManager {
+public class TaPManagerImpl {
 
-	private static TaPManager TaPMng;	
+	private static TaPManagerImpl TaPMng;	
 	private static UIManager uiMng = new UIManager();
-	private TypeHandlerAsync typeHandler = GWT.create(TypeHandler.class);
-	private ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
-	private ReceiptHandlerAsync receiptHandler = GWT.create(ReceiptHandler.class);
-	private PriceHandlerAsync priceHandler = GWT.create(PriceHandler.class);
-	private SearchHandlerAsync searchHandler = GWT.create(SearchHandler.class);
-	private ShopHandlerAsync shopHandler = GWT.create(ShopHandler.class);
+	
 
-
-	public static TaPManager getInstance(){
+	public static TaPManagerImpl getInstance(){
 		if(TaPMng==null){
 			TaPMng=new TaPManagerImpl();
 			init();
@@ -124,7 +105,10 @@ public class TaPManagerImpl implements TaPManager {
 
 	}
 
-
+	/**
+	 * Starts Product Page with id
+	 * @param id
+	 */
 	public void showProductPage(final Long id){
 		uiMng.waitingPage();
 
@@ -158,8 +142,10 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 
-
-	@Override
+	/**
+	 * Creates empty productPage
+	 * @param title
+	 */
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
@@ -170,6 +156,10 @@ public class TaPManagerImpl implements TaPManager {
 		
 	}
 	
+	/**
+	 * Starts Shop Page with id
+	 * @param id
+	 */
 	public void showShopPage(final Long id){
 		//Create Page
 		uiMng.waitingPage();
@@ -204,7 +194,10 @@ public class TaPManagerImpl implements TaPManager {
 	}
 	
 	
-	@Override
+	/**
+	 * Creates empty shopPage. 
+	 * @param title
+	 */
 	public void newShopPage(String title) {	
 		uiMng.waitingPage();
 		
@@ -216,7 +209,10 @@ public class TaPManagerImpl implements TaPManager {
 		
 	}
 	
-
+	/**
+	 * Starts Receipt Page
+	 * @param id
+	 */
 	public void showReceiptPage(final Long id){
 		uiMng.waitingPage();
 
@@ -235,46 +231,81 @@ public class TaPManagerImpl implements TaPManager {
 	}
 
 
-	@Override
+	/**
+	 *  
+	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
+	 * @param draft Is receipt a draft.
+	 * @return Returns a ReceiptContainer
+	 */
 	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
-		receiptHandler.get(id, response);		
+		HandlerContainer.getReceiptHandler().get(id, response);		
 	}
 
-	@Override
+	/**
+	 * Returns product by ID.
+	 * @param id
+	 * @return
+	 */
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
-		productHandler.get(id, response);
+		HandlerContainer.getProductHandler().get(id, response);
 	}
 	
 
 
-	@Override
+	/**
+	 * Save, create or update a product.
+	 * @param data
+	 * @param response
+	 * @return
+	 */
 	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
-		productHandler.save(data, response);
+		HandlerContainer.getProductHandler().save(data, response);
 	}
 
-	@Override
+	/**
+	 * Get price by Shop, Product, ProductGroup, ShopGroup
+	 * @param id
+	 * @param bbox
+	 * @param type
+	 * @param response
+	 */
 	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response){
-		priceHandler.get(id, bbox, type, response);
+		HandlerContainer.getPriceHandler().get(id, bbox, type, response);
 	}
 
-	@Override
+	/**
+	 * 
+	 * @param id
+	 * @param response
+	 */
 	public void getShop(Long id, AsyncCallback<ShopData> response) {
-		shopHandler.get(id, response);		
+		HandlerContainer.getShopHandler().get(id, response);		
 	}
 	
-	@Override
+	/**
+	 * 
+	 * @param data
+	 * @param response
+	 */
 	public void saveShop(ShopData data, AsyncCallback<ShopData> response) {
-		shopHandler.save(data, response);
+		HandlerContainer.getShopHandler().save(data, response);
 	}
 
 
-	@Override
+	/**
+	 * Returns the UIManager
+	 * @return
+	 */
 	public UIManager getUIManager() {
 		return uiMng;
 	}
 
 
-	@Override
+	/**
+	 * 
+	 * @param receiptContainer
+	 * @param draft
+	 */
 	public void saveReceipt(ReceiptData receiptContainer) {
 		if(receiptContainer.getId()>0 && receiptContainer.getDraft()==true){
 			System.out.println("saveDraft");
@@ -289,45 +320,72 @@ public class TaPManagerImpl implements TaPManager {
 
 
 
-	@Override
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public void getType(long id, AsyncCallback<Type> response) {
-		typeHandler.get(id,response);
+		HandlerContainer.getTypeHandler().get(id,response);
 	}
 	
-	@Override
+	/**
+	 * 
+	 * @param type
+	 * @param response
+	 */
 	public void getTypeList(Type type, AsyncCallback<ArrayList<Type>> response){
-		typeHandler.getTypeList(type, response);
+		HandlerContainer.getTypeHandler().getTypeList(type, response);
 	}
 
 	
 
-	@Override
+	/**
+	 * Start a new user Registration
+	 * @param varificationCode If not null user has just being verified.
+	 */
 	public void showUserRegistrationPage() {
 		uiMng.showUserRegistrationPage();		
 	}
 	
-	@Override
+	/**
+	 * 
+	 */
 	public void showUserLogin() {
 		//uiMng.showUserLogin();		
 	}
 
-	@Override
+	/**
+	 * 
+	 * @param sText
+	 * @param callback
+	 */
 	public void search(String sText, SearchType searchType, AsyncCallback<ArrayList<Entity>> callback) {
-		searchHandler.search(sText, searchType, callback);
+		HandlerContainer.getSearchHandler().search(sText, searchType, callback);
 		
 	}
 
-	@Override
+	/**
+	 * 
+	 * @param sText
+	 * @param bbox
+	 * @param callback
+	 */
 	public void search(String sText, SearchType searchType, BoundingBox bbox,
 			AsyncCallback<ArrayList<Entity>> callback) {
-		searchHandler.search(sText, searchType, bbox, callback);
+		HandlerContainer.getSearchHandler().search(sText, searchType, bbox, callback);
 		
 	}
 
-	@Override
+	/**
+	 * 
+	 * @param sText
+	 * @param shopData
+	 * @param callback
+	 */
 	public void search(String sText, ShopData shopData,
 			AsyncCallback<ArrayList<Entity>> callback) {
-		searchHandler.search(sText, shopData, callback);
+		HandlerContainer.getSearchHandler().search(sText, shopData, callback);
 		
 	}
 

@@ -53,7 +53,7 @@ public class ProductPage extends InfoBoxComposite {
 	private PropertyChangeHandler handler;
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
 	private InfoBox bottomInfo = new InfoBox();
-	private TaPManager TaPMng = TaPManagerImpl.getInstance();
+	private TaPManagerImpl TaPMng = TaPManagerImpl.getInstance();
 	private PriceMapWidget priceMap;
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();

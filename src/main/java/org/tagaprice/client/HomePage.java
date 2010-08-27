@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class HomePage extends InfoBoxComposite {
 
-	TaPManager Mng = TaPManagerImpl.getInstance();
+	TaPManagerImpl Mng = TaPManagerImpl.getInstance();
 	
 	Grid grid = new Grid(9, 3);
 	Label newReceiptLabel = new Label("Rechnung eintrage");

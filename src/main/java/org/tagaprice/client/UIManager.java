@@ -40,7 +40,7 @@ public class UIManager extends InfoBoxComposite {
 	DockPanel myDock = new DockPanel();
 	Image home = new Image(MyResources.INSTANCE.home());
 	HorizontalPanel logoPanel = new HorizontalPanel();
-	TaPManager myMng = TaPManagerImpl.getInstance();
+	TaPManagerImpl myMng = TaPManagerImpl.getInstance();
 	HomePage homePage = new HomePage();
 	SimplePanel centerPage = new SimplePanel();
 

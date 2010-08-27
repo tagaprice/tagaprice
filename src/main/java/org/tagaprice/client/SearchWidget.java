@@ -47,7 +47,7 @@ public class SearchWidget extends Composite {
 	private VerticalPanel vePa2 = new VerticalPanel();
 	private SelectiveVerticalPanel selVePa;
 	private PopupPanel popPa;
-	TaPManager myMng = TaPManagerImpl.getInstance();
+	TaPManagerImpl myMng = TaPManagerImpl.getInstance();
 	
 	//Constructor Values
 	private SearchType _searchType;
