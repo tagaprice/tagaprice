@@ -238,7 +238,7 @@ public class TaPManager {
 	 * @return Returns a ReceiptContainer
 	 */
 	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
-		HandlerContainer.getReceiptHandler().get(id, response);		
+		HandlerManager.getReceiptHandler().get(id, response);		
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class TaPManager {
 	 * @return
 	 */
 	public void getProduct(Long id, AsyncCallback<ProductData> response) {
-		HandlerContainer.getProductHandler().get(id, response);
+		HandlerManager.getProductHandler().get(id, response);
 	}
 	
 
@@ -259,7 +259,7 @@ public class TaPManager {
 	 * @return
 	 */
 	public void saveProduct(ProductData data,AsyncCallback<ProductData> response) {
-		HandlerContainer.getProductHandler().save(data, response);
+		HandlerManager.getProductHandler().save(data, response);
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class TaPManager {
 	 * @param response
 	 */
 	public void getPrice(Long id, BoundingBox bbox, PriceMapType type, AsyncCallback<ArrayList<PriceData>> response){
-		HandlerContainer.getPriceHandler().get(id, bbox, type, response);
+		HandlerManager.getPriceHandler().get(id, bbox, type, response);
 	}
 
 	/**
@@ -279,7 +279,7 @@ public class TaPManager {
 	 * @param response
 	 */
 	public void getShop(Long id, AsyncCallback<ShopData> response) {
-		HandlerContainer.getShopHandler().get(id, response);		
+		HandlerManager.getShopHandler().get(id, response);		
 	}
 	
 	/**
@@ -288,7 +288,7 @@ public class TaPManager {
 	 * @param response
 	 */
 	public void saveShop(ShopData data, AsyncCallback<ShopData> response) {
-		HandlerContainer.getShopHandler().save(data, response);
+		HandlerManager.getShopHandler().save(data, response);
 	}
 
 
@@ -326,7 +326,7 @@ public class TaPManager {
 	 * @return
 	 */
 	public void getType(long id, AsyncCallback<Type> response) {
-		HandlerContainer.getTypeHandler().get(id,response);
+		HandlerManager.getTypeHandler().get(id,response);
 	}
 	
 	/**
@@ -335,7 +335,7 @@ public class TaPManager {
 	 * @param response
 	 */
 	public void getTypeList(Type type, AsyncCallback<ArrayList<Type>> response){
-		HandlerContainer.getTypeHandler().getTypeList(type, response);
+		HandlerManager.getTypeHandler().getTypeList(type, response);
 	}
 
 	
@@ -361,7 +361,7 @@ public class TaPManager {
 	 * @param callback
 	 */
 	public void search(String sText, SearchType searchType, AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerContainer.getSearchHandler().search(sText, searchType, callback);
+		HandlerManager.getSearchHandler().search(sText, searchType, callback);
 		
 	}
 
@@ -373,7 +373,7 @@ public class TaPManager {
 	 */
 	public void search(String sText, SearchType searchType, BoundingBox bbox,
 			AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerContainer.getSearchHandler().search(sText, searchType, bbox, callback);
+		HandlerManager.getSearchHandler().search(sText, searchType, bbox, callback);
 		
 	}
 
@@ -385,7 +385,7 @@ public class TaPManager {
 	 */
 	public void search(String sText, ShopData shopData,
 			AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerContainer.getSearchHandler().search(sText, shopData, callback);
+		HandlerManager.getSearchHandler().search(sText, shopData, callback);
 		
 	}
 
