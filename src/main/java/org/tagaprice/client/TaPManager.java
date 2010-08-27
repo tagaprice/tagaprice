@@ -14,16 +14,9 @@
  */
 package org.tagaprice.client;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.InfoBox.BoxType;
-import org.tagaprice.client.PriceMapWidget.PriceMapType;
-import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.shared.Address;
-import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Country;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;

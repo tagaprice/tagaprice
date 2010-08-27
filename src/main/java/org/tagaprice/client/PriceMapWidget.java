@@ -42,7 +42,6 @@ public class PriceMapWidget extends Composite {
 	private FlexTable priceTable = new FlexTable();
 	private PriceMapType type;
 	private MapWidget map;
-	private TaPManager mng = TaPManager.getInstance();
 	private long id;
 	
 	/**

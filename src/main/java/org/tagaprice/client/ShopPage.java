@@ -56,7 +56,6 @@ public class ShopPage extends InfoBoxComposite {
 	private InfoBox bottomInfo = new InfoBox();
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
-	private TaPManager TaPMng = TaPManager.getInstance();
 	private PriceMapWidget priceMap;
 	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
 	
