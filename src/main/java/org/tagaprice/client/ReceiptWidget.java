@@ -158,7 +158,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				receiptData.setDraft(false);//Now a new receipt will be created.
-				TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
+				TaPManager.getInstance().saveReceipt(getReceiptData());
 				showInfo("Successfully saved", InfoBox.BoxType.WARNINGBOX);
 			}
 		});
@@ -174,7 +174,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 	 */
 	public void refresh(){
 		refreshPrice();
-		TaPManagerImpl.getInstance().saveReceipt(getReceiptData());
+		TaPManager.getInstance().saveReceipt(getReceiptData());
 		
 	}
 	

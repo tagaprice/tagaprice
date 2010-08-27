@@ -38,15 +38,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * DAO Manger
  *
  */
-public class TaPManagerImpl {
+public class TaPManager {
 
-	private static TaPManagerImpl TaPMng;	
+	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
 	
 
-	public static TaPManagerImpl getInstance(){
+	public static TaPManager getInstance(){
 		if(TaPMng==null){
-			TaPMng=new TaPManagerImpl();
+			TaPMng=new TaPManager();
 			init();
 		}
 		return TaPMng;

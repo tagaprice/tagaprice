@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class TagAPriceUI implements EntryPoint {
 
 	
-	TaPManagerImpl mng = TaPManagerImpl.getInstance();
+	TaPManager mng = TaPManager.getInstance();
 	
 	public void onModuleLoad() {
 		
