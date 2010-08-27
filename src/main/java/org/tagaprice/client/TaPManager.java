@@ -355,39 +355,6 @@ public class TaPManager {
 		//uiMng.showUserLogin();		
 	}
 
-	/**
-	 * 
-	 * @param sText
-	 * @param callback
-	 */
-	public void search(String sText, SearchType searchType, AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerManager.getSearchHandler().search(sText, searchType, callback);
-		
-	}
-
-	/**
-	 * 
-	 * @param sText
-	 * @param bbox
-	 * @param callback
-	 */
-	public void search(String sText, SearchType searchType, BoundingBox bbox,
-			AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerManager.getSearchHandler().search(sText, searchType, bbox, callback);
-		
-	}
-
-	/**
-	 * 
-	 * @param sText
-	 * @param shopData
-	 * @param callback
-	 */
-	public void search(String sText, ShopData shopData,
-			AsyncCallback<ArrayList<Entity>> callback) {
-		HandlerManager.getSearchHandler().search(sText, shopData, callback);
-		
-	}
 
 	
 

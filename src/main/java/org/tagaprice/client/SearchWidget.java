@@ -119,7 +119,7 @@ public class SearchWidget extends Composite {
 			public void onKeyDown(KeyDownEvent event) {
 								
 				
-				myMng.search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
+				HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
@@ -164,7 +164,7 @@ public class SearchWidget extends Composite {
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
 				
-				myMng.search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
+				HandlerManager.getSearchHandler().search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
 					
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
