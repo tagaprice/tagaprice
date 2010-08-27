@@ -215,7 +215,7 @@ public class TaPManager {
 	public void showReceiptPage(final Long id){
 		uiMng.waitingPage();
 
-		getReceipt(id, new AsyncCallback<ReceiptData>() {
+		HandlerManager.getReceiptHandler().get(id, new AsyncCallback<ReceiptData>() {
 
 			@Override
 			public void onSuccess(ReceiptData result) {
@@ -227,17 +227,6 @@ public class TaPManager {
 				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
 			}
 		});
-	}
-
-
-	/**
-	 *  
-	 * @param id Unique Receipt Id (If Id=0 you get an empty Draft-Container with a new draft-id )
-	 * @param draft Is receipt a draft.
-	 * @return Returns a ReceiptContainer
-	 */
-	public void getReceipt(Long id, AsyncCallback<ReceiptData> response) {		
-		HandlerManager.getReceiptHandler().get(id, response);		
 	}
 
 

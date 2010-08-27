@@ -96,7 +96,7 @@ public class HomePage extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				//TODO RPC Change
-				Mng.getReceipt(0l, new AsyncCallback<ReceiptData>() {
+				HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
 
 					@Override
 					public void onSuccess(ReceiptData tResult) {
@@ -115,7 +115,7 @@ public class HomePage extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				//TODO RPC Change
-				Mng.getReceipt(0l, new AsyncCallback<ReceiptData>() {
+				HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
 
 					@Override
 					public void onSuccess(ReceiptData tResult) {
