@@ -42,62 +42,63 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	}
 	
 	@Override
-	public ArrayList<Entity> search(String text, SearchType searchType)
+	public ArrayList<Entity> search(String search, SearchType searchType)
 			throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		
 		if(searchType.equals(SearchType.ALL)){
-			getProduct(mockUp);
-			getShop(mockUp);
+			getProduct(search, mockUp);
+			getShop(search, mockUp);
 		}else if(searchType.equals(SearchType.SHOP)){
-			getShop(mockUp);
+			getShop(search, mockUp);
 		}else if(searchType.equals(SearchType.PRODCUT)){
-			getProduct(mockUp);
+			getProduct(search, mockUp);
 		}		
 		
 		return mockUp;
 	}
 
 	@Override
-	public ArrayList<Entity> search(String text, SearchType searchType, BoundingBox bbox)
+	public ArrayList<Entity> search(String search, SearchType searchType, BoundingBox bbox)
 			throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 
 		if(searchType.equals(SearchType.ALL)){
-			getProduct(mockUp);
-			getShop(mockUp);
+			getProduct(search, mockUp);
+			getShop(search, mockUp);
 		}else if(searchType.equals(SearchType.SHOP)){
-			getShop(mockUp);
+			getShop(search, mockUp);
 		}else if(searchType.equals(SearchType.PRODCUT)){
-			getProduct(mockUp);
+			getProduct(search, mockUp);
 		}
 		return mockUp;
 	}
 
 	@Override
-	public ArrayList<Entity> search(String text, ShopData shopData)
+	public ArrayList<Entity> search(String search, ShopData shopData)
 			throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
-		getProduct(mockUp);
+		getProduct(search, mockUp);
 		return mockUp;
 	}
 
 	
-	private void getProduct(ArrayList<Entity> mockUp){
+	private void getProduct(String search, ArrayList<Entity> mockUp){
 		//Dirty SQL code
-		String sql = "SELECT DISTINCT ent_id, title FROM product p " +
+		String sql = "SELECT * FROM product pr " +
+				"INNER JOIN entity en " +
+				"ON en.ent_id = pr.prod_id " +
 				"INNER JOIN entityrevision er " +
-				"ON (p.prod_id=er.ent_id) " +
-				"WHERE rev=1 ";
+				"ON er.ent_id=pr.prod_id AND er.rev=current_revision " +
+				"WHERE er.title LIKE ?";
 		
-		//sql = "SELECT * FROM product";
 		
 		try {
 			PreparedStatement pstmt = db.prepareStatement(sql);
-			//pstmt.setString(1, text);
+			pstmt.setString(1, "%"+search+"%");
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
@@ -121,16 +122,20 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 		}
 	}
 	
-	private void getShop(ArrayList<Entity> mockUp){
+	private void getShop(String search, ArrayList<Entity> mockUp){
 		//Dirty SQL code
-		String sql = "SELECT DISTINCT ent_id, title FROM shop p " +
+		String sql = "SELECT * FROM shop pr " +
+				"INNER JOIN entity en " +
+				"ON en.ent_id = pr.shop_id " +
 				"INNER JOIN entityrevision er " +
-				"ON (p.shop_id=er.ent_id) " +
-				"WHERE rev=1 ";
+				"ON er.ent_id=pr.shop_id AND er.rev=current_revision " +
+				"WHERE er.title LIKE ?";
+		
+		
 		
 		try {
 			PreparedStatement pstmt = db.prepareStatement(sql);
-			//pstmt.setString(1, text);
+			pstmt.setString(1, "%"+search+"%");
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
