@@ -15,6 +15,7 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.Address;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -42,9 +43,9 @@ public interface LocalAccountHandler extends RemoteService {
 	String login(String username, String password) throws IllegalArgumentException;
 	
 	
-	Long getId() throws IllegalArgumentException;
+	Long getId() throws IllegalArgumentException, InvalidLoginException;
 	
-	boolean logout() throws IllegalArgumentException;
+	boolean logout() throws IllegalArgumentException, InvalidLoginException;
 	
 	boolean confirm(String confirm) throws IllegalArgumentException;
 	

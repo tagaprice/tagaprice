@@ -9,6 +9,7 @@ import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ShopHandler;
@@ -51,7 +52,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	}
 
 	@Override
-	public ShopData save(ShopData data) throws IllegalArgumentException {
+	public ShopData save(ShopData data) throws IllegalArgumentException, InvalidLoginException {
 		// TODO Auto-generated method stub		
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
@@ -77,7 +78,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		return data;
 	}
 	
-	private String getSid(){
+	private String getSid() throws InvalidLoginException{
 		return loginDao.getSid(this.getThreadLocalRequest().getCookies());
 	}
 

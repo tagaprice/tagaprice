@@ -21,6 +21,8 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
+import org.tagaprice.shared.exception.InvalidLoginException;
+
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
@@ -105,32 +107,40 @@ public class TaPManager {
 	public void showProductPage(final Long id){
 		uiMng.waitingPage();
 
-		HandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
+		try {
+			HandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
 
-			@Override
-			public void onSuccess(final ProductData pResult) {
+				@Override
+				public void onSuccess(final ProductData pResult) {
 
-				HandlerManager.getTypeHandler().get(pResult.getTypeId(), new AsyncCallback<Type>() {
+					HandlerManager.getTypeHandler().get(pResult.getTypeId(), new AsyncCallback<Type>() {
 
-					@Override
-					public void onSuccess(Type tResult) {
-						uiMng.showProduct(pResult, tResult);
-					}
+						@Override
+						public void onSuccess(Type tResult) {
+							uiMng.showProduct(pResult, tResult);
+						}
 
-					@Override
-					public void onFailure(Throwable caught) {
-						uiMng.showInfo("Fail type: "+caught, BoxType.WARNINGBOX);
-					}
-				});
+						@Override
+						public void onFailure(Throwable caught) {
+							uiMng.showInfo("Fail type: "+caught, BoxType.WARNINGBOX);
+						}
+					});
 
-			}
+				}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				uiMng.showInfo("Fail product: "+caught, BoxType.WARNINGBOX);
+				@Override
+				public void onFailure(Throwable caught) {
+					uiMng.showInfo("Fail product: "+caught, BoxType.WARNINGBOX);
 
-			}
-		});	
+				}
+			});
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidLoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
 	}
 	

@@ -20,6 +20,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.servlet.http.Cookie;
+
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.server.dao.LocaleDAO;
@@ -27,6 +30,7 @@ import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
@@ -167,7 +171,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public Long getId() throws IllegalArgumentException {
+	public Long getId() throws IllegalArgumentException, InvalidLoginException {
 		
 		try {
 			return loginDao.getId(getSid());
@@ -177,7 +181,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public boolean logout() throws IllegalArgumentException {
+	public boolean logout() throws IllegalArgumentException, InvalidLoginException {
 		
 		try {
 			return loginDao.logout(getSid());
@@ -198,8 +202,12 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		}	
 	}
 	
-	private String getSid(){
-		return loginDao.getSid(this.getThreadLocalRequest().getCookies());
+	private String getSid() throws InvalidLoginException{
+		System.out.println("getSid 1");
+		Cookie[] cookies = this.getThreadLocalRequest().getCookies();
+		System.out.println("getSid 2");
+
+		return loginDao.getSid(cookies);
 	}
 
 }

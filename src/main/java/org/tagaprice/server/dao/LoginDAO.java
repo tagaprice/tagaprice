@@ -6,13 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
 import org.tagaprice.server.DBConnection;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 public class LoginDAO {
 
@@ -113,7 +109,9 @@ public class LoginDAO {
 		return null;
 	}
 	
-	public Long getId(String sid) throws IllegalArgumentException, SQLException {
+	public Long getId(String sid) throws IllegalArgumentException, SQLException, InvalidLoginException {
+		System.out.println("sid: "+sid);
+		
 		String sql = "SELECT uid FROM session " +
 				"WHERE sid = ? "; 
 		
@@ -123,12 +121,17 @@ public class LoginDAO {
 		pstmt.setString(1, sid);
 		ResultSet res = pstmt.executeQuery();
 		
-		if(!res.next()) return null;
+		if(!res.next()) {
+			System.out.println("throw Invalid Login: "+sid);
+			throw new InvalidLoginException("No current ID for this SID");
+		}
+		System.out.println("no throw Invalid Login: "+sid);
+
 		
 		return res.getLong("uid");
 	}
 	
-	public boolean logout(String sid) throws IllegalArgumentException, SQLException {
+	public boolean logout(String sid) throws IllegalArgumentException, SQLException, InvalidLoginException {
 		
 		if(getId(sid)==null) return false;
 		
@@ -149,12 +152,17 @@ public class LoginDAO {
 	}
 	
 	
-	public String getSid(Cookie[] cookies){
-			
+	public String getSid(Cookie[] cookies) throws InvalidLoginException{
+		if(cookies==null) throw new InvalidLoginException("No current ID for this SID");
+
+		if(cookies[0]==null) throw new InvalidLoginException("No current ID for this SID");
+
+		
 		if(cookies.length>0	&& cookies[0].getName().equals("TaPSId")){
 			return cookies[0].getValue();			
-		}		
-		return null;
+		}	
+		throw new InvalidLoginException("No current ID for this SID");
+		
 	}
 	
 	

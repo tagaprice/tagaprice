@@ -15,6 +15,7 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -22,5 +23,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("rpc/product")
 public interface ProductHandler extends RemoteService {
 	ProductData get(Long id) throws IllegalArgumentException;
-	ProductData save(ProductData data)  throws IllegalArgumentException;
+	ProductData save(ProductData data)  throws IllegalArgumentException, InvalidLoginException;
 }

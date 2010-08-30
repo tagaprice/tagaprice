@@ -29,6 +29,7 @@ import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -247,6 +248,13 @@ public class ProductPage extends InfoBoxComposite {
 	}
 	
 	private void showSave(){
+		showSaveLogin();
+		
+		showSaveNotLogin();
+
+	}
+	
+	private void showSaveLogin(){
 		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
 		bottomInfoHoPa.setWidth("100%");
 		bottomInfoHoPa.setHeight("100%");
@@ -277,27 +285,34 @@ public class ProductPage extends InfoBoxComposite {
 				
 				//Validate Data
 				if(PropertyValidator.isValid(type, productData.getProperties())){				
-					HandlerManager.getProductHandler().save(
-							productData, 
-							new AsyncCallback<ProductData>() {
-						
-						@Override
-						public void onSuccess(ProductData result) {
-							bottomInfo.setVisible(false);
-							topSave.setText("Save");
-							if(productData.getId()==null){
-								History.newItem("product/get&id="+result.getId());
+					try {
+						HandlerManager.getProductHandler().save(
+								productData, 
+								new AsyncCallback<ProductData>() {
+							
+							@Override
+							public void onSuccess(ProductData result) {
+								bottomInfo.setVisible(false);
+								topSave.setText("Save");
+								if(productData.getId()==null){
+									History.newItem("product/get&id="+result.getId());
+								}
+								
+								
 							}
 							
-							
-						}
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
-							
-						}
-					});	
+							@Override
+							public void onFailure(Throwable caught) {
+								showInfo("SaveFail: "+caught, BoxType.WARNINGBOX);
+								
+							}
+						});
+					} catch (IllegalArgumentException e) {
+						showInfo("IllegalArgumentException: "+e, BoxType.WARNINGBOX);
+
+					} catch (InvalidLoginException e) {
+						showInfo("InvalidLoginException: "+e, BoxType.WARNINGBOX);
+					}	
 				}else{
 					showInfo("SaveFail: Invalide Data", BoxType.WARNINGBOX);
 				}
@@ -312,7 +327,10 @@ public class ProductPage extends InfoBoxComposite {
 		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
-
+	}
+	
+	private void showSaveNotLogin(){
+		
 	}
 	
 	

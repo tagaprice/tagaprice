@@ -18,12 +18,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.http.Cookie;
+
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ProductHandler;
@@ -69,23 +72,25 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	}
 
 	@Override
-	public ProductData save(ProductData data) throws IllegalArgumentException {
+	public ProductData save(ProductData data) throws IllegalArgumentException, InvalidLoginException {
+		getSid();
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
 		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){			
 			
+			
 			try {
 				data._setCreatorId(loginDao.getId(getSid()));
 				pDao.save(data);
-			} catch (SQLException e) {
-				throw new IllegalArgumentException(e);
+			} catch (SQLException e){
+				throw new IllegalArgumentException("SQLException: "+e);
 			} catch (NotFoundException e) {
-				throw new IllegalArgumentException(e);
+				throw new IllegalArgumentException("NotFoundException: "+e);		
 			} catch (RevisionCheckException e) {
-				throw new IllegalArgumentException(e);
+				throw new IllegalArgumentException("RevisionCheckException: "+e);
 			} catch (InvalidLocaleException e) {
-				throw new IllegalArgumentException(e);
-			}		
+				throw new IllegalArgumentException("InvalidLocaleException: "+e);
+			} 		
 			
 			
 		}else{
@@ -95,7 +100,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		return data;
 	}
 
-	private String getSid(){
-		return loginDao.getSid(this.getThreadLocalRequest().getCookies());
+	private String getSid() throws InvalidLoginException{
+		return loginDao.getSid(this.getThreadLocalRequest().getCookies());	
 	}
 }

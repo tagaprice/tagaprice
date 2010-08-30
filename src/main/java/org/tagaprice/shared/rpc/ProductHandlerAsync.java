@@ -15,16 +15,17 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ProductHandlerAsync {
 
 	void get(Long id, AsyncCallback<ProductData> callback)
-		throws IllegalArgumentException;
+		throws IllegalArgumentException, InvalidLoginException;
 
 	void save(ProductData data, AsyncCallback<ProductData> callback) 
-		throws IllegalArgumentException;
+		throws IllegalArgumentException, InvalidLoginException;
 	
 	
 
