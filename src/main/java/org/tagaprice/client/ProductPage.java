@@ -42,6 +42,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -248,16 +249,18 @@ public class ProductPage extends InfoBoxComposite {
 	}
 	
 	private void showSave(){
-		showSaveLogin();
-		
-		showSaveNotLogin();
+		if(TaPManager.getInstance().isLoggedIn()!=null){
+			showSaveLogin();
+
+		}else{
+			showSaveNotLogin();
+		}
 
 	}
 	
 	private void showSaveLogin(){
 		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
 		bottomInfoHoPa.setWidth("100%");
-		bottomInfoHoPa.setHeight("100%");
 		Button topAbort=new Button("Abort", new ClickHandler() {
 			
 			@Override
@@ -330,7 +333,29 @@ public class ProductPage extends InfoBoxComposite {
 	}
 	
 	private void showSaveNotLogin(){
-		
+		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
+		bottomInfoHoPa.setWidth("100%");
+		//bottomInfoHoPa.setHeight("100%");
+		Button topAbort=new Button("Abort", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(productData.getId()==null){
+					History.newItem("home/");
+				}else{
+					TaPManager.getInstance().showProductPage(productData.getId());
+				}
+				
+				
+			}
+		});
+		Label pleaseLoginLabel = new Label("Please login for saving!");
+		bottomInfoHoPa.add(pleaseLoginLabel);
+		bottomInfoHoPa.add(topAbort);
+		bottomInfoHoPa.setCellWidth(pleaseLoginLabel, "100%");
+		bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
+		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	
 	

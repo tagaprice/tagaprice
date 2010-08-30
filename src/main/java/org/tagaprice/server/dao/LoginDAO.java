@@ -122,10 +122,8 @@ public class LoginDAO {
 		ResultSet res = pstmt.executeQuery();
 		
 		if(!res.next()) {
-			System.out.println("throw Invalid Login: "+sid);
 			throw new InvalidLoginException("No current ID for this SID");
 		}
-		System.out.println("no throw Invalid Login: "+sid);
 
 		
 		return res.getLong("uid");

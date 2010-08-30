@@ -42,6 +42,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -255,6 +256,15 @@ public class ShopPage extends InfoBoxComposite {
 	}
 	
 	private void showSave(){
+		if(TaPManager.getInstance().isLoggedIn()!=null){
+			showSaveLogin();
+
+		}else{
+			showSaveNotLogin();
+		}
+	}
+	
+	private void showSaveLogin(){
 		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
 		bottomInfoHoPa.setWidth("100%");
 		bottomInfoHoPa.setHeight("100%");
@@ -314,6 +324,32 @@ public class ShopPage extends InfoBoxComposite {
 		bottomInfoHoPa.setCellHorizontalAlignment(topSave, HasHorizontalAlignment.ALIGN_RIGHT);				
 		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+	}
+	
+	private void showSaveNotLogin(){
+		HorizontalPanel bottomInfoHoPa = new HorizontalPanel();
+		bottomInfoHoPa.setWidth("100%");
+		//bottomInfoHoPa.setHeight("100%");
+		Button topAbort=new Button("Abort", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(shopData.getId()==null){
+					History.newItem("home/");
+				}else{
+					TaPManager.getInstance().showProductPage(shopData.getId());
+				}
+				
+				
+			}
+		});
+		Label pleaseLoginLabel = new Label("Please login for saving!");
+		bottomInfoHoPa.add(pleaseLoginLabel);
+		bottomInfoHoPa.add(topAbort);
+		bottomInfoHoPa.setCellWidth(pleaseLoginLabel, "100%");
+		bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
+		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	

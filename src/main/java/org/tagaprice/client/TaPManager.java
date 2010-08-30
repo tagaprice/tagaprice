@@ -25,6 +25,7 @@ import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -37,7 +38,6 @@ public class TaPManager {
 
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
-	
 
 	public static TaPManager getInstance(){
 		if(TaPMng==null){
@@ -275,9 +275,16 @@ public class TaPManager {
 		//uiMng.showUserLogin();		
 	}
 
-
 	
-
+	/**
+	 * 
+	 * @return Returns SessionId. Else NULL
+	 */
+	public String isLoggedIn(){
+		if(Cookies.getCookie("TaPSId")==null) return null;
+		
+		return Cookies.getCookie("TaPSId");
+	}
 
 
 }
