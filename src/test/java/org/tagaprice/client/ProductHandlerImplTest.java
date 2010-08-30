@@ -25,7 +25,7 @@ public class ProductHandlerImplTest extends GWTTestCase {
 
 	
 	
-	public void testGet(){
+	public void testGet() throws Exception{
 		ProductHandlerAsync productHandler = GWT.create(ProductHandler.class);
 
 		
