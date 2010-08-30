@@ -31,6 +31,8 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -56,6 +58,7 @@ public class SearchWidget extends Composite {
 	private SelectionType _selectionType;
 	private BoundingBox _bbox=null;
 	private ShopData _shopData=null;
+	private long myCurRequest = 0;
 	
 	public SearchWidget(
 			SearchType searchType,
@@ -66,42 +69,23 @@ public class SearchWidget extends Composite {
 		init(searchType, showNew, popup, selectionType);	
 		
 		
-		//Search		
-		searchBox.addKeyDownHandler(new KeyDownHandler() {
+		//Search	
+		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				SearchHandlerAsync searchHandler = GWT.create(SearchHandler.class);
-				searchHandler.search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
-					
-					@Override
-					public void onSuccess(ArrayList<Entity> result) {
-						selVePa.clear();
-						if(_popup)
-							popPa.showRelativeTo(searchBox);
-						
-						for(Entity sResult:result){							
-							//selVePa.add(new Label(sResult.getTitle()));
-							
-							
-							if(sResult instanceof ProductData){
-								selVePa.add(new ProductPreview((ProductData)sResult, false));
-							}else if(sResult instanceof ShopData){
-								selVePa.add(new ShopPreview((ShopData)sResult, false));
-							}
-							
-						}
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						System.out.println("error at searching");
-						
-					}
-				});				
+			public void onKeyUp(KeyUpEvent event) {
+				myCurRequest++;
+				
+				if(searchBox.getText().isEmpty()){
+					selVePa.clear();
+				}else{
+					newStdRequest(myCurRequest);
+
+				}
 			}
 		});
+
+		
 	}
 	
 	
@@ -116,36 +100,17 @@ public class SearchWidget extends Composite {
 		
 		
 		//Search		
-		searchBox.addKeyDownHandler(new KeyDownHandler() {
+		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
-			public void onKeyDown(KeyDownEvent event) {
-								
+			public void onKeyUp(KeyUpEvent event) {
+				myCurRequest++;
 				
-				HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
-					
-					@Override
-					public void onSuccess(ArrayList<Entity> result) {
-						selVePa.clear();
-						if(_popup)
-							popPa.showRelativeTo(searchBox);
-						
-						for(Entity sResult:result){
-							if(sResult instanceof ProductData){
-								selVePa.add(new ProductPreview((ProductData)sResult, false));
-							}else if(sResult instanceof ShopData){
-								selVePa.add(new ShopPreview((ShopData)sResult, false));
-							}
-						}
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						System.out.println("error at searching");
-						
-					}
-				});				
+				if(searchBox.getText().isEmpty()){
+					selVePa.clear();
+				}else{
+					newBboxRequest(myCurRequest);
+				}
 			}
 		});
 		
@@ -161,36 +126,18 @@ public class SearchWidget extends Composite {
 		_shopData=shopData;
 		init(searchType, showNew, popup, selectionType);	
 		
-		//Search		
-		searchBox.addKeyDownHandler(new KeyDownHandler() {
+		//Search				
+		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
-			public void onKeyDown(KeyDownEvent event) {
+			public void onKeyUp(KeyUpEvent event) {
+				myCurRequest++;
 				
-				HandlerManager.getSearchHandler().search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
-					
-					@Override
-					public void onSuccess(ArrayList<Entity> result) {
-						selVePa.clear();
-						if(_popup)
-							popPa.showRelativeTo(searchBox);
-						
-						for(Entity sResult:result){
-							if(sResult instanceof ProductData){
-								selVePa.add(new ProductPreview((ProductData)sResult, false));
-							}else if(sResult instanceof ShopData){
-								selVePa.add(new ShopPreview((ShopData)sResult, false));
-							}
-						}
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						System.out.println("error at searching");
-						
-					}
-				});				
+				if(searchBox.getText().isEmpty()){
+					selVePa.clear();
+				}else{
+					newShopRequest(myCurRequest);
+				}
 			}
 		});
 	}
@@ -287,5 +234,94 @@ public class SearchWidget extends Composite {
 	
 	public void hideSuggest(){
 		popPa.hide();
+	}
+	
+	private void newShopRequest(final long curReq){
+		HandlerManager.getSearchHandler().search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<Entity> result) {
+				if(curReq==myCurRequest){
+					selVePa.clear();
+					if(_popup)
+						popPa.showRelativeTo(searchBox);
+					
+					for(Entity sResult:result){
+						if(sResult instanceof ProductData){
+							selVePa.add(new ProductPreview((ProductData)sResult, false));
+						}else if(sResult instanceof ShopData){
+							selVePa.add(new ShopPreview((ShopData)sResult, false));
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				System.out.println("error at searching");
+				
+			}
+		});		
+	}
+	
+	private void newBboxRequest(final long curReq){
+		HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<Entity> result) {
+				if(curReq==myCurRequest){
+					selVePa.clear();
+					if(_popup)
+						popPa.showRelativeTo(searchBox);
+					
+					for(Entity sResult:result){
+						if(sResult instanceof ProductData){
+							selVePa.add(new ProductPreview((ProductData)sResult, false));
+						}else if(sResult instanceof ShopData){
+							selVePa.add(new ShopPreview((ShopData)sResult, false));
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("error at searching");
+				
+			}
+		});		
+	}
+	
+	private void newStdRequest(final long curReq){		
+		HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<Entity> result) {
+				if(curReq==myCurRequest){				
+					selVePa.clear();
+					if(_popup)
+						popPa.showRelativeTo(searchBox);
+					
+					for(Entity sResult:result){							
+						//selVePa.add(new Label(sResult.getTitle()));
+						
+						
+						if(sResult instanceof ProductData){
+							selVePa.add(new ProductPreview((ProductData)sResult, false));
+						}else if(sResult instanceof ShopData){
+							selVePa.add(new ShopPreview((ShopData)sResult, false));
+						}
+						
+					}
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("error at searching");
+				
+			}
+		});		
 	}
 }
