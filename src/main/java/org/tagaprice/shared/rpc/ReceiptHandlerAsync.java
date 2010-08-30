@@ -23,4 +23,6 @@ public interface ReceiptHandlerAsync {
 	void get(Long id, AsyncCallback<ReceiptData> callback) 
 		throws IllegalArgumentException;
 
+	void save(ReceiptData data, AsyncCallback<ReceiptData> callback) 
+		throws IllegalArgumentException;
 }

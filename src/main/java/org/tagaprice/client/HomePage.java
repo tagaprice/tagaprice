@@ -68,7 +68,7 @@ public class HomePage extends InfoBoxComposite {
 				public void onClick(ClickEvent event) {
 					TaPManager.getInstance().getUIManager().waitingPage();
 					
-					HandlerManager.getReceiptHandler().get(0l, new AsyncCallback<ReceiptData>() {
+					HandlerManager.getReceiptHandler().get(null, new AsyncCallback<ReceiptData>() {
 
 						@Override
 						public void onSuccess(ReceiptData tResult) {

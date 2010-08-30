@@ -16,6 +16,8 @@ package org.tagaprice.client;
 
 
 import java.util.ArrayList;
+
+import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.ProductData;
@@ -29,6 +31,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -102,6 +106,8 @@ public class ReceiptWidget extends InfoBoxComposite {
 	public ReceiptWidget() {
 		init(uiBinder.createAndBindUi(this));
 		
+		save.setVisible(false);
+		
 		receiptData=new ReceiptData();
 		
 		//Style
@@ -149,7 +155,6 @@ public class ReceiptWidget extends InfoBoxComposite {
 			
 		
 		
-		
 		//Save
 		save.setStyleName("Awesome");
 		save.setWidth("100%");
@@ -158,8 +163,29 @@ public class ReceiptWidget extends InfoBoxComposite {
 			@Override
 			public void onClick(ClickEvent event) {
 				receiptData.setDraft(false);//Now a new receipt will be created.
-				TaPManager.getInstance().saveReceipt(getReceiptData());
-				showInfo("Successfully saved", InfoBox.BoxType.WARNINGBOX);
+				//Save where Draft(false);
+				
+				HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+					
+					@Override
+					public void onSuccess(ReceiptData result) {
+						showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+						Timer close = new Timer() {
+							
+							@Override
+							public void run() {
+								hideInfo();						
+							}
+						};
+						
+						close.schedule(1000);
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+					}
+				});
 			}
 		});
 		
@@ -174,8 +200,29 @@ public class ReceiptWidget extends InfoBoxComposite {
 	 */
 	public void refresh(){
 		refreshPrice();
-		TaPManager.getInstance().saveReceipt(getReceiptData());
-		
+
+		HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+			
+			@Override
+			public void onSuccess(ReceiptData result) {
+				showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+				Timer close = new Timer() {
+					
+					@Override
+					public void run() {
+						hideInfo();						
+					}
+				};
+				
+				close.schedule(1000);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+			}
+		});
+		//Save Draft or Receipt
 	}
 	
 	/**
@@ -211,6 +258,9 @@ public class ReceiptWidget extends InfoBoxComposite {
 				productChooser2.hideSuggest();
 			}
 		});
+		
+		save.setVisible(true);
+
 	}
 
 	
@@ -232,7 +282,10 @@ public class ReceiptWidget extends InfoBoxComposite {
 		receiptData.setDate(date.getDate());	
 		receiptData.setTitle(title.getText());
 		receiptData.setBill(bill);		
-		receiptData.setShop(shopPreview.getShopData());
+		
+		if(shopPreview!=null){
+			receiptData.setShop(shopPreview.getShopData());
+		}
 		
 		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){

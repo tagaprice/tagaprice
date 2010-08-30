@@ -87,17 +87,8 @@ public class UIManager extends InfoBoxComposite {
 
 			@Override
 			public void onSuccess() {
-				if(receiptData==null){
-					ReceiptWidget tempReceipt = new ReceiptWidget(); 
-					//myTitlePan.setTitleWidget("Kassazettel eintragen", tempReceipt);
-					centerPage.setWidget(tempReceipt);
-				}
-				else {
-					ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
-					//myTitlePan.setTitleWidget("Kassazettel eintragen",tempReceipt);
-					centerPage.setWidget(tempReceipt);
-				}
-				
+				ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
+				centerPage.setWidget(tempReceipt);				
 			}
 			
 		});

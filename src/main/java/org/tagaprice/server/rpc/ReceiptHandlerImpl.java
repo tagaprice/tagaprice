@@ -37,7 +37,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		//MockMock
 		ReceiptData receiptData;
 		
-		if(id==0){
+		if(id==null){
 			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
 			receiptData = new ReceiptData(
 					15L, 2,
@@ -79,6 +79,12 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		
 		
 		return receiptData;
+	}
+
+	@Override
+	public ReceiptData save(ReceiptData data) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

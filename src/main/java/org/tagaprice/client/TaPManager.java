@@ -243,24 +243,6 @@ public class TaPManager {
 
 
 	/**
-	 * 
-	 * @param receiptContainer
-	 * @param draft
-	 */
-	public void saveReceipt(ReceiptData receiptContainer) {
-		if(receiptContainer.getId()>0 && receiptContainer.getDraft()==true){
-			System.out.println("saveDraft");
-		}else if(receiptContainer.getId()>0 && receiptContainer.getDraft()==false){
-			System.out.println("saveReceipt or change Draft to Receipt");
-		}else{
-			System.out.println("SaveRecei_superTypept-Error");
-		}
-
-	}
-
-
-
-	/**
 	 * Start a new user Registration
 	 * @param varificationCode If not null user has just being verified.
 	 */
