@@ -68,4 +68,8 @@ public class InfoBox extends Composite {
 	public void showInfo(String text, BoxType type){
 		showInfo(new Label(text), type);
 	}
+	
+	public void hideInfo(){
+		infoBox.setVisible(false);		
+	}
 }

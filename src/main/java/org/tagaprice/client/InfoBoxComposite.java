@@ -32,4 +32,8 @@ public abstract class InfoBoxComposite extends Composite {
 	protected void showInfo(String text, BoxType type){
 		infoBox.showInfo(text, type);
 	}
+	
+	protected void hideInfo() {
+		infoBox.hideInfo();
+	}
 }
