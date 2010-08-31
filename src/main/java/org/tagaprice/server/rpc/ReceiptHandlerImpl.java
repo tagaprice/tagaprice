@@ -69,9 +69,19 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 	
 	@Override
-	public ReceiptData get(Long id) throws IllegalArgumentException {
+	public ReceiptData get(ReceiptData data) throws IllegalArgumentException, InvalidLoginException {
+		try {
+			data._setCreatorId(loginDao.getId(getSid()));
+			receiptDao.get(data);
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
+		}
 		
+		return data;
 		
+		/*
 		//MockMock
 		ReceiptData receiptData;
 		
@@ -106,10 +116,10 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 					false);
 		}
 		
+		*/
 		
 		
 		
-		return receiptData;
 	}
 
 	@Override
@@ -143,4 +153,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	private String getSid() throws InvalidLoginException{
 		return loginDao.getSid(this.getThreadLocalRequest().getCookies());	
 	}
+
+
+	
 }

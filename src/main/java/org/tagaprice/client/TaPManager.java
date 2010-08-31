@@ -56,7 +56,7 @@ public class TaPManager {
 				//TODO Create a Split "=" parser
 				if(historyToken[0].equals("receipt/get")){
 					String[] equalToken = historyToken[1].split("=");
-					TaPMng.showReceiptPage(Long.parseLong(equalToken[1]));
+					TaPMng.showReceiptPage(new ReceiptData(Long.parseLong(equalToken[1])));
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					
@@ -215,21 +215,27 @@ public class TaPManager {
 	 * Starts Receipt Page
 	 * @param id
 	 */
-	public void showReceiptPage(final Long id){
+	public void showReceiptPage(ReceiptData data){
 		uiMng.waitingPage();
 
-		HandlerManager.getReceiptHandler().get(id, new AsyncCallback<ReceiptData>() {
+		try {
+			HandlerManager.getReceiptHandler().get(data, new AsyncCallback<ReceiptData>() {
 
-			@Override
-			public void onSuccess(ReceiptData result) {
-				uiMng.showReceipt(result);				
-			}
+				@Override
+				public void onSuccess(ReceiptData result) {
+					uiMng.showReceipt(result);				
+				}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
-			}
-		});
+				@Override
+				public void onFailure(Throwable caught) {
+					uiMng.showInfo("Fail: "+caught, BoxType.WARNINGBOX);				
+				}
+			});
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvalidLoginException e) {
+			e.printStackTrace();
+		}
 	}
 	
 

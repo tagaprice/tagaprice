@@ -23,8 +23,10 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 
 	@Override
 	public void get(ReceiptData receipt) throws SQLException, NotFoundException {
-		// TODO Auto-generated method stub
+		PreparedStatement pstmt;
 		
+		//get Entity Data
+		entityDAO.get(receipt);
 	}
 
 	@Override

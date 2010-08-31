@@ -29,7 +29,7 @@ public interface ReceiptHandler extends RemoteService {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	ReceiptData get(Long id) throws IllegalArgumentException;
+	ReceiptData get(ReceiptData data) throws IllegalArgumentException, InvalidLoginException;
 	
 	ReceiptData save(ReceiptData data) throws IllegalArgumentException, InvalidLoginException;
 }

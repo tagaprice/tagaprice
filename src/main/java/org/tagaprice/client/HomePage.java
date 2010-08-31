@@ -89,18 +89,7 @@ public class HomePage extends InfoBoxComposite {
 						showInfo("Fail: "+e, BoxType.WARNINGBOX);
 					}
 					
-					HandlerManager.getReceiptHandler().get(null, new AsyncCallback<ReceiptData>() {
-
-						@Override
-						public void onSuccess(ReceiptData tResult) {
-							History.newItem("receipt/get&id="+tResult.getId());
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							showInfo("Fail: "+caught, BoxType.WARNINGBOX);
-						}
-					});		
+						
 				}
 			}));
 			grid.setWidget(1, 1, new ImageTextButton("Drafts", new Image(MyResources.INSTANCE.productPriview()), "receipt/drafts"));

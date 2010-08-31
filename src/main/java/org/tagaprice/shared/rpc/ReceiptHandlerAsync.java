@@ -21,8 +21,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ReceiptHandlerAsync {
 
-	void get(Long id, AsyncCallback<ReceiptData> callback) 
-		throws IllegalArgumentException;
+	void get(ReceiptData data, AsyncCallback<ReceiptData> callback) 
+		throws IllegalArgumentException, InvalidLoginException;
 
 	void save(ReceiptData data, AsyncCallback<ReceiptData> callback) 
 		throws IllegalArgumentException, InvalidLoginException;
