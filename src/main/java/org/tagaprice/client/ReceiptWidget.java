@@ -172,6 +172,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 						
 						@Override
 						public void onSuccess(ReceiptData result) {
+							receiptData._setRev(result.getRev());
 							showInfo("Succesfull saved", BoxType.WARNINGBOX);	
 							Timer close = new Timer() {
 								
@@ -214,6 +215,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 				
 				@Override
 				public void onSuccess(ReceiptData result) {
+					receiptData._setRev(result.getRev());
 					showInfo("Succesfull saved", BoxType.WARNINGBOX);	
 					Timer close = new Timer() {
 						

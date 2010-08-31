@@ -126,6 +126,7 @@ public class LoginPage extends InfoBoxComposite{
 					
 					@Override
 					public void onFailure(Throwable arg0) {
+						Cookies.removeCookie("TaPSId");
 						showInfo("Problem at logout!", BoxType.WARNINGBOX);						
 					}
 				});

@@ -44,7 +44,6 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	@Override
 	public ArrayList<Entity> search(String search, SearchType searchType)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		
 		if(searchType.equals(SearchType.ALL)){
@@ -62,7 +61,6 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	@Override
 	public ArrayList<Entity> search(String search, SearchType searchType, BoundingBox bbox)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 
 		if(searchType.equals(SearchType.ALL)){
@@ -79,7 +77,6 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	@Override
 	public ArrayList<Entity> search(String search, ShopData shopData)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		getProduct(search, mockUp);
 		return mockUp;
@@ -87,7 +84,6 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 
 	
 	private void getProduct(String search, ArrayList<Entity> mockUp){
-		//Dirty SQL code
 		String sql = "SELECT * FROM product pr " +
 				"INNER JOIN entity en " +
 				"ON en.ent_id = pr.prod_id " +
@@ -111,19 +107,16 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 					sp.setTypeId(20l);
 					mockUp.add(sp);
 				} catch (NotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	private void getShop(String search, ArrayList<Entity> mockUp){
-		//Dirty SQL code
 		String sql = "SELECT * FROM shop pr " +
 				"INNER JOIN entity en " +
 				"ON en.ent_id = pr.shop_id " +
@@ -144,13 +137,11 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 					sDao.get(sd);
 					mockUp.add(sd);
 				} catch (NotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

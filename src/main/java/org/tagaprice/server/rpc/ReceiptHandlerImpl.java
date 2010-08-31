@@ -70,6 +70,8 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 	@Override
 	public ReceiptData get(ReceiptData data) throws IllegalArgumentException, InvalidLoginException {
+		
+		
 		try {
 			data._setCreatorId(loginDao.getId(getSid()));
 			receiptDao.get(data);
@@ -79,44 +81,11 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 			throw new IllegalArgumentException(e);
 		}
 		
+		
+		System.out.println("data: "+data.getId()+", "+data.getTitle());
+		
 		return data;
-		
-		/*
-		//MockMock
-		ReceiptData receiptData;
-		
-		
-		if(id==null){
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			receiptData = new ReceiptData(
-					15L, 2,
-					"Default name", 2,
-					new Date(), 
-					0, 
-					null, 
-					myProducts,
-					true);
-		}else{
-			ArrayList<ProductData> myProducts = new ArrayList<ProductData>();
-			ProductData p = new ProductData(152L, 8, "Grouda geschnitten", 2, 15L, 16L, "logo.png", new Quantity(260, new Unit(23, 3, "g", 2, null, 0)));
-			p.setAvgPrice(new Price(325, 23, 8, "€", 2));
-			myProducts.add(p);
-			p = new ProductData(120L, 3, "Ja!Natürlich Milch 1L", 2, 15L, 16L, "logo.png", new Quantity(1, new Unit(24, 4, "l", 2, null, 0)));
-			p.setAvgPrice(new Price(98, 23, 8, "€", 2));
-			myProducts.add(p);
-			
-			receiptData = new ReceiptData(
-					15l, 1,
-					"Christmas shopping", 
-					10,
-					new Date(), 
-					0, 
-					new ShopData(15, 9, "Billa Flossgasse", 3, 30l, "logo.png", new Address("Flossgasse 1A", "1020 Wien", new Country("at", "Austria", "Österreich"))), 
-					myProducts,
-					false);
-		}
-		
-		*/
+
 		
 		
 		

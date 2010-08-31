@@ -109,9 +109,7 @@ public class LoginDAO {
 		return null;
 	}
 	
-	public Long getId(String sid) throws IllegalArgumentException, SQLException, InvalidLoginException {
-		System.out.println("sid: "+sid);
-		
+	public Long getId(String sid) throws IllegalArgumentException, SQLException, InvalidLoginException {		
 		String sql = "SELECT uid FROM session " +
 				"WHERE sid = ? "; 
 		
