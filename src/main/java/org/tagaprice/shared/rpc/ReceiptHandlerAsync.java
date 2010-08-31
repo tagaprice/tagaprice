@@ -15,6 +15,7 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -24,5 +25,5 @@ public interface ReceiptHandlerAsync {
 		throws IllegalArgumentException;
 
 	void save(ReceiptData data, AsyncCallback<ReceiptData> callback) 
-		throws IllegalArgumentException;
+		throws IllegalArgumentException, InvalidLoginException;
 }

@@ -24,6 +24,8 @@ import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.exception.InvalidLoginException;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -165,27 +167,33 @@ public class ReceiptWidget extends InfoBoxComposite {
 				receiptData.setDraft(false);//Now a new receipt will be created.
 				//Save where Draft(false);
 				
-				HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
-					
-					@Override
-					public void onSuccess(ReceiptData result) {
-						showInfo("Succesfull saved", BoxType.WARNINGBOX);	
-						Timer close = new Timer() {
-							
-							@Override
-							public void run() {
-								hideInfo();						
-							}
-						};
+				try {
+					HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 						
-						close.schedule(1000);
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
-					}
-				});
+						@Override
+						public void onSuccess(ReceiptData result) {
+							showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+							Timer close = new Timer() {
+								
+								@Override
+								public void run() {
+									hideInfo();						
+								}
+							};
+							
+							close.schedule(1000);
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+						}
+					});
+				} catch (IllegalArgumentException e) {
+					showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+				} catch (InvalidLoginException e) {
+					showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+				}
 			}
 		});
 		
@@ -201,27 +209,33 @@ public class ReceiptWidget extends InfoBoxComposite {
 	public void refresh(){
 		refreshPrice();
 
-		HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
-			
-			@Override
-			public void onSuccess(ReceiptData result) {
-				showInfo("Succesfull saved", BoxType.WARNINGBOX);	
-				Timer close = new Timer() {
-					
-					@Override
-					public void run() {
-						hideInfo();						
-					}
-				};
+		try {
+			HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 				
-				close.schedule(1000);
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
-			}
-		});
+				@Override
+				public void onSuccess(ReceiptData result) {
+					showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+					Timer close = new Timer() {
+						
+						@Override
+						public void run() {
+							hideInfo();						
+						}
+					};
+					
+					close.schedule(1000);
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+				}
+			});
+		} catch (IllegalArgumentException e) {
+			showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+		} catch (InvalidLoginException e) {
+			showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+		}
 		//Save Draft or Receipt
 	}
 	

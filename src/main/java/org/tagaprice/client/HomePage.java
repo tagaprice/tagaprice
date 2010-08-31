@@ -16,6 +16,7 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -67,6 +68,26 @@ public class HomePage extends InfoBoxComposite {
 				@Override
 				public void onClick(ClickEvent event) {
 					TaPManager.getInstance().getUIManager().waitingPage();
+										
+					try {
+						HandlerManager.getReceiptHandler().save(null, new AsyncCallback<ReceiptData>() {
+							
+							@Override
+							public void onSuccess(ReceiptData result) {
+								History.newItem("receipt/get&id="+result.getId());
+								
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								showInfo("Fail: "+caught, BoxType.WARNINGBOX);
+							}
+						});
+					} catch (IllegalArgumentException e) {
+						showInfo("Fail: "+e, BoxType.WARNINGBOX);
+					} catch (InvalidLoginException e) {
+						showInfo("Fail: "+e, BoxType.WARNINGBOX);
+					}
 					
 					HandlerManager.getReceiptHandler().get(null, new AsyncCallback<ReceiptData>() {
 
