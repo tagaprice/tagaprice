@@ -10,6 +10,7 @@ import java.util.Date;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.Country;
+import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
@@ -25,12 +26,14 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	private EntityDAO entityDAO;
 	private CountryDAO countryDAO;
 	private ShopDAO shopDAO;
+	private ProductDAO productDAO;
 	
 	public ReceiptDAO(DBConnection db) {
 		this.db=db;
 		entityDAO = new EntityDAO(db);
 		countryDAO = new CountryDAO(db);
 		shopDAO = new ShopDAO(db);
+		productDAO = new ProductDAO(db);
 	}
 
 	@Override
@@ -46,7 +49,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			
 		
 		//GetReceiptData
-		String sql = "SELECT * " +
+		String sql = "SELECT sid, re.created_at, draft " +
 				"FROM receipt re " +
 				"INNER JOIN entity en " +
 				"ON re.rid=en.ent_id " +
@@ -69,6 +72,32 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			receipt.setShop(sTemp);
 		}
 		
+		//Get Products
+		sql = "SELECT ree.pid, ree.price " +
+		"FROM receipt re " +
+		"INNER JOIN entity en " +
+		"ON re.rid=en.ent_id " +
+		"INNER JOIN receiptentry ree " +
+		"ON ree.rid = re.rid " +
+		"WHERE en.creator = ? AND re.rid = ?";
+		
+		pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, receipt.getCreatorId());
+		pstmt.setLong(2, receipt.getId());
+		ResultSet resSet2 = pstmt.executeQuery();
+
+		ArrayList<ProductData> productDataArray = new ArrayList<ProductData>();
+		
+		while(resSet2.next()){
+			ProductData tempProduct = new ProductData(resSet2.getLong("pid"));
+			productDAO.get(tempProduct);
+			tempProduct.setAvgPrice(new Price(resSet2.getInt("price"), 4, 1, "€", 1));
+			tempProduct.setQuantity(new Quantity(1, new Unit(23, 2, "kg", 1, null, 0)));			
+			productDataArray.add(tempProduct);
+		}
+		
+		
+		receipt.setProductData(productDataArray);
 	}
 
 	@Override
@@ -108,12 +137,30 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			
 			//set WHERE 
 			pstmt.setLong(4, receipt.getId());
+			pstmt.executeUpdate();
+			
+			
 			
 			//Set Price
-			//...
-			
-			
+			//Remove old
+			String sql = "DELETE FROM receiptentry " +
+					"WHERE rid = ?";
+			pstmt = db.prepareStatement(sql);
+			pstmt.setLong(1, receipt.getId());
 			pstmt.executeUpdate();
+			
+			//Add new
+			for(ProductData pd:receipt.getProductData()){
+				pstmt = db.prepareStatement("INSERT INTO receiptentry " +
+						"(rid, pid, price) VALUES (?,?,?)");
+				
+				pstmt.setLong(1, receipt.getId());
+				pstmt.setLong(2, pd.getId());
+				pstmt.setLong(3, pd.getAvgPrice().getPrice());
+				
+				pstmt.executeUpdate();
+			}
+			
 		}
 
 		
