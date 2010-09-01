@@ -80,10 +80,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		} catch (NotFoundException e) {
 			throw new IllegalArgumentException(e);
 		}
-		
-		
-		System.out.println("data: "+data.getId()+", "+data.getTitle());
-		
+				
 		return data;
 
 		

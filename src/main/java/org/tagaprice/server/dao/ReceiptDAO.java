@@ -37,19 +37,13 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	public void get(ReceiptData receipt) throws SQLException, NotFoundException {
 		PreparedStatement pstmt;
 		//get Entity Data
-		entityDAO.get(receipt);
-		System.out.println("getReceipt: "+receipt.getId());
-		
+		entityDAO.get(receipt);	
 		
 		
 		receipt.setDate(new Date());
 		receipt.setProductData(new ArrayList<ProductData>());
 		receipt.setDraft(true);
-		
-		
-
-		
-		
+			
 		
 		//GetReceiptData
 		String sql = "SELECT * " +
@@ -65,14 +59,14 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		
 		if(!resSet.next()) throw new NotFoundException("Receipt not found.");
 		
+		receipt.setDate(resSet.getDate("created_at"));
 		receipt.setDraft(resSet.getBoolean("draft"));
 		
 		//Get shop
-		System.out.println("sid: "+resSet.getLong("sid"));
 		if(resSet.getLong("sid")>0){
 			ShopData sTemp = new ShopData(resSet.getLong("sid"));
+			shopDAO.get(sTemp);
 			receipt.setShop(sTemp);
-			
 		}
 		
 	}
@@ -95,8 +89,10 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			throw new RevisionCheckException("invalid shop revision: "+receipt.getRev());
 		}else if (receipt.getRev() > 1){
 			pstmt = db.prepareStatement("UPDATE receipt SET " +
-					"sid = ?," +
-					"draft = ?");
+					"sid = ?, " +
+					"draft = ?, " +
+					"created_at = ? " +
+					"WHERE rid = ?");
 			
 			//Set Shop
 			if(receipt.getShop()==null) pstmt.setNull(1, Types.BIGINT);
@@ -105,6 +101,13 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			//setDraft
 			if(receipt.getDraft()) pstmt.setBoolean(2, true);
 			else pstmt.setBoolean(2, false);
+			
+			//setDate
+			if(receipt.getDate()==null) pstmt.setDate(3, new java.sql.Date(new Date().getTime()));
+			else pstmt.setDate(3, new java.sql.Date(receipt.getDate().getTime()));
+			
+			//set WHERE 
+			pstmt.setLong(4, receipt.getId());
 			
 			//Set Price
 			//...
