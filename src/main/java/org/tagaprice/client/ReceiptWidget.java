@@ -58,6 +58,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
 	ShopPreview shopPreview;
+	boolean allowSaving = false;
 	
 	private SearchWidget shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
 	private SearchWidget productChooser2;
@@ -80,8 +81,8 @@ public class ReceiptWidget extends InfoBoxComposite {
 	 * 
 	 * @param receiptData
 	 */
-	public ReceiptWidget(ReceiptData receiptData, boolean editable){
-		this();
+	public ReceiptWidget(ReceiptData receiptData, boolean editable, boolean text){
+		//this();
 		
 		this.receiptData=receiptData;
 		veProductContainer.setWidget(productContainer);
@@ -105,12 +106,12 @@ public class ReceiptWidget extends InfoBoxComposite {
 	/**
 	 * 
 	 */
-	public ReceiptWidget() {
+	public ReceiptWidget(ReceiptData _receiptData, boolean editable) {
 		init(uiBinder.createAndBindUi(this));
 		
 		save.setVisible(false);
 		
-		receiptData=new ReceiptData();
+		this.receiptData=_receiptData;
 		
 		//Style
 		basePanel.setWidth("100%");
@@ -126,6 +127,11 @@ public class ReceiptWidget extends InfoBoxComposite {
 		basePanel.insert(shop, 2);		
 		basePanel.setCellHorizontalAlignment(pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
+		
+		
+		
+		
+		
 		//Listen on Select
 		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {
 			
@@ -143,6 +149,28 @@ public class ReceiptWidget extends InfoBoxComposite {
 				refresh();		
 			}
 		};
+		
+		
+		//------
+		veProductContainer.setWidget(productContainer);
+		
+		
+		isEditable=editable;
+		title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
+		
+		date.setDate(receiptData.getDate());
+		
+		if(receiptData.getShop()!=null){
+			setShop(receiptData.getShop());
+		}
+		
+		for(ProductData pd: receiptData.getProductData()){
+			System.out.println("pd: "+pd.getTitle());
+			addProduct(pd);
+		}
+		
+		
+		//------
 		
 		//Products		
 		productContainer.addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {
@@ -166,38 +194,42 @@ public class ReceiptWidget extends InfoBoxComposite {
 			public void onClick(ClickEvent event) {
 				receiptData.setDraft(false);//Now a new receipt will be created.
 				//Save where Draft(false);
-				
-				try {
-					HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
-						
-						@Override
-						public void onSuccess(ReceiptData result) {
-							receiptData._setRev(result.getRev());
-							showInfo("Succesfull saved", BoxType.WARNINGBOX);	
-							Timer close = new Timer() {
-								
-								@Override
-								public void run() {
-									hideInfo();						
-								}
-							};
+				if(allowSaving){
+					try {
+						HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 							
-							close.schedule(1000);
-						}
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
-						}
-					});
-				} catch (IllegalArgumentException e) {
-					showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
-				} catch (InvalidLoginException e) {
-					showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+							@Override
+							public void onSuccess(ReceiptData result) {
+								receiptData=result;
+								//receiptData._setRev(result.getRev());
+								showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+								Timer close = new Timer() {
+									
+									@Override
+									public void run() {
+										hideInfo();						
+									}
+								};
+								
+								close.schedule(1000);
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+							}
+						});
+					} catch (IllegalArgumentException e) {
+						showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+					} catch (InvalidLoginException e) {
+						showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+					}
 				}
 			}
 		});
 		
+		refreshPrice();	
+		allowSaving=true;
 	}
 	
 	
@@ -209,34 +241,35 @@ public class ReceiptWidget extends InfoBoxComposite {
 	 */
 	public void refresh(){
 		refreshPrice();
-
-		try {
-			HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
-				
-				@Override
-				public void onSuccess(ReceiptData result) {
-					receiptData._setRev(result.getRev());
-					showInfo("Succesfull saved", BoxType.WARNINGBOX);	
-					Timer close = new Timer() {
-						
-						@Override
-						public void run() {
-							hideInfo();						
-						}
-					};
+		if(allowSaving){
+			try {
+				HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 					
-					close.schedule(1000);
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
-				}
-			});
-		} catch (IllegalArgumentException e) {
-			showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
-		} catch (InvalidLoginException e) {
-			showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+					@Override
+					public void onSuccess(ReceiptData result) {
+						receiptData=result;
+						showInfo("Succesfull saved", BoxType.WARNINGBOX);	
+						Timer close = new Timer() {
+							
+							@Override
+							public void run() {
+								hideInfo();						
+							}
+						};
+						
+						close.schedule(1000);
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						showInfo("Save Problem: "+caught, BoxType.WARNINGBOX);
+					}
+				});
+			} catch (IllegalArgumentException e) {
+				showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+			} catch (InvalidLoginException e) {
+				showInfo("Save Problem: "+e, BoxType.WARNINGBOX);
+			}
 		}
 		//Save Draft or Receipt
 	}
