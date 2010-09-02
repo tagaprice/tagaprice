@@ -24,13 +24,17 @@ import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class PriceMapWidget extends Composite {
@@ -103,6 +107,8 @@ public class PriceMapWidget extends Composite {
 					getPrices();
 				}
 			});
+		}else if (type.equals(PriceMapType.SHOP)){
+			getPrices();
 		}
 		
 		
@@ -113,29 +119,45 @@ public class PriceMapWidget extends Composite {
 	
 	
 	private void getPrices(){
-		//Get Prices
-		HandlerManager.getPriceHandler().get(
-				id, 
-				new BoundingBox(
-						map.getBounds().getSouthWest().getLatitude(), 
-						map.getBounds().getSouthWest().getLongitude(), 
-						map.getBounds().getNorthEast().getLatitude(), 
-						map.getBounds().getNorthEast().getLongitude()), 
-				type, new AsyncCallback<ArrayList<PriceData>>(){
+		if (type.equals(PriceMapType.SHOP)){
+			HandlerManager.getPriceHandler().get(id, null, type, new AsyncCallback<ArrayList<PriceData>>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						System.out.println("Price Load Error");
-					}
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					System.out.println("Price Load Error");
+				}
 
-					@Override
-					public void onSuccess(ArrayList<PriceData> result) {
-						// TODO Auto-generated method stub
-						refreshData(result);
-					}
-			
-		});
+				@Override
+				public void onSuccess(ArrayList<PriceData> result) {
+					refreshData(result);
+				}
+			});
+		}else{
+			//Get Prices
+			HandlerManager.getPriceHandler().get(
+					id, 
+					new BoundingBox(
+							map.getBounds().getSouthWest().getLatitude(), 
+							map.getBounds().getSouthWest().getLongitude(), 
+							map.getBounds().getNorthEast().getLatitude(), 
+							map.getBounds().getNorthEast().getLongitude()), 
+					type, new AsyncCallback<ArrayList<PriceData>>(){
+	
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							System.out.println("Price Load Error");
+						}
+	
+						@Override
+						public void onSuccess(ArrayList<PriceData> result) {
+							// TODO Auto-generated method stub
+							refreshData(result);
+						}
+				
+			});
+		}
 	}
 	
 	private void refreshData(ArrayList<PriceData> list){
@@ -150,11 +172,11 @@ public class PriceMapWidget extends Composite {
 		if(type.equals(PriceMapType.SHOP)){
 			priceTable.setText(0, 0, "Pin");
 			pinOff=1;
-			priceTable.setText(0, 0+pinOff, "Shops");
+			priceTable.setText(0, 0+pinOff, "Products");
 			colOff=0;
 		}else if(type.equals(PriceMapType.PRODUCT)){
 			pinOff=0;
-			priceTable.setText(0, 0+pinOff, "Product");
+			priceTable.setText(0, 0+pinOff, "Shops");
 			colOff=0;
 		}else{
 			priceTable.setText(0, 0, "Ping");
@@ -175,15 +197,33 @@ public class PriceMapWidget extends Composite {
 			map.clearOverlays();
 		
 		int row=1;
-		for(PriceData pd:list){
+		for(final PriceData pd:list){
 			
 			priceTable.setText(row, 0,"*");
-			priceTable.setText(row, 0+pinOff, pd.getShopData().getTitle());
+			
+			if(type.equals(PriceMapType.SHOP)){
+				Label tempProductL = new Label(pd.getProductData().getTitle());
+				priceTable.setWidget(row, 0+pinOff, tempProductL);
+				tempProductL.addClickHandler(new ClickHandler() {				
+					public void onClick(ClickEvent event) {
+						History.newItem("product/get&id="+pd.getProductData().getId());						
+					}
+				});
+			}else {
+				Label tempShopL = new Label(pd.getShopData().getTitle());
+				priceTable.setWidget(row, 0+pinOff, tempShopL);
+				tempShopL.addClickHandler(new ClickHandler() {				
+					public void onClick(ClickEvent event) {
+						History.newItem("shop/get&id="+pd.getShopData().getId());						
+					}
+				});
+			}
 			priceTable.setWidget(row, 2+pinOff+colOff, new RatingWidget(pd.getProductData().getRating(), false));
 			priceTable.setText(row, 3+pinOff+colOff, pd.getDate().toString());
 			priceTable.setText(row, 4+pinOff+colOff, ""+(pd.getPrice().getPrice()/100.00)+""+pd.getPrice().getCurrency().getTitle());
 			
-			map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData().getAddress().getLat(), pd.getShopData().getAddress().getLng())));
+			if(!type.equals(PriceMapType.SHOP))
+				map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData().getAddress().getLat(), pd.getShopData().getAddress().getLng())));
 			
 			
 			row++;

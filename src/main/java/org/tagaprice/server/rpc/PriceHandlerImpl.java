@@ -70,15 +70,46 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 		ArrayList<PriceData> list = new ArrayList<PriceData>();
 		
 		PreparedStatement pstmt; 
+		try {
 		
-		if(type.equals(PriceMapType.PRODUCT)){
-			//return Last price plus location
+			if(type.equals(PriceMapType.PRODUCT)){
+				//return Last price plus location
+				
+				
+					String sql = "SELECT * FROM receiptentry ree " +
+					"INNER JOIN receipt re " +
+					"ON re.rid=ree.rid " +
+					"WHERE ree.pid = ? ";
+					
+					pstmt = db.prepareStatement(sql);
+					pstmt.setLong(1, id);
+					
+					ResultSet res = pstmt.executeQuery();
+					
+					while(res.next()){
+						ProductData tempProduct = new ProductData(res.getLong("pid"));
+						ShopData tempShop = new ShopData(res.getLong("sid"));
+						productDAO.get(tempProduct);
+						shopDAO.get(tempShop);
+						
+						
+						list.add(new PriceData(
+								tempProduct, 
+								tempShop,
+								new Price(res.getInt("price"), 23, 8, "€", 1), 
+								new Date(res.getDate("created_at").getTime())));
+					}
+					
+					
+				
+				
+			}
 			
-			try {
+			if(type.equals(PriceMapType.SHOP)){
 				String sql = "SELECT * FROM receiptentry ree " +
 				"INNER JOIN receipt re " +
 				"ON re.rid=ree.rid " +
-				"WHERE ree.pid = ? ";
+				"WHERE re.sid = ? ";
 				
 				pstmt = db.prepareStatement(sql);
 				pstmt.setLong(1, id);
@@ -87,40 +118,27 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 				
 				while(res.next()){
 					ProductData tempProduct = new ProductData(res.getLong("pid"));
-					ShopData tempShop = new ShopData(res.getLong("sid"));
+					//ShopData tempShop = new ShopData(res.getLong("sid"));
 					productDAO.get(tempProduct);
-					shopDAO.get(tempShop);
+					//shopDAO.get(tempShop);
 					
 					
 					list.add(new PriceData(
 							tempProduct, 
-							tempShop,
+							null,
 							new Price(res.getInt("price"), 23, 8, "€", 1), 
 							new Date(res.getDate("created_at").getTime())));
 				}
 				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
-		/*
-		int c=(int)(Math.random()*10);
-		for(int i=0;i<5;i++){
-			list.add(new PriceData(
-					new ProductData(152L, 4, "Mousse au Chocolat", 1, 15L, 16L, "logo.png", new Quantity(125, new Unit(23, 3, "g", 1, null, 0))), 
-					new ShopData(123, 1825, "ACME Store", 2, 30l,  null, new Address("Park Avenue 23", "New York", new Country("us", "USA", null), 48.21211+(-0.001*i), 16.37647+(-0.0001*i))),
-					new Price((int)(Math.random()*100), 23, 8, "€", 1)));
-		}
-		*/
 		
 		
 		
