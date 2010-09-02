@@ -89,12 +89,12 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 				"ON en.ent_id = pr.prod_id " +
 				"INNER JOIN entityrevision er " +
 				"ON er.ent_id=pr.prod_id AND er.rev=current_revision " +
-				"WHERE er.title LIKE ?";
+				"WHERE LOWER(er.title) LIKE ?";
 		
 		
 		try {
 			PreparedStatement pstmt = db.prepareStatement(sql);
-			pstmt.setString(1, "%"+search+"%");
+			pstmt.setString(1, "%"+search.toLowerCase()+"%");
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
@@ -122,13 +122,13 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 				"ON en.ent_id = pr.shop_id " +
 				"INNER JOIN entityrevision er " +
 				"ON er.ent_id=pr.shop_id AND er.rev=current_revision " +
-				"WHERE er.title LIKE ?";
+				"WHERE LOWER(er.title) LIKE ?";
 		
 		
 		
 		try {
 			PreparedStatement pstmt = db.prepareStatement(sql);
-			pstmt.setString(1, "%"+search+"%");
+			pstmt.setString(1, "%"+search.toLowerCase()+"%");
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){

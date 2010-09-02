@@ -176,13 +176,15 @@ public class PriceMapWidget extends Composite {
 		
 		int row=1;
 		for(PriceData pd:list){
+			
 			priceTable.setText(row, 0,"*");
 			priceTable.setText(row, 0+pinOff, pd.getShopData().getTitle());
 			priceTable.setWidget(row, 2+pinOff+colOff, new RatingWidget(pd.getProductData().getRating(), false));
 			priceTable.setText(row, 3+pinOff+colOff, "1-1-01");
-			priceTable.setText(row, 4+pinOff+colOff, ""+pd.getProductData().getAvgPrice().getPrice());
+			priceTable.setText(row, 4+pinOff+colOff, ""+(pd.getPrice().getPrice()/100.00)+""+pd.getPrice().getCurrency().getTitle());
 			
 			map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData().getAddress().getLat(), pd.getShopData().getAddress().getLng())));
+			
 			
 			row++;
 		}

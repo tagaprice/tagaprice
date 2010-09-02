@@ -85,7 +85,7 @@ public class ShopPage extends InfoBoxComposite {
 	private MorphWidget zip = new MorphWidget("", Datatype.STRING, true);
 	private MorphWidget county = new MorphWidget("", Datatype.STRING, true);
 	private MorphWidget country = new MorphWidget("", Datatype.STRING, true);
-
+	private Button showMapButton = new Button("Show on Map");
 	
 	
 	public ShopPage(ShopData _shopData, Type _type){
@@ -198,6 +198,59 @@ public class ShopPage extends InfoBoxComposite {
 		adressGrid.getCellFormatter().setStyleName(3, 1, "RegistrationPage-Row");
 		vePa1.add(adressGrid);
 		
+		showMapButton.setWidth("100%");
+		vePa1.add(showMapButton);
+		showMapButton.setVisible(false);
+		
+		showMapButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				showMapButton.setText("Searching....");
+				geoCoder.getLocations(street.getText().trim()+", "
+						+zip.getText().trim()+", "
+						+county.getText().trim()+", "
+						+country.getText().trim(), new LocationCallback() {
+							
+							@Override
+							public void onSuccess(JsArray<Placemark> locations) {
+								mapWidget.setCenter(locations.get(0).getPoint());
+								marker.setLatLng(locations.get(0).getPoint());
+								showMapButton.setText("Show on map");
+								showMapButton.setVisible(false);
+								
+								shopData.getAddress().setCoordinates(
+										locations.get(0).getPoint().getLatitude(),
+										locations.get(0).getPoint().getLongitude());
+								
+								street.setText(locations.get(0).getStreet());
+								zip.setText(locations.get(0).getPostalCode());
+								county.setText(locations.get(0).getCounty());
+								country.setText(locations.get(0).getCountry());
+								
+								
+								//TODO Problem with Country
+								shopData.getAddress().setAddress(
+										street.getText().trim(), 
+										locations.get(0).getCity(), 
+										new Country(
+												locations.get(0).getCountry().toLowerCase(), 
+												locations.get(0).getCountry(), 
+												locations.get(0).getCountry()));	
+								
+								
+							}
+							
+							@Override
+							public void onFailure(int statusCode) {
+								showMapButton.setText("Show on map");
+								System.out.println("can't find address");						
+							}
+						});
+				
+				
+			}
+		});
 		
 		
 		//Listener
@@ -242,27 +295,27 @@ public class ShopPage extends InfoBoxComposite {
 		});
 		
 		street.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
-			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {autoSetAdressPosition();}
+			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
 		zip.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
-			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {autoSetAdressPosition();}
+			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
 		county.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
-			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {autoSetAdressPosition();}
+			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
 		country.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
-			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {autoSetAdressPosition();}
+			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
 		
@@ -329,41 +382,7 @@ public class ShopPage extends InfoBoxComposite {
 		vePa1.add(bottomInfo);
 	}
 	
-	private void autoSetAdressPosition(){
-		geoCoder.getLocations(street.getText().trim()+", "
-				+zip.getText().trim()+", "
-				+county.getText().trim()+", "
-				+country.getText().trim(), new LocationCallback() {
-					
-					@Override
-					public void onSuccess(JsArray<Placemark> locations) {
-						shopData.getAddress().setAddress(
-								street.getText().trim(), 
-								locations.get(0).getCity(), 
-								new Country(
-										locations.get(0).getCountry().toLowerCase(), 
-										locations.get(0).getCountry(), 
-										locations.get(0).getCountry()));
-						
-						//street.setText(locations.get(0).getStreet());
-						zip.setText(locations.get(0).getPostalCode());
-						county.setText(locations.get(0).getCounty());
-						country.setText(locations.get(0).getCountry());
-						
-						shopData.getAddress().setCoordinates(
-								locations.get(0).getPoint().getLatitude(),
-								locations.get(0).getPoint().getLongitude());
-						
-						mapWidget.setCenter(locations.get(0).getPoint());
-						marker.setLatLng(locations.get(0).getPoint());
-					}
-					
-					@Override
-					public void onFailure(int statusCode) {
-						System.out.println("can't find address");						
-					}
-				});
-	}
+	
 
 	private void drawTypeWidget(){
 		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			

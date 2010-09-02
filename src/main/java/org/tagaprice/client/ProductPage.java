@@ -299,6 +299,8 @@ public class ProductPage extends InfoBoxComposite {
 								topSave.setText("Save");
 								if(productData.getId()==null){
 									History.newItem("product/get&id="+result.getId());
+								}else{
+									productData=result;
 								}
 								
 								

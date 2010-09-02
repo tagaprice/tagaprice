@@ -49,7 +49,7 @@ public class MorphWidget extends SimplePanel {
 		type=_type;
 		this.setStyleName("MorphWidget");
 		
-		setWidth("120px");
+		setWidth("140px");
 		
 		
 		
