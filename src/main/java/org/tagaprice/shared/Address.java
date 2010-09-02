@@ -80,15 +80,29 @@ public class Address implements Serializable {
 		return lng;
 	}
 	
+	
+	
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
 	public void setCoordinates(Double lat, Double lng) {
 		this.lat = lat;
 		this.lng = lng;
 	}
 	
 	public void setAddress(String street, String city, Country country) {
-		this.street = street;
-		this.city = city;
-		this.country = country;
+		setStreet(street);
+		setCity(city);
+		setCountry(country);
 	}
 	
 	public boolean equals(Object o) {
