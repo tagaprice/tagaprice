@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared;
 
+import java.util.Date;
+
 public class PriceData  implements Serializable {
 
 	/**
@@ -24,6 +26,7 @@ public class PriceData  implements Serializable {
 	private ProductData productData;
 	private ShopData shopData;
 	private Price price;
+	private Date date;
 	
 	public PriceData() {
 	}
@@ -33,10 +36,11 @@ public class PriceData  implements Serializable {
 		this.productData=productData;
 	}
 	
-	public PriceData(ProductData productData, ShopData shopData, Price p){
+	public PriceData(ProductData productData, ShopData shopData, Price p, Date date){
 		this(productData);
 		this.shopData=shopData;
 		this.price = p;
+		this.date = date;
 	}
 	
 	@Override
@@ -67,4 +71,14 @@ public class PriceData  implements Serializable {
 	public void setPrice(Price p) {
 		this.price = p;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 }

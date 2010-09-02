@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.server.DBConnection;
@@ -94,7 +95,8 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 					list.add(new PriceData(
 							tempProduct, 
 							tempShop,
-							new Price(res.getInt("price"), 23, 8, "€", 1)));
+							new Price(res.getInt("price"), 23, 8, "€", 1), 
+							new Date(res.getDate("created_at").getTime())));
 				}
 				
 				
