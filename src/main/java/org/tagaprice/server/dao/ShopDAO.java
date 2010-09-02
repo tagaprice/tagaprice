@@ -82,6 +82,7 @@ public class ShopDAO implements DAOClass<ShopData> {
 
 		pstmt.setString(4, shop.getImageSrc());
 
+		
 		if (shop.getLat() != null && shop.getLng() != null) {
 			pstmt.setDouble(5, shop.getLat());
 			pstmt.setDouble(6, shop.getLng());

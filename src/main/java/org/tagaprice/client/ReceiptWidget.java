@@ -165,7 +165,6 @@ public class ReceiptWidget extends InfoBoxComposite {
 		}
 		
 		for(ProductData pd: receiptData.getProductData()){
-			System.out.println("pd: "+pd.getTitle());
 			addProduct(pd);
 		}
 		

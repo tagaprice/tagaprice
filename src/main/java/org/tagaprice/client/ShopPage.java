@@ -23,6 +23,8 @@ import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.shared.Address;
+import org.tagaprice.shared.Country;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyValidator;
@@ -31,13 +33,28 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MarkerDragEndHandler;
+import com.google.gwt.maps.client.event.MarkerDragEndHandler.MarkerDragEndEvent;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LocationCallback;
+import com.google.gwt.maps.client.geocode.Placemark;
+import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -59,12 +76,24 @@ public class ShopPage extends InfoBoxComposite {
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	private PriceMapWidget priceMap;
 	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
+	private MapWidget mapWidget = new MapWidget();
+	private Marker marker;
+	private Geocoder geoCoder = new Geocoder();
+	
+	//Address
+	private MorphWidget street = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget zip = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget county = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget country = new MorphWidget("", Datatype.STRING, true);
+
+	
 	
 	public ShopPage(ShopData _shopData, Type _type){
 		init(vePa1);
 		this.shopData=_shopData;
 		this.type=_type;
 		
+		//shopData.setAddress(new Address("Zerggasse", "Vienna", new Country("at", "Austria", "Österreich"), 48.221699, 16.372156));
 		
 		//Move PropertyData to hashPropertyData
 		for(PropertyData pd:this.shopData.getProperties()){
@@ -116,10 +145,129 @@ public class ShopPage extends InfoBoxComposite {
 		vePa2.add(new RatingWidget(shopData.getRating(), false));
 		
 		
-		//vePa1.add(new ShopPreview(this.shopData, true));
+		//Add Adress and map
+		mapWidget.setZoomLevel(14);
+		mapWidget.setWidth("100%");
+		mapWidget.setHeight("100px");
+		MarkerOptions makerOption = MarkerOptions.newInstance();
+		makerOption.setDraggable(true);
+		if(shopData.getAddress().getLat()!=null){
+			mapWidget.setCenter(LatLng.newInstance(shopData.getAddress().getLat(),shopData.getAddress().getLng()));
+			marker = new Marker(LatLng.newInstance(shopData.getAddress().getLat(),shopData.getAddress().getLng()), makerOption);
+		}else{
+			marker = new Marker(mapWidget.getCenter(), makerOption);
+		}
+		mapWidget.addOverlay(marker);
+		vePa1.add(mapWidget);
+		
+		Grid adressGrid = new Grid(4, 2);
+		adressGrid.setWidth("100%");
+		adressGrid.getCellFormatter().setWidth(0, 0, "100%");
+		
+		//Name Grid
+		adressGrid.setText(0, 0, "Street");
+		adressGrid.setText(1, 0, "ZIP");
+		adressGrid.setText(2, 0, "County");
+		adressGrid.setText(3, 0, "Country");	
+		
+		//AddWidgets
+		adressGrid.setWidget(0, 1, street);
+		adressGrid.setWidget(1, 1, zip);
+		adressGrid.setWidget(2, 1, county);
+		adressGrid.setWidget(3, 1, country);
+		
+		//SetText
+		street.setText(shopData.getAddress().getStreet());
+		//zip.setText(shopData.getAddress().get);
+		county.setText(shopData.getAddress().getCity());
+		country.setText(shopData.getAddress().getCountry().getCode());
+		
+		//Width
+		//street.setWidth("100%");
+		//zip.setWidth("100%");
+		//county.setWidth("100%");
+		//country.setWidth("100%");
+		
+		adressGrid.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(1, 0, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(2, 0, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(3, 0, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(0, 1, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(1, 1, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(2, 1, "RegistrationPage-Row");
+		adressGrid.getCellFormatter().setStyleName(3, 1, "RegistrationPage-Row");
+		vePa1.add(adressGrid);
+		
 		
 		
 		//Listener
+		//Map Lister
+		marker.addMarkerDragEndHandler(new MarkerDragEndHandler() {
+			
+			@Override
+			public void onDragEnd(MarkerDragEndEvent event) {
+				shopData.getAddress().setCoordinates(event.getSender().getLatLng().getLatitude(), event.getSender().getLatLng().getLongitude());
+				
+				geoCoder.getLocations(event.getSender().getLatLng(), new LocationCallback() {
+					
+					@Override
+					public void onSuccess(JsArray<Placemark> locations) {
+						
+						shopData.getAddress().setAddress(
+								locations.get(0).getStreet(), 
+								locations.get(0).getCity(), 
+								new Country(
+										locations.get(0).getCountry().toLowerCase(), 
+										locations.get(0).getCountry(), 
+										locations.get(0).getCountry()));
+						
+						street.setText(locations.get(0).getStreet());
+						zip.setText(locations.get(0).getPostalCode());
+						county.setText(locations.get(0).getCounty());
+						country.setText(locations.get(0).getCountry());
+						
+					}
+					
+					@Override
+					public void onFailure(int statusCode) {
+						//TODO here
+						System.out.println("not Address found");
+						
+					}
+				});
+				
+				
+				showSave();	
+			}
+		});
+		
+		street.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onError(Datatype errorType) {}			
+			public void onEmpty() {autoSetAdressPosition();}
+		});
+		
+		zip.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onError(Datatype errorType) {}			
+			public void onEmpty() {autoSetAdressPosition();}
+		});
+		
+		county.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onError(Datatype errorType) {}			
+			public void onEmpty() {autoSetAdressPosition();}
+		});
+		
+		country.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+			public void onSuccess(Datatype errorType) {	autoSetAdressPosition();}			
+			public void onError(Datatype errorType) {}			
+			public void onEmpty() {autoSetAdressPosition();}
+		});
+		
+		
+		
+		//title Lister
 		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
 			
 			@Override
@@ -181,6 +329,41 @@ public class ShopPage extends InfoBoxComposite {
 		vePa1.add(bottomInfo);
 	}
 	
+	private void autoSetAdressPosition(){
+		geoCoder.getLocations(street.getText().trim()+", "
+				+zip.getText().trim()+", "
+				+county.getText().trim()+", "
+				+country.getText().trim(), new LocationCallback() {
+					
+					@Override
+					public void onSuccess(JsArray<Placemark> locations) {
+						shopData.getAddress().setAddress(
+								street.getText().trim(), 
+								locations.get(0).getCity(), 
+								new Country(
+										locations.get(0).getCountry().toLowerCase(), 
+										locations.get(0).getCountry(), 
+										locations.get(0).getCountry()));
+						
+						//street.setText(locations.get(0).getStreet());
+						zip.setText(locations.get(0).getPostalCode());
+						county.setText(locations.get(0).getCounty());
+						country.setText(locations.get(0).getCountry());
+						
+						shopData.getAddress().setCoordinates(
+								locations.get(0).getPoint().getLatitude(),
+								locations.get(0).getPoint().getLongitude());
+						
+						mapWidget.setCenter(locations.get(0).getPoint());
+						marker.setLatLng(locations.get(0).getPoint());
+					}
+					
+					@Override
+					public void onFailure(int statusCode) {
+						System.out.println("can't find address");						
+					}
+				});
+	}
 
 	private void drawTypeWidget(){
 		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
@@ -298,6 +481,8 @@ public class ShopPage extends InfoBoxComposite {
 							topSave.setText("Save");
 							if(shopData.getId()==null){
 								History.newItem("shop/get&id="+result.getId());
+							}else{
+								shopData=result;
 							}
 						}
 						
