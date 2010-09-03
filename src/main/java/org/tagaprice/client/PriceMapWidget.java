@@ -26,6 +26,7 @@ import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -219,7 +220,7 @@ public class PriceMapWidget extends Composite {
 				});
 			}
 			priceTable.setWidget(row, 2+pinOff+colOff, new RatingWidget(pd.getProductData().getRating(), false));
-			priceTable.setText(row, 3+pinOff+colOff, pd.getDate().toString());
+			priceTable.setText(row, 3+pinOff+colOff, DateTimeFormat.getLongDateFormat().format(pd.getDate()));
 			priceTable.setText(row, 4+pinOff+colOff, ""+(pd.getPrice().getPrice()/100.00)+""+pd.getPrice().getCurrency().getTitle());
 			
 			if(!type.equals(PriceMapType.SHOP))

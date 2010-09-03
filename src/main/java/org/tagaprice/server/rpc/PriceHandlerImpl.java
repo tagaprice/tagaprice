@@ -79,7 +79,7 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 					String sql = "SELECT * FROM receiptentry ree " +
 					"INNER JOIN receipt re " +
 					"ON re.rid=ree.rid " +
-					"WHERE ree.pid = ? ";
+					"WHERE ree.pid = ? AND re.draft=false";
 					
 					pstmt = db.prepareStatement(sql);
 					pstmt.setLong(1, id);
@@ -99,17 +99,14 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 								new Price(res.getInt("price"), 23, 8, "€", 1), 
 								new Date(res.getDate("created_at").getTime())));
 					}
-					
-					
-				
-				
+									
 			}
 			
 			if(type.equals(PriceMapType.SHOP)){
 				String sql = "SELECT * FROM receiptentry ree " +
 				"INNER JOIN receipt re " +
 				"ON re.rid=ree.rid " +
-				"WHERE re.sid = ? ";
+				"WHERE re.sid = ? AND re.draft=false";
 				
 				pstmt = db.prepareStatement(sql);
 				pstmt.setLong(1, id);

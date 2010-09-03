@@ -9,6 +9,7 @@ import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
@@ -48,7 +49,7 @@ public class ReceiptListPage extends InfoBoxComposite {
 						Label title = new Label(pd.getTitle()+": "+pd.getId());
 						if(pd.getDraft())title.setText(title.getText()+" [DRAFT]");
 						table.setWidget(c, 0, title);
-						table.setText(c, 1, pd.getDate().toString());
+						table.setText(c, 1, DateTimeFormat.getLongDateFormat().format(pd.getDate()));
 						table.setText(c, 2, ""+(pd.getTotalPrice()/100.00));
 						
 						totalPrice=totalPrice+pd.getTotalPrice();
