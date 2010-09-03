@@ -41,27 +41,31 @@ public class ReceiptListPage extends InfoBoxComposite {
 					table.setText(0, 1, "Date");
 					table.setText(0, 2, "Price [€]");
 					
+					long totalPrice = 0;
+					
 					//get Rows
 					for(final ReceiptData pd: result){
 						Label title = new Label(pd.getTitle()+": "+pd.getId());
 						if(pd.getDraft())title.setText(title.getText()+" [DRAFT]");
 						table.setWidget(c, 0, title);
 						table.setText(c, 1, pd.getDate().toString());
-						table.setText(c, 2, "Price");
+						table.setText(c, 2, ""+(pd.getTotalPrice()/100.00));
+						
+						totalPrice=totalPrice+pd.getTotalPrice();
 						
 						title.addClickHandler(new ClickHandler() {							
 							@Override
 							public void onClick(ClickEvent event) {
 								History.newItem("receipt/get&id="+pd.getId());							
 							}
-						});
-						
-						
+						});						
 						c++;
 					}
 					
 					
 					vePa1.add(new TitlePanel("MyReceipts", table, Level.H2));
+					
+					vePa1.add(new Label("Total Price: "+(totalPrice/100.00)+"[€]"));
 					
 				}
 				

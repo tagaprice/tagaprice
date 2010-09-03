@@ -168,5 +168,15 @@ public class ReceiptData extends Entity {
 		return "receipt";
 	}
 	
+	
+	public long getTotalPrice(){
+		
+		long totalPrice = 0;
+		for(ProductData pd: productData){
+			totalPrice= totalPrice+pd.getAvgPrice().getPrice();
+		}
+		
+		return totalPrice;
+	}
 	// TODO implement missing ReceiptData.equals()
 }
