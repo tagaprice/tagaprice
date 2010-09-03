@@ -92,7 +92,7 @@ public class HomePage extends InfoBoxComposite {
 						
 				}
 			}));
-			grid.setWidget(1, 1, new ImageTextButton("Drafts", new Image(MyResources.INSTANCE.productPriview()), "receipt/drafts"));
+			grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(MyResources.INSTANCE.productPriview()), "receipt/list"));
 		}else{
 			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(MyResources.INSTANCE.productPriview()), "user/login"));	
 			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(MyResources.INSTANCE.productPriview()), "user/registration/new"));		

@@ -57,6 +57,8 @@ public class TaPManager {
 				if(historyToken[0].equals("receipt/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showReceiptPage(new ReceiptData(Long.parseLong(equalToken[1])));
+				}else if(historyToken[0].equals("receipt/list")){
+					uiMng.showReceiptsList();
 				}else if(historyToken[0].equals("product/get")){
 					String[] equalToken = historyToken[1].split("=");
 					TaPMng.showProductPage(Long.parseLong(equalToken[1]));					

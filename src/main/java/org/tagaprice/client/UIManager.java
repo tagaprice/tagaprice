@@ -95,6 +95,22 @@ public class UIManager extends InfoBoxComposite {
 		
 		
 	}
+	
+	public void showReceiptsList(){
+		waitingPage();
+		GWT.runAsync(new RunAsyncCallback() {
+			
+			@Override
+			public void onSuccess() {
+				centerPage.setWidget(new ReceiptListPage());				
+			}
+			
+			@Override
+			public void onFailure(Throwable reason) {
+				showInfo("code Download Failed", BoxType.WARNINGBOX);				
+			}
+		});
+	}
 
 
 	public void showProduct(ProductData productData, Type type){
