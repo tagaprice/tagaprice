@@ -37,7 +37,26 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	}
 
 	public void getUserReceipts(ArrayList<ReceiptData> receipt, long uid) throws SQLException, NotFoundException{
+		PreparedStatement pstmt;
 		
+		String sql = "SELECT rid FROM " +
+				"receipt re " +
+				"INNER JOIN entity en " +
+				"ON (en.ent_id=re.rid) " +
+				"INNER JOIN entityrevision enr " +
+				"ON (en.current_revision=enr.rev AND en.ent_id=enr.ent_id) " +
+				"WHERE en.creator=? ";
+		
+		pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, uid);
+		
+		ResultSet resSet = pstmt.executeQuery();
+		
+		while(resSet.next()){
+			ReceiptData temp = new ReceiptData(resSet.getLong("rid"));
+			get(temp);
+			receipt.add(temp);
+		}
 	}
 	
 	
