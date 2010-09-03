@@ -36,6 +36,11 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		productDAO = new ProductDAO(db);
 	}
 
+	public void getUserReceipts(ArrayList<ReceiptData> receipt, long uid) throws SQLException, NotFoundException{
+		
+	}
+	
+	
 	@Override
 	public void get(ReceiptData receipt) throws SQLException, NotFoundException {
 		PreparedStatement pstmt;
@@ -161,9 +166,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 				pstmt.executeUpdate();
 			}
 			
-		}
-
-		
+		}		
 		
 	}
 	

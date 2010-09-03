@@ -14,9 +14,12 @@
 */
 package org.tagaprice.shared.rpc;
 
+import java.util.ArrayList;
+
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -30,6 +33,8 @@ public interface ReceiptHandler extends RemoteService {
 	 * @throws IllegalArgumentException
 	 */
 	ReceiptData get(ReceiptData data) throws IllegalArgumentException, InvalidLoginException;
+	
+	ArrayList<ReceiptData> getUserReceipts() throws IllegalArgumentException, InvalidLoginException;
 	
 	ReceiptData save(ReceiptData data) throws IllegalArgumentException, InvalidLoginException;
 }

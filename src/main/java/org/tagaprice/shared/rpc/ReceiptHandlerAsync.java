@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared.rpc;
 
+import java.util.ArrayList;
+
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -24,6 +26,10 @@ public interface ReceiptHandlerAsync {
 	void get(ReceiptData data, AsyncCallback<ReceiptData> callback) 
 		throws IllegalArgumentException, InvalidLoginException;
 
+	void getUserReceipts(AsyncCallback<ArrayList<ReceiptData>> callback)
+		throws IllegalArgumentException, InvalidLoginException;
+	
 	void save(ReceiptData data, AsyncCallback<ReceiptData> callback) 
 		throws IllegalArgumentException, InvalidLoginException;
+	
 }

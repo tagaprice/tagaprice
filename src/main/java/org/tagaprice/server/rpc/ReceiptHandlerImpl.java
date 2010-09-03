@@ -81,12 +81,28 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 			throw new IllegalArgumentException(e);
 		}
 				
-		return data;
-
-		
-		
+		return data;		
 		
 	}
+	
+	@Override
+	public ArrayList<ReceiptData> getUserReceipts()
+			throws IllegalArgumentException, InvalidLoginException {
+		
+		ArrayList<ReceiptData> list = new ArrayList<ReceiptData>();
+		
+		try {
+			receiptDao.getUserReceipts(list, loginDao.getId(getSid()));
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
+		}
+		
+		
+		return list;
+	}
+	
 
 	@Override
 	public ReceiptData save(ReceiptData data) throws IllegalArgumentException, InvalidLoginException {
