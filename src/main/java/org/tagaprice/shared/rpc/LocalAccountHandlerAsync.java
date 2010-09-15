@@ -19,8 +19,10 @@ import org.tagaprice.shared.Address;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface LocalAccountHandlerAsync {
-	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback);
-	void checkMailAvailability(String email, AsyncCallback<Boolean> callback);
+	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback) 
+		throws IllegalArgumentException;
+	void checkMailAvailability(String email, AsyncCallback<Boolean> callback)
+		throws IllegalArgumentException;
 
 	void registerNewUser(
 			String username, 
@@ -30,14 +32,16 @@ public interface LocalAccountHandlerAsync {
 			String confirmEmail,
 			Address address, 
 			boolean gtc,
-			AsyncCallback<Boolean> callback);
+			AsyncCallback<Boolean> callback) 
+		throws IllegalArgumentException;
 	
-	void login(String username, String password, AsyncCallback<String> callback);
+	void login(String username, String password, AsyncCallback<String> callback)
+		throws IllegalArgumentException;
 	
-	void getId(AsyncCallback<Long> callback);
+	void getId(AsyncCallback<Long> callback) throws IllegalArgumentException;
 	
-	void logout(AsyncCallback<Boolean> callback);
+	void logout(AsyncCallback<Boolean> callback) throws IllegalArgumentException;
 	
-	void confirm(String confirm, AsyncCallback<Boolean> callback);
+	void confirm(String confirm, AsyncCallback<Boolean> callback)throws IllegalArgumentException;
 
 }
