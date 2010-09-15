@@ -73,7 +73,7 @@
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>Price</servlet-name>
+		<servlet-name>Unit</servlet-name>
 		<url-pattern>/tagapriceui/rpc/unit</url-pattern>
 	</servlet-mapping>
 	
