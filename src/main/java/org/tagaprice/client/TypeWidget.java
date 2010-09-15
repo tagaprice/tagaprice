@@ -40,6 +40,10 @@ public class TypeWidget extends Composite{
 	PopupPanel typeItems = new PopupPanel(true);
 	TypeWidgetHandler handler;
 	
+	//Root elem
+	Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
+	int localeId;
+	
 	/**
 	 * 
 	 * @param type If type is root, only one arrow and no text is displayed. 
@@ -48,7 +52,9 @@ public class TypeWidget extends Composite{
 	public TypeWidget(Type type, TypeWidgetHandler handler) {
 		this.type=type;
 		this.handler=handler;
-				
+		
+		localeId = type.getLocaleId();
+		
 		//hoPa1.setWidth("100%");
 		initWidget(hoPa1);
 		setStyleName("TypeWidget");
@@ -82,6 +88,46 @@ public class TypeWidget extends Composite{
 						
 					}
 				});
+				
+				arrow.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						typeItems.setWidget(new Label("Loading..."));					
+						HandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
+							
+							@Override
+							public void onSuccess(ArrayList<Type> result) {
+								
+								VerticalPanel vePa1 = new VerticalPanel();
+								//vePa1.add(new Button("---"));
+								for(final Type ty:result){
+									Label tsb=new Label(ty.getTitle());
+									tsb.setStyleName("TypeWidget-Item");
+									tsb.addClickHandler(new ClickHandler() {									
+										@Override
+										public void onClick(ClickEvent event) {
+											handler.onChange(ty);
+											typeItems.hide();
+										}
+									});
+									
+									vePa1.add(tsb);
+								}
+								typeItems.setWidget(vePa1);
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								//TODO TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
+							}
+						});				
+						
+						typeItems.showRelativeTo(arrow);
+						
+					}
+				});
+				
 				
 				arrow.addMouseOverHandler(new MouseOverHandler() {
 					
@@ -126,50 +172,61 @@ public class TypeWidget extends Composite{
 			}while((iterType=iterType.getSuperType())!=null);
 		}
 
-		//Root elem
-		final Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
-		final int localeId = type.getLocaleId();
 		
+		//root
 		rootB.addMouseOverHandler(new MouseOverHandler() {
 			
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				typeItems.setWidget(new Label("Loading..."));					
-				HandlerManager.getTypeHandler().getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
-					
-					@Override
-					public void onSuccess(ArrayList<Type> result) {
-						
-						VerticalPanel vePa1 = new VerticalPanel();
-						//vePa1.add(new Button("---"));
-						for(final Type ty:result){
-							Label tsb=new Label(ty.getTitle());
-							tsb.setStyleName("TypeWidget-Item");
-							tsb.addClickHandler(new ClickHandler() {									
-								@Override
-								public void onClick(ClickEvent event) {
-									
-									handler.onChange(ty);
-									typeItems.hide();
-								}
-							});
-							
-							vePa1.add(tsb);
-						}
-						typeItems.setWidget(vePa1);
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						//TODO TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
-					}
-				});				
-				
-				typeItems.showRelativeTo(rootB);
-				
+				openRootArrow();				
+			}
+		});
+		
+		rootB.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				openRootArrow();				
 			}
 		});
 		
 		hoPa1.insert(rootB,0);	
+	}
+	
+
+	
+	private void openRootArrow(){
+		typeItems.setWidget(new Label("Loading..."));					
+		HandlerManager.getTypeHandler().getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<Type> result) {
+				
+				VerticalPanel vePa1 = new VerticalPanel();
+				//vePa1.add(new Button("---"));
+				for(final Type ty:result){
+					Label tsb=new Label(ty.getTitle());
+					tsb.setStyleName("TypeWidget-Item");
+					tsb.addClickHandler(new ClickHandler() {									
+						@Override
+						public void onClick(ClickEvent event) {
+							
+							handler.onChange(ty);
+							typeItems.hide();
+						}
+					});
+					
+					vePa1.add(tsb);
+				}
+				typeItems.setWidget(vePa1);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				//TODO TaPMng.getInfoBox().showInfo("typeWidget Error", BoxType.WARNINGBOX);
+			}
+		});				
+		
+		typeItems.showRelativeTo(rootB);
 	}
 }
