@@ -14,14 +14,11 @@
 */
 package org.tagaprice.shared;
 
-import java.io.Serializable;
-
 /**
  * This class implements a rectangular BoundingBox.
  * @author MK
  */
-public class BoundingBox implements Serializable
-{
+public class BoundingBox implements Serializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 	private double x1, y1;
@@ -105,5 +102,9 @@ public class BoundingBox implements Serializable
 	
 	public String toString() {
 		return "x1: "+x1+", y1: "+y1+", x2: "+x2+", y2: "+y2;
+	}
+
+	public String getSerializeName() {
+		return "boundingBox";
 	}
 }
