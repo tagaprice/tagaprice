@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>8.4-701.jdbc4</version>
+			<version>9.0-801.jdbc4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.8.2</version>
 		</dependency>
 	</dependencies>
 	<build>
