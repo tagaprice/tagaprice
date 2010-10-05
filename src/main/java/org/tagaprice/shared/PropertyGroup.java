@@ -23,13 +23,19 @@ import java.util.ArrayList;
  * 
  * **/
 public class PropertyGroup implements Serializable {
+	public enum GroupType implements Serializable {
+		LIST, NUTRITIONFACTS;
+
+		public String getSerializeName() {
+			return "propertyGroupType";
+		}
+	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String title;
-	public enum GroupType {LIST, NUTRITIONFACTS}
 	private GroupType type;
 	private ArrayList<PropertyDefinition>  groupElements;
 	

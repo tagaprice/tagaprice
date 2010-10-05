@@ -20,8 +20,12 @@ package org.tagaprice.shared;
 public class PropertyDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	public enum Datatype {
-	    STRING, DOUBLE, INT	
+	public enum Datatype implements Serializable {
+	    STRING, DOUBLE, INT;
+
+	    public String getSerializeName() {
+		    return "propertyDatatype";
+	    }
 	}
 
 	private String name;

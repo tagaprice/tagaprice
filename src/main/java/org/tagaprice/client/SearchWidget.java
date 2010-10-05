@@ -20,6 +20,7 @@ import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.ShopData;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -37,7 +38,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class SearchWidget extends Composite {
 
-	public enum SearchType {ALL, PRODCUT, SHOP}
+	public enum SearchType implements Serializable {
+		ALL, PRODCUT, SHOP;
+
+		@Override
+		public String getSerializeName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	}
 	private TextBox searchBox = new TextBox();
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private VerticalPanel vePa2 = new VerticalPanel();
