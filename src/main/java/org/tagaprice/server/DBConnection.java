@@ -33,7 +33,6 @@ public class DBConnection {
 	 * constructor
 	 * 
 	 * Tries to get the DB configuration from the file jdbc.properties in the classpath.
-	 * If jdbc.properties isn't found, jdbc_testing.properties is opened.  
 	 * @throws FileNotFoundException if jdbc_testing.properties isn't found 
 	 * @throws IOException if any other property-file related problem occurs
 	 */
@@ -50,7 +49,7 @@ public class DBConnection {
 		if (dataSource == null)	{
 
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
-			_applyProperties(ds, "/jdbc.properties");
+			_applyProperties(ds, "jdbc.properties");
 			dataSource = ds;
 		}
 	}
