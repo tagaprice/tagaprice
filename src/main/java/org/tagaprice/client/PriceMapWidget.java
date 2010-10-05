@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
+import org.tagaprice.shared.Serializable;
 
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
@@ -40,7 +41,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class PriceMapWidget extends Composite {
 
-	public enum PriceMapType {PRODUCT, SHOP, PRODUCTGROUP, SHOPGROUP}
+	public enum PriceMapType implements Serializable {
+		PRODUCT, SHOP, PRODUCTGROUP, SHOPGROUP;
+
+		public String getSerializeName() {
+			return "priceMapType";
+		}
+	}
 	
 	private TitlePanel titlePanel;
 	private VerticalPanel vePa1 = new VerticalPanel();
