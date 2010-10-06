@@ -24,12 +24,12 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HomePage extends InfoBoxComposite {
 
@@ -105,7 +105,7 @@ public class HomePage extends InfoBoxComposite {
 }
 
 class ImageTextButton extends Composite {
-	VerticalPanel vePa1 = new VerticalPanel();
+	FlowPanel vePa1 = new FlowPanel();
 	Label label;
 	Image image;
 	
@@ -133,9 +133,9 @@ class ImageTextButton extends Composite {
 		image = pic;
 		
 		vePa1.add(image);
-		vePa1.setCellHorizontalAlignment(image, HasHorizontalAlignment.ALIGN_CENTER);
 		vePa1.add(label);
-		vePa1.setCellHorizontalAlignment(label, HasHorizontalAlignment.ALIGN_CENTER);
+
+		setStyleName("ImageTextButton");
 	}
 	
 	private void addClickHandler(ClickHandler handler){
