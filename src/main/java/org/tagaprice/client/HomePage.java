@@ -60,10 +60,10 @@ public class HomePage extends InfoBoxComposite {
 		
 		
 		grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(MyResources.INSTANCE.productPriview()), "product/new"));
-		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(MyResources.INSTANCE.productPriview()), "shop/new"));		
+		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(MyResources.INSTANCE.newShopButton()), "shop/new"));		
 		
-		if(Cookies.getCookie("TaPSId")!=null){
-			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(MyResources.INSTANCE.productPriview()), "user/logout"));	
+		if(Cookies.getCookie("TaPSId")!=null){ /// TODO check session validity
+			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(MyResources.INSTANCE.loginButton()), "user/logout"));	
 			grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(MyResources.INSTANCE.productPriview()), new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
@@ -94,8 +94,8 @@ public class HomePage extends InfoBoxComposite {
 			}));
 			grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(MyResources.INSTANCE.productPriview()), "receipt/list"));
 		}else{
-			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(MyResources.INSTANCE.productPriview()), "user/login"));	
-			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(MyResources.INSTANCE.productPriview()), "user/registration/new"));		
+			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(MyResources.INSTANCE.loginButton()), "user/login"));	
+			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(MyResources.INSTANCE.loginButton()), "user/registration/new"));		
 		}
 
 		
@@ -135,7 +135,7 @@ class ImageTextButton extends Composite {
 		vePa1.add(image);
 		vePa1.add(label);
 
-		setStyleName("ImageTextButton");
+		setStyleName("button");
 	}
 	
 	private void addClickHandler(ClickHandler handler){

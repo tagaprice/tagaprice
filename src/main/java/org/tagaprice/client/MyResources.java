@@ -77,5 +77,12 @@ public interface MyResources extends ClientBundle {
     //HomeButton
     @Source(PATH+"home.png")
     ImageResource home();
+
+    // image buttons
+    @Source(PATH+"buttons/login.png")
+    ImageResource loginButton();
+    
+    @Source(PATH+"buttons/shop.png")
+    ImageResource newShopButton();
 }
 
