@@ -27,6 +27,13 @@ input{
 	border: 1px solid #9e9b9b;
 }
 
+input.searchBox {
+	background: url("images/search.png") 5px center no-repeat;
+	border-radius: 8px;
+	padding: 2px;
+	padding-left: 25px;
+}
+
 .RatingWidget0Stars{
   background-image: url("images/rating0.png");
 }
