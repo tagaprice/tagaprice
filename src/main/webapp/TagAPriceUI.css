@@ -165,6 +165,8 @@ input{
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	margin-bottom: 3px;
+	font-weight: bold;
+	padding: 3px 10px;
 	color:white;
 }
 
