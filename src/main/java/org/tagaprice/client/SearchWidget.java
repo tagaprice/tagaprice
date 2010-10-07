@@ -71,7 +71,7 @@ public class SearchWidget extends Composite {
 		
 		init(searchType, showNew, popup, selectionType);	
 		
-		
+		searchBox.setStyleName("searchBox");
 		//Search	
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			
