@@ -161,7 +161,9 @@ input{
 
 .TitlePanel-Title-H2{
 	font-size:medium;
-	background-color: #9e9b9b;
+	background: #ffd42a url('images/headerbgr.png') repeat-y;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 	margin-bottom: 3px;
 	color:white;
 }
