@@ -21,7 +21,7 @@ div.button {
 }
 
 .button div {
-	background: url('button_circle.png') bottom center;
+	background: url('images/buttons/button_circle.png') bottom center;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
