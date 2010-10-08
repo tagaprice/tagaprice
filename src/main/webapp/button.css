@@ -9,6 +9,7 @@ div.button {
 	height: 64px;
 	width: 64px;
 	border-radius: 12px;
+	-moz-border-radius: 12px;
 	background-color: #fea;
 	font-size: 9px;
 	font-weight: bold;
@@ -29,6 +30,8 @@ div.button {
 	padding: 12px 0 0 0;
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
+	-moz-border-radius-bottomleft: 12px;
+	-moz-border-radius-bottomright: 12px;
 }
 
 .button img {
