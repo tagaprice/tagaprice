@@ -1,4 +1,0 @@
-syntax: glob
-.post_compile.sh
-jdbc.properties
-target
