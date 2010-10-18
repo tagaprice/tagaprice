@@ -3,7 +3,6 @@ package org.tagaprice.server.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.LocalAccountData;
@@ -89,7 +88,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		
 		if (account.getRev() == 1) {
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO localAccount (uid, password, salt) VALUES (?, md5(?||?), ?)");
-			String salt = _generateSalt(10);
+			String salt = LoginDAO.generateSalt(10);
 			pstmt.setLong(1, account.getId());
 			pstmt.setString(2, account.getPassword());
 			pstmt.setString(3, salt);
@@ -98,7 +97,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			
 			//Add confirmHash
 			PreparedStatement pstmt2 = db.prepareStatement("INSERT INTO confirmAccount (uid, confirm) VALUES (?, md5(?))");
-			String salt2 = _generateSalt(10);
+			String salt2 = LoginDAO.generateSalt(10);
 			pstmt2.setLong(1, account.getId());
 			pstmt2.setString(2, salt2);
 			pstmt2.executeUpdate();
@@ -111,20 +110,5 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			pstmt.setLong(2, account.getId());
 			pstmt.executeUpdate();
 		}
-	}
-
-	private static String _generateSalt(int len) {
-		Random rnd = new Random(System.currentTimeMillis());
-		String rc = "";
-
-		for (int i = 0; i < len; i++) {
-			int n = rnd.nextInt(62);
-			char c;
-			if (n < 26) c = (char)(n+(int)'a');
-			else if (n < 52) c = (char)(n-26+(int)'A');
-			else c = (char) (n-52+(int)'0');
-			rc += c;
-		}
-		return rc;
 	}
 }
