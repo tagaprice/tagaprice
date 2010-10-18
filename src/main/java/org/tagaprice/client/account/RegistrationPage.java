@@ -144,7 +144,7 @@ public class RegistrationPage extends InfoBoxComposite {
 					userNameLabel.setText("Username (More the 5 letters)");
 				}else{
 					userNameLabel.setText("Username (Check if used...)");
-					userHandler.isUsernameEvalabel(userName.getText().trim(), new AsyncCallback<Boolean>() {
+					userHandler.isUsernameAvailable(userName.getText().trim(), new AsyncCallback<Boolean>() {
 						
 						@Override
 						public void onSuccess(Boolean result) {

@@ -65,7 +65,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	@Override
 	public boolean checkMailAvailability(String email) throws IllegalArgumentException {		
 		try {
-			return dao.isEmailEvalable(email);
+			return dao.isEmailAvailable(email);
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);
 		} catch (NotFoundException e) {
@@ -73,13 +73,21 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		}
 	}
 
+	@Deprecated
 	@Override
 	public boolean isUsernameEvalabel(String username)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isUsernameAvailable(String username)
 			throws IllegalArgumentException {
 		
 		if(username.length()>=5){
 			try {
-				return dao.isUsernameEvalabel(username);
+				return dao.isUsernameAvailable(username);
 			} catch (SQLException e) {
 				throw new IllegalArgumentException(e);
 			} catch (NotFoundException e) {
@@ -209,5 +217,4 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 
 		return loginDao.getSid(cookies);
 	}
-
 }
