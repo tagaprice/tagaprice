@@ -18,8 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.http.Cookie;
-
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;

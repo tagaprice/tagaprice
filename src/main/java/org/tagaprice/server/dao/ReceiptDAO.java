@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.Country;
-import org.tagaprice.shared.Currency;
 import org.tagaprice.shared.Price;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Quantity;
@@ -24,14 +21,12 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class ReceiptDAO implements DAOClass<ReceiptData> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
-	private CountryDAO countryDAO;
 	private ShopDAO shopDAO;
 	private ProductDAO productDAO;
 	
 	public ReceiptDAO(DBConnection db) {
 		this.db=db;
 		entityDAO = new EntityDAO(db);
-		countryDAO = new CountryDAO(db);
 		shopDAO = new ShopDAO(db);
 		productDAO = new ProductDAO(db);
 	}
