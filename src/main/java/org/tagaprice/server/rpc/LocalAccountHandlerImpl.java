@@ -73,14 +73,6 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		}
 	}
 
-	@Deprecated
-	@Override
-	public boolean isUsernameEvalabel(String username)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public boolean isUsernameAvailable(String username)
 			throws IllegalArgumentException {
@@ -106,7 +98,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 		
 		//Check Valid
-		if(!(isUsernameEvalabel(username) &&
+		if(!(isUsernameAvailable(username) &&
 				password.equals(confirmPassword) &&
 				checkMailAvailability(email) &&
 				email.equals(confirmEmail) &&

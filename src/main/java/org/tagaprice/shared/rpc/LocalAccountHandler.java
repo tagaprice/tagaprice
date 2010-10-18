@@ -22,8 +22,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc/account")
 public interface LocalAccountHandler extends RemoteService {
-	@Deprecated
-	boolean isUsernameEvalabel(String username) throws IllegalArgumentException;	
 	boolean isUsernameAvailable(String username) throws IllegalArgumentException;	
 	boolean checkMailAvailability(String email) throws IllegalArgumentException;
 	boolean registerNewUser(

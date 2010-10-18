@@ -19,12 +19,6 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		accountDAO = new AccountDAO(db);
 	}
 	
-
-	@Deprecated
-	public boolean isEmailEvalable(String email) throws SQLException, NotFoundException, NotFoundException {
-		return isEmailAvailable(email);
-	}
-	
 	public boolean isEmailAvailable(String email) throws SQLException, NotFoundException, NotFoundException{
 		if(!email.trim().matches(".+@.+\\.[a-z]+")){
 			return false;
@@ -41,11 +35,6 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			return true;
 		}
 		return false;
-	}
-	
-	@Deprecated
-	public boolean isUsernameEvalabel(String username) throws SQLException, NotFoundException, NotFoundException {
-		return isUsernameAvailable(username);
 	}
 	
 	public boolean isUsernameAvailable(String username) throws SQLException, NotFoundException, NotFoundException {

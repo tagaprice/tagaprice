@@ -19,9 +19,6 @@ import org.tagaprice.shared.Address;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface LocalAccountHandlerAsync {
-	@Deprecated
-	void isUsernameEvalabel(String username, AsyncCallback<Boolean> callback) 
-		throws IllegalArgumentException;
 	void isUsernameAvailable(String username, AsyncCallback<Boolean> callback) 
 		throws IllegalArgumentException;
 	void checkMailAvailability(String email, AsyncCallback<Boolean> callback)
