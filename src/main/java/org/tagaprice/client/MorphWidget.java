@@ -18,11 +18,10 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -32,7 +31,7 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class MorphWidget extends SimplePanel {
 
-	Label label = new Label();
+	//Label label = new Label();
 	TextBox textBox = new TextBox();
 	Datatype type;
 	MorphWidgetErrorHandler handler;
@@ -43,92 +42,72 @@ public class MorphWidget extends SimplePanel {
 	 * @param _isEditable Sets text editable.
 	 */
 	public MorphWidget(String text, Datatype _type, boolean isEditable) {
-		setWidget(label);
-		label.setText(text);
-		textBox.setText(text);
+		setWidget(textBox);
 		type=_type;
 		this.setStyleName("MorphWidget");
-		
 		setWidth("140px");
 		
+		setText(text);
 		
-		
-		if(isEditable){
-			//css
-			if(!text.isEmpty()){
-				label.setStyleName("MorphWidgetText");
-			}else{
-				label.setStyleName("MorphWidgetBox");
+		textBox.addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				textBox.setStyleName("MorphWidgetEmpty");
 			}
-			textBox.setStyleName("MorphWidgetBox");
-			
-			addDomHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					if(textBox==null){
-						textBox=new TextBox();
-					}
-					
-					textBox.setText(label.getText());
-					setWidget(textBox);
-					textBox.setFocus(true);
-				}
-			}, ClickEvent.getType());
-			
-			
-			
-			textBox.addBlurHandler(new BlurHandler() {
-				
-				@Override
-				public void onBlur(BlurEvent event) {
-					if(textBox==null){
-						textBox=new TextBox();
-					}
-					
-					if(!textBox.getText().isEmpty()){
-						label.setStyleName("MorphWidgetText");
-						//TypeControll
-						if(type.equals(Datatype.INT)){
-							try{
-								Integer.parseInt(textBox.getText());
-								callSuccess(Datatype.INT);
-							} 
-							catch(NumberFormatException nfe) {	
-								callError(Datatype.INT);
-							}
-						}else if(type.equals(Datatype.DOUBLE)){
-							try{
-								Double.parseDouble(textBox.getText());
-								callSuccess(Datatype.DOUBLE);
-							} 
-							catch(NumberFormatException nfe) {		
-								callError(Datatype.DOUBLE);
-							}
-						}else if(type.equals(Datatype.STRING)){
-							//Do nothing
-							callSuccess(Datatype.STRING);
-						}
-					}else{
-						label.setStyleName("MorphWidgetBox");
-					}
-					
-					
-					//If Text is empty and wasn't empty before.
-					if(textBox.getText().isEmpty() && !label.getText().isEmpty())
-						callEmpty();
-					
-					
-					
-					label.setText(textBox.getText());
-					setWidget(label);
-	
-				}
-			});		
-			
-			
-		}
+		});
 		
+		textBox.addBlurHandler(new BlurHandler() {
+			
+			@Override
+			public void onBlur(BlurEvent event) {
+				setAutoStyle();
+				
+				if(!textBox.getText().isEmpty()){	
+					//TypeControll
+					if(type.equals(Datatype.INT)){
+						try{
+							Integer.parseInt(textBox.getText());
+							callSuccess(Datatype.INT);
+						} 
+						catch(NumberFormatException nfe) {	
+							callError(Datatype.INT);
+						}
+					}else if(type.equals(Datatype.DOUBLE)){
+						try{
+							Double.parseDouble(textBox.getText());
+							callSuccess(Datatype.DOUBLE);
+						} 
+						catch(NumberFormatException nfe) {		
+							callError(Datatype.DOUBLE);
+						}
+					}else if(type.equals(Datatype.STRING)){
+						//Do nothing
+						callSuccess(Datatype.STRING);
+					}
+				}
+					
+				
+				
+				
+				
+				//If Text is empty and wasn't empty before.
+				if(textBox.getText().isEmpty())
+					callEmpty();
+
+
+			}
+		});		
+		
+		
+	}
+	
+	private void setAutoStyle(){
+		if(textBox.getText().isEmpty()){
+			textBox.setStyleName("MorphWidgetEmpty");
+		}else{
+			textBox.setStyleName("MorphWidgetNotEmpty");
+		}
 	}
 	
 	
@@ -146,11 +125,10 @@ public class MorphWidget extends SimplePanel {
 	 */
 	public void setText(String text){
 		textBox.setText(text);
-		label.setText(text);
 		if(!text.isEmpty()){
-			label.setStyleName("MorphWidgetText");
+			textBox.setStyleName("MorphWidgetNotEmpty");
 		}else{
-			label.setStyleName("MorphWidgetBox");
+			textBox.setStyleName("MorphWidgetEmpty");
 		}
 	}
 	
@@ -160,7 +138,7 @@ public class MorphWidget extends SimplePanel {
 	 */
 	public void setWidth(String width){
 		textBox.setWidth(width);
-		label.setWidth(width);
+		//label.setWidth(width);
 	}
 	
 	/**

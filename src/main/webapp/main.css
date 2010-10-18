@@ -125,22 +125,25 @@ input.searchBox {
 	margin:1px;	
 }
 
-.MorphWidgetText:hover{
+.MorphWidgetEmpty{
 	height:18px;
 	border: 1px solid #9e9b9b;
 	cursor: text;
 }
 
-.MorphWidgetBox{
+.MorphWidgetNotEmpty{
 	height:18px;
-	border: none;
-	padding:0px;
-	margin:0px;
-	border: 1px solid #9e9b9b;
-	min-width:40px;
-	/*max-width:100px;*/
+	border: 0px;
 	cursor: text;
 }
+
+.MorphWidgetNotEmpty:hover{
+	height:18px;
+	border: 1px solid #9e9b9b;
+	cursor: text;
+}
+
+
 
 
 .DateWidget{
