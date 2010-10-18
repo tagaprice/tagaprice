@@ -1,5 +1,7 @@
 package org.tagaprice.server.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
@@ -177,11 +179,37 @@ public class LoginDAO {
         return rc.toString();
 	}
 	
-	public static String generateSalt(int len) {
-		if (rnd == null) {
-			rnd = new Random(System.currentTimeMillis());
+	private static long _getSeed() {
+		long rc = 0;
+
+		try {
+			FileInputStream in = new FileInputStream("/dev/urandom");
+			int n;
+
+			for (int i = 0; i < 8; i++) {
+				n = in.read();
+				if(n >= 0) {
+					rc *= 256;
+					rc += n;
+				}
+			}
 		}
+		catch (IOException e) { // /dev/urandom can't be read
+			/// TODO use log4j
+			System.err.println("Warning: using current time as random seed");
+			rc = System.currentTimeMillis();
+		}
+
+		return rc;
+	}
+
+	public static String generateSalt(int len) {
 		String rc = "";
+
+		// first time initialization
+		if (rnd == null) {
+			rnd = new Random(_getSeed());
+		}
 
 		for (int i = 0; i < len; i++) {
 			int n = rnd.nextInt(62);
