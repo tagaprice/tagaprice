@@ -11,8 +11,8 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 public class LoginDAO {
-
 	private DBConnection db;
+	private static Random rnd = null;
 	
 	public LoginDAO(DBConnection db) {
 		this.db=db;
@@ -177,8 +177,10 @@ public class LoginDAO {
         return rc.toString();
 	}
 	
-	public String generateSalt(int len) {
-		Random rnd = new Random(System.currentTimeMillis());
+	public static String generateSalt(int len) {
+		if (rnd == null) {
+			rnd = new Random(System.currentTimeMillis());
+		}
 		String rc = "";
 
 		for (int i = 0; i < len; i++) {
