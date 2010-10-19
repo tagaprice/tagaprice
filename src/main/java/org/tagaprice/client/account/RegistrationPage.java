@@ -198,7 +198,7 @@ public class RegistrationPage extends InfoBoxComposite {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if(email.getText().trim().matches(".+@.+\\.[a-z]+")){
+				if(email.getText().toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")){
 					emailLabel.setText("Email (Check if used...)");
 					
 					userHandler.checkMailAvailability(email.getText().trim(), new AsyncCallback<Boolean>() {
