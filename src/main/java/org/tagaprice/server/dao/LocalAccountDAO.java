@@ -1,10 +1,17 @@
 package org.tagaprice.server.dao;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.Mail;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -96,10 +103,33 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			
 			//Add confirmHash
 			PreparedStatement pstmt2 = db.prepareStatement("INSERT INTO confirmAccount (uid, confirm) VALUES (?, md5(?))");
-			String salt2 = LoginDAO.generateSalt(10);
+			String confirmationString = LoginDAO.generateSalt(10);
 			pstmt2.setLong(1, account.getId());
-			pstmt2.setString(2, salt2);
+			pstmt2.setString(2, confirmationString);
 			pstmt2.executeUpdate();
+			
+			// send confirmation mail
+			// TODO the confirmation mail shoudln't be sent from a DAO class (or should it?)
+			String msg = "You've just registered at tagaprice.org\n"
+				+"Please open the following link to confirm your registration"
+				+"http://tagaprice.org/#user/confirm/"+confirmationString;
+			
+			try {
+				HashMap<String, String> replacements = new HashMap<String, String>();
+				replacements.put("confirmId", confirmationString);
+				Mail.getInstance().send("regConfirm", new InternetAddress(account.getMail()), new HashMap<String, String>());
+			}
+			catch (AddressException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (account.getRev() < 1) throw new RevisionCheckException("invalid revision: "+account.getRev());
 		else if (account.getPassword() != null) {
