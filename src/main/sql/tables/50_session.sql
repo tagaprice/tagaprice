@@ -5,5 +5,6 @@ CREATE TABLE session (
 
 	PRIMARY KEY (sid),
 	FOREIGN KEY (uid) REFERENCES account(uid),
-	UNIQUE(uid)
 );
+
+CREATE INDEX session_uid_key on session(uid);
