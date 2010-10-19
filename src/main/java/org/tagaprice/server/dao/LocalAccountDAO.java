@@ -27,7 +27,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	}
 	
 	public boolean isEmailAvailable(String email) throws SQLException, NotFoundException, NotFoundException{
-		if(!email.trim().matches(".+@.+\\.[a-z][a-z]+")) {
+		if(!email.toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")) {
 			return false;
 		}
 		
