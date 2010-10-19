@@ -17,7 +17,11 @@ public class InitServlet extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void init() throws ServletException {
-		/// TODO add initialization code here
+		try {
+			Mail.init();
+		} catch (IOException e) {
+			throw new ServletException("mailing subsystem init failed: "+e.getMessage(), e);
+		}
 	}
 	
 	@Override
