@@ -27,12 +27,12 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	}
 	
 	public boolean isEmailAvailable(String email) throws SQLException, NotFoundException, NotFoundException{
-		if(!email.trim().matches(".+@.+\\.[a-z]+")){
+		if(!email.trim().matches(".+@.+\\.[a-z][a-z]+")) {
 			return false;
 		}
 		
 		
-		String sql = "SELECT *  FROM account WHERE (mail = ?)";
+		String sql = "SELECT uid FROM account WHERE LOWER(mail) = LOWER(?)";
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, email);
@@ -46,13 +46,10 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	
 	public boolean isUsernameAvailable(String username) throws SQLException, NotFoundException, NotFoundException {
 		String sql = "" +
-				"SELECT * FROM account " +
-				"INNER JOIN entity " +
-				"ON (entity.ent_id = account.uid) " +
-				"INNER JOIN entityrevision " +
-				"ON (entity.current_revision = entityrevision.rev " +
-				"AND entity.ent_id = entityrevision.ent_id) " +
-				"WHERE (entityrevision.title = ?)";
+				"SELECT uid FROM account a " +
+				"INNER JOIN entity e ON (e.ent_id = a.uid) " +
+				"INNER JOIN entityrevision er ON (e.current_revision = er.rev AND e.ent_id = er.ent_id) " +
+				"WHERE LOWER(er.title) = LOWER(?)";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, username);
 		ResultSet res = pstmt.executeQuery();
@@ -109,11 +106,6 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			pstmt2.executeUpdate();
 			
 			// send confirmation mail
-			// TODO the confirmation mail shoudln't be sent from a DAO class (or should it?)
-			String msg = "You've just registered at tagaprice.org\n"
-				+"Please open the following link to confirm your registration"
-				+"http://tagaprice.org/#user/confirm/"+confirmationString;
-			
 			try {
 				HashMap<String, String> replacements = new HashMap<String, String>();
 				replacements.put("confirmId", confirmationString);
