@@ -44,22 +44,6 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 		return false;
 	}
 	
-	public boolean isUsernameAvailable(String username) throws SQLException, NotFoundException, NotFoundException {
-		String sql = "" +
-				"SELECT uid FROM account a " +
-				"INNER JOIN entity e ON (e.ent_id = a.uid) " +
-				"INNER JOIN entityrevision er ON (e.current_revision = er.rev AND e.ent_id = er.ent_id) " +
-				"WHERE LOWER(er.title) = LOWER(?)";
-		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setString(1, username);
-		ResultSet res = pstmt.executeQuery();
-		
-		if(!res.next()){
-			return true;
-		}
-		return false;
-	}
-	
 	public boolean confirm(String confirm) throws SQLException, NotFoundException, NotFoundException{
 		String sql = "" +
 				"UPDATE account " +

@@ -140,27 +140,10 @@ public class RegistrationPage extends InfoBoxComposite {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if(userName.getText().trim().length()<5){
-					userNameLabel.setText("Username (More the 5 letters)");
+				if(userName.getText().trim().length()<1){
+					userNameLabel.setText("Name (must not be empty)");
 				}else{
-					userNameLabel.setText("Username (Check if used...)");
-					userHandler.isUsernameAvailable(userName.getText().trim(), new AsyncCallback<Boolean>() {
-						
-						@Override
-						public void onSuccess(Boolean result) {
-							if(result){
-								userNameLabel.setText("Username (available)");
-							}else{
-								userNameLabel.setText("Username (already in use)");
-							}
-							
-						}
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							System.out.println("Connection problem: "+caught);							
-						}
-					});
+					userNameLabel.setText("Name");
 				}
 			}
 		});

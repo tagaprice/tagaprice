@@ -19,8 +19,6 @@ import org.tagaprice.shared.Address;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface LocalAccountHandlerAsync {
-	void isUsernameAvailable(String username, AsyncCallback<Boolean> callback) 
-		throws IllegalArgumentException;
 	void checkMailAvailability(String email, AsyncCallback<Boolean> callback)
 		throws IllegalArgumentException;
 
@@ -35,7 +33,7 @@ public interface LocalAccountHandlerAsync {
 			AsyncCallback<Boolean> callback) 
 		throws IllegalArgumentException;
 	
-	void login(String username, String password, AsyncCallback<String> callback)
+	void login(String mail, String password, AsyncCallback<String> callback)
 		throws IllegalArgumentException;
 	
 	void getId(AsyncCallback<Long> callback) throws IllegalArgumentException;

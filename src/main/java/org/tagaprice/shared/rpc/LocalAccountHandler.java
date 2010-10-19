@@ -22,7 +22,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc/account")
 public interface LocalAccountHandler extends RemoteService {
-	boolean isUsernameAvailable(String username) throws IllegalArgumentException;	
 	boolean checkMailAvailability(String email) throws IllegalArgumentException;
 	boolean registerNewUser(
 			String username, 
@@ -35,12 +34,12 @@ public interface LocalAccountHandler extends RemoteService {
 	
 	/**
 	 * 
-	 * @param username
+	 * @param mail
 	 * @param password
 	 * @return SessionID
 	 * @throws IllegalArgumentException
 	 */
-	String login(String username, String password) throws IllegalArgumentException;
+	String login(String mail, String password) throws IllegalArgumentException;
 	
 	
 	Long getId() throws IllegalArgumentException, InvalidLoginException;

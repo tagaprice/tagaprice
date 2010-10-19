@@ -74,35 +74,18 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 
 	@Override
-	public boolean isUsernameAvailable(String username)
-			throws IllegalArgumentException {
-		
-		if(username.length()>=5){
-			try {
-				return dao.isUsernameAvailable(username);
-			} catch (SQLException e) {
-				throw new IllegalArgumentException(e);
-			} catch (NotFoundException e) {
-				throw new IllegalArgumentException(e);
-			}
-		}
-		
-		return false;
-	}
-
-	@Override
 	public boolean registerNewUser(String username, String password,
 			String confirmPassword, String email, String confirmEmail,
 			Address address, boolean gtc)
 			throws IllegalArgumentException {
 		
 		
-		//Check Valid
-		if(!(isUsernameAvailable(username) &&
-				password.equals(confirmPassword) &&
+		/// TODO add a class LocalAccountValidator and us it from both the client and the server side
+		//Check validity
+		if(!password.equals(confirmPassword) &&
 				checkMailAvailability(email) &&
 				email.equals(confirmEmail) &&
-				gtc))
+				gtc)
 			return false;
 		
 		//Start with saving and sending confirm email
@@ -157,16 +140,16 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	@Override
-	public String login(String username, String password)
+	public String login(String mail, String password)
 			throws IllegalArgumentException {		
 		
 			try {
-				return loginDao.login(username, password);
+				return loginDao.login(mail, password);
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException(e);
 			} catch (SQLException e) {
 				throw new IllegalArgumentException(e);
-			}		
+			}
 		
 	}
 	

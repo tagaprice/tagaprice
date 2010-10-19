@@ -20,95 +20,25 @@ public class LoginDAO {
 		this.db=db;
 	}
 	
-	public String login(String username, String password) throws SQLException, NoSuchAlgorithmException{	
-		
-		String sql = "" +
-				"SELECT la.uid, locale_id, er.title, la.password, la.salt " +
-				"FROM localaccount la " +
-				"INNER JOIN account ac " +
-				"ON la.uid=ac.uid " +
-				"INNER JOIN entity en " +
-				"ON en.ent_id=la.uid " +
-				"INNER JOIN entityrevision er " +
-				"ON en.current_revision=er.rev AND en.ent_id=er.ent_id " +
-				"WHERE ac.locked='false' " +
-				"AND er.title = ?";
-		
+	public String login(String mail, String password) throws SQLException, NoSuchAlgorithmException{	
+		String sql = "SELECT uid FROM localAccount INNER JOIN account USING(uid) " +
+			"WHERE mail = ? AND password = md5(?||salt)";
 		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setString(1, username);
+		pstmt.setString(1, mail);
+		pstmt.setString(2, password);
 		ResultSet res = pstmt.executeQuery();
 		
 		if(!res.next()) return null;
+
+		// users are allowed to have several active sessions simultaneously
+		String sid = generateSalt(32);
+		sql = "INSERT INTO session (uid, sid) VALUES (?, ?)";
+		pstmt = db.prepareStatement(sql);
+		pstmt.setLong(1, res.getLong("uid"));
+		pstmt.setString(2, sid);
+		pstmt.executeUpdate();
 			
-		String salt = res.getString("salt");
-		String pwdHash = res.getString("password");	
-		
-		if(md5(password+salt).equals(pwdHash)){		
-			
-			//is Sid available and between 24h
-			sql = "SELECT uid, sid, last_active FROM session " +
-					"WHERE uid = ? " +
-					"AND (last_active BETWEEN (NOW() - INTERVAL '1 day') AND NOW())";
-			
-			pstmt = db.prepareStatement(sql);
-			pstmt.setLong(1, res.getLong("uid"));
-			ResultSet res2 = pstmt.executeQuery();
-			
-			if(res2.next()){
-				//An valid Sid is available!
-				
-				//Update last_active
-				sql = "UPDATE session " +
-						"SET last_active = NOW() " +
-						"WHERE uid = ?";
-				pstmt = db.prepareStatement(sql);
-				pstmt.setLong(1, res.getLong("uid"));
-				
-				if(pstmt.executeUpdate()==0)return null;
-				
-				return res2.getString("sid");
-			}else{
-				//No Sid, or no Valid Sid is available!
-				String session = md5(generateSalt(20));
-				
-				//UID available?
-				sql = "SELECT * FROM session " +
-						"WHERE uid = ?";
-				pstmt = db.prepareStatement(sql);
-				pstmt.setLong(1, res.getLong("uid"));
-				ResultSet res3 = pstmt.executeQuery();
-				
-				if(res3.next()){
-					//UID available 
-					sql = "UPDATE session " +
-							"SET last_active = NOW(), " +
-							"sid = ? " +
-							"WHERE uid = ?";
-					pstmt = db.prepareStatement(sql);
-					pstmt.setString(1, session);
-					pstmt.setLong(2, res.getLong("uid"));
-					
-					if(pstmt.executeUpdate()==0)return null;
-					
-				}else{
-					//No Session entry in DB
-					sql = "INSERT INTO session " +
-					"(uid, sid) " +
-					"VALUES " +
-					"(?,?)";
-			
-					pstmt = db.prepareStatement(sql);
-					pstmt.setLong(1, res.getLong("uid"));
-					pstmt.setString(2, session);
-					pstmt.executeUpdate();
-				}			
-				
-				return session;
-			}					
-			
-		}
-		
-		return null;
+		return sid;
 	}
 	
 	public Long getId(String sid) throws IllegalArgumentException, SQLException, InvalidLoginException {		

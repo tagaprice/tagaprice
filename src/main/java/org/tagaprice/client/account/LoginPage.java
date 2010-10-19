@@ -21,8 +21,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class LoginPage extends InfoBoxComposite{
 	private VerticalPanel vePa1 = new VerticalPanel();
-	private Label userNameLabel = new Label("Username");
-	private TextBox userName = new TextBox();
+	private Label mailLabel = new Label("Mail");
+	private TextBox mail = new TextBox();
 	private Label passwordLabel = new Label("Password");
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button loginButton = new Button("Login");
@@ -46,14 +46,14 @@ public class LoginPage extends InfoBoxComposite{
 		//UserLogin
 		VerticalPanel vePa2 = new VerticalPanel();
 		vePa2.setWidth("100%");
-		vePa2.add(userNameLabel);
-		vePa2.add(userName);
+		vePa2.add(mailLabel);
+		vePa2.add(mail);
 		vePa2.add(passwordLabel);
 		vePa2.add(password);
 		vePa2.add(loginButton);
 		
 		//Style
-		userName.setWidth("100%");
+		mail.setWidth("100%");
 		password.setWidth("100%");
 		loginButton.setWidth("100%");
 		
@@ -66,7 +66,7 @@ public class LoginPage extends InfoBoxComposite{
 			public void onClick(ClickEvent event) {
 				System.out.println("send");
 				
-				userHandler.login(userName.getText().trim(), password.getText().trim(), new AsyncCallback<String>() {
+				userHandler.login(mail.getText().trim(), password.getText().trim(), new AsyncCallback<String>() {
 					
 					@Override
 					public void onSuccess(String result) {
@@ -77,8 +77,7 @@ public class LoginPage extends InfoBoxComposite{
 							Cookies.setCookie("TaPSId", result);
 							showInfo("succsessfull Login", BoxType.WARNINGBOX);
 							History.newItem("home/");					
-						}else
-							showInfo("Please Check your password and username", BoxType.WARNINGBOX);		
+						}else showInfo("Mail and password don't match", BoxType.WARNINGBOX);		
 					}
 					
 					@Override
