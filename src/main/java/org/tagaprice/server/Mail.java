@@ -1,9 +1,13 @@
 package org.tagaprice.server;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Map.Entry;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -18,23 +22,25 @@ public class Mail {
 	private static Mail instance;
 	private Session session;
 	
+	public static InputStream loadFile(String filename) throws FileNotFoundException {
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		InputStream is = cl.getResourceAsStream(filename);
+		if (is == null) {
+			throw new FileNotFoundException("Error: Couldn't open property file '"+filename+"'");
+		}
+		return is;
+	}
+	
 	private Mail() throws IOException {
 		Properties props = new Properties();
-	
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream is = cl.getResourceAsStream("mail.properties");
-		
-		if (is == null) {
-			throw new FileNotFoundException("Error: Couldn't open property file 'mail.properties'");
-		}
-		
-		props.load(is);
+
+		props.load(loadFile("mail.properties"));
 		Authenticator auth = null;
 		
 		if (props.contains("mail.user") || props.contains("mail.password")) {
 			final String user = props.getProperty("mail.user");
 			final String pwd = props.getProperty("mail.password"); 
-		
+			
 			auth = new Authenticator() {
 				@Override
 				protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,6 +48,7 @@ public class Mail {
 				}
 			};
 		}
+
 		session = Session.getInstance(props, auth);
 	}
 	
@@ -73,6 +80,28 @@ public class Mail {
 		msg.addRecipient(Message.RecipientType.TO, to);
 		msg.setSubject(subject);
 		msg.setText(message);
+		
+		send(msg);
+	}
+	
+	public void send(String tplName, InternetAddress to, Map<String, String> placeholderValues) throws MessagingException, IOException {
+		InputStream is = loadFile("mailtemplates/"+tplName+".rfc822");
+		byte data[] = new byte[(int) is.available()];
+		int len = is.read(data);
+		String message = new String(data, 0, len);
+
+		message = message.replace("{mail}", to.getAddress());
+		Iterator<Entry<String,String>>  it = placeholderValues.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> e = it.next();
+			String key = e.getKey();
+			String value = e.getValue();
+			message = message.replace("{"+key+"}", value);
+		}
+		
+		data = message.getBytes();
+		is = new ByteArrayInputStream(data); 
+		MimeMessage msg = new MimeMessage(session, is);
 		
 		send(msg);
 	}
