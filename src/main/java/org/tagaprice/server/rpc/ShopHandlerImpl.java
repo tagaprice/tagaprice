@@ -36,7 +36,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	}
 	
 	@Override
-	public ShopData get(Long id) throws IllegalArgumentException {
+	public ShopData get(long id) throws IllegalArgumentException {
 		
 		ShopData sd = new ShopData();				
 		sd._setId(id);

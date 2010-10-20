@@ -24,7 +24,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface PriceHandlerAsync {
 
-	void get(Long id, BoundingBox bbox, PriceMapType type,
+	void get(long id, BoundingBox bbox, PriceMapType type,
 			AsyncCallback<ArrayList<PriceData>> callback)
 		throws IllegalArgumentException;
 

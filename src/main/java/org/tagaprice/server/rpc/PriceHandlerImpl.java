@@ -56,7 +56,7 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 	}
 	
 	@Override
-	public ArrayList<PriceData> get(Long id, BoundingBox bbox, PriceMapType type)
+	public ArrayList<PriceData> get(long id, BoundingBox bbox, PriceMapType type)
 			throws IllegalArgumentException {
 		ArrayList<PriceData> list = new ArrayList<PriceData>();
 		

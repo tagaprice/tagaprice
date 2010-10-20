@@ -21,7 +21,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ProductHandlerAsync {
 
-	void get(Long id, AsyncCallback<ProductData> callback)
+	void get(long id, AsyncCallback<ProductData> callback)
 		throws IllegalArgumentException, InvalidLoginException;
 
 	void save(ProductData data, AsyncCallback<ProductData> callback) 

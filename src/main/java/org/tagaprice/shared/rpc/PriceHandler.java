@@ -32,5 +32,5 @@ public interface PriceHandler extends RemoteService {
 	 * @param type
 	 * @return
 	 */
-	ArrayList<PriceData> get(Long id, BoundingBox bbox, PriceMapType type)throws IllegalArgumentException;
+	ArrayList<PriceData> get(long id, BoundingBox bbox, PriceMapType type)throws IllegalArgumentException;
 }

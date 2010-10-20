@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc/shop")
 public interface ShopHandler extends RemoteService {
-	ShopData get(Long id) throws IllegalArgumentException;
+	ShopData get(long id) throws IllegalArgumentException;
 	ShopData save(ShopData data)  throws IllegalArgumentException, InvalidLoginException;
 
 }
