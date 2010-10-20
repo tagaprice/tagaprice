@@ -31,7 +31,6 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class MorphWidget extends SimplePanel {
 
-	//Label label = new Label();
 	TextBox textBox = new TextBox();
 	Datatype type;
 	MorphWidgetErrorHandler handler;

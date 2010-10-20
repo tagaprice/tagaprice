@@ -49,6 +49,7 @@ public class PriceMapWidget extends Composite {
 		}
 	}
 	
+	private TaPManager TaPM = TaPManager.getInstance();
 	private TitlePanel titlePanel;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private FlexTable priceTable = new FlexTable();
@@ -83,25 +84,8 @@ public class PriceMapWidget extends Composite {
 		
 		
 		if(type.equals(PriceMapType.PRODUCT) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){
-			Geolocation myGeo = Geolocation.getGeolocation();
-			map=new MapWidget();
-			map.setZoomLevel(14);
-			myGeo.getCurrentPosition(new PositionCallback() {
-				
-				@Override
-				public void onSuccess(Position position) {					
-					map.setCenter(LatLng.newInstance(position.getCoords().getLatitude(), position.getCoords().getLongitude()));
-					getPrices();
-				}
-				
-				@Override
-				public void onFailure(PositionError error) {
-					// TODO Auto-generated method stub
-					System.out.println("position error");
-				}
-			});
-			
-			
+			map=new MapWidget(LatLng.newInstance(TaPM.getCurrentAddress().getLat(),TaPM.getCurrentAddress().getLng()), 16);
+			getPrices();			
 			
 			map.setWidth("100%");
 			map.setHeight("200px");

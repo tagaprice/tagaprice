@@ -23,8 +23,17 @@ import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LocationCallback;
+import com.google.gwt.maps.client.geocode.Placemark;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -38,6 +47,7 @@ public class TaPManager {
 
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
+	private AddressPolling autoAddressing = new AddressPolling(60000);
 
 	public static TaPManager getInstance(){
 		if(TaPMng==null){
@@ -202,13 +212,61 @@ public class TaPManager {
 	 * Creates empty shopPage. 
 	 * @param title
 	 */
-	public void newShopPage(String title) {	
+	public void newShopPage(final String title) {	
 		uiMng.waitingPage();
+		System.out.println("in newShopPage");
 		
-		if(title==null) title="Default Title"; //Change this to language
-		ShopData sd = new ShopData(title, 1, 1l, 0l, "logo.png", new Address("Park Avenue 23", "New York", new Country("us", "USA", null)));
+		Geolocation geoLocation = Geolocation.getGeolocation();
+		geoLocation.getCurrentPosition(new PositionCallback() {
+			
+			@Override
+			public void onSuccess(Position position) {
+				final Address address = new Address(position.getCoords().getLatitude(), 
+						position.getCoords().getLongitude());
+				
+				Geocoder geocoder = new Geocoder();
+				geocoder.getLocations(
+						LatLng.newInstance(address.getLat(), address.getLng()), 
+						new LocationCallback() {
+							
+							@Override
+							public void onSuccess(JsArray<Placemark> locations) {
+								address.setAddress(
+										locations.get(0).getStreet(), 
+										locations.get(0).getCity(), 
+										new Country(
+												locations.get(0).getCountry().toLowerCase(), 
+												locations.get(0).getCountry(), 
+												locations.get(0).getCountry()));
+								TaPMng.setCurrentAddress(address);
+								
+								//Start opening shopPage
+								String title2=title;
+								if(title==null) 
+									title2="Default Title"; //Change this to language
+								ShopData sd = new ShopData(title2, 1, 1l, 0l, "logo.png", TaPMng.getCurrentAddress());
+								
+								uiMng.showShop(sd,new Type("root", 2, 1, null));
+							}
+							
+							@Override
+							public void onFailure(int statusCode) {
+								System.out.println("can't locate Address");
+							}
+						});				
+				
+			}
+			
+			@Override
+			public void onFailure(PositionError error) {
+				// TODO Auto-generated method stub
+				System.out.println("can't locate LatLng");
+			}
+		});
 		
-		uiMng.showShop(sd,new Type("root", 2, 1, null));
+		
+		
+		
 		
 		
 	}
@@ -277,4 +335,20 @@ public class TaPManager {
 	}
 
 
+	/**
+	 * Returns the current Address and Position. Is is possible to set a static Address. 
+	 * @return
+	 */
+	public Address getCurrentAddress(){
+		return autoAddressing.getCurrentAddress();
+	}
+	
+	/**
+	 * Set current position
+	 * @param address
+	 */
+	public void setCurrentAddress(Address address){
+		autoAddressing.setCurrentAddress(address);
+	}
+	
 }

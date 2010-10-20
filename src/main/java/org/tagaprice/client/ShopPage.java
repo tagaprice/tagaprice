@@ -87,7 +87,6 @@ public class ShopPage extends InfoBoxComposite {
 		this.shopData=_shopData;
 		this.type=_type;
 		
-		//shopData.setAddress(new Address("Zerggasse", "Vienna", new Country("at", "Austria", "Österreich"), 48.221699, 16.372156));
 		
 		//Move PropertyData to hashPropertyData
 		for(PropertyData pd:this.shopData.getProperties()){
@@ -142,7 +141,7 @@ public class ShopPage extends InfoBoxComposite {
 		//Add Adress and map
 		mapWidget.setZoomLevel(14);
 		mapWidget.setWidth("100%");
-		mapWidget.setHeight("100px");
+		mapWidget.setHeight("200px");
 		MarkerOptions makerOption = MarkerOptions.newInstance();
 		makerOption.setDraggable(true);
 		if(shopData.getAddress().getLat()!=null){
