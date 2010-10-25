@@ -27,13 +27,8 @@ import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.maps.client.geocode.Geocoder;
-import com.google.gwt.maps.client.geocode.LocationCallback;
-import com.google.gwt.maps.client.geocode.Placemark;
-import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -47,8 +42,10 @@ public class TaPManager {
 
 	private static TaPManager TaPMng;	
 	private static UIManager uiMng = new UIManager();
-	private AddressPolling autoAddressing = new AddressPolling(60000);
-
+	private Address address = new Address("Flossgasse","vienna",new Country("at", "Austria", "Österreich"), 48.21960,16.37205);
+	private Geolocation currentLocation;
+	
+	
 	public static TaPManager getInstance(){
 		if(TaPMng==null){
 			TaPMng=new TaPManager();
@@ -216,58 +213,14 @@ public class TaPManager {
 		uiMng.waitingPage();
 		System.out.println("in newShopPage");
 		
-		Geolocation geoLocation = Geolocation.getGeolocation();
-		geoLocation.getCurrentPosition(new PositionCallback() {
+		//Start opening shopPage
+		String title2=title;
+		if(title==null) 
+			title2="Default Title"; //Change this to language
+		ShopData sd = new ShopData(title2, 1, 1l, 0l, "logo.png", TaPMng.getCurrentAddress());
+		
+		uiMng.showShop(sd,new Type("root", 2, 1, null));
 			
-			@Override
-			public void onSuccess(Position position) {
-				final Address address = new Address(position.getCoords().getLatitude(), 
-						position.getCoords().getLongitude());
-				
-				Geocoder geocoder = new Geocoder();
-				geocoder.getLocations(
-						LatLng.newInstance(address.getLat(), address.getLng()), 
-						new LocationCallback() {
-							
-							@Override
-							public void onSuccess(JsArray<Placemark> locations) {
-								address.setAddress(
-										locations.get(0).getStreet(), 
-										locations.get(0).getCity(), 
-										new Country(
-												locations.get(0).getCountry().toLowerCase(), 
-												locations.get(0).getCountry(), 
-												locations.get(0).getCountry()));
-								TaPMng.setCurrentAddress(address);
-								
-								//Start opening shopPage
-								String title2=title;
-								if(title==null) 
-									title2="Default Title"; //Change this to language
-								ShopData sd = new ShopData(title2, 1, 1l, 0l, "logo.png", TaPMng.getCurrentAddress());
-								
-								uiMng.showShop(sd,new Type("root", 2, 1, null));
-							}
-							
-							@Override
-							public void onFailure(int statusCode) {
-								System.out.println("can't locate Address");
-							}
-						});				
-				
-			}
-			
-			@Override
-			public void onFailure(PositionError error) {
-				// TODO Auto-generated method stub
-				System.out.println("can't locate LatLng");
-			}
-		});
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -340,15 +293,38 @@ public class TaPManager {
 	 * @return
 	 */
 	public Address getCurrentAddress(){
-		return autoAddressing.getCurrentAddress();
+		return address;
 	}
 	
+	
+	
 	/**
-	 * Set current position
+	 * Set current position by user setting. 
 	 * @param address
 	 */
-	public void setCurrentAddress(Address address){
-		autoAddressing.setCurrentAddress(address);
+	public void refeshCurrentAdress(){
+		
+		
+		if(currentLocation==null)currentLocation = Geolocation.getGeolocation();
+		
+		currentLocation.getCurrentPosition(new PositionCallback() {
+			
+			@Override
+			public void onSuccess(Position position) {
+				address.setCoordinates(
+						position.getCoords().getLatitude(), 
+						position.getCoords().getLongitude());
+			}
+			
+			@Override
+			public void onFailure(PositionError error) {
+				// TODO Auto-generated method stub
+				System.out.println("error");
+			}
+		});
+		
+		
+		uiMng.setAddress(address);
 	}
 	
 }

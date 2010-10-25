@@ -22,6 +22,7 @@ import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
@@ -46,7 +47,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ProductPage extends InfoBoxComposite {
+public class ProductPage extends Page {
 
 	private ProductData productData;
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
@@ -372,5 +373,13 @@ public class ProductPage extends InfoBoxComposite {
 		}
 		return newList;
 	}
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		priceMap.setAddress(address);
+	}
+
+
 	
 }

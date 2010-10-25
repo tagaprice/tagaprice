@@ -15,6 +15,7 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -30,7 +31,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
-public class HomePage extends InfoBoxComposite {
+public class HomePage extends Page {
 
 	TaPManager Mng = TaPManager.getInstance();
 	
@@ -100,6 +101,13 @@ public class HomePage extends InfoBoxComposite {
 		
 		
 
+	}
+
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

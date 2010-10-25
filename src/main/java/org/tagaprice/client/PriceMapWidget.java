@@ -17,14 +17,10 @@ package org.tagaprice.client;
 import java.util.ArrayList;
 
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.Serializable;
-
-import com.google.code.gwt.geolocation.client.Geolocation;
-import com.google.code.gwt.geolocation.client.Position;
-import com.google.code.gwt.geolocation.client.PositionCallback;
-import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -39,7 +35,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class PriceMapWidget extends Composite {
+public class PriceMapWidget extends Composite implements IAddressHandler {
 
 	public enum PriceMapType implements Serializable {
 		PRODUCT, SHOP, PRODUCTGROUP, SHOPGROUP;
@@ -220,5 +216,12 @@ public class PriceMapWidget extends Composite {
 			
 			row++;
 		}
+	}
+
+
+	@Override
+	public void setAddress(Address address) {
+		System.out.println("setAdress");
+		if(map!=null)map.setCenter(LatLng.newInstance(address.getLat(),address.getLng()));
 	}
 }

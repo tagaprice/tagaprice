@@ -14,35 +14,36 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.account.ConfirmRegistrationPage;
 import org.tagaprice.client.account.LoginPage;
 import org.tagaprice.client.account.RegistrationPage;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Type;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class UIManager extends InfoBoxComposite {
+public class UIManager extends Page {
 
-	DockPanel myDock = new DockPanel();
-	Image home = new Image(MyResources.INSTANCE.home());
-	HorizontalPanel logoPanel = new HorizontalPanel();
+	private DockPanel myDock = new DockPanel();
+	private Image home = new Image(MyResources.INSTANCE.home());
+	private HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManager.getInstance();
-	SimplePanel centerPage = new SimplePanel();
+	private SimplePanel centerPage = new SimplePanel();
+	private Page currentPage;
 
+	
 	public UIManager() {
 		init(myDock);
 		myDock.setWidth("99%");
@@ -63,6 +64,16 @@ public class UIManager extends InfoBoxComposite {
 			}
 		});
 
+		final Button reGps=new Button("R", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				myMng.refeshCurrentAdress();
+			}
+		});
+		logoPanel.add(reGps);
+		
 		//Search
 		//myDock.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON), DockPanel.NORTH);
 
@@ -78,118 +89,60 @@ public class UIManager extends InfoBoxComposite {
 
 	public void showReceipt(final ReceiptData receiptData){
 		waitingPage();
-		GWT.runAsync(new RunAsyncCallback() {
-
-			@Override
-			public void onFailure(Throwable reason) {
-				showInfo("code Download Failed", BoxType.WARNINGBOX);
-			}
-
-			@Override
-			public void onSuccess() {
-				ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
-				centerPage.setWidget(tempReceipt);				
-			}
-			
-		});
+		ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
+		centerPage.setWidget(tempReceipt);
 		
 		
 	}
 	
 	public void showReceiptsList(){
 		waitingPage();
-		GWT.runAsync(new RunAsyncCallback() {
-			
-			@Override
-			public void onSuccess() {
-				centerPage.setWidget(new ReceiptListPage());				
-			}
-			
-			@Override
-			public void onFailure(Throwable reason) {
-				showInfo("code Download Failed", BoxType.WARNINGBOX);				
-			}
-		});
+		currentPage=new ReceiptListPage();
+		centerPage.setWidget(currentPage);	
 	}
 
 
 	public void showProduct(ProductData productData, Type type){
 		waitingPage();
-		ProductPage tempProduct = new ProductPage(productData,type);
-		centerPage.setWidget(tempProduct);
+		currentPage = new ProductPage(productData,type);
+		centerPage.setWidget(currentPage);
 	}
 
 	public void showShop(ShopData shopData, Type type){
 		waitingPage();
-		ShopPage tempShop = new ShopPage(shopData, type);
-		centerPage.setWidget(tempShop);
+		currentPage = new ShopPage(shopData, type);
+		centerPage.setWidget(currentPage);
 	}
 	
 	public void showUserRegistrationPage(){
 		waitingPage();
-		GWT.runAsync(new RunAsyncCallback() {
-			
-			@Override
-			public void onSuccess() {
-				RegistrationPage tempRegi = new RegistrationPage();
-				centerPage.setWidget(tempRegi);
-				
-			}
-			
-			@Override
-			public void onFailure(Throwable reason) {
-				showInfo("code Download Failed", BoxType.WARNINGBOX);
-			}
-		});	
+		currentPage = new RegistrationPage();
+		centerPage.setWidget(currentPage);
 		
 	}
 	
-	public void showConfirmRegistartionPage(final String confirm){
+	public void showConfirmRegistartionPage(String confirm){
 		waitingPage();
-		GWT.runAsync(new RunAsyncCallback() {
-			
-			@Override
-			public void onSuccess() {
-				ConfirmRegistrationPage confPage;
-				
-				if(confirm == null)
-					confPage = new ConfirmRegistrationPage();
-				else
-					confPage = new ConfirmRegistrationPage(confirm);
-				
-				centerPage.setWidget(confPage);
-			}
-			
-			@Override
-			public void onFailure(Throwable reason) {
-				showInfo("code Download Failed", BoxType.WARNINGBOX);				
-			}
-		});
+		if(confirm == null)
+			currentPage = new ConfirmRegistrationPage();
+		else
+			currentPage = new ConfirmRegistrationPage(confirm);
+		
+		centerPage.setWidget(currentPage);
 	}
 	
 	
 	public void showUserLogin(final boolean loggedIn){
 		waitingPage();
-		GWT.runAsync(new RunAsyncCallback() {
-			
-			@Override
-			public void onSuccess() {
-				centerPage.setWidget(new LoginPage(loggedIn));
-				
-			}
-			
-			@Override
-			public void onFailure(Throwable reason) {
-				showInfo("Download fail at UserLogin", BoxType.WARNINGBOX);
-				
-			}
-		});
+		currentPage=new LoginPage(loggedIn);
+		centerPage.setWidget(currentPage);
 	}
 
 
 	public void showHome(){
 		waitingPage();
-		centerPage.setWidget(new HomePage());
+		currentPage=new HomePage();
+		centerPage.setWidget(currentPage);
 	}
 
 
@@ -197,6 +150,14 @@ public class UIManager extends InfoBoxComposite {
 
 	public void waitingPage(){
 		centerPage.setWidget(new Label("Waiting..."));
+	}
+
+
+
+	@Override
+	public void setAddress(Address address) {
+		if(currentPage!=null) currentPage.setAddress(address);
+		
 	}
 
 }

@@ -1,9 +1,10 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.Page;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class ConfirmRegistrationPage extends InfoBoxComposite{
+public class ConfirmRegistrationPage extends Page{
 
 	SimplePanel siPa1 = new SimplePanel();
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
@@ -54,6 +55,12 @@ public class ConfirmRegistrationPage extends InfoBoxComposite{
 	private void _init(){
 		siPa1.setWidth("100%");
 		init(siPa1);
+	}
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

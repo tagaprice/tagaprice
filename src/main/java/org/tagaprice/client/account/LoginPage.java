@@ -1,9 +1,10 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.Page;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.gwt.core.client.GWT;
@@ -19,7 +20,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class LoginPage extends InfoBoxComposite{
+public class LoginPage extends Page{
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private Label mailLabel = new Label("Mail");
 	private TextBox mail = new TextBox();
@@ -30,6 +31,9 @@ public class LoginPage extends InfoBoxComposite{
 	
 	
 	public LoginPage(boolean loggedIn) {
+		mail.setTitle("tap_email");
+		password.setTitle("tap_password");
+		
 		init(vePa1);
 		vePa1.setWidth("100%");
 		
@@ -132,5 +136,11 @@ public class LoginPage extends InfoBoxComposite{
 				
 			}
 		}));
+	}
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		
 	}
 }

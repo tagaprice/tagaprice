@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ReceiptListPage extends InfoBoxComposite {
+public class ReceiptListPage extends Page {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private Grid table;
@@ -81,5 +82,11 @@ public class ReceiptListPage extends InfoBoxComposite {
 			showInfo("InvalidLoginException: "+e, BoxType.WARNINGBOX);
 
 		}
+	}
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		
 	}
 }

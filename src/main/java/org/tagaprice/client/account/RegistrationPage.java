@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.Page;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.Address;
@@ -53,7 +53,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class RegistrationPage extends InfoBoxComposite {
+public class RegistrationPage extends Page {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
@@ -465,5 +465,11 @@ public class RegistrationPage extends InfoBoxComposite {
 				System.out.println("position error");
 			}
 		});
+	}
+
+	@Override
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		
 	}
 }
