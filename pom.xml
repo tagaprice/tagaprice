@@ -27,10 +27,10 @@
 
 	<issueManagement>
 		<system>Trac</system>
-		<url>https://dev.tagaprice.org</url>
+		<url>http://tagaprice.lighthouseapp.com/</url>
 	</issueManagement>
 	<scm>
-		<url>https://svn.fakeroot.at/tagaprice</url>
+		<url>http://github.com/tagaprice/tagaprice</url>
 	</scm>
 	<dependencies>
 		<dependency>
