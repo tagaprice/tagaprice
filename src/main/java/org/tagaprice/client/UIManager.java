@@ -46,7 +46,7 @@ public class UIManager extends Page {
 	
 	public UIManager() {
 		init(myDock);
-		myDock.setWidth("99%");
+		myDock.setWidth("100%");
 		
 		
 		
@@ -56,7 +56,9 @@ public class UIManager extends Page {
 		logoPanel.setStyleName("LogoPanel");
 		logoPanel.add(home);
 		logoPanel.setCellWidth(home, "25px");
-		logoPanel.add(new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON));
+		SearchWidget search = new SearchWidget(SearchType.ALL, true, true, SelectionType.NOBUTTON);
+		logoPanel.add(search);
+		logoPanel.setCellWidth(search, "100%");
 		home.addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -72,6 +74,7 @@ public class UIManager extends Page {
 				myMng.refeshCurrentAdress();
 			}
 		});
+		reGps.setWidth("25px");
 		logoPanel.add(reGps);
 		
 		//Search

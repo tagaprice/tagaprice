@@ -28,10 +28,13 @@ input{
 }
 
 input.searchBox {
-	background: url("images/search.png") 5px center no-repeat;
-	border-radius: 8px;
+	background: url("images/search.png") no-repeat right center;
 	padding: 2px;
-	padding-left: 25px;
+	padding-left: 0px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	
 }
 
 .RatingWidget0Stars{
