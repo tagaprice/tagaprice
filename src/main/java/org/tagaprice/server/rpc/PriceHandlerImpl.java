@@ -67,18 +67,36 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 				//return Last price plus location
 				
 				
-					String sql = "SELECT * FROM receiptentry ree " +
-					"INNER JOIN receipt re " +
-					"ON re.rid=ree.rid " +
-					"WHERE ree.pid = ? AND re.draft=false";
+					
+					String sql ="SELECT pid, sid, lat, lng, price, re.created_at " +
+							"FROM receiptentry ree INNER JOIN receipt re " +
+							"ON re.rid=ree.rid " +
+							"INNER JOIN entity en " +
+							"ON en.ent_id=re.sid " +
+							"INNER JOIN shoprevision sr " +
+							"ON sr.shop_id=en.ent_id AND sr.rev=en.current_revision " +
+							"WHERE ree.pid = ? AND re.draft=false " +
+							"AND (lat BETWEEN ? AND ?) " +
+							"AND (lng BETWEEN ? AND ?)";
+					
 					
 					pstmt = db.prepareStatement(sql);
-					pstmt.setLong(1, id);
+					pstmt.setLong(1, id); //id
+					
+					pstmt.setDouble(2, bbox.getX1()); //lat left
+					pstmt.setDouble(3, bbox.getX2()); //lat right
+					
+					pstmt.setDouble(4,bbox.getY1()); //lng top
+					pstmt.setDouble(5, bbox.getY2()); //lng down
+					
 					
 					ResultSet res = pstmt.executeQuery();
-					
+					//ProductData tempProduct = new ProductData(res.getLong("pid"));
+					ProductData tempProduct=null;
 					while(res.next()){
-						ProductData tempProduct = new ProductData(res.getLong("pid"));
+						
+						if(tempProduct==null) tempProduct = new ProductData(res.getLong("pid"));
+						
 						ShopData tempShop = new ShopData(res.getLong("sid"));
 						productDAO.get(tempProduct);
 						shopDAO.get(tempShop);
