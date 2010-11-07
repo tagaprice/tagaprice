@@ -41,6 +41,13 @@ INSERT INTO entityrevision
 VALUES (16,1,'blue',1);
 
 
+--------------------- add product typs -----------
+INSERT INTO producttype ("type_id") VALUES (13);
+INSERT INTO producttype ("type_id") VALUES (14);
+INSERT INTO producttype ("type_id") VALUES (15);
+INSERT INTO producttype ("type_id") VALUES (16);
+
+
 --------------------- createy dependencies -----------
 --- root
 INSERT INTO typerevision 
