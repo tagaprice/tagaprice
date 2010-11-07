@@ -166,7 +166,7 @@ public class TaPManager {
 		if(title==null) title="Default Title "; //Change this to language
 		ProductData pd3 = new ProductData(title , 1, 1l, 2l, null, "logo.png", null);
 
-		uiMng.showProduct(pd3, new Type("root", 2, 1, null));		
+		uiMng.showProduct(pd3, new Type(13));		
 		
 	}
 	
@@ -183,7 +183,7 @@ public class TaPManager {
 			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
 			public void onSuccess(final ShopData result) {
-				HandlerManager.getTypeHandler().get(new Type("root", 9, 1, null), new AsyncCallback<Type>() {
+				HandlerManager.getTypeHandler().get(new Type(result.getTypeId()), new AsyncCallback<Type>() {
 
 					@Override
 					public void onSuccess(Type tResult) {
@@ -214,15 +214,14 @@ public class TaPManager {
 	 */
 	public void newShopPage(final String title) {	
 		uiMng.waitingPage();
-		System.out.println("in newShopPage");
 		
 		//Start opening shopPage
 		String title2=title;
 		if(title==null) 
 			title2="Default Title"; //Change this to language
-		ShopData sd = new ShopData(title2, 1, 1l, 0l, "logo.png", TaPMng.getCurrentAddress());
+		ShopData sd = new ShopData(title2, 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
 		
-		uiMng.showShop(sd,new Type("root", 2, 1, null));
+		uiMng.showShop(sd,new Type(13));
 			
 		
 	}

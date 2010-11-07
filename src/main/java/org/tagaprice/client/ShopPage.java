@@ -480,7 +480,7 @@ public class ShopPage extends Page {
 				topSave.setText("Saving...");
 				
 				shopData.setProperties(hashToPropertyList(hashProperties));
-				shopData.setTypeId(new Long(type.getLocaleId()));
+				shopData.setTypeId(new Long(type.getId()));
 				
 				
 				//Validate Data
