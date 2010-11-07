@@ -4,7 +4,7 @@ CREATE TABLE session (
 	last_active TIMESTAMP NOT NULL DEFAULT NOW(),
 
 	PRIMARY KEY (sid),
-	FOREIGN KEY (uid) REFERENCES account(uid),
+	FOREIGN KEY (uid) REFERENCES account(uid)
 );
 
 CREATE INDEX session_uid_key on session(uid);
