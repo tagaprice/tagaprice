@@ -68,7 +68,9 @@ public class TypeWidget extends Composite{
 		Type iterType = type;
 		hoPa1.clear();
 		
-		if(!iterType.getTitle().equals("root")){		
+		
+		
+		if(iterType.getSuperType()!=null){		
 			do{
 				final Type innerType = iterType;
 				Label typeLabel = new Label(iterType.getTitle());
@@ -168,8 +170,8 @@ public class TypeWidget extends Composite{
 					}
 				});
 				
-				
-			}while((iterType=iterType.getSuperType())!=null);
+				iterType=iterType.getSuperType();
+			}while(iterType.getSuperType()!=null);
 		}
 
 		
@@ -197,7 +199,7 @@ public class TypeWidget extends Composite{
 	
 	private void openRootArrow(){
 		typeItems.setWidget(new Label("Loading..."));					
-		HandlerManager.getTypeHandler().getTypeList(new Type("root", localeId, 1, null), new AsyncCallback<ArrayList<Type>>() {
+		HandlerManager.getTypeHandler().getTypeList(null, new AsyncCallback<ArrayList<Type>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<Type> result) {
@@ -205,12 +207,12 @@ public class TypeWidget extends Composite{
 				VerticalPanel vePa1 = new VerticalPanel();
 				//vePa1.add(new Button("---"));
 				for(final Type ty:result){
+					
 					Label tsb=new Label(ty.getTitle());
 					tsb.setStyleName("TypeWidget-Item");
 					tsb.addClickHandler(new ClickHandler() {									
 						@Override
 						public void onClick(ClickEvent event) {
-							
 							handler.onChange(ty);
 							typeItems.hide();
 						}

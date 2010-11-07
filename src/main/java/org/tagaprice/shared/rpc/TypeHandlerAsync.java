@@ -22,9 +22,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface TypeHandlerAsync {
 
-	void get(long id, AsyncCallback<Type> callback) 
+	void get(Type type, AsyncCallback<Type> callback) 
 		throws IllegalArgumentException;
 
+	/**
+	 * 
+	 * @param id if ID == NULL return Type is root
+ 	 * @param callback
+	 * @throws IllegalArgumentException
+	 */
 	void getTypeList(Type type, AsyncCallback<ArrayList<Type>> callback)
 		throws IllegalArgumentException;
 

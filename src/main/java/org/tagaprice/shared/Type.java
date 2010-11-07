@@ -84,6 +84,10 @@ public class Type extends Entity {
 		properties.add(property);
 	}
 	
+	public void setSuperType(Type superType){
+		this.superType=superType;
+	}
+	
 	public Type getSuperType(){
 		return superType;
 	}

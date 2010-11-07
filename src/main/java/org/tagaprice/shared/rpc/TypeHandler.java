@@ -23,6 +23,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc/type")
 public interface TypeHandler extends RemoteService {
-	Type get(long id) throws IllegalArgumentException;
+	Type get(Type type) throws IllegalArgumentException;
 	ArrayList<Type> getTypeList(Type type) throws IllegalArgumentException;
 }

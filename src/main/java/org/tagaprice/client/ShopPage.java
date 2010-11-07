@@ -387,7 +387,7 @@ public class ShopPage extends Page {
 				
 				
 				//Get type and set type
-				HandlerManager.getTypeHandler().get(newType.getLocaleId(), new AsyncCallback<Type>() {
+				HandlerManager.getTypeHandler().get(newType, new AsyncCallback<Type>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);

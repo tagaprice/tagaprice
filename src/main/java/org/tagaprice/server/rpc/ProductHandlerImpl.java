@@ -23,6 +23,7 @@ import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
+import org.tagaprice.shared.Type;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -74,7 +75,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		getSid();
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
-		if(PropertyValidator.isValid(th.get(data.getTypeId()), data.getProperties())){			
+		if(PropertyValidator.isValid(th.get(new Type(data.getTypeId())), data.getProperties())){			
 			
 			
 			try {

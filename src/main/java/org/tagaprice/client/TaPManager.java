@@ -122,7 +122,10 @@ public class TaPManager {
 				@Override
 				public void onSuccess(final ProductData pResult) {
 
-					HandlerManager.getTypeHandler().get(pResult.getTypeId(), new AsyncCallback<Type>() {
+					System.out.println("pResult: "+pResult.getTypeId());
+					
+					//TODO set new Type("root", 9, 1, null) to new Type(1)
+					HandlerManager.getTypeHandler().get(new Type("root", 9, 1, null), new AsyncCallback<Type>() {
 
 						@Override
 						public void onSuccess(Type tResult) {
@@ -178,9 +181,10 @@ public class TaPManager {
 				
 		HandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
 			
+			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
 			public void onSuccess(final ShopData result) {
-				HandlerManager.getTypeHandler().get(result.getTypeId(), new AsyncCallback<Type>() {
+				HandlerManager.getTypeHandler().get(new Type("root", 9, 1, null), new AsyncCallback<Type>() {
 
 					@Override
 					public void onSuccess(Type tResult) {
