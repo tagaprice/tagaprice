@@ -8,7 +8,7 @@ VALUES (13,1,1,1);
 
 INSERT INTO entityrevision 
 ("ent_id","rev","title","creator") 
-VALUES (13,1,"root",1);
+VALUES (13,1,'root',1);
 
 -- red
 
@@ -18,7 +18,7 @@ VALUES (14,1,1,1);
 
 INSERT INTO entityrevision 
 ("ent_id","rev","title","creator") 
-VALUES (14,1,"red",1);
+VALUES (14,1,'red',1);
 
 -- green
 
@@ -28,7 +28,7 @@ VALUES (15,1,1,1);
 
 INSERT INTO entityrevision 
 ("ent_id","rev","title","creator") 
-VALUES (15,1,"green",1);
+VALUES (15,1,'green',1);
 
 -- blue
 
@@ -38,7 +38,7 @@ VALUES (16,1,1,1);
 
 INSERT INTO entityrevision 
 ("ent_id","rev","title","creator") 
-VALUES (16,1,"blue",1);
+VALUES (16,1,'blue',1);
 
 
 --------------------- createy dependencies -----------
