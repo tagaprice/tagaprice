@@ -42,7 +42,7 @@ public class TypeWidget extends Composite{
 	
 	//Root elem
 	Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
-	int localeId;
+	//int localeId;
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class TypeWidget extends Composite{
 		this.type=type;
 		this.handler=handler;
 		
-		localeId = type.getLocaleId();
+		//localeId = type.getLocaleId();
 		
 		//hoPa1.setWidth("100%");
 		initWidget(hoPa1);

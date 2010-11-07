@@ -16,6 +16,7 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.tagaprice.server.DBConnection;
@@ -23,6 +24,7 @@ import org.tagaprice.server.dao.TypeDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Type;
+import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.TypeHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -50,9 +52,20 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	@Override
 	public Type get(Type type) throws IllegalArgumentException {
 		
-		//if(type.getSuperType()==null)type = new Type("root", 9, 1, null);
 		
-		typeDAO.get(type);
+		
+		
+		//TODO throw exceptions to UI
+		try {
+			typeDAO.get(type);
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
+		}
+		
+		
+
 		
 		return type;
 	}
@@ -63,9 +76,20 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	@Override
 	public ArrayList<Type> getTypeList(Type type)
 			throws IllegalArgumentException {
-	
 		
-		return typeDAO.getTypeList(type);
+		
+		//TODO throw exceptions to UI
+		try {
+			return typeDAO.getTypeList(type);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 		
 
 	}

@@ -122,10 +122,9 @@ public class TaPManager {
 				@Override
 				public void onSuccess(final ProductData pResult) {
 
-					System.out.println("pResult: "+pResult.getTypeId());
 					
 					//TODO set new Type("root", 9, 1, null) to new Type(1)
-					HandlerManager.getTypeHandler().get(new Type("root", 9, 1, null), new AsyncCallback<Type>() {
+					HandlerManager.getTypeHandler().get(new Type(pResult.getTypeId()), new AsyncCallback<Type>() {
 
 						@Override
 						public void onSuccess(Type tResult) {
@@ -165,7 +164,7 @@ public class TaPManager {
 		uiMng.waitingPage();
 		
 		if(title==null) title="Default Title "; //Change this to language
-		ProductData pd3 = new ProductData(title , 1, 1l, 2l, 0l, "logo.png", null);
+		ProductData pd3 = new ProductData(title , 1, 1l, 2l, null, "logo.png", null);
 
 		uiMng.showProduct(pd3, new Type("root", 2, 1, null));		
 		

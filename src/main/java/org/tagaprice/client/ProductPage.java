@@ -282,7 +282,7 @@ public class ProductPage extends Page {
 				
 				
 				productData.setProperties(hashToPropertyList(hashProperties));
-				productData.setTypeId(new Long(type.getLocaleId()));
+				productData.setTypeId(new Long(type.getId()));
 				
 				
 				//Validate Data
