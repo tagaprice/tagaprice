@@ -22,7 +22,7 @@ public class LoginDAO {
 	
 	public String login(String mail, String password) throws SQLException, NoSuchAlgorithmException{	
 		String sql = "SELECT uid FROM localAccount INNER JOIN account USING(uid) " +
-			"WHERE mail = ? AND password = md5(?||salt)";
+			"WHERE mail = ? AND password = md5(?||salt) AND NOT locked";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, mail);
 		pstmt.setString(2, password);
