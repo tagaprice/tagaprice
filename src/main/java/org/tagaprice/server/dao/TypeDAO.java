@@ -39,10 +39,6 @@ public class TypeDAO implements DAOClass<Type> {
 	
 	public void get(Type type) throws SQLException, NotFoundException, NotFoundException{
 		
-		
-		
-		if(type==null) type = new Type(13);
-		
 		getRec(type,0);
 		
 	}

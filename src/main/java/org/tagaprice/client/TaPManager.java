@@ -163,10 +163,23 @@ public class TaPManager {
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
-		if(title==null) title="Default Title "; //Change this to language
-		ProductData pd3 = new ProductData(title , 1, 1l, 2l, null, "logo.png", null);
+		HandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
 
-		uiMng.showProduct(pd3, new Type(13));		
+			@Override
+			public void onFailure(Throwable caught) {
+				uiMng.showInfo("Fail product: "+caught, BoxType.WARNINGBOX);				
+			}
+
+			@Override
+			public void onSuccess(Type result) {
+				ProductData pd3 = new ProductData("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
+				uiMng.showProduct(pd3, result);	
+			}
+			
+		});
+		
+		
+			
 		
 	}
 	
@@ -215,13 +228,24 @@ public class TaPManager {
 	public void newShopPage(final String title) {	
 		uiMng.waitingPage();
 		
-		//Start opening shopPage
-		String title2=title;
-		if(title==null) 
-			title2="Default Title"; //Change this to language
-		ShopData sd = new ShopData(title2, 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
 		
-		uiMng.showShop(sd,new Type(13));
+		HandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				uiMng.showInfo("Fail shop: "+caught, BoxType.WARNINGBOX);
+			}
+
+			@Override
+			public void onSuccess(Type result) {
+				ShopData sd = new ShopData("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
+				
+				uiMng.showShop(sd,result);
+				
+			}
+			
+		});
+		
 			
 		
 	}

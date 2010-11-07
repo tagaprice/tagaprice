@@ -52,7 +52,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	@Override
 	public Type get(Type type) throws IllegalArgumentException {
 		
-		
+		if(type==null) type = new Type(13);
 		
 		
 		//TODO throw exceptions to UI
@@ -77,6 +77,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	public ArrayList<Type> getTypeList(Type type)
 			throws IllegalArgumentException {
 		
+		if(type==null) type = new Type(13);
 		
 		//TODO throw exceptions to UI
 		try {
