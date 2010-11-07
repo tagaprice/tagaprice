@@ -31,10 +31,12 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class TypeDAO implements DAOClass<Type> {
 	protected DBConnection db;
 	private EntityDAO entityDAO;
+	private PropertyDefinitionDAO propDAO;
 	
 	public TypeDAO(DBConnection db){
 		this.db=db;
 		entityDAO= new EntityDAO(db);
+		propDAO = new PropertyDefinitionDAO(db);
 	}
 	
 	public void get(Type type) throws SQLException, NotFoundException, NotFoundException{
@@ -73,14 +75,33 @@ public class TypeDAO implements DAOClass<Type> {
 		
 		//TODO GET Properties
 		if(c==0){
+			/*
 			PropertyGroup pg =new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 			pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE,0, 15, null,true)); 
 			pg.addGroupElement(new PropertyDefinition(3L, 2, "protein", "Protein", 1, PropertyDefinition.Datatype.DOUBLE, -5, 20, null,true));
 			pg.addGroupElement(new PropertyDefinition(4L, 3, "url", "URL", 1, PropertyDefinition.Datatype.STRING,-10, 25, null,false));
 			type.addPropertyGroup(pg);
-			PropertyGroup pg5 = new PropertyGroup("NUTRITIONFACTS", PropertyGroup.GroupType.LIST);
-			pg5.addGroupElement(new PropertyDefinition(2L, 1, "ean", "BAR", 1, PropertyDefinition.Datatype.STRING, 1, 14, null,false)); 
-
+			*/
+			
+			
+			//TODO Create PropertyGroups in db and add a group to a Type
+			PropertyGroup pg5 = new PropertyGroup("NoCatList", PropertyGroup.GroupType.LIST);
+			
+			sql ="SELECT prop_id FROM propertyrevision pr " +
+					"INNER JOIN entity en " +
+					"ON en.ent_id=pr.prop_id " +
+					"WHERE en.current_revision=pr.rev";
+			
+			pstmt = db.prepareStatement(sql);
+			res = pstmt.executeQuery();
+			
+			while(res.next()){
+				PropertyDefinition tempProp = new PropertyDefinition(res.getLong("prop_id"));
+				propDAO.get(tempProp);
+				pg5.addGroupElement(tempProp);
+			}
+			
+			
 			type.addPropertyGroup(pg5);
 			
 		}
