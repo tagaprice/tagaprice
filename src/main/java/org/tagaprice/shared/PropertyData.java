@@ -21,6 +21,7 @@ package org.tagaprice.shared;
 public class PropertyData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private Long id;
 	private String name;
 	private String value;
 	private String title;
@@ -31,7 +32,15 @@ public class PropertyData implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public PropertyData (String name, String title, String value, Unit unit) {
+		setName(name);
+		setTitle(title);
+		setValue(value);
+		setUnit(unit);
+	}
+	
 	public PropertyData(
+			long id,
 			String name,
 			String title,
 			String value,
@@ -40,6 +49,18 @@ public class PropertyData implements Serializable {
 		setTitle(title);
 		setValue(value);
 		setUnit(unit);
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public boolean hasId() {
+		return id != null;
+	}
+	
+	public void _setId(Long id) {
+		this.id = id;
 	}
 	
 	/**
@@ -91,6 +112,11 @@ public class PropertyData implements Serializable {
 	public Unit getUnit() {
 		return unit;
 	}
+	
+	public boolean hasUnit() {
+		return unit != null;
+	}
+	
 	/**
 	 * @param unitId the unitId to set
 	 */
@@ -120,6 +146,7 @@ public class PropertyData implements Serializable {
 
 		if (o instanceof PropertyData) {
 			PropertyData p = (PropertyData) o;
+			if (!Entity._compare(id, p.id)) rc = false;
 			if (!Entity._compare(getName(), p.getName())) rc = false;
 			if (!Entity._compare(getValue(), p.getValue())) rc = false;
 			if (!Entity._compare(getUnit(), p.getUnit())) rc = false;
