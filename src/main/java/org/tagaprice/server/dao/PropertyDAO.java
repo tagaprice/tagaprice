@@ -3,6 +3,7 @@ package org.tagaprice.server.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,28 +39,29 @@ public class PropertyDAO implements DAOClass<Entity> {
 				"INNER JOIN entity e ON (e.ent_id = prop_id) " +
 				"INNER JOIN propertyrevision pr ON (pr.prop_id = e.ent_id) " +
 				"INNER JOIN entityRevision er ON (er.ent_id = ep.prop_id) " +
-				"WHERE (ep.ent_id = ?) ";
+				"WHERE ep.ent_id = ? AND (max_rev >= ? OR max_rev IS NULL)";
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setLong(1, entity.getId());
+		pstmt.setInt(2, entity.getRev());
 		ResultSet res = pstmt.executeQuery();
 		
-		SearchResult<PropertyData> sr = new SearchResult<PropertyData>();
+		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
 		
-		while(res.next()){
+		while(res.next()) {
 			Unit u = null;
 			if (res.getString("unit_id") != null) {
 				u = new Unit(res.getLong("unit_id"));
 				unitDAO.get(u);
 			}
-			sr.add(new PropertyData(
+			props.add(new PropertyData(
 					res.getLong("eprop_id"),
 					res.getString("name"), 
 					res.getString("title"), 
 					res.getString("value"), 
 					u));
 		}
-		entity.setProperties(sr);
+		entity.setProperties(props);
 	}
 
 	/**
@@ -125,18 +127,24 @@ public class PropertyDAO implements DAOClass<Entity> {
 			if (!item.hasId()) {
 				PropertyDefinition propDef = propDefDAO.get(item.getName(), entity.getLocaleId()); 
 				// new property, save it
-				PreparedStatement stmt = db.prepareStatement("INSERT INTO entityProperty (prop_id, ent_id, value, unit_id, min_rev) VALUES (?,?,?,?,?)");
-				stmt.setLong(1, propDef.getId());
-				stmt.setLong(2, entity.getId());
-				stmt.setString(3, item.getValue());
+				PreparedStatement pstmt = db.prepareStatement("INSERT INTO entityProperty (prop_id, ent_id, value, unit_id, min_rev) VALUES (?,?,?,?,?)");
+				pstmt.setLong(1, propDef.getId());
+				pstmt.setLong(2, entity.getId());
+				pstmt.setString(3, item.getValue());
 				
 				if (item.hasUnit()) {
-					stmt.setLong(4, item.getUnit().getId());
+					pstmt.setLong(4, item.getUnit().getId());
 				}
-				else stmt.setNull(4, Types.BIGINT);
+				else pstmt.setNull(4, Types.BIGINT);
 				
-				stmt.setInt(5, entity.getRev());
-				stmt.executeUpdate();
+				pstmt.setInt(5, entity.getRev());
+				pstmt.executeUpdate();
+				
+				Statement stmt = db.createStatement();
+				ResultSet res = stmt.executeQuery("SELECT currval('entityproperty_eprop_id_seq');");
+				res.next();
+				item._setId(res.getLong(1));
+				
 			}
 		}
 	}

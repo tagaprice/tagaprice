@@ -41,12 +41,12 @@ public class PropertyDAOTest {
 		propDefDAO.save(newPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
-
-		dao.save(testEntity);
 		
 		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
 		props.add(new PropertyData(testPropDef.getName(), "propTitle", "propValue", null));
 		testEntity.setProperties(props);
+		
+		dao.save(testEntity);
 	}
 
 	@After
@@ -54,6 +54,11 @@ public class PropertyDAOTest {
 		db.forceRollback();
 	}
 
+	@Test
+	public void testPropertyId() throws Exception {
+		assertNotNull("PropertyId was null after a call to save()", testEntity.getProperties().get(0).getId());
+	}
+	
 	@Test
 	public void testCreate() throws Exception {
 		TestEntity e = new TestEntity(testEntity.getId());
@@ -79,5 +84,17 @@ public class PropertyDAOTest {
 		assertEquals(2, e1.getProperties().size());
 		
 		assertEquals(testEntity, e2);
+	}
+	
+	@Test
+	public void testValueUpdate() throws Exception {
+		testEntity.getProperties().get(0).setValue("new value");
+		dao.save(testEntity);
+		
+		TestEntity newEntity = new TestEntity(testEntity.getId());
+		dao.get(newEntity);
+		
+		assertEquals(testEntity, newEntity);
+		
 	}
 }
