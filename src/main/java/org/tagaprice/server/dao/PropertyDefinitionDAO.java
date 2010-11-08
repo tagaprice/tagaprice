@@ -21,21 +21,51 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		entityDAO = new EntityDAO(db);
 	}
 	
+	public PropertyDefinition get(long id) throws SQLException, NotFoundException {
+		return get(id, 0);
+	}
+	
+	public PropertyDefinition get(long id, int rev) throws SQLException, NotFoundException {
+		PropertyDefinition def = new PropertyDefinition(id, rev);
+		get(def);
+		return def;
+	}
+	
+	public PropertyDefinition get(String name, int localeId) throws SQLException, NotFoundException {
+		PropertyDefinition def = new PropertyDefinition(name, localeId);
+		get(def);
+		return def;
+	}
+	
 	@Override
 	public void get(PropertyDefinition prop) throws SQLException, NotFoundException {
-		String sql = "SELECT name, minValue, maxValue, type, uniq FROM propertyRevision WHERE prop_id = ?";
+		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq FROM propertyRevision ";
 		PreparedStatement pstmt;
-		if (prop.getRev() > 0) {
-			pstmt = db.prepareStatement(sql +  " AND rev = ?");
-			pstmt.setLong(2, prop.getRev());
+		int pos = 1;
+		if (prop.hasId()) {
+			// get by ID
+			sql += "WHERE prop_id = ?";
 		}
 		else {
-			pstmt = db.prepareStatement(sql);
+			sql += "INNER JOIN entity ON (prop_id = ent_id) WHERE name = ? AND locale_id = ?";
 		}
-		pstmt.setLong(1, prop.getId());
+		if (prop.getRev() > 0) sql += "AND rev = ?";
+		
+		pstmt = db.prepareStatement(sql);
+		
+		if (prop.hasId()) {
+			pstmt.setLong(pos++, prop.getId());
+		}
+		else {
+			pstmt.setString(pos++, prop.getName());
+			pstmt.setLong(pos++, prop.getLocaleId());
+		}
+		if (prop.getRev() > 0) pstmt.setLong(pos++, prop.getRev());
+
 		ResultSet res = pstmt.executeQuery();
 		if (!res.next()) throw new NotFoundException("PropertyDefinition not found (id: "+prop.getId()+")");
 		
+		prop._setId(res.getLong("prop_id"));
 		prop.setName(res.getString("name"));
 		if (res.getString("minvalue") != null) prop.setMinValue(res.getInt("minvalue"));
 		else prop.setMinValue(null);
@@ -46,7 +76,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 
 		entityDAO.get(prop);
 	}
-
+	
 	@Override
 	public void save(PropertyDefinition prop) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;

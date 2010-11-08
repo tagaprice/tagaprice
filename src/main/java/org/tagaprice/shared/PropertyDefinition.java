@@ -14,6 +14,8 @@
 */
 package org.tagaprice.shared;
 
+import org.tagaprice.server.dao.PropertyDefinitionDAO;
+
 /**
  * Describes a property
  * **/
@@ -51,12 +53,22 @@ public class PropertyDefinition extends Entity {
 	}
 	
 	/**
-	 * constructor used for querying a specific revision of a PropertyDefinition (using PropertyDefinitionDAO)
+	 * constructor used for querying a specific revision of a {@link PropertyDefinition} (using {@link PropertyDefinitionDAO})
 	 * @param id PropertyDefinition ID
 	 * @param rev PropertyDefinition revision (has to exist)
 	 */
 	public PropertyDefinition(long id, int rev) {
 		super(id, rev);
+	}
+	
+	/**
+	 * constructor used for querying a {@link PropertyDefinition} object by it's name 
+	 * @param name property name (e.g. "weight")
+	 * @param localeId locale to query the {@link PropertyDefinition} for
+	 */
+	public PropertyDefinition(String name, int localeId) {
+		super(null, localeId, null);
+		this.name = name;
 	}
 	
 	/**
