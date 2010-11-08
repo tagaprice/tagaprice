@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.TypeDAO;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.TypeHandler;
