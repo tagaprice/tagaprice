@@ -96,6 +96,10 @@ public abstract class Entity implements Serializable {
 		return id;
 	}
 	
+	public boolean hasId() {
+		return id != null;
+	}
+	
 	/**
 	 * This method should just be used by EntityDAO
 	 * @param id new entity ID
