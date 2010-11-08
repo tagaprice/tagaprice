@@ -40,6 +40,7 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 				Object a = it1.next(), b = it2.next();
 				rc = a.equals(b);
 			}
+			if (it1.hasNext() || it2.hasNext()) rc = false;
 		}
 		else rc = false;
 		
