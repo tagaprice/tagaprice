@@ -18,5 +18,5 @@ create table propertyRevision (
 	PRIMARY KEY (prop_id, rev),
 	FOREIGN KEY (prop_id) REFERENCES property (prop_id),
 	FOREIGN KEY (prop_id, rev) REFERENCES entityrevision (ent_id, rev),
-	CHECK (LENGTH(name) > 0 AND name = LOWER(name))
+	CHECK (LENGTH(name) > 0 AND substr(name,0,1) = LOWER(substr(name,0,1)))
 );
