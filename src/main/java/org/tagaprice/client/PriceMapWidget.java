@@ -25,6 +25,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.control.Control;
+import com.google.gwt.maps.client.control.HierarchicalMapTypeControl;
+import com.google.gwt.maps.client.control.LargeMapControl3D;
+import com.google.gwt.maps.client.control.MapTypeControl;
+import com.google.gwt.maps.client.control.SmallZoomControl3D;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.event.MapZoomEndHandler;
 import com.google.gwt.maps.client.event.MapZoomEndHandler.MapZoomEndEvent;
@@ -83,6 +88,11 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		
 		if(type.equals(PriceMapType.PRODUCT) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){
 			map=new MapWidget(LatLng.newInstance(TaPM.getCurrentAddress().getLat(),TaPM.getCurrentAddress().getLng()), 16);
+			map.addControl(new SmallZoomControl3D());
+			map.addControl(new HierarchicalMapTypeControl());
+			
+			
+			
 			getPrices();			
 			
 			map.setWidth("100%");
