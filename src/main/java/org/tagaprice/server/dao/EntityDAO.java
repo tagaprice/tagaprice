@@ -85,8 +85,7 @@ public class EntityDAO implements DAOClass<Entity> {
 			// ent_id, locale_id and created_at are read only, therefore will not be checked or saved
 			
 			Entity eCompare = _getEntity(entity.getId());
-			//if (!entity.equals(eCompare)) { // it should not be possible to save a entity under the wrong ent_id
-			if (eCompare.getTitle() != entity.getTitle()) {
+			if (!entity.equals(eCompare)) { // it should not be possible to save a entity under the wrong ent_id
 				// they differ => save changes
 				_newRevision(entity);
 			}
@@ -102,30 +101,16 @@ public class EntityDAO implements DAOClass<Entity> {
 	}
 	
 	private Entity _getEntity(long id) throws SQLException, NotFoundException {
-		// TODO try to remove duplicate code (in get() and _getEntity())
-		Entity rc = null;
-		String sql = "SELECT e.ent_id, e.created_at AS entityDate, r.created_at AS revDate, rev, title, locale_id, e.creator, r.creator AS revCreator" +
-			" FROM entity e INNER JOIN entityRevision r" +
-			" ON (e.ent_id = r.ent_id AND e.current_revision = r.rev)" +
-			" WHERE e.ent_id = ?";
-		
-		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setLong(1, id);
-		ResultSet res = pstmt.executeQuery();
-		
-		if (!res.next()) throw new NotFoundException("didn't find entity with the ID "+id);
-		
-		rc = new Entity(res.getLong("ent_id"), res.getInt("rev"), res.getString("title"), res.getInt("locale_id"), res.getLong("creator"), res.getLong("revcreator")) {
+		Entity rc = new Entity(id) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public String getSerializeName() {
-				return "privateEntityImpl";
+				return null;
 			}
 		};
 		
-		rc._setCreatorId(res.getLong("creator"));
-		rc._setRevCreatorId(res.getLong("revcreator"));
+		get(rc);
 
 		return rc;
 	}
@@ -205,7 +190,7 @@ public class EntityDAO implements DAOClass<Entity> {
 		pstmt.setString(2, e.getTitle());
 		pstmt.setLong(3, e.getRevCreatorId());
 		pstmt.executeUpdate();
-		
+
 		db.commit();
 		e._setRev(1);
 	}
