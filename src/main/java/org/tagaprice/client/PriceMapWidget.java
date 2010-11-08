@@ -26,6 +26,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
+import com.google.gwt.maps.client.event.MapZoomEndHandler;
+import com.google.gwt.maps.client.event.MapZoomEndHandler.MapZoomEndEvent;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.History;
@@ -93,6 +95,13 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 				@Override
 				public void onDragEnd(MapDragEndEvent event) {
 					getPrices();
+				}
+			});
+			
+			map.addMapZoomEndHandler(new MapZoomEndHandler() {				
+				@Override
+				public void onZoomEnd(MapZoomEndEvent event) {
+					getPrices();				
 				}
 			});
 		}else if (type.equals(PriceMapType.SHOP)){
