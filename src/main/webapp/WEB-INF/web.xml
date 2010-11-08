@@ -6,11 +6,6 @@
 <web-app>
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>ApiDraft</servlet-name>
-		<servlet-class>org.tagaprice.server.api.draft.ApiDraft</servlet-class>
-	</servlet>
-
-	<servlet>
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
 	</servlet>
@@ -103,11 +98,6 @@
 		<url-pattern>/tagapriceui/rpc/search</url-pattern>
 	</servlet-mapping>
 	<!-- END: RPC-->
-
-	<servlet-mapping>
-		<servlet-name>ApiDraft</servlet-name>
-		<url-pattern>/api/draft/*</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>jUnitHostImpl</servlet-name>
