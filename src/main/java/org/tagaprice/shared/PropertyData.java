@@ -45,6 +45,7 @@ public class PropertyData implements Serializable {
 			String title,
 			String value,
 			Unit unit) {
+		this.id = id;
 		setName(name);
 		setTitle(title);
 		setValue(value);
@@ -158,7 +159,8 @@ public class PropertyData implements Serializable {
 	@Override
 	public String toString() {
 		return "PropertyData {\n" +
-				"name: " + getName() +
+				"id: " + getId() +
+				"\nname: " + getName() +
 				"\nvalue: " + getValue() +
 				"\nunit: "+getUnit() +
 			"\n}\n";
