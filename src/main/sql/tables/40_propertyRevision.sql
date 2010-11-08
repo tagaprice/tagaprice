@@ -16,6 +16,6 @@ create table propertyRevision (
 	uniq boolean not null default true,
 
 	PRIMARY KEY (prop_id, rev),
-	FOREIGN KEY (prop_id) REFERENCES entity (ent_id),
+	FOREIGN KEY (prop_id) REFERENCES property (prop_id),
 	FOREIGN KEY (prop_id, rev) REFERENCES entityrevision (ent_id, rev)
 );
