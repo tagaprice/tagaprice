@@ -26,6 +26,9 @@ DROP TABLE IF EXISTS confirmaccount;
 ALTER TABLE entity DROP CONSTRAINT fkey_entity_creator;
 DROP TABLE IF EXISTS account;
 
+DROP TABLE IF EXISTS receipt;
+DROP TABLE if EXISTS receiptentry;
+
 DROP TABLE IF EXISTS entity;
 
 DROP TABLE IF EXISTS locale;
