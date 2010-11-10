@@ -81,10 +81,11 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		
 		
 		//GetUnit
-		Unit unit = new Unit(res.getLong("unit_id"));
-		unitDAO.get(unit);
-		
-		prop.setUnit(unit);
+		if(res.getString("unit_id")!=null){
+			Unit unit = new Unit(res.getLong("unit_id"));
+			unitDAO.get(unit);		
+			prop.setUnit(unit);
+		}
 			
 	}
 	
@@ -122,7 +123,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		
 		//Save Unit
 		//GetUnit
-		unitDAO.save(prop.getUnit());
+		if(prop.getUnit()!=null) unitDAO.save(prop.getUnit());
 		
 	}
 }
