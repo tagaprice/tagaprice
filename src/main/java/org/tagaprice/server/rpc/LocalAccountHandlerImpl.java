@@ -16,9 +16,6 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.http.Cookie;
@@ -104,27 +101,6 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 
 			dao.save(account);
 			
-			//Test if the password is saved correctly
-			String sql = "SELECT password, salt FROM localaccount WHERE uid = ?";
-			PreparedStatement pstmt = db.prepareStatement(sql);
-			pstmt.setLong(1, account.getId());
-			ResultSet res = pstmt.executeQuery();			
-			res.next();
-			String salt = res.getString("salt");
-			String pwdHash = res.getString("password");			
-			if(!loginDao.md5(password+salt).equals(pwdHash)){
-				return false;
-			}
-			
-			
-			//Send Email
-			sql = "SELECT confirm FROM confirmaccount WHERE uid = ?";
-			pstmt = db.prepareStatement(sql);
-			pstmt.setLong(1, account.getId());
-			res = pstmt.executeQuery();
-			res.next();
-			System.out.println("send Mail: "+res.getString("confirm"));
-			
 			return true;
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);
@@ -133,8 +109,6 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		} catch (RevisionCheckException e) {
 			throw new IllegalArgumentException(e);
 		} catch (InvalidLocaleException e) {
-			throw new IllegalArgumentException(e);
-		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalArgumentException(e);
 		}
 	}
@@ -145,8 +119,6 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 			try {
 				return loginDao.login(mail, password);
-			} catch (NoSuchAlgorithmException e) {
-				throw new IllegalArgumentException(e);
 			} catch (SQLException e) {
 				throw new IllegalArgumentException(e);
 			}
