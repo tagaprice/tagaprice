@@ -17,6 +17,7 @@ package org.tagaprice.server.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.SearchResult;
@@ -41,7 +42,7 @@ public class UnitDAO implements DAOClass<Unit> {
 			long siId = id;
 
 			// check if this Unit has a fallback ID (and use it as siId instead)
-			PreparedStatement pstmt = db.prepareStatement("SELECT fallback_unit FROM unit where unit_id = ? AND fallback_unit IS NOT NULL");
+			PreparedStatement pstmt = db.prepareStatement("SELECT base_id FROM unit where unit_id = ? AND base_id IS NOT NULL");
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
 			if (res.next()) {
@@ -49,8 +50,8 @@ public class UnitDAO implements DAOClass<Unit> {
 			}
 			
 			// get all units with the given fallback_unit (or unit_id)
-			String sql = "SELECT unit_id, fallback_unit, factor FROM unit u " +
-			" WHERE unit_id = ? OR fallback_unit = ?";
+			String sql = "SELECT unit_id, base_id, factor FROM unit u " +
+			" WHERE unit_id = ? OR base_id = ?";
 			
 			pstmt = db.prepareStatement(sql);
 			pstmt.setLong(1, siId);
@@ -77,17 +78,33 @@ public class UnitDAO implements DAOClass<Unit> {
 		PreparedStatement pstmt;
 		
 		if (id == null) {
+			
 			// create new unit
 			entityDAO.save(unit);
-			pstmt = db.prepareStatement("INSERT INTO unit (unit_id, fallback_unit, factor) VALUES (?,?,?)");
+			
+			//Create unit
+			pstmt = db.prepareStatement("INSERT INTO unit (unit_id) VALUES (?)");
 			pstmt.setLong(1, unit.getId());
-			pstmt.setLong(2, unit.getStandardId());
+			pstmt.executeUpdate();
+			
+			//Create unit_revistion
+			pstmt = db.prepareStatement("INSERT INTO unitrevision (unit_id, rev, factor, base_id) VALUES (?,?,?,?)");
+			pstmt.setLong(1, unit.getId());
+			pstmt.setLong(2, unit.getRev());
+			
+			
 			pstmt.setDouble(3, unit.getFactor());
+			
+			//Base ID is null. This Unit is the base unit (eg. L (liter) is base for liter))
+			if(unit.getStandardId()==null) pstmt.setLong(4, unit.getId());
+			else pstmt.setLong(4, unit.getStandardId());
+						
+			
 			pstmt.executeUpdate();
 		}
 		else {
 			// first check if the entity is a unit
-			pstmt = db.prepareStatement("SELECT unit_id FROM unit WHERE unit_id = ?");
+			pstmt = db.prepareStatement("SELECT unit_id FROM unitrevision WHERE unit_id = ?");
 			pstmt.setLong(1, unit.getId());
 			ResultSet res = pstmt.executeQuery();
 			if (!res.next()) throw new NotFoundException("Unit not found! (id="+unit.getId()+")");
@@ -100,7 +117,7 @@ public class UnitDAO implements DAOClass<Unit> {
 	}
 	
 	private Unit _getUnit(ResultSet res) throws SQLException, NotFoundException {
-		Unit rc = new Unit(res.getLong("unit_id"), 0, null, 0, res.getLong("fallback_unit"), res.getDouble("factor"));
+		Unit rc = new Unit(res.getLong("unit_id"), 0, null, 0, res.getLong("base_id"), res.getDouble("factor"));
 		
 		entityDAO.get(rc);
 		
@@ -119,7 +136,7 @@ public class UnitDAO implements DAOClass<Unit> {
 		
 		if (!res.next()) throw new NotFoundException("Unit "+unit.getId()+" not found");
 		
-		unit._setStandardId(res.getLong("fallback_unit"));
+		unit._setStandardId(res.getLong("base_id"));
 		unit._setFactor(res.getDouble("factor"));
 				
 		entityDAO.get(unit);

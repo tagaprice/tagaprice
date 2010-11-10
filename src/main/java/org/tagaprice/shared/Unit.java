@@ -49,7 +49,7 @@ public class Unit extends Entity {
 	 * @param title descriptive Unit name
 	 * @param localeId current locale
 	 * @param creatorId currently logged in user
-	 * @param standardId standard (SI) Unit ID (may be null)
+	 * @param standardId standard (SI) Unit ID (may be null if this unit is a standard-SI)
 	 * @param factor factor to calculate between the standard Unit and this one
 	 */
 	public Unit(String title, int localeId, long creatorId, Long standardId, double factor) {

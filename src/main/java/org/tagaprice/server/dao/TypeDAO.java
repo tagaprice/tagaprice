@@ -98,6 +98,8 @@ public class TypeDAO implements DAOClass<Type> {
 			while(res.next()){
 				PropertyDefinition tempProp = new PropertyDefinition(res.getLong("prop_id"));
 				propDAO.get(tempProp);
+				System.out.println(tempProp.getUnit());
+				//tempProp.setUnique()
 				pg5.addGroupElement(tempProp);
 			}
 			

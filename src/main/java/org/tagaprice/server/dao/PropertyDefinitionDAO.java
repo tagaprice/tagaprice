@@ -8,6 +8,7 @@ import java.sql.Types;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -15,10 +16,12 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
+	private UnitDAO unitDAO;
 	
 	public PropertyDefinitionDAO(DBConnection db) {
 		this.db = db;
 		entityDAO = new EntityDAO(db);
+		unitDAO = new UnitDAO(db);
 	}
 	
 	public PropertyDefinition get(long id) throws SQLException, NotFoundException {
@@ -39,7 +42,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	
 	@Override
 	public void get(PropertyDefinition prop) throws SQLException, NotFoundException {
-		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq FROM propertyRevision ";
+		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
 		PreparedStatement pstmt;
 		int pos = 1;
 		if (prop.hasId()) {
@@ -75,6 +78,14 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		prop.setUnique(res.getBoolean("uniq"));
 
 		entityDAO.get(prop);
+		
+		
+		//GetUnit
+		Unit unit = new Unit(res.getLong("unit_id"));
+		unitDAO.get(unit);
+		
+		prop.setUnit(unit);
+			
 	}
 	
 	@Override
