@@ -37,7 +37,31 @@ public class InfoBox extends Composite {
 		infoBox.setWidth("100%");
 		infoBox.setVisible(false);		
 	}
-	
+
+	public void showError(Widget widget) {
+		showInfo(widget, BoxType.ERRORBOX);
+	}
+
+	public void showError(String message) {
+		showInfo(message, BoxType.ERRORBOX);
+	}
+
+	public void showSuccess(Widget widget) {
+		showInfo(widget, BoxType.SUCCESSBOX);
+	}
+
+	public void showSuccess(String message) {
+		showInfo(message, BoxType.SUCCESSBOX);
+	}
+
+	public void showWarning(Widget widget) {
+		showInfo(widget, BoxType.WARNINGBOX);
+	}
+
+	public void showWarning(String message) {
+		showInfo(message, BoxType.WARNINGBOX);
+	}
+
 	public void showInfo(Widget wid, BoxType type){
 		this.type=type;
 		
