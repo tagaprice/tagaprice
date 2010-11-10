@@ -50,11 +50,10 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	@Override
 	public Type get(Type type) throws IllegalArgumentException {
 		
-		if(type==null) type = new Type(13);
-		
 		
 		//TODO throw exceptions to UI
 		try {
+			if(type==null)type=new Type(typeDAO.getRootTypeId());
 			typeDAO.get(type);
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);
@@ -75,10 +74,10 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	public ArrayList<Type> getTypeList(Type type)
 			throws IllegalArgumentException {
 		
-		if(type==null) type = new Type(13);
 		
 		//TODO throw exceptions to UI
 		try {
+			if(type==null)type=new Type(typeDAO.getRootTypeId());
 			return typeDAO.getTypeList(type);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

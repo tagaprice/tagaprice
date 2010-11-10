@@ -40,6 +40,7 @@ public class TypeDAO implements DAOClass<Type> {
 	
 	public void get(Type type) throws SQLException, NotFoundException, NotFoundException{
 		
+		
 		getRec(type,0);
 		
 	}
@@ -97,6 +98,8 @@ public class TypeDAO implements DAOClass<Type> {
 			while(res.next()){
 				PropertyDefinition tempProp = new PropertyDefinition(res.getLong("prop_id"));
 				propDAO.get(tempProp);
+				System.out.println(tempProp.getUnit());
+				//tempProp.setUnique()
 				pg5.addGroupElement(tempProp);
 			}
 			
@@ -137,6 +140,19 @@ public class TypeDAO implements DAOClass<Type> {
 				 
 		
 		return types;
+	}
+	
+	public long getRootTypeId() throws SQLException{
+		String sql = "SELECT type_id FROM typerevision " +
+				"INNER JOIN entity " +
+				"ON entity.ent_id=typerevision.type_id AND entity.current_revision=typerevision.rev " +
+				"WHERE parent_id IS NULL ";
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		ResultSet res = pstmt.executeQuery();
+		res.next();
+		
+		return res.getLong("type_id");
+		
 	}
 
 	@Override

@@ -144,6 +144,8 @@ public class ListPropertyItem extends Composite {
 		temp.add(mp);
 		if(definition.getUnit()!=null)
 			temp.add(new Label(definition.getUnit().getTitle()));
+		
+		System.out.println("UNIT:"+definition.getUnit());
 		vePa1.add(temp);
 	}
 	
