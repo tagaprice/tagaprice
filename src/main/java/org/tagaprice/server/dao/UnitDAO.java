@@ -93,11 +93,15 @@ public class UnitDAO implements DAOClass<Unit> {
 			pstmt.setLong(2, unit.getRev());
 			
 			
-			pstmt.setDouble(3, unit.getFactor());
-			
 			//Base ID is null. This Unit is the base unit (eg. L (liter) is base for liter))
-			if(unit.getStandardId()==null) pstmt.setLong(4, unit.getId());
-			else pstmt.setLong(4, unit.getStandardId());
+			if(unit.getStandardId()==null){
+				pstmt.setNull(3, Types.DOUBLE);
+				pstmt.setNull(4, Types.BIGINT); //pstmt.setLong(4yp, unit.getId());
+			}
+			else {
+				pstmt.setDouble(3, unit.getFactor());
+				pstmt.setLong(4, unit.getStandardId());
+			}
 						
 			
 			pstmt.executeUpdate();

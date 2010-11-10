@@ -20,7 +20,7 @@ public class UnitDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new UnitDAO(db);
 		
-		baseunit = new Unit("baseUnit", 1, 1, null, 1);
+		baseunit = new Unit("baseUnit", 1, 1, null, 0);
 		dao.save(baseunit);
 		
 		childUnit = new Unit("unit2", 1, 1, baseunit.getId(), 0.1);

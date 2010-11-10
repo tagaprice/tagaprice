@@ -118,5 +118,11 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		pstmt.setBoolean(7, prop.isUnique());
 		
 		pstmt.executeUpdate();
+		
+		
+		//Save Unit
+		//GetUnit
+		unitDAO.save(prop.getUnit());
+		
 	}
 }
