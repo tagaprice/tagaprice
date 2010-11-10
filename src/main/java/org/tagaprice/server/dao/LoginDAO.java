@@ -2,8 +2,6 @@ package org.tagaprice.server.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +18,7 @@ public class LoginDAO {
 		this.db=db;
 	}
 	
-	public String login(String mail, String password) throws SQLException, NoSuchAlgorithmException{	
+	public String login(String mail, String password) throws SQLException {	
 		String sql = "SELECT uid FROM localAccount INNER JOIN account USING(uid) " +
 			"WHERE mail = ? AND password = md5(?||salt) AND NOT locked";
 		PreparedStatement pstmt = db.prepareStatement(sql);
@@ -91,22 +89,6 @@ public class LoginDAO {
 		}	
 		throw new InvalidLoginException("No current ID for this SID");
 		
-	}
-	
-	
-	public String md5(String in) throws NoSuchAlgorithmException {
-		// calculate hash 
-		MessageDigest md5 = MessageDigest.getInstance("MD5");
-	    md5.update(in.getBytes());
-	    byte[] hash = md5.digest();
-	    StringBuffer rc = new StringBuffer();
-        for (int i=0; i<hash.length; i++) {
-        	String hex = "0"+Integer.toHexString(0xFF & hash[i]);
-        	if (hex.length()>2) hex = hex.substring(hex.length()-2);
-            rc.append(hex);
-        }
-        
-        return rc.toString();
 	}
 	
 	private static long _getSeed() {
