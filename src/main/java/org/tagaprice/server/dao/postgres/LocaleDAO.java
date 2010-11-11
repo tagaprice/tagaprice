@@ -12,7 +12,7 @@
  * Filename: LocaleDAO.java
  * Date: 15.06.2010
 */
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

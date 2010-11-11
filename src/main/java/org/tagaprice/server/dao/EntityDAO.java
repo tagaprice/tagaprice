@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;

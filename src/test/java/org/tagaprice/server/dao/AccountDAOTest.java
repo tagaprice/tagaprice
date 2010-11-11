@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
+import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.shared.AccountData;
 
 public class AccountDAOTest {
