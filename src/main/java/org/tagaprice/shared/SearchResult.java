@@ -17,9 +17,17 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a Search result as a list.
+ * 
+ * @param <T> Generic parameter for this SearchResult, must extend {@link Serializable}.
+ */
 public class SearchResult<T extends Serializable> extends ArrayList<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Just creates an empty {@link ArrayList}.
+	 */
 	public SearchResult() {
 	}
 
