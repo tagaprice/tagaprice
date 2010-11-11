@@ -12,10 +12,23 @@
  * Filename: ProductWidget.java
  * Date: 19.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.InfoBox;
+import org.tagaprice.client.MorphWidget;
+import org.tagaprice.client.MorphWidgetErrorHandler;
+import org.tagaprice.client.MyResources;
+import org.tagaprice.client.Page;
+import org.tagaprice.client.PriceMapWidget;
+import org.tagaprice.client.ProgressWidget;
+import org.tagaprice.client.RatingWidget;
+import org.tagaprice.client.TaPManager;
+import org.tagaprice.client.TypeWidget;
+import org.tagaprice.client.TypeWidgetHandler;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.PriceMapWidget.PriceMapType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
