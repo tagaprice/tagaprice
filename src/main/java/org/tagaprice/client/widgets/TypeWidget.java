@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
-import org.tagaprice.client.TypeWidgetHandler;
 import org.tagaprice.shared.Type;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

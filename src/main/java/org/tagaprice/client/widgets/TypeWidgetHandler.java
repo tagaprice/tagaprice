@@ -12,7 +12,7 @@
  * Filename: TypeWidgetHandler.java
  * Date: 03.07.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import org.tagaprice.shared.Type;
 
