@@ -16,7 +16,7 @@ package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.MyResources;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TypeWidgetHandler;
@@ -101,7 +101,7 @@ public class TypeWidget extends Composite{
 					@Override
 					public void onClick(ClickEvent event) {
 						typeItems.setWidget(new Label("Loading..."));					
-						HandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
+						RPCHandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
 							
 							@Override
 							public void onSuccess(ArrayList<Type> result) {
@@ -141,7 +141,7 @@ public class TypeWidget extends Composite{
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
 						typeItems.setWidget(new Label("Loading..."));					
-						HandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
+						RPCHandlerManager.getTypeHandler().getTypeList(innerType, new AsyncCallback<ArrayList<Type>>() {
 							
 							@Override
 							public void onSuccess(ArrayList<Type> result) {
@@ -204,7 +204,7 @@ public class TypeWidget extends Composite{
 	
 	private void openRootArrow(){
 		typeItems.setWidget(new Label("Loading..."));					
-		HandlerManager.getTypeHandler().getTypeList(null, new AsyncCallback<ArrayList<Type>>() {
+		RPCHandlerManager.getTypeHandler().getTypeList(null, new AsyncCallback<ArrayList<Type>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<Type> result) {

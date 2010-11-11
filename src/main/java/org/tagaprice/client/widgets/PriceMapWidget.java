@@ -16,7 +16,7 @@ package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.IAddressHandler;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TitlePanel;
@@ -127,7 +127,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 	
 	private void getPrices(){
 		if (type.equals(PriceMapType.SHOP)){
-			HandlerManager.getPriceHandler().get(id, null, type, new AsyncCallback<ArrayList<PriceData>>() {
+			RPCHandlerManager.getPriceHandler().get(id, null, type, new AsyncCallback<ArrayList<PriceData>>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -142,7 +142,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 			});
 		}else{
 			//Get Prices
-			HandlerManager.getPriceHandler().get(
+			RPCHandlerManager.getPriceHandler().get(
 					id, 
 					new BoundingBox(
 							map.getBounds().getSouthWest().getLatitude(), 

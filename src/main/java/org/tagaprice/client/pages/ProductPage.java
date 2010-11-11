@@ -17,7 +17,7 @@ package org.tagaprice.client.pages;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.MyResources;
@@ -194,7 +194,7 @@ public class ProductPage extends Page {
 				
 				
 				//Get type and set type
-				HandlerManager.getTypeHandler().get(newType, new AsyncCallback<Type>() {
+				RPCHandlerManager.getTypeHandler().get(newType, new AsyncCallback<Type>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
@@ -300,7 +300,7 @@ public class ProductPage extends Page {
 				//Validate Data
 				if(PropertyValidator.isValid(type, productData.getProperties())){				
 					try {
-						HandlerManager.getProductHandler().save(
+						RPCHandlerManager.getProductHandler().save(
 								productData, 
 								new AsyncCallback<ProductData>() {
 							

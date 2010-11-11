@@ -17,7 +17,7 @@ package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.InfoBoxComposite;
 import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.SearchWidget;
@@ -204,7 +204,7 @@ public class ReceiptPage extends InfoBoxComposite {
 				//Save where Draft(false);
 				if(allowSaving){
 					try {
-						HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+						RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 							
 							@Override
 							public void onSuccess(ReceiptData result) {
@@ -251,7 +251,7 @@ public class ReceiptPage extends InfoBoxComposite {
 		refreshPrice();
 		if(allowSaving){
 			try {
-				HandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+				RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
 					
 					@Override
 					public void onSuccess(ReceiptData result) {

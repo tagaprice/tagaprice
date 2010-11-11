@@ -117,14 +117,14 @@ public class TaPManager {
 		uiMng.waitingPage();
 
 		try {
-			HandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
+			RPCHandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
 
 				@Override
 				public void onSuccess(final ProductData pResult) {
 
 					
 					//TODO set new Type("root", 9, 1, null) to new Type(1)
-					HandlerManager.getTypeHandler().get(new Type(pResult.getTypeId()), new AsyncCallback<Type>() {
+					RPCHandlerManager.getTypeHandler().get(new Type(pResult.getTypeId()), new AsyncCallback<Type>() {
 
 						@Override
 						public void onSuccess(Type tResult) {
@@ -163,7 +163,7 @@ public class TaPManager {
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
-		HandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
+		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -191,12 +191,12 @@ public class TaPManager {
 		//Create Page
 		uiMng.waitingPage();
 				
-		HandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
+		RPCHandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
 			
 			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
 			public void onSuccess(final ShopData result) {
-				HandlerManager.getTypeHandler().get(new Type(result.getTypeId()), new AsyncCallback<Type>() {
+				RPCHandlerManager.getTypeHandler().get(new Type(result.getTypeId()), new AsyncCallback<Type>() {
 
 					@Override
 					public void onSuccess(Type tResult) {
@@ -229,7 +229,7 @@ public class TaPManager {
 		uiMng.waitingPage();
 		
 		
-		HandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
+		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -258,7 +258,7 @@ public class TaPManager {
 		uiMng.waitingPage();
 
 		try {
-			HandlerManager.getReceiptHandler().get(data, new AsyncCallback<ReceiptData>() {
+			RPCHandlerManager.getReceiptHandler().get(data, new AsyncCallback<ReceiptData>() {
 
 				@Override
 				public void onSuccess(ReceiptData result) {

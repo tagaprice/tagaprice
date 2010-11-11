@@ -2,7 +2,7 @@ package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
@@ -31,7 +31,7 @@ public class ReceiptListPage extends Page {
 		
 		
 		try {
-			HandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<ReceiptData>>() {
+			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<ReceiptData>>() {
 				
 				@Override
 				public void onSuccess(ArrayList<ReceiptData> result) {

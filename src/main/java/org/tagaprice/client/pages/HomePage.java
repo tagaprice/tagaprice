@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.pages;
 
-import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.MyResources;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.InfoBox.BoxType;
@@ -73,7 +73,7 @@ public class HomePage extends Page {
 					TaPManager.getInstance().getUIManager().waitingPage();
 										
 					try {
-						HandlerManager.getReceiptHandler().save(null, new AsyncCallback<ReceiptData>() {
+						RPCHandlerManager.getReceiptHandler().save(null, new AsyncCallback<ReceiptData>() {
 							
 							@Override
 							public void onSuccess(ReceiptData result) {

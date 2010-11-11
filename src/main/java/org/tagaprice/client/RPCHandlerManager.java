@@ -19,7 +19,7 @@ import org.tagaprice.shared.rpc.UnitHandlerAsync;
 
 import com.google.gwt.core.client.GWT;
 
-public class HandlerManager {
+public class RPCHandlerManager {
 
 	private static TypeHandlerAsync typeHandler;
 	private static ProductHandlerAsync productHandler;

@@ -240,7 +240,7 @@ public class SearchWidget extends Composite {
 	}
 	
 	private void newShopRequest(final long curReq){
-		HandlerManager.getSearchHandler().search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
+		RPCHandlerManager.getSearchHandler().search(searchBox.getText(), _shopData, new AsyncCallback<ArrayList<Entity>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<Entity> result) {
@@ -269,7 +269,7 @@ public class SearchWidget extends Composite {
 	}
 	
 	private void newBboxRequest(final long curReq){
-		HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
+		RPCHandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, _bbox,  new AsyncCallback<ArrayList<Entity>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<Entity> result) {
@@ -297,7 +297,7 @@ public class SearchWidget extends Composite {
 	}
 	
 	private void newStdRequest(final long curReq){		
-		HandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
+		RPCHandlerManager.getSearchHandler().search(searchBox.getText(), _searchType, new AsyncCallback<ArrayList<Entity>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<Entity> result) {
