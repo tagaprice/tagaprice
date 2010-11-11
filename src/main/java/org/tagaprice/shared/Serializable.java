@@ -15,7 +15,7 @@
 package org.tagaprice.shared;
 
 /**
- * Everything that can be de-/serialized with EntitySerializer
+ * Everything that can be de-/serialized with EntitySerializer must implement this interface.
  * @author Manuel Reithuber
  *
  */
