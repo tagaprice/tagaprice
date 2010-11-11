@@ -5,13 +5,13 @@
  * use this file except in compliance with the License. 
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPriceUI
  * Filename: DateWidget.java
  * Date: 15.05.2010
-*/
+ */
 package org.tagaprice.client.widgets;
 
 import java.util.Date;
@@ -27,11 +27,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
- 
+
 /**
- * Shows the date in a nice human readable style and
- * shows a datePicker on click. 
- *
+ * Shows the date in a nice human readable style and shows a datePicker on
+ * click.d
+ * 
  */
 
 public class DateWidget extends Composite {
@@ -43,51 +43,47 @@ public class DateWidget extends Composite {
 	PopupPanel pickerPop = new PopupPanel(true);
 	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
 	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
-	
+
 	/**
 	 * 
 	 * @param date
 	 */
-	public DateWidget(Date date){
+	public DateWidget(Date date) {
 		this();
 		setDate(date);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public DateWidget() {
 		initWidget(vePa);
-		
-		
-		
+
 		monthYear.setText(monthYearDtF.format(date));
 		day.setText(dayDtF.format(date));
-		
-		
+
 		monthYear.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				pickerPop.showRelativeTo(day);
-				
+
 			}
 		});
-		
+
 		day.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				pickerPop.showRelativeTo(day);
-				
+
 			}
 		});
-		
+
 		pickerPop.setWidget(picker);
-		
-		
+
 		picker.addValueChangeHandler(new ValueChangeHandler<Date>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				monthYear.setText(monthYearDtF.format(event.getValue()));
@@ -96,39 +92,40 @@ public class DateWidget extends Composite {
 				pickerPop.hide();
 			}
 		});
-		
-		
-		//Month year
+
+		// Month year
 		vePa.add(monthYear);
 		vePa.add(day);
-		
-		
-		//Style
+
+		// Style
 		this.setWidth("50px");
-		vePa.setCellHorizontalAlignment(monthYear, HasHorizontalAlignment.ALIGN_CENTER);
-		vePa.setCellHorizontalAlignment(day, HasHorizontalAlignment.ALIGN_CENTER);
+		vePa.setCellHorizontalAlignment(monthYear,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		vePa.setCellHorizontalAlignment(day,
+				HasHorizontalAlignment.ALIGN_CENTER);
 		this.setStyleName("DateWidget");
 		monthYear.setStyleName("DateWidget-MonthYear");
 		day.setStyleName("DateWidget-Day");
 	}
-	
+
 	/**
 	 * Sets the date
+	 * 
 	 * @param date
 	 */
-	public void setDate(Date date){
-		this.date=date;
+	public void setDate(Date date) {
+		this.date = date;
 		monthYear.setText(monthYearDtF.format(this.date));
 		day.setText(dayDtF.format(this.date));
 		picker.setValue(date);
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
-	public Date getDate(){
+	public Date getDate() {
 		return this.date;
 	}
 }
