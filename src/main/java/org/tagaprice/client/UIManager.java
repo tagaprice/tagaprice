@@ -14,15 +14,15 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.client.account.ConfirmRegistrationPage;
-import org.tagaprice.client.account.LoginPage;
-import org.tagaprice.client.account.RegistrationPage;
 import org.tagaprice.client.pages.HomePage;
 import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.pages.ProductPage;
 import org.tagaprice.client.pages.ReceiptListPage;
 import org.tagaprice.client.pages.ReceiptPage;
 import org.tagaprice.client.pages.ShopPage;
+import org.tagaprice.client.pages.account.ConfirmRegistrationPage;
+import org.tagaprice.client.pages.account.LoginPage;
+import org.tagaprice.client.pages.account.RegistrationPage;
 import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
