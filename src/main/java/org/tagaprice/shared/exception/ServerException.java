@@ -6,4 +6,9 @@ package org.tagaprice.shared.exception;
  */
 public class ServerException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8255098943533093519L;
+
 }
