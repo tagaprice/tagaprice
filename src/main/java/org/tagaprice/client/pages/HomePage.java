@@ -12,8 +12,12 @@
  * Filename: HomePage.java
  * Date: 18.07.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.pages;
 
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.MyResources;
+import org.tagaprice.client.Page;
+import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;

@@ -19,6 +19,7 @@ import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.account.ConfirmRegistrationPage;
 import org.tagaprice.client.account.LoginPage;
 import org.tagaprice.client.account.RegistrationPage;
+import org.tagaprice.client.pages.HomePage;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
