@@ -12,7 +12,7 @@
  * Filename: ProgressWidget.java
  * Date: 14.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
