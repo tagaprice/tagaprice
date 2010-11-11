@@ -2,7 +2,7 @@
 
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" 
 xmlns:g='urn:import:com.google.gwt.user.client.ui' 
-xmlns:my='urn:import:org.tagaprice.client'>
+xmlns:my='urn:import:org.tagaprice.client.widgets'>
 
 <g:VerticalPanel ui:field="basePanel">
 	<g:HorizontalPanel ui:field="top">

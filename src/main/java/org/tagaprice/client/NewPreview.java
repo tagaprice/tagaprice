@@ -14,6 +14,9 @@
  */
 package org.tagaprice.client;
 
+
+import org.tagaprice.client.pages.ReceiptPage;
+
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -38,12 +41,12 @@ public class NewPreview extends EntityPreview{
 	@Override
 	public void click() {
 		if(filter.equals(Filter.SHOP)){ 
-			if(parent instanceof ReceiptWidget){
-				((ReceiptWidget)parent).shop.setWidget(new Label("this is a new shop - currently just a label"));
+			if(parent instanceof ReceiptPage){
+				//((ReceiptPage)parent).shop.setWidget(new Label("this is a new shop - currently just a label"));
 			} else { //create new shop page 
 					}
 		} else if(filter.equals(Filter.PRODUCT)){ 
-			if(parent instanceof ReceiptWidget){
+			if(parent instanceof ReceiptPage){
 				//create a new product and add to receipt
 			} else { //create new shop page 
 					}  

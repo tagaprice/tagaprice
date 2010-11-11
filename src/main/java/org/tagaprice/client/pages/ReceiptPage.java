@@ -12,11 +12,18 @@
  * Filename: ReceiptWidget.java
  * Date: 15.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.pages;
 
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.ProductPreview;
+import org.tagaprice.client.SearchWidget;
+import org.tagaprice.client.SelectiveVerticalPanel;
+import org.tagaprice.client.SelectiveVerticalPanelHandler;
+import org.tagaprice.client.ShopPreview;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
@@ -49,8 +56,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Displays edit able receipt including shop and product search.
  *
  */
-public class ReceiptWidget extends InfoBoxComposite {
-	interface MyUiBinder extends UiBinder<Widget, ReceiptWidget>{}
+public class ReceiptPage extends InfoBoxComposite {
+	interface MyUiBinder extends UiBinder<Widget, ReceiptPage>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	
 	
@@ -83,7 +90,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 	 * 
 	 * @param receiptData
 	 */
-	public ReceiptWidget(ReceiptData receiptData, boolean editable, boolean text){
+	public ReceiptPage(ReceiptData receiptData, boolean editable, boolean text){
 		//this();
 		
 		this.receiptData=receiptData;
@@ -108,7 +115,7 @@ public class ReceiptWidget extends InfoBoxComposite {
 	/**
 	 * 
 	 */
-	public ReceiptWidget(ReceiptData _receiptData, boolean editable) {
+	public ReceiptPage(ReceiptData _receiptData, boolean editable) {
 		init(uiBinder.createAndBindUi(this));
 		
 		save.setVisible(false);

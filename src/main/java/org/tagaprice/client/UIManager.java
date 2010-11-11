@@ -23,6 +23,7 @@ import org.tagaprice.client.pages.HomePage;
 import org.tagaprice.client.pages.Page;
 import org.tagaprice.client.pages.ProductPage;
 import org.tagaprice.client.pages.ReceiptListPage;
+import org.tagaprice.client.pages.ReceiptPage;
 import org.tagaprice.client.pages.ShopPage;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
@@ -97,7 +98,7 @@ public class UIManager extends Page {
 
 	public void showReceipt(final ReceiptData receiptData){
 		waitingPage();
-		ReceiptWidget tempReceipt = new ReceiptWidget(receiptData, true); 
+		ReceiptPage tempReceipt = new ReceiptPage(receiptData, true); 
 		centerPage.setWidget(tempReceipt);
 		
 		
