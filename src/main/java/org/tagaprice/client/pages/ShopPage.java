@@ -71,20 +71,20 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ShopPage extends APage {
 
-	private ShopData shopData;
-	private Type type;
-	private VerticalPanel vePa1 = new VerticalPanel();
-	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
-	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
-	private PropertyChangeHandler handler;
-	private InfoBoxWidget bottomInfo = new InfoBoxWidget();
-	private SimplePanel typeWidgetContainer = new SimplePanel();
-	private SimplePanel propertyHandlerContainer = new SimplePanel();
-	private PriceMapWidget priceMap;
-	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
-	private MapWidget mapWidget = new MapWidget();
-	private Marker marker;
-	private Geocoder geoCoder = new Geocoder();
+	private ShopData _shopData;
+	private Type _type;
+	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
+	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
+	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
+	private PropertyChangeHandler _handler;
+	private InfoBoxWidget _bottomInfo = new InfoBoxWidget();
+	private SimplePanel _typeWidgetContainer = new SimplePanel();
+	private SimplePanel _propertyHandlerContainer = new SimplePanel();
+	private PriceMapWidget _priceMap;
+	private MorphWidget _titleMorph = new MorphWidget("", Datatype.STRING, true);
+	private MapWidget _mapWidget = new MapWidget();
+	private Marker _marker;
+	private Geocoder _geoCoder = new Geocoder();
 	
 	//Address
 	private MorphWidget street = new MorphWidget("", Datatype.STRING, true);
@@ -93,24 +93,28 @@ public class ShopPage extends APage {
 	private MorphWidget country = new MorphWidget("", Datatype.STRING, true);
 	private Button showMapButton = new Button("Show on Map");
 	
-	
-	public ShopPage(ShopData _shopData, Type _type){
-		init(vePa1);
-		this.shopData=_shopData;
-		this.type=_type;
+/**
+ * The Constructor creates a shop page for a new shop with shop data and shop type	
+ * @param shopData
+ * @param _type
+ */
+	public ShopPage(ShopData shopData, Type _type){
+		init(_verticalPanel_1);
+		this._shopData=shopData;
+		this._type=_type;
 		
 		
 		//Move PropertyData to hashPropertyData
-		for(PropertyData pd:this.shopData.getProperties()){
-			if(hashProperties.get(pd.getName())==null){
-				hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+		for(PropertyData pd:this._shopData.getProperties()){
+			if(_hashProperties.get(pd.getName())==null){
+				_hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
 			}			
-			hashProperties.get(pd.getName()).add(pd);
+			_hashProperties.get(pd.getName()).add(pd);
 		}
 			
 		
 		//Listener
-		handler=new PropertyChangeHandler() {
+		_handler=new PropertyChangeHandler() {
 			
 			@Override
 			public void onSuccess() {
@@ -125,16 +129,16 @@ public class ShopPage extends APage {
 		};
 		
 		//style		
-		vePa1.setWidth("100%");
+		_verticalPanel_1.setWidth("100%");
 		
 		//Header
 		HorizontalPanel hoPa1 = new HorizontalPanel();
 		hoPa1.setWidth("100%");
-		vePa1.add(titleMorph);		
-		titleMorph.setText(shopData.getTitle());
-		titleMorph.setWidth("100%");
-		vePa1.add(hoPa1);
-		ProgressWidget progressWidget = new ProgressWidget(new Image(ImageBundle.INSTANCE.productPriview()), shopData.getProgress());
+		_verticalPanel_1.add(_titleMorph);		
+		_titleMorph.setText(_shopData.getTitle());
+		_titleMorph.setWidth("100%");
+		_verticalPanel_1.add(hoPa1);
+		ProgressWidget progressWidget = new ProgressWidget(new Image(ImageBundle.INSTANCE.productPriview()), _shopData.getProgress());
 		hoPa1.add(progressWidget);
 		
 		VerticalPanel vePa2 = new VerticalPanel();
@@ -143,27 +147,27 @@ public class ShopPage extends APage {
 		hoPa1.setCellWidth(vePa2, "100%");
 		
 		//Type
-		vePa2.add(typeWidgetContainer);	
+		vePa2.add(_typeWidgetContainer);	
 		drawTypeWidget();
 		
 		//Rating
-		vePa2.add(new RatingWidget(shopData.getRating(), false));
+		vePa2.add(new RatingWidget(_shopData.getRating(), false));
 		
 		
 		//Add Adress and map
-		mapWidget.setZoomLevel(14);
-		mapWidget.setWidth("100%");
-		mapWidget.setHeight("200px");
+		_mapWidget.setZoomLevel(14);
+		_mapWidget.setWidth("100%");
+		_mapWidget.setHeight("200px");
 		MarkerOptions makerOption = MarkerOptions.newInstance();
 		makerOption.setDraggable(true);
-		if(shopData.getAddress().getLat()!=null){
-			mapWidget.setCenter(LatLng.newInstance(shopData.getAddress().getLat(),shopData.getAddress().getLng()));
-			marker = new Marker(LatLng.newInstance(shopData.getAddress().getLat(),shopData.getAddress().getLng()), makerOption);
+		if(_shopData.getAddress().getLat()!=null){
+			_mapWidget.setCenter(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()));
+			_marker = new Marker(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()), makerOption);
 		}else{
-			marker = new Marker(mapWidget.getCenter(), makerOption);
+			_marker = new Marker(_mapWidget.getCenter(), makerOption);
 		}
-		mapWidget.addOverlay(marker);
-		vePa1.add(mapWidget);
+		_mapWidget.addOverlay(_marker);
+		_verticalPanel_1.add(_mapWidget);
 		
 		Grid adressGrid = new Grid(4, 2);
 		adressGrid.setWidth("100%");
@@ -182,10 +186,10 @@ public class ShopPage extends APage {
 		adressGrid.setWidget(3, 1, country);
 		
 		//SetText
-		street.setText(shopData.getAddress().getStreet());
+		street.setText(_shopData.getAddress().getStreet());
 		//zip.setText(shopData.getAddress().get);
-		county.setText(shopData.getAddress().getCity());
-		country.setText(shopData.getAddress().getCountry().getCode());
+		county.setText(_shopData.getAddress().getCity());
+		country.setText(_shopData.getAddress().getCountry().getCode());
 		
 		//Width
 		//street.setWidth("100%");
@@ -201,10 +205,10 @@ public class ShopPage extends APage {
 		adressGrid.getCellFormatter().setStyleName(1, 1, "RegistrationPage-Row");
 		adressGrid.getCellFormatter().setStyleName(2, 1, "RegistrationPage-Row");
 		adressGrid.getCellFormatter().setStyleName(3, 1, "RegistrationPage-Row");
-		vePa1.add(adressGrid);
+		_verticalPanel_1.add(adressGrid);
 		
 		showMapButton.setWidth("100%");
-		vePa1.add(showMapButton);
+		_verticalPanel_1.add(showMapButton);
 		showMapButton.setVisible(false);
 		
 		showMapButton.addClickHandler(new ClickHandler() {
@@ -212,19 +216,19 @@ public class ShopPage extends APage {
 			@Override
 			public void onClick(ClickEvent event) {
 				showMapButton.setText("Searching....");
-				geoCoder.getLocations(street.getText().trim()+", "
+				_geoCoder.getLocations(street.getText().trim()+", "
 						+zip.getText().trim()+", "
 						+county.getText().trim()+", "
 						+country.getText().trim(), new LocationCallback() {
 							
 							@Override
 							public void onSuccess(JsArray<Placemark> locations) {
-								mapWidget.setCenter(locations.get(0).getPoint());
-								marker.setLatLng(locations.get(0).getPoint());
+								_mapWidget.setCenter(locations.get(0).getPoint());
+								_marker.setLatLng(locations.get(0).getPoint());
 								showMapButton.setText("Show on map");
 								showMapButton.setVisible(false);
 								
-								shopData.getAddress().setCoordinates(
+								_shopData.getAddress().setCoordinates(
 										locations.get(0).getPoint().getLatitude(),
 										locations.get(0).getPoint().getLongitude());
 								
@@ -235,7 +239,7 @@ public class ShopPage extends APage {
 								
 								
 								//TODO Problem with Country
-								shopData.getAddress().setAddress(
+								_shopData.getAddress().setAddress(
 										street.getText().trim(), 
 										locations.get(0).getCity(), 
 										new Country(
@@ -260,18 +264,18 @@ public class ShopPage extends APage {
 		
 		//Listener
 		//Map Lister
-		marker.addMarkerDragEndHandler(new MarkerDragEndHandler() {
+		_marker.addMarkerDragEndHandler(new MarkerDragEndHandler() {
 			
 			@Override
 			public void onDragEnd(MarkerDragEndEvent event) {
-				shopData.getAddress().setCoordinates(event.getSender().getLatLng().getLatitude(), event.getSender().getLatLng().getLongitude());
+				_shopData.getAddress().setCoordinates(event.getSender().getLatLng().getLatitude(), event.getSender().getLatLng().getLongitude());
 				
-				geoCoder.getLocations(event.getSender().getLatLng(), new LocationCallback() {
+				_geoCoder.getLocations(event.getSender().getLatLng(), new LocationCallback() {
 					
 					@Override
 					public void onSuccess(JsArray<Placemark> locations) {
 						
-						shopData.getAddress().setAddress(
+						_shopData.getAddress().setAddress(
 								locations.get(0).getStreet(), 
 								locations.get(0).getCity(), 
 								new Country(
@@ -326,13 +330,13 @@ public class ShopPage extends APage {
 		
 		
 		//title Lister
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		_titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {
 				
-				if(!shopData.getTitle().equals(titleMorph.getText())){
-					shopData.setTitle(titleMorph.getText());
+				if(!_shopData.getTitle().equals(_titleMorph.getText())){
+					_shopData.setTitle(_titleMorph.getText());
 					showSave();				
 				}
 			}
@@ -352,17 +356,17 @@ public class ShopPage extends APage {
 		
 		
 		//Add Price
-		if(shopData.getId()!=null){
+		if(_shopData.getId()!=null){
 			final SimplePanel priceMapContaier = new SimplePanel();
 			priceMapContaier.setWidth("100%");
-			vePa1.add(priceMapContaier);
+			_verticalPanel_1.add(priceMapContaier);
 			
 			GWT.runAsync(new RunAsyncCallback() {
 				
 				@Override
 				public void onSuccess() {
-					priceMap = new PriceMapWidget(shopData.getId(),PriceMapType.SHOP);
-					priceMapContaier.setWidget(priceMap);					
+					_priceMap = new PriceMapWidget(_shopData.getId(),PriceMapType.SHOP);
+					priceMapContaier.setWidget(_priceMap);					
 				}
 				
 				@Override
@@ -377,20 +381,20 @@ public class ShopPage extends APage {
 		
 		
 		//Create and Register Handler
-		vePa1.add(propertyHandlerContainer);
-		propertyHandlerContainer.setWidth("100%");
+		_verticalPanel_1.add(_propertyHandlerContainer);
+		_propertyHandlerContainer.setWidth("100%");
 		registerHandler();
 		
 		
 		
 		
-		vePa1.add(bottomInfo);
+		_verticalPanel_1.add(_bottomInfo);
 	}
 	
 	
 
 	private void drawTypeWidget(){
-		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
+		_typeWidgetContainer.setWidget(new TypeWidget(_type, new TypeWidgetHandler() {			
 			@Override
 			public void onChange(Type newType) {
 				
@@ -406,7 +410,7 @@ public class ShopPage extends APage {
 
 					@Override
 					public void onSuccess(Type result) {
-						type=result;
+						_type=result;
 						drawTypeWidget();	
 						registerHandler();
 						showSave();	
@@ -421,10 +425,10 @@ public class ShopPage extends APage {
 	}
 	
 	private void registerHandler(){
-		handlerList.clear();
+		_handlerList.clear();
 		
-		for(String ks:hashProperties.keySet()){
-			for(PropertyData pd:hashProperties.get(ks)){
+		for(String ks:_hashProperties.keySet()){
+			for(PropertyData pd:_hashProperties.get(ks)){
 				pd.setRead(false);
 			}
 		}
@@ -435,7 +439,7 @@ public class ShopPage extends APage {
 		
 		
 		//Add Properties
-		for(PropertyGroup pg:this.type.getPropertyGroups()){
+		for(PropertyGroup pg:this._type.getPropertyGroups()){
 			
 			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
 				/*
@@ -444,8 +448,8 @@ public class ShopPage extends APage {
 				hVePa.add(temp);
 				*/
 			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){				
-				ListPropertyHandler temp= new ListPropertyHandler(hashProperties, pg, handler);
-				handlerList.add(temp);
+				ListPropertyHandler temp= new ListPropertyHandler(_hashProperties, pg, _handler);
+				_handlerList.add(temp);
 				hVePa.add(temp);
 				
 			}	
@@ -453,13 +457,13 @@ public class ShopPage extends APage {
 		}
 		
 		
-		DefaultPropertyHandler defH = new DefaultPropertyHandler(hashProperties, handler);
-		handlerList.add(defH);
+		DefaultPropertyHandler defH = new DefaultPropertyHandler(_hashProperties, _handler);
+		_handlerList.add(defH);
 		hVePa.add(defH);
 		
 		
 		
-		propertyHandlerContainer.setWidget(hVePa);
+		_propertyHandlerContainer.setWidget(hVePa);
 	}
 	
 	private void showSave(){
@@ -479,7 +483,7 @@ public class ShopPage extends APage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				TaPManager.getInstance().showShopPage(shopData.getId());
+				TaPManager.getInstance().showShopPage(_shopData.getId());
 				
 			}
 		});
@@ -490,23 +494,23 @@ public class ShopPage extends APage {
 			public void onClick(ClickEvent event) {
 				topSave.setText("Saving...");
 				
-				shopData.setProperties(hashToPropertyList(hashProperties));
-				shopData.setTypeId(new Long(type.getId()));
+				_shopData.setProperties(hashToPropertyList(_hashProperties));
+				_shopData.setTypeId(new Long(_type.getId()));
 				
 				
 				//Validate Data
-				if(PropertyValidator.isValid(type, shopData.getProperties())){	
+				if(PropertyValidator.isValid(_type, _shopData.getProperties())){	
 				
-					RPCHandlerManager.getShopHandler().save(shopData, new AsyncCallback<ShopData>() {
+					RPCHandlerManager.getShopHandler().save(_shopData, new AsyncCallback<ShopData>() {
 						
 						@Override
 						public void onSuccess(ShopData result) {
-							bottomInfo.setVisible(false);
+							_bottomInfo.setVisible(false);
 							topSave.setText("Save");
-							if(shopData.getId()==null){
+							if(_shopData.getId()==null){
 								History.newItem("shop/get&id="+result.getId());
 							}else{
-								shopData=result;
+								_shopData=result;
 							}
 						}
 						
@@ -533,7 +537,7 @@ public class ShopPage extends APage {
 		bottomInfoHoPa.setCellHorizontalAlignment(topSave, HasHorizontalAlignment.ALIGN_RIGHT);				
 		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfoHoPa.setCellVerticalAlignment(topSave, HasVerticalAlignment.ALIGN_MIDDLE);
-		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+		_bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	
 	private void showSaveNotLogin(){
@@ -544,10 +548,10 @@ public class ShopPage extends APage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if(shopData.getId()==null){
+				if(_shopData.getId()==null){
 					History.newItem("home/");
 				}else{
-					TaPManager.getInstance().showProductPage(shopData.getId());
+					TaPManager.getInstance().showProductPage(_shopData.getId());
 				}
 				
 				
@@ -559,7 +563,7 @@ public class ShopPage extends APage {
 		bottomInfoHoPa.setCellWidth(pleaseLoginLabel, "100%");
 		bottomInfoHoPa.setCellHorizontalAlignment(topAbort, HasHorizontalAlignment.ALIGN_RIGHT);
 		bottomInfoHoPa.setCellVerticalAlignment(topAbort, HasVerticalAlignment.ALIGN_MIDDLE);
-		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+		_bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	
 	private SearchResult<PropertyData> hashToPropertyList(HashMap<String, ArrayList<PropertyData>> hashProperties){
@@ -574,7 +578,9 @@ public class ShopPage extends APage {
 		return newList;
 	}
 
-
+/**
+ * Set the position
+ */
 
 	@Override
 	public void setAddress(Address address) {
