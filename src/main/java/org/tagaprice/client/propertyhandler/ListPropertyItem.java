@@ -16,8 +16,8 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.HorizontalInfoPanel;
 import org.tagaprice.client.MorphWidgetErrorHandler;
+import org.tagaprice.client.widgets.HorizontalInfoWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
@@ -68,7 +68,7 @@ public class ListPropertyItem extends Composite {
 	
 	private void addItem(final PropertyData pdCp){
 		
-		final HorizontalInfoPanel temp = new HorizontalInfoPanel();
+		final HorizontalInfoWidget temp = new HorizontalInfoWidget();
 		temp.setStyleName("DefaultPropertyHandler");
 		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
 		

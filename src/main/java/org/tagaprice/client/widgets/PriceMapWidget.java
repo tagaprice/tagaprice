@@ -17,8 +17,8 @@ package org.tagaprice.client.widgets;
 import java.util.ArrayList;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.IAddressHandler;
 import org.tagaprice.client.TaPManager;
+import org.tagaprice.client.pages.IAddressHandler;
 import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;

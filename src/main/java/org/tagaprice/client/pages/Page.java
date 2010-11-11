@@ -1,6 +1,5 @@
 package org.tagaprice.client.pages;
 
-import org.tagaprice.client.IAddressHandler;
 import org.tagaprice.client.AInfoBoxComposite;
 
 /**
