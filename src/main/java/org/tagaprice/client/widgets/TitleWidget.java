@@ -12,7 +12,7 @@
  * Filename: TitelPanel.java
  * Date: 15.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * style for the whole project. 
  * 
  */
-public class TitlePanel extends Composite {
+public class TitleWidget extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
 	SimplePanel siPa = new SimplePanel();
 	Label label = new Label();
@@ -38,7 +38,7 @@ public class TitlePanel extends Composite {
 	 * @param title Pagetitle
 	 * @param widget
 	 */
-	public TitlePanel(String title, Widget widget, Level level) {
+	public TitleWidget(String title, Widget widget, Level level) {
 		vePa1.setWidth("100%");
 		initWidget(vePa1);
 		

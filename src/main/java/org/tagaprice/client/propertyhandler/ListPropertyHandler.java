@@ -17,7 +17,7 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.client.TitlePanel;
+import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ListPropertyHandler extends PropertyHandler {
 
 	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
-	TitlePanel title;
+	TitleWidget title;
 	VerticalPanel vePa1 = new VerticalPanel();
 	//int rowSwap=-1;
 		
@@ -38,7 +38,7 @@ public class ListPropertyHandler extends PropertyHandler {
 		
 		vePa1.setWidth("100%");
 		
-		title = new TitlePanel(propGroup.getTitle(), vePa1, TitlePanel.Level.H2);
+		title = new TitleWidget(propGroup.getTitle(), vePa1, TitleWidget.Level.H2);
 		convertToHash();
 		
 		createGrid();

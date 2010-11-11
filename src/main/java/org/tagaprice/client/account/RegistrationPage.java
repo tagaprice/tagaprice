@@ -14,9 +14,9 @@
 */
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
@@ -224,7 +224,7 @@ public class RegistrationPage extends Page {
 		});
 		
 		
-		vePa1.add(new TitlePanel("Userdaten", userData, TitlePanel.Level.H2));
+		vePa1.add(new TitleWidget("Userdaten", userData, TitleWidget.Level.H2));
 		
 		
 		//Alternative Connertions
@@ -235,7 +235,7 @@ public class RegistrationPage extends Page {
 		altConn.add(new Image("http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
 		altConn.add(new Image("http://developers.facebook.com/images/devsite/login-button.png"));
 		
-		vePa1.add(new TitlePanel("Alternatve Connetions", altConn, TitlePanel.Level.H2));
+		vePa1.add(new TitleWidget("Alternatve Connetions", altConn, TitleWidget.Level.H2));
 		
 		
 		//Optional
@@ -366,7 +366,7 @@ public class RegistrationPage extends Page {
 		
 		
 		
-		vePa1.add(new TitlePanel("Optional", optionalVePa, TitlePanel.Level.H2));
+		vePa1.add(new TitleWidget("Optional", optionalVePa, TitleWidget.Level.H2));
 		
 		
 		//AGB
@@ -375,7 +375,7 @@ public class RegistrationPage extends Page {
 		
 		gtcVePa.add(new Label("You have to agree with your general terms and conditions!"));
 		gtcVePa.add(gtc);
-		vePa1.add(new TitlePanel("general terms and conditions ", gtcVePa, TitlePanel.Level.H2));
+		vePa1.add(new TitleWidget("general terms and conditions ", gtcVePa, TitleWidget.Level.H2));
 		
 		
 		//TODO Register

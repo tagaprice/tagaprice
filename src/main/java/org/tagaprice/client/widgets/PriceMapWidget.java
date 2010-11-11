@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.IAddressHandler;
 import org.tagaprice.client.TaPManager;
-import org.tagaprice.client.TitlePanel;
-import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
@@ -53,7 +52,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 	}
 	
 	private TaPManager TaPM = TaPManager.getInstance();
-	private TitlePanel titlePanel;
+	private TitleWidget titlePanel;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private FlexTable priceTable = new FlexTable();
 	private PriceMapType type;
@@ -83,7 +82,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		this.id=id;
 		vePa1.setWidth("100%");
 		priceTable.setWidth("100%");	
-		titlePanel=new TitlePanel("Pricetable", vePa1, Level.H2);
+		titlePanel=new TitleWidget("Pricetable", vePa1, Level.H2);
 		
 		
 		if(type.equals(PriceMapType.PRODUCT) || type.equals(PriceMapType.PRODUCTGROUP)  || type.equals(PriceMapType.SHOPGROUP)){

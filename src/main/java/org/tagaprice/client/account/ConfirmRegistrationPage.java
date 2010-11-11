@@ -1,9 +1,9 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
-import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.widgets.TitleWidget;
+import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
@@ -21,7 +21,7 @@ public class ConfirmRegistrationPage extends Page{
 	public ConfirmRegistrationPage() {
 		_init();
 		// TODO Auto-generated constructor stub		
-		siPa1.setWidget(new TitlePanel("Confirm", new Label("Please check your email account and follow the confirm link in the next 24h to finish the registration!"), Level.H2));
+		siPa1.setWidget(new TitleWidget("Confirm", new Label("Please check your email account and follow the confirm link in the next 24h to finish the registration!"), Level.H2));
 		
 	}
 	

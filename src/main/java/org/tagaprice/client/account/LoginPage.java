@@ -1,9 +1,9 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
-import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.widgets.TitleWidget;
+import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
@@ -62,7 +62,7 @@ public class LoginPage extends Page{
 		loginButton.setWidth("100%");
 		
 		
-		vePa1.add(new TitlePanel("Login", vePa2, Level.H2));
+		vePa1.add(new TitleWidget("Login", vePa2, Level.H2));
 		
 		loginButton.addClickHandler(new ClickHandler() {
 			
@@ -103,7 +103,7 @@ public class LoginPage extends Page{
 		vePa3.add(new Image("http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
 		vePa3.add(new Image("http://developers.facebook.com/images/devsite/login-button.png"));
 		
-		vePa1.add(new TitlePanel("Alternative Login", vePa3, Level.H2));
+		vePa1.add(new TitleWidget("Alternative Login", vePa3, Level.H2));
 		
 	}
 	

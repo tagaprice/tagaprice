@@ -16,7 +16,8 @@ package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.tagaprice.client.TitlePanel;
+
+import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.shared.PropertyData;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -25,7 +26,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	
 	
 	VerticalPanel vePa1 = new VerticalPanel();
-	TitlePanel title;
+	TitleWidget title;
 	int rowSwap=-1;
 	boolean show=false;
 	ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
@@ -37,7 +38,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		
 		vePa1.setWidth("100%");
 	
-		title = new TitlePanel("Unlisted", vePa1, TitlePanel.Level.H2);
+		title = new TitleWidget("Unlisted", vePa1, TitleWidget.Level.H2);
 		fillGrid();
 		initWidget(title);
 	}

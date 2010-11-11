@@ -3,9 +3,9 @@ package org.tagaprice.client.pages;
 import java.util.ArrayList;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
-import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.client.widgets.TitleWidget;
+import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
@@ -67,7 +67,7 @@ public class ReceiptListPage extends Page {
 					}
 					
 					
-					vePa1.add(new TitlePanel("MyReceipts", table, Level.H2));
+					vePa1.add(new TitleWidget("MyReceipts", table, Level.H2));
 					
 					vePa1.add(new Label("Total Price: "+(totalPrice/100.00)+"[€]"));
 					
