@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Properties: title, rating, progress, price, quantity
  *
  */
-public class ProductPreview extends EntityPreview {
+public class ProductPreview extends AEntityPreview {
 	interface MyUiBinder extends UiBinder<Widget, ProductPreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	private ProductData productData;

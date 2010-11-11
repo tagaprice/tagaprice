@@ -16,7 +16,7 @@ package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.EntityPreview;
+import org.tagaprice.client.AEntityPreview;
 import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.ShopPreview;
 import org.tagaprice.shared.Entity;
@@ -25,7 +25,7 @@ import org.tagaprice.shared.ShopData;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ListWidget<T extends EntityPreview> extends Composite{
+public class ListWidget<T extends AEntityPreview> extends Composite{
 
 	private VerticalPanel verticalPanel;
 	private int currentSelection=-1;
@@ -49,7 +49,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	}
 	
 	
-	public void addSuggestion(EntityPreview preview){
+	public void addSuggestion(AEntityPreview preview){
 		verticalPanel.add(preview);
 	}
 
@@ -79,8 +79,8 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 
 	}
 
-	private EntityPreview createPreview(Entity e){
-		EntityPreview rc = null;
+	private AEntityPreview createPreview(Entity e){
+		AEntityPreview rc = null;
 
 		if(e instanceof ShopData){
 			rc= new ShopPreview((ShopData)e, false);
@@ -113,7 +113,7 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	public Entity getSelection(){
 		Entity rc=null;
 
-		EntityPreview ep = (EntityPreview)verticalPanel.getWidget(currentSelection);
+		AEntityPreview ep = (AEntityPreview)verticalPanel.getWidget(currentSelection);
 		if(ep instanceof ProductPreview){
 			rc=((ProductPreview) ep).getProductData();
 		}else if(ep instanceof ShopPreview){
@@ -124,8 +124,8 @@ public class ListWidget<T extends EntityPreview> extends Composite{
 	}
 
 
-	public EntityPreview getSelectionPreview(){
-		EntityPreview rc= (EntityPreview) verticalPanel.getWidget(currentSelection);
+	public AEntityPreview getSelectionPreview(){
+		AEntityPreview rc= (AEntityPreview) verticalPanel.getWidget(currentSelection);
 		currentSelection=-1;
 		return rc;
 	}

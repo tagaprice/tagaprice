@@ -18,7 +18,7 @@ package org.tagaprice.client.pages;
 import java.util.ArrayList;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.AInfoBoxComposite;
 import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.ShopPreview;
 import org.tagaprice.client.widgets.DateWidget;
@@ -56,7 +56,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Displays edit able receipt including shop and product search.
  *
  */
-public class ReceiptPage extends InfoBoxComposite {
+public class ReceiptPage extends AInfoBoxComposite {
 	interface MyUiBinder extends UiBinder<Widget, ReceiptPage>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	

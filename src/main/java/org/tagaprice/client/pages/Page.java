@@ -1,14 +1,14 @@
 package org.tagaprice.client.pages;
 
 import org.tagaprice.client.IAddressHandler;
-import org.tagaprice.client.InfoBoxComposite;
+import org.tagaprice.client.AInfoBoxComposite;
 
 /**
  * Abstact class to control all external events for a page.
  * e.g. async gps request
  *
  */
-public abstract class Page extends InfoBoxComposite implements IAddressHandler {
+public abstract class Page extends AInfoBoxComposite implements IAddressHandler {
 
 	
 }

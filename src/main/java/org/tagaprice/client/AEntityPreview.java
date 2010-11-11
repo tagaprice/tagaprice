@@ -18,9 +18,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 
-public abstract class EntityPreview extends Composite{
+public abstract class AEntityPreview extends Composite{
 	
-	public EntityPreview(){
+	public AEntityPreview(){
 
 		addClickHandler(new ClickHandler() {			
 			@Override
