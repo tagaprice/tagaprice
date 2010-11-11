@@ -46,6 +46,8 @@ public class EntityDAO implements DAOClass<Entity> {
 		this.localeDAO = new LocaleDAO(db);
 		this.propertyDAO = new PropertyDAO(db);
 	}
+	
+	
 
 	public void get(Entity e) throws SQLException, NotFoundException {
 		String sql = "SELECT e.ent_id, rev, title, locale_id, e.creator, r.creator AS revCreator " +
@@ -78,6 +80,14 @@ public class EntityDAO implements DAOClass<Entity> {
 		// get properties
 		propertyDAO.get(e);
 	}
+	
+	/**
+	 * Saves an entitiy
+	 * 
+	 * 
+	 * @param entity.revision musst be the actual revision
+	 * 
+	 */
 	
 	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
 		if (entity.getId() != null) { // try to update an existing entity
