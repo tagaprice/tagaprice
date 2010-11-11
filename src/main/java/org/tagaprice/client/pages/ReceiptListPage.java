@@ -1,10 +1,11 @@
-package org.tagaprice.client;
+package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
-import org.tagaprice.client.pages.Page;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
