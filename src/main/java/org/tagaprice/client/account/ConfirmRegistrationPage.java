@@ -1,9 +1,9 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.Page;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.TitlePanel.Level;
+import org.tagaprice.client.pages.Page;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;

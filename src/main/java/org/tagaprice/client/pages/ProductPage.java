@@ -22,7 +22,6 @@ import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.MyResources;
-import org.tagaprice.client.Page;
 import org.tagaprice.client.PriceMapWidget;
 import org.tagaprice.client.ProgressWidget;
 import org.tagaprice.client.RatingWidget;
