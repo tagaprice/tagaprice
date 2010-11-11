@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
-public class HomePage extends Page {
+public class HomePage extends APage {
 
 	TaPManager Mng = TaPManager.getInstance();
 	

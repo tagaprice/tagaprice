@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.Address;
@@ -53,7 +53,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class RegistrationPage extends Page {
+public class RegistrationPage extends APage {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);

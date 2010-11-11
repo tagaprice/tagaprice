@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ReceiptListPage extends Page {
+public class ReceiptListPage extends APage {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private Grid table;

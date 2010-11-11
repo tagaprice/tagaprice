@@ -1,6 +1,6 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class ConfirmRegistrationPage extends Page{
+public class ConfirmRegistrationPage extends APage{
 
 	SimplePanel siPa1 = new SimplePanel();
 	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);

@@ -7,7 +7,7 @@ import org.tagaprice.client.AInfoBoxComposite;
  * e.g. async gps request
  *
  */
-public abstract class Page extends AInfoBoxComposite implements IAddressHandler {
+public abstract class APage extends AInfoBoxComposite implements IAddressHandler {
 
 	
 }

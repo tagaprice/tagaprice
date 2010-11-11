@@ -13,7 +13,6 @@
  * Date: 14.05.2010
 */
 package org.tagaprice.client.widgets;
-import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.event.dom.client.BlurEvent;

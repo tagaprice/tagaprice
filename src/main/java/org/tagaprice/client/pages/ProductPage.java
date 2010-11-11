@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TypeWidgetHandler;
@@ -28,6 +27,7 @@ import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
+import org.tagaprice.client.widgets.MorphWidgetErrorHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
@@ -59,7 +59,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ProductPage extends Page {
+public class ProductPage extends APage {
 
 	private ProductData productData;
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();

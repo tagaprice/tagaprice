@@ -1,6 +1,6 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class LoginPage extends Page{
+public class LoginPage extends APage{
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private Label mailLabel = new Label("Mail");
 	private TextBox mail = new TextBox();
