@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 public class UIManager extends Page {
 
 	private DockPanel myDock = new DockPanel();
-	private Image home = new Image(MyResources.INSTANCE.home());
+	private Image home = new Image(ImageBundle.INSTANCE.home());
 	private HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManager.getInstance();
 	private SimplePanel centerPage = new SimplePanel();

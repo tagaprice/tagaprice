@@ -50,11 +50,11 @@ public class SelectiveVerticalPanel extends Composite {
 		_selectionType=selectionType;
 		
 		if(_selectionType.equals(SelectionType.PLUSBUTTON)){
-			topImage=(MyResources.INSTANCE.plusActive());
-			bottomImage=(MyResources.INSTANCE.plusInactive());
+			topImage=(ImageBundle.INSTANCE.plusActive());
+			bottomImage=(ImageBundle.INSTANCE.plusInactive());
 		}else if(_selectionType.equals(SelectionType.MINUSBUTTON)){
-			topImage=(MyResources.INSTANCE.minusActive());
-			bottomImage=(MyResources.INSTANCE.minusInactive());
+			topImage=(ImageBundle.INSTANCE.minusActive());
+			bottomImage=(ImageBundle.INSTANCE.minusInactive());
 		}else if(_selectionType.equals(SelectionType.NOBUTTON)){
 			//Do nothing here!
 		}
@@ -75,7 +75,7 @@ public class SelectiveVerticalPanel extends Composite {
 				
 			//insert Button
 			hoPa.add(puBa);
-			hoPa.setCellWidth(puBa, MyResources.INSTANCE.minusActive().getWidth()+"px");
+			hoPa.setCellWidth(puBa, ImageBundle.INSTANCE.minusActive().getWidth()+"px");
 			hoPa.setCellVerticalAlignment(puBa, HasVerticalAlignment.ALIGN_MIDDLE);
 			
 			//handler

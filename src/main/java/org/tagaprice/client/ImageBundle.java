@@ -8,8 +8,8 @@ import com.google.gwt.resources.client.ImageResource;
  *  
  *
  */
-public interface MyResources extends ClientBundle {
-    public static final MyResources INSTANCE = GWT.create(MyResources.class);
+public interface ImageBundle extends ClientBundle {
+    public static final ImageBundle INSTANCE = GWT.create(ImageBundle.class);
     
     String PATH = "images/";
     

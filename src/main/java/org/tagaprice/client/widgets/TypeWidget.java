@@ -17,7 +17,7 @@ package org.tagaprice.client.widgets;
 import java.util.ArrayList;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.MyResources;
+import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TypeWidgetHandler;
 import org.tagaprice.shared.Type;
@@ -46,7 +46,7 @@ public class TypeWidget extends Composite{
 	TypeWidgetHandler handler;
 	
 	//Root elem
-	Image rootB = new Image(MyResources.INSTANCE.typeSelectRight());
+	Image rootB = new Image(ImageBundle.INSTANCE.typeSelectRight());
 	//int localeId;
 	
 	/**
@@ -81,7 +81,7 @@ public class TypeWidget extends Composite{
 				Label typeLabel = new Label(iterType.getTitle());
 				typeLabel.setStyleName("TypeWidget-Item");
 				hoPa1.insert(typeLabel, 0);
-				final Image arrow = new Image(MyResources.INSTANCE.typeSelectRight());
+				final Image arrow = new Image(ImageBundle.INSTANCE.typeSelectRight());
 				//final Button arrow = new Button(">");
 				hoPa1.insert(arrow,1);			
 				final String sType=iterType.getTitle();	

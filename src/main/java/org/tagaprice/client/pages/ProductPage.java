@@ -20,7 +20,7 @@ import java.util.HashMap;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.InfoBox;
 import org.tagaprice.client.MorphWidgetErrorHandler;
-import org.tagaprice.client.MyResources;
+import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TypeWidgetHandler;
 import org.tagaprice.client.InfoBox.BoxType;
@@ -99,7 +99,7 @@ public class ProductPage extends Page {
 		titleMorph.setText(productData.getTitle());
 		titleMorph.setWidth("100%");
 		vePa1.add(hoPa1);
-		ProgressWidget progressWidget = new ProgressWidget(new Image(MyResources.INSTANCE.productPriview()), productData.getProgress());
+		ProgressWidget progressWidget = new ProgressWidget(new Image(ImageBundle.INSTANCE.productPriview()), productData.getProgress());
 		hoPa1.add(progressWidget);
 		
 		VerticalPanel vePa2 = new VerticalPanel();

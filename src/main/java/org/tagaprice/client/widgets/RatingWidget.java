@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.client.MyResources;
+import org.tagaprice.client.ImageBundle;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -53,8 +53,8 @@ public class RatingWidget extends Composite {
 	public @UiConstructor RatingWidget(int rating, boolean editable) {		
 		this.rating=validateRating(rating);
 		this.editable=editable;
-		this.width=MyResources.INSTANCE.rating0().getWidth();
-		this.height=MyResources.INSTANCE.rating0().getHeight();
+		this.width=ImageBundle.INSTANCE.rating0().getWidth();
+		this.height=ImageBundle.INSTANCE.rating0().getHeight();
 		
 		if(this.editable)startEditable();
 		else startStatic();
@@ -86,7 +86,7 @@ public class RatingWidget extends Composite {
 		
 		
 		//set 5Stars
-		stars = new Image(MyResources.INSTANCE.rating5());
+		stars = new Image(ImageBundle.INSTANCE.rating5());
 		noStars.setWidget(stars);
 		stars.setSize(normalizeWidth(rating)+"px", height+"px");
 	}
@@ -95,7 +95,7 @@ public class RatingWidget extends Composite {
 	 * 
 	 */
 	private void startEditable(){
-		stars = new Image(MyResources.INSTANCE.rating0());
+		stars = new Image(ImageBundle.INSTANCE.rating0());
 		initWidget(stars);	
 		setStars(calcRating(rating));			
 		stars.setSize(width+"px", height+"px");
@@ -106,19 +106,19 @@ public class RatingWidget extends Composite {
 			public void onMouseMove(MouseMoveEvent event) {
 				int fifth = stars.getWidth()/5;
 				if(event.getX()>fifth*0 && event.getX()<=fifth*1){
-					stars.setResource(MyResources.INSTANCE.ratingChoose1());
+					stars.setResource(ImageBundle.INSTANCE.ratingChoose1());
 					dynRating=20;
 				}if(event.getX()>fifth*1 && event.getX()<=fifth*2){
-					stars.setResource(MyResources.INSTANCE.ratingChoose2());
+					stars.setResource(ImageBundle.INSTANCE.ratingChoose2());
 					dynRating=40;
 				}if(event.getX()>fifth*2 && event.getX()<=fifth*3){
-					stars.setResource(MyResources.INSTANCE.ratingChoose3());
+					stars.setResource(ImageBundle.INSTANCE.ratingChoose3());
 					dynRating=60;
 				}if(event.getX()>fifth*3 && event.getX()<=fifth*4){
-					stars.setResource(MyResources.INSTANCE.ratingChoose4());
+					stars.setResource(ImageBundle.INSTANCE.ratingChoose4());
 					dynRating=80;
 				}if(event.getX()>fifth*4 && event.getX()<=fifth*5){
-					stars.setResource(MyResources.INSTANCE.ratingChoose5());
+					stars.setResource(ImageBundle.INSTANCE.ratingChoose5());
 					dynRating=100;
 				}				
 				
@@ -154,15 +154,15 @@ public class RatingWidget extends Composite {
 	 */
 	private void setStars(int rating){
 		if(rating==20){
-			stars.setResource(MyResources.INSTANCE.rating1());
+			stars.setResource(ImageBundle.INSTANCE.rating1());
 		}if(rating==40){
-			stars.setResource(MyResources.INSTANCE.rating2());
+			stars.setResource(ImageBundle.INSTANCE.rating2());
 		}if(rating==60){
-			stars.setResource(MyResources.INSTANCE.rating3());
+			stars.setResource(ImageBundle.INSTANCE.rating3());
 		}if(rating==80){
-			stars.setResource(MyResources.INSTANCE.rating4());
+			stars.setResource(ImageBundle.INSTANCE.rating4());
 		}if(rating==100){
-			stars.setResource(MyResources.INSTANCE.rating5());
+			stars.setResource(ImageBundle.INSTANCE.rating5());
 		}
 	}
 	

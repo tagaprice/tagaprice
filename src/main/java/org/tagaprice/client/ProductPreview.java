@@ -120,9 +120,9 @@ public class ProductPreview extends EntityPreview {
 		HoPa2.setCellWidth(ratingPanel, "100%");
 		
 
-		Image progressImage = new Image(MyResources.INSTANCE.productPriview()); 
+		Image progressImage = new Image(ImageBundle.INSTANCE.productPriview()); 
 		logoPanel.add(new ProgressWidget(progressImage, 50));
-		logoPanel.setHeight(MyResources.INSTANCE.productPriview().getHeight()+"px");
+		logoPanel.setHeight(ImageBundle.INSTANCE.productPriview().getHeight()+"px");
 		
 		
 		name.setText(productData.getTitle());

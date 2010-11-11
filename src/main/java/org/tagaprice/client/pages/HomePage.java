@@ -15,7 +15,7 @@
 package org.tagaprice.client.pages;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.MyResources;
+import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.shared.Address;
@@ -39,7 +39,7 @@ public class HomePage extends Page {
 	TaPManager Mng = TaPManager.getInstance();
 	
 	Grid grid = new Grid(2, 3);
-	ImageTextButton newReceipt = new ImageTextButton("add Receipt", new Image(MyResources.INSTANCE.productPriview()), "receipt/get");
+	ImageTextButton newReceipt = new ImageTextButton("add Receipt", new Image(ImageBundle.INSTANCE.productPriview()), "receipt/get");
 
 	
 	public HomePage() {
@@ -62,12 +62,12 @@ public class HomePage extends Page {
 		//
 		
 		
-		grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(MyResources.INSTANCE.productPriview()), "product/new"));
-		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(MyResources.INSTANCE.newShopButton()), "shop/new"));		
+		grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(ImageBundle.INSTANCE.productPriview()), "product/new"));
+		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(ImageBundle.INSTANCE.newShopButton()), "shop/new"));		
 		
 		if(Cookies.getCookie("TaPSId")!=null){ /// TODO check session validity
-			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(MyResources.INSTANCE.loginButton()), "user/logout"));	
-			grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(MyResources.INSTANCE.productPriview()), new ClickHandler() {			
+			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(ImageBundle.INSTANCE.loginButton()), "user/logout"));	
+			grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(ImageBundle.INSTANCE.productPriview()), new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 					TaPManager.getInstance().getUIManager().waitingPage();
@@ -95,10 +95,10 @@ public class HomePage extends Page {
 						
 				}
 			}));
-			grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(MyResources.INSTANCE.productPriview()), "receipt/list"));
+			grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(ImageBundle.INSTANCE.productPriview()), "receipt/list"));
 		}else{
-			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(MyResources.INSTANCE.loginButton()), "user/login"));	
-			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(MyResources.INSTANCE.loginButton()), "user/registration/new"));		
+			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(ImageBundle.INSTANCE.loginButton()), "user/login"));	
+			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(ImageBundle.INSTANCE.loginButton()), "user/registration/new"));		
 		}
 
 		
