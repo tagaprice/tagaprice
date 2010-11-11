@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.tagaprice.client.PriceMapWidget.PriceMapType;
+import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.server.dao.ShopDAO;

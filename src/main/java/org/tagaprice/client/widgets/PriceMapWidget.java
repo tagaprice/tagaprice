@@ -12,10 +12,15 @@
  * Filename: PriceMapWidget.java
  * Date: 02.06.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.IAddressHandler;
+import org.tagaprice.client.RatingWidget;
+import org.tagaprice.client.TaPManager;
+import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.TitlePanel.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
