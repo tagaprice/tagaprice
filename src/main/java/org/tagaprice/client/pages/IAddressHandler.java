@@ -1,6 +1,6 @@
 package org.tagaprice.client.pages;
 
-import org.tagaprice.shared.Address;
+import org.tagaprice.shared.data.Address;
 
 /**
  * Is used to refresh the current GPS position. Especially by async requests.  

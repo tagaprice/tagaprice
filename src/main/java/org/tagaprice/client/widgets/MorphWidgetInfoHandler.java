@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
 public interface MorphWidgetInfoHandler {
 

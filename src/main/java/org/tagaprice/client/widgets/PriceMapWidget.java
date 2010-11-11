@@ -20,10 +20,11 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.pages.IAddressHandler;
 import org.tagaprice.client.widgets.TitleWidget.Level;
-import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.data.PriceData;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;

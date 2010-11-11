@@ -17,7 +17,11 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.PropertyGroup;
+import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
 public class PropertyValidator {
 

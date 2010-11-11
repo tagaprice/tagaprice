@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import org.tagaprice.client.widgets.HorizontalInfoWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;

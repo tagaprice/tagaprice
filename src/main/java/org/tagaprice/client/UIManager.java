@@ -26,11 +26,12 @@ import org.tagaprice.client.pages.account.RegistrationPage;
 import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Type;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

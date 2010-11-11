@@ -12,7 +12,7 @@
  * Filename: ProductType.java
  * Date: May 20, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 import java.util.ArrayList;
 

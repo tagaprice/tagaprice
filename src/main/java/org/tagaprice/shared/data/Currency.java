@@ -12,7 +12,7 @@
  * Filename: Currency.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 public class Currency extends Entity {
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 public class LocalAccountData extends AccountData {
 

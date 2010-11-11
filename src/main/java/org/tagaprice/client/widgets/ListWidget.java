@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import org.tagaprice.client.pages.previews.APagePreview;
 import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.data.Entity;
+import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.ShopData;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 

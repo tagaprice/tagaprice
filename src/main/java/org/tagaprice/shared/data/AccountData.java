@@ -12,7 +12,7 @@
  * Filename: Account.java
  * Date: 21.07.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 public class AccountData extends Entity {
 	private static final long serialVersionUID = 1L;

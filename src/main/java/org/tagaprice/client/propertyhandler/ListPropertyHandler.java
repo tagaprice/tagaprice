@@ -18,9 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.PropertyGroup;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListPropertyHandler extends PropertyHandler {

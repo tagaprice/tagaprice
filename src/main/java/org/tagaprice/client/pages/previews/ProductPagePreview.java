@@ -19,8 +19,8 @@ import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;

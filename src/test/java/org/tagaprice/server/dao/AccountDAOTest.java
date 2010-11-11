@@ -20,7 +20,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.AccountData;
+import org.tagaprice.shared.data.AccountData;
 
 public class AccountDAOTest {
 	private AccountDAO dao;

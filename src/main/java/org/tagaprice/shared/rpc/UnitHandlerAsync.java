@@ -15,7 +15,7 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.data.Unit;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

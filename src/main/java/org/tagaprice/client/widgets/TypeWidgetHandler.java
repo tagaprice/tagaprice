@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.data.Type;
 
 public interface TypeWidgetHandler {
 

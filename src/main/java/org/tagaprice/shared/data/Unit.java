@@ -12,7 +12,7 @@
  * Filename: Unit.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 public class Unit extends Entity {
 	private static final long serialVersionUID = 1L;

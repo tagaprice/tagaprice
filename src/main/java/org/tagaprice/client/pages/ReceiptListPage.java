@@ -6,8 +6,8 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -17,7 +17,7 @@ package org.tagaprice.shared.rpc;
 import java.sql.SQLException;
 
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
 
 import com.google.gwt.user.client.rpc.RemoteService;

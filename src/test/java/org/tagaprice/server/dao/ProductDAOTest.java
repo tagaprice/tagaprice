@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.ProductData;
 
 public class ProductDAOTest {
 	private ProductDAO dao;

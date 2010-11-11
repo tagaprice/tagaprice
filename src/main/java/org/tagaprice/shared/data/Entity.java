@@ -12,7 +12,10 @@
  * Filename: Entity.java
  * Date: May 17, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
+
+import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.Serializable;
 
 public abstract class Entity implements Serializable {
 	private static final long serialVersionUID = 1L;

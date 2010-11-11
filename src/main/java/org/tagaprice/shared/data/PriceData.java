@@ -12,9 +12,11 @@
  * Filename: PriceData.java
  * Date: 02.06.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 import java.util.Date;
+
+import org.tagaprice.shared.Serializable;
 
 public class PriceData  implements Serializable {
 

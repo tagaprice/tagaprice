@@ -19,8 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

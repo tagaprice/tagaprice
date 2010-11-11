@@ -12,7 +12,9 @@
  * Filename: Price.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
+
+import org.tagaprice.shared.Serializable;
 
 public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;

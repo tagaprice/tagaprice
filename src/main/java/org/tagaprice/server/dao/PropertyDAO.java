@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.data.Entity;
+import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

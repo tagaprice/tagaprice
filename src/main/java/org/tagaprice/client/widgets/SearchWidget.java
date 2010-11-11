@@ -22,10 +22,11 @@ import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.Serializable;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.data.Entity;
+import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.ShopData;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;

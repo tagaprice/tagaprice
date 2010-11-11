@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.data.ShopData;
 
 public class ShopDAOTest {
 	DBConnection db;

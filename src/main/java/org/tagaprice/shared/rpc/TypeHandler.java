@@ -16,7 +16,7 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.data.Type;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

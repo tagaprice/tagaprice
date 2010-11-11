@@ -12,9 +12,10 @@
  * Filename: TypeProperty.java
  * Date: May 20, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 import org.tagaprice.server.dao.PropertyDefinitionDAO;
+import org.tagaprice.shared.Serializable;
 
 /**
  * Describes a property

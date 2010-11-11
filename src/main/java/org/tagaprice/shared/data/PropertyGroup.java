@@ -12,9 +12,11 @@
  * Filename: PropertyGroup.java
  * Date: May 21, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
 
 import java.util.ArrayList;
+
+import org.tagaprice.shared.Serializable;
 
 /**
  * A property group contains the definitions of the group members 

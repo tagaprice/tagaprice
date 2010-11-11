@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
-import org.tagaprice.shared.LocalAccountData;
+import org.tagaprice.shared.data.LocalAccountData;
 
 public class LocalAccountDAOTest {
 	private DBConnection db;

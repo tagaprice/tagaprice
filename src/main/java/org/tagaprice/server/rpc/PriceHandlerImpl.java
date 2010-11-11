@@ -27,10 +27,10 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Price;
-import org.tagaprice.shared.PriceData;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.data.Price;
+import org.tagaprice.shared.data.PriceData;
+import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.PriceHandler;
 

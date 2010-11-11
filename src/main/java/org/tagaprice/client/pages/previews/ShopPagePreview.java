@@ -18,7 +18,7 @@ package org.tagaprice.client.pages.previews;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.data.ShopData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

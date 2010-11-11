@@ -12,7 +12,9 @@
  * Filename: Locale.java
  * Date: 15.06.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.data;
+
+import org.tagaprice.shared.Serializable;
 
 public class Locale implements Serializable {
 	private static final long serialVersionUID = 1L;
