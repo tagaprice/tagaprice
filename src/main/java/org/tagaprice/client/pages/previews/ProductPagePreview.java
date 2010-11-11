@@ -12,9 +12,10 @@
  * Filename: ProductPreview.java
  * Date: 13.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.pages.previews;
 
 
+import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
@@ -40,8 +41,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Properties: title, rating, progress, price, quantity
  *
  */
-public class ProductPreview extends AEntityPreview {
-	interface MyUiBinder extends UiBinder<Widget, ProductPreview>{}
+public class ProductPagePreview extends APagePreview {
+	interface MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	private ProductData productData;
 	private boolean editable;
@@ -69,14 +70,14 @@ public class ProductPreview extends AEntityPreview {
 	 * @param editable
 	 * @param handler
 	 */
-	public ProductPreview(ProductData productData, boolean editable, ChangeHandler handler){
+	public ProductPagePreview(ProductData productData, boolean editable, ChangeHandler handler){
 		super();
 		init(productData, editable);
 		addChangeHandler(handler);
 	}
 	
 	
-	public ProductPreview(ProductData productData, boolean editable){
+	public ProductPagePreview(ProductData productData, boolean editable){
 		init(productData, editable);
 	}
 	

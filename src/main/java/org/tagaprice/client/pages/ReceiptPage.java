@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.AInfoBoxComposite;
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.ProductPreview;
-import org.tagaprice.client.ShopPreview;
+import org.tagaprice.client.pages.previews.ProductPagePreview;
+import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.DateWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.SearchWidget;
@@ -66,7 +66,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
 	ReceiptData receiptData;
-	ShopPreview shopPreview;
+	ShopPagePreview shopPreview;
 	boolean allowSaving = false;
 	
 	private SearchWidget shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
@@ -146,7 +146,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
-				setShop(((ShopPreview)widget).getShopData());
+				setShop(((ShopPagePreview)widget).getShopData());
 			}
 		});
 		
@@ -288,7 +288,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	private void refreshPrice(){
 		bill=0;
 		for(int i=0;i<productContainer.getWidgetCount();i++){
-			bill+=((ProductPreview)productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
+			bill+=((ProductPagePreview)productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
 		}
 		
 		price.setText((bill/100.00)+"");
@@ -299,7 +299,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * @param shop
 	 */
 	public void setShop(ShopData shopData){
-		shopPreview=new ShopPreview(shopData, isEditable);
+		shopPreview=new ShopPagePreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
 		
 		product=new SimplePanel();
@@ -311,7 +311,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveListHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
-				addProduct(((ProductPreview)widget).getProductData());	
+				addProduct(((ProductPagePreview)widget).getProductData());	
 				productChooser2.hideSuggest();
 			}
 		});
@@ -322,7 +322,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 
 	
 	public void setNewShop(){
-		shop.setWidget(new ShopPreview(null, true));
+		shop.setWidget(new ShopPagePreview(null, true));
 	}
 	
 	/**
@@ -330,7 +330,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * @param product
 	 */
 	public void addProduct(ProductData product){
-		productContainer.add(new ProductPreview(product, isEditable, priceChangeHandler));
+		productContainer.add(new ProductPagePreview(product, isEditable, priceChangeHandler));
 		refresh();
 	}
 	
@@ -346,7 +346,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){
-			productList.add(((ProductPreview)productContainer.getWidget(i)).getProductData());
+			productList.add(((ProductPagePreview)productContainer.getWidget(i)).getProductData());
 		}		
 		receiptData.setProductData(productList);
 		

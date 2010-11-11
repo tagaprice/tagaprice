@@ -16,16 +16,16 @@ package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.AEntityPreview;
-import org.tagaprice.client.ProductPreview;
-import org.tagaprice.client.ShopPreview;
+import org.tagaprice.client.pages.previews.APagePreview;
+import org.tagaprice.client.pages.previews.ProductPagePreview;
+import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ListWidget<T extends AEntityPreview> extends Composite{
+public class ListWidget<T extends APagePreview> extends Composite{
 
 	private VerticalPanel verticalPanel;
 	private int currentSelection=-1;
@@ -49,7 +49,7 @@ public class ListWidget<T extends AEntityPreview> extends Composite{
 	}
 	
 	
-	public void addSuggestion(AEntityPreview preview){
+	public void addSuggestion(APagePreview preview){
 		verticalPanel.add(preview);
 	}
 
@@ -79,13 +79,13 @@ public class ListWidget<T extends AEntityPreview> extends Composite{
 
 	}
 
-	private AEntityPreview createPreview(Entity e){
-		AEntityPreview rc = null;
+	private APagePreview createPreview(Entity e){
+		APagePreview rc = null;
 
 		if(e instanceof ShopData){
-			rc= new ShopPreview((ShopData)e, false);
+			rc= new ShopPagePreview((ShopData)e, false);
 		}else if(e instanceof ProductData){
-			rc=new ProductPreview((ProductData) e, false);
+			rc=new ProductPagePreview((ProductData) e, false);
 		}
 
 		return rc;
@@ -113,19 +113,19 @@ public class ListWidget<T extends AEntityPreview> extends Composite{
 	public Entity getSelection(){
 		Entity rc=null;
 
-		AEntityPreview ep = (AEntityPreview)verticalPanel.getWidget(currentSelection);
-		if(ep instanceof ProductPreview){
-			rc=((ProductPreview) ep).getProductData();
-		}else if(ep instanceof ShopPreview){
-			rc=((ShopPreview) ep).getShopData();
+		APagePreview ep = (APagePreview)verticalPanel.getWidget(currentSelection);
+		if(ep instanceof ProductPagePreview){
+			rc=((ProductPagePreview) ep).getProductData();
+		}else if(ep instanceof ShopPagePreview){
+			rc=((ShopPagePreview) ep).getShopData();
 		}
 
 		return rc;
 	}
 
 
-	public AEntityPreview getSelectionPreview(){
-		AEntityPreview rc= (AEntityPreview) verticalPanel.getWidget(currentSelection);
+	public APagePreview getSelectionPreview(){
+		APagePreview rc= (APagePreview) verticalPanel.getWidget(currentSelection);
 		currentSelection=-1;
 		return rc;
 	}

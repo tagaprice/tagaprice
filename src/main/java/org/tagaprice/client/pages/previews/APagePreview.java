@@ -12,15 +12,15 @@
  * Filename: PreviewWidget.java
  * Date: May 19, 2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.pages.previews;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 
-public abstract class AEntityPreview extends Composite{
+public abstract class APagePreview extends Composite{
 	
-	public AEntityPreview(){
+	public APagePreview(){
 
 		addClickHandler(new ClickHandler() {			
 			@Override

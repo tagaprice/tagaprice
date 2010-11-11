@@ -16,10 +16,10 @@ package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.ShopPreview;
 import org.tagaprice.client.TaPManager;
+import org.tagaprice.client.pages.previews.ProductPagePreview;
+import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
@@ -255,9 +255,9 @@ public class SearchWidget extends Composite {
 					
 					for(Entity sResult:result){
 						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPreview((ProductData)sResult, false));
+							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
 						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPreview((ShopData)sResult, false));
+							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}
 					}
 				}
@@ -284,9 +284,9 @@ public class SearchWidget extends Composite {
 					
 					for(Entity sResult:result){
 						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPreview((ProductData)sResult, false));
+							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
 						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPreview((ShopData)sResult, false));
+							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}
 					}
 				}
@@ -315,9 +315,9 @@ public class SearchWidget extends Composite {
 						
 						
 						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPreview((ProductData)sResult, false));
+							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
 						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPreview((ShopData)sResult, false));
+							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}
 						
 					}

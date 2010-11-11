@@ -12,9 +12,10 @@
  * Filename: ShopPreview.java
  * Date: 15.05.2010
  */
-package org.tagaprice.client;
+package org.tagaprice.client.pages.previews;
 
 
+import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.shared.ShopData;
@@ -38,8 +39,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Properties: title, rating, progress, address
  *
  */
-public class ShopPreview extends AEntityPreview {
-	interface MyUiBinder extends UiBinder<Widget, ShopPreview>{}
+public class ShopPagePreview extends APagePreview {
+	interface MyUiBinder extends UiBinder<Widget, ShopPagePreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
 	private ShopData shopData;
@@ -62,7 +63,7 @@ public class ShopPreview extends AEntityPreview {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public ShopPreview(ShopData _shopData, boolean _editable) {
+	public ShopPagePreview(ShopData _shopData, boolean _editable) {
 		super();
 		shopData=_shopData;
 		editable=_editable;
