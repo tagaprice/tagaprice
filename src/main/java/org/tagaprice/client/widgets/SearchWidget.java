@@ -12,11 +12,14 @@
  * Filename: SearchWidget2.java
  * Date: 20.07.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.widgets.SelectiveListWidget;
+import org.tagaprice.client.ProductPreview;
+import org.tagaprice.client.RPCHandlerManager;
+import org.tagaprice.client.ShopPreview;
+import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
