@@ -27,7 +27,7 @@ import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.MorphWidgetErrorHandler;
+import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
@@ -132,7 +132,7 @@ public class ProductPage extends APage {
 		};
 		
 		
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

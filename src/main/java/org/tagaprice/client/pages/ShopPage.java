@@ -27,7 +27,7 @@ import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.MorphWidgetErrorHandler;
+import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
@@ -299,25 +299,25 @@ public class ShopPage extends APage {
 			}
 		});
 		
-		street.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		street.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		zip.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		zip.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		county.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		county.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		country.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		country.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
@@ -326,7 +326,7 @@ public class ShopPage extends APage {
 		
 		
 		//title Lister
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

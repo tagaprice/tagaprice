@@ -33,7 +33,7 @@ public class MorphWidget extends SimplePanel {
 
 	TextBox textBox = new TextBox();
 	Datatype type;
-	MorphWidgetErrorHandler handler;
+	MorphWidgetInfoHandler handler;
 
 	/**
 	 * 
@@ -158,7 +158,7 @@ public class MorphWidget extends SimplePanel {
 	 * 
 	 * @param eHandler
 	 */
-	public void addMorphWidgetErrorHandler(MorphWidgetErrorHandler eHandler){
+	public void addMorphWidgetErrorHandler(MorphWidgetInfoHandler eHandler){
 		handler=eHandler;
 	}
 	
