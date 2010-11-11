@@ -17,8 +17,8 @@ package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.AInfoBoxComposite;
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.ShopPreview;
 import org.tagaprice.client.widgets.DateWidget;
