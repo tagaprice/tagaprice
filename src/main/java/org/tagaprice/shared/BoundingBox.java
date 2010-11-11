@@ -15,7 +15,7 @@
 package org.tagaprice.shared;
 
 /**
- * This class implements a rectangular BoundingBox.
+ * This class implements an immutable rectangular BoundingBox.
  * @author MK
  */
 public class BoundingBox implements Serializable {
@@ -25,14 +25,17 @@ public class BoundingBox implements Serializable {
 	private double x2, y2;
 	
 	/**
-	 * StandardConstruction. Is required for the serializeation
+	 * StandardConstruction. Is required for the serialization
+	 * Don't call this constructor since this class is immutable.
 	 */
 	public BoundingBox()
 	{
 	}
 	
 	/**
-	 * Constructor.
+	 * Create a new bounding box.
+	 * This constructor assures, that when calling getX1, it always returns the smaller value of x1 and x2.
+	 * The same holds true for y1 and y2 respectively.
 	 * @param x1
 	 * @param y1
 	 * @param x2
@@ -65,8 +68,7 @@ public class BoundingBox implements Serializable {
 	}
 	
 	/**
-	 * Getter for x1. Setters are not required because a bounding box is read-only.
-	 * @return
+	 * @return x1
 	 */
 	public double getX1()
 	{
@@ -74,8 +76,7 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Getter for y1. Setters are not required because a bounding box is read-only.
-	 * @return
+	 * @return y1
 	 */
 	public double getY1()
 	{
@@ -83,8 +84,7 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Getter for x2. Setters are not required because a bounding box is read-only.
-	 * @return
+	 * @return x2
 	 */	
 	public double getX2()
 	{
@@ -92,8 +92,7 @@ public class BoundingBox implements Serializable {
 	}
 	
 	/**
-	 * Getter for y2. Setters are not required because a bounding box is read-only.
-	 * @return
+	 * @return y2
 	 */
 	public double getY2()
 	{
