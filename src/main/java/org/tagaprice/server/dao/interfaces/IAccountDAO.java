@@ -1,6 +1,7 @@
 package org.tagaprice.server.dao.interfaces;
 
 import org.tagaprice.shared.AccountData;
+import org.tagaprice.shared.exception.DAOException;
 
 /**
  * 
@@ -15,13 +16,13 @@ public interface IAccountDAO {
 	 * @param email a valid emailaddress
 	 * @return an existing account or null
 	 */
-	public AccountData getByEmailadress(String email) throws IllegalArgumentException;
+	public AccountData getByEmailadress(String email) throws IllegalArgumentException, DAOException;
 	/**
 	 * Returns an Object of type AccountData. 
 	 * @param id 
 	 * @return
 	 */
-	public AccountData getById(long id);
+	public AccountData getById(long id) throws DAOException;
 	
 	/**
 	 * Saves an object of type AccountData if AccountData is a valid Object.
@@ -34,6 +35,6 @@ public interface IAccountDAO {
 	 * @see AccountData
 	 * @param account
 	 */
-	public void save(AccountData account) throws IllegalArgumentException;	
+	public void save(AccountData account) throws IllegalArgumentException, DAOException;	
 
 }
