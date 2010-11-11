@@ -12,6 +12,7 @@ import javax.mail.internet.InternetAddress;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.Mail;
+import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;

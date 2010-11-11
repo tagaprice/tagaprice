@@ -28,6 +28,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
