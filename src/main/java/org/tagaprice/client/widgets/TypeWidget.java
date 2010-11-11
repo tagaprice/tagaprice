@@ -12,9 +12,14 @@
  * Filename: TypeWidget.java
  * Date: 02.07.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
+
+import org.tagaprice.client.HandlerManager;
+import org.tagaprice.client.MyResources;
+import org.tagaprice.client.TaPManager;
+import org.tagaprice.client.TypeWidgetHandler;
 import org.tagaprice.shared.Type;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
