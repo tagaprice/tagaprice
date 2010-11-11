@@ -1,8 +1,8 @@
 package org.tagaprice.client.account;
 
-import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.pages.Page;
 import org.tagaprice.client.widgets.TitleWidget;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;

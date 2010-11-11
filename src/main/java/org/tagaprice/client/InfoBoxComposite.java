@@ -1,13 +1,14 @@
 package org.tagaprice.client;
 
-import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.widgets.InfoBoxWidget;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class InfoBoxComposite extends Composite {
-	private InfoBox infoBox = new InfoBox();
+	private InfoBoxWidget infoBox = new InfoBoxWidget();
 	private VerticalPanel vePa1 = new VerticalPanel();
 	
 	public InfoBoxComposite() {

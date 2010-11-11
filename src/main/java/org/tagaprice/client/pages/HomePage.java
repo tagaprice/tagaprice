@@ -17,7 +17,7 @@ package org.tagaprice.client.pages;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
-import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.exception.InvalidLoginException;
