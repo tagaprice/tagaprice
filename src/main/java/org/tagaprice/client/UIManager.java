@@ -15,7 +15,6 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.SearchWidget.SearchType;
-import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.account.ConfirmRegistrationPage;
 import org.tagaprice.client.account.LoginPage;
 import org.tagaprice.client.account.RegistrationPage;
@@ -25,6 +24,7 @@ import org.tagaprice.client.pages.ProductPage;
 import org.tagaprice.client.pages.ReceiptListPage;
 import org.tagaprice.client.pages.ReceiptPage;
 import org.tagaprice.client.pages.ShopPage;
+import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;

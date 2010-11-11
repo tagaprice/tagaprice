@@ -12,7 +12,9 @@
  * Filename: SelectiveVerticalPanel.java
  * Date: 14.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
+
+import org.tagaprice.client.ImageBundle;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -30,21 +32,21 @@ import com.google.gwt.user.client.ui.Widget;
  * Vertical panel with edit buttons.
  *
  */
-public class SelectiveVerticalPanel extends Composite {
+public class SelectiveListWidget extends Composite {
 
 	public enum SelectionType {PLUSBUTTON, MINUSBUTTON, NOBUTTON}
 	
 	VerticalPanel vePa1 = new VerticalPanel();
 	ImageResource topImage;
 	ImageResource bottomImage;
-	SelectiveVerticalPanelHandler externalHandler;
+	SelectiveListHandler externalHandler;
 	SelectionType _selectionType;
 	
 	/**
 	 * 
 	 * @param selectionType Is the ImageType (e.g. SelectiveVerticalPanel.PLUSBUTTON)
 	 */
-	public @UiConstructor SelectiveVerticalPanel(SelectionType selectionType) {
+	public @UiConstructor SelectiveListWidget(SelectionType selectionType) {
 		initWidget(vePa1);
 		vePa1.setWidth("100%");
 		_selectionType=selectionType;
@@ -103,7 +105,7 @@ public class SelectiveVerticalPanel extends Composite {
 	 * 
 	 * @param handler
 	 */
-	public void addSelectiveVerticalPanelHandler(SelectiveVerticalPanelHandler handler){
+	public void addSelectiveVerticalPanelHandler(SelectiveListHandler handler){
 		externalHandler=handler;
 	}
 	

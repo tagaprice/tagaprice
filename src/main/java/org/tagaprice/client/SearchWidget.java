@@ -16,7 +16,8 @@ package org.tagaprice.client;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
+import org.tagaprice.client.widgets.SelectiveListWidget;
+import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ProductData;
@@ -50,7 +51,7 @@ public class SearchWidget extends Composite {
 	private TextBox searchBox = new TextBox();
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private VerticalPanel vePa2 = new VerticalPanel();
-	private SelectiveVerticalPanel selVePa;
+	private SelectiveListWidget selVePa;
 	private PopupPanel popPa;
 	TaPManager myMng = TaPManager.getInstance();
 	
@@ -166,7 +167,7 @@ public class SearchWidget extends Composite {
 		vePa2.setWidth("100%");
 		
 		//
-		selVePa = new SelectiveVerticalPanel(_selectionType);
+		selVePa = new SelectiveListWidget(_selectionType);
 		selVePa.setWidth("100%");
 		
 		//popup
@@ -231,7 +232,7 @@ public class SearchWidget extends Composite {
 		});
 	}
 	
-	public SelectiveVerticalPanel getSelectiveVerticalPanel(){
+	public SelectiveListWidget getSelectiveVerticalPanel(){
 		return selVePa;
 	}
 	

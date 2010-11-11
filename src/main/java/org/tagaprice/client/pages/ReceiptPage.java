@@ -21,14 +21,14 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.InfoBoxComposite;
 import org.tagaprice.client.ProductPreview;
 import org.tagaprice.client.SearchWidget;
-import org.tagaprice.client.SelectiveVerticalPanel;
-import org.tagaprice.client.SelectiveVerticalPanelHandler;
 import org.tagaprice.client.ShopPreview;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
-import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
 import org.tagaprice.client.widgets.DateWidget;
 import org.tagaprice.client.widgets.MorphWidget;
+import org.tagaprice.client.widgets.SelectiveListWidget;
+import org.tagaprice.client.widgets.SelectiveListHandler;
+import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
@@ -72,7 +72,7 @@ public class ReceiptPage extends InfoBoxComposite {
 	private SearchWidget shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
 	private SearchWidget productChooser2;
 	
-	SelectiveVerticalPanel productContainer = new SelectiveVerticalPanel(SelectionType.MINUSBUTTON);
+	SelectiveListWidget productContainer = new SelectiveListWidget(SelectionType.MINUSBUTTON);
 	
 	
 	@UiField VerticalPanel basePanel;
@@ -142,7 +142,7 @@ public class ReceiptPage extends InfoBoxComposite {
 		
 		
 		//Listen on Select
-		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {
+		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -181,7 +181,7 @@ public class ReceiptPage extends InfoBoxComposite {
 		//------
 		
 		//Products		
-		productContainer.addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {
+		productContainer.addSelectiveVerticalPanelHandler(new SelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -308,7 +308,7 @@ public class ReceiptPage extends InfoBoxComposite {
 		basePanel.insert(product, 4);
 		
 		//ProductChooserListener
-		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveVerticalPanelHandler() {			
+		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveListHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
 				addProduct(((ProductPreview)widget).getProductData());	
