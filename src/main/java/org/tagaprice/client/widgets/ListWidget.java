@@ -12,9 +12,13 @@
  * Filename: ListWidget.java
  * Date: May 17, 2010
  */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
+
+import org.tagaprice.client.EntityPreview;
+import org.tagaprice.client.ProductPreview;
+import org.tagaprice.client.ShopPreview;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
