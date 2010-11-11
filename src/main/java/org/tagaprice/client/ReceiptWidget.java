@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.SearchWidget.SearchType;
 import org.tagaprice.client.SelectiveVerticalPanel.SelectionType;
+import org.tagaprice.client.widgets.DateWidget;
+import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;

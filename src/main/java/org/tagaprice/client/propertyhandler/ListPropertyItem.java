@@ -17,8 +17,8 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 
 import org.tagaprice.client.HorizontalInfoPanel;
-import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.MorphWidgetErrorHandler;
+import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;

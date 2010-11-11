@@ -15,6 +15,7 @@
 package org.tagaprice.client;
 
 
+import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 

@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 import org.tagaprice.client.HandlerManager;
 import org.tagaprice.client.InfoBox;
-import org.tagaprice.client.MorphWidget;
 import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.MyResources;
 import org.tagaprice.client.PriceMapWidget;
@@ -34,6 +33,7 @@ import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.Country;
 import org.tagaprice.shared.PropertyData;

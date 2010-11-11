@@ -12,7 +12,7 @@
  * Filename: DateWidget.java
  * Date: 15.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import java.util.Date;
 
