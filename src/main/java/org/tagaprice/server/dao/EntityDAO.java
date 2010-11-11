@@ -47,7 +47,9 @@ public class EntityDAO implements DAOClass<Entity> {
 		this.propertyDAO = new PropertyDAO(db);
 	}
 	
-	
+	/**
+	 * This is a test command
+	 */
 
 	public void get(Entity e) throws SQLException, NotFoundException {
 		String sql = "SELECT e.ent_id, rev, title, locale_id, e.creator, r.creator AS revCreator " +
