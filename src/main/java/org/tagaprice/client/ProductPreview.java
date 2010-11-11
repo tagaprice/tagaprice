@@ -17,6 +17,7 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
+import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 

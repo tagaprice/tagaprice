@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.HandlerManager;
 import org.tagaprice.client.IAddressHandler;
-import org.tagaprice.client.RatingWidget;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.TitlePanel;
 import org.tagaprice.client.TitlePanel.Level;

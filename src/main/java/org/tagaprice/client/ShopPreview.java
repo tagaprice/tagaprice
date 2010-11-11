@@ -16,6 +16,7 @@ package org.tagaprice.client;
 
 
 import org.tagaprice.client.widgets.ProgressWidget;
+import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.shared.ShopData;
 
 import com.google.gwt.core.client.GWT;

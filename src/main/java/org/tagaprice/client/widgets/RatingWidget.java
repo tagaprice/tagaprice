@@ -12,7 +12,9 @@
  * Filename: RatingWidget.java
  * Date: 12.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
+
+import org.tagaprice.client.MyResources;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
