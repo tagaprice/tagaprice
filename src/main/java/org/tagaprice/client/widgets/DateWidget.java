@@ -16,8 +16,8 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 /**
  * Displays the date in a nice human readable style and displays a datePicker
- * (see: {@link http://code.google.com/webtoolkit/doc/1.6/RefWidgetGallery.html}
- * ) onclick.
+ * (see: <a target="_blank" href="http://code.google.com/webtoolkit/doc/1.6/RefWidgetGallery.html">DatePicker</a>)
+ * onclick.
  * 
  */
 public class DateWidget extends Composite {
@@ -31,7 +31,7 @@ public class DateWidget extends Composite {
 	private VerticalPanel vePa = new VerticalPanel();
 
 	/**
-	 * Creates a DateWidget with the current date. Use {@link #DateWidget(Date)}
+	 * Creates a DateWidget with the current date. Use {@link #DateWidget(Date)} 
 	 * for a different date.
 	 */
 	public DateWidget() {
