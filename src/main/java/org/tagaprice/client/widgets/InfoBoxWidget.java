@@ -32,9 +32,9 @@ public class InfoBoxWidget extends Composite {
 		INFORMATIONBOX
 	}
 
-	private BoxType boxType;
+	private BoxType _boxType;
 
-	private SimplePanel infoBox = new SimplePanel();
+	private SimplePanel _infoBox = new SimplePanel();
 
 	/**
 	 * Standard constructor to create a InfoBox. The InfoBoxWidget is hidden at
@@ -46,9 +46,9 @@ public class InfoBoxWidget extends Composite {
 	 *            close button.
 	 */
 	public InfoBoxWidget(boolean autohide) {
-		initWidget(infoBox);
-		infoBox.setWidth("100%");
-		infoBox.setVisible(false);
+		initWidget(_infoBox);
+		_infoBox.setWidth("100%");
+		_infoBox.setVisible(false);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class InfoBoxWidget extends Composite {
 	 * Hide the InfoBoxWidget. (setVisible(false))
 	 */
 	public void hideInfo() {
-		infoBox.setVisible(false);
+		_infoBox.setVisible(false);
 	}
 
 	/**
@@ -116,22 +116,22 @@ public class InfoBoxWidget extends Composite {
 	 *            INFORMATIONBOX)
 	 */
 	public void showInfo(Widget wid, BoxType boxType) {
-		this.boxType = boxType;
+		this._boxType = boxType;
 
-		if (this.boxType == BoxType.ERRORBOX) {
-			infoBox.setStyleName("InfoBox-Error");
-		} else if (this.boxType == BoxType.SUCCESSBOX) {
-			infoBox.setStyleName("InfoBox-Success");
-		} else if (this.boxType == BoxType.WARNINGBOX) {
-			infoBox.setStyleName("InfoBox-Warning");
-		} else if (this.boxType == BoxType.INFORMATIONBOX) {
-			infoBox.setStyleName("InfoBox-Information");
+		if (this._boxType == BoxType.ERRORBOX) {
+			_infoBox.setStyleName("InfoBox-Error");
+		} else if (this._boxType == BoxType.SUCCESSBOX) {
+			_infoBox.setStyleName("InfoBox-Success");
+		} else if (this._boxType == BoxType.WARNINGBOX) {
+			_infoBox.setStyleName("InfoBox-Warning");
+		} else if (this._boxType == BoxType.INFORMATIONBOX) {
+			_infoBox.setStyleName("InfoBox-Information");
 		} else {
-			infoBox.setStyleName("InfoBox-Warning");
+			_infoBox.setStyleName("InfoBox-Warning");
 		}
 
-		infoBox.setWidget(wid);
-		infoBox.setVisible(true);
+		_infoBox.setWidget(wid);
+		_infoBox.setVisible(true);
 		/*
 		 * Timer t = new Timer() { public void run() {
 		 * infoBox.setVisible(false); } };

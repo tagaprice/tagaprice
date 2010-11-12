@@ -11,7 +11,7 @@ public interface ISelectiveListHandler {
 	/**
 	 * Is called if a widget is selected. 
 	 * @param widget selected widget
-	 * @param index indes of the selected widget
+	 * @param index index of the selected widget
 	 */
 	public void onClick(Widget widget, int index);
 
