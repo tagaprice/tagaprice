@@ -7,7 +7,7 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
  * function (empty, error, success)
  * 
  */
-public interface MorphWidgetInfoHandler {
+public interface IMorphWidgetInfoHandler {
 
 	/**
 	 * Is called if the MorphWidget is empty after changing.

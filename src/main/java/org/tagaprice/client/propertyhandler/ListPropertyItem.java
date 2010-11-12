@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.widgets.HorizontalInfoWidget;
 import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
+import org.tagaprice.client.widgets.IMorphWidgetInfoHandler;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
@@ -75,7 +75,7 @@ public class ListPropertyItem extends Composite {
 		
 		
 		//Listen
-		mp.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+		mp.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {		
