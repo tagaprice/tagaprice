@@ -17,6 +17,11 @@ package org.tagaprice.shared.data;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Serializable;
 
+/**
+ * Abstract class holding general information which every entity has,
+ * that is: an ID, a title, a revision number, a createrID and creatorID for this revision,
+ * a localeID and a list of properties.
+ */
 public abstract class Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +32,7 @@ public abstract class Entity implements Serializable {
 	private Long creatorId = null;
 	private Long revCreatorId = null;
 
+	/** TODO {@link SearchResult} is used as a list for properties. this may should be refactored... */
 	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
 
 	/**
@@ -80,8 +86,8 @@ public abstract class Entity implements Serializable {
 	/**
 	 * full constructor
 	 * @param id Entity ID
-	 * @param rev revision nr (starting at 1, 0 has a special meaning depending on the action you're performing)
-	 * @param title Entity Title 
+	 * @param rev revision number (must be > 0)
+	 * @param title Entity Title
 	 * @param localeId Entity locale
 	 * @param creatorId Entity creator ID
 	 * @param revCreatorId revision creator ID
@@ -95,10 +101,16 @@ public abstract class Entity implements Serializable {
 		this.revCreatorId = revCreatorId;
 	}
 	
+	/**
+	 * @return the ID of this entity
+	 */
 	public Long getId() {
 		return id;
 	}
 	
+	/**
+	 * @return true, if this entity has an ID, false otherwise.
+	 */
 	public boolean hasId() {
 		return id != null;
 	}
@@ -111,14 +123,23 @@ public abstract class Entity implements Serializable {
 		this.id = id;
 	}
 	
+	/**
+	 * @return title of this entity
+	 */
 	public String getTitle() {
 		return title;
 	}
 	
+	/**
+	 * @param title title of this entity
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
+	/**
+	 * @return the revision number of this entity
+	 */
 	public int getRev() {
 		return rev;
 	}
@@ -131,7 +152,9 @@ public abstract class Entity implements Serializable {
 		this.rev = rev;
 	}
 	
-	
+	/**
+	 * @return the creatorID for this entity
+	 */
 	public Long getCreatorId() {
 		return creatorId;
 	}
@@ -144,6 +167,9 @@ public abstract class Entity implements Serializable {
 		this.creatorId = creatorId;
 	}
 	
+	/**
+	 * @return the CreatorID of this revision
+	 */
 	public Long getRevCreatorId() {
 		return revCreatorId;
 	}
@@ -156,6 +182,9 @@ public abstract class Entity implements Serializable {
 		this.revCreatorId = revCreatorId;
 	}
 	
+	/**
+	 * @return the localeID
+	 */
 	public Integer getLocaleId() {
 		return localeId;
 	}
@@ -169,7 +198,7 @@ public abstract class Entity implements Serializable {
 	}
 		
 	/**
-	 * @return the properties
+	 * @return the properties of this entity
 	 */
 	public SearchResult<PropertyData> getProperties() {
 		return properties;

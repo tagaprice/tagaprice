@@ -16,6 +16,13 @@ package org.tagaprice.shared.data;
 
 import org.tagaprice.shared.Serializable;
 
+/**
+ * Holds data about an address.
+ * An address can be represented as combination of street, city and country or
+ * by latitude and langitude.
+ * 
+ *
+ */
 public class Address implements Serializable {
 
 	
@@ -32,8 +39,10 @@ public class Address implements Serializable {
 		return "Address";
 	}
 
+	/**
+	 * Default constructor needed for serialization.
+	 */
 	public Address() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Address(String street, String city, Country country, Double lat, Double lng) {
@@ -83,7 +92,6 @@ public class Address implements Serializable {
 	}
 	
 	
-	
 	public void setStreet(String street) {
 		this.street = street;
 	}
@@ -107,6 +115,7 @@ public class Address implements Serializable {
 		setCountry(country);
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
