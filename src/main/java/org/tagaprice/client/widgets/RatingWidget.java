@@ -33,16 +33,19 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class RatingWidget extends Composite {
 
-	private int dynRating = 0;
-	private boolean editable;
-	private ClickHandler exthandler;
-	private int height;
-	private SimplePanel noStars;
-	private int rating;
-	private Image stars;
-	private int width;
+	private int _dynRating = 0;
+	private boolean _editable;
+	private ClickHandler _exthandler;
+	private int _height;
+	private SimplePanel _noStars;
+	private int _rating;
+	private Image _stars;
+	private int _width;
 
 	/**
+	 * Create a RatingWidget with the rating in percent (0-100) and an edit able
+	 * flag. If editable=false at constructing, the widget can't be set to
+	 * editable=true afterwards.
 	 * 
 	 * @param rating
 	 *            Rating is in percent (0-100)
@@ -51,12 +54,12 @@ public class RatingWidget extends Composite {
 	 */
 	public @UiConstructor
 	RatingWidget(int rating, boolean editable) {
-		this.rating = validateRating(rating);
-		this.editable = editable;
-		this.width = ImageBundle.INSTANCE.rating0().getWidth();
-		this.height = ImageBundle.INSTANCE.rating0().getHeight();
+		this._rating = validateRating(rating);
+		this._editable = editable;
+		this._width = ImageBundle.INSTANCE.rating0().getWidth();
+		this._height = ImageBundle.INSTANCE.rating0().getHeight();
 
-		if (this.editable)
+		if (this._editable)
 			startEditable();
 		else
 			startStatic();
@@ -66,40 +69,40 @@ public class RatingWidget extends Composite {
 	/**
 	 * Doesn't work if editable is false.
 	 * 
-	 * @param handler
+	 * @param handler is called if the rating is being changed.
 	 */
 	public void addClickHandler(ClickHandler handler) {
-		exthandler = handler;
+		_exthandler = handler;
 	}
 
 	/**
 	 * Returns the rating in percent.
 	 * 
-	 * @return Is in percent (0-100)
+	 * @return is in percent (0-100)
 	 */
 	public int getRating() {
-		return rating;
+		return _rating;
 	}
 
 	/**
 	 * Sets the rating in percent.
 	 * 
 	 * @param rating
-	 *            Is in percent (0-100)
+	 *            is in percent (0-100)
 	 */
 	public void setRating(int rating) {
 		rating = validateRating(rating);
-		if (editable == true) {
-			this.rating = rating;
-			setStars(calcRating(this.rating));
+		if (_editable == true) {
+			this._rating = rating;
+			setStars(calcRating(this._rating));
 		} else {
-			this.rating = rating;
-			stars.setSize(normalizeWidth(this.rating) + "px", height + "px");
+			this._rating = rating;
+			_stars.setSize(normalizeWidth(this._rating) + "px", _height + "px");
 		}
 	}
 
 	/**
-	 * 
+	 * Returns the Rating steps (5)
 	 * @param percent
 	 * @return
 	 */
@@ -123,92 +126,92 @@ public class RatingWidget extends Composite {
 	}
 
 	/**
-	 * 
+	 * Normalize the percent value to the widht value
 	 * @param percent
 	 * @return
 	 */
 	private int normalizeWidth(int percent) {
-		return (this.width * percent) / 100;
+		return (this._width * percent) / 100;
 	}
 
 	/**
-	 * 
+	 * Set the rating and displays it.
 	 * @param rating
 	 */
 	private void setStars(int rating) {
 		if (rating == 20) {
-			stars.setResource(ImageBundle.INSTANCE.rating1());
+			_stars.setResource(ImageBundle.INSTANCE.rating1());
 		}
 		if (rating == 40) {
-			stars.setResource(ImageBundle.INSTANCE.rating2());
+			_stars.setResource(ImageBundle.INSTANCE.rating2());
 		}
 		if (rating == 60) {
-			stars.setResource(ImageBundle.INSTANCE.rating3());
+			_stars.setResource(ImageBundle.INSTANCE.rating3());
 		}
 		if (rating == 80) {
-			stars.setResource(ImageBundle.INSTANCE.rating4());
+			_stars.setResource(ImageBundle.INSTANCE.rating4());
 		}
 		if (rating == 100) {
-			stars.setResource(ImageBundle.INSTANCE.rating5());
+			_stars.setResource(ImageBundle.INSTANCE.rating5());
 		}
 	}
 
 	/**
-	 * 
+	 * Registers mouseHandler on the Widget if the constructor flag editable is set TRUE
 	 */
 	private void startEditable() {
-		stars = new Image(ImageBundle.INSTANCE.rating0());
-		initWidget(stars);
-		setStars(calcRating(rating));
-		stars.setSize(width + "px", height + "px");
+		_stars = new Image(ImageBundle.INSTANCE.rating0());
+		initWidget(_stars);
+		setStars(calcRating(_rating));
+		_stars.setSize(_width + "px", _height + "px");
 
-		stars.addMouseMoveHandler(new MouseMoveHandler() {
+		_stars.addMouseMoveHandler(new MouseMoveHandler() {
 
 			@Override
 			public void onMouseMove(MouseMoveEvent event) {
-				int fifth = stars.getWidth() / 5;
+				int fifth = _stars.getWidth() / 5;
 				if (event.getX() > fifth * 0 && event.getX() <= fifth * 1) {
-					stars.setResource(ImageBundle.INSTANCE.ratingChoose1());
-					dynRating = 20;
+					_stars.setResource(ImageBundle.INSTANCE.ratingChoose1());
+					_dynRating = 20;
 				}
 				if (event.getX() > fifth * 1 && event.getX() <= fifth * 2) {
-					stars.setResource(ImageBundle.INSTANCE.ratingChoose2());
-					dynRating = 40;
+					_stars.setResource(ImageBundle.INSTANCE.ratingChoose2());
+					_dynRating = 40;
 				}
 				if (event.getX() > fifth * 2 && event.getX() <= fifth * 3) {
-					stars.setResource(ImageBundle.INSTANCE.ratingChoose3());
-					dynRating = 60;
+					_stars.setResource(ImageBundle.INSTANCE.ratingChoose3());
+					_dynRating = 60;
 				}
 				if (event.getX() > fifth * 3 && event.getX() <= fifth * 4) {
-					stars.setResource(ImageBundle.INSTANCE.ratingChoose4());
-					dynRating = 80;
+					_stars.setResource(ImageBundle.INSTANCE.ratingChoose4());
+					_dynRating = 80;
 				}
 				if (event.getX() > fifth * 4 && event.getX() <= fifth * 5) {
-					stars.setResource(ImageBundle.INSTANCE.ratingChoose5());
-					dynRating = 100;
+					_stars.setResource(ImageBundle.INSTANCE.ratingChoose5());
+					_dynRating = 100;
 				}
 
 			}
 		});
 
-		stars.addMouseOutHandler(new MouseOutHandler() {
+		_stars.addMouseOutHandler(new MouseOutHandler() {
 
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
-				setStars(calcRating(rating));
+				setStars(calcRating(_rating));
 
 			}
 		});
 
-		stars.addClickHandler(new ClickHandler() {
+		_stars.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				rating = dynRating;
-				setStars(calcRating(dynRating));
+				_rating = _dynRating;
+				setStars(calcRating(_dynRating));
 
-				if (exthandler != null)
-					exthandler.onClick(event);
+				if (_exthandler != null)
+					_exthandler.onClick(event);
 
 			}
 		});
@@ -218,17 +221,17 @@ public class RatingWidget extends Composite {
 	 * 
 	 */
 	private void startStatic() {
-		noStars = new SimplePanel();
-		initWidget(noStars);
+		_noStars = new SimplePanel();
+		initWidget(_noStars);
 
 		// set 0Stars
-		noStars.setStyleName("RatingWidget0Stars");
-		noStars.setSize(width + "px", height + "px");
+		_noStars.setStyleName("RatingWidget0Stars");
+		_noStars.setSize(_width + "px", _height + "px");
 
 		// set 5Stars
-		stars = new Image(ImageBundle.INSTANCE.rating5());
-		noStars.setWidget(stars);
-		stars.setSize(normalizeWidth(rating) + "px", height + "px");
+		_stars = new Image(ImageBundle.INSTANCE.rating5());
+		_noStars.setWidget(_stars);
+		_stars.setSize(normalizeWidth(_rating) + "px", _height + "px");
 	}
 
 	/**

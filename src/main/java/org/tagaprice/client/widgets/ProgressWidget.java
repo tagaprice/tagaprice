@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPriceUI
- * Filename: ProgressWidget.java
- * Date: 14.05.2010
- */
 package org.tagaprice.client.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -19,19 +5,28 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
- * Is only a Mockup
+ * Displays the progress of a shop or product, by surrounding the product/shop
+ * image.
  * 
  */
 public class ProgressWidget extends Composite {
-	private Image image;
-	private int progress;
+	private Image _image;
+	private int _progress;
 	private SimplePanel simplePanel = new SimplePanel();
 
+	/**
+	 * Creates a progressWidget with an inner Image.
+	 * 
+	 * @param image
+	 *            the image in the the center of the ProgressWidget
+	 * @param progress
+	 *            is the progress a product/shop has
+	 */
 	public ProgressWidget(Image image, int progress) {
 		initWidget(simplePanel);
-		this.image = image;
-		this.progress = progress;
+		this._image = image;
+		this._progress = progress;
 
-		simplePanel.setWidget(this.image);
+		simplePanel.setWidget(this._image);
 	}
 }

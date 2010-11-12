@@ -77,7 +77,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 	/**
 	 * Creates a PriceMapWidget with an entity id (only: product, shop, branding, category).
 	 * @param id is a product, shop, branding, or category id. Must not be NULL.
-	 * @param myType 
+	 * @param priceMapType defines the displayed type
 	 */
 	public PriceMapWidget(long id, PriceMapType priceMapType) {
 		_type = priceMapType;
@@ -124,6 +124,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		initWidget(_titlePanel);
 	}
 
+	
 	@Override
 	public void setAddress(Address address) {
 		System.out.println("setAdress");
@@ -131,6 +132,10 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 			_map.setCenter(LatLng.newInstance(address.getLat(), address.getLng()));
 	}
 
+	
+	/**
+	 * Gets the prices from the db at the current position
+	 */
 	private void getPrices() {
 		if (_type.equals(PriceMapType.SHOP)) {
 			RPCHandlerManager.getPriceHandler().get(_id, null, _type,
@@ -173,6 +178,10 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		}
 	}
 
+	/**
+	 * Refreshes the price table
+	 * @param list a list of the prices at this position
+	 */
 	private void refreshData(ArrayList<PriceData> list) {
 		int pinOff = 1;
 		int colOff = 0;
