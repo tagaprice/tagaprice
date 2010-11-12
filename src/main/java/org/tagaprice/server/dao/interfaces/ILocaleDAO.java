@@ -28,9 +28,9 @@ public interface ILocaleDAO {
 	 */
 	public Locale getByFullLanguageName(String name) throws DAOException;
 	/**
-	 * Gets a Locale by it's Countrycode and it's Languagecode, see {@link http://download.oracle.com/javase/6/docs/api/java/util/Locale.html} for valid codes.
-	 * @param language the languagecode, see {@link http://www.loc.gov/standards/iso639-2/englangn.html}
-	 * @param country the countrycode, see {@link http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html}
+	 * Gets a Locale by it's Countrycode and it's Languagecode, see http://download.oracle.com/javase/6/docs/api/java/util/Locale.html for valid codes.
+	 * @param language the languagecode, see http://www.loc.gov/standards/iso639-2/englangn.html
+	 * @param country the countrycode, see http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
 	 * @return
 	 * @throws DAOException
 	 */
