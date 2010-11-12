@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPriceUI
- * Filename: DateWidget.java
- * Date: 15.05.2010
- */
 package org.tagaprice.client.widgets;
 
 import java.util.Date;
@@ -34,24 +20,19 @@ import com.google.gwt.user.datepicker.client.DatePicker;
  * 
  */
 
+
+/**
+ * 
+ */
 public class DateWidget extends Composite {
-	VerticalPanel vePa = new VerticalPanel();
-	Label monthYear = new Label();
-	Label day = new Label();
 	Date date = new Date();
+	Label day = new Label();
+	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
+	Label monthYear = new Label();
+	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
 	DatePicker picker = new DatePicker();
 	PopupPanel pickerPop = new PopupPanel(true);
-	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
-	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
-
-	/**
-	 * 
-	 * @param date
-	 */
-	public DateWidget(Date date) {
-		this();
-		setDate(date);
-	}
+	VerticalPanel vePa = new VerticalPanel();
 
 	/**
 	 * 
@@ -109,6 +90,23 @@ public class DateWidget extends Composite {
 	}
 
 	/**
+	 * 
+	 * @param date
+	 */
+	public DateWidget(Date date) {
+		this();
+		setDate(date);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Date getDate() {
+		return this.date;
+	}
+
+	/**
 	 * Sets the date
 	 * 
 	 * @param date
@@ -119,13 +117,5 @@ public class DateWidget extends Composite {
 		day.setText(dayDtF.format(this.date));
 		picker.setValue(date);
 
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Date getDate() {
-		return this.date;
 	}
 }
