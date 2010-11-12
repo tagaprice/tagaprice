@@ -4,7 +4,7 @@ import org.tagaprice.client.AInfoBoxComposite;
 
 
 /**
- * Abstact class to control all external events for a page.
+ * Abstract class to control all external events for a page.
  * e.g. async gps request
  *
  */
