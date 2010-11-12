@@ -1,4 +1,4 @@
-package org.tagaprice.client;
+package org.tagaprice.client.pages;
 
 import org.tagaprice.shared.Address;
 

@@ -5,7 +5,7 @@ package org.tagaprice.shared.exception;
  *
  */
 public class ServerException extends Exception {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8255098943533093519L;
 
 	public ServerException() {
 		// TODO Auto-generated constructor stub

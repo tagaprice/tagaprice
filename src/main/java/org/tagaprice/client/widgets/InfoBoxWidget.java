@@ -12,7 +12,7 @@
  * Filename: InfoBox.java
  * Date: 19.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Shows a success, warning or error info.
  * 
  */
-public class InfoBox extends Composite {
+public class InfoBoxWidget extends Composite {
 	SimplePanel infoBox = new SimplePanel();
 	public enum BoxType {
 		ERRORBOX, SUCCESSBOX, WARNINGBOX
@@ -31,7 +31,7 @@ public class InfoBox extends Composite {
 	protected BoxType type;
 
 
-	public InfoBox() {
+	public InfoBoxWidget() {
 		initWidget(infoBox);
 		//infoBox.setSize("100%", "auto");
 		infoBox.setWidth("100%");

@@ -3,8 +3,8 @@ package org.tagaprice.client.pages;
 import java.util.ArrayList;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.widgets.TitleWidget;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ReceiptData;
@@ -19,43 +19,52 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ReceiptListPage extends Page {
+public class ReceiptListPage extends APage {
 
-	private VerticalPanel vePa1 = new VerticalPanel();
-	private Grid table;
-	
+	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
+	private Grid _table;
+
+/**
+ * 	
+ */
 	public ReceiptListPage() {
-		init(vePa1);
-		vePa1.setWidth("100%");
+		init(_verticalPanel_1);
+		_verticalPanel_1.setWidth("100%");
 		
 		
 		
 		try {
 			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<ReceiptData>>() {
-				
+/**
+ * A new receipt with name, date and price is created in a personal receipt table				
+ * @param result
+ */
+	
 				@Override
 				public void onSuccess(ArrayList<ReceiptData> result) {
 					
-					table = new Grid(result.size()+1,3);
+					_table = new Grid(result.size()+1,3);
 					int c = 1;
 					
 					//head
-					table.setWidth("100%");
-					table.setText(0, 0, "Name");
-					table.setText(0, 1, "Date");
-					table.setText(0, 2, "Price [€]");
+					_table.setWidth("100%");
+					_table.setText(0, 0, "Name");
+					_table.setText(0, 1, "Date");
+					_table.setText(0, 2, "Price [€]");
 					
 					long totalPrice = 0;
 					
 					//get Rows
 					for(final ReceiptData pd: result){
 						Label title = new Label(pd.getTitle()+": "+pd.getId());
-						if(pd.getDraft())title.setText(title.getText()+" [DRAFT]");
-						table.setWidget(c, 0, title);
-						table.setText(c, 1, DateTimeFormat.getLongDateFormat().format(pd.getDate()));
-						table.setText(c, 2, ""+(pd.getTotalPrice()/100.00));
+						if(pd.getDraft()){
+							title.setText(title.getText()+" [DRAFT]");
+						}
+						_table.setWidget(c, 0, title);
+						_table.setText(c, 1, DateTimeFormat.getLongDateFormat().format(pd.getDate()));
+						_table.setText(c, 2, ""+(pd.getTotalPrice()/100.00));
 						
-						totalPrice=totalPrice+pd.getTotalPrice();
+						totalPrice = totalPrice + pd.getTotalPrice();
 						
 						title.addClickHandler(new ClickHandler() {							
 							@Override
@@ -67,9 +76,9 @@ public class ReceiptListPage extends Page {
 					}
 					
 					
-					vePa1.add(new TitleWidget("MyReceipts", table, Level.H2));
+					_verticalPanel_1.add(new TitleWidget("MyReceipts", _table, Level.H2));
 					
-					vePa1.add(new Label("Total Price: "+(totalPrice/100.00)+"[€]"));
+					_verticalPanel_1.add(new Label("Total Price: "+(totalPrice/100.00)+"[€]"));
 					
 				}
 				
@@ -85,7 +94,9 @@ public class ReceiptListPage extends Page {
 
 		}
 	}
-
+/**
+ * Sets the position
+ */
 	@Override
 	public void setAddress(Address address) {
 		// TODO Auto-generated method stub

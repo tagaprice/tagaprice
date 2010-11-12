@@ -12,7 +12,7 @@
  * Filename: VerticalInfoPanel.java
  * Date: 26.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,12 +20,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class HorizontalInfoPanel extends Composite {
+@Deprecated
+public class HorizontalInfoWidget extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
 	HorizontalPanel hoPa1 = new HorizontalPanel();
 	Label info = new Label();
 	
-	public HorizontalInfoPanel() {
+	public HorizontalInfoWidget() {
 		vePa1.setWidth("100%");
 		hoPa1.setWidth("100%");
 		info.setWidth("100%");

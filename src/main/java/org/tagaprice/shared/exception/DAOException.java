@@ -23,4 +23,9 @@ public class DAOException extends ServerException {
 		super(message, cause);
 	}
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4230329188076132982L;
+
 }

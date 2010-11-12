@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.io.FileInputStream;
 import java.io.IOException;

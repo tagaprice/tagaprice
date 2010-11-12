@@ -1,16 +1,24 @@
 package org.tagaprice.client;
 
-import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.widgets.InfoBoxWidget;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class InfoBoxComposite extends Composite {
-	private InfoBox infoBox = new InfoBox();
+
+/**
+ * The info box should be static and in the UIManager class.
+ * @author brandiatmuhkuh
+ *
+ */
+@Deprecated
+public abstract class AInfoBoxComposite extends Composite {
+	private InfoBoxWidget infoBox = new InfoBoxWidget();
 	private VerticalPanel vePa1 = new VerticalPanel();
 	
-	public InfoBoxComposite() {
+	public AInfoBoxComposite() {
 		initWidget(vePa1);
 		vePa1.setWidth("100%");
 		infoBox.setWidth("100%");

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.tagaprice.client.SearchWidget.SearchType;
+import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.server.dao.ShopDAO;

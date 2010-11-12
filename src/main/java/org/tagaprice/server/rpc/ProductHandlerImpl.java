@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
+import org.tagaprice.server.dao.postgres.LoginDAO;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.Type;

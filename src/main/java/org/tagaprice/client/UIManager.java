@@ -14,16 +14,17 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.client.SearchWidget.SearchType;
-import org.tagaprice.client.account.ConfirmRegistrationPage;
-import org.tagaprice.client.account.LoginPage;
-import org.tagaprice.client.account.RegistrationPage;
 import org.tagaprice.client.pages.HomePage;
-import org.tagaprice.client.pages.Page;
+import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.pages.ProductPage;
 import org.tagaprice.client.pages.ReceiptListPage;
 import org.tagaprice.client.pages.ReceiptPage;
 import org.tagaprice.client.pages.ShopPage;
+import org.tagaprice.client.pages.account.ConfirmRegistrationPage;
+import org.tagaprice.client.pages.account.LoginPage;
+import org.tagaprice.client.pages.account.RegistrationPage;
+import org.tagaprice.client.widgets.SearchWidget;
+import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
@@ -40,14 +41,14 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class UIManager extends Page {
+public class UIManager extends APage {
 
 	private DockPanel myDock = new DockPanel();
 	private Image home = new Image(ImageBundle.INSTANCE.home());
 	private HorizontalPanel logoPanel = new HorizontalPanel();
 	TaPManager myMng = TaPManager.getInstance();
 	private SimplePanel centerPage = new SimplePanel();
-	private Page currentPage;
+	private APage currentPage;
 
 	
 	public UIManager() {
