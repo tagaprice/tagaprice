@@ -21,69 +21,69 @@ import com.google.gwt.user.datepicker.client.DatePicker;
  * 
  */
 public class DateWidget extends Composite {
-	private Date date = new Date();
-	private Label day = new Label();
-	private DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
-	private Label monthYear = new Label();
-	private DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
-	private DatePicker picker = new DatePicker();
-	private PopupPanel pickerPop = new PopupPanel(true);
-	private VerticalPanel vePa = new VerticalPanel();
+	private Date _date = new Date();
+	private Label _day = new Label();
+	private DateTimeFormat _dayDtF = DateTimeFormat.getFormat("d");
+	private Label _monthYear = new Label();
+	private DateTimeFormat _monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
+	private DatePicker _picker = new DatePicker();
+	private PopupPanel _pickerPop = new PopupPanel(true);
+	private VerticalPanel _vePa = new VerticalPanel();
 
 	/**
 	 * Create a DateWidget with the current date. Use {@link #DateWidget(Date)} 
 	 * for a different date.
 	 */
 	public DateWidget() {
-		initWidget(vePa);
+		initWidget(_vePa);
 
-		monthYear.setText(monthYearDtF.format(date));
-		day.setText(dayDtF.format(date));
+		_monthYear.setText(_monthYearDtF.format(_date));
+		_day.setText(_dayDtF.format(_date));
 
-		monthYear.addClickHandler(new ClickHandler() {
+		_monthYear.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				pickerPop.showRelativeTo(day);
+				_pickerPop.showRelativeTo(_day);
 
 			}
 		});
 
-		day.addClickHandler(new ClickHandler() {
+		_day.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				pickerPop.showRelativeTo(day);
+				_pickerPop.showRelativeTo(_day);
 
 			}
 		});
 
-		pickerPop.setWidget(picker);
+		_pickerPop.setWidget(_picker);
 
-		picker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+		_picker.addValueChangeHandler(new ValueChangeHandler<Date>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {
-				monthYear.setText(monthYearDtF.format(event.getValue()));
-				day.setText(dayDtF.format(event.getValue()));
-				date.setTime(event.getValue().getTime());
-				pickerPop.hide();
+				_monthYear.setText(_monthYearDtF.format(event.getValue()));
+				_day.setText(_dayDtF.format(event.getValue()));
+				_date.setTime(event.getValue().getTime());
+				_pickerPop.hide();
 			}
 		});
 
 		// Month year
-		vePa.add(monthYear);
-		vePa.add(day);
+		_vePa.add(_monthYear);
+		_vePa.add(_day);
 
 		// Style
 		this.setWidth("50px");
-		vePa.setCellHorizontalAlignment(monthYear,
+		_vePa.setCellHorizontalAlignment(_monthYear,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		vePa.setCellHorizontalAlignment(day,
+		_vePa.setCellHorizontalAlignment(_day,
 				HasHorizontalAlignment.ALIGN_CENTER);
 		this.setStyleName("DateWidget");
-		monthYear.setStyleName("DateWidget-MonthYear");
-		day.setStyleName("DateWidget-Day");
+		_monthYear.setStyleName("DateWidget-MonthYear");
+		_day.setStyleName("DateWidget-Day");
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class DateWidget extends Composite {
 	 * @return the current selected date
 	 */
 	public Date getDate() {
-		return this.date;
+		return this._date;
 	}
 
 	/**
@@ -109,10 +109,10 @@ public class DateWidget extends Composite {
 	 * @param date a special date.
 	 */
 	public void setDate(Date date) {
-		this.date = date;
-		monthYear.setText(monthYearDtF.format(this.date));
-		day.setText(dayDtF.format(this.date));
-		picker.setValue(date);
+		this._date = date;
+		_monthYear.setText(_monthYearDtF.format(this._date));
+		_day.setText(_dayDtF.format(this._date));
+		_picker.setValue(date);
 
 	}
 }
