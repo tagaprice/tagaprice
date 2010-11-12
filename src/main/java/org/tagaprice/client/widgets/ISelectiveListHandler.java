@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Returns the selected widget, and the index
  * 
  */
-public interface SelectiveListHandler {
+public interface ISelectiveListHandler {
 	// TODO Schaun ob es eine schoenere Moeglichkeit gibt
 
 	public void onClick(Widget widget, int index);

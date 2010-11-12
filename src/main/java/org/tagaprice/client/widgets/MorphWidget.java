@@ -39,16 +39,16 @@ public class MorphWidget extends SimplePanel {
 	/**
 	 * 
 	 * @param _text
+	 * @param _type
 	 * @param _isEditable
-	 *            Sets text editable.
 	 */
-	public MorphWidget(String text, Datatype _type, boolean isEditable) {
+	public MorphWidget(String _text, Datatype _type, boolean _isEditable) {
 		setWidget(textBox);
 		type = _type;
 		this.setStyleName("MorphWidget");
 		setWidth("140px");
 
-		setText(text);
+		setText(_text);
 
 		textBox.addFocusHandler(new FocusHandler() {
 

@@ -16,7 +16,7 @@ package org.tagaprice.client.widgets;
 
 import org.tagaprice.shared.Type;
 
-public interface TypeWidgetHandler {
+public interface ITypeWidgetHandler {
 
 	public void onChange(Type type);
 }

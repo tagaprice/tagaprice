@@ -31,7 +31,7 @@ import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
-import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
@@ -77,7 +77,7 @@ public class ShopPage extends APage {
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
 	private PropertyChangeHandler handler;
-	private InfoBoxWidget bottomInfo = new InfoBoxWidget();
+	private InfoBoxWidget bottomInfo = new InfoBoxWidget(false);
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	private PriceMapWidget priceMap;
@@ -390,7 +390,7 @@ public class ShopPage extends APage {
 	
 
 	private void drawTypeWidget(){
-		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
+		typeWidgetContainer.setWidget(new TypeWidget(type, new ITypeWidgetHandler() {			
 			@Override
 			public void onChange(Type newType) {
 				

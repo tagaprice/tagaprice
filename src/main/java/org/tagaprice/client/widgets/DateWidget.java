@@ -31,7 +31,7 @@ public class DateWidget extends Composite {
 	private VerticalPanel vePa = new VerticalPanel();
 
 	/**
-	 * Creates a DateWidget with the current date. Use {@link #DateWidget(Date)} 
+	 * Create a DateWidget with the current date. Use {@link #DateWidget(Date)} 
 	 * for a different date.
 	 */
 	public DateWidget() {
@@ -87,7 +87,7 @@ public class DateWidget extends Composite {
 	}
 
 	/**
-	 * Is creating a DateWidget with a special date. 
+	 * Create a DateWidget with a special date.
 	 * @param date a special date.
 	 */
 	public DateWidget(Date date) {

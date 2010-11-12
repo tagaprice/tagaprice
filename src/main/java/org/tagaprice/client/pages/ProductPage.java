@@ -31,7 +31,7 @@ import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
-import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
@@ -67,7 +67,7 @@ public class ProductPage extends APage {
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
-	private InfoBoxWidget bottomInfo = new InfoBoxWidget();
+	private InfoBoxWidget bottomInfo = new InfoBoxWidget(false);
 	private PriceMapWidget priceMap;
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
@@ -188,7 +188,7 @@ public class ProductPage extends APage {
 	}
 	
 	private void drawTypeWidget(){
-		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
+		typeWidgetContainer.setWidget(new TypeWidget(type, new ITypeWidgetHandler() {			
 			@Override
 			public void onChange(Type newType) {	
 				

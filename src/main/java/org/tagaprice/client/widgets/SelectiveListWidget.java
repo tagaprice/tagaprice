@@ -40,7 +40,7 @@ public class SelectiveListWidget extends Composite {
 
 	private SelectionType _selectionType;
 	private ImageResource bottomImage;
-	private SelectiveListHandler externalHandler;
+	private ISelectiveListHandler externalHandler;
 	private ImageResource topImage;
 	private VerticalPanel vePa1 = new VerticalPanel();
 
@@ -109,7 +109,7 @@ public class SelectiveListWidget extends Composite {
 	 * 
 	 * @param handler
 	 */
-	public void addSelectiveVerticalPanelHandler(SelectiveListHandler handler) {
+	public void addSelectiveVerticalPanelHandler(ISelectiveListHandler handler) {
 		externalHandler = handler;
 	}
 

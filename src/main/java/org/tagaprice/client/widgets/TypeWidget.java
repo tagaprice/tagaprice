@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class TypeWidget extends Composite {
 
-	private TypeWidgetHandler handler;
+	private ITypeWidgetHandler handler;
 	private HorizontalPanel hoPa1 = new HorizontalPanel();
 	private Image rootB = new Image(ImageBundle.INSTANCE.typeSelectRight());
 	private Type type;
@@ -48,7 +48,7 @@ public class TypeWidget extends Composite {
 	 *            If type is root, only one arrow and no text is displayed.
 	 * @param handler
 	 */
-	public TypeWidget(Type type, TypeWidgetHandler handler) {
+	public TypeWidget(Type type, ITypeWidgetHandler handler) {
 		this.type = type;
 		this.handler = handler;
 

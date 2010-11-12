@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 //TODO The info box should be static and in the UIManager class.
 @Deprecated
 public abstract class AInfoBoxComposite extends Composite {
-	private InfoBoxWidget infoBox = new InfoBoxWidget();
+	private InfoBoxWidget infoBox = new InfoBoxWidget(false);
 	private VerticalPanel vePa1 = new VerticalPanel();
 	
 	public AInfoBoxComposite() {
