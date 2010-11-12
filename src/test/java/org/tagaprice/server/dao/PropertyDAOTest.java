@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.Account;
 import org.tagaprice.shared.data.PropertyData;
 import org.tagaprice.shared.data.PropertyDefinition;
 import org.tagaprice.shared.data.PropertyDefinition.Datatype;
@@ -31,7 +31,7 @@ public class PropertyDAOTest {
 		propDefDAO = new PropertyDefinitionDAO(db);
 		
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("propertyTestAccount", localeId, null, null);
+		Account a = new Account("propertyTestAccount", localeId, null, null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		

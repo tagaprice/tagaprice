@@ -1,6 +1,6 @@
 package org.tagaprice.shared.data;
 
-public class LocalAccountData extends AccountData {
+public class LocalAccountData extends Account {
 
 	/**
 	 * Contains all important information to represent a

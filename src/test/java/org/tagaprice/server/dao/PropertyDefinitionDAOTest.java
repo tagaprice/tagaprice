@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.Account;
 import org.tagaprice.shared.data.PropertyDefinition;
 import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
@@ -21,7 +21,7 @@ public class PropertyDefinitionDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new PropertyDefinitionDAO(db);
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("testAccount", localeId, "foo@test.invalid", null);
+		Account a = new Account("testAccount", localeId, "foo@test.invalid", null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 	}

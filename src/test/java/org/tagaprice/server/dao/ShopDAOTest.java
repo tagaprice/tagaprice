@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.AccountData;
+import org.tagaprice.shared.data.Account;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.ShopData;
 
@@ -22,7 +22,7 @@ public class ShopDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new ShopDAO(db);
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("Testaccount", localeId, "bar@test.invalid", null);
+		Account a = new Account("Testaccount", localeId, "bar@test.invalid", null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
