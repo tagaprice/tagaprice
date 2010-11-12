@@ -1,26 +1,33 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPrice
- * Filename: MorphWidgetErrorHandler.java
- * Date: 26.05.2010
- */
 package org.tagaprice.client.widgets;
 
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
+/**
+ * Is called if the value of the MorphWidget has changed, and calls the specific
+ * function (empty, error, success)
+ * 
+ */
 public interface MorphWidgetInfoHandler {
 
+	/**
+	 * Is called if the MorphWidget is empty after changing.
+	 */
 	public void onEmpty();
 
-	public void onError(Datatype errorType);
+	/**
+	 * Is called if the MorphWidget value has not the expected type after
+	 * changing.
+	 * 
+	 * @param infoType
+	 *            the expected type
+	 */
+	public void onError(Datatype infoType);
 
-	public void onSuccess(Datatype errorType);
+	/**
+	 * Is called if the MorphWidget value has the expected type after changing.
+	 * 
+	 * @param infoType
+	 *            the expected type
+	 */
+	public void onSuccess(Datatype infoType);
 }
