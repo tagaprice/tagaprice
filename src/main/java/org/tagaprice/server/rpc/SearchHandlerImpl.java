@@ -25,6 +25,11 @@ import org.tagaprice.shared.rpc.SearchHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * TODO this class will be reimplemented when i come to the features (forste)
+ * @author "forste"
+ *
+ */
 @SuppressWarnings("serial")
 public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHandler{
 	ProductDAO productDao;

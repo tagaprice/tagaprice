@@ -37,7 +37,7 @@ public class AccountDAO implements DAOClass<AccountData> {
 			protected void resolveCreator(Entity e) throws SQLException {
 				e.setCreatorId(e.getId());
 				e.setRevCreatorId(e.getId());
-				PreparedStatement pstmt = db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
+				PreparedStatement pstmt = _db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
 				pstmt.setLong(1, e.getId());
 				pstmt.executeUpdate();
 			}
