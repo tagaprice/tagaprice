@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.UnitDAO;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -51,8 +53,11 @@ public class PropertyDAO implements DAOClass<Entity> {
 		while(res.next()) {
 			Unit u = null;
 			if (res.getString("unit_id") != null) {
-				u = new Unit(res.getLong("unit_id"));
-				unitDAO.get(u);
+				try {
+					u = unitDAO.getById(res.getLong("unit_id"));
+				} catch (DAOException e) {
+					//TODO handle
+				}
 			}
 			props.add(new PropertyData(
 					res.getLong("eprop_id"),
@@ -69,7 +74,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 	 */
 	@Override
 	public void save(Entity entity) throws SQLException, NotFoundException,
-			RevisionCheckException, InvalidLocaleException {
+			InvalidLocaleException {
 		PropertyDefinitionDAO propDefDAO = new PropertyDefinitionDAO(db);
 		
 		// get the entity's properties from the database

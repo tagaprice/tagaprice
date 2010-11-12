@@ -19,9 +19,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.UnitDAO;
+import org.tagaprice.server.dao.postgres.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.UnitHandler;
 
@@ -36,19 +37,12 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	}
 	
 	@Override
-	public Unit get(long id) throws NotFoundException {
-		Unit rc = new Unit(id);
-		try {
-			dao.get(rc);
-		}
-		catch (SQLException e) {
-			throw new NotFoundException("DB Query Error", e);
-		}
-		return rc;
+	public Unit get(long id) throws DAOException {
+		return dao.getById(id);
 	}
 
 	@Override
-	public SearchResult<Unit> getSimilar(long id) throws NotFoundException {
+	public SearchResult<Unit> getSimilar(long id) throws DAOException {
 		return dao.getSimilar(id);
 	}
 

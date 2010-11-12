@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.UnitDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -82,9 +84,15 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		
 		//GetUnit
 		if(res.getString("unit_id")!=null){
-			Unit unit = new Unit(res.getLong("unit_id"));
-			unitDAO.get(unit);		
-			prop.setUnit(unit);
+			Unit unit;
+			try {
+				unit = unitDAO.getById(res.getLong("unit_id"));
+				prop.setUnit(unit);
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new NotFoundException(e.getMessage(), e);
+			}		
 		}
 			
 	}
@@ -123,7 +131,14 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		
 		//Save Unit
 		//GetUnit
-		if(prop.getUnit()!=null) unitDAO.save(prop.getUnit());
+		if(prop.getUnit()!=null)
+			try {
+				unitDAO.save(prop.getUnit());
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new NotFoundException(e.getMessage(), e);
+			}
 		
 	}
 }

@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.interfaces.IEntityDAO;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -31,7 +32,7 @@ import org.tagaprice.shared.exception.RevisionCheckException;
  * Note: Don't inherit this Class (which isn't possible anyway...) but use getInstance() instead
  * @author Manuel Reithuber
  */
-public class EntityDAO implements DAOClass<Entity> {
+public class EntityDAO implements IEntityDAO {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
 	private PropertyDAO propertyDAO;
