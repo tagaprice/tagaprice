@@ -16,25 +16,22 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.CategoryDAO;
 import org.tagaprice.shared.Category;
-import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.ServerException;
-import org.tagaprice.shared.rpc.TypeHandler;
+import org.tagaprice.shared.rpc.CategoryHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler {
+public class CategoryHandlerImpl extends RemoteServiceServlet implements CategoryHandler {
 	CategoryDAO typeDAO;
 	
 	
-	public TypeHandlerImpl(){
+	public CategoryHandlerImpl(){
 		DBConnection db;
 		
 			try {
@@ -58,7 +55,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	
 	
 	@Override
-	public ArrayList<Category> getTypeList(Category type) throws IllegalArgumentException, ServerException {
+	public List<Category> getTypeList(Category type) throws IllegalArgumentException, ServerException {
 		return typeDAO.getCategoryList(typeDAO.getRootCategoryId());
 	}
 	

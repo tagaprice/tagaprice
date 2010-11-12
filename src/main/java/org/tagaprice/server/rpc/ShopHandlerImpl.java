@@ -43,7 +43,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	@Override
 	public ShopData save(ShopData data) throws IllegalArgumentException, InvalidLoginException, ServerException {
 		// TODO Auto-generated method stub		
-		TypeHandlerImpl th = new TypeHandlerImpl();
+		CategoryHandlerImpl th = new CategoryHandlerImpl();
 		
 		if(PropertyValidator.isValid(th.get(new Category(data.getTypeId())), data.getProperties())){		
 			try {				

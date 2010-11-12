@@ -18,19 +18,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.interfaces.ITypeDAO;
+import org.tagaprice.server.dao.interfaces.ICategoryDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Category;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
-import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class CategoryDAO implements ITypeDAO {
+public class CategoryDAO implements ICategoryDAO {
 	protected DBConnection _db;
 	private EntityDAO _entityDAO;
 	private PropertyDefinitionDAO _propDAO;
@@ -94,7 +93,7 @@ public class CategoryDAO implements ITypeDAO {
 	}
 	
 	@Override
-	public ArrayList<Category> getCategoryList(long id) throws DAOException {
+	public List<Category> getCategoryList(long id) throws DAOException {
 		Category category = _entityDAO.getById(new Category(), id);
 		if(category == null) return null;
 		
@@ -108,14 +107,14 @@ public class CategoryDAO implements ITypeDAO {
 			pstmt.setLong(1, id);
 			ResultSet res = pstmt.executeQuery();
 
-			ArrayList<Category> types = new ArrayList<Category>();
+			List<Category> categories = new ArrayList<Category>();
 			while(res.next()){
 				Category curCategory = _entityDAO.getById(new Category(), res.getLong("type_id"));
-				types.add(curCategory);
+				if(curCategory != null)
+					categories.add(curCategory);
 			}
 
-
-			return types;
+			return categories;
 		} catch (SQLException e) {
 			String msg = "Failed to get category list. SQLException: "+e.getMessage()+".";
 			log.error(msg + " Chaining and rethrowing.");

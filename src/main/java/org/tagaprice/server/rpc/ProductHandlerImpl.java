@@ -74,7 +74,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	@Override
 	public ProductData save(ProductData data) throws IllegalArgumentException, InvalidLoginException, ServerException {
 		getSid();
-		TypeHandlerImpl th = new TypeHandlerImpl();
+		CategoryHandlerImpl th = new CategoryHandlerImpl();
 		
 		if(PropertyValidator.isValid(th.get(new Category(data.getTypeId())), data.getProperties())){			
 			
