@@ -25,10 +25,8 @@ import org.tagaprice.shared.Locale;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 /**
- * 
+ * A DAO Class for Loading and Storing Locales into Postgres DB. 
  * @author tagaprice, edited by Martin Weik 20101112
- * A DAO Class for Loading and Storing Locales into Postgres DB
- *
  */
 public class LocaleDAO implements ILocaleDAO {
 	private static Logger _log = Logger.getLogger(LocaleDAO.class);
@@ -41,7 +39,7 @@ public class LocaleDAO implements ILocaleDAO {
 	/**
 	 * Replaced by getById
 	 * @param id
-	 * @return
+	 * @return a Locale for this id
 	 * @throws SQLException
 	 */
 	@Deprecated
@@ -73,7 +71,7 @@ public class LocaleDAO implements ILocaleDAO {
 	/**
 	 * Replaced by getById
 	 * @param id
-	 * @return
+	 * @return a Locale for this id
 	 * @throws InvalidLocaleException
 	 * @throws SQLException
 	 */
