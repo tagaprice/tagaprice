@@ -22,13 +22,13 @@ import org.junit.Test;
 
 
 public class PropertyValidatorTest {
-	Type type;
+	Category type;
 	
 	
 	@Before
 	public void setUp() throws Exception {
 		//Create Type
-		type = new Type("eisen", 20, 21, new Type("metall", 10, 11, new Type("werkzeug", 5, 6, null)));
+		type = new Category("eisen", 20, 21, new Category("metall", 10, 11, new Category("werkzeug", 5, 6, null)));
 		
 		PropertyGroup pg = new PropertyGroup("Test1", PropertyGroup.GroupType.LIST);
 		pg.addGroupElement(new PropertyDefinition(2L, 1, "ean", "ean", 1, PropertyDefinition.Datatype.INT,0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 

@@ -92,9 +92,14 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		
 		//Get shop
 		if(resSet.getLong("sid")>0){
-			ShopData sTemp = new ShopData(resSet.getLong("sid"));
-			shopDAO.get(sTemp);
-			receipt.setShop(sTemp);
+			ShopData shopTemp;
+			try {
+				shopTemp = shopDAO.getById(resSet.getLong("sid"));
+			} catch (DAOException e) {
+				// TODO change
+				throw new NotFoundException(e.getMessage(), e);
+			}
+			receipt.setShop(shopTemp);
 		}
 		
 		//Get Products

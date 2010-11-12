@@ -20,16 +20,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.TypeDAO;
-import org.tagaprice.shared.Type;
+import org.tagaprice.server.dao.CategoryDAO;
+import org.tagaprice.shared.Category;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.TypeHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler {
-	TypeDAO typeDAO;
+	CategoryDAO typeDAO;
 	
 	
 	public TypeHandlerImpl(){
@@ -37,7 +39,7 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 		
 			try {
 				db = new DBConnection();
-				typeDAO = new TypeDAO(db);
+				typeDAO = new CategoryDAO(db);
 			} catch (FileNotFoundException e) {
 				throw new IllegalArgumentException(e);
 			} catch (IOException e) {
@@ -48,48 +50,16 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	
 	
 	@Override
-	public Type get(Type type) throws IllegalArgumentException {
-		
-		
-		//TODO throw exceptions to UI
-		try {
-			if(type==null)type=new Type(typeDAO.getRootTypeId());
-			typeDAO.get(type);
-		} catch (SQLException e) {
-			throw new IllegalArgumentException(e);
-		} catch (NotFoundException e) {
-			throw new IllegalArgumentException(e);
-		}
-		
-		
-
-		
-		return type;
+	public Category get(Category type) throws IllegalArgumentException, ServerException {
+		return typeDAO.getById(typeDAO.getRootCategoryId());
 	}
 
 	
 	
 	
 	@Override
-	public ArrayList<Type> getTypeList(Type type)
-			throws IllegalArgumentException {
-		
-		
-		//TODO throw exceptions to UI
-		try {
-			if(type==null)type=new Type(typeDAO.getRootTypeId());
-			return typeDAO.getTypeList(type);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		
-
+	public ArrayList<Category> getTypeList(Category type) throws IllegalArgumentException, ServerException {
+		return typeDAO.getCategoryList(typeDAO.getRootCategoryId());
 	}
 	
 	

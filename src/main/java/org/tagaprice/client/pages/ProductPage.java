@@ -40,7 +40,7 @@ import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.Category;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -63,7 +63,7 @@ public class ProductPage extends APage {
 
 	private ProductData _productData;
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
-	private Type _type;
+	private Category _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private PropertyChangeHandler _handler;
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
@@ -77,7 +77,7 @@ public class ProductPage extends APage {
  * @param productData
  * @param _type
  */
-	public ProductPage(ProductData productData, Type _type) {
+	public ProductPage(ProductData productData, Category _type) {
 
 		init(this._verticalPanel_1);
 		this._productData = productData;
@@ -191,11 +191,11 @@ public class ProductPage extends APage {
 		_typeWidgetContainer.setWidget(new TypeWidget(_type,
 				new TypeWidgetHandler() {
 					@Override
-					public void onChange(Type newType) {
+					public void onChange(Category newType) {
 
 						// Get type and set type
 						RPCHandlerManager.getTypeHandler().get(newType,
-								new AsyncCallback<Type>() {
+								new AsyncCallback<Category>() {
 									@Override
 									public void onFailure(Throwable caught) {
 										showInfo("ProductPage getTypeError",
@@ -203,7 +203,7 @@ public class ProductPage extends APage {
 									}
 
 									@Override
-									public void onSuccess(Type result) {
+									public void onSuccess(Category result) {
 										_type = result;
 										drawTypeWidget();
 										registerHandler();

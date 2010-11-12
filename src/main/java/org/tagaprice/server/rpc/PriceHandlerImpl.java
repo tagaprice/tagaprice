@@ -31,6 +31,7 @@ import org.tagaprice.shared.Price;
 import org.tagaprice.shared.PriceData;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.PriceHandler;
 
@@ -97,9 +98,15 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 						
 						if(tempProduct==null) tempProduct = new ProductData(res.getLong("pid"));
 						
-						ShopData tempShop = new ShopData(res.getLong("sid"));
 						productDAO.get(tempProduct);
-						shopDAO.get(tempShop);
+						ShopData tempShop;
+						try {
+							tempShop = shopDAO.getById(res.getLong("sid"));
+						} catch (DAOException e) {
+							// TODO change
+							e.printStackTrace();
+							throw new IllegalArgumentException(e.getMessage(), e);
+						}
 						
 						
 						list.add(new PriceData(

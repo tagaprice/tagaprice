@@ -9,7 +9,7 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public interface IUnitDAO {
 
 	/**
-	 * Returns units similar to the one indicated by given unit id, i.e. the base unit or the unit itself.
+	 * Retrieves units similar to the one indicated by given unit id, i.e. the base unit or the unit itself.
 	 * @param unitId Id of unit to find similar units for.
 	 * @return All units similar to unit indicated by given unitId. Never null, can be empty.
 	 * @throws DAOException
