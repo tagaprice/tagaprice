@@ -15,27 +15,24 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 /**
- * Shows the date in a nice human readable style and shows a datePicker on
- * click.d
- * 
- */
-
-
-/**
+ * Displays the date in a nice human readable style and displays a datePicker
+ * (see: {@link http://code.google.com/webtoolkit/doc/1.6/RefWidgetGallery.html}
+ * ) onclick.
  * 
  */
 public class DateWidget extends Composite {
-	Date date = new Date();
-	Label day = new Label();
-	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
-	Label monthYear = new Label();
-	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
-	DatePicker picker = new DatePicker();
-	PopupPanel pickerPop = new PopupPanel(true);
-	VerticalPanel vePa = new VerticalPanel();
+	private Date date = new Date();
+	private Label day = new Label();
+	private DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
+	private Label monthYear = new Label();
+	private DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
+	private DatePicker picker = new DatePicker();
+	private PopupPanel pickerPop = new PopupPanel(true);
+	private VerticalPanel vePa = new VerticalPanel();
 
 	/**
-	 * 
+	 * Creates a DateWidget with the current date. Use {@link #DateWidget(Date)}
+	 * for a different date.
 	 */
 	public DateWidget() {
 		initWidget(vePa);
@@ -90,8 +87,8 @@ public class DateWidget extends Composite {
 	}
 
 	/**
-	 * 
-	 * @param date
+	 * Is creating a DateWidget with a special date. 
+	 * @param date a special date.
 	 */
 	public DateWidget(Date date) {
 		this();
@@ -99,17 +96,17 @@ public class DateWidget extends Composite {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Returns the current selected date.
+	 * @return the current selected date
 	 */
 	public Date getDate() {
 		return this.date;
 	}
 
 	/**
-	 * Sets the date
+	 * Sets a special date.
 	 * 
-	 * @param date
+	 * @param date a special date.
 	 */
 	public void setDate(Date date) {
 		this.date = date;
