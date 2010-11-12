@@ -70,18 +70,18 @@ public class ListPropertyItem extends Composite {
 		
 		final HorizontalInfoWidget temp = new HorizontalInfoWidget();
 		temp.setStyleName("DefaultPropertyHandler");
-		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
+		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(),true);
 		
 		
 		
 		//Listen
-		mp.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		mp.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {		
 				
 				//if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
-				if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty()){
+				if(!pdCp.getValue().equals(mp.getValue()) && pdCp.getValue().isEmpty()){
 					
 					if(!definition.isUnique() ){						
 						//propertyData.add(pdCp);
@@ -98,11 +98,11 @@ public class ListPropertyItem extends Composite {
 					}
 				}
 				
-				if(!pdCp.getValue().equals(mp.getText())){	
+				if(!pdCp.getValue().equals(mp.getValue())){	
 					if(pdCp.getValue().isEmpty())
 						propertyData.add(pdCp);
 					
-					pdCp.setValue(mp.getText());
+					pdCp.setValue(mp.getValue());
 					
 					
 					

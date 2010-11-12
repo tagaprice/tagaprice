@@ -31,7 +31,7 @@ import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
-import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
@@ -77,7 +77,7 @@ public class ShopPage extends APage {
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
 	private PropertyChangeHandler _handler;
-	private InfoBoxWidget _bottomInfo = new InfoBoxWidget();
+	private InfoBoxWidget _bottomInfo = new InfoBoxWidget(false);
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
 	private PriceMapWidget _priceMap;
@@ -85,6 +85,7 @@ public class ShopPage extends APage {
 	private MapWidget _mapWidget = new MapWidget();
 	private Marker _marker;
 	private Geocoder _geoCoder = new Geocoder();
+
 	
 	//Address
 	private MorphWidget street = new MorphWidget("", Datatype.STRING, true);
@@ -216,10 +217,12 @@ public class ShopPage extends APage {
 			@Override
 			public void onClick(ClickEvent event) {
 				showMapButton.setText("Searching....");
-				_geoCoder.getLocations(street.getText().trim()+", "
-						+zip.getText().trim()+", "
-						+county.getText().trim()+", "
-						+country.getText().trim(), new LocationCallback() {
+
+				_geoCoder.getLocations(street.getValue().trim()+", "
+						+zip.getValue().trim()+", "
+						+county.getValue().trim()+", "
+						+country.getValue().trim(), new LocationCallback() {
+
 							
 							@Override
 							public void onSuccess(JsArray<Placemark> locations) {
@@ -239,8 +242,10 @@ public class ShopPage extends APage {
 								
 								
 								//TODO Problem with Country
+
 								_shopData.getAddress().setAddress(
-										street.getText().trim(), 
+										street.getValue().trim(), 
+
 										locations.get(0).getCity(), 
 										new Country(
 												locations.get(0).getCountry().toLowerCase(), 
@@ -303,25 +308,25 @@ public class ShopPage extends APage {
 			}
 		});
 		
-		street.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		street.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		zip.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		zip.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		county.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		county.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		country.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		country.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
@@ -330,13 +335,15 @@ public class ShopPage extends APage {
 		
 		
 		//title Lister
-		_titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+
+		_titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {
-				
-				if(!_shopData.getTitle().equals(_titleMorph.getText())){
-					_shopData.setTitle(_titleMorph.getText());
+	
+				if(!_shopData.getTitle().equals(_titleMorph.getValue())){
+					_shopData.setTitle(_titleMorph.getValue());
+
 					showSave();				
 				}
 			}
@@ -394,7 +401,8 @@ public class ShopPage extends APage {
 	
 
 	private void drawTypeWidget(){
-		_typeWidgetContainer.setWidget(new TypeWidget(_type, new TypeWidgetHandler() {			
+		_typeWidgetContainer.setWidget(new TypeWidget(_type, new ITypeWidgetHandler() {			
+
 			@Override
 			public void onChange(Type newType) {
 				

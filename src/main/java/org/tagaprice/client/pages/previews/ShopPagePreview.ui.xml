@@ -1,8 +1,7 @@
 <!-- ShopPreview.ui.xml -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-    xmlns:g='urn:import:com.google.gwt.user.client.ui' 
-    xmlns:my='urn:import:org.tagaprice.client'>
+    xmlns:g='urn:import:com.google.gwt.user.client.ui' >
     
 <g:HorizontalPanel ui:field="HoPa1">
 	<g:SimplePanel ui:field="logoPanel" />

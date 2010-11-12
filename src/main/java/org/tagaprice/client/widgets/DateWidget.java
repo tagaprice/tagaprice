@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
-*/
-
-/**
- * Project: TagAPriceUI
- * Filename: DateWidget.java
- * Date: 15.05.2010
-*/
 package org.tagaprice.client.widgets;
 
 import java.util.Date;
@@ -27,108 +13,106 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
- 
-/**
- * Shows the date in a nice human readable style and
- * shows a datePicker on click. 
- *
- */
 
+/**
+ * Displays the date in a nice human readable style and displays a datePicker
+ * (see: <a target="_blank" href="http://code.google.com/webtoolkit/doc/1.6/RefWidgetGallery.html">DatePicker</a>)
+ * onclick.
+ * 
+ */
 public class DateWidget extends Composite {
-	VerticalPanel vePa = new VerticalPanel();
-	Label monthYear = new Label();
-	Label day = new Label();
-	Date date = new Date();
-	DatePicker picker = new DatePicker();
-	PopupPanel pickerPop = new PopupPanel(true);
-	DateTimeFormat monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
-	DateTimeFormat dayDtF = DateTimeFormat.getFormat("d");
-	
+	private Date _date = new Date();
+	private Label _day = new Label();
+	private DateTimeFormat _dayDtF = DateTimeFormat.getFormat("d");
+	private Label _monthYear = new Label();
+	private DateTimeFormat _monthYearDtF = DateTimeFormat.getFormat("MMM ''yy");
+	private DatePicker _picker = new DatePicker();
+	private PopupPanel _pickerPop = new PopupPanel(true);
+	private VerticalPanel _vePa = new VerticalPanel();
+
 	/**
-	 * 
-	 * @param date
+	 * Create a DateWidget with the current date. Use {@link #DateWidget(Date)} 
+	 * for a different date.
 	 */
-	public DateWidget(Date date){
+	public DateWidget() {
+		initWidget(_vePa);
+
+		_monthYear.setText(_monthYearDtF.format(_date));
+		_day.setText(_dayDtF.format(_date));
+
+		_monthYear.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				_pickerPop.showRelativeTo(_day);
+
+			}
+		});
+
+		_day.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				_pickerPop.showRelativeTo(_day);
+
+			}
+		});
+
+		_pickerPop.setWidget(_picker);
+
+		_picker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				_monthYear.setText(_monthYearDtF.format(event.getValue()));
+				_day.setText(_dayDtF.format(event.getValue()));
+				_date.setTime(event.getValue().getTime());
+				_pickerPop.hide();
+			}
+		});
+
+		// Month year
+		_vePa.add(_monthYear);
+		_vePa.add(_day);
+
+		// Style
+		this.setWidth("50px");
+		_vePa.setCellHorizontalAlignment(_monthYear,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		_vePa.setCellHorizontalAlignment(_day,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		this.setStyleName("DateWidget");
+		_monthYear.setStyleName("DateWidget-MonthYear");
+		_day.setStyleName("DateWidget-Day");
+	}
+
+	/**
+	 * Create a DateWidget with a special date.
+	 * @param date a special date.
+	 */
+	public DateWidget(Date date) {
 		this();
 		setDate(date);
 	}
-	
+
 	/**
-	 * 
+	 * Returns the current selected date.
+	 * @return the current selected date
 	 */
-	public DateWidget() {
-		initWidget(vePa);
-		
-		
-		
-		monthYear.setText(monthYearDtF.format(date));
-		day.setText(dayDtF.format(date));
-		
-		
-		monthYear.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				pickerPop.showRelativeTo(day);
-				
-			}
-		});
-		
-		day.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				pickerPop.showRelativeTo(day);
-				
-			}
-		});
-		
-		pickerPop.setWidget(picker);
-		
-		
-		picker.addValueChangeHandler(new ValueChangeHandler<Date>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<Date> event) {
-				monthYear.setText(monthYearDtF.format(event.getValue()));
-				day.setText(dayDtF.format(event.getValue()));
-				date.setTime(event.getValue().getTime());
-				pickerPop.hide();
-			}
-		});
-		
-		
-		//Month year
-		vePa.add(monthYear);
-		vePa.add(day);
-		
-		
-		//Style
-		this.setWidth("50px");
-		vePa.setCellHorizontalAlignment(monthYear, HasHorizontalAlignment.ALIGN_CENTER);
-		vePa.setCellHorizontalAlignment(day, HasHorizontalAlignment.ALIGN_CENTER);
-		this.setStyleName("DateWidget");
-		monthYear.setStyleName("DateWidget-MonthYear");
-		day.setStyleName("DateWidget-Day");
+	public Date getDate() {
+		return this._date;
 	}
-	
+
 	/**
-	 * Sets the date
-	 * @param date
-	 */
-	public void setDate(Date date){
-		this.date=date;
-		monthYear.setText(monthYearDtF.format(this.date));
-		day.setText(dayDtF.format(this.date));
-		picker.setValue(date);
-		
-	}
-	
-	/**
+	 * Sets a special date.
 	 * 
-	 * @return
+	 * @param date a special date.
 	 */
-	public Date getDate(){
-		return this.date;
+	public void setDate(Date date) {
+		this._date = date;
+		_monthYear.setText(_monthYearDtF.format(this._date));
+		_day.setText(_dayDtF.format(this._date));
+		_picker.setValue(date);
+
 	}
 }

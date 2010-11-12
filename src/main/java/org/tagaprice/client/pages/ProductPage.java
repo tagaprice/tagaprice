@@ -31,7 +31,7 @@ import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
-import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
@@ -67,7 +67,7 @@ public class ProductPage extends APage {
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private PropertyChangeHandler _handler;
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
-	private InfoBoxWidget __bottomInfo = new InfoBoxWidget();
+	private InfoBoxWidget __bottomInfo = new InfoBoxWidget(false);
 	private PriceMapWidget _priceMap;
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
@@ -89,6 +89,7 @@ public class ProductPage extends APage {
 				_hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
 			}
 			_hashProperties.get(pd.getName()).add(pd);
+
 		}
 
 		// style
@@ -133,14 +134,15 @@ public class ProductPage extends APage {
 			}
 		};
 
-		_titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		_titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 
 			@Override
 			public void onSuccess(Datatype errorType) {
 
-				if (!_productData.getTitle().equals(_titleMorph.getText())) {
-					_productData.setTitle(_titleMorph.getText());
+				if (!_productData.getTitle().equals(_titleMorph.getValue())) {
+					_productData.setTitle(_titleMorph.getValue());
 					showSave();
+
 				}
 			}
 
@@ -187,9 +189,11 @@ public class ProductPage extends APage {
 		_verticalPanel_1.add(__bottomInfo);
 	}
 
+
+
 	private void drawTypeWidget() {
 		_typeWidgetContainer.setWidget(new TypeWidget(_type,
-				new TypeWidgetHandler() {
+				new ITypeWidgetHandler() {
 					@Override
 					public void onChange(Type newType) {
 
