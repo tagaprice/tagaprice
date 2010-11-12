@@ -147,7 +147,7 @@ public class SearchWidget extends Composite {
 
 	
 	/**
-	 * d
+	 * dsd
 	 * @param searchType
 	 * @param showNew
 	 * @param popup
