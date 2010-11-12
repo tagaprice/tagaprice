@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPriceUI
- * Filename: SelectiveVerticalPanel.java
- * Date: 14.05.2010
- */
 package org.tagaprice.client.widgets;
 
 import org.tagaprice.client.ImageBundle;
@@ -29,38 +15,53 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Vertical panel with edit buttons.
+ * Is a special VerticalList with selection buttons. With this buttons it's
+ * possible for a user to select a special Widget in the list.
  * 
  */
 public class SelectiveListWidget extends Composite {
 
 	public enum SelectionType {
-		MINUSBUTTON, NOBUTTON, PLUSBUTTON
+		/**
+		 * Displays a minus button
+		 */
+		MINUSBUTTON,
+
+		/**
+		 * Displays a plus button
+		 */
+		PLUSBUTTON,
+
+		/**
+		 * Displays no button (like a normal VerticalPanel)
+		 */
+		NOBUTTON
 	}
 
 	private SelectionType _selectionType;
-	private ImageResource bottomImage;
-	private ISelectiveListHandler externalHandler;
-	private ImageResource topImage;
-	private VerticalPanel vePa1 = new VerticalPanel();
+	private ImageResource _bottomImage;
+	private ISelectiveListHandler _externalHandler;
+	private ImageResource _topImage;
+	private VerticalPanel _vePa1 = new VerticalPanel();
 
 	/**
+	 * Creates a SelectiveListWidget with a special SelectionType
 	 * 
 	 * @param selectionType
-	 *            Is the ImageType (e.g. SelectiveVerticalPanel.PLUSBUTTON)
+	 *            defines the displayed button.
 	 */
 	public @UiConstructor
 	SelectiveListWidget(SelectionType selectionType) {
-		initWidget(vePa1);
-		vePa1.setWidth("100%");
+		initWidget(_vePa1);
+		_vePa1.setWidth("100%");
 		_selectionType = selectionType;
 
 		if (_selectionType.equals(SelectionType.PLUSBUTTON)) {
-			topImage = (ImageBundle.INSTANCE.plusActive());
-			bottomImage = (ImageBundle.INSTANCE.plusInactive());
+			_topImage = (ImageBundle.INSTANCE.plusActive());
+			_bottomImage = (ImageBundle.INSTANCE.plusInactive());
 		} else if (_selectionType.equals(SelectionType.MINUSBUTTON)) {
-			topImage = (ImageBundle.INSTANCE.minusActive());
-			bottomImage = (ImageBundle.INSTANCE.minusInactive());
+			_topImage = (ImageBundle.INSTANCE.minusActive());
+			_bottomImage = (ImageBundle.INSTANCE.minusInactive());
 		} else if (_selectionType.equals(SelectionType.NOBUTTON)) {
 			// Do nothing here!
 		}
@@ -68,17 +69,19 @@ public class SelectiveListWidget extends Composite {
 	}
 
 	/**
-	 * Adds a new child widget to the panel.
+	 * Add a widget at the end of the list plus a SelectionType at the right
+	 * side.
 	 * 
-	 * @param w
+	 * @param widget
+	 *            every widget
 	 */
-	public void add(final Widget w) {
+	public void add(final Widget widget) {
 		final HorizontalPanel hoPa = new HorizontalPanel();
 		hoPa.setWidth("100%");
 
 		if (!_selectionType.equals(SelectionType.NOBUTTON)) {
-			PushButton puBa = new PushButton(new Image(topImage), new Image(
-					bottomImage));
+			PushButton puBa = new PushButton(new Image(_topImage), new Image(
+					_bottomImage));
 
 			// insert Button
 			hoPa.add(puBa);
@@ -93,55 +96,58 @@ public class SelectiveListWidget extends Composite {
 				@Override
 				public void onClick(ClickEvent event) {
 
-					if (externalHandler != null)
-						externalHandler.onClick(w, vePa1.getWidgetIndex(hoPa));
+					if (_externalHandler != null)
+						_externalHandler.onClick(widget,
+								_vePa1.getWidgetIndex(hoPa));
 
 				}
 			});
 		}
 
-		hoPa.add(w);
-		vePa1.add(hoPa);
+		hoPa.add(widget);
+		_vePa1.add(hoPa);
 
 	}
 
 	/**
+	 * Implements a selection handler at the SelectionType Button
 	 * 
 	 * @param handler
+	 *            is called if the SelectionType button was pressed.
 	 */
-	public void addSelectiveVerticalPanelHandler(ISelectiveListHandler handler) {
-		externalHandler = handler;
+	public void addSelectiveListHandler(ISelectiveListHandler handler) {
+		_externalHandler = handler;
 	}
 
 	/**
-	 * 
+	 * Clear the full SelectiveListWidget.
 	 */
 	public void clear() {
-		vePa1.clear();
+		_vePa1.clear();
 	}
 
 	/**
-	 * 
-	 * @param index
-	 * @return
+	 * Returns the widget at the index position. 
+	 * @param index position of the widget
+	 * @return the widget at the index position
 	 */
 	public Widget getWidget(int index) {
-		return ((HorizontalPanel) vePa1.getWidget(index)).getWidget(1);
+		return ((HorizontalPanel) _vePa1.getWidget(index)).getWidget(1);
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Return the count of all widgets in the SelectiveListWidget.
+	 * @return return the count of all widgets in the SelectiveListWidget.
 	 */
 	public int getWidgetCount() {
-		return vePa1.getWidgetCount();
+		return _vePa1.getWidgetCount();
 	}
 
 	/**
-	 * 
-	 * @param index
+	 * Remove a widget at the index position. 
+	 * @param index removes the widget at this position. Index must not be negative.
 	 */
 	public void removeWidget(int index) {
-		vePa1.remove(index);
+		_vePa1.remove(index);
 	}
 }

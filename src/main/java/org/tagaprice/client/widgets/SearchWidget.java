@@ -119,6 +119,7 @@ public class SearchWidget extends Composite {
 	 *            displays the search results in a popup panel or in a vertical
 	 *            list
 	 * @param selectionType
+	 *            defines the select able button. (NO,PLUS,MINUS)
 	 * 
 	 * @param bbox
 	 *            defines a bounding box in which the db should search.
@@ -145,19 +146,25 @@ public class SearchWidget extends Composite {
 
 	}
 
-	
 	/**
-	 * dsd
-	 * @param searchType
+	 * Create a SearchWidget that will only search for result at a specific
+	 * shop.
+	 * 
 	 * @param showNew
+	 *            if TRUE a button to create a new shop/product will be
+	 *            displayed
 	 * @param popup
+	 *            displays the search results in a popup panel or in a vertical
+	 *            list
 	 * @param selectionType
+	 *            defines the select able button. (NO,PLUS,MINUS)
 	 * @param shopData
+	 *            in this shop the db will search.
 	 */
-	public SearchWidget(SearchType searchType, boolean showNew, boolean popup,
+	public SearchWidget(boolean showNew, boolean popup,
 			SelectionType selectionType, ShopData shopData) {
 		_shopData = shopData;
-		init(searchType, showNew, popup, selectionType);
+		init(SearchType.PRODCUT, showNew, popup, selectionType);
 
 		// Search
 		_searchBox.addKeyUpHandler(new KeyUpHandler() {
@@ -175,10 +182,19 @@ public class SearchWidget extends Composite {
 		});
 	}
 
+	/**
+	 * Return a SelectiveListWidget with the current search results, so it can
+	 * be integrated at an different place.
+	 * 
+	 * @return returns a SelectiveListWidget with the current search results.
+	 */
 	public SelectiveListWidget getSelectiveVerticalPanel() {
 		return _selVePa;
 	}
 
+	/**
+	 * Hides the popupPanel with the search results.
+	 */
 	public void hideSuggest() {
 		_popPa.hide();
 	}
