@@ -132,7 +132,7 @@ public class ProductPage extends APage {
 		};
 		
 		
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

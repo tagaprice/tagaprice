@@ -299,25 +299,25 @@ public class ShopPage extends APage {
 			}
 		});
 		
-		street.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		street.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		zip.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		zip.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		county.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		county.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
 		});
 		
-		country.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		country.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {showMapButton.setVisible(true);}
@@ -326,7 +326,7 @@ public class ShopPage extends APage {
 		
 		
 		//title Lister
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

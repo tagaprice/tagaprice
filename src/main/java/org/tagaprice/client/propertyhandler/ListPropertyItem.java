@@ -70,12 +70,12 @@ public class ListPropertyItem extends Composite {
 		
 		final HorizontalInfoWidget temp = new HorizontalInfoWidget();
 		temp.setStyleName("DefaultPropertyHandler");
-		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(), true);
+		final MorphWidget mp = new MorphWidget(pdCp.getValue(),definition.getType(),true);
 		
 		
 		
 		//Listen
-		mp.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		mp.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {		
