@@ -19,15 +19,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.server.dao.postgres.LoginDAO;
+import org.tagaprice.server.dao.postgres.ProductDAO;
+import org.tagaprice.shared.Category;
 import org.tagaprice.shared.ProductData;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.Category;
-import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
-import org.tagaprice.shared.exception.NotFoundException;
-import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.ProductHandler;
 
@@ -35,14 +32,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class ProductHandlerImpl extends RemoteServiceServlet implements ProductHandler{
-	ProductDAO pDao;
+	ProductDAO productDao;
 	LoginDAO loginDao; 
 
 	public ProductHandlerImpl() {
 		DBConnection db;
 		try {
 			db = new DBConnection();
-			pDao = new ProductDAO(db);
+			productDao = new ProductDAO(db);
 			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException(e);
@@ -54,21 +51,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	
 	
 	@Override
-	public ProductData get(long id) throws IllegalArgumentException {
-		ProductData pd = new ProductData();
-		pd._setId(id);
-		
-		
-		//Get Product Data
-		try {
-			pDao.get(pd);
-		} catch (SQLException e) {
-			throw new IllegalArgumentException(e);
-		} catch (NotFoundException e) {
-			throw new IllegalArgumentException(e);
-		}
-
-		return 	pd;
+	public ProductData get(long id) throws IllegalArgumentException, ServerException {
+		return productDao.getById(id);
 	}
 
 	@Override
@@ -81,15 +65,9 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			
 			try {
 				data.setCreatorId(loginDao.getId(getSid()));
-				pDao.save(data);
+				productDao.save(data);
 			} catch (SQLException e){
 				throw new IllegalArgumentException("SQLException: "+e);
-			} catch (NotFoundException e) {
-				throw new IllegalArgumentException("NotFoundException: "+e);		
-			} catch (RevisionCheckException e) {
-				throw new IllegalArgumentException("RevisionCheckException: "+e);
-			} catch (InvalidLocaleException e) {
-				throw new IllegalArgumentException("InvalidLocaleException: "+e);
 			} 		
 			
 			

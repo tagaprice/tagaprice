@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.ProductDAO;
-import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
+import org.tagaprice.server.dao.postgres.ProductDAO;
+import org.tagaprice.server.dao.postgres.ShopDAO;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.Price;
@@ -100,19 +100,13 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
-				try {
-					ProductData sp = new ProductData(res.getLong("ent_id"));
-					productDao.get(sp);
-					sp.setAvgPrice(new Price(15, 4, 1, "€", 1));
-					sp.setImageSrc("logo.png");
-					sp.setQuantity(new Quantity(125, new Unit(23, 2, "g", 1, null, 0)));
-					sp.setTypeId(20l);
-					mockUp.add(sp);
-				} catch (NotFoundException e) {
-					throw new DAOException(e.getMessage(), e);
-				}
+				ProductData sp = productDao.getById(res.getLong("ent_id"));
+				sp.setAvgPrice(new Price(15, 4, 1, "€", 1));
+				sp.setImageSrc("logo.png");
+				sp.setQuantity(new Quantity(125, new Unit(23, 2, "g", 1, null, 0)));
+				sp.setTypeId(20l);
+				mockUp.add(sp);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

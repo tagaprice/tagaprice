@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.CategoryDAO;
 import org.tagaprice.shared.Category;
 
 public class TypeDAOTest {

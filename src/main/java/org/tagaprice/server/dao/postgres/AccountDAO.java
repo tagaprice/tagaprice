@@ -20,7 +20,6 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.server.dao.EntityDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.DAOException;

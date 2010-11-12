@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,21 +7,22 @@ import java.sql.Types;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.CountryDAO;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 
 public class ShopDAO implements IShopDAO {
-	private DBConnection db;
-	private EntityDAO entityDAO;
-	private CountryDAO countryDAO;
-	private static Logger log = Logger.getLogger(ShopDAO.class);
+	private DBConnection _db;
+	private EntityDAO _entityDAO;
+	private CountryDAO _countryDAO;
+	private static Logger _log = Logger.getLogger(ShopDAO.class);
 	
 	public ShopDAO(DBConnection db) {
-		this.db = db;
-		entityDAO = new EntityDAO(db);
-		countryDAO = new CountryDAO(db);
+		this._db = db;
+		_entityDAO = new EntityDAO(db);
+		_countryDAO = new CountryDAO(db);
 	}
 
 	@Override
@@ -32,10 +33,10 @@ public class ShopDAO implements IShopDAO {
 
 	@Override
 	public ShopData getByIdAndRef(long id, long rev) throws DAOException {
-		log.debug("id"+id);
+		_log.debug("id:"+id);
 		//Get Entity Data
 		ShopData shop;
-		shop = entityDAO.getByIdAndRev(new ShopData(), id, rev);
+		shop = _entityDAO.getByIdAndRev(new ShopData(), id, rev);
 		if(shop == null) return null;
 
 		// TODO implement fetching of a specific shop revision
@@ -46,7 +47,7 @@ public class ShopDAO implements IShopDAO {
 				"WHERE shop_id = ? AND rev = ?";
 		PreparedStatement pstmt;
 		try {
-			pstmt = db.prepareStatement(sql);
+			pstmt = _db.prepareStatement(sql);
 			pstmt.setLong(1, shop.getId());
 			pstmt.setLong(2, shop.getRev());
 			ResultSet res = pstmt.executeQuery();
@@ -68,12 +69,12 @@ public class ShopDAO implements IShopDAO {
 			shop.getAddress().setAddress(
 					res.getString("street"),
 					res.getString("city"),
-					countryCode != null ? countryDAO.get(countryCode) : null);
+					countryCode != null ? _countryDAO.get(countryCode) : null);
 			return shop;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
-			log.error(msg+" Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		} catch (NotFoundException e) {
 			// TODO clean countryDAO from NotFoundExceptions
@@ -83,21 +84,24 @@ public class ShopDAO implements IShopDAO {
 
 	@Override
 	public boolean save(ShopData shop) throws DAOException {
+		_log.debug("shop:"+shop);
 		PreparedStatement pstmt;
 
 		try {
-			entityDAO.save(shop);
+			if(!_entityDAO.save(shop))
+				return false;
+
 			if (shop.getRev() == 1) {
 				// create a new Shop
-				pstmt = db.prepareStatement("INSERT INTO shop (shop_id) VALUES (?)");
+				pstmt = _db.prepareStatement("INSERT INTO shop (shop_id) VALUES (?)");
 				pstmt.setLong(1, shop.getId());
 				pstmt.executeUpdate();
 			} else if (shop.getRev() < 1) {
-				throw new DAOException("entityDAO returned shop with revision < 0!");
+				throw new DAOException("EntityDAO returned shop with revision < 0!");
 			}
 
 			String sql = "INSERT INTO shopRevision (shop_id, rev, type_id, imageUrl, lat, lng, street, city, country_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			pstmt = db.prepareStatement(sql);
+			pstmt = _db.prepareStatement(sql);
 			pstmt.setLong(1, shop.getId());
 			pstmt.setInt(2, shop.getRev());
 
@@ -133,8 +137,8 @@ public class ShopDAO implements IShopDAO {
 			return true;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
-			log.error(msg+" Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}

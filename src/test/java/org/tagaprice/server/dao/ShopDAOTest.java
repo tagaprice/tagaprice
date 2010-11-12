@@ -9,6 +9,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
+import org.tagaprice.server.dao.postgres.ShopDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ShopData;

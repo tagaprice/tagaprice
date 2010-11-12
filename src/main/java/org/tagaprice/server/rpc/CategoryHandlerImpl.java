@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.CategoryDAO;
+import org.tagaprice.server.dao.postgres.CategoryDAO;
 import org.tagaprice.shared.Category;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.CategoryHandler;

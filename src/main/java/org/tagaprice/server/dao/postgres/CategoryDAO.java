@@ -12,7 +12,7 @@
  * Filename: TypeDAO.java
  * Date: 15.07.2010
 */
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.PropertyDefinitionDAO;
 import org.tagaprice.server.dao.interfaces.ICategoryDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
@@ -33,7 +34,7 @@ public class CategoryDAO implements ICategoryDAO {
 	protected DBConnection _db;
 	private EntityDAO _entityDAO;
 	private PropertyDefinitionDAO _propDAO;
-	private static Logger log = Logger.getLogger(CategoryDAO.class);
+	private static Logger _log = Logger.getLogger(CategoryDAO.class);
 	
 	public CategoryDAO(DBConnection db){
 		this._db=db;
@@ -43,6 +44,7 @@ public class CategoryDAO implements ICategoryDAO {
 	
 	@Override
 	public Category getById(long id) throws DAOException {
+		_log.debug("id:"+id);
 		Category category;
 		try {
 			category = getAndSetSuperCategoryRecursive(id);
@@ -77,7 +79,7 @@ public class CategoryDAO implements ICategoryDAO {
 					// TODO change
 					throw new DAOException(e.getMessage(), e);
 				}
-				log.debug(tempProp.getUnit());
+				_log.debug(tempProp.getUnit());
 				//tempProp.setUnique()
 				pg5.addGroupElement(tempProp);
 			}
@@ -86,14 +88,15 @@ public class CategoryDAO implements ICategoryDAO {
 			return category;
 		} catch (SQLException e) {
 			String msg = "Failed to get category. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
 	
 	@Override
 	public List<Category> getCategoryList(long id) throws DAOException {
+		_log.debug("id:"+id);
 		Category category = _entityDAO.getById(new Category(), id);
 		if(category == null) return null;
 		
@@ -117,15 +120,14 @@ public class CategoryDAO implements ICategoryDAO {
 			return categories;
 		} catch (SQLException e) {
 			String msg = "Failed to get category list. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
 	
 	@Override
 	public long getRootCategoryId() throws DAOException {
-		
 		String sql = "SELECT type_id FROM typerevision " +
 				"INNER JOIN entity " +
 				"ON entity.ent_id=typerevision.type_id AND entity.current_revision=typerevision.rev " +
@@ -138,13 +140,14 @@ public class CategoryDAO implements ICategoryDAO {
 		return res.getLong("type_id");
 		} catch (SQLException e) {
 			String msg = "Failed to get root category id. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
 	
 	private Category getAndSetSuperCategoryRecursive(long id) throws DAOException, SQLException {
+		_log.debug("id:"+id);
 		Category category = _entityDAO.getById(new Category(), id);
 		if(category == null) return null;
 		//get parent

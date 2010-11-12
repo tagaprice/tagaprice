@@ -12,7 +12,7 @@
  * Filename: EntityDAO.java
  * Date: 13.06.2010
 */
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +20,8 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.PropertyDAO;
 import org.tagaprice.server.dao.interfaces.IEntityDAO;
-import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
@@ -65,7 +65,7 @@ public class EntityDAO implements IEntityDAO {
 		
 		String sql = "SELECT e.ent_id, rev, title, locale_id, e.creator, r.creator AS revCreator " +
 		" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id";
-		if (rev == 0) 
+		if (rev == 0)
 			sql += " AND e.current_revision = r.rev";
 		sql += ") WHERE e.ent_id = ?";
 		if (rev > 0) sql += " AND r.rev = ?";

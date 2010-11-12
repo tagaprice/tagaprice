@@ -20,9 +20,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.apache.log4j.Logger;
-import org.tagaprice.server.dao.EntityDAO;
-import org.tagaprice.server.dao.interfaces.IUnitDAO;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.interfaces.IUnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.DAOException;
@@ -33,7 +32,7 @@ import org.tagaprice.shared.exception.RevisionCheckException;
 public class UnitDAO implements IUnitDAO{
 	private DBConnection _db;
 	private EntityDAO _entityDAO;
-	private static Logger log = Logger.getLogger(UnitDAO.class);
+	private static Logger _log = Logger.getLogger(UnitDAO.class);
 	
 	public UnitDAO(DBConnection db) {
 		_entityDAO = new EntityDAO(db);
@@ -43,7 +42,7 @@ public class UnitDAO implements IUnitDAO{
 	
 	@Override
 	public SearchResult<Unit> getSimilar(long unitId) throws DAOException {
-		log.debug("id:"+unitId);
+		_log.debug("id:"+unitId);
 		try {
 			SearchResult<Unit> rc = new SearchResult<Unit>();
 			long siId = unitId;
@@ -72,15 +71,15 @@ public class UnitDAO implements IUnitDAO{
 			return rc;
 		} catch (SQLException e) {
 			String msg = "Failed to get similar units from database. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
 	
 	@Override
 	public boolean save(Unit unit) throws DAOException {
-		log.debug("Unit:"+unit);
+		_log.debug("Unit:"+unit);
 		Long id = unit.getId();
 		PreparedStatement pstmt;
 
@@ -125,15 +124,15 @@ public class UnitDAO implements IUnitDAO{
 			return true;
 		} catch (SQLException e) {
 			String msg = "Failed to save unit to database. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
 
 	@Override
 	public Unit getById(long id) throws DAOException {
-		log.debug("id:"+id);
+		_log.debug("id:"+id);
 		String sql = "SELECT base_id, factor " +
 		"FROM entity e INNER JOIN unitrevision r ON (e.ent_id = r.unit_id AND e.current_revision = r.rev) " +
 		"WHERE unit_id = ?";
@@ -151,8 +150,8 @@ public class UnitDAO implements IUnitDAO{
 			return _entityDAO.getById(unit, id);
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve unit from database. SQLException: "+e.getMessage()+".";
-			log.error(msg + " Chaining and rethrowing.");
-			log.debug(e.getStackTrace());
+			_log.error(msg + " Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		} 
 	}
