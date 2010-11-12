@@ -25,7 +25,7 @@ import org.tagaprice.server.dao.LocalAccountDAO;
 import org.tagaprice.server.dao.LocaleDAO;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.LocalAccountData;
+import org.tagaprice.shared.data.LocalAccount;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -91,7 +91,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		
 		try {
 			
-			LocalAccountData account = new LocalAccountData(
+			LocalAccount account = new LocalAccount(
 					username, 
 					localeId, 
 					null, 

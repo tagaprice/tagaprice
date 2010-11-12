@@ -1,18 +1,26 @@
+/*
+ * Copyright 2010 TagAPrice.org
+ * 
+ * Licensed under the Creative Commons License. You may not
+ * use this file except in compliance with the License. 
+ *
+ * http://creativecommons.org/licenses/by-nc/3.0/
+*/
 package org.tagaprice.shared.data;
 
-public class LocalAccountData extends Account {
+/**
+ * Contains all important information to represent a
+ * LocalAccount. 
+ */
+public class LocalAccount extends Account {
 
-	/**
-	 * Contains all important information to represent a
-	 * LocalAccount. 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String password;
 	
 	/**
 	 * default constructor (used for serialization)
 	 */
-	public LocalAccountData() {
+	public LocalAccount() {
 		super();
 	}
 	
@@ -21,7 +29,7 @@ public class LocalAccountData extends Account {
 	 * constructor for querying a LocalAccount's current revision 
 	 * @param id Product ID
 	 */
-	public LocalAccountData(long id) {
+	public LocalAccount(long id) {
 		super(id);
 	}
 	
@@ -30,7 +38,7 @@ public class LocalAccountData extends Account {
 	 * @param id user ID
 	 * @param rev revision
 	 */
-	public LocalAccountData(long id, int rev) {
+	public LocalAccount(long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -50,7 +58,7 @@ public class LocalAccountData extends Account {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public LocalAccountData(
+	public LocalAccount(
 			String title, 
 			int localeId,
 			Long creatorId, 
@@ -78,7 +86,7 @@ public class LocalAccountData extends Account {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public LocalAccountData(
+	public LocalAccount(
 			long id, 
 			int rev,
 			String title, 
@@ -106,8 +114,8 @@ public class LocalAccountData extends Account {
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
-		if (o instanceof LocalAccountData) {
-			LocalAccountData a = (LocalAccountData) o;
+		if (o instanceof LocalAccount) {
+			LocalAccount a = (LocalAccount) o;
 			if (!super.equals(a)) rc = false;
 		}
 		else rc = false;
