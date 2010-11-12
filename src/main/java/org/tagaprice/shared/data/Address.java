@@ -19,7 +19,7 @@ import org.tagaprice.shared.Serializable;
 /**
  * Holds data about an address.
  * An address can be represented as combination of street, city and country or
- * by latitude and langitude.
+ * by latitude and longitude.
  * 
  *
  */

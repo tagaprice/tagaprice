@@ -14,6 +14,9 @@
 */
 package org.tagaprice.shared.data;
 
+/**
+ * Represents an user account with address and email.
+ */
 public class Account extends Entity {
 	private static final long serialVersionUID = 1L;
 

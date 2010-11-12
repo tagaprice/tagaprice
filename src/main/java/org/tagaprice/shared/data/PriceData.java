@@ -18,66 +18,106 @@ import java.util.Date;
 
 import org.tagaprice.shared.Serializable;
 
+/**
+ * 
+ * TODO refactor this class
+ */
 public class PriceData  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ProductData productData;
-	private ShopData shopData;
-	private Price price;
-	private Date date;
+	private ProductData _productData;
+	private ShopData _shopData;
+	private Price _price;
+	private Date _date;
 	
-	public PriceData() {
+	/**
+	 * Default constructor needed for serialization
+	 */
+	public PriceData() { }
+	
+
+	/**
+	 * Create a new {@link PriceData}
+	 * @param product the {@link ProductData} to use
+	 * @param shop the {@link ShopData} to use
+	 * @param p the actual {@link Price}
+	 * @param date {@link Date} when this {@link Price} was up to date.
+	 */
+	public PriceData(ProductData product, ShopData shop, Price p, Date date){
+		this._productData=product;
+		this._shopData=shop;
+		this._price = p;
+		this._date = date;
 	}
 	
-	public PriceData(ProductData productData){		
-		this();
-		this.productData=productData;
-	}
-	
-	public PriceData(ProductData productData, ShopData shopData, Price p, Date date){
-		this(productData);
-		this.shopData=shopData;
-		this.price = p;
-		this.date = date;
-	}
 	
 	@Override
 	public String getSerializeName() {
 		return "PriceData";
 	}
 
+	
+	/**
+	 * @return the product of this {@link PriceData}
+	 */
 	public ProductData getProductData() {
-		return productData;
+		return _productData;
 	}
 
+	
+	/**
+	 * @param productData the product of this {@link PriceData} to set
+	 */
 	public void setProductData(ProductData productData) {
-		this.productData = productData;
+		this._productData = productData;
 	}
 
+	
+	/**
+	 * @return the shop this {@link PriceData} was up to date.
+	 */
 	public ShopData getShopData() {
-		return shopData;
+		return _shopData;
 	}
 
+	
+	/**
+	 * @param shopData the shop this {@link PriceData} was up to date.
+	 */
 	public void setShopData(ShopData shopData) {
-		this.shopData = shopData;
+		this._shopData = shopData;
 	}
 
+	
+	/**
+	 * @return the price
+	 */
 	public Price getPrice() {
-		return price;
+		return _price;
 	}
 	
+	
+	/**
+	 * @param p the price
+	 */
 	public void setPrice(Price p) {
-		this.price = p;
+		this._price = p;
 	}
 
+	
+	/**
+	 * @return date this {@link PriceData} was up to date.
+	 */
 	public Date getDate() {
-		return date;
+		return _date;
 	}
 
+
+	/**
+	 * @param date date this {@link PriceData} was up to date.
+	 */
 	public void setDate(Date date) {
-		this.date = date;
+		this._date = date;
 	}
-	
-	
 }

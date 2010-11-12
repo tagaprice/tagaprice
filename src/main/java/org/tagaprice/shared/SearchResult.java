@@ -20,6 +20,8 @@ import java.util.Iterator;
 /**
  * Represents a Search result as a list.
  * 
+ * TODO refactor this class (at least, rename)
+ * 
  * @param <T> Generic parameter for this SearchResult, must extend {@link Serializable}.
  */
 public class SearchResult<T extends Serializable> extends ArrayList<T> implements Serializable {
