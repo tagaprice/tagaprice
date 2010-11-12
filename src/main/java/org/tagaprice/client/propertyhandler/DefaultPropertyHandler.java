@@ -38,7 +38,7 @@ public class DefaultPropertyHandler extends PropertyHandler {
 		
 		vePa1.setWidth("100%");
 	
-		title = new TitleWidget("Unlisted", vePa1, TitleWidget.Level.H2);
+		title = new TitleWidget("Unlisted", vePa1, TitleWidget.Headline.H2);
 		fillGrid();
 		initWidget(title);
 	}

@@ -38,7 +38,7 @@ public class ListPropertyHandler extends PropertyHandler {
 		
 		vePa1.setWidth("100%");
 		
-		title = new TitleWidget(propGroup.getTitle(), vePa1, TitleWidget.Level.H2);
+		title = new TitleWidget(propGroup.getTitle(), vePa1, TitleWidget.Headline.H2);
 		convertToHash();
 		
 		createGrid();

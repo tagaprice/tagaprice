@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.pages.IAddressHandler;
-import org.tagaprice.client.widgets.TitleWidget.Level;
+import org.tagaprice.client.widgets.TitleWidget.Headline;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
@@ -84,7 +84,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		this._id = id;
 		_vePa1.setWidth("100%");
 		_priceTable.setWidth("100%");
-		_titlePanel = new TitleWidget("Pricetable", _vePa1, Level.H2);
+		_titlePanel = new TitleWidget("Pricetable", _vePa1, Headline.H2);
 
 		if (_type.equals(PriceMapType.PRODUCT)
 				|| _type.equals(PriceMapType.CATEGORY)

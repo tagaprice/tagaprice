@@ -25,51 +25,62 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class TitleWidget extends Composite {
-	public enum Level {
-		H1, H2, H3
+	public enum Headline {
+		/**
+		 * Headline 1
+		 */
+		H1, 
+		/**
+		 * Headline 2
+		 */
+		H2, 
+		/**
+		 * Headline 3
+		 */
+		H3
 	}
-	private Label label = new Label();
-	private SimplePanel siPa = new SimplePanel();
-	private VerticalPanel vePa1 = new VerticalPanel();
+	private Label _label = new Label();
+	private SimplePanel _siPa = new SimplePanel();
+	private VerticalPanel _vePa1 = new VerticalPanel();
 
 	/**
-	 * 
-	 * @param title
-	 *            Pagetitle
-	 * @param widget
+	 * Create a TitleWidget with a title at the top, with the Headline and a inner Widget 
+	 * @param title the title of the panel
+	 * @param widget the inner widget
+	 * @param level the type of the headline
 	 */
-	public TitleWidget(String title, Widget widget, Level level) {
-		vePa1.setWidth("100%");
-		initWidget(vePa1);
+	public TitleWidget(String title, Widget widget, Headline level) {
+		_vePa1.setWidth("100%");
+		initWidget(_vePa1);
 
 		// Style
 		setStyleName("TitlePanel");
 
 		// Title
-		label.setText(title);
-		if (level.equals(Level.H1)) {
-			label.setStyleName("TitlePanel-Title-H1");
-		} else if (level.equals(Level.H2)) {
-			label.setStyleName("TitlePanel-Title-H2");
-		} else if (level.equals(Level.H3)) {
-			label.setStyleName("TitlePanel-Title-H3");
+		_label.setText(title);
+		if (level.equals(Headline.H1)) {
+			_label.setStyleName("TitlePanel-Title-H1");
+		} else if (level.equals(Headline.H2)) {
+			_label.setStyleName("TitlePanel-Title-H2");
+		} else if (level.equals(Headline.H3)) {
+			_label.setStyleName("TitlePanel-Title-H3");
 		}
 
-		vePa1.add(label);
+		_vePa1.add(_label);
 
 		// widget
-		siPa.setWidth("100%");
-		vePa1.add(siPa);
-		siPa.setWidget(widget);
+		_siPa.setWidth("100%");
+		_vePa1.add(_siPa);
+		_siPa.setWidget(widget);
 	}
 
 	/**
-	 * 
-	 * @param title
-	 * @param widget
+	 * Sets a new title and widget
+	 * @param title the title of the panel
+	 * @param widget the inner widget
 	 */
 	public void setTitleWidget(String title, Widget widget) {
-		label.setText(title);
-		siPa.setWidget(widget);
+		_label.setText(title);
+		_siPa.setWidget(widget);
 	}
 }

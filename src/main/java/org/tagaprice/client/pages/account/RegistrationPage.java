@@ -224,7 +224,7 @@ public class RegistrationPage extends APage {
 		});
 		
 		
-		vePa1.add(new TitleWidget("Userdaten", userData, TitleWidget.Level.H2));
+		vePa1.add(new TitleWidget("Userdaten", userData, TitleWidget.Headline.H2));
 		
 		
 		//Alternative Connertions
@@ -235,7 +235,7 @@ public class RegistrationPage extends APage {
 		altConn.add(new Image("http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
 		altConn.add(new Image("http://developers.facebook.com/images/devsite/login-button.png"));
 		
-		vePa1.add(new TitleWidget("Alternatve Connetions", altConn, TitleWidget.Level.H2));
+		vePa1.add(new TitleWidget("Alternatve Connetions", altConn, TitleWidget.Headline.H2));
 		
 		
 		//Optional
@@ -366,7 +366,7 @@ public class RegistrationPage extends APage {
 		
 		
 		
-		vePa1.add(new TitleWidget("Optional", optionalVePa, TitleWidget.Level.H2));
+		vePa1.add(new TitleWidget("Optional", optionalVePa, TitleWidget.Headline.H2));
 		
 		
 		//AGB
@@ -375,7 +375,7 @@ public class RegistrationPage extends APage {
 		
 		gtcVePa.add(new Label("You have to agree with your general terms and conditions!"));
 		gtcVePa.add(gtc);
-		vePa1.add(new TitleWidget("general terms and conditions ", gtcVePa, TitleWidget.Level.H2));
+		vePa1.add(new TitleWidget("general terms and conditions ", gtcVePa, TitleWidget.Headline.H2));
 		
 		
 		//TODO Register

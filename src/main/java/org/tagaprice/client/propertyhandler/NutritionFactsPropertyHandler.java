@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Label;
 public class NutritionFactsPropertyHandler extends PropertyHandler {
 
 	Grid grid = new Grid(6, 2);
-	TitleWidget title = new TitleWidget("Nutrition Facts", grid, TitleWidget.Level.H2);
+	TitleWidget title = new TitleWidget("Nutrition Facts", grid, TitleWidget.Headline.H2);
 	
 	public NutritionFactsPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyGroup propGroup, PropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
