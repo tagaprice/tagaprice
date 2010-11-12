@@ -145,6 +145,15 @@ public class SearchWidget extends Composite {
 
 	}
 
+	
+	/**
+	 * d
+	 * @param searchType
+	 * @param showNew
+	 * @param popup
+	 * @param selectionType
+	 * @param shopData
+	 */
 	public SearchWidget(SearchType searchType, boolean showNew, boolean popup,
 			SelectionType selectionType, ShopData shopData) {
 		_shopData = shopData;
