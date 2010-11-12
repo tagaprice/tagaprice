@@ -18,21 +18,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.InfoBox;
-import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
-import org.tagaprice.client.TypeWidgetHandler;
-import org.tagaprice.client.InfoBox.BoxType;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
 import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
+import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
+import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.ProductData;
@@ -59,7 +59,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ProductPage extends Page {
+public class ProductPage extends APage {
 
 	private ProductData productData;
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
@@ -67,7 +67,7 @@ public class ProductPage extends Page {
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
-	private InfoBox bottomInfo = new InfoBox();
+	private InfoBoxWidget bottomInfo = new InfoBoxWidget();
 	private PriceMapWidget priceMap;
 	private SimplePanel typeWidgetContainer = new SimplePanel();
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
@@ -132,7 +132,7 @@ public class ProductPage extends Page {
 		};
 		
 		
-		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetErrorHandler() {
+		titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

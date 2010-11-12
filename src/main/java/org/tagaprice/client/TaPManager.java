@@ -14,7 +14,7 @@
  */
 package org.tagaprice.client;
 
-import org.tagaprice.client.InfoBox.BoxType;
+import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.Country;
 import org.tagaprice.shared.ProductData;

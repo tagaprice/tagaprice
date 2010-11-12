@@ -12,11 +12,11 @@
  * Filename: MorphWidgetErrorHandler.java
  * Date: 26.05.2010
 */
-package org.tagaprice.client;
+package org.tagaprice.client.widgets;
 
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
-public interface MorphWidgetErrorHandler {
+public interface MorphWidgetInfoHandler {
 
 	public void onError(Datatype errorType);
 	

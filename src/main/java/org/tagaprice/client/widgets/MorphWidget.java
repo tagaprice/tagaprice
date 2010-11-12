@@ -13,7 +13,6 @@
  * Date: 14.05.2010
 */
 package org.tagaprice.client.widgets;
-import org.tagaprice.client.MorphWidgetErrorHandler;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -34,7 +33,7 @@ public class MorphWidget extends SimplePanel {
 
 	TextBox textBox = new TextBox();
 	Datatype type;
-	MorphWidgetErrorHandler handler;
+	MorphWidgetInfoHandler handler;
 
 	/**
 	 * 
@@ -159,7 +158,7 @@ public class MorphWidget extends SimplePanel {
 	 * 
 	 * @param eHandler
 	 */
-	public void addMorphWidgetErrorHandler(MorphWidgetErrorHandler eHandler){
+	public void addMorphWidgetErrorHandler(MorphWidgetInfoHandler eHandler){
 		handler=eHandler;
 	}
 	
