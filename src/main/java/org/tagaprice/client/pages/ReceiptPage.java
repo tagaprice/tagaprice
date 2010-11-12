@@ -337,7 +337,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	
 	public ReceiptData getReceiptData(){
 		receiptData.setDate(date.getDate());	
-		receiptData.setTitle(title.getText());
+		receiptData.setTitle(title.getValue());
 		receiptData.setBill(bill);		
 		
 		if(shopPreview!=null){

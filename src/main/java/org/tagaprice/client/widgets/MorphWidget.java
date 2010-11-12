@@ -1,14 +1,12 @@
 package org.tagaprice.client.widgets;
 
 import org.tagaprice.shared.PropertyDefinition.Datatype;
-
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -25,10 +23,10 @@ public class MorphWidget extends SimplePanel {
 	private Datatype _type;
 
 	/**
-	 * Creates a MorphWidget with a text (input value), a special type (integer,
-	 * double, string) and defines if the text is editable.
+	 * Creates a MorphWidget with a value, a special type (integer,
+	 * double, string) and defines if the value is edit able.
 	 * 
-	 * @param text
+	 * @param value
 	 *            the input variable as String (could be empty, Integer, Double,
 	 *            String) but NOT NULL
 	 * @param type
@@ -37,13 +35,13 @@ public class MorphWidget extends SimplePanel {
 	 * @param isEditable
 	 *            set the MorphWidget editable or not
 	 */
-	public MorphWidget(String text, Datatype type, boolean isEditable) {
+	public MorphWidget(String value, Datatype type, boolean isEditable) {
 		setWidget(_textBox);
 		_type = type;
 		this.setStyleName("MorphWidget");
 		setWidth("140px");
 
-		setText(text);
+		setText(value);
 
 		_textBox.addFocusHandler(new FocusHandler() {
 
@@ -91,40 +89,51 @@ public class MorphWidget extends SimplePanel {
 	}
 
 	/**
+	 * Adds a ChangeHandler to the MorphWidget
 	 * 
 	 * @param handler
+	 *            is called if the value will change.
 	 */
 	public void addChangeHandler(ChangeHandler handler) {
 		_textBox.addChangeHandler(handler);
 	}
 
+	/**
+	 * Adds a KeyUpHanlder to the MorphWidget
+	 * 
+	 * @param handler
+	 *            is called if a button is up after pressing them.
+	 */
 	public void addKeyUpHandler(KeyUpHandler handler) {
 		_textBox.addKeyUpHandler(handler);
 	}
 
 	/**
+	 * Adds a MorphWidgetInfoHandler
 	 * 
-	 * @param eHandler
+	 * @param handler
+	 *            is called if the value changes and it is successful, empty, or
+	 *            not successful (error).
 	 */
-	public void addMorphWidgetInfoHandler(MorphWidgetInfoHandler eHandler) {
-		_handler = eHandler;
+	public void addMorphWidgetInfoHandler(MorphWidgetInfoHandler handler) {
+		_handler = handler;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Returns the current value as string.
+	 * @return returns the current value.
 	 */
-	public String getText() {
+	public String getValue() {
 		return _textBox.getText();
 	}
 
 	/**
-	 * 
-	 * @param text
+	 * Sets a value to the MorphWidget, and calls the MorphWidgetInfoHanlder.
+	 * @param value sets the MorphWidget value
 	 */
-	public void setText(String text) {
-		_textBox.setText(text);
-		if (!text.isEmpty()) {
+	public void setText(String value) {
+		_textBox.setText(value);
+		if (!value.isEmpty()) {
 			_textBox.setStyleName("MorphWidgetNotEmpty");
 		} else {
 			_textBox.setStyleName("MorphWidgetEmpty");
@@ -132,11 +141,12 @@ public class MorphWidget extends SimplePanel {
 	}
 
 	/**
-	 * 
+	 * Sets the width of the MorphWidget.
+	 * @param width MorphWidget width.
 	 */
+	@Override
 	public void setWidth(String width) {
 		_textBox.setWidth(width);
-		// label.setWidth(width);
 	}
 
 	private void callEmpty() {

@@ -212,10 +212,10 @@ public class ShopPage extends APage {
 			@Override
 			public void onClick(ClickEvent event) {
 				showMapButton.setText("Searching....");
-				geoCoder.getLocations(street.getText().trim()+", "
-						+zip.getText().trim()+", "
-						+county.getText().trim()+", "
-						+country.getText().trim(), new LocationCallback() {
+				geoCoder.getLocations(street.getValue().trim()+", "
+						+zip.getValue().trim()+", "
+						+county.getValue().trim()+", "
+						+country.getValue().trim(), new LocationCallback() {
 							
 							@Override
 							public void onSuccess(JsArray<Placemark> locations) {
@@ -236,7 +236,7 @@ public class ShopPage extends APage {
 								
 								//TODO Problem with Country
 								shopData.getAddress().setAddress(
-										street.getText().trim(), 
+										street.getValue().trim(), 
 										locations.get(0).getCity(), 
 										new Country(
 												locations.get(0).getCountry().toLowerCase(), 
@@ -331,8 +331,8 @@ public class ShopPage extends APage {
 			@Override
 			public void onSuccess(Datatype errorType) {
 				
-				if(!shopData.getTitle().equals(titleMorph.getText())){
-					shopData.setTitle(titleMorph.getText());
+				if(!shopData.getTitle().equals(titleMorph.getValue())){
+					shopData.setTitle(titleMorph.getValue());
 					showSave();				
 				}
 			}

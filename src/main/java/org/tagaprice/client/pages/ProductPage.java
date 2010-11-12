@@ -137,8 +137,8 @@ public class ProductPage extends APage {
 			@Override
 			public void onSuccess(Datatype errorType) {
 				
-				if(!productData.getTitle().equals(titleMorph.getText())){
-					productData.setTitle(titleMorph.getText());
+				if(!productData.getTitle().equals(titleMorph.getValue())){
+					productData.setTitle(titleMorph.getValue());
 					showSave();				
 				}
 			}

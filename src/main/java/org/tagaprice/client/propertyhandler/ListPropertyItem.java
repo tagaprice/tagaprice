@@ -81,7 +81,7 @@ public class ListPropertyItem extends Composite {
 			public void onSuccess(Datatype errorType) {		
 				
 				//if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty() && !mp.getText().isEmpty()){
-				if(!pdCp.getValue().equals(mp.getText()) && pdCp.getValue().isEmpty()){
+				if(!pdCp.getValue().equals(mp.getValue()) && pdCp.getValue().isEmpty()){
 					
 					if(!definition.isUnique() ){						
 						//propertyData.add(pdCp);
@@ -98,11 +98,11 @@ public class ListPropertyItem extends Composite {
 					}
 				}
 				
-				if(!pdCp.getValue().equals(mp.getText())){	
+				if(!pdCp.getValue().equals(mp.getValue())){	
 					if(pdCp.getValue().isEmpty())
 						propertyData.add(pdCp);
 					
-					pdCp.setValue(mp.getText());
+					pdCp.setValue(mp.getValue());
 					
 					
 					

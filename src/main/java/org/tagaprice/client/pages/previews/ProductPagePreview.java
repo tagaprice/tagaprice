@@ -183,8 +183,8 @@ public class ProductPagePreview extends APagePreview {
 	 */
 	public ProductData getProductData(){
 		if(editable){
-			productData.getAvgPrice().setPrice((int)(Double.parseDouble(price.getText())*100));
-			productData.getQuantity().setQuantity(new Integer(quantitiy.getText()));
+			productData.getAvgPrice().setPrice((int)(Double.parseDouble(price.getValue())*100));
+			productData.getQuantity().setQuantity(new Integer(quantitiy.getValue()));
 			productData.setRating(ratingWidget.getRating());
 		}
 		
