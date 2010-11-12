@@ -53,7 +53,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /** 
- * Displays edit able receipt including shop and product search.
+ * Displays editable receipt including shop and product search.
  *
  */
 public class ReceiptPage extends AInfoBoxComposite {
@@ -87,7 +87,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	@UiField Button save;
 	
 	/**
-	 * 
+	 * Creates a Receipt Page with receipt data 
 	 * @param receiptData
 	 */
 	public ReceiptPage(ReceiptData receiptData, boolean editable, boolean text){
@@ -245,7 +245,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	
 	
 	/**
-	 * Refresh all data and save data
+	 * Refresh all data and save receipt data
 	 */
 	public void refresh(){
 		refreshPrice();
