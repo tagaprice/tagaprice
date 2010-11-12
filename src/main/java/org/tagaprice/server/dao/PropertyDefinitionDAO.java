@@ -7,6 +7,7 @@ import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.UnitDAO;
+import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.Unit;
@@ -79,7 +80,12 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		prop.setType(Datatype.valueOf(res.getString("type").toUpperCase()));
 		prop.setUnique(res.getBoolean("uniq"));
 
-		entityDAO.get(prop);
+		try {
+			prop = entityDAO.getById(prop, prop.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		
 		
 		//GetUnit
@@ -102,7 +108,12 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		PreparedStatement pstmt;
 		String sql;
 
-		entityDAO.save(prop);
+		try {
+			entityDAO.save(prop);
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		if (prop.getRev() == 1) {
 			// create a new PropertyDefinition
 			pstmt = db.prepareStatement("INSERT INTO property (prop_id) VALUES (?)");

@@ -43,7 +43,7 @@ public class UnitDAO implements IUnitDAO{
 	
 	@Override
 	public SearchResult<Unit> getSimilar(long unitId) throws DAOException {
-		
+		log.debug("id:"+unitId);
 		try {
 			SearchResult<Unit> rc = new SearchResult<Unit>();
 			long siId = unitId;
@@ -71,30 +71,22 @@ public class UnitDAO implements IUnitDAO{
 
 			return rc;
 		} catch (SQLException e) {
-			throw new DAOException(e.getMessage(), e);
+			String msg = "Failed to get similar units from database. SQLException: "+e.getMessage()+".";
+			log.error(msg + " Chaining and rethrowing.");
+			log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
 		}
 	}
 	
 	@Override
 	public boolean save(Unit unit) throws DAOException {
+		log.debug("Unit:"+unit);
 		Long id = unit.getId();
 		PreparedStatement pstmt;
 
 		try {
 			if (id == null) {
-				// create new unit
-				try {
-					_entityDAO.save(unit);
-				} catch (NotFoundException e) {
-					//TODO clean Enitity-DAOs' NotFoundExceptions
-					throw new DAOException(e.getMessage());
-				} catch (InvalidLocaleException e) {
-					//TODO clean Enitity-DAOs' InvalidLocaleExceptions
-					throw new DAOException(e.getMessage());
-				} catch (RevisionCheckException e) {
-					//TODO clean Enitity-DAOs' RevisionCheckExceptions
-					throw new DAOException(e.getMessage());
-				}
+				_entityDAO.save(unit);
 				//Create unit
 				pstmt = _db.prepareStatement("INSERT INTO unit (unit_id) VALUES (?)");
 				pstmt.setLong(1, unit.getId());
@@ -132,7 +124,10 @@ public class UnitDAO implements IUnitDAO{
 			}
 			return true;
 		} catch (SQLException e) {
-			throw new DAOException(e.getMessage(), e);
+			String msg = "Failed to save unit to database. SQLException: "+e.getMessage()+".";
+			log.error(msg + " Chaining and rethrowing.");
+			log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
 		}
 	}
 
@@ -153,31 +148,20 @@ public class UnitDAO implements IUnitDAO{
 			Unit unit = new Unit(id);
 			unit._setStandardId(res.getLong("base_id"));
 			unit._setFactor(res.getDouble("factor"));
-
-			_entityDAO.get(unit);
-			return unit;
+			return _entityDAO.getById(unit, id);
 		} catch (SQLException e) {
-			String msg = "Failed to retrieve Unit from database. SQLException: "+e.getMessage()+".";
+			String msg = "Failed to retrieve unit from database. SQLException: "+e.getMessage()+".";
 			log.error(msg + " Chaining and rethrowing.");
 			log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
-		} catch (NotFoundException e) {
-			//TODO clean Enitity-DAOs' NotFoundExceptions
-			throw new DAOException(e.getMessage());
 		} 
 	}
 	
 	
 	private Unit getUnit(ResultSet res) throws DAOException, SQLException {
-		Unit unit = new Unit(res.getLong("unit_id"), 0, null, 0, res.getLong("base_id"), res.getDouble("factor"));
-		
-		try {
-			_entityDAO.get(unit);
-		} catch (NotFoundException e) {
-			//TODO clean Enitity-DAOs' NotFoundExceptions
-			throw new DAOException(e.getMessage());
-		}
-		
+		long id = res.getLong("unit_id");
+		Unit unit = new Unit(id, 0, null, 0, res.getLong("base_id"), res.getDouble("factor"));
+		_entityDAO.getById(unit,id);
 		return unit;
 	}
 

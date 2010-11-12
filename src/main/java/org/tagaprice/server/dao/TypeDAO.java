@@ -23,6 +23,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.Type;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -49,7 +50,12 @@ public class TypeDAO implements DAOClass<Type> {
 		
 		
 		
-		entityDAO.get(type);
+		try {
+			type = entityDAO.getById(type, type.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		
 		type.setSuperType(null);
 		String sql = "SELECT parent_id FROM typerevision tr " +
@@ -117,7 +123,12 @@ public class TypeDAO implements DAOClass<Type> {
 		
 		if(type==null) type = new Type(13);
 		
-		entityDAO.get(type);
+		try {
+			type = entityDAO.getById(type, type.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		ArrayList<Type> types = new ArrayList<Type>();
 		
 		
@@ -133,7 +144,12 @@ public class TypeDAO implements DAOClass<Type> {
 		
 		while(res.next()){
 			Type tType = new Type(res.getLong("type_id"));
-			entityDAO.get(tType);
+			try {
+				entityDAO.getById(tType, tType.getId());
+			} catch (DAOException e) {
+				//TODO change
+				throw new NotFoundException(e.getMessage(), e);
+			}
 			
 			types.add(tType);
 		}

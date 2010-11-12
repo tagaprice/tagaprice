@@ -7,6 +7,7 @@ import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -25,8 +26,13 @@ public class ShopDAO implements DAOClass<ShopData> {
 	@Override
 	public void get(ShopData shop) throws SQLException, NotFoundException {
 		//Get Entity Data
-		entityDAO.get(shop);
-		
+		try {
+			entityDAO.getById(shop, shop.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
+
 		// TODO implement fetching of a specific shop revision
 		//Get Shop Data
 		String sql = "SELECT type_id, imageUrl, lat, lng, street, city, country_code " +
@@ -63,7 +69,12 @@ public class ShopDAO implements DAOClass<ShopData> {
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
-		entityDAO.save(shop);
+		try {
+			entityDAO.save(shop);
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		if (shop.getRev() == 1) {
 			// create a new Shop
 			pstmt = db.prepareStatement("INSERT INTO shop (shop_id) VALUES (?)");

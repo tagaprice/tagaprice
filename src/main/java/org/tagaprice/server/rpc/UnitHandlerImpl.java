@@ -14,16 +14,13 @@
 */
 package org.tagaprice.server.rpc;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.UnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
-import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.UnitHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -32,17 +29,17 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	private static final long serialVersionUID = 1L;
 	private UnitDAO dao;
 
-	public UnitHandlerImpl() throws FileNotFoundException, IOException {
+	public UnitHandlerImpl() throws IOException {
 		dao = new UnitDAO(new DBConnection());
 	}
 	
 	@Override
-	public Unit get(long id) throws DAOException {
+	public Unit get(long id) throws ServerException {
 		return dao.getById(id);
 	}
 
 	@Override
-	public SearchResult<Unit> getSimilar(long id) throws DAOException {
+	public SearchResult<Unit> getSimilar(long id) throws ServerException {
 		return dao.getSimilar(id);
 	}
 

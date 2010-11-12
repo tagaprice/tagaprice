@@ -14,6 +14,7 @@ import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ReceiptData;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -59,7 +60,12 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	public void get(ReceiptData receipt) throws SQLException, NotFoundException {
 		PreparedStatement pstmt;
 		//get Entity Data
-		entityDAO.get(receipt);	
+		try {
+			entityDAO.getById(receipt, receipt.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}	
 		
 		
 		receipt.setDate(new Date());
@@ -125,7 +131,12 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		PreparedStatement pstmt;
 		
 		//new Entity
-		entityDAO.save(receipt);
+		try {
+			entityDAO.save(receipt);
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		
 		if(receipt.getRev()==1){
 			//create new Receipt

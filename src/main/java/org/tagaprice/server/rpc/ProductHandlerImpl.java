@@ -79,7 +79,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 			
 			
 			try {
-				data._setCreatorId(loginDao.getId(getSid()));
+				data.setCreatorId(loginDao.getId(getSid()));
 				pDao.save(data);
 			} catch (SQLException e){
 				throw new IllegalArgumentException("SQLException: "+e);

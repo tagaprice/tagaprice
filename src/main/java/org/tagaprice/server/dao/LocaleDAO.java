@@ -37,7 +37,7 @@ public class LocaleDAO {
 		return res.getInt(1) == 1;
 	}
 	
-	public void require(int id) throws InvalidLocaleException, SQLException {
+	public void require(int id) throws InvalidLocaleException, SQLException { //TODO delete this method, replace usages with "!exists(id)"
 		if (!exists(id)) throw new InvalidLocaleException("Locale "+id+" not found!");
 	}
 	

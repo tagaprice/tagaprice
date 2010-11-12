@@ -18,9 +18,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IEntityDAO;
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -36,6 +38,7 @@ public class EntityDAO implements IEntityDAO {
 	protected DBConnection db;
 	private LocaleDAO localeDAO;
 	private PropertyDAO propertyDAO;
+	private static Logger log = Logger.getLogger(EntityDAO.class);
 
 	/**
 	 * Constructor that provides an easy way to supply a modified DBConnection object
@@ -48,72 +51,103 @@ public class EntityDAO implements IEntityDAO {
 		this.propertyDAO = new PropertyDAO(db);
 	}
 	
-	/**
-	 * This is a test command
-	 */
-
-	public void get(Entity e) throws SQLException, NotFoundException {
+	@Override
+	public <T extends Entity> T getById(T entity, long id) throws DAOException {
+		return getByIdAndRev(entity, id, 0);
+	}
+	
+	@Override
+	public <T extends Entity> T getByIdAndRev(T entity, long id, long rev) throws DAOException {
+		log.debug("entity:"+entity);
+		log.debug("id:"+id);
+		log.debug("rev:"+rev);
+		
 		String sql = "SELECT e.ent_id, rev, title, locale_id, e.creator, r.creator AS revCreator " +
-			" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id";
-		if (e.getRev() == 0) sql += " AND e.current_revision = r.rev";
+		" FROM entity e INNER JOIN entityRevision r ON (e.ent_id = r.ent_id";
+		if (rev == 0) 
+			sql += " AND e.current_revision = r.rev";
 		sql += ") WHERE e.ent_id = ?";
-		
-		if (e.getRev() > 0) sql += " AND r.rev = ?";
-		
-		PreparedStatement pstmt = db.prepareStatement(sql);
-		pstmt.setLong(1, e.getId());
-		if (e.getRev() > 0) pstmt.setLong(2, e.getRev());
-		
-		ResultSet res = pstmt.executeQuery();
-		
-		if (res.next()) {
-			e.setTitle(res.getString("title"));
-			e._setRev(res.getInt("rev"));
-			e._setLocaleId(res.getInt("locale_id"));
-			e._setCreatorId(res.getLong("creator"));
-			e._setRevCreatorId(res.getLong("revcreator"));
-		}
-		else {
-			String msg = "Entity (id: "+e.getId();
-			if (e.getRev()>0) msg += ", rev: "+e.getRev();
-			msg +=") not found!";
-			throw new NotFoundException(msg); 
-		}
-		
-		// get properties
-		propertyDAO.get(e);
-	}
-	
-	/**
-	 * Saves an entitiy
-	 * 
-	 * 
-	 * @param entity.revision musst be the actual revision
-	 * 
-	 */
-	
-	public void save(Entity entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
-		if (entity.getId() != null) { // try to update an existing entity
-			// first re-fetch the Entity and then compare them to see if something has changed
-			// ent_id, locale_id and created_at are read only, therefore will not be checked or saved
-			
-			Entity eCompare = _getEntity(entity.getId());
-			if (!entity.equals(eCompare)) { // it should not be possible to save a entity under the wrong ent_id
-				// they differ => save changes
-				_newRevision(entity);
+		if (rev > 0) sql += " AND r.rev = ?";
+
+		try {
+			PreparedStatement pstmt = db.prepareStatement(sql);
+			pstmt.setLong(1, entity.getId());
+			if (rev > 0) pstmt.setLong(2, rev);
+
+			ResultSet res = pstmt.executeQuery();
+
+			if (res.next()) {
+				entity.setTitle(res.getString("title"));
+				entity.setRev(res.getInt("rev"));
+				entity.setLocaleId(res.getInt("locale_id"));
+				entity.setCreatorId(res.getLong("creator"));
+				entity.setRevCreatorId(res.getLong("revcreator"));
 			}
-			
-			
+			else {
+				String msg = "Entity (id: "+entity.getId();
+				if (entity.getRev()>0) msg += ", rev: "+entity.getRev();
+				msg += ") not found!";
+			}
+			// get properties
+			propertyDAO.get(entity);
+			return entity;
+		} catch (SQLException e) {
+			String msg = "Failed to retrieve entity from database. SQLException: "+e.getMessage()+".";
+			log.error(msg + " Chaining and rethrowing.");
+			log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
+		} catch (NotFoundException e) {
+			// TODO clean up NotFoundExceptions in propertyDAO
+			e.printStackTrace();
+			throw new DAOException(e.getMessage(), e);
 		}
-		else { // create new one
-			_newEntity(entity);
-		}
-		
-		// save properties
-		propertyDAO.save(entity);
 	}
 	
-	private Entity _getEntity(long id) throws SQLException, NotFoundException {
+	@Override
+	public boolean save(Entity entity) throws DAOException {
+		try {
+			if (entity.getId() != null) { // try to update an existing entity
+				// first re-fetch the Entity and then compare them to see if something has changed
+				// ent_id, locale_id and created_at are read only, therefore will not be checked or saved
+				Entity eCompare = getEntity(entity.getId());
+				if (!entity.equals(eCompare)) { // it should not be possible to save a entity under the wrong ent_id
+					// they differ => save changes
+					newRevision(entity);
+				}
+			} else {
+				newEntity(entity);
+			}
+			propertyDAO.save(entity);
+			return true;
+		} catch (SQLException e) {
+			String msg = "Failed to save entity. SQLException: "+e.getMessage()+".";
+			log.debug(e.getStackTrace());
+			log.error(msg+" Chaining and rethrowing.");
+			throw new DAOException(msg, e);
+		}  catch (NotFoundException e) {
+			String msg = "Failed to save entity. NotFoundException: "+e.getMessage()+".";
+			log.debug(e.getStackTrace());
+			log.error(msg+" Chaining and rethrowing.");
+			throw new DAOException(msg, e);
+		} catch (InvalidLocaleException e) {
+			String msg = "Failed to save entity. InvalidLocaleException: "+e.getMessage()+".";
+			log.debug(e.getStackTrace());
+			log.error(msg+" Chaining and rethrowing.");
+			throw new DAOException(msg, e);
+		} catch (RevisionCheckException e) {
+			String msg = "Failed to save entity. RevisionCheckException: "+e.getMessage()+".";
+			log.debug(e.getStackTrace());
+			log.error(msg+" Chaining and rethrowing.");
+			throw new DAOException(msg, e);
+		}
+	}
+	
+	
+	protected void resolveCreator(Entity e) throws NotFoundException, SQLException {
+		throw new NotFoundException("Creator not found: null");
+	}
+	
+	private Entity getEntity(long id) throws DAOException {
 		Entity rc = new Entity(id) {
 			private static final long serialVersionUID = 1L;
 
@@ -123,13 +157,10 @@ public class EntityDAO implements IEntityDAO {
 			}
 		};
 		
-		get(rc);
-
-		return rc;
+		return getById(rc, id);
 	}
 	
-	// insert a new entity revision
-	private void _newRevision(Entity e) throws SQLException, NotFoundException, RevisionCheckException {
+	private void newRevision(Entity e) throws SQLException, NotFoundException, RevisionCheckException {
 		PreparedStatement pstmt;
 		ResultSet res;
 		int rev = e.getRev();
@@ -140,8 +171,12 @@ public class EntityDAO implements IEntityDAO {
 		pstmt = db.prepareStatement("SELECT current_revision FROM entity WHERE ent_id = ?");
 		pstmt.setLong(1, e.getId());
 		res = pstmt.executeQuery();
-		if (!res.next()) throw new NotFoundException("Couldn't find entity "+e.getId());
-		if (res.getInt("current_revision") != rev++) throw new RevisionCheckException("Revision out of date: "+rev);
+		//TODO next two lines is messy/hard to understand code => restructure + comment
+		if (!res.next()) throw new NotFoundException("Couldn't find entity with id:"+e.getId());
+		if (res.getInt("current_revision") != rev++) throw new RevisionCheckException("Revision out of date: "+rev); 
+//		proposal: create tests first
+//		if (res.getInt("current_revision") != rev) throw new RevisionCheckException("Revision out of date: "+rev);
+//		rev++;
 		
 		// create new EntityRevision element
 		pstmt = db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title, creator) VALUES (?, ?, ?, ?)");
@@ -158,12 +193,12 @@ public class EntityDAO implements IEntityDAO {
 		pstmt.executeUpdate();
 		
 		// increment revision in e
-		e._setRev(e.getRev()+1);
+		e.setRev(e.getRev()+1);
 		
 		db.commit();
 	}
 	
-	private void _newEntity(Entity e) throws SQLException, RevisionCheckException, InvalidLocaleException, NotFoundException {
+	private void newEntity(Entity e) throws SQLException, RevisionCheckException, InvalidLocaleException, NotFoundException {
 		PreparedStatement pstmt;
 		ResultSet res;
 		
@@ -193,7 +228,7 @@ public class EntityDAO implements IEntityDAO {
 		long id = res.getLong("ent_id");
 		e._setId(id);
 
-		if (e.getCreatorId() == null) resolveCreator(e);
+		if (e.getCreatorId() == null) resolveCreator(e); //TODO messy code
 
 		// create entityRevision
 		sql = "INSERT INTO entityRevision(ent_id, rev, title, creator) VALUES "
@@ -205,10 +240,7 @@ public class EntityDAO implements IEntityDAO {
 		pstmt.executeUpdate();
 
 		db.commit();
-		e._setRev(1);
+		e.setRev(1);
 	}
 	
-	protected void resolveCreator(Entity e) throws NotFoundException, SQLException {
-		throw new NotFoundException("Creator not found: null");
-	}
 }

@@ -47,7 +47,7 @@ public class PropertyDefinitionTest {
 				maxValue,
 				unit,
 				unique);
-		def._setLocaleId(localeId);
+		def.setLocaleId(localeId);
 	}
 	
 	@Test

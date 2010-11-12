@@ -66,7 +66,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 		
 		
 		try {
-			data._setCreatorId(loginDao.getId(getSid()));
+			data.setCreatorId(loginDao.getId(getSid()));
 			receiptDao.get(data);
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);

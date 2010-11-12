@@ -31,6 +31,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
@@ -120,7 +121,7 @@ public class EntityDAOTest {
 		assertNotSame("EntityDAO.save() should set the ID of the entity to the ID of the newly created database entry", null, entity.getId());
 		newEntity = new TestEntity(entity.getId(), entity.getRev());
 		
-		dao.get(newEntity);
+		dao.getById(newEntity, newEntity.getId());
 		
 		assertEquals(entity, newEntity);
 	}
@@ -128,37 +129,27 @@ public class EntityDAOTest {
 	/*
 	 * if you set id to NULL, revision has to be 0 too
 	 */
-	@Test
+	@Test(expected=RevisionCheckException.class)
 	public void testCreate_invalidRevision() throws Exception {
 		TestEntity entity = new TestEntity(null, 13, "title", localeDAO.get("English").getId(), testAccount.getId(), testAccount.getId());
-		try {
-			dao.save(entity);
-			fail("RevisionCheckException should've been thrown.");
-		} catch (RevisionCheckException e) {
-			// everything's fine
-		}
+		dao.save(entity);
 	}
-	
+
 	/**
 	 * try to create an entity with an invalid locale ID
 	 */
-	@Test
+	@Test(expected=DAOException.class)
 	public void testCreate_invalidLocale() throws Exception {
 		TestEntity entity = new TestEntity("title", -1, testAccount.getId());
-		try {
-			dao.save(entity);
-			fail("InvalidLocaleException should've been thrown");
-		}
-		catch (InvalidLocaleException e) {
-			// everything's fine
-		}
+		dao.save(entity);
+		fail("InvalidLocaleException should've been thrown");
 	}
 	
 	/**
 	 * trying to successfully save an Entity
+	 * @throws DAOException 
 	 * @throws Exception
 	 */
-	@Test
 	public void testSave() throws Exception {
 		TestEntity entity = new TestEntity("title", localeDAO.get("English").getId(), testAccount.getId());
 		dao.save(entity);
@@ -170,8 +161,8 @@ public class EntityDAOTest {
 		// new revisions
 		TestEntity e1 = new TestEntity(entity.getId(), 1);
 		TestEntity e2 = new TestEntity(entity.getId(), 2);
-		dao.get(e1);
-		dao.get(e2);
+		dao.getById(e1, e1.getId());
+		dao.getById(e2, e1.getId());
 
 		assertEquals(entity.getId(), e1.getId());
 		assertEquals(1, e1.getRev());

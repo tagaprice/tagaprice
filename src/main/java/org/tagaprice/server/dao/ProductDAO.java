@@ -21,6 +21,7 @@ import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -38,7 +39,12 @@ public class ProductDAO implements DAOClass<ProductData> {
 	public void get(ProductData p) throws SQLException, NotFoundException, NotFoundException {
 		
 		//Get Entity Data
-		entityDAO.get(p);
+		try {
+			p = entityDAO.getById(p, p.getId());
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		
 		// TODO implement fetching of a specific product revision
 		
@@ -67,7 +73,12 @@ public class ProductDAO implements DAOClass<ProductData> {
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
-		entityDAO.save(prod);
+		try {
+			entityDAO.save(prod);
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 		if (prod.getRev() == 1) {
 			// create a new Product
 			pstmt = db.prepareStatement("INSERT INTO product (prod_id) VALUES (?)");

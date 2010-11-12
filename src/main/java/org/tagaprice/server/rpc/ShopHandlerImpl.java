@@ -59,7 +59,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		
 		if(PropertyValidator.isValid(th.get(new Type(data.getTypeId())), data.getProperties())){		
 			try {				
-				data._setCreatorId(loginDao.getId(getSid()));
+				data.setCreatorId(loginDao.getId(getSid()));
 				sDao.save(data);				
 			} catch (SQLException e) {
 				throw new IllegalArgumentException(e);
