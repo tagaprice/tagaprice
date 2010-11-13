@@ -23,7 +23,7 @@ import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
-import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.client.propertyhandler.IPropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.IMorphWidgetInfoHandler;
@@ -64,7 +64,7 @@ public class ProductPage extends APage {
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private Type _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
-	private PropertyChangeHandler _handler;
+	private IPropertyChangeHandler _handler;
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
 	private InfoBoxWidget __bottomInfo = new InfoBoxWidget(false);
 	private PriceMapWidget _priceMap;
@@ -119,7 +119,7 @@ public class ProductPage extends APage {
 		vePa2.add(new RatingWidget(this._productData.getRating(), false));
 
 		// Listener
-		_handler = new PropertyChangeHandler() {
+		_handler = new IPropertyChangeHandler() {
 
 			@Override
 			public void onSuccess() {

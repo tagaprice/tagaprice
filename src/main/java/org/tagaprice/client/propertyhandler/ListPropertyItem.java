@@ -31,7 +31,7 @@ public class ListPropertyItem extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
 	PropertyDefinition definition;
 	ArrayList<PropertyData> propertyData;
-	PropertyChangeHandler handler;
+	IPropertyChangeHandler handler;
 	
 	
 	public ListPropertyItem(
@@ -149,7 +149,7 @@ public class ListPropertyItem extends Composite {
 		vePa1.add(temp);
 	}
 	
-	public void addChangeHandler(PropertyChangeHandler handler){
+	public void addChangeHandler(IPropertyChangeHandler handler){
 		this.handler=handler;
 	}
 	

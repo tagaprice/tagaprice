@@ -18,7 +18,7 @@ public interface IPropertyHandler {
 	 * @param handler
 	 *            is called if a property has changed.
 	 */
-	public void addChangeHandler(PropertyChangeHandler handler);
+	public void addChangeHandler(IPropertyChangeHandler handler);
 
 	/**
 	 * Returns the current implemented change handler that is called if a
@@ -26,7 +26,7 @@ public interface IPropertyHandler {
 	 * 
 	 * @return returns the current implemented change handler.
 	 */
-	public PropertyChangeHandler getPropertyChangeHandler();
+	public IPropertyChangeHandler getPropertyChangeHandler();
 
 	/**
 	 * Returns the PropertyGroup of an handler which contains the definitions of

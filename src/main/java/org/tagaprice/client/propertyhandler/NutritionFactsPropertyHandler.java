@@ -28,7 +28,7 @@ public class NutritionFactsPropertyHandler extends APropertyHandler {
 	Grid grid = new Grid(6, 2);
 	TitleWidget title = new TitleWidget("Nutrition Facts", grid, TitleWidget.Headline.H2);
 	
-	public NutritionFactsPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyGroup propGroup, PropertyChangeHandler handler) {
+	public NutritionFactsPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyGroup propGroup, IPropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
 		grid.setWidth("100%");
 		grid.setStyleName("NutritionFactsPropertyHandler");

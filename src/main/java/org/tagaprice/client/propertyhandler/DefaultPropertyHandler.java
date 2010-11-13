@@ -31,7 +31,7 @@ public class DefaultPropertyHandler extends APropertyHandler {
 	boolean show=false;
 	ArrayList<PropertyData> noReadproperties = new ArrayList<PropertyData>();
 	
-	public DefaultPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyChangeHandler handler) {
+	public DefaultPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, IPropertyChangeHandler handler) {
 		super(hashProperties, null, handler);
 		
 		//Remove Non Used		

@@ -33,7 +33,7 @@ public class ListPropertyHandler extends APropertyHandler {
 	
 	public ListPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties,
 			PropertyGroup propGroup, 
-			PropertyChangeHandler handler) {
+			IPropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
 		
 		vePa1.setWidth("100%");
