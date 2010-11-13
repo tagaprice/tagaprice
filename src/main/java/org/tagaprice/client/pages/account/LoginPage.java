@@ -20,34 +20,46 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class LoginPage extends APage{
+/**
+ * Displays a Login or Logout page depending on the state of the user. It will
+ * also control the login/logout mechanism via TagAPrice login or oauth login
+ * like twitter or facebook.
+ * 
+ */
+public class LoginPage extends APage {
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private Label mailLabel = new Label("Mail");
 	private TextBox mail = new TextBox();
 	private Label passwordLabel = new Label("Password");
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button loginButton = new Button("Login");
-	private LocalAccountHandlerAsync userHandler = GWT.create(LocalAccountHandler.class);
-	
-	
+	private LocalAccountHandlerAsync userHandler = GWT
+			.create(LocalAccountHandler.class);
+
+	/**
+	 * Create a login/logout view and controls the login/logout mechanism.
+	 * 
+	 * @param loggedIn
+	 *            If TRUE it will display a logout button. If FALSE it will
+	 *            display a Login Form, and alternative oauth login buttons.
+	 */
 	public LoginPage(boolean loggedIn) {
 		mail.setTitle("tap_email");
 		password.setTitle("tap_password");
-		
+
 		init(vePa1);
 		vePa1.setWidth("100%");
-		
-		if(loggedIn){
+
+		if (loggedIn) {
 			showLoggedIn();
-		}else{
+		} else {
 			showNotLoggedIn();
 		}
-	
-		
+
 	}
-	
-	private void showNotLoggedIn(){
-		//UserLogin
+
+	private void showNotLoggedIn() {
+		// UserLogin
 		VerticalPanel vePa2 = new VerticalPanel();
 		vePa2.setWidth("100%");
 		vePa2.add(mailLabel);
@@ -55,85 +67,87 @@ public class LoginPage extends APage{
 		vePa2.add(passwordLabel);
 		vePa2.add(password);
 		vePa2.add(loginButton);
-		
-		//Style
+
+		// Style
 		mail.setWidth("100%");
 		password.setWidth("100%");
 		loginButton.setWidth("100%");
-		
-		
+
 		vePa1.add(new TitleWidget("Login", vePa2, Headline.H2));
-		
+
 		loginButton.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println("send");
-				
-				userHandler.login(mail.getText().trim(), password.getText().trim(), new AsyncCallback<String>() {
-					
+
+				userHandler.login(mail.getText().trim(), password.getText()
+						.trim(), new AsyncCallback<String>() {
+
 					@Override
 					public void onSuccess(String result) {
-						
-						System.out.println("result: "+result);
-						
-						if(result!=null){
+
+						System.out.println("result: " + result);
+
+						if (result != null) {
 							Cookies.setCookie("TaPSId", result);
 							showInfo("succsessfull Login", BoxType.WARNINGBOX);
-							History.newItem("home/");					
-						}else showInfo("Mail and password don't match", BoxType.WARNINGBOX);		
+							History.newItem("home/");
+						} else
+							showInfo("Mail and password don't match",
+									BoxType.WARNINGBOX);
 					}
-					
+
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("Login or other error", BoxType.WARNINGBOX);
-						
+
 					}
 				});
-				
-				
+
 			}
 		});
-		
-		
-		//Alternative Login
+
+		// Alternative Login
 		VerticalPanel vePa3 = new VerticalPanel();
 		vePa2.setWidth("100%");
-		
-		vePa3.add(new Image("http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
-		vePa3.add(new Image("http://developers.facebook.com/images/devsite/login-button.png"));
-		
+
+		vePa3.add(new Image(
+				"http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"));
+		vePa3.add(new Image(
+				"http://developers.facebook.com/images/devsite/login-button.png"));
+
 		vePa1.add(new TitleWidget("Alternative Login", vePa3, Headline.H2));
-		
+
 	}
-	
-	private void showLoggedIn(){
+
+	private void showLoggedIn() {
 		vePa1.add(new Label("Your are logged in!"));
 		vePa1.add(new Button("Logout", new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				userHandler.logout(new AsyncCallback<Boolean>() {
-					
+
 					@Override
 					public void onSuccess(Boolean result) {
-						if(result){
+						if (result) {
 							Cookies.removeCookie("TaPSId");
-							showInfo("You are logged out", BoxType.WARNINGBOX);						
+							showInfo("You are logged out", BoxType.WARNINGBOX);
 							History.newItem("home/");
-						}else{
+						} else {
 							Cookies.removeCookie("TaPSId");
-							showInfo("Problem at logout!", BoxType.WARNINGBOX);						
+							showInfo("Problem at logout!", BoxType.WARNINGBOX);
 						}
 					}
-					
+
 					@Override
 					public void onFailure(Throwable arg0) {
 						Cookies.removeCookie("TaPSId");
-						showInfo("Problem at logout!", BoxType.WARNINGBOX);						
+						showInfo("Problem at logout!", BoxType.WARNINGBOX);
 					}
 				});
-				
+
 			}
 		}));
 	}
@@ -141,6 +155,6 @@ public class LoginPage extends APage{
 	@Override
 	public void setAddress(Address address) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -26,7 +26,7 @@ public class ConfirmRegistrationPage extends APage {
 				"Confirm",
 				new Label(
 						"Please check your email account and follow the confirm link in the next 24h to finish the registration!"),
-						Headline.H2));
+				Headline.H2));
 
 	}
 
