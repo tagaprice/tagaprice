@@ -157,9 +157,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	private String getSid() throws InvalidLoginException{
-		System.out.println("getSid 1");
 		Cookie[] cookies = this.getThreadLocalRequest().getCookies();
-		System.out.println("getSid 2");
 
 		return loginDao.getSid(cookies);
 	}

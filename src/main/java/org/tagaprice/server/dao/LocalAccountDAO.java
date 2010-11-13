@@ -14,6 +14,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.Mail;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
+import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
@@ -89,6 +90,16 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 			pstmt2.setString(2, confirmationString);
 			pstmt2.executeUpdate();
 			
+			
+			//Get confirm code:
+			PreparedStatement pstmt3 = db.prepareStatement("SELECT uid, confirm FROM confirmAccount WHERE uid=?");
+			pstmt3.setLong(1, account.getId());
+			ResultSet res = pstmt3.executeQuery();
+			if(!res.next()) throw new InvalidLocaleException("LoginProblem");
+			
+			System.out.println("confirmLink: #user/registration/confirm&confirm="+res.getString("confirm"));
+			
+				
 			// send confirmation mail
 			try {
 				HashMap<String, String> replacements = new HashMap<String, String>();

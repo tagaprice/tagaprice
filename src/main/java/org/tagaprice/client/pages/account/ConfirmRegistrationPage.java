@@ -13,12 +13,20 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
+/**
+ * Create a confirmation page to check if the user is successfully registered.
+ * 
+ */
 public class ConfirmRegistrationPage extends APage {
 
 	SimplePanel siPa1 = new SimplePanel();
 	private LocalAccountHandlerAsync userHandler = GWT
 			.create(LocalAccountHandler.class);
 
+	
+	/**
+	 * Displays a standard text for the user to check his email account for a confirmation mail.
+	 */
 	public ConfirmRegistrationPage() {
 		_init();
 		// TODO Auto-generated constructor stub
@@ -30,6 +38,10 @@ public class ConfirmRegistrationPage extends APage {
 
 	}
 
+	/**
+	 * Displays a text where the user can find out if the registration was successful or not.
+	 * @param confirm
+	 */
 	public ConfirmRegistrationPage(String confirm) {
 		_init();
 		siPa1.setWidget(new Label(
