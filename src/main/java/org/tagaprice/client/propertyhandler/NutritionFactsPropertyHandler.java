@@ -23,7 +23,7 @@ import org.tagaprice.shared.PropertyGroup;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
-public class NutritionFactsPropertyHandler extends PropertyHandler {
+public class NutritionFactsPropertyHandler extends APropertyHandler {
 
 	Grid grid = new Grid(6, 2);
 	TitleWidget title = new TitleWidget("Nutrition Facts", grid, TitleWidget.Headline.H2);

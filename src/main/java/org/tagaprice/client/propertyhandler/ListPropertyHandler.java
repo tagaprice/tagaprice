@@ -23,7 +23,7 @@ import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ListPropertyHandler extends PropertyHandler {
+public class ListPropertyHandler extends APropertyHandler {
 
 	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
 	TitleWidget title;
@@ -50,7 +50,7 @@ public class ListPropertyHandler extends PropertyHandler {
 	 * @param groupElements
 	 */
 	private void convertToHash(){
-		for(PropertyDefinition pg:propGroup.getGroupElements()){
+		for(PropertyDefinition pg:getPropertyGroup().getGroupElements()){
 			definition.put(pg.getName(), pg);
 		}
 	}
@@ -58,18 +58,18 @@ public class ListPropertyHandler extends PropertyHandler {
 	
 	private void createGrid(){
 		
-		for(PropertyDefinition pg:propGroup.getGroupElements()){			
-			if(hashProperties.get(pg.getName())==null){
-				hashProperties.put(pg.getName(), new ArrayList<PropertyData>());
+		for(PropertyDefinition pg:getPropertyGroup().getGroupElements()){			
+			if(getPropertyList().get(pg.getName())==null){
+				getPropertyList().put(pg.getName(), new ArrayList<PropertyData>());
 			}
 			
 			
 			ListPropertyItem temp = new ListPropertyItem(
 						pg, 
-						hashProperties.get(pg.getName()));
+						getPropertyList().get(pg.getName()));
 			vePa1.add(temp);
 			
-			temp.addChangeHandler(handler);
+			temp.addChangeHandler(getPropertyChangeHandler());
 			
 		}		
 	}

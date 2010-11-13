@@ -22,7 +22,7 @@ import org.tagaprice.shared.PropertyData;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class DefaultPropertyHandler extends PropertyHandler {
+public class DefaultPropertyHandler extends APropertyHandler {
 	
 	
 	VerticalPanel vePa1 = new VerticalPanel();
@@ -44,8 +44,8 @@ public class DefaultPropertyHandler extends PropertyHandler {
 	}
 	
 	private void fillGrid(){
-		for(String ks:hashProperties.keySet()){
-			for(PropertyData pd:hashProperties.get(ks)){
+		for(String ks:getPropertyList().keySet()){
+			for(PropertyData pd:getPropertyList().get(ks)){
 				if(!pd.getRead())
 					vePa1.add(new Label(pd.getTitle()+" | "+pd.getName()+" | "+pd.getValue()));
 			}

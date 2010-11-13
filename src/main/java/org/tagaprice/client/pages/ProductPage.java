@@ -43,7 +43,6 @@ import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Type;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
