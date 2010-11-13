@@ -1,5 +1,6 @@
 package org.tagaprice.client.pages.account;
 
+import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget;
@@ -31,21 +32,21 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 // TODO Create oauth authentication system
 public class RegistrationPage extends APage {
 
-	private VerticalPanel _vePa1 = new VerticalPanel();
-	private LocalAccountHandlerAsync _userHandler = GWT
-			.create(LocalAccountHandler.class);
+	// AGB
+	CheckBox _gtc = new CheckBox("I agree.");
 	private TextBox _email = new TextBox();
 	private Label _emailLabel = new Label("Email (not valid)");
+	// Address
+	private ListBox _language = new ListBox();
 	private PasswordTextBox _password = new PasswordTextBox();
 	private Label _passwordLabel = new Label("Password (bad)");
-	private PasswordTextBox passwortConfirm = new PasswordTextBox();
-	private Label passwortConfirmLabel = new Label("Confirm Password (equal)");
+	private PasswordTextBox _passwortConfirm = new PasswordTextBox();
+	private Label _passwortConfirmLabel = new Label("Confirm Password (equal)");
 
-	// Address
-	private ListBox language = new ListBox();
+	private LocalAccountHandlerAsync _userHandler = RPCHandlerManager
+			.getLocalAccountHandler();
 
-	// AGB
-	CheckBox gtc = new CheckBox("I agree.");
+	private VerticalPanel _vePa1 = new VerticalPanel();
 
 	/**
 	 * Create a new RegistrationPage and implements some control methods to
@@ -74,9 +75,9 @@ public class RegistrationPage extends APage {
 		userData.setWidget(3, 0, _password);
 		_password.setWidth("100%");
 
-		userData.setWidget(4, 0, passwortConfirmLabel);
-		userData.setWidget(5, 0, passwortConfirm);
-		passwortConfirm.setWidth("100%");
+		userData.setWidget(4, 0, _passwortConfirmLabel);
+		userData.setWidget(5, 0, _passwortConfirm);
+		_passwortConfirm.setWidth("100%");
 
 		// grid-Style
 		userData.getCellFormatter().setStyleName(0, 0, "RegistrationPage-Row");
@@ -97,20 +98,20 @@ public class RegistrationPage extends APage {
 				} else if (_password.getText().trim().length() > 8) {
 					_passwordLabel.setText("Password (good)");
 				}
-				passwortConfirm.setText("");
-				passwortConfirmLabel.setText("Confirm Password (not equal)");
+				_passwortConfirm.setText("");
+				_passwortConfirmLabel.setText("Confirm Password (not equal)");
 			}
 		});
 
-		passwortConfirm.addKeyUpHandler(new KeyUpHandler() {
+		_passwortConfirm.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (_password.getText().trim()
-						.equals(passwortConfirm.getText().trim())) {
-					passwortConfirmLabel.setText("Confirm Password (equal)");
+						.equals(_passwortConfirm.getText().trim())) {
+					_passwortConfirmLabel.setText("Confirm Password (equal)");
 				} else {
-					passwortConfirmLabel
+					_passwortConfirmLabel
 							.setText("Confirm Password (not equal)");
 				}
 
@@ -129,20 +130,21 @@ public class RegistrationPage extends APage {
 							new AsyncCallback<Boolean>() {
 
 								@Override
+								public void onFailure(Throwable caught) {
+									System.out.println("Connection problem");
+								}
+
+								@Override
 								public void onSuccess(Boolean result) {
 
 									if (result) {
-										_emailLabel.setText("Email (available)");
+										_emailLabel
+												.setText("Email (available)");
 									} else {
 										_emailLabel
 												.setText("Email (already in use)");
 									}
 
-								}
-
-								@Override
-								public void onFailure(Throwable caught) {
-									System.out.println("Connection problem");
 								}
 							});
 				} else {
@@ -168,12 +170,13 @@ public class RegistrationPage extends APage {
 
 		// Language select
 
-		language.setWidth("100%");
-		language.addItem("British-English", "en-uk");
-		language.addItem("US-Englisch", "en-us");
-		language.addItem("German", "de-de");
+		_language.setWidth("100%");
+		_language.addItem("British-English", "en-uk");
+		_language.addItem("US-Englisch", "en-us");
+		_language.addItem("German", "de-de");
 
-		_vePa1.add(new TitleWidget("Language", language, TitleWidget.Headline.H2));
+		_vePa1.add(new TitleWidget("Language", _language,
+				TitleWidget.Headline.H2));
 
 		// AGB
 		VerticalPanel gtcVePa = new VerticalPanel();
@@ -181,7 +184,7 @@ public class RegistrationPage extends APage {
 
 		gtcVePa.add(new Label(
 				"You have to agree with your general terms and conditions!"));
-		gtcVePa.add(gtc);
+		gtcVePa.add(_gtc);
 		_vePa1.add(new TitleWidget("general terms and conditions ", gtcVePa,
 				TitleWidget.Headline.H2));
 
@@ -195,12 +198,12 @@ public class RegistrationPage extends APage {
 			public void onClick(ClickEvent event) {
 
 				if (_password.getText().trim()
-						.equals(passwortConfirm.getText().trim())
-						&& !_email.getText().trim().isEmpty() && gtc.getValue()) {
+						.equals(_passwortConfirm.getText().trim())
+						&& !_email.getText().trim().isEmpty() && _gtc.getValue()) {
 					showInfo("Waiting...", BoxType.WARNINGBOX);
 					_userHandler.registerNewUser(_password.getText().trim(),
-							passwortConfirm.getText().trim(), _email.getText()
-									.trim(), gtc.getValue(),
+							_passwortConfirm.getText().trim(), _email.getText()
+									.trim(), _gtc.getValue(),
 							new AsyncCallback<Boolean>() {
 
 								@Override
