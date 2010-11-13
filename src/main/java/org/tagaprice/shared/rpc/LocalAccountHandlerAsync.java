@@ -14,8 +14,6 @@
 */
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.Address;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface LocalAccountHandlerAsync {
@@ -23,12 +21,9 @@ public interface LocalAccountHandlerAsync {
 		throws IllegalArgumentException;
 
 	void registerNewUser(
-			String username, 
 			String password,
 			String confirmPassword, 
 			String email, 
-			String confirmEmail,
-			Address address, 
 			boolean gtc,
 			AsyncCallback<Boolean> callback) 
 		throws IllegalArgumentException;
