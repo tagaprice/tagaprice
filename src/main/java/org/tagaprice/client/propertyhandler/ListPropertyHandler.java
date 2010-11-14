@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
-*/
-
-/**
- * Project: TagAPrice
- * Filename: ListPropertyHandler.java
- * Date: 25.05.2010
-*/
 package org.tagaprice.client.propertyhandler;
 
 import java.util.ArrayList;
@@ -23,58 +9,71 @@ import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Displays all properties defined in a {@link PropertyGroup} and makes them
+ * modify able.
+ * 
+ */
 public class ListPropertyHandler extends APropertyHandler {
 
-	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
-	TitleWidget title;
-	VerticalPanel vePa1 = new VerticalPanel();
-	//int rowSwap=-1;
-		
-	
-	public ListPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties,
-			PropertyGroup propGroup, 
-			IPropertyChangeHandler handler) {
-		super(hashProperties, propGroup, handler);
-		
-		vePa1.setWidth("100%");
-		
-		title = new TitleWidget(propGroup.getTitle(), vePa1, TitleWidget.Headline.H2);
-		convertToHash();
-		
-		createGrid();
-		initWidget(title);
-	}
-	
+	private HashMap<String, PropertyDefinition> _definition = new HashMap<String, PropertyDefinition>();
+	private TitleWidget _title;
+	private VerticalPanel _vePa1 = new VerticalPanel();
+
 	/**
-	 * Converts PropertyDefinition ArrayList to HashMap. So it is easy to find a Type
+	 * Creates a propertyHandler which displays all properties defined in a
+	 * {@link PropertyGroup} and fill the list with the available properties.
+	 * 
+	 * @param hashProperties
+	 *            the currently known properties
+	 * @param propGroup
+	 *            holds all properties of an actual property
+	 * @param handler
+	 *            implements the handler that will be called if a property
+	 *            change.
+	 */
+	public ListPropertyHandler(
+			HashMap<String, ArrayList<PropertyData>> hashProperties,
+			PropertyGroup propGroup, IPropertyChangeHandler handler) {
+		super(hashProperties, propGroup, handler);
+
+		_vePa1.setWidth("100%");
+
+		_title = new TitleWidget(propGroup.getTitle(), _vePa1,
+				TitleWidget.Headline.H2);
+		convertToHash();
+
+		createGrid();
+		initWidget(_title);
+	}
+
+	/**
+	 * Converts PropertyDefinition ArrayList to HashMap. So it is easy to find a
+	 * Type
+	 * 
 	 * @param groupElements
 	 */
-	private void convertToHash(){
-		for(PropertyDefinition pg:getPropertyGroup().getGroupElements()){
-			definition.put(pg.getName(), pg);
+	private void convertToHash() {
+		for (PropertyDefinition pg : getPropertyGroup().getGroupElements()) {
+			_definition.put(pg.getName(), pg);
 		}
 	}
-	
-	
-	private void createGrid(){
-		
-		for(PropertyDefinition pg:getPropertyGroup().getGroupElements()){			
-			if(getPropertyList().get(pg.getName())==null){
-				getPropertyList().put(pg.getName(), new ArrayList<PropertyData>());
+
+	private void createGrid() {
+
+		for (PropertyDefinition pg : getPropertyGroup().getGroupElements()) {
+			if (getPropertyList().get(pg.getName()) == null) {
+				getPropertyList().put(pg.getName(),
+						new ArrayList<PropertyData>());
 			}
-			
-			
-			ListPropertyItem temp = new ListPropertyItem(
-						pg, 
-						getPropertyList().get(pg.getName()));
-			vePa1.add(temp);
-			
+
+			ListPropertyItem temp = new ListPropertyItem(pg, getPropertyList()
+					.get(pg.getName()));
+			_vePa1.add(temp);
+
 			temp.addChangeHandler(getPropertyChangeHandler());
-			
-		}		
+
+		}
 	}
-	
-	
-	
 
 }
