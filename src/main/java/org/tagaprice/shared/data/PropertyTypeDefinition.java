@@ -14,7 +14,6 @@
 */
 package org.tagaprice.shared.data;
 
-import org.tagaprice.server.dao.PropertyDefinitionDAO;
 import org.tagaprice.shared.Serializable;
 
 /**
@@ -34,7 +33,9 @@ public class PropertyTypeDefinition extends Entity {
 
 	private String name;
 	public Datatype type;
+	/** has only meaning for numeric types, NULL if no numeric type */
 	private Integer minValue;
+	/** has only meaning for numeric types, NULL if no numeric type */
 	private Integer maxValue;
 	private Unit unit;
 	private boolean unique;
@@ -80,8 +81,8 @@ public class PropertyTypeDefinition extends Entity {
 	 * @param localeId locale ID
 	 * @param creatorId {@link PropertyTypeDefinition} creator
 	 * @param type {@link PropertyTypeDefinition} datatype
-	 * @param minValue minimum property value (may be null)
-	 * @param maxValue maximum property value (may be null)
+	 * @param minValue minimum property value (must be null if type is not numeric)
+	 * @param maxValue maximum property value (must be null if type is not numeric)
 	 * @param unit unit of this {@link PropertyTypeDefinition}
 	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links) 
 	 */
@@ -103,8 +104,8 @@ public class PropertyTypeDefinition extends Entity {
 	 * @param title (new) descriptive PropertyDefinition title
 	 * @param creatorId revision's creator
 	 * @param type (new) {@link PropertyTypeDefinition} datatype
-	 * @param minValue (new) minimum property value (may be null)
-	 * @param maxValue (new) maximum property value (may be null)
+	 * @param minValue (new) minimum property value (must be null if type is not numeric)
+	 * @param maxValue (new) maximum property value (must be null if type is not numeric)
 	 * @param unit (new) property unit 
 	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links) 
 	 */
@@ -161,7 +162,7 @@ public class PropertyTypeDefinition extends Entity {
 	}
 
 	/**
-	 * @return minimum property value (may be null)
+	 * @return minimum property value (must be null if type is not numeric)
 	 */
 	public Integer getMinValue() {
 		return minValue;
@@ -175,14 +176,14 @@ public class PropertyTypeDefinition extends Entity {
 	}
 
 	/**
-	 * @param minValue minimum property value (may be null)
+	 * @param minValue minimum property value (must be null if type is not numeric)
 	 */
 	public void setMinValue(Integer minValue) {
 		this.minValue = minValue;
 	}
 
 	/**
-	 * @return maximum property value (may be null)
+	 * @return maximum property value (must be null if type is not numeric)
 	 */
 	public Integer getMaxValue() {
 		return maxValue;
@@ -196,7 +197,7 @@ public class PropertyTypeDefinition extends Entity {
 	}
 
 	/**
-	 * @param maxValue maximum property value (may be null)
+	 * @param maxValue maximum property value (must be null if type is not numeric)
 	 */
 	public void setMaxValue(Integer maxValue) {
 		this.maxValue = maxValue;
