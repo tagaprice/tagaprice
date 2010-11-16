@@ -16,16 +16,16 @@ package org.tagaprice.shared;
 
 import java.util.ArrayList;
 
-public class Type extends Entity {
+public class Category extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private Type superType;
+	private Category superType;
 	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
 	
 	/**
 	 * default constructor (needed for serialization)
 	 */
-	public Type() {
+	public Category() {
 		super();
 	}
 	
@@ -33,7 +33,7 @@ public class Type extends Entity {
 	 * constructor for querying a Type (using TypeDAO)
 	 * @param id Type ID
 	 */
-	public Type(long id) {
+	public Category(long id) {
 		super(id);
 	}
 	
@@ -42,7 +42,7 @@ public class Type extends Entity {
 	 * @param id Type ID
 	 * @param rev Type revision
 	 */
-	public Type(long id, int rev) {
+	public Category(long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -53,7 +53,7 @@ public class Type extends Entity {
 	 * @param creatorId Type's creator (usually the currently logged in User)
 	 * @param superType reference to a supertype (may be null)
 	 */
-	public Type(String title, int localeId, long creatorId, Type superType) {
+	public Category(String title, int localeId, long creatorId, Category superType) {
 		super(title, localeId, creatorId);
 		this.superType = superType;
 	}
@@ -66,7 +66,7 @@ public class Type extends Entity {
 	 * @param creatorId Type revision's creator (usually the currently logged in User)
 	 * @param superType (new) reference to a supertype (may be null)
 	 */
-	public Type(long typeId, int rev, String title, long creatorId, Type superType) {
+	public Category(long typeId, int rev, String title, long creatorId, Category superType) {
 		super(typeId, rev, title, creatorId);
 		this.superType = superType;
 	}
@@ -85,11 +85,11 @@ public class Type extends Entity {
 	}
 	
 	
-	public Type getSuperType(){
+	public Category getSuperType(){
 		return superType;
 	}
 	
-	public void setSuperType(Type superType){
+	public void setSuperType(Category superType){
 		this.superType=superType;
 	}
 

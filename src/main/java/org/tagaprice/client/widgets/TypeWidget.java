@@ -3,7 +3,10 @@ package org.tagaprice.client.widgets;
 import java.util.ArrayList;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ImageBundle;
-import org.tagaprice.shared.Type;
+
+import org.tagaprice.client.TaPManager;
+import org.tagaprice.shared.Category;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -27,39 +30,48 @@ public class TypeWidget extends Composite {
 	private ITypeWidgetHandler handler;
 	private HorizontalPanel hoPa1 = new HorizontalPanel();
 	private Image rootB = new Image(ImageBundle.INSTANCE.typeSelectRight());
-	private Type type;
+	private Category type;
 	private PopupPanel typeItems = new PopupPanel(true);
 
+
+	TaPManager TaPMng = TaPManager.getInstance();
+	
+	//Root elem
+	//int localeId;
+	
 	/**
 	 * Creates a TypeWidget that will show the current type.s
 	 * 
 	 * @param type the current type.
-	 * @param handler is called if the type has changed.
+	 * @param iTypeWidgetHandler is called if the type has changed.
 	 */
-	public TypeWidget(Type type, ITypeWidgetHandler handler) {
-		this.type = type;
-		this.handler = handler;
+	public TypeWidget(Category type, ITypeWidgetHandler iTypeWidgetHandler) {
+		this.type=type;
+		this.handler=handler;
+		
+		//localeId = type.getLocaleId();
+		
+		//hoPa1.setWidth("100%");
 
-		// localeId = type.getLocaleId();
-
-		// hoPa1.setWidth("100%");
 		initWidget(hoPa1);
 		setStyleName("TypeWidget");
 
 		createMenu();
-	}
-
+	}	
 	/**
 	 * Create a Type menu with arrows and buttons
-	 */
-	private void createMenu() {
-		// Type
-		Type iterType = type;
+	 */	
+	private void createMenu(){
+		//Type
+		Category iterType = type;
 		hoPa1.clear();
+		
+		
+		
+		if(iterType.getSuperType() != null){		
+			do{
+				final Category innerType = iterType;
 
-		if (iterType.getSuperType() != null) {
-			do {
-				final Type innerType = iterType;
 				Label typeLabel = new Label(iterType.getTitle());
 				typeLabel.setStyleName("TypeWidget-Item");
 				hoPa1.insert(typeLabel, 0);
@@ -83,10 +95,11 @@ public class TypeWidget extends Composite {
 
 					@Override
 					public void onClick(ClickEvent event) {
+
 						typeItems.setWidget(new Label("Loading..."));
 						RPCHandlerManager.getTypeHandler().getTypeList(
 								innerType,
-								new AsyncCallback<ArrayList<Type>>() {
+								new AsyncCallback<ArrayList<Category>>() {
 
 									@Override
 									public void onFailure(Throwable caught) {
@@ -96,11 +109,11 @@ public class TypeWidget extends Composite {
 									}
 
 									@Override
-									public void onSuccess(ArrayList<Type> result) {
+									public void onSuccess(ArrayList<Category> result) {
 
 										VerticalPanel vePa1 = new VerticalPanel();
 										// vePa1.add(new Button("---"));
-										for (final Type ty : result) {
+										for (final Category ty : result) {
 											Label tsb = new Label(ty.getTitle());
 											tsb.setStyleName("TypeWidget-Item");
 											tsb.addClickHandler(new ClickHandler() {
@@ -113,6 +126,7 @@ public class TypeWidget extends Composite {
 											});
 
 											vePa1.add(tsb);
+
 										}
 										typeItems.setWidget(vePa1);
 									}
@@ -127,10 +141,11 @@ public class TypeWidget extends Composite {
 
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
+
 						typeItems.setWidget(new Label("Loading..."));
 						RPCHandlerManager.getTypeHandler().getTypeList(
 								innerType,
-								new AsyncCallback<ArrayList<Type>>() {
+								new AsyncCallback<ArrayList<Category>>() {
 
 									@Override
 									public void onFailure(Throwable caught) {
@@ -140,11 +155,11 @@ public class TypeWidget extends Composite {
 									}
 
 									@Override
-									public void onSuccess(ArrayList<Type> result) {
+									public void onSuccess(ArrayList<Category> result) {
 
 										VerticalPanel vePa1 = new VerticalPanel();
 										// vePa1.add(new Button("---"));
-										for (final Type ty : result) {
+										for (final Category ty : result) {
 											Label tsb = new Label(ty.getTitle());
 											tsb.setStyleName("TypeWidget-Item");
 											tsb.addClickHandler(new ClickHandler() {
@@ -174,7 +189,6 @@ public class TypeWidget extends Composite {
 		// root
 		rootB.addMouseOverHandler(new MouseOverHandler() {
 
-			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				openRootArrow();
 			}
@@ -192,13 +206,14 @@ public class TypeWidget extends Composite {
 	}
 
 	
+
 	/**
 	 * Is called if the root arrow is selected
 	 */
 	private void openRootArrow() {
 		typeItems.setWidget(new Label("Loading..."));
 		RPCHandlerManager.getTypeHandler().getTypeList(null,
-				new AsyncCallback<ArrayList<Type>>() {
+				new AsyncCallback<ArrayList<Category>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -207,11 +222,11 @@ public class TypeWidget extends Composite {
 					}
 
 					@Override
-					public void onSuccess(ArrayList<Type> result) {
+					public void onSuccess(ArrayList<Category> result) {
 
 						VerticalPanel vePa1 = new VerticalPanel();
 						// vePa1.add(new Button("---"));
-						for (final Type ty : result) {
+						for (final Category ty : result) {
 
 							Label tsb = new Label(ty.getTitle());
 							tsb.setStyleName("TypeWidget-Item");
@@ -224,6 +239,7 @@ public class TypeWidget extends Composite {
 							});
 
 							vePa1.add(tsb);
+
 						}
 						typeItems.setWidget(vePa1);
 					}

@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Package description for org.tagaprice.server.dao</title>
+</head>
+<body>
+<h1>This package holds the data abstraction layer including interfaces + implementations</h1>
+<h2>Pseudo Code Template for implementing daos (Interface + Implementing Class).</h2>
+<pre>
+class AccountDAO
+{
+ method throws DAOException, IllegalArgumentException {
+  try {
+   checkArgument(args) //throws IllegalArgumentException
+   query.execute //throws SQL Exception
+  } catch SQLException {
+   throw new DAOException
+  }
+ }
+}
+
+
+class AccountHandlerImpl
+{
+ method throws ServerException, IllegalArgumentException {
+   dao.method
+ }
+}
+</pre>
+</body>
+</html>

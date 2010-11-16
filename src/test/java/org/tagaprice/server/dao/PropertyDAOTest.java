@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
+import org.tagaprice.server.dao.postgres.AccountDAO;
+import org.tagaprice.server.dao.postgres.EntityDAO;
+import org.tagaprice.server.dao.postgres.LocaleDAO;
+import org.tagaprice.server.dao.postgres.PropertyDefinitionDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;
@@ -20,7 +24,7 @@ public class PropertyDAOTest {
 	private long uid;
 	private DBConnection db;
 	//private PropertyDAO dao;
-	private EntityDAO dao;
+	private EntityDAO dao; //TODO testing entityDAO in PropertyDAOTest ??
 	private PropertyDefinitionDAO propDefDAO;
 	
 	@Before
@@ -62,7 +66,7 @@ public class PropertyDAOTest {
 	@Test
 	public void testCreate() throws Exception {
 		TestEntity e = new TestEntity(testEntity.getId());
-		dao.get(e);
+		dao.getById(e, e.getId());
 		assertEquals(testEntity, e);
 	}
 	
@@ -76,9 +80,9 @@ public class PropertyDAOTest {
 		TestEntity e1, e2;
 		
 		e1 = new TestEntity(testEntity.getId(), 1);
-		dao.get(e1);
+		dao.getById(e1, e1.getId());
 		e2 = new TestEntity(testEntity.getId(), 2);
-		dao.get(e2);
+		dao.getById(e2, e2.getId());
 		
 		assertEquals(1, e1.getRev());
 		assertEquals(2, e1.getProperties().size());
@@ -92,7 +96,7 @@ public class PropertyDAOTest {
 		dao.save(testEntity);
 		
 		TestEntity newEntity = new TestEntity(testEntity.getId());
-		dao.get(newEntity);
+		dao.getById(newEntity, newEntity.getId());
 		
 		assertEquals(testEntity, newEntity);
 		

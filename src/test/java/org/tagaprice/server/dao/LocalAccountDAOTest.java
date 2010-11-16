@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
+import org.tagaprice.server.dao.postgres.LocalAccountDAO;
+import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.shared.LocalAccountData;
 
 public class LocalAccountDAOTest {

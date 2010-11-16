@@ -40,7 +40,7 @@ import org.tagaprice.shared.PropertyGroup;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Type;
+import org.tagaprice.shared.Category;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
@@ -73,7 +73,7 @@ import org.tagaprice.client.propertyhandler.*;
 public class ShopPage extends APage {
 
 	private ShopData _shopData;
-	private Type _type;
+	private Category _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
@@ -100,7 +100,7 @@ public class ShopPage extends APage {
  * @param shopData
  * @param _type
  */
-	public ShopPage(ShopData shopData, Type _type){
+	public ShopPage(ShopData shopData, Category _type){
 		init(_verticalPanel_1);
 		this._shopData=shopData;
 		this._type=_type;
@@ -412,20 +412,20 @@ public class ShopPage extends APage {
 		_typeWidgetContainer.setWidget(new TypeWidget(_type, new ITypeWidgetHandler() {			
 
 			@Override
-			public void onChange(Type newType) {
+			public void onChange(Category newType) {
 				
 				
 				
 				
 				//Get type and set type
-				RPCHandlerManager.getTypeHandler().get(newType, new AsyncCallback<Type>() {
+				RPCHandlerManager.getTypeHandler().get(newType, new AsyncCallback<Category>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
 					}
 
 					@Override
-					public void onSuccess(Type result) {
+					public void onSuccess(Category result) {
 						_type=result;
 						drawTypeWidget();	
 						registerHandler();

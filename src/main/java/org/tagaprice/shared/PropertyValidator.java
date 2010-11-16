@@ -22,7 +22,7 @@ import org.tagaprice.shared.PropertyDefinition.Datatype;
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Type type, SearchResult<PropertyData> properties){
+	public static boolean isValid(Category type, SearchResult<PropertyData> properties){
 		
 		HashMap<String, ArrayList<PropertyData>> pl = propertyListToHash(properties);
 		PropertyGroup pg = extractPropertyGroupFromType(type);
@@ -107,7 +107,7 @@ public class PropertyValidator {
 		return hashProperties;
 	}
 	
-	private static PropertyGroup extractPropertyGroupFromType(Type type){
+	private static PropertyGroup extractPropertyGroupFromType(Category type){
 		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 		
 		for(PropertyGroup pg:type.getPropertyGroups()){

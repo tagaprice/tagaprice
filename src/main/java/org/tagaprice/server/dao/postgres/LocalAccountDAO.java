@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -12,6 +12,7 @@ import javax.mail.internet.InternetAddress;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.Mail;
+import org.tagaprice.server.dao.DAOClass;
 import org.tagaprice.shared.LocalAccountData;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;

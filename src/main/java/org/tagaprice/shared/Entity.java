@@ -124,7 +124,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be used by EntityDAO
 	 * @param rev new revision
 	 */
-	public void _setRev(int rev) {
+	public void setRev(int rev) {
 		this.rev = rev;
 	}
 	
@@ -137,7 +137,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be called by EntityDAO
 	 * @param creatorId Creator ID
 	 */
-	public void _setCreatorId(Long creatorId) {
+	public void setCreatorId(Long creatorId) {
 		this.creatorId = creatorId;
 	}
 	
@@ -149,7 +149,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be called by EntityDAO
 	 * @param revCreatorId revision's creator ID
 	 */
-	public void _setRevCreatorId(Long revCreatorId) {
+	public void setRevCreatorId(Long revCreatorId) {
 		this.revCreatorId = revCreatorId;
 	}
 	
@@ -161,7 +161,7 @@ public abstract class Entity implements Serializable {
 	 * This method should just be used by EntityDAO
 	 * @param localeId new localeId
 	 */
-	public void _setLocaleId(Integer localeId) {
+	public void setLocaleId(Integer localeId) {
 		this.localeId = localeId;
 	}
 		

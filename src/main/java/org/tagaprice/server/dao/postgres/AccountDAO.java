@@ -12,15 +12,17 @@
  * Filename: AccountDAO.java
  * Date: 21.07.2010
 */
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.DAOClass;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -33,9 +35,9 @@ public class AccountDAO implements DAOClass<AccountData> {
 		entityDAO = new EntityDAO(db) {
 			@Override
 			protected void resolveCreator(Entity e) throws SQLException {
-				e._setCreatorId(e.getId());
-				e._setRevCreatorId(e.getId());
-				PreparedStatement pstmt = db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
+				e.setCreatorId(e.getId());
+				e.setRevCreatorId(e.getId());
+				PreparedStatement pstmt = _db.prepareStatement("INSERT INTO account (uid) VALUES (?)");
 				pstmt.setLong(1, e.getId());
 				pstmt.executeUpdate();
 			}
@@ -50,8 +52,13 @@ public class AccountDAO implements DAOClass<AccountData> {
 		pstmt.setLong(1, account.getId());
 		ResultSet res = pstmt.executeQuery();
 		if (res.next()) {
+			try {
+				entityDAO.getById(account, account.getId());
+			} catch (DAOException e) {
+				//TODO change
+				throw new NotFoundException(e.getMessage(), e);
+			}
 			account.setMail(res.getString("mail"));
-			entityDAO.get(account);
 		}
 		else throw new NotFoundException("account not found: id "+account.getId());
 	}
@@ -61,7 +68,12 @@ public class AccountDAO implements DAOClass<AccountData> {
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
-		entityDAO.save(a);
+		try {
+			entityDAO.save(a);
+		} catch (DAOException e) {
+			//TODO change
+			throw new NotFoundException(e.getMessage(), e);
+		}
 
 		/// TODO mail checking
 		/// TODO if the mail address changes, a confirmation mail has to be sent 

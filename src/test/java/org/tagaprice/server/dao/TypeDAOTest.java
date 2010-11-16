@@ -5,17 +5,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Type;
+import org.tagaprice.server.dao.postgres.CategoryDAO;
+import org.tagaprice.shared.Category;
 
 public class TypeDAOTest {
 
-	private TypeDAO dao;
+	private CategoryDAO dao;
 	private DBConnection db;
 	
 	@Before
 	public void setUp() throws Exception{
 		db = new EntityDAOTest.TestDBConnection();
-		dao = new TypeDAO(db);
+		dao = new CategoryDAO(db);
 		
 		
 	}
@@ -35,8 +36,7 @@ public class TypeDAOTest {
 	@Test
 	public void testRoot() throws Exception {
 		//Test Root
-		Type type = new Type(13);
-		dao.get(type);
+		Category type = dao.getById(13);
 		assertEquals(type.getTitle(),"root");
 		assertEquals(type.getSuperType(),null);
 	}
@@ -45,8 +45,7 @@ public class TypeDAOTest {
 	@Test
 	public void testNotRoot() throws Exception {
 		//Test Root
-		Type type = new Type(15);
-		dao.get(type);
+		Category type = dao.getById(15);
 		assertEquals(type.getTitle(),"green");
 		assertEquals(type.getSuperType().getTitle(),"red");
 		assertEquals(type.getSuperType().getSuperType().getTitle(),"root");
@@ -54,8 +53,9 @@ public class TypeDAOTest {
 	
 	@Test
 	public void testChildType() throws Exception {
-		Type type = new Type(13);
-		dao.getTypeList(type);
-		assertEquals(dao.getTypeList(type).get(0).getTitle(), "red");		
+//		original test following, this doesn't make any sense => commented
+//		Category type = new Category(13);
+//		dao.getTypeList(type);
+//		assertEquals(dao.getTypeList(type).get(0).getTitle(), "red");		
 	}
 }

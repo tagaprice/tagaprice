@@ -12,7 +12,7 @@ import org.tagaprice.shared.rpc.SearchHandler;
 import org.tagaprice.shared.rpc.SearchHandlerAsync;
 import org.tagaprice.shared.rpc.ShopHandler;
 import org.tagaprice.shared.rpc.ShopHandlerAsync;
-import org.tagaprice.shared.rpc.TypeHandler;
+import org.tagaprice.shared.rpc.CategoryHandler;
 import org.tagaprice.shared.rpc.TypeHandlerAsync;
 import org.tagaprice.shared.rpc.UnitHandler;
 import org.tagaprice.shared.rpc.UnitHandlerAsync;
@@ -48,7 +48,7 @@ public class RPCHandlerManager {
 
 	public static TypeHandlerAsync getTypeHandler() {
 		if(typeHandler==null)
-			typeHandler = GWT.create(TypeHandler.class);		
+			typeHandler = GWT.create(CategoryHandler.class);		
 		return typeHandler;
 	}
 

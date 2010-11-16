@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
+import org.tagaprice.server.dao.postgres.UnitDAO;
 import org.tagaprice.shared.Unit;
 
 public class UnitDAOTest {
@@ -34,16 +35,14 @@ public class UnitDAOTest {
 	
 	@Test
 	public void testNoBaseId() throws Exception {
-		Unit test = new Unit(baseunit.getId());
-		dao.get(test);
+		Unit test = dao.getById(baseunit.getId());
 		
 		assertEquals(baseunit.getId(), test.getId());
 	}
 	
 	@Test
 	public void testBaseId() throws Exception{
-		Unit test = new Unit(childUnit.getId());
-		dao.get(test);
+		Unit test = dao.getById(childUnit.getId());
 		assertEquals(test.getId(), childUnit.getId());
 		
 		Unit testBase = new Unit(test.getStandardId());
