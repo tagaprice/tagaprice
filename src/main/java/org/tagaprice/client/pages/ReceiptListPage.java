@@ -7,7 +7,7 @@ import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Level;
 import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -31,10 +31,10 @@ public class ReceiptListPage extends APage {
 		
 		
 		try {
-			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<ReceiptData>>() {
+			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<Receipt>>() {
 				
 				@Override
-				public void onSuccess(ArrayList<ReceiptData> result) {
+				public void onSuccess(ArrayList<Receipt> result) {
 					
 					table = new Grid(result.size()+1,3);
 					int c = 1;
@@ -48,7 +48,7 @@ public class ReceiptListPage extends APage {
 					long totalPrice = 0;
 					
 					//get Rows
-					for(final ReceiptData pd: result){
+					for(final Receipt pd: result){
 						Label title = new Label(pd.getTitle()+": "+pd.getId());
 						if(pd.getDraft())title.setText(title.getText()+" [DRAFT]");
 						table.setWidget(c, 0, title);

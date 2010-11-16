@@ -28,7 +28,7 @@ import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Type;
 
@@ -98,7 +98,7 @@ public class UIManager extends APage {
 
 
 
-	public void showReceipt(final ReceiptData receiptData){
+	public void showReceipt(final Receipt receiptData){
 		waitingPage();
 		ReceiptPage tempReceipt = new ReceiptPage(receiptData, true); 
 		centerPage.setWidget(tempReceipt);

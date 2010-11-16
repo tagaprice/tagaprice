@@ -11,14 +11,14 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.data.Price;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Quantity;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class ReceiptDAO implements DAOClass<ReceiptData> {
+public class ReceiptDAO implements DAOClass<Receipt> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	private ShopDAO shopDAO;
@@ -31,7 +31,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		productDAO = new ProductDAO(db);
 	}
 
-	public void getUserReceipts(ArrayList<ReceiptData> receipt, long uid) throws SQLException, NotFoundException{
+	public void getUserReceipts(ArrayList<Receipt> receipt, long uid) throws SQLException, NotFoundException{
 		PreparedStatement pstmt;
 		
 		String sql = "SELECT rid FROM " +
@@ -48,7 +48,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		ResultSet resSet = pstmt.executeQuery();
 		
 		while(resSet.next()){
-			ReceiptData temp = new ReceiptData(resSet.getLong("rid"));
+			Receipt temp = new Receipt(resSet.getLong("rid"));
 			get(temp);
 			receipt.add(temp);
 		}
@@ -56,7 +56,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	
 	
 	@Override
-	public void get(ReceiptData receipt) throws SQLException, NotFoundException {
+	public void get(Receipt receipt) throws SQLException, NotFoundException {
 		PreparedStatement pstmt;
 		//get Entity Data
 		entityDAO.get(receipt);	
@@ -120,7 +120,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 	}
 
 	@Override
-	public void save(ReceiptData receipt) throws SQLException,
+	public void save(Receipt receipt) throws SQLException,
 			NotFoundException, RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
@@ -169,7 +169,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			pstmt.executeUpdate();
 			
 			//Add new
-			for(Product pd:receipt.getProductData()){
+			for(Product pd:receipt.getProducts()){
 				pstmt = db.prepareStatement("INSERT INTO receiptentry " +
 						"(rid, pid, price) VALUES (?,?,?)");
 				

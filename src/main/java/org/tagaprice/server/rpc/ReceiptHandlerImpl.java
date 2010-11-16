@@ -24,7 +24,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocaleDAO;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ReceiptDAO;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -62,7 +62,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 	
 	@Override
-	public ReceiptData get(ReceiptData data) throws IllegalArgumentException, InvalidLoginException {
+	public Receipt get(Receipt data) throws IllegalArgumentException, InvalidLoginException {
 		
 		
 		try {
@@ -79,10 +79,10 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	}
 	
 	@Override
-	public ArrayList<ReceiptData> getUserReceipts()
+	public ArrayList<Receipt> getUserReceipts()
 			throws IllegalArgumentException, InvalidLoginException {
 		
-		ArrayList<ReceiptData> list = new ArrayList<ReceiptData>();
+		ArrayList<Receipt> list = new ArrayList<Receipt>();
 		
 		try {
 			receiptDao.getUserReceipts(list, loginDao.getId(getSid()));
@@ -98,11 +98,11 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 
 	@Override
-	public ReceiptData save(ReceiptData data) throws IllegalArgumentException, InvalidLoginException {
+	public Receipt save(Receipt data) throws IllegalArgumentException, InvalidLoginException {
 		if(data==null){
 			
 			try {
-				data = new ReceiptData("default title", localeId, loginDao.getId(getSid()), new Date(), 1, null, null, true);
+				data = new Receipt("default title", localeId, loginDao.getId(getSid()), new Date(), 1, null, null, true);
 			} catch (SQLException e) {
 				throw new IllegalArgumentException("SQLException: "+e);
 			}		 

@@ -18,7 +18,7 @@ import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Country;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Type;
 import org.tagaprice.shared.exception.InvalidLoginException;
@@ -63,7 +63,7 @@ public class TaPManager {
 				//TODO Create a Split "=" parser
 				if(historyToken[0].equals("receipt/get")){
 					String[] equalToken = historyToken[1].split("=");
-					TaPMng.showReceiptPage(new ReceiptData(Long.parseLong(equalToken[1])));
+					TaPMng.showReceiptPage(new Receipt(Long.parseLong(equalToken[1])));
 				}else if(historyToken[0].equals("receipt/list")){
 					uiMng.showReceiptsList();
 				}else if(historyToken[0].equals("product/get")){
@@ -254,14 +254,14 @@ public class TaPManager {
 	 * Starts Receipt Page
 	 * @param id
 	 */
-	public void showReceiptPage(ReceiptData data){
+	public void showReceiptPage(Receipt data){
 		uiMng.waitingPage();
 
 		try {
-			RPCHandlerManager.getReceiptHandler().get(data, new AsyncCallback<ReceiptData>() {
+			RPCHandlerManager.getReceiptHandler().get(data, new AsyncCallback<Receipt>() {
 
 				@Override
-				public void onSuccess(ReceiptData result) {
+				public void onSuccess(Receipt result) {
 					uiMng.showReceipt(result);				
 				}
 

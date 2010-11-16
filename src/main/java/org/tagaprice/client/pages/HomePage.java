@@ -19,7 +19,7 @@ import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.ReceiptData;
+import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -73,10 +73,10 @@ public class HomePage extends APage {
 					TaPManager.getInstance().getUIManager().waitingPage();
 										
 					try {
-						RPCHandlerManager.getReceiptHandler().save(null, new AsyncCallback<ReceiptData>() {
+						RPCHandlerManager.getReceiptHandler().save(null, new AsyncCallback<Receipt>() {
 							
 							@Override
-							public void onSuccess(ReceiptData result) {
+							public void onSuccess(Receipt result) {
 								History.newItem("receipt/get&id="+result.getId());
 								
 							}
