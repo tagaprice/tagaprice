@@ -218,4 +218,11 @@ public abstract class Entity implements Serializable {
 				"\nproperties: "+getProperties().toString()+
 				"\n}\n";
 	}
+	
+	/**
+	 * Returns a shallow copy of this object with the revision increased by one. If original revision has been -1, revision of returned object will be set to 0.
+	 * @param <T>
+	 * @return
+	 */
+	public abstract <T extends Entity> T newRevision();
 }

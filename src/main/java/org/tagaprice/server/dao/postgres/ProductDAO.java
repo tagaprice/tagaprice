@@ -80,38 +80,44 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public boolean save(ProductData product) throws DAOException {
+	public ProductData save(ProductData product) throws DAOException {
 		
-		if(!_entityDAO.save(product))
-			return false;
+		ProductData versionedProduct = _entityDAO.save(product);
+		
+		if(versionedProduct == null)
+			return null;
 		
 		PreparedStatement pstmt;
 		try {
-			if (product.getRev() == 1) {
+			if (versionedProduct.getRev() == 1) {
 				// create a new Product
 				pstmt = _db.prepareStatement("INSERT INTO product (prod_id) VALUES (?)");
-				pstmt.setLong(1, product.getId());
+				pstmt.setLong(1, versionedProduct.getId());
 				pstmt.executeUpdate();
 			}
-			else if (product.getRev() < 1) {
+			else if (versionedProduct.getRev() < 1) {
 				throw new DAOException("EntityDAO returned shop with revision < 0!");
 			}
 
 			String sql = "INSERT INTO productRevision (prod_id, rev, brand_id, type_id, imageUrl) VALUES (?, ?, ?, ?, ?)";
 			pstmt = _db.prepareStatement(sql);
-			pstmt.setLong(1, product.getId());
-			pstmt.setInt(2, product.getRev());
+			pstmt.setLong(1, versionedProduct.getId());
+			pstmt.setInt(2, versionedProduct.getRev());
 
-			if (product.getBrandId() != null) pstmt.setLong(3, product.getBrandId());
-			else pstmt.setNull(3, Types.BIGINT);
+			if (versionedProduct.getBrandId() != null) 
+				pstmt.setLong(3, versionedProduct.getBrandId());
+			else 
+				pstmt.setNull(3, Types.BIGINT);
 
-			if (product.getTypeId() != null) pstmt.setLong(4, product.getTypeId());
-			else pstmt.setNull(4, Types.BIGINT);
+			if (versionedProduct.getTypeId() != null) 
+				pstmt.setLong(4, versionedProduct.getTypeId());
+			else 
+				pstmt.setNull(4, Types.BIGINT);
 
-			pstmt.setString(5, product.getImageSrc());
+			pstmt.setString(5, versionedProduct.getImageSrc());
 
 			pstmt.executeUpdate();
-			return false;
+			return versionedProduct;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve unit from database. SQLException: "+e.getMessage()+".";
 			_log.error(msg + " Chaining and rethrowing.");

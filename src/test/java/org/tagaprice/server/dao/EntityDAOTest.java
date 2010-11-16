@@ -93,6 +93,12 @@ public class EntityDAOTest {
 		public String getSerializeName() {
 			return "testEntity";
 		}
+
+		@Override
+		public <T extends Entity> T newRevision() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 	

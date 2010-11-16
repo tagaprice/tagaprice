@@ -71,4 +71,10 @@ public class Currency extends Entity {
 	public boolean equals(Object o) {
 		return super.equals(o);
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

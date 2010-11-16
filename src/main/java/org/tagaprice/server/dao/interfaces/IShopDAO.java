@@ -16,10 +16,10 @@ public interface IShopDAO {
 	/**
 	 * Saves given shop to storage. If successful given shop's revision will be set to the revision in the database.
 	 * @param shop Shop to be saved to storage. If the given shop does not provide an id the revision must be 0. If an id is provided the revision must match the current revision.
-	 * @return True if shop could be saved, false if not.
+	 * @return If successful, returns the actually saved revision of given shop, i.e. it's revision will be set. Otherwise returns null.
 	 * @throws DAOException
 	 */
-	boolean save(ShopData shop) throws DAOException;
+	ShopData save(ShopData shop) throws DAOException;
 
 	/**
 	 * Retrieves shop indicated by given id and given revision.

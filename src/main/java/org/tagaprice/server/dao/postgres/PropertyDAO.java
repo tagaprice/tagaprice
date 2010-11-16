@@ -28,8 +28,9 @@ public class PropertyDAO implements IPropertyDAO {
 	}
 
 	@Override
-	public <T extends Entity> T setProperties(T entity) throws DAOException {
-		_log.debug("entity:"+entity);
+	public SearchResult<PropertyData> getPropertiesByIdAndRef(long id, int rev) throws DAOException {
+		_log.debug("id:"+id);
+		_log.debug("rev:"+rev);
 		UnitDAO unitDAO = new UnitDAO(_db);
 
 		//Get Property Data
@@ -43,8 +44,8 @@ public class PropertyDAO implements IPropertyDAO {
 
 		try {
 			PreparedStatement pstmt = _db.prepareStatement(sql);
-			pstmt.setLong(1, entity.getId());
-			pstmt.setInt(2, entity.getRev());
+			pstmt.setLong(1, id);
+			pstmt.setInt(2, rev);
 			ResultSet res = pstmt.executeQuery();
 
 			SearchResult<PropertyData> props = new SearchResult<PropertyData>();
@@ -65,8 +66,7 @@ public class PropertyDAO implements IPropertyDAO {
 						res.getString("value"), 
 						u));
 			}
-			entity.setProperties(props);
-			return entity;
+			return props;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve entity from database. SQLException: "+e.getMessage()+".";
 			_log.error(msg + " Chaining and rethrowing.");
@@ -76,18 +76,12 @@ public class PropertyDAO implements IPropertyDAO {
 	}
 
 	@Override
-	public boolean save(Entity entity) throws DAOException {
+	public boolean saveProperties(Entity entity) throws DAOException {
 		_log.debug("entity:"+entity);
 		PropertyDefinitionDAO propDefDAO = new PropertyDefinitionDAO(_db);
 
 		// get the entity's properties from the database
-		Entity oldEntity = new Entity(entity.getId()) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getSerializeName() { return null; }
-		};
-		oldEntity = setProperties(oldEntity);
+		SearchResult<PropertyData> oldProperties = getPropertiesByIdAndRef(entity.getId(), 0);
 
 		// store them in a HashMap to speed up finding them by id
 		HashMap<Long, PropertyData> oldProps = new HashMap<Long, PropertyData>();
@@ -100,7 +94,7 @@ public class PropertyDAO implements IPropertyDAO {
 		}
 
 		try {
-			it = oldEntity.getProperties().iterator();
+			it = oldProperties.iterator();
 			while (it.hasNext()) {
 				PropertyData item = it.next();
 
@@ -110,7 +104,9 @@ public class PropertyDAO implements IPropertyDAO {
 					stmt.setInt(1, entity.getRev()-1);
 					stmt.setLong(2, item.getId());
 				}
-				else oldProps.put(item.getId(), item);
+				else {
+					oldProps.put(item.getId(), item);
+				}
 			}
 
 			// find properties that were deleted
@@ -150,7 +146,9 @@ public class PropertyDAO implements IPropertyDAO {
 					if (item.hasUnit()) {
 						pstmt.setLong(4, item.getUnit().getId());
 					}
-					else pstmt.setNull(4, Types.BIGINT);
+					else {
+						pstmt.setNull(4, Types.BIGINT);
+					}
 
 					pstmt.setInt(5, entity.getRev());
 					pstmt.executeUpdate();

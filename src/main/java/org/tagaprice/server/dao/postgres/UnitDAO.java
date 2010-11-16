@@ -25,9 +25,6 @@ import org.tagaprice.server.dao.interfaces.IUnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.InvalidLocaleException;
-import org.tagaprice.shared.exception.NotFoundException;
-import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class UnitDAO implements IUnitDAO{
 	private DBConnection _db;
@@ -78,37 +75,36 @@ public class UnitDAO implements IUnitDAO{
 	}
 	
 	@Override
-	public boolean save(Unit unit) throws DAOException {
+	public Unit save(Unit unit) throws DAOException {
 		_log.debug("Unit:"+unit);
-		Long id = unit.getId();
-		PreparedStatement pstmt;
-
 		try {
-			if (id == null) {
-				_entityDAO.save(unit);
+			PreparedStatement pstmt;
+			if (unit.getId() == null) {
+				Unit versionedUnit = _entityDAO.save(unit);
 				//Create unit
 				pstmt = _db.prepareStatement("INSERT INTO unit (unit_id) VALUES (?)");
-				pstmt.setLong(1, unit.getId());
+				pstmt.setLong(1, versionedUnit.getId());
 				pstmt.executeUpdate();
 
 				//Create unit_revistion
 				pstmt = _db.prepareStatement("INSERT INTO unitrevision (unit_id, rev, factor, base_id) VALUES (?,?,?,?)");
-				pstmt.setLong(1, unit.getId());
-				pstmt.setLong(2, unit.getRev());
+				pstmt.setLong(1, versionedUnit.getId());
+				pstmt.setLong(2, versionedUnit.getRev());
 
 
 				//Base ID is null. This Unit is the base unit (eg. L (liter) is base for liter))
-				if(unit.getStandardId()==null){
+				if(versionedUnit.getStandardId()==null){
 					pstmt.setNull(3, Types.DOUBLE);
 					pstmt.setNull(4, Types.BIGINT); //pstmt.setLong(4yp, unit.getId());
 				}
 				else {
-					pstmt.setDouble(3, unit.getFactor());
-					pstmt.setLong(4, unit.getStandardId());
+					pstmt.setDouble(3, versionedUnit.getFactor());
+					pstmt.setLong(4, versionedUnit.getStandardId());
 				}
 
 
 				pstmt.executeUpdate();
+				return versionedUnit;
 			} else { //TODO this branch doesn't do anything but check if unit is there !?
 				// first check if the entity is a unit
 				pstmt = _db.prepareStatement("SELECT unit_id FROM unitrevision WHERE unit_id = ?");
@@ -120,8 +116,8 @@ public class UnitDAO implements IUnitDAO{
 
 				// check if we have to update the current unit data
 				getById(unit.getId()); //TODO useless code + db access ?
+				return null;
 			}
-			return true;
 		} catch (SQLException e) {
 			String msg = "Failed to save unit to database. SQLException: "+e.getMessage()+".";
 			_log.error(msg + " Chaining and rethrowing.");

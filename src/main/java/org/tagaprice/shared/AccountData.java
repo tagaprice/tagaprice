@@ -110,4 +110,10 @@ public class AccountData extends Entity {
 	public Address getAddress() {
 		return address;
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
