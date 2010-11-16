@@ -19,7 +19,7 @@ import org.tagaprice.shared.Serializable;
 
 /**
  * Defines a type of property
- * **/
+ **/
 public class PropertyTypeDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public class PropertyTypeDefinition extends Entity {
 	}
 	
 	/**
-	 * constructor used for querying the current revision of a PropertyDefinition (using PropertyDefinitionDAO) 
+	 * constructor used for querying the current revision of a PropertyDefinition
 	 * @param id PropertyDefinition ID
 	 */
 	public PropertyTypeDefinition(long id) {
@@ -55,16 +55,16 @@ public class PropertyTypeDefinition extends Entity {
 	}
 	
 	/**
-	 * constructor used for querying a specific revision of a {@link PropertyTypeDefinition} (using {@link PropertyDefinitionDAO})
-	 * @param id PropertyDefinition ID
-	 * @param rev PropertyDefinition revision (has to exist)
+	 * constructor used for querying a specific revision of a {@link PropertyTypeDefinition}
+	 * @param id PropertyTypeDefinition ID
+	 * @param rev PropertyTypeDefinition revision (has to exist)
 	 */
 	public PropertyTypeDefinition(long id, int rev) {
 		super(id, rev);
 	}
 	
 	/**
-	 * constructor used for querying a {@link PropertyTypeDefinition} object by it's name 
+	 * onstructor used for querying a {@link PropertyTypeDefinition} object by it's name 
 	 * @param name property name (e.g. "weight")
 	 * @param localeId locale to query the {@link PropertyTypeDefinition} for
 	 */
@@ -74,15 +74,15 @@ public class PropertyTypeDefinition extends Entity {
 	}
 	
 	/**
-	 * constructor used for creating a new PropertyDefinition (using PropertyDefinitionDAO)
+	 * constructor used for creating a new {@link PropertyTypeDefinition}
 	 * @param name locale-independent property name (e.g. "weight")
-	 * @param title descriptive PropertyDefinition title
+	 * @param title descriptive {@link PropertyTypeDefinition} title
 	 * @param localeId locale ID
-	 * @param creatorId PropertyDefinition creator
-	 * @param type PropertyDefinition type
+	 * @param creatorId {@link PropertyTypeDefinition} creator
+	 * @param type {@link PropertyTypeDefinition} datatype
 	 * @param minValue minimum property value (may be null)
 	 * @param maxValue maximum property value (may be null)
-	 * @param unit property unit 
+	 * @param unit unit of this {@link PropertyTypeDefinition}
 	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links) 
 	 */
 	public PropertyTypeDefinition(String name, String title, int localeId, long creatorId, Datatype type, Integer minValue, Integer maxValue, Unit unit, boolean unique) {
@@ -96,13 +96,13 @@ public class PropertyTypeDefinition extends Entity {
 	}
 	
 	/**
-	 * constructor used for saving a new PropertyDefinition revision (using PropertyDefinitionDAO)
-	 * @param id PropertyDefinition ID
+	 * constructor used for saving a new {@link PropertyTypeDefinition} revision
+	 * @param id {@link PropertyTypeDefinition} ID
 	 * @param rev current revision (will be checked by ProperyDefinitionDAO to detect concurrent write attempts)
 	 * @param name (new) locale-independent property name (e.g. "weight")
 	 * @param title (new) descriptive PropertyDefinition title
 	 * @param creatorId revision's creator
-	 * @param type (new) PropertyDefinition type
+	 * @param type (new) {@link PropertyTypeDefinition} datatype
 	 * @param minValue (new) minimum property value (may be null)
 	 * @param maxValue (new) maximum property value (may be null)
 	 * @param unit (new) property unit 
@@ -118,66 +118,106 @@ public class PropertyTypeDefinition extends Entity {
 		this.unique = unique;
 	}
 
+	/**
+	 * @return true, if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links)
+	 */
 	public boolean isUnique() {
 		return unique;
 	}
 
+	/**
+	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links)
+	 */
 	public void setUnique(boolean unique) {
 		this.unique = unique;
 	}
 
+	/**
+	 * @return name of this {@link PropertyTypeDefinition} (e.g. "weight")
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * @param name name of this {@link PropertyTypeDefinition} (e.g. "weight")
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-
+	/**
+	 * @return the {@link Datatype} of this {@link PropertyTypeDefinition}
+	 */
 	public Datatype getType() {
 		return type;
 	}
 
+	/**
+	 * @param type the {@link Datatype} of this {@link PropertyTypeDefinition}
+	 */
 	public void setType(Datatype type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return minimum property value (may be null)
+	 */
 	public Integer getMinValue() {
 		return minValue;
 	}
 	
+	/**
+	 * @return true, if the minimum value is set
+	 */
 	public boolean hasMinValue() {
 		return minValue != null;
 	}
 
+	/**
+	 * @param minValue minimum property value (may be null)
+	 */
 	public void setMinValue(Integer minValue) {
 		this.minValue = minValue;
 	}
 
+	/**
+	 * @return maximum property value (may be null)
+	 */
 	public Integer getMaxValue() {
 		return maxValue;
 	}
 	
+	/**
+	 * @return true, if the maximum value is set
+	 */
 	public boolean hasMaxValue() {
 		return maxValue != null;
 	}
 
+	/**
+	 * @param maxValue maximum property value (may be null)
+	 */
 	public void setMaxValue(Integer maxValue) {
 		this.maxValue = maxValue;
 	}
 
+	/**
+	 * @return {@link Unit} of this {@link PropertyTypeDefinition}
+	 */
 	public Unit getUnit() {
 		return unit;
 	}
 
+	/**
+	 * @param unit property {@link Unit}
+	 */
 	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
 		return "propertyDefinition";
 	}
 	
