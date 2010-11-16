@@ -113,7 +113,7 @@ public class EntityDAO implements IEntityDAO {
 				newVersion = newEntity(entity);
 			} else {
 //				TODO compare entity differently
-				Entity oldVersion = getEntity(entity.getId()); 
+//				Entity oldVersion = getEntity(entity.getId()); 
 //				if (!entity.equals(oldVersion)) { // it should not be possible to save a entity under the wrong ent_id
 //					// they differ => save changes
 					newVersion = newRevision(entity);

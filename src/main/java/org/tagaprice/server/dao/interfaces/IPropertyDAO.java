@@ -7,12 +7,7 @@ import org.tagaprice.shared.exception.DAOException;
 
 public interface IPropertyDAO {
 
-	/**
-	 * Uses given entity to retrieve a entity with properties set. 
-	 * @param entity Entity to get information from. Given entity's id and revision must be set.
-	 * @return Entity equal to the one given, besides that the one returned has its properties set.
-	 * @throws DAOException
-	 */
+	
 //	<T extends Entity> T getPropertiesByIdAndRef(T entity) throws DAOException;
 
 	/**
@@ -23,6 +18,12 @@ public interface IPropertyDAO {
 	 */
 	boolean saveProperties(Entity property) throws DAOException;
 
-	SearchResult<PropertyData> getPropertiesByIdAndRef(long id, int rev)
-			throws DAOException;
+	/**
+	 * Retrieves properties for given entityId and entityRev. 
+	 * @param entityId Id of entity to find properties for.
+	 * @param entityRev Id of entity to find properties for.
+	 * @return Returns the properties for given entityId and entityRev, can be empty but never null.
+	 * @throws DAOException
+	 */
+	SearchResult<PropertyData> getPropertiesByIdAndRef(long entityId, int entityRev) throws DAOException;
 }

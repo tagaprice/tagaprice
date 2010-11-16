@@ -53,11 +53,7 @@ public class PropertyDAO implements IPropertyDAO {
 			while(res.next()) {
 				Unit u = null;
 				if (res.getString("unit_id") != null) {
-					try {
-						u = unitDAO.getById(res.getLong("unit_id"));
-					} catch (DAOException e) {
-						//TODO handle
-					}
+					u = unitDAO.getById(res.getLong("unit_id"));
 				}
 				props.add(new PropertyData(
 						res.getLong("eprop_id"),
@@ -76,7 +72,7 @@ public class PropertyDAO implements IPropertyDAO {
 	}
 
 	@Override
-	public boolean saveProperties(Entity entity) throws DAOException {
+	public boolean saveProperties(Entity entity) throws DAOException { 	//TODO reimplement method
 		_log.debug("entity:"+entity);
 		PropertyDefinitionDAO propDefDAO = new PropertyDefinitionDAO(_db);
 
