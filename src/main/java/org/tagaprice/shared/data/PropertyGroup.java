@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import org.tagaprice.shared.Serializable;
 
 /**
- * A property group contains the definitions of the group members 
+ * A {@link PropertyGroup} contains the definitions of the group members 
  * used in the Page-Widgets for handler  
- * e.g. NutritionFacts is a group consisting of the PropertyDefinition for the Property "sugar", "fat", etc
- * 
- * **/
+ * e.g. NutritionFacts is a group consisting of the {@link PropertyTypeDefinition} for the Property "sugar", "fat", etc
+ **/
 public class PropertyGroup implements Serializable {
+	
+	/** TODO move to own file, maybe refactor so this is not needed anymore (more dynamic allocation of {@link PropertyGroup}s... */
 	public enum GroupType implements Serializable {
 		LIST, NUTRITIONFACTS;
 
@@ -33,54 +34,78 @@ public class PropertyGroup implements Serializable {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String title;
 	private GroupType type;
 	private ArrayList<PropertyTypeDefinition>  groupElements;
 	
-	public PropertyGroup() {
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * Default constructor needed for serialization.
+	 */
+	public PropertyGroup() { }
 	
-	public PropertyGroup(String title, GroupType type, ArrayList<PropertyTypeDefinition>  groupElements){
+	/**
+	 * Create a new {@link PropertyGroup}
+	 * @param title title of this {@link PropertyGroup}
+	 * @param type {@link GroupType} of this {@link PropertyGroup}
+	 * @param groupElements list of {@link PropertyTypeDefinition}s in this {@link PropertyGroup}
+	 */
+	public PropertyGroup(String title, GroupType type, ArrayList<PropertyTypeDefinition> groupElements) {
 		this(title, type);
 		this.groupElements = groupElements;
 	}
 	
-	public PropertyGroup(String title, GroupType type){
+	/**
+	 * Create a new {@link PropertyGroup} without any {@link PropertyTypeDefinition} elements
+	 * @param title title of this {@link PropertyGroup}
+	 * @param type {@link GroupType} of this {@link PropertyGroup}
+	 */
+	public PropertyGroup(String title, GroupType type) {
 		this.type=type;
 		this.title=title;
 		groupElements = new ArrayList<PropertyTypeDefinition>();
 	}
 	
-	public void addGroupElement(PropertyTypeDefinition propDef){
-		groupElements.add(propDef);
+	/**
+	 * @param propertyTypeDefinition add this {@link PropertyTypeDefinition}
+	 * to the elements of this {@link PropertyGroup}
+	 */
+	public void addGroupElement(PropertyTypeDefinition propertyTypeDefinition) {
+		groupElements.add(propertyTypeDefinition);
 	}
 	
-	public void addGroupElements(ArrayList<PropertyTypeDefinition> propDefs){
-		groupElements.addAll(propDefs);
+	/**
+	 * @param propertyTypeDefinition add all {@link PropertyTypeDefinition}s
+	 * to the elements of this {@link PropertyGroup}
+	 */
+	public void addGroupElements(ArrayList<PropertyTypeDefinition> propertyTypeDefinition) {
+		groupElements.addAll(propertyTypeDefinition);
 	}
 	
-	public ArrayList<PropertyTypeDefinition> getGroupElements(){
+	/**
+	 * @return all {@link PropertyTypeDefinition} elements of this {@link PropertyGroup}.
+	 */
+	public ArrayList<PropertyTypeDefinition> getGroupElements() {
 		return groupElements;
 	}
 
+	/**
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @return the type
+	 */
 	public GroupType getType() {
 		return type;
 	}
 
+	
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
 		return "PropertyGroup";
 	}
-	
-	
 }
