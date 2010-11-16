@@ -30,7 +30,7 @@ import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -113,13 +113,13 @@ public class UIManager extends APage {
 	}
 
 
-	public void showProduct(Product productData, Type type){
+	public void showProduct(Product productData, Category type){
 		waitingPage();
 		currentPage = new ProductPage(productData,type);
 		centerPage.setWidget(currentPage);
 	}
 
-	public void showShop(Shop shopData, Type type){
+	public void showShop(Shop shopData, Category type){
 		waitingPage();
 		currentPage = new ShopPage(shopData, type);
 		centerPage.setWidget(currentPage);

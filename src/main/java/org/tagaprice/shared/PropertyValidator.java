@@ -20,13 +20,13 @@ import java.util.HashMap;
 import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.PropertyGroup;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Type type, SearchResult<Property> properties){
+	public static boolean isValid(Category type, SearchResult<Property> properties){
 		
 		HashMap<String, ArrayList<Property>> pl = propertyListToHash(properties);
 		PropertyGroup pg = extractPropertyGroupFromType(type);
@@ -111,7 +111,7 @@ public class PropertyValidator {
 		return hashProperties;
 	}
 	
-	private static PropertyGroup extractPropertyGroupFromType(Type type){
+	private static PropertyGroup extractPropertyGroupFromType(Category type){
 		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 		
 		for(PropertyGroup pg:type.getPropertyGroups()){

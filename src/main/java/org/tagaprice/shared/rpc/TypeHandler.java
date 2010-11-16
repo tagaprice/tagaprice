@@ -16,13 +16,13 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc/type")
 public interface TypeHandler extends RemoteService {
-	Type get(Type type) throws IllegalArgumentException;
-	ArrayList<Type> getTypeList(Type type) throws IllegalArgumentException;
+	Category get(Category type) throws IllegalArgumentException;
+	ArrayList<Category> getTypeList(Category type) throws IllegalArgumentException;
 }

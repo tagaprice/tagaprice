@@ -8,7 +8,7 @@ import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -57,7 +57,7 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 		// TODO Auto-generated method stub		
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		
-		if(PropertyValidator.isValid(th.get(new Type(data.getTypeId())), data.getProperties())){		
+		if(PropertyValidator.isValid(th.get(new Category(data.getTypeId())), data.getProperties())){		
 			try {				
 				data._setCreatorId(loginDao.getId(getSid()));
 				sDao.save(data);				

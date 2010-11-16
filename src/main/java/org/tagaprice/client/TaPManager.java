@@ -20,7 +20,7 @@ import org.tagaprice.shared.data.Country;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Receipt;
 import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.code.gwt.geolocation.client.Geolocation;
@@ -124,10 +124,10 @@ public class TaPManager {
 
 					
 					//TODO set new Type("root", 9, 1, null) to new Type(1)
-					RPCHandlerManager.getTypeHandler().get(new Type(pResult.getTypeId()), new AsyncCallback<Type>() {
+					RPCHandlerManager.getTypeHandler().get(new Category(pResult.getTypeId()), new AsyncCallback<Category>() {
 
 						@Override
-						public void onSuccess(Type tResult) {
+						public void onSuccess(Category tResult) {
 							uiMng.showProduct(pResult, tResult);
 						}
 
@@ -163,7 +163,7 @@ public class TaPManager {
 	public void newProductPage(String title) {
 		uiMng.waitingPage();
 		
-		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
+		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Category>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -171,7 +171,7 @@ public class TaPManager {
 			}
 
 			@Override
-			public void onSuccess(Type result) {
+			public void onSuccess(Category result) {
 				Product pd3 = new Product("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
 				uiMng.showProduct(pd3, result);	
 			}
@@ -196,10 +196,10 @@ public class TaPManager {
 			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
 			public void onSuccess(final Shop result) {
-				RPCHandlerManager.getTypeHandler().get(new Type(result.getTypeId()), new AsyncCallback<Type>() {
+				RPCHandlerManager.getTypeHandler().get(new Category(result.getTypeId()), new AsyncCallback<Category>() {
 
 					@Override
-					public void onSuccess(Type tResult) {
+					public void onSuccess(Category tResult) {
 						uiMng.showShop(result, tResult);
 					}
 
@@ -229,7 +229,7 @@ public class TaPManager {
 		uiMng.waitingPage();
 		
 		
-		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Type>() {
+		RPCHandlerManager.getTypeHandler().get(null, new AsyncCallback<Category>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -237,7 +237,7 @@ public class TaPManager {
 			}
 
 			@Override
-			public void onSuccess(Type result) {
+			public void onSuccess(Category result) {
 				Shop sd = new Shop("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
 				
 				uiMng.showShop(sd,result);

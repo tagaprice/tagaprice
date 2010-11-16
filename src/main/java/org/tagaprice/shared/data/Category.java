@@ -16,87 +16,103 @@ package org.tagaprice.shared.data;
 
 import java.util.ArrayList;
 
-public class Type extends Entity {
+/**
+ * Categories are used to display and format {@link PropertyGroup}s on {@link Product}- and {@link Shop} pages.
+ */
+public class Category extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private Type superType;
-	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
+	private Category superCategory;
+	private ArrayList<PropertyGroup> propertyGroups = new ArrayList<PropertyGroup>();
 	
 	/**
 	 * default constructor (needed for serialization)
 	 */
-	public Type() {
+	public Category() {
 		super();
 	}
 	
 	/**
-	 * constructor for querying a Type (using TypeDAO)
-	 * @param id Type ID
+	 * Constructor for querying a {@link Category}.
+	 * @param id {@link Category} ID
 	 */
-	public Type(long id) {
+	public Category(long id) {
 		super(id);
 	}
 	
 	/**
-	 * constructor for querying a specific Type revision (using TypeDAO) 
-	 * @param id Type ID
-	 * @param rev Type revision
+	 * Constructor for querying a specific {@link Category} revision. 
+	 * @param id {@link Category} ID
+	 * @param rev {@link Category} revision
 	 */
-	public Type(long id, int rev) {
+	public Category(long id, int rev) {
 		super(id, rev);
 	}
 	
 	/**
-	 * constructor for saving a new Type (using TypeDAO)
-	 * @param title descriptive Type name
-	 * @param localeId Type's locale
-	 * @param creatorId Type's creator (usually the currently logged in User)
-	 * @param superType reference to a supertype (may be null)
+	 * Constructor for saving a new {@link Category}.
+	 * @param title descriptive {@link Category} name
+	 * @param localeId {@link Category}'s locale
+	 * @param creatorId {@link Category}'s creator (usually the currently logged in User)
+	 * @param superCategory reference to a superCategory (may be null)
 	 */
-	public Type(String title, int localeId, long creatorId, Type superType) {
+	public Category(String title, int localeId, long creatorId, Category superCategory) {
 		super(title, localeId, creatorId);
-		this.superType = superType;
+		this.superCategory = superCategory;
 	}
 	
 	/**
-	 * constructor for saving changes of an existing Type (using TypeDAO)
-	 * @param typeId Type ID
-	 * @param rev Type revision (will be checked by TypeDAO to prevent concurrent write attempts)
-	 * @param title (new) descriptive Type name
-	 * @param creatorId Type revision's creator (usually the currently logged in User)
-	 * @param superType (new) reference to a supertype (may be null)
+	 * Constructor for saving changes of an existing {@link Category}.
+	 * @param id {@link Category} ID
+	 * @param rev {@link Category} revision (will be checked by TypeDAO to prevent concurrent write attempts)
+	 * @param title (new) descriptive {@link Category} name
+	 * @param creatorId {@link Category}'s creator (usually the currently logged in User)
+	 * @param superCategory (new) reference to a superCategory (may be null)
 	 */
-	public Type(long typeId, int rev, String title, long creatorId, Type superType) {
-		super(typeId, rev, title, creatorId);
-		this.superType = superType;
+	public Category(long id, int rev, String title, long creatorId, Category superType) {
+		super(id, rev, title, creatorId);
+		this.superCategory = superType;
 	}
 	
+	/**
+	 * @return all {@link PropertyGroup}s of this {@link Category}.
+	 */
 	public ArrayList<PropertyGroup> getPropertyGroups(){
-		return properties;
+		return propertyGroups;
 	}
 	
-	public void addPropertyGroups(ArrayList<PropertyGroup> properties){
-		for(PropertyGroup p: properties)
-		properties.add(p);
+	/**
+	 * @param propertyGroups add all of this {@link PropertyGroup}s.
+	 */
+	public void addPropertyGroups(ArrayList<PropertyGroup> propertyGroups){
+		for(PropertyGroup p: propertyGroups)
+		propertyGroups.add(p);
 	}
 	
-	public void addPropertyGroup(PropertyGroup property){
-		properties.add(property);
+	/**
+	 * @param propertyGroup add this {@link PropertyGroup}.
+	 */
+	public void addPropertyGroup(PropertyGroup propertyGroup){
+		propertyGroups.add(propertyGroup);
 	}
 	
-	
-	public Type getSuperType(){
-		return superType;
+	/**
+	 * @return the superCategory (may be null).
+	 */
+	public Category getSuperCategory(){
+		return superCategory;
 	}
 	
-	public void setSuperType(Type superType){
-		this.superType=superType;
+	/**
+	 * @param superCategory the superCategory of this Category (may be null).
+	 */
+	public void setSuperCategory(Category superCategory){
+		this.superCategory = superCategory;
 	}
 
 	@Override
 	public String getSerializeName() {
-		// TODO Auto-generated method stub
-		return "unit";
+		return "category";
 	}
 	
 	// TODO implement missing Type.equals()

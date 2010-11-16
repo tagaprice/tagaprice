@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.PropertyGroup;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class TypeDAO implements DAOClass<Type> {
+public class TypeDAO implements DAOClass<Category> {
 	protected DBConnection db;
 	private EntityDAO entityDAO;
 	private PropertyDefinitionDAO propDAO;
@@ -38,20 +38,20 @@ public class TypeDAO implements DAOClass<Type> {
 		propDAO = new PropertyDefinitionDAO(db);
 	}
 	
-	public void get(Type type) throws SQLException, NotFoundException, NotFoundException{
+	public void get(Category type) throws SQLException, NotFoundException, NotFoundException{
 		
 		
 		getRec(type,0);
 		
 	}
 	
-	private void getRec(Type type, int c) throws SQLException, NotFoundException, NotFoundException{
+	private void getRec(Category type, int c) throws SQLException, NotFoundException, NotFoundException{
 		
 		
 		
 		entityDAO.get(type);
 		
-		type.setSuperType(null);
+		type.setSuperCategory(null);
 		String sql = "SELECT parent_id FROM typerevision tr " +
 				"INNER JOIN entity en " +
 				"ON en.ent_id=tr.type_id AND en.current_revision=tr.rev " +
@@ -64,12 +64,12 @@ public class TypeDAO implements DAOClass<Type> {
 		
 		
 		if(res.next()){
-			Type sType = new Type(res.getLong("parent_id"));
+			Category sType = new Category(res.getLong("parent_id"));
 
 			c=c+1;
 			getRec(sType, c);
 			c=c-1;
-			type.setSuperType(sType);
+			type.setSuperCategory(sType);
 		}
 		
 		
@@ -113,12 +113,12 @@ public class TypeDAO implements DAOClass<Type> {
 	}
 	
 	
-	public ArrayList<Type> getTypeList(Type type) throws SQLException, NotFoundException, NotFoundException{
+	public ArrayList<Category> getTypeList(Category type) throws SQLException, NotFoundException, NotFoundException{
 		
-		if(type==null) type = new Type(13);
+		if(type==null) type = new Category(13);
 		
 		entityDAO.get(type);
-		ArrayList<Type> types = new ArrayList<Type>();
+		ArrayList<Category> types = new ArrayList<Category>();
 		
 		
 		String sql = "SELECT type_id FROM typerevision tr " +
@@ -132,7 +132,7 @@ public class TypeDAO implements DAOClass<Type> {
 		ResultSet res = pstmt.executeQuery();
 		
 		while(res.next()){
-			Type tType = new Type(res.getLong("type_id"));
+			Category tType = new Category(res.getLong("type_id"));
 			entityDAO.get(tType);
 			
 			types.add(tType);
@@ -156,7 +156,7 @@ public class TypeDAO implements DAOClass<Type> {
 	}
 
 	@Override
-	public void save(Type entity) throws SQLException, NotFoundException,
+	public void save(Category entity) throws SQLException, NotFoundException,
 			RevisionCheckException, InvalidLocaleException {
 		// TODO Auto-generated method stub
 		

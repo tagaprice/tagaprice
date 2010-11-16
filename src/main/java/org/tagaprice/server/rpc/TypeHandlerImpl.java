@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.TypeDAO;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.TypeHandler;
 
@@ -48,12 +48,12 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	
 	
 	@Override
-	public Type get(Type type) throws IllegalArgumentException {
+	public Category get(Category type) throws IllegalArgumentException {
 		
 		
 		//TODO throw exceptions to UI
 		try {
-			if(type==null)type=new Type(typeDAO.getRootTypeId());
+			if(type==null)type=new Category(typeDAO.getRootTypeId());
 			typeDAO.get(type);
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);
@@ -71,13 +71,13 @@ public class TypeHandlerImpl extends RemoteServiceServlet implements TypeHandler
 	
 	
 	@Override
-	public ArrayList<Type> getTypeList(Type type)
+	public ArrayList<Category> getTypeList(Category type)
 			throws IllegalArgumentException {
 		
 		
 		//TODO throw exceptions to UI
 		try {
-			if(type==null)type=new Type(typeDAO.getRootTypeId());
+			if(type==null)type=new Category(typeDAO.getRootTypeId());
 			return typeDAO.getTypeList(type);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

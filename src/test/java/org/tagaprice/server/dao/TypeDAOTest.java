@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 
 public class TypeDAOTest {
 
@@ -35,26 +35,26 @@ public class TypeDAOTest {
 	@Test
 	public void testRoot() throws Exception {
 		//Test Root
-		Type type = new Type(13);
+		Category type = new Category(13);
 		dao.get(type);
 		assertEquals(type.getTitle(),"root");
-		assertEquals(type.getSuperType(),null);
+		assertEquals(type.getSuperCategory(),null);
 	}
 	
 	
 	@Test
 	public void testNotRoot() throws Exception {
 		//Test Root
-		Type type = new Type(15);
+		Category type = new Category(15);
 		dao.get(type);
 		assertEquals(type.getTitle(),"green");
-		assertEquals(type.getSuperType().getTitle(),"red");
-		assertEquals(type.getSuperType().getSuperType().getTitle(),"root");
+		assertEquals(type.getSuperCategory().getTitle(),"red");
+		assertEquals(type.getSuperCategory().getSuperCategory().getTitle(),"root");
 	}
 	
 	@Test
 	public void testChildType() throws Exception {
-		Type type = new Type(13);
+		Category type = new Category(13);
 		dao.getTypeList(type);
 		assertEquals(dao.getTypeList(type).get(0).getTitle(), "red");		
 	}

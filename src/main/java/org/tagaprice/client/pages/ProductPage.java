@@ -40,7 +40,7 @@ import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyGroup;
-import org.tagaprice.shared.data.Type;
+import org.tagaprice.shared.data.Category;
 import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -63,7 +63,7 @@ public class ProductPage extends APage {
 
 	private Product productData;
 	private HashMap<String, ArrayList<Property>> hashProperties = new HashMap<String, ArrayList<Property>>();
-	private Type type;
+	private Category type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
 	private ArrayList<IPropertyHandler> handlerList = new ArrayList<IPropertyHandler>();
@@ -73,7 +73,7 @@ public class ProductPage extends APage {
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
 	
-	public ProductPage(Product _productData, Type _type) {
+	public ProductPage(Product _productData, Category _type) {
 		init(vePa1);
 		this.productData=_productData;
 		
@@ -190,18 +190,18 @@ public class ProductPage extends APage {
 	private void drawTypeWidget(){
 		typeWidgetContainer.setWidget(new TypeWidget(type, new TypeWidgetHandler() {			
 			@Override
-			public void onChange(Type newType) {	
+			public void onChange(Category newType) {	
 				
 				
 				//Get type and set type
-				RPCHandlerManager.getTypeHandler().get(newType, new AsyncCallback<Type>() {
+				RPCHandlerManager.getTypeHandler().get(newType, new AsyncCallback<Category>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						showInfo("ProductPage getTypeError", BoxType.WARNINGBOX);
 					}
 
 					@Override
-					public void onSuccess(Type result) {
+					public void onSuccess(Category result) {
 						type=result;
 						drawTypeWidget();	
 						registerHandler();

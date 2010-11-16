@@ -71,7 +71,7 @@ public class Shop extends Entity {
 	}
 	
 	/**
-	 * Constructor to create a specific revision of a {@link Shop} (used by DAOs usually) 
+	 * Constructor for saving changes of an existing {@link Shop}. 
 	 * @param id Shop ID
 	 * @param rev Shop revision
 	 * @param title descriptive Shop Name (must not be empty)
