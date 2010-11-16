@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class ConfirmRegistrationPage extends APage {
 
-	SimplePanel _siPa1 = new SimplePanel();
+	private SimplePanel _siPa1 = new SimplePanel();
 	private LocalAccountHandlerAsync _userHandler = RPCHandlerManager
 			.getLocalAccountHandler();
 
