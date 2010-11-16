@@ -33,7 +33,7 @@ public abstract class Entity implements Serializable {
 	private Long revCreatorId = null;
 
 	/** TODO {@link SearchResult} is used as a list for properties. this may should be refactored... */
-	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
+	private SearchResult<Property> properties = new SearchResult<Property>(); 
 
 	/**
 	 * default constructor (required for serialization)
@@ -200,14 +200,14 @@ public abstract class Entity implements Serializable {
 	/**
 	 * @return the properties of this entity
 	 */
-	public SearchResult<PropertyData> getProperties() {
+	public SearchResult<Property> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(SearchResult<PropertyData> properties) {
+	public void setProperties(SearchResult<Property> properties) {
 		this.properties = properties;
 	}
 	

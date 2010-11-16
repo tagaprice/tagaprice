@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import org.tagaprice.client.widgets.HorizontalInfoWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
-import org.tagaprice.shared.data.PropertyData;
-import org.tagaprice.shared.data.PropertyDefinition;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.Property;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -29,14 +29,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListPropertyItem extends Composite {
 	VerticalPanel vePa1 = new VerticalPanel();
-	PropertyDefinition definition;
-	ArrayList<PropertyData> propertyData;
+	PropertyTypeDefinition definition;
+	ArrayList<Property> propertyData;
 	PropertyChangeHandler handler;
 	
 	
 	public ListPropertyItem(
-			PropertyDefinition definition, 
-			ArrayList<PropertyData> propertyData) {
+			PropertyTypeDefinition definition, 
+			ArrayList<Property> propertyData) {
 		this.definition=definition;
 		this.propertyData=propertyData;
 		
@@ -51,13 +51,13 @@ public class ListPropertyItem extends Composite {
 	}
 	
 	private void fillItems(){	
-		for(PropertyData pd:propertyData){
+		for(Property pd:propertyData){
 			addItem(pd);
 			pd.setRead(true);
 		}
 		
 		if(propertyData.isEmpty() || !definition.isUnique()){			
-			addItem(new PropertyData(
+			addItem(new Property(
 					definition.getName(), 
 					definition.getTitle(),
 					"", 
@@ -66,7 +66,7 @@ public class ListPropertyItem extends Composite {
 		}	
 	}
 	
-	private void addItem(final PropertyData pdCp){
+	private void addItem(final Property pdCp){
 		
 		final HorizontalInfoWidget temp = new HorizontalInfoWidget();
 		temp.setStyleName("DefaultPropertyHandler");
@@ -86,7 +86,7 @@ public class ListPropertyItem extends Composite {
 					if(!definition.isUnique() ){						
 						//propertyData.add(pdCp);
 						
-						addItem(new PropertyData(
+						addItem(new Property(
 								definition.getName(), 
 								definition.getTitle(), 
 								"", 

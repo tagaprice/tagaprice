@@ -13,7 +13,7 @@
  * Date: 14.05.2010
 */
 package org.tagaprice.client.widgets;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;

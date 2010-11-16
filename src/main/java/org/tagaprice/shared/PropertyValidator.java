@@ -17,18 +17,18 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.shared.data.PropertyData;
-import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.Property;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.PropertyGroup;
 import org.tagaprice.shared.data.Type;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Type type, SearchResult<PropertyData> properties){
+	public static boolean isValid(Type type, SearchResult<Property> properties){
 		
-		HashMap<String, ArrayList<PropertyData>> pl = propertyListToHash(properties);
+		HashMap<String, ArrayList<Property>> pl = propertyListToHash(properties);
 		PropertyGroup pg = extractPropertyGroupFromType(type);
 		
 		//TestCount
@@ -46,9 +46,9 @@ public class PropertyValidator {
 		return true;
 	}
 	
-	private static boolean testCount(PropertyGroup pg, HashMap<String, ArrayList<PropertyData>> pl){
+	private static boolean testCount(PropertyGroup pg, HashMap<String, ArrayList<Property>> pl){
 		
-		for(PropertyDefinition pd:pg.getGroupElements()){
+		for(PropertyTypeDefinition pd:pg.getGroupElements()){
 			if(pl.get(pd.getName())!=null 
 					&& pd.isUnique()
 					&& pl.get(pd.getName()).size()>1){
@@ -61,11 +61,11 @@ public class PropertyValidator {
 	}
 	
 	
-	private static boolean testInt(PropertyGroup pg,HashMap<String, ArrayList<PropertyData>> pl){
+	private static boolean testInt(PropertyGroup pg,HashMap<String, ArrayList<Property>> pl){
 		
-		for(PropertyDefinition pd:pg.getGroupElements()){
+		for(PropertyTypeDefinition pd:pg.getGroupElements()){
 			if(pd.getType().equals(Datatype.INT) && pl.get(pd.getName())!=null){
-				for(PropertyData pDa:pl.get(pd.getName())){		
+				for(Property pDa:pl.get(pd.getName())){		
 					try{
 						Integer.parseInt(pDa.getValue());
 					} 
@@ -80,11 +80,11 @@ public class PropertyValidator {
 		return true;
 	}
 	
-	private static boolean testDouble(PropertyGroup pg,HashMap<String, ArrayList<PropertyData>> pl){
+	private static boolean testDouble(PropertyGroup pg,HashMap<String, ArrayList<Property>> pl){
 		
-		for(PropertyDefinition pd:pg.getGroupElements()){
+		for(PropertyTypeDefinition pd:pg.getGroupElements()){
 			if(pd.getType().equals(Datatype.DOUBLE) && pl.get(pd.getName())!=null){
-				for(PropertyData pDa:pl.get(pd.getName())){		
+				for(Property pDa:pl.get(pd.getName())){		
 					try{
 						Double.parseDouble(pDa.getValue());
 					} 
@@ -99,11 +99,11 @@ public class PropertyValidator {
 		return true;
 	}
 	
-	private static HashMap<String, ArrayList<PropertyData>> propertyListToHash(SearchResult<PropertyData> properties){
-		HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
-		for(PropertyData pd:properties){
+	private static HashMap<String, ArrayList<Property>> propertyListToHash(SearchResult<Property> properties){
+		HashMap<String, ArrayList<Property>> hashProperties = new HashMap<String, ArrayList<Property>>();
+		for(Property pd:properties){
 			if(hashProperties.get(pd.getName())==null){
-				hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+				hashProperties.put(pd.getName(), new ArrayList<Property>());
 			}			
 			hashProperties.get(pd.getName()).add(pd);
 		}
@@ -115,7 +115,7 @@ public class PropertyValidator {
 		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 		
 		for(PropertyGroup pg:type.getPropertyGroups()){
-			for(PropertyDefinition pd:pg.getGroupElements()){
+			for(PropertyTypeDefinition pd:pg.getGroupElements()){
 				returnVal.addGroupElement(pd);
 			}
 		}

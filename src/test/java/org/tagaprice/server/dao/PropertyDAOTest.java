@@ -9,13 +9,13 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.data.Account;
-import org.tagaprice.shared.data.PropertyData;
-import org.tagaprice.shared.data.PropertyDefinition;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.Property;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 public class PropertyDAOTest {
 	private TestEntity testEntity;
-	private PropertyDefinition testPropDef, newPropDef;
+	private PropertyTypeDefinition testPropDef, newPropDef;
 	private int localeId;
 	private long uid;
 	private DBConnection db;
@@ -35,15 +35,15 @@ public class PropertyDAOTest {
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
-		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
+		testPropDef = new PropertyTypeDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
 		propDefDAO.save(testPropDef);
-		newPropDef = new PropertyDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
+		newPropDef = new PropertyTypeDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
 		propDefDAO.save(newPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
 		
-		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
-		props.add(new PropertyData(testPropDef.getName(), "propTitle", "propValue", null));
+		SearchResult<Property> props = new SearchResult<Property>();
+		props.add(new Property(testPropDef.getName(), "propTitle", "propValue", null));
 		testEntity.setProperties(props);
 		
 		dao.save(testEntity);
@@ -68,7 +68,7 @@ public class PropertyDAOTest {
 	
 	@Test
 	public void testRev() throws Exception {
-		testEntity.getProperties().add(new PropertyData(newPropDef.getName(), "new test property", "foobar", null));
+		testEntity.getProperties().add(new Property(newPropDef.getName(), "new test property", "foobar", null));
 		dao.save(testEntity);
 		
 		assertEquals(2, testEntity.getRev());

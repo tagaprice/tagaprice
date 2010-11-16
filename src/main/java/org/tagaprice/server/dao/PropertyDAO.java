@@ -11,8 +11,8 @@ import java.util.Iterator;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.PropertyData;
-import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.Property;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -46,7 +46,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 		pstmt.setInt(2, entity.getRev());
 		ResultSet res = pstmt.executeQuery();
 		
-		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
+		SearchResult<Property> props = new SearchResult<Property>();
 		
 		while(res.next()) {
 			Unit u = null;
@@ -54,7 +54,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 				u = new Unit(res.getLong("unit_id"));
 				unitDAO.get(u);
 			}
-			props.add(new PropertyData(
+			props.add(new Property(
 					res.getLong("eprop_id"),
 					res.getString("name"), 
 					res.getString("title"), 
@@ -82,18 +82,18 @@ public class PropertyDAO implements DAOClass<Entity> {
 		get(oldEntity);
 		
 		// store them in a HashMap to speed up finding them by id
-		HashMap<Long, PropertyData> oldProps = new HashMap<Long, PropertyData>();
-		HashMap<Long, PropertyData> newProps = new HashMap<Long, PropertyData>();
+		HashMap<Long, Property> oldProps = new HashMap<Long, Property>();
+		HashMap<Long, Property> newProps = new HashMap<Long, Property>();
 		
-		Iterator<PropertyData> it = entity.getProperties().iterator();
+		Iterator<Property> it = entity.getProperties().iterator();
 		while (it.hasNext()) {
-			PropertyData item = it.next();
+			Property item = it.next();
 			newProps.put(item.getId(), item);
 		}
 		
 		it = oldEntity.getProperties().iterator();
 		while (it.hasNext()) {
-			PropertyData item = it.next();
+			Property item = it.next();
 
 			// check if the new propList contains the item and mark it deleted otherwise
 			if (!newProps.containsKey(item.getId())) {
@@ -107,7 +107,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 		// find properties that were deleted
 		it = entity.getProperties().iterator();
 		while (it.hasNext()) {
-			PropertyData item = it.next();
+			Property item = it.next();
 			
 			// first check if the item changed (if it did, mark the old property deleted and set the
 			// eprop_id to null to trigger an INSERT in the next if)
@@ -125,7 +125,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 			
 			// add new properties
 			if (!item.hasId()) {
-				PropertyDefinition propDef = propDefDAO.get(item.getName(), entity.getLocaleId()); 
+				PropertyTypeDefinition propDef = propDefDAO.get(item.getName(), entity.getLocaleId()); 
 				// new property, save it
 				PreparedStatement pstmt = db.prepareStatement("INSERT INTO entityProperty (prop_id, ent_id, value, unit_id, min_rev) VALUES (?,?,?,?,?)");
 				pstmt.setLong(1, propDef.getId());

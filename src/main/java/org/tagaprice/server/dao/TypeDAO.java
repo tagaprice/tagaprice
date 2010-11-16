@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.PropertyGroup;
 import org.tagaprice.shared.data.Type;
 import org.tagaprice.shared.exception.InvalidLocaleException;
@@ -96,7 +96,7 @@ public class TypeDAO implements DAOClass<Type> {
 			res = pstmt.executeQuery();
 			
 			while(res.next()){
-				PropertyDefinition tempProp = new PropertyDefinition(res.getLong("prop_id"));
+				PropertyTypeDefinition tempProp = new PropertyTypeDefinition(res.getLong("prop_id"));
 				propDAO.get(tempProp);
 				System.out.println(tempProp.getUnit());
 				//tempProp.setUnique()

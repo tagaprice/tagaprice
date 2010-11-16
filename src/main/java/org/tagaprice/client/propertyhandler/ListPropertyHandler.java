@@ -18,21 +18,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.data.PropertyData;
-import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.Property;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.PropertyGroup;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListPropertyHandler extends PropertyHandler {
 
-	HashMap<String, PropertyDefinition> definition = new HashMap<String, PropertyDefinition>();
+	HashMap<String, PropertyTypeDefinition> definition = new HashMap<String, PropertyTypeDefinition>();
 	TitleWidget title;
 	VerticalPanel vePa1 = new VerticalPanel();
 	//int rowSwap=-1;
 		
 	
-	public ListPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties,
+	public ListPropertyHandler(HashMap<String, ArrayList<Property>> hashProperties,
 			PropertyGroup propGroup, 
 			PropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
@@ -51,7 +51,7 @@ public class ListPropertyHandler extends PropertyHandler {
 	 * @param groupElements
 	 */
 	private void convertToHash(){
-		for(PropertyDefinition pg:propGroup.getGroupElements()){
+		for(PropertyTypeDefinition pg:propGroup.getGroupElements()){
 			definition.put(pg.getName(), pg);
 		}
 	}
@@ -59,9 +59,9 @@ public class ListPropertyHandler extends PropertyHandler {
 	
 	private void createGrid(){
 		
-		for(PropertyDefinition pg:propGroup.getGroupElements()){			
+		for(PropertyTypeDefinition pg:propGroup.getGroupElements()){			
 			if(hashProperties.get(pg.getName())==null){
-				hashProperties.put(pg.getName(), new ArrayList<PropertyData>());
+				hashProperties.put(pg.getName(), new ArrayList<Property>());
 			}
 			
 			

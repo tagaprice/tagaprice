@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyGroup;
 
 import com.google.gwt.user.client.ui.Grid;
@@ -29,7 +29,7 @@ public class NutritionFactsPropertyHandler extends PropertyHandler {
 	Grid grid = new Grid(6, 2);
 	TitleWidget title = new TitleWidget("Nutrition Facts", grid, TitleWidget.Level.H2);
 	
-	public NutritionFactsPropertyHandler(HashMap<String, ArrayList<PropertyData>> hashProperties, PropertyGroup propGroup, PropertyChangeHandler handler) {
+	public NutritionFactsPropertyHandler(HashMap<String, ArrayList<Property>> hashProperties, PropertyGroup propGroup, PropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
 		grid.setWidth("100%");
 		grid.setStyleName("NutritionFactsPropertyHandler");

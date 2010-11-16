@@ -18,11 +18,12 @@ import org.tagaprice.server.dao.PropertyDefinitionDAO;
 import org.tagaprice.shared.Serializable;
 
 /**
- * Describes a property
+ * Defines a type of property
  * **/
-public class PropertyDefinition extends Entity {
+public class PropertyTypeDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
+	/** TODO refactor to own class ? */
 	public enum Datatype implements Serializable {
 	    STRING, DOUBLE, INT;
 
@@ -41,7 +42,7 @@ public class PropertyDefinition extends Entity {
 	/**
 	 * default constructor (used by GWT's serialization)
 	 */
-	public PropertyDefinition() {
+	public PropertyTypeDefinition() {
 		super();
 	}
 	
@@ -49,25 +50,25 @@ public class PropertyDefinition extends Entity {
 	 * constructor used for querying the current revision of a PropertyDefinition (using PropertyDefinitionDAO) 
 	 * @param id PropertyDefinition ID
 	 */
-	public PropertyDefinition(long id) {
+	public PropertyTypeDefinition(long id) {
 		super(id);
 	}
 	
 	/**
-	 * constructor used for querying a specific revision of a {@link PropertyDefinition} (using {@link PropertyDefinitionDAO})
+	 * constructor used for querying a specific revision of a {@link PropertyTypeDefinition} (using {@link PropertyDefinitionDAO})
 	 * @param id PropertyDefinition ID
 	 * @param rev PropertyDefinition revision (has to exist)
 	 */
-	public PropertyDefinition(long id, int rev) {
+	public PropertyTypeDefinition(long id, int rev) {
 		super(id, rev);
 	}
 	
 	/**
-	 * constructor used for querying a {@link PropertyDefinition} object by it's name 
+	 * constructor used for querying a {@link PropertyTypeDefinition} object by it's name 
 	 * @param name property name (e.g. "weight")
-	 * @param localeId locale to query the {@link PropertyDefinition} for
+	 * @param localeId locale to query the {@link PropertyTypeDefinition} for
 	 */
-	public PropertyDefinition(String name, int localeId) {
+	public PropertyTypeDefinition(String name, int localeId) {
 		super(null, localeId, null);
 		this.name = name;
 	}
@@ -84,7 +85,7 @@ public class PropertyDefinition extends Entity {
 	 * @param unit property unit 
 	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links) 
 	 */
-	public PropertyDefinition(String name, String title, int localeId, long creatorId, Datatype type, Integer minValue, Integer maxValue, Unit unit, boolean unique) {
+	public PropertyTypeDefinition(String name, String title, int localeId, long creatorId, Datatype type, Integer minValue, Integer maxValue, Unit unit, boolean unique) {
 		super(title, localeId, creatorId);
 		this.name = name;
 		this.type = type;
@@ -107,7 +108,7 @@ public class PropertyDefinition extends Entity {
 	 * @param unit (new) property unit 
 	 * @param unique specifies if a Property is unique for a Product (e.g. it's weight) or can be set several times (e.g. links) 
 	 */
-	public PropertyDefinition(long id, int rev, String name, String title, long creatorId, Datatype type, int minValue, int maxValue, Unit unit, boolean unique) {
+	public PropertyTypeDefinition(long id, int rev, String name, String title, long creatorId, Datatype type, int minValue, int maxValue, Unit unit, boolean unique) {
 		super(id, rev, title, creatorId);
 		this.name = name;
 		this.type = type;

@@ -17,20 +17,20 @@ package org.tagaprice.shared;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.shared.data.PropertyDefinition;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
 import org.tagaprice.shared.data.Unit;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 public class PropertyDefinitionTest {
 
-	private PropertyDefinition def;
+	private PropertyTypeDefinition def;
 	private Long id=2l;
 	private int rev=1;
 	private String name = "name";
 	private String title = "title";
 	private Long creatorId = 13L;
 	private Integer localeId=1;
-	private Datatype type = PropertyDefinition.Datatype.DOUBLE;
+	private Datatype type = PropertyTypeDefinition.Datatype.DOUBLE;
 	private Integer minValue=0;
 	private Integer maxValue=50;
 	private Unit unit=new Unit(15, 8, "g", 1, null, 0);
@@ -38,7 +38,7 @@ public class PropertyDefinitionTest {
 	
 	@Before
 	public void setUp() throws Exception{
-		def = new PropertyDefinition(
+		def = new PropertyTypeDefinition(
 				id, 
 				rev, 
 				name, 

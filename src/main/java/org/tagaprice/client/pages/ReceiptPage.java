@@ -32,7 +32,7 @@ import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.data.ShopData;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;

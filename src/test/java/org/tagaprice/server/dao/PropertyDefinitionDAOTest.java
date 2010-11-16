@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.data.Account;
-import org.tagaprice.shared.data.PropertyDefinition;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
 public class PropertyDefinitionDAOTest {
 	private PropertyDefinitionDAO dao;
@@ -33,9 +33,9 @@ public class PropertyDefinitionDAOTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		PropertyDefinition pdef = new PropertyDefinition("testWeight", "Test property named 'weight'", localeId, uid, Datatype.STRING, 5, 27, null, true);
+		PropertyTypeDefinition pdef = new PropertyTypeDefinition("testWeight", "Test property named 'weight'", localeId, uid, Datatype.STRING, 5, 27, null, true);
 		dao.save(pdef);
-		PropertyDefinition pdef2 = new PropertyDefinition(pdef.getId());
+		PropertyTypeDefinition pdef2 = new PropertyTypeDefinition(pdef.getId());
 		dao.get(pdef2);
 		assertEquals(pdef, pdef2);
 	}

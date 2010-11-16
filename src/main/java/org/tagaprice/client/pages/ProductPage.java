@@ -38,10 +38,10 @@ import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.PropertyData;
+import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyGroup;
 import org.tagaprice.shared.data.Type;
-import org.tagaprice.shared.data.PropertyDefinition.Datatype;
+import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;
@@ -62,7 +62,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ProductPage extends APage {
 
 	private Product productData;
-	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
+	private HashMap<String, ArrayList<Property>> hashProperties = new HashMap<String, ArrayList<Property>>();
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private PropertyChangeHandler handler;
@@ -82,9 +82,9 @@ public class ProductPage extends APage {
 		
 		
 		//Move PropertyData to hashPropertyData
-		for(PropertyData pd:this.productData.getProperties()){
+		for(Property pd:this.productData.getProperties()){
 			if(hashProperties.get(pd.getName())==null){
-				hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+				hashProperties.put(pd.getName(), new ArrayList<Property>());
 			}			
 			hashProperties.get(pd.getName()).add(pd);
 		}
@@ -221,7 +221,7 @@ public class ProductPage extends APage {
 		handlerList.clear();
 		
 		for(String ks:hashProperties.keySet()){
-			for(PropertyData pd:hashProperties.get(ks)){
+			for(Property pd:hashProperties.get(ks)){
 				pd.setRead(false);
 			}
 		}
@@ -372,11 +372,11 @@ public class ProductPage extends APage {
 	}
 	
 	
-	private SearchResult<PropertyData> hashToPropertyList(HashMap<String, ArrayList<PropertyData>> hashProperties){
-		SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
+	private SearchResult<Property> hashToPropertyList(HashMap<String, ArrayList<Property>> hashProperties){
+		SearchResult<Property> newList = new SearchResult<Property>();
 		
 		for(String ks:hashProperties.keySet()){
-			for(PropertyData pd:hashProperties.get(ks)){
+			for(Property pd:hashProperties.get(ks)){
 				newList.add(pd);
 				//System.out.println(pd.getName()+": "+pd.getValue());
 			}
