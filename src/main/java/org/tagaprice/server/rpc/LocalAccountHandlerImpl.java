@@ -71,9 +71,8 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 
 	@Override
-	public boolean registerNewUser(String username, String password,
-			String confirmPassword, String email, String confirmEmail,
-			Address address, boolean gtc)
+	public boolean registerNewUser(String password,
+			String confirmPassword, String email, boolean gtc)
 			throws IllegalArgumentException {
 		
 		
@@ -81,7 +80,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		//Check validity
 		if(!password.equals(confirmPassword) &&
 				checkMailAvailability(email) &&
-				email.equals(confirmEmail) &&
+				!email.trim().isEmpty() &&
 				gtc)
 			return false;
 		
@@ -92,7 +91,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 		try {
 			
 			LocalAccountData account = new LocalAccountData(
-					username, 
+					"usernamex", 
 					localeId, 
 					null, 
 					email, 
@@ -158,9 +157,7 @@ public class LocalAccountHandlerImpl extends RemoteServiceServlet implements Loc
 	}
 	
 	private String getSid() throws InvalidLoginException{
-		System.out.println("getSid 1");
 		Cookie[] cookies = this.getThreadLocalRequest().getCookies();
-		System.out.println("getSid 2");
 
 		return loginDao.getSid(cookies);
 	}

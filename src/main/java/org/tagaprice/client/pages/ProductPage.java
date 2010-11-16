@@ -23,15 +23,15 @@ import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
 import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
-import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.client.propertyhandler.IPropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
+import org.tagaprice.client.widgets.IMorphWidgetInfoHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
-import org.tagaprice.client.widgets.TypeWidgetHandler;
+import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.Address;
@@ -43,7 +43,6 @@ import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Category;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -65,19 +64,21 @@ public class ProductPage extends APage {
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private Category _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
-	private PropertyChangeHandler _handler;
+	private IPropertyChangeHandler _handler;
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
-	private InfoBoxWidget __bottomInfo = new InfoBoxWidget();
+	private InfoBoxWidget __bottomInfo = new InfoBoxWidget(false);
 	private PriceMapWidget _priceMap;
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
 	private MorphWidget _titleMorph = new MorphWidget("", Datatype.STRING, true);
+
 /**
  * The Constructor creates a ProductPage for a product
  * @param productData
  * @param _type
  */
 	public ProductPage(ProductData productData, Category _type) {
+
 
 		init(this._verticalPanel_1);
 		this._productData = productData;
@@ -86,9 +87,11 @@ public class ProductPage extends APage {
 		// Move PropertyData to hashPropertyData
 		for (PropertyData pd : this._productData.getProperties()) {
 			if (_hashProperties.get(pd.getName()) == null) {
-				_hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+				_hashProperties
+						.put(pd.getName(), new ArrayList<PropertyData>());
 			}
 			_hashProperties.get(pd.getName()).add(pd);
+
 		}
 
 		// style
@@ -102,8 +105,8 @@ public class ProductPage extends APage {
 		_titleMorph.setWidth("100%");
 		_verticalPanel_1.add(hoPa1);
 		ProgressWidget progressWidget = new ProgressWidget(new Image(
-				ImageBundle.INSTANCE.productPriview()), _productData
-				.getProgress());
+				ImageBundle.INSTANCE.productPriview()),
+				_productData.getProgress());
 		hoPa1.add(progressWidget);
 
 		VerticalPanel vePa2 = new VerticalPanel();
@@ -119,7 +122,7 @@ public class ProductPage extends APage {
 		vePa2.add(new RatingWidget(this._productData.getRating(), false));
 
 		// Listener
-		_handler = new PropertyChangeHandler() {
+		_handler = new IPropertyChangeHandler() {
 
 			@Override
 			public void onSuccess() {
@@ -133,14 +136,15 @@ public class ProductPage extends APage {
 			}
 		};
 
-		_titleMorph.addMorphWidgetErrorHandler(new MorphWidgetInfoHandler() {
+		_titleMorph.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 
 			@Override
 			public void onSuccess(Datatype errorType) {
 
-				if (!_productData.getTitle().equals(_titleMorph.getText())) {
-					_productData.setTitle(_titleMorph.getText());
+				if (!_productData.getTitle().equals(_titleMorph.getValue())) {
+					_productData.setTitle(_titleMorph.getValue());
 					showSave();
+
 				}
 			}
 
@@ -189,7 +193,7 @@ public class ProductPage extends APage {
 
 	private void drawTypeWidget() {
 		_typeWidgetContainer.setWidget(new TypeWidget(_type,
-				new TypeWidgetHandler() {
+				new ITypeWidgetHandler() {
 					@Override
 					public void onChange(Category newType) {
 
@@ -231,13 +235,7 @@ public class ProductPage extends APage {
 		// Add Properties
 		for (PropertyGroup pg : this._type.getPropertyGroups()) {
 
-			if (pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)) {
-				/*
-				 * NutritionFactsPropertyHandler temp = new
-				 * NutritionFactsPropertyHandler(hashProperties, pg, handler);
-				 * handlerList.add(temp); hVePa.add(temp);
-				 */
-			} else if (pg.getType().equals(PropertyGroup.GroupType.LIST)) {
+			if (pg.getType().equals(PropertyGroup.GroupType.LIST)) {
 				ListPropertyHandler temp = new ListPropertyHandler(
 						_hashProperties, pg, _handler);
 				_handlerList.add(temp);
@@ -254,9 +252,8 @@ public class ProductPage extends APage {
 
 		_propertyHandlerContainer.setWidget(hVePa);
 	}
-/**
- * 
- */
+
+
 	private void showSave() {
 		if (TaPManager.getInstance().isLoggedIn() != null) {
 			showSaveLogin();
@@ -294,11 +291,11 @@ public class ProductPage extends APage {
 				_productData.setTypeId(new Long(_type.getId()));
 
 				// Validate Data
-				if (PropertyValidator
-						.isValid(_type, _productData.getProperties())) {
+				if (PropertyValidator.isValid(_type,
+						_productData.getProperties())) {
 					try {
-						RPCHandlerManager.getProductHandler().save(_productData,
-								new AsyncCallback<ProductData>() {
+						RPCHandlerManager.getProductHandler().save(
+								_productData, new AsyncCallback<ProductData>() {
 
 									@Override
 									public void onSuccess(ProductData result) {
@@ -375,11 +372,12 @@ public class ProductPage extends APage {
 				HasVerticalAlignment.ALIGN_MIDDLE);
 		__bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
-/**
- * 
- * @param hashProperties
- * @return
- */
+
+	/**
+	 * 
+	 * @param hashProperties
+	 * @return
+	 */
 	private SearchResult<PropertyData> hashToPropertyList(
 			HashMap<String, ArrayList<PropertyData>> hashProperties) {
 		SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
@@ -392,9 +390,10 @@ public class ProductPage extends APage {
 		}
 		return newList;
 	}
-/**
- * Set the position
- */
+
+	/**
+	 * Set the position
+	 */
 	@Override
 	public void setAddress(Address address) {
 		// TODO Auto-generated method stub

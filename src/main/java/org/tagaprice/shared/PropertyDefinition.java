@@ -14,7 +14,6 @@
 */
 package org.tagaprice.shared;
 
-import org.tagaprice.server.dao.PropertyDefinitionDAO;
 
 /**
  * Describes a property

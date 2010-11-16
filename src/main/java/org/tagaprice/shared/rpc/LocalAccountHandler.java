@@ -14,7 +14,6 @@
 */
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.Address;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -24,12 +23,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface LocalAccountHandler extends RemoteService {
 	boolean checkMailAvailability(String email) throws IllegalArgumentException;
 	boolean registerNewUser(
-			String username, 
 			String password,
 			String confirmPassword,
 			String email, 
-			String confirmEmail,
-			Address address,
 			boolean gtc) throws IllegalArgumentException;
 	
 	/**

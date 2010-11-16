@@ -25,7 +25,7 @@ import org.tagaprice.client.widgets.DateWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SelectiveListWidget;
-import org.tagaprice.client.widgets.SelectiveListHandler;
+import org.tagaprice.client.widgets.ISelectiveListHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
@@ -142,7 +142,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//Listen on Select
-		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveListHandler() {
+		shopChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -181,7 +181,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		//------
 		
 		//Products		
-		productContainer.addSelectiveVerticalPanelHandler(new SelectiveListHandler() {
+		productContainer.addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -303,12 +303,12 @@ public class ReceiptPage extends AInfoBoxComposite {
 		shop.setWidget(shopPreview);
 		
 		product=new SimplePanel();
-		productChooser2 = new SearchWidget(SearchType.SHOP, true, true, SelectionType.PLUSBUTTON, shopData);
+		productChooser2 = new SearchWidget(true, true, SelectionType.PLUSBUTTON, shopData);
 		product.setWidget(productChooser2);
 		basePanel.insert(product, 4);
 		
 		//ProductChooserListener
-		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new SelectiveListHandler() {			
+		productChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
 				addProduct(((ProductPagePreview)widget).getProductData());	
@@ -337,7 +337,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	
 	public ReceiptData getReceiptData(){
 		receiptData.setDate(date.getDate());	
-		receiptData.setTitle(title.getText());
+		receiptData.setTitle(title.getValue());
 		receiptData.setBill(bill);		
 		
 		if(shopPreview!=null){
