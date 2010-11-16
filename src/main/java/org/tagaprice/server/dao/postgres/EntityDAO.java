@@ -166,13 +166,11 @@ public class EntityDAO implements IEntityDAO {
 		pstmt = _db.prepareStatement("SELECT current_revision FROM entity WHERE ent_id = ?");
 		pstmt.setLong(1, e.getId());
 		res = pstmt.executeQuery();
-		//TODO next two lines is messy/hard to understand code => restructure + comment
+
 		if (!res.next()) throw new NotFoundException("Couldn't find entity with id:"+e.getId());
-		if (res.getInt("current_revision") != rev++) throw new RevisionCheckException("Revision out of date: "+rev); 
-//		proposal: create tests first
-//		if (res.getInt("current_revision") != rev) throw new RevisionCheckException("Revision out of date: "+rev);
-//		rev++;
+		if (res.getInt("current_revision") != rev) throw new RevisionCheckException("Revision out of date: "+rev);
 		
+		rev++;
 		// create new EntityRevision element
 		pstmt = _db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title, creator) VALUES (?, ?, ?, ?)");
 		pstmt.setLong(1, e.getId());

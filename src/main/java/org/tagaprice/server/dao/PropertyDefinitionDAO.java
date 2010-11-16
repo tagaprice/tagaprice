@@ -8,7 +8,6 @@ import java.sql.Types;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.EntityDAO;
 import org.tagaprice.server.dao.postgres.UnitDAO;
-import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.Unit;

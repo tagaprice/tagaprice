@@ -28,7 +28,7 @@ public interface IEntityDAO {
 	/**
 	 * Saves given entity to storage. If the entity does not exist, a new entity will be created, otherwise a new revision of the entity will be created. 
 	 * The revision in given entity will be set to the revision set in the database.
-	 * @param entity Entity to save. If the given entity does not provide an id the revision must be 0. If an id is provided the revision must match the current revision.
+	 * @param entity Entity to save. If the given entity does not provide an id, the revision must be 0. If an id is provided, the revision must match the current revision.
 	 * @return True if entity could be saved successfully. False if not.
 	 * @throws DAOException 
 	 * 

@@ -25,9 +25,6 @@ import org.tagaprice.server.dao.interfaces.IUnitDAO;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.InvalidLocaleException;
-import org.tagaprice.shared.exception.NotFoundException;
-import org.tagaprice.shared.exception.RevisionCheckException;
 
 public class UnitDAO implements IUnitDAO{
 	private DBConnection _db;

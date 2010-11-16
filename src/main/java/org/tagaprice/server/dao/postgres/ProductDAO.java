@@ -101,13 +101,14 @@ public class ProductDAO implements IProductDAO {
 			pstmt = _db.prepareStatement(sql);
 			pstmt.setLong(1, product.getId());
 			pstmt.setInt(2, product.getRev());
-
-			if (product.getBrandId() != null) pstmt.setLong(3, product.getBrandId());
-			else pstmt.setNull(3, Types.BIGINT);
-
-			if (product.getTypeId() != null) pstmt.setLong(4, product.getTypeId());
-			else pstmt.setNull(4, Types.BIGINT);
-
+			if (product.getBrandId() != null) 
+				pstmt.setLong(3, product.getBrandId());
+			else 
+				pstmt.setNull(3, Types.BIGINT);
+			if (product.getTypeId() != null) 
+				pstmt.setLong(4, product.getTypeId());
+			else 
+				pstmt.setNull(4, Types.BIGINT);
 			pstmt.setString(5, product.getImageSrc());
 
 			pstmt.executeUpdate();
