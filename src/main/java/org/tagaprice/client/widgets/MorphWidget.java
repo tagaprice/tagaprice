@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class MorphWidget extends SimplePanel {
 
-	private MorphWidgetInfoHandler _handler;
+	private IMorphWidgetInfoHandler _handler;
 	private TextBox _textBox = new TextBox();
 	private Datatype _type;
 
@@ -115,7 +115,7 @@ public class MorphWidget extends SimplePanel {
 	 *            is called if the value changes and it is successful, empty, or
 	 *            not successful (error).
 	 */
-	public void addMorphWidgetInfoHandler(MorphWidgetInfoHandler handler) {
+	public void addMorphWidgetInfoHandler(IMorphWidgetInfoHandler handler) {
 		_handler = handler;
 	}
 

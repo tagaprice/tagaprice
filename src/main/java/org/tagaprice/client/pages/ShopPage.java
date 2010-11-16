@@ -21,12 +21,11 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.propertyhandler.DefaultPropertyHandler;
-import org.tagaprice.client.propertyhandler.IPropertyHandler;
 import org.tagaprice.client.propertyhandler.ListPropertyHandler;
-import org.tagaprice.client.propertyhandler.PropertyChangeHandler;
+import org.tagaprice.client.propertyhandler.IPropertyChangeHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget;
 import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.MorphWidgetInfoHandler;
+import org.tagaprice.client.widgets.IMorphWidgetInfoHandler;
 import org.tagaprice.client.widgets.PriceMapWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
@@ -68,6 +67,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import org.tagaprice.client.propertyhandler.*;
+
 
 public class ShopPage extends APage {
 
@@ -76,7 +77,7 @@ public class ShopPage extends APage {
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
-	private PropertyChangeHandler _handler;
+	private IPropertyChangeHandler _handler;
 	private InfoBoxWidget _bottomInfo = new InfoBoxWidget(false);
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
@@ -115,7 +116,7 @@ public class ShopPage extends APage {
 			
 		
 		//Listener
-		_handler=new PropertyChangeHandler() {
+		_handler=new IPropertyChangeHandler() {
 			
 			@Override
 			public void onSuccess() {
@@ -308,7 +309,14 @@ public class ShopPage extends APage {
 			}
 		});
 
-		_street.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+		_street.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
+			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
+
+			public void onError(Datatype errorType) {}			
+			public void onEmpty() {_showMapButton.setVisible(true);}
+		});
+		
+	_zip.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
 
 			public void onError(Datatype errorType) {}			
@@ -316,24 +324,16 @@ public class ShopPage extends APage {
 		});
 		
 
-		_zip.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+		_county.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
 
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {_showMapButton.setVisible(true);}
 		});
 		
-
-		_county.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+		_country.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
 
-			public void onError(Datatype errorType) {}			
-			public void onEmpty() {_showMapButton.setVisible(true);}
-		});
-		
-
-		_country.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
-			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
 
 			public void onError(Datatype errorType) {}			
 			public void onEmpty() {_showMapButton.setVisible(true);}
@@ -343,7 +343,8 @@ public class ShopPage extends APage {
 		
 		//title Lister
 
-		_titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+
+		_titleMorph.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 			
 			@Override
 			public void onSuccess(Datatype errorType) {

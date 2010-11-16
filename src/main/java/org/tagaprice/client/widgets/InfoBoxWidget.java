@@ -13,6 +13,10 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class InfoBoxWidget extends Composite {
 
+	/**
+	 * Defines the type and the color of an InfoType
+	 *
+	 */
 	public enum BoxType {
 		/**
 		 * Display a ErrorBox (red background)

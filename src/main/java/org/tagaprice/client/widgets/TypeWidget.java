@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPriceUI
- * Filename: TypeWidget.java
- * Date: 02.07.2010
- */
 package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
@@ -31,9 +17,11 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Create a type selection widget optimized for finger clicking.
+ * Create a type selection widget optimized for finger clicking. It will show
+ * the current type of a product and makes it possible to easy change the type.
  * 
  */
+// TODO Optimize for finger clicking
 public class TypeWidget extends Composite {
 
 	private ITypeWidgetHandler handler;
@@ -43,10 +31,10 @@ public class TypeWidget extends Composite {
 	private PopupPanel typeItems = new PopupPanel(true);
 
 	/**
+	 * Creates a TypeWidget that will show the current type.s
 	 * 
-	 * @param type
-	 *            If type is root, only one arrow and no text is displayed.
-	 * @param handler
+	 * @param type the current type.
+	 * @param handler is called if the type has changed.
 	 */
 	public TypeWidget(Type type, ITypeWidgetHandler handler) {
 		this.type = type;
@@ -61,6 +49,9 @@ public class TypeWidget extends Composite {
 		createMenu();
 	}
 
+	/**
+	 * Create a Type menu with arrows and buttons
+	 */
 	private void createMenu() {
 		// Type
 		Type iterType = type;
@@ -200,6 +191,10 @@ public class TypeWidget extends Composite {
 		hoPa1.insert(rootB, 0);
 	}
 
+	
+	/**
+	 * Is called if the root arrow is selected
+	 */
 	private void openRootArrow() {
 		typeItems.setWidget(new Label("Loading..."));
 		RPCHandlerManager.getTypeHandler().getTypeList(null,

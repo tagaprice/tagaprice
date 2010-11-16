@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPrice
- * Filename: SearchWidget2.java
- * Date: 20.07.2010
- */
 package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
@@ -38,15 +24,34 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * The SearchWidget is a special TextBox with a suggestion list. The search area
+ * can be set to all, shop or product. If the SelectionType is set to
+ * MINUSBUTTON or PLUSBUTTON, you see a plus/minus button in the suggestion
+ * list.
+ * 
+ */
 public class SearchWidget extends Composite {
 
 	public enum SearchType implements Serializable {
-		ALL, PRODCUT, SHOP;
+
+		/**
+		 * Search for everything in the db.
+		 */
+		ALL,
+		/**
+		 * Will only search for products
+		 */
+		PRODCUT,
+
+		/**
+		 * Will only search for shops
+		 */
+		SHOP;
 
 		@Override
 		public String getSerializeName() {
-			// TODO Auto-generated method stub
-			return null;
+			return "org.tagaprice.client.widgets.SearchWidget";
 		}
 	}
 
@@ -57,30 +62,44 @@ public class SearchWidget extends Composite {
 	private ShopData _shopData = null;
 
 	private boolean _showNew;
-	private long myCurRequest = 0;
-	private PopupPanel popPa;
-	private TextBox searchBox = new TextBox();
-	private SelectiveListWidget selVePa;
-	private VerticalPanel vePa1 = new VerticalPanel();
-	private VerticalPanel vePa2 = new VerticalPanel();
+	private long _myCurRequest = 0;
+	private PopupPanel _popPa;
+	private TextBox _searchBox = new TextBox();
+	private SelectiveListWidget _selVePa;
+	private VerticalPanel _vePa1 = new VerticalPanel();
+	private VerticalPanel _vePa2 = new VerticalPanel();
 
+	/**
+	 * Create a SearchWidget that will search the whole db.
+	 * 
+	 * @param searchType
+	 *            defines the search result type.
+	 * @param showNew
+	 *            if TRUE a button to create a new shop/product will be
+	 *            displayed
+	 * @param popup
+	 *            displays the search results in a popup panel or in a vertical
+	 *            list
+	 * @param selectionType
+	 *            defines the select able button. (NO,PLUS,MINUS)
+	 */
 	public SearchWidget(SearchType searchType, boolean showNew, boolean popup,
 			SelectionType selectionType) {
 
 		init(searchType, showNew, popup, selectionType);
 
-		searchBox.setStyleName("searchBox");
+		_searchBox.setStyleName("searchBox");
 		// Search
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
+		_searchBox.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				myCurRequest++;
+				_myCurRequest++;
 
-				if (searchBox.getText().isEmpty()) {
-					selVePa.clear();
+				if (_searchBox.getText().isEmpty()) {
+					_selVePa.clear();
 				} else {
-					newStdRequest(myCurRequest);
+					newStdRequest(_myCurRequest);
 
 				}
 			}
@@ -88,55 +107,96 @@ public class SearchWidget extends Composite {
 
 	}
 
+	/**
+	 * Create a SearchWidget that will search the whole db in a specific area.
+	 * 
+	 * @param searchType
+	 *            defines the search result type.
+	 * @param showNew
+	 *            if TRUE a button to create a new shop/product will be
+	 *            displayed
+	 * @param popup
+	 *            displays the search results in a popup panel or in a vertical
+	 *            list
+	 * @param selectionType
+	 *            defines the select able button. (NO,PLUS,MINUS)
+	 * 
+	 * @param bbox
+	 *            defines a bounding box in which the db should search.
+	 */
 	public SearchWidget(SearchType searchType, boolean showNew, boolean popup,
 			SelectionType selectionType, BoundingBox bbox) {
 		_bbox = bbox;
 		init(searchType, showNew, popup, selectionType);
 
 		// Search
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
+		_searchBox.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				myCurRequest++;
+				_myCurRequest++;
 
-				if (searchBox.getText().isEmpty()) {
-					selVePa.clear();
+				if (_searchBox.getText().isEmpty()) {
+					_selVePa.clear();
 				} else {
-					newBboxRequest(myCurRequest);
+					newBboxRequest(_myCurRequest);
 				}
 			}
 		});
 
 	}
 
-	public SearchWidget(SearchType searchType, boolean showNew, boolean popup,
+	/**
+	 * Create a SearchWidget that will only search for result at a specific
+	 * shop.
+	 * 
+	 * @param showNew
+	 *            if TRUE a button to create a new shop/product will be
+	 *            displayed
+	 * @param popup
+	 *            displays the search results in a popup panel or in a vertical
+	 *            list
+	 * @param selectionType
+	 *            defines the select able button. (NO,PLUS,MINUS)
+	 * @param shopData
+	 *            in this shop the db will search.
+	 */
+	public SearchWidget(boolean showNew, boolean popup,
 			SelectionType selectionType, ShopData shopData) {
 		_shopData = shopData;
-		init(searchType, showNew, popup, selectionType);
+		init(SearchType.PRODCUT, showNew, popup, selectionType);
 
 		// Search
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
+		_searchBox.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				myCurRequest++;
+				_myCurRequest++;
 
-				if (searchBox.getText().isEmpty()) {
-					selVePa.clear();
+				if (_searchBox.getText().isEmpty()) {
+					_selVePa.clear();
 				} else {
-					newShopRequest(myCurRequest);
+					newShopRequest(_myCurRequest);
 				}
 			}
 		});
 	}
 
+	/**
+	 * Return a SelectiveListWidget with the current search results, so it can
+	 * be integrated at an different place.
+	 * 
+	 * @return returns a SelectiveListWidget with the current search results.
+	 */
 	public SelectiveListWidget getSelectiveVerticalPanel() {
-		return selVePa;
+		return _selVePa;
 	}
 
+	/**
+	 * Hides the popupPanel with the search results.
+	 */
 	public void hideSuggest() {
-		popPa.hide();
+		_popPa.hide();
 	}
 
 	private void init(SearchType searchType, boolean showNew, boolean popup,
@@ -147,26 +207,26 @@ public class SearchWidget extends Composite {
 		_popup = popup;
 		_selectionType = selectionType;
 
-		initWidget(vePa1);
-		vePa1.setWidth("100%");
-		vePa1.add(searchBox);
-		searchBox.setWidth("100%");
-		vePa2.setWidth("100%");
+		initWidget(_vePa1);
+		_vePa1.setWidth("100%");
+		_vePa1.add(_searchBox);
+		_searchBox.setWidth("100%");
+		_vePa2.setWidth("100%");
 
 		//
-		selVePa = new SelectiveListWidget(_selectionType);
-		selVePa.setWidth("100%");
+		_selVePa = new SelectiveListWidget(_selectionType);
+		_selVePa.setWidth("100%");
 
 		// popup
 		if (_popup) {
-			popPa = new PopupPanel(true);
-			popPa.setWidget(vePa2);
-			popPa.setWidth("100%");
+			_popPa = new PopupPanel(true);
+			_popPa.setWidget(_vePa2);
+			_popPa.setWidth("100%");
 		} else {
-			vePa1.add(vePa2);
+			_vePa1.add(_vePa2);
 		}
 
-		vePa2.add(selVePa);
+		_vePa2.add(_selVePa);
 
 		if (_showNew) {
 			boolean product = false;
@@ -182,7 +242,7 @@ public class SearchWidget extends Composite {
 
 			if (product) {
 				Label productLabel = new Label("New Product");
-				vePa2.add(productLabel);
+				_vePa2.add(productLabel);
 
 				productLabel.addClickHandler(new ClickHandler() {
 
@@ -195,7 +255,7 @@ public class SearchWidget extends Composite {
 
 			if (shop) {
 				Label shopLabel = new Label("New Shop");
-				vePa2.add(shopLabel);
+				_vePa2.add(shopLabel);
 
 				shopLabel.addClickHandler(new ClickHandler() {
 
@@ -207,18 +267,18 @@ public class SearchWidget extends Composite {
 			}
 		}
 
-		searchBox.addFocusHandler(new FocusHandler() {
+		_searchBox.addFocusHandler(new FocusHandler() {
 
 			@Override
 			public void onFocus(FocusEvent event) {
-				if (popPa != null && !searchBox.getText().isEmpty())
-					popPa.showRelativeTo(searchBox);
+				if (_popPa != null && !_searchBox.getText().isEmpty())
+					_popPa.showRelativeTo(_searchBox);
 			}
 		});
 	}
 
 	private void newBboxRequest(final long curReq) {
-		RPCHandlerManager.getSearchHandler().search(searchBox.getText(),
+		RPCHandlerManager.getSearchHandler().search(_searchBox.getText(),
 				_searchType, _bbox, new AsyncCallback<ArrayList<Entity>>() {
 
 					@Override
@@ -229,17 +289,17 @@ public class SearchWidget extends Composite {
 
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
-						if (curReq == myCurRequest) {
-							selVePa.clear();
+						if (curReq == _myCurRequest) {
+							_selVePa.clear();
 							if (_popup)
-								popPa.showRelativeTo(searchBox);
+								_popPa.showRelativeTo(_searchBox);
 
 							for (Entity sResult : result) {
 								if (sResult instanceof ProductData) {
-									selVePa.add(new ProductPagePreview(
+									_selVePa.add(new ProductPagePreview(
 											(ProductData) sResult, false));
 								} else if (sResult instanceof ShopData) {
-									selVePa.add(new ShopPagePreview(
+									_selVePa.add(new ShopPagePreview(
 											(ShopData) sResult, false));
 								}
 							}
@@ -249,7 +309,7 @@ public class SearchWidget extends Composite {
 	}
 
 	private void newShopRequest(final long curReq) {
-		RPCHandlerManager.getSearchHandler().search(searchBox.getText(),
+		RPCHandlerManager.getSearchHandler().search(_searchBox.getText(),
 				_shopData, new AsyncCallback<ArrayList<Entity>>() {
 
 					@Override
@@ -261,17 +321,17 @@ public class SearchWidget extends Composite {
 
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
-						if (curReq == myCurRequest) {
-							selVePa.clear();
+						if (curReq == _myCurRequest) {
+							_selVePa.clear();
 							if (_popup)
-								popPa.showRelativeTo(searchBox);
+								_popPa.showRelativeTo(_searchBox);
 
 							for (Entity sResult : result) {
 								if (sResult instanceof ProductData) {
-									selVePa.add(new ProductPagePreview(
+									_selVePa.add(new ProductPagePreview(
 											(ProductData) sResult, false));
 								} else if (sResult instanceof ShopData) {
-									selVePa.add(new ShopPagePreview(
+									_selVePa.add(new ShopPagePreview(
 											(ShopData) sResult, false));
 								}
 							}
@@ -281,7 +341,7 @@ public class SearchWidget extends Composite {
 	}
 
 	private void newStdRequest(final long curReq) {
-		RPCHandlerManager.getSearchHandler().search(searchBox.getText(),
+		RPCHandlerManager.getSearchHandler().search(_searchBox.getText(),
 				_searchType, new AsyncCallback<ArrayList<Entity>>() {
 
 					@Override
@@ -292,19 +352,19 @@ public class SearchWidget extends Composite {
 
 					@Override
 					public void onSuccess(ArrayList<Entity> result) {
-						if (curReq == myCurRequest) {
-							selVePa.clear();
+						if (curReq == _myCurRequest) {
+							_selVePa.clear();
 							if (_popup)
-								popPa.showRelativeTo(searchBox);
+								_popPa.showRelativeTo(_searchBox);
 
 							for (Entity sResult : result) {
 								// selVePa.add(new Label(sResult.getTitle()));
 
 								if (sResult instanceof ProductData) {
-									selVePa.add(new ProductPagePreview(
+									_selVePa.add(new ProductPagePreview(
 											(ProductData) sResult, false));
 								} else if (sResult instanceof ShopData) {
-									selVePa.add(new ShopPagePreview(
+									_selVePa.add(new ShopPagePreview(
 											(ShopData) sResult, false));
 								}
 

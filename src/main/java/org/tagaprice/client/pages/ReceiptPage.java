@@ -142,7 +142,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//Listen on Select
-		shopChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new ISelectiveListHandler() {
+		shopChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -181,7 +181,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		//------
 		
 		//Products		
-		productContainer.addSelectiveVerticalPanelHandler(new ISelectiveListHandler() {
+		productContainer.addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -303,12 +303,12 @@ public class ReceiptPage extends AInfoBoxComposite {
 		shop.setWidget(shopPreview);
 		
 		product=new SimplePanel();
-		productChooser2 = new SearchWidget(SearchType.SHOP, true, true, SelectionType.PLUSBUTTON, shopData);
+		productChooser2 = new SearchWidget(true, true, SelectionType.PLUSBUTTON, shopData);
 		product.setWidget(productChooser2);
 		basePanel.insert(product, 4);
 		
 		//ProductChooserListener
-		productChooser2.getSelectiveVerticalPanel().addSelectiveVerticalPanelHandler(new ISelectiveListHandler() {			
+		productChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
 				addProduct(((ProductPagePreview)widget).getProductData());	

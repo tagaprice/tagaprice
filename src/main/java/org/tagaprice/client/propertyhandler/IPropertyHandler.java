@@ -1,18 +1,46 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
-*/
-
-/**
- * Project: TagAPriceUI
- * Filename: IPropertyHandler.java
- * Date: 05.07.2010
-*/
 package org.tagaprice.client.propertyhandler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.PropertyGroup;
+
+/**
+ * Defines the main methods for all PropertyHandler.
+ * 
+ */
 public interface IPropertyHandler {
+
+	/**
+	 * Implement a change handler that is called if a property has changed.
+	 * 
+	 * @param handler
+	 *            is called if a property has changed.
+	 */
+	public void addChangeHandler(IPropertyChangeHandler handler);
+
+	/**
+	 * Returns the current implemented change handler that is called if a
+	 * property has changed.
+	 * 
+	 * @return returns the current implemented change handler.
+	 */
+	public IPropertyChangeHandler getPropertyChangeHandler();
+
+	/**
+	 * Returns the PropertyGroup of an handler which contains the definitions of
+	 * the group members.
+	 * 
+	 * @return returns the PropertyGroup of the handler.
+	 */
+	public PropertyGroup getPropertyGroup();
+
+	/**
+	 * Returns all Properties hold by an handler. If one property will change
+	 * the {@link #getPropertyChangeHandler()} will be called.
+	 * 
+	 * @return returns all properties hold by the handler.
+	 */
+	public HashMap<String, ArrayList<PropertyData>> getPropertyList();
 }

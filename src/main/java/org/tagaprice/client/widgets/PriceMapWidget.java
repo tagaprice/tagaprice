@@ -1,17 +1,3 @@
-/*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
- */
-
-/**
- * Project: TagAPrice
- * Filename: PriceMapWidget.java
- * Date: 02.06.2010
- */
 package org.tagaprice.client.widgets;
 
 import java.util.ArrayList;
@@ -19,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.pages.IAddressHandler;
-import org.tagaprice.client.widgets.TitleWidget.Level;
+import org.tagaprice.client.widgets.TitleWidget.Headline;
 import org.tagaprice.shared.Address;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.PriceData;
@@ -41,67 +27,81 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * A PriceMapWidget displays a price table and a map with shops, prices, date
+ * ,... depending on the PriceMapType
+ * 
+ */
 public class PriceMapWidget extends Composite implements IAddressHandler {
 
 	public enum PriceMapType implements Serializable {
-		PRODUCT, PRODUCTGROUP, SHOP, SHOPGROUP;
+
+		/**
+		 * PRODUCT (id: must be a Product_id) displays a map with shops in which
+		 * you can find this product plus a price table.
+		 */
+		PRODUCT,
+
+		/**
+		 * PRODUCTGROUP (id: must be a product_group_id (e.g. Milk id)) Shows a
+		 * map with shops in which you can find this product-types plus a price
+		 * table.
+		 */
+		CATEGORY,
+
+		/**
+		 * SHOP (id: must be a shop_id) Shows a grid with all products you can
+		 * find in a shop plus a price table.
+		 */
+		SHOP,
+
+		/**
+		 * SHOPGROUP (id: must be a shop_group_id (e.g. Billa id)) Shows a map with all
+		 * shops of shop_group. (Maybe this should be changed to Brand-Group)
+		 */
+		BRANDING; 
 
 		public String getSerializeName() {
 			return "priceMapType";
 		}
 	}
 
-	private long id;
-	private MapWidget map;
-	private FlexTable priceTable = new FlexTable();
-	private TaPManager TaPM = TaPManager.getInstance();
-	private TitleWidget titlePanel;
-	private PriceMapType type;
-	private VerticalPanel vePa1 = new VerticalPanel();
+	private long _id;
+	private MapWidget _map;
+	private FlexTable _priceTable = new FlexTable();
+	private TaPManager _TaPM = TaPManager.getInstance();
+	private TitleWidget _titlePanel;
+	private PriceMapType _type;
+	private VerticalPanel _vePa1 = new VerticalPanel();
 
 	/**
-	 * 
-	 * @param id
-	 * @param myType
-	 * 
-	 *            myType = PRODUCT (id=Product_id) Shows a map with shops in
-	 *            which you can find this product plus a price table.
-	 * 
-	 *            myType = SHOP (id=shop_id) Shows a grid with all products you
-	 *            can find in a shop plus a price table.
-	 * 
-	 * 
-	 *            myType = PRODUCTGROUP (id=product_group_id (e.g. Milk id))
-	 *            Shows a map with shops in which you can find this
-	 *            product-types plus a price table.
-	 * 
-	 *            myType = SHOPGROUP (id=shop_group_id (e.g. Billa id)) Shows a
-	 *            map with all shops of shop_group. (Maybe this should be
-	 *            changed to Brand-Group)
+	 * Creates a PriceMapWidget with an entity id (only: product, shop, branding, category).
+	 * @param id is a product, shop, branding, or category id. Must not be NULL.
+	 * @param priceMapType defines the displayed type
 	 */
-	public PriceMapWidget(long id, PriceMapType myType) {
-		type = myType;
-		this.id = id;
-		vePa1.setWidth("100%");
-		priceTable.setWidth("100%");
-		titlePanel = new TitleWidget("Pricetable", vePa1, Level.H2);
+	public PriceMapWidget(long id, PriceMapType priceMapType) {
+		_type = priceMapType;
+		this._id = id;
+		_vePa1.setWidth("100%");
+		_priceTable.setWidth("100%");
+		_titlePanel = new TitleWidget("Pricetable", _vePa1, Headline.H2);
 
-		if (type.equals(PriceMapType.PRODUCT)
-				|| type.equals(PriceMapType.PRODUCTGROUP)
-				|| type.equals(PriceMapType.SHOPGROUP)) {
-			map = new MapWidget(LatLng.newInstance(TaPM.getCurrentAddress()
-					.getLat(), TaPM.getCurrentAddress().getLng()), 16);
-			map.addControl(new SmallZoomControl3D());
-			map.addControl(new HierarchicalMapTypeControl());
+		if (_type.equals(PriceMapType.PRODUCT)
+				|| _type.equals(PriceMapType.CATEGORY)
+				|| _type.equals(PriceMapType.BRANDING)) {
+			_map = new MapWidget(LatLng.newInstance(_TaPM.getCurrentAddress()
+					.getLat(), _TaPM.getCurrentAddress().getLng()), 16);
+			_map.addControl(new SmallZoomControl3D());
+			_map.addControl(new HierarchicalMapTypeControl());
 
 			getPrices();
 
-			map.setWidth("100%");
-			map.setHeight("200px");
-			vePa1.add(map);
+			_map.setWidth("100%");
+			_map.setHeight("200px");
+			_vePa1.add(_map);
 
 			// MapMoveListen
-			map.addMapDragEndHandler(new MapDragEndHandler() {
+			_map.addMapDragEndHandler(new MapDragEndHandler() {
 
 				@Override
 				public void onDragEnd(MapDragEndEvent event) {
@@ -109,31 +109,36 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 				}
 			});
 
-			map.addMapZoomEndHandler(new MapZoomEndHandler() {
+			_map.addMapZoomEndHandler(new MapZoomEndHandler() {
 				@Override
 				public void onZoomEnd(MapZoomEndEvent event) {
 					getPrices();
 				}
 			});
-		} else if (type.equals(PriceMapType.SHOP)) {
+		} else if (_type.equals(PriceMapType.SHOP)) {
 			getPrices();
 		}
 
-		vePa1.add(priceTable);
+		_vePa1.add(_priceTable);
 
-		initWidget(titlePanel);
+		initWidget(_titlePanel);
 	}
 
+	
 	@Override
 	public void setAddress(Address address) {
 		System.out.println("setAdress");
-		if (map != null)
-			map.setCenter(LatLng.newInstance(address.getLat(), address.getLng()));
+		if (_map != null)
+			_map.setCenter(LatLng.newInstance(address.getLat(), address.getLng()));
 	}
 
+	
+	/**
+	 * Gets the prices from the db at the current position
+	 */
 	private void getPrices() {
-		if (type.equals(PriceMapType.SHOP)) {
-			RPCHandlerManager.getPriceHandler().get(id, null, type,
+		if (_type.equals(PriceMapType.SHOP)) {
+			RPCHandlerManager.getPriceHandler().get(_id, null, _type,
 					new AsyncCallback<ArrayList<PriceData>>() {
 
 						@Override
@@ -150,12 +155,12 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		} else {
 			// Get Prices
 			RPCHandlerManager.getPriceHandler().get(
-					id,
-					new BoundingBox(map.getBounds().getSouthWest()
-							.getLatitude(), map.getBounds().getSouthWest()
-							.getLongitude(), map.getBounds().getNorthEast()
-							.getLatitude(), map.getBounds().getNorthEast()
-							.getLongitude()), type,
+					_id,
+					new BoundingBox(_map.getBounds().getSouthWest()
+							.getLatitude(), _map.getBounds().getSouthWest()
+							.getLongitude(), _map.getBounds().getNorthEast()
+							.getLatitude(), _map.getBounds().getNorthEast()
+							.getLongitude()), _type,
 					new AsyncCallback<ArrayList<PriceData>>() {
 
 						@Override
@@ -166,7 +171,6 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 
 						@Override
 						public void onSuccess(ArrayList<PriceData> result) {
-							// TODO Auto-generated method stub
 							refreshData(result);
 						}
 
@@ -174,48 +178,52 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 		}
 	}
 
+	/**
+	 * Refreshes the price table
+	 * @param list a list of the prices at this position
+	 */
 	private void refreshData(ArrayList<PriceData> list) {
 		int pinOff = 1;
 		int colOff = 0;
 
 		// CreateTable
-		priceTable.removeAllRows();
+		_priceTable.removeAllRows();
 
 		// Set Header
 
-		if (type.equals(PriceMapType.SHOP)) {
-			priceTable.setText(0, 0, "Pin");
+		if (_type.equals(PriceMapType.SHOP)) {
+			_priceTable.setText(0, 0, "Pin");
 			pinOff = 1;
-			priceTable.setText(0, 0 + pinOff, "Products");
+			_priceTable.setText(0, 0 + pinOff, "Products");
 			colOff = 0;
-		} else if (type.equals(PriceMapType.PRODUCT)) {
+		} else if (_type.equals(PriceMapType.PRODUCT)) {
 			pinOff = 0;
-			priceTable.setText(0, 0 + pinOff, "Shops");
+			_priceTable.setText(0, 0 + pinOff, "Shops");
 			colOff = 0;
 		} else {
-			priceTable.setText(0, 0, "Ping");
+			_priceTable.setText(0, 0, "Ping");
 			pinOff = 1;
-			priceTable.setText(0, 0 + pinOff, "Product");
-			priceTable.setText(0, 1 + pinOff, "Shops");
+			_priceTable.setText(0, 0 + pinOff, "Product");
+			_priceTable.setText(0, 1 + pinOff, "Shops");
 			colOff = 1;
 		}
 
-		priceTable.setText(0, 2 + pinOff + colOff, "Quality");
-		priceTable.setText(0, 3 + pinOff + colOff, "Date");
-		priceTable.setText(0, 4 + pinOff + colOff, "Price");
+		_priceTable.setText(0, 2 + pinOff + colOff, "Quality");
+		_priceTable.setText(0, 3 + pinOff + colOff, "Date");
+		_priceTable.setText(0, 4 + pinOff + colOff, "Price");
 
 		// Create Table
-		if (map != null)
-			map.clearOverlays();
+		if (_map != null)
+			_map.clearOverlays();
 
 		int row = 1;
 		for (final PriceData pd : list) {
 
-			priceTable.setText(row, 0, "*");
+			_priceTable.setText(row, 0, "*");
 
-			if (type.equals(PriceMapType.SHOP)) {
+			if (_type.equals(PriceMapType.SHOP)) {
 				Label tempProductL = new Label(pd.getProductData().getTitle());
-				priceTable.setWidget(row, 0 + pinOff, tempProductL);
+				_priceTable.setWidget(row, 0 + pinOff, tempProductL);
 				tempProductL.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {
 						History.newItem("product/get&id="
@@ -224,7 +232,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 				});
 			} else {
 				Label tempShopL = new Label(pd.getShopData().getTitle());
-				priceTable.setWidget(row, 0 + pinOff, tempShopL);
+				_priceTable.setWidget(row, 0 + pinOff, tempShopL);
 				tempShopL.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {
 						History.newItem("shop/get&id="
@@ -232,16 +240,16 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 					}
 				});
 			}
-			priceTable.setWidget(row, 2 + pinOff + colOff, new RatingWidget(pd
+			_priceTable.setWidget(row, 2 + pinOff + colOff, new RatingWidget(pd
 					.getProductData().getRating(), false));
-			priceTable.setText(row, 3 + pinOff + colOff, DateTimeFormat
+			_priceTable.setText(row, 3 + pinOff + colOff, DateTimeFormat
 					.getLongDateFormat().format(pd.getDate()));
-			priceTable.setText(row, 4 + pinOff + colOff, ""
+			_priceTable.setText(row, 4 + pinOff + colOff, ""
 					+ (pd.getPrice().getPrice() / 100.00) + ""
 					+ pd.getPrice().getCurrency().getTitle());
 
-			if (!type.equals(PriceMapType.SHOP))
-				map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData()
+			if (!_type.equals(PriceMapType.SHOP))
+				_map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData()
 						.getAddress().getLat(), pd.getShopData().getAddress()
 						.getLng())));
 
