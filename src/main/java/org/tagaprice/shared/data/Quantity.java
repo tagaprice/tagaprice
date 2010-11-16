@@ -16,36 +16,62 @@ package org.tagaprice.shared.data;
 
 import org.tagaprice.shared.Serializable;
 
+/**
+ * Quantity of a product on a receipt or similar.
+ */
 public class Quantity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int quantity;
 	private Unit unit;
 	
-	public Quantity() {
-	}
+	/**
+	 * Default constructor needed for serialization
+	 */
+	public Quantity() { }
 	
+	/**
+	 * Constructor for creating a new {@link Quantity}.
+	 * @param quantity number for the quantity of this {@link Quantity}
+	 * @param unit {@link Unit} of this {@link Quantity} (may be null)
+	 */
 	public Quantity(int quantity, Unit unit) {
 		setQuantity(quantity);
 		setUnit(unit);
 	}
 	
+	/**
+	 * Constructor for creating a new {@link Quantity} without {@link Unit}.
+	 * @param quantity number for the quantity of this {@link Quantity}
+	 */
 	public Quantity(int quantity) {
 		this(quantity, null);
 	}
 	
+	/**
+	 * @return number for the quantity of this {@link Quantity}
+	 */
 	public int getQuantity() {
 		return quantity;
 	}
-	
+
+	/**
+	 * @return {@link Unit} of this {@link Quantity}.
+	 */
 	public Unit getUnit() {
 		return unit;
 	}
 	
+	/**
+	 * @param quantity number for the quantity of this {@link Quantity}
+	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	
+	/**
+	 * @param unit {@link Unit} of this {@link Quantity}.
+	 */
 	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
