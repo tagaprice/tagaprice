@@ -42,14 +42,14 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class ProductPagePreview extends APagePreview {
-	interface MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
-	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ProductData productData;
-	private boolean editable;
-	private RatingWidget ratingWidget;
-	private MorphWidget price;
-	private MorphWidget quantitiy;
-	private MorphWidget receipt;
+	private interface _MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
+	private _MyUiBinder _uiBinder = GWT.create(_MyUiBinder.class);
+	private ProductData _productData;
+	private boolean _editable;
+	private RatingWidget _ratingWidget;
+	private MorphWidget _price;
+	private MorphWidget _quantitiy;
+	private MorphWidget _receipt;
 	
 	@UiField SimplePanel ratingPanel;
 	@UiField HorizontalPanel HoPa1;
@@ -88,10 +88,10 @@ public class ProductPagePreview extends APagePreview {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public void init(ProductData _productData, boolean _editable) {
-		productData=_productData;
-		editable=_editable;
-		initWidget(uiBinder.createAndBindUi(this));
+	public void init(ProductData productData, boolean editable) {
+		_productData=productData;
+		_editable=editable;
+		initWidget(_uiBinder.createAndBindUi(this));
 		
 		
 		
@@ -116,8 +116,8 @@ public class ProductPagePreview extends APagePreview {
 		
 		//HoPa2
 		HoPa2.setWidth("100%");		
-		ratingWidget=new RatingWidget(productData.getRating(), editable);
-		ratingPanel.setWidget(ratingWidget);
+		_ratingWidget=new RatingWidget(_productData.getRating(), _editable);
+		ratingPanel.setWidget(_ratingWidget);
 		HoPa2.setCellWidth(ratingPanel, "100%");
 		
 
@@ -126,19 +126,19 @@ public class ProductPagePreview extends APagePreview {
 		logoPanel.setHeight(ImageBundle.INSTANCE.productPriview().getHeight()+"px");
 		
 		
-		name.setText(productData.getTitle());
-		price=new MorphWidget(""+(this.productData.getAvgPrice().getPrice()/100.00),Datatype.DOUBLE, editable);
-		price.setWidth("40px");
-		pricePanel.setWidget(price);
+		name.setText(_productData.getTitle());
+		_price=new MorphWidget(""+(this._productData.getAvgPrice().getPrice()/100.00),Datatype.DOUBLE, _editable);
+		_price.setWidth("40px");
+		pricePanel.setWidget(_price);
 		
-		quantitiy=new MorphWidget(productData.getQuantity().getQuantity()+"", Datatype.INT, editable);
-		quantitiy.setWidth("40px");
-		quantitiyPanel.setWidget(quantitiy);
+		_quantitiy=new MorphWidget(_productData.getQuantity().getQuantity()+"", Datatype.INT, _editable);
+		_quantitiy.setWidth("40px");
+		quantitiyPanel.setWidget(_quantitiy);
 		
-		currency.setText(productData.getAvgPrice().getCurrency().getTitle());
-		unit.setText(productData.getQuantity().getUnit().getTitle());
+		currency.setText(_productData.getAvgPrice().getCurrency().getTitle());
+		unit.setText(_productData.getQuantity().getUnit().getTitle());
 		
-		if(editable && !productData.hasReceipt())
+		if(_editable && !_productData.hasReceipt())
 			noReceiptName();
 		
 		
@@ -148,7 +148,7 @@ public class ProductPagePreview extends APagePreview {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("product/get&id="+productData.getId());					
+				History.newItem("product/get&id="+_productData.getId());					
 			}
 		});
 	}
@@ -169,9 +169,9 @@ public class ProductPagePreview extends APagePreview {
 		final VerticalPanel VePa1 = new VerticalPanel();
 		VePa1.setWidth("100%");
 		VePa1.setStyleName("Warning");
-		receipt=new MorphWidget("Insert here missing receipt name!", Datatype.STRING,  editable);
-		receipt.setWidth("100%");
-		VePa1.add(receipt);
+		_receipt=new MorphWidget("Insert here missing receipt name!", Datatype.STRING,  _editable);
+		_receipt.setWidth("100%");
+		VePa1.add(_receipt);
 		this.VePa1.add(VePa1);
 		
 
@@ -182,13 +182,13 @@ public class ProductPagePreview extends APagePreview {
 	 * @return 
 	 */
 	public ProductData getProductData(){
-		if(editable){
-			productData.getAvgPrice().setPrice((int)(Double.parseDouble(price.getValue())*100));
-			productData.getQuantity().setQuantity(new Integer(quantitiy.getValue()));
-			productData.setRating(ratingWidget.getRating());
+		if(_editable){
+			_productData.getAvgPrice().setPrice((int)(Double.parseDouble(_price.getValue())*100));
+			_productData.getQuantity().setQuantity(new Integer(_quantitiy.getValue()));
+			_productData.setRating(_ratingWidget.getRating());
 		}
 		
-		return productData;
+		return _productData;
 	}
 	
 	/**
@@ -196,7 +196,7 @@ public class ProductPagePreview extends APagePreview {
 	 * @return Is ProductPreview editable
 	 */
 	public boolean isEditable(){
-		return editable;
+		return _editable;
 	}
 
 	
@@ -205,7 +205,7 @@ public class ProductPagePreview extends APagePreview {
 	 * @param handler
 	 */
 	public void addChangeHandler(ChangeHandler handler){
-		price.addChangeHandler(handler);
+		_price.addChangeHandler(handler);
 	}
 	
 	
