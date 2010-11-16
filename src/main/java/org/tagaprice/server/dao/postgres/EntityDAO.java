@@ -185,7 +185,7 @@ public class EntityDAO implements IEntityDAO {
 		if (!res.next()) throw new NotFoundException("Couldn't find entity with id:"+e.getId());
 		if (res.getInt("current_revision") != rev) throw new RevisionCheckException("Revision out of date: "+rev);
 		rev++;
-		
+
 		// create new EntityRevision element
 		pstmt = _db.prepareStatement("INSERT INTO entityRevision (ent_id, rev, title, creator) VALUES (?, ?, ?, ?)");
 		pstmt.setLong(1, e.getId());
