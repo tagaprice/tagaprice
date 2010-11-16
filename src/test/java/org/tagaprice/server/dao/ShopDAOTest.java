@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.dao.postgres.AccountDAO;
+import org.tagaprice.server.dao.postgres.CountryDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
 import org.tagaprice.shared.AccountData;

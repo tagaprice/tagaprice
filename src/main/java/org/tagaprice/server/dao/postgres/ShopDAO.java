@@ -7,7 +7,6 @@ import java.sql.Types;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.CountryDAO;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.exception.DAOException;

@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.PropertyDefinitionDAO;
 import org.tagaprice.server.dao.interfaces.ICategoryDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyGroup;

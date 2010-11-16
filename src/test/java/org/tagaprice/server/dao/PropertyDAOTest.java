@@ -10,6 +10,7 @@ import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.EntityDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
+import org.tagaprice.server.dao.postgres.PropertyDefinitionDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.PropertyDefinition;

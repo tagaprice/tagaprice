@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.PropertyDefinitionDAO;
 import org.tagaprice.server.dao.interfaces.IPropertyDAO;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyData;

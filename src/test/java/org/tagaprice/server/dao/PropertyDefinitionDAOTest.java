@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
+import org.tagaprice.server.dao.postgres.PropertyDefinitionDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;

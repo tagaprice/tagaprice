@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

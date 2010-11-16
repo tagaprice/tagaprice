@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.postgres;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.postgres.EntityDAO;
-import org.tagaprice.server.dao.postgres.UnitDAO;
+import org.tagaprice.server.dao.DAOClass;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;

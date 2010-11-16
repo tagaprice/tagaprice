@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
+import org.tagaprice.server.dao.postgres.CountryDAO;
 import org.tagaprice.shared.Country;
 
 public class CountryDAOTest {
