@@ -14,7 +14,7 @@ import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.data.Price;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Quantity;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Unit;
@@ -99,7 +99,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			
 			while(res.next()){
 				try {
-					ProductData sp = new ProductData(res.getLong("ent_id"));
+					Product sp = new Product(res.getLong("ent_id"));
 					pDao.get(sp);
 					sp.setAvgPrice(new Price(15, 4, 1, "€", 1));
 					sp.setImageSrc("logo.png");

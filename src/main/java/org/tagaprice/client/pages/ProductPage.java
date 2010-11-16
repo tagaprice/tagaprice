@@ -37,7 +37,7 @@ import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.PropertyValidator;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.PropertyData;
 import org.tagaprice.shared.data.PropertyGroup;
 import org.tagaprice.shared.data.Type;
@@ -61,7 +61,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends APage {
 
-	private ProductData productData;
+	private Product productData;
 	private HashMap<String, ArrayList<PropertyData>> hashProperties = new HashMap<String, ArrayList<PropertyData>>();
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
@@ -73,7 +73,7 @@ public class ProductPage extends APage {
 	private SimplePanel propertyHandlerContainer = new SimplePanel();
 	private MorphWidget titleMorph = new MorphWidget("", Datatype.STRING, true);
 	
-	public ProductPage(ProductData _productData, Type _type) {
+	public ProductPage(Product _productData, Type _type) {
 		init(vePa1);
 		this.productData=_productData;
 		
@@ -302,10 +302,10 @@ public class ProductPage extends APage {
 					try {
 						RPCHandlerManager.getProductHandler().save(
 								productData, 
-								new AsyncCallback<ProductData>() {
+								new AsyncCallback<Product>() {
 							
 							@Override
-							public void onSuccess(ProductData result) {
+							public void onSuccess(Product result) {
 								bottomInfo.setVisible(false);
 								topSave.setText("Save");
 								if(productData.getId()==null){

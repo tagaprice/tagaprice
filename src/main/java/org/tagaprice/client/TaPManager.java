@@ -17,7 +17,7 @@ package org.tagaprice.client;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Country;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Type;
@@ -117,10 +117,10 @@ public class TaPManager {
 		uiMng.waitingPage();
 
 		try {
-			RPCHandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
+			RPCHandlerManager.getProductHandler().get(id, new AsyncCallback<Product>() {
 
 				@Override
-				public void onSuccess(final ProductData pResult) {
+				public void onSuccess(final Product pResult) {
 
 					
 					//TODO set new Type("root", 9, 1, null) to new Type(1)
@@ -172,7 +172,7 @@ public class TaPManager {
 
 			@Override
 			public void onSuccess(Type result) {
-				ProductData pd3 = new ProductData("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
+				Product pd3 = new Product("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
 				uiMng.showProduct(pd3, result);	
 			}
 			

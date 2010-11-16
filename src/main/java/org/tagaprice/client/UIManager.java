@@ -27,7 +27,7 @@ import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.Type;
@@ -113,7 +113,7 @@ public class UIManager extends APage {
 	}
 
 
-	public void showProduct(ProductData productData, Type type){
+	public void showProduct(Product productData, Type type){
 		waitingPage();
 		currentPage = new ProductPage(productData,type);
 		centerPage.setWidget(currentPage);

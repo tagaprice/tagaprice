@@ -29,7 +29,7 @@ import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.data.Price;
 import org.tagaprice.shared.data.PriceData;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.PriceHandler;
@@ -92,10 +92,10 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 					
 					ResultSet res = pstmt.executeQuery();
 					//ProductData tempProduct = new ProductData(res.getLong("pid"));
-					ProductData tempProduct=null;
+					Product tempProduct=null;
 					while(res.next()){
 						
-						if(tempProduct==null) tempProduct = new ProductData(res.getLong("pid"));
+						if(tempProduct==null) tempProduct = new Product(res.getLong("pid"));
 						
 						ShopData tempShop = new ShopData(res.getLong("sid"));
 						productDAO.get(tempProduct);
@@ -123,7 +123,7 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 				ResultSet res = pstmt.executeQuery();
 				
 				while(res.next()){
-					ProductData tempProduct = new ProductData(res.getLong("pid"));
+					Product tempProduct = new Product(res.getLong("pid"));
 					//ShopData tempShop = new ShopData(res.getLong("sid"));
 					productDAO.get(tempProduct);
 					//shopDAO.get(tempShop);

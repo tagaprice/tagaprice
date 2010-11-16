@@ -24,7 +24,7 @@ import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ShopData;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -255,8 +255,8 @@ public class SearchWidget extends Composite {
 						popPa.showRelativeTo(searchBox);
 					
 					for(Entity sResult:result){
-						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
+						if(sResult instanceof Product){
+							selVePa.add(new ProductPagePreview((Product)sResult, false));
 						}else if(sResult instanceof ShopData){
 							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}
@@ -284,8 +284,8 @@ public class SearchWidget extends Composite {
 						popPa.showRelativeTo(searchBox);
 					
 					for(Entity sResult:result){
-						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
+						if(sResult instanceof Product){
+							selVePa.add(new ProductPagePreview((Product)sResult, false));
 						}else if(sResult instanceof ShopData){
 							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}
@@ -315,8 +315,8 @@ public class SearchWidget extends Composite {
 						//selVePa.add(new Label(sResult.getTitle()));
 						
 						
-						if(sResult instanceof ProductData){
-							selVePa.add(new ProductPagePreview((ProductData)sResult, false));
+						if(sResult instanceof Product){
+							selVePa.add(new ProductPagePreview((Product)sResult, false));
 						}else if(sResult instanceof ShopData){
 							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
 						}

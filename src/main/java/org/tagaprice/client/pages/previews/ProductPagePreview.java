@@ -19,7 +19,7 @@ import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.PropertyDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
@@ -44,7 +44,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class ProductPagePreview extends APagePreview {
 	interface MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ProductData productData;
+	private Product productData;
 	private boolean editable;
 	private RatingWidget ratingWidget;
 	private MorphWidget price;
@@ -70,14 +70,14 @@ public class ProductPagePreview extends APagePreview {
 	 * @param editable
 	 * @param handler
 	 */
-	public ProductPagePreview(ProductData productData, boolean editable, ChangeHandler handler){
+	public ProductPagePreview(Product productData, boolean editable, ChangeHandler handler){
 		super();
 		init(productData, editable);
 		addChangeHandler(handler);
 	}
 	
 	
-	public ProductPagePreview(ProductData productData, boolean editable){
+	public ProductPagePreview(Product productData, boolean editable){
 		init(productData, editable);
 	}
 	
@@ -88,7 +88,7 @@ public class ProductPagePreview extends APagePreview {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public void init(ProductData _productData, boolean _editable) {
+	public void init(Product _productData, boolean _editable) {
 		productData=_productData;
 		editable=_editable;
 		initWidget(uiBinder.createAndBindUi(this));
@@ -181,7 +181,7 @@ public class ProductPagePreview extends APagePreview {
 	 * Return current productData
 	 * @return 
 	 */
-	public ProductData getProductData(){
+	public Product getProductData(){
 		if(editable){
 			productData.getAvgPrice().setPrice((int)(Double.parseDouble(price.getText())*100));
 			productData.getQuantity().setQuantity(new Integer(quantitiy.getText()));

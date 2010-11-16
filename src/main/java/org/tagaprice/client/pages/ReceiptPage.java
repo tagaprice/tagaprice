@@ -29,7 +29,7 @@ import org.tagaprice.client.widgets.SelectiveListHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.data.ShopData;
 import org.tagaprice.shared.data.PropertyDefinition.Datatype;
@@ -105,7 +105,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			setShop(receiptData.getShop());
 		}
 		
-		for(ProductData pd: receiptData.getProductData()){
+		for(Product pd: receiptData.getProductData()){
 			addProduct(pd);
 		}
 		
@@ -173,7 +173,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			setShop(receiptData.getShop());
 		}
 		
-		for(ProductData pd: receiptData.getProductData()){
+		for(Product pd: receiptData.getProductData()){
 			addProduct(pd);
 		}
 		
@@ -329,7 +329,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * 
 	 * @param product
 	 */
-	public void addProduct(ProductData product){
+	public void addProduct(Product product){
 		productContainer.add(new ProductPagePreview(product, isEditable, priceChangeHandler));
 		refresh();
 	}
@@ -344,7 +344,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			receiptData.setShop(shopPreview.getShopData());
 		}
 		
-		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
+		ArrayList<Product> productList = new ArrayList<Product>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){
 			productList.add(((ProductPagePreview)productContainer.getWidget(i)).getProductData());
 		}		

@@ -9,7 +9,7 @@ import java.util.Date;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.data.Price;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Quantity;
 import org.tagaprice.shared.data.ReceiptData;
 import org.tagaprice.shared.data.ShopData;
@@ -63,7 +63,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		
 		
 		receipt.setDate(new Date());
-		receipt.setProductData(new ArrayList<ProductData>());
+		receipt.setProductData(new ArrayList<Product>());
 		receipt.setDraft(true);
 			
 		
@@ -105,10 +105,10 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 		pstmt.setLong(2, receipt.getId());
 		ResultSet resSet2 = pstmt.executeQuery();
 
-		ArrayList<ProductData> productDataArray = new ArrayList<ProductData>();
+		ArrayList<Product> productDataArray = new ArrayList<Product>();
 		
 		while(resSet2.next()){
-			ProductData tempProduct = new ProductData(resSet2.getLong("pid"));
+			Product tempProduct = new Product(resSet2.getLong("pid"));
 			productDAO.get(tempProduct);
 			tempProduct.setAvgPrice(new Price(resSet2.getInt("price"), 4, 1, "€", 1));
 			tempProduct.setQuantity(new Quantity(1, new Unit(23, 2, "kg", 1, null, 0)));			
@@ -169,7 +169,7 @@ public class ReceiptDAO implements DAOClass<ReceiptData> {
 			pstmt.executeUpdate();
 			
 			//Add new
-			for(ProductData pd:receipt.getProductData()){
+			for(Product pd:receipt.getProductData()){
 				pstmt = db.prepareStatement("INSERT INTO receiptentry " +
 						"(rid, pid, price) VALUES (?,?,?)");
 				

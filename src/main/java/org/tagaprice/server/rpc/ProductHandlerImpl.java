@@ -22,7 +22,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.data.ProductData;
+import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Type;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
@@ -53,8 +53,8 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	
 	
 	@Override
-	public ProductData get(long id) throws IllegalArgumentException {
-		ProductData pd = new ProductData();
+	public Product get(long id) throws IllegalArgumentException {
+		Product pd = new Product();
 		pd._setId(id);
 		
 		
@@ -71,7 +71,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	}
 
 	@Override
-	public ProductData save(ProductData data) throws IllegalArgumentException, InvalidLoginException {
+	public Product save(Product data) throws IllegalArgumentException, InvalidLoginException {
 		getSid();
 		TypeHandlerImpl th = new TypeHandlerImpl();
 		

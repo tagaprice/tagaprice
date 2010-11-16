@@ -29,7 +29,7 @@ public class ReceiptData extends Entity {
 	private Date date;
 	private int bill; //in Cent
 	private ShopData shop;
-	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
+	private ArrayList<Product> productData = new ArrayList<Product>();
 	
 	/**
 	 * default constructor (needed for serialization)
@@ -66,7 +66,7 @@ public class ReceiptData extends Entity {
 	 * @param products
 	 * @param draft
 	 */
-	public ReceiptData(String title, int localeId, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+	public ReceiptData(String title, int localeId, long creatorId, Date date, int bill, ShopData shop, ArrayList<Product> products, boolean draft) {
 		super(title, localeId, creatorId);
 		this.date = date;
 		this.bill = bill;
@@ -74,7 +74,7 @@ public class ReceiptData extends Entity {
 		this.productData = products;
 	}
 	
-	public ReceiptData(long id, int rev, String title, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+	public ReceiptData(long id, int rev, String title, long creatorId, Date date, int bill, ShopData shop, ArrayList<Product> products, boolean draft) {
 		super(id, rev, title, creatorId);
 		this.date = date;
 		this.bill = bill;
@@ -150,7 +150,7 @@ public class ReceiptData extends Entity {
 	 * 
 	 * @return
 	 */
-	public ArrayList<ProductData> getProductData() {
+	public ArrayList<Product> getProductData() {
 		return productData;
 	}
 	
@@ -159,7 +159,7 @@ public class ReceiptData extends Entity {
 	 * @param productPreviewData
 	 */
 	public void setProductData(
-			ArrayList<ProductData> productData) {
+			ArrayList<Product> productData) {
 		this.productData = productData;
 	}
 
@@ -172,7 +172,7 @@ public class ReceiptData extends Entity {
 	public long getTotalPrice(){
 		
 		long totalPrice = 0;
-		for(ProductData pd: productData){
+		for(Product pd: productData){
 			totalPrice= totalPrice+pd.getAvgPrice().getPrice();
 		}
 		
