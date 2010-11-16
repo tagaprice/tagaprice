@@ -88,11 +88,11 @@ public class ShopPage extends APage {
 
 	
 	//Address
-	private MorphWidget street = new MorphWidget("", Datatype.STRING, true);
-	private MorphWidget zip = new MorphWidget("", Datatype.STRING, true);
-	private MorphWidget county = new MorphWidget("", Datatype.STRING, true);
-	private MorphWidget country = new MorphWidget("", Datatype.STRING, true);
-	private Button showMapButton = new Button("Show on Map");
+	private MorphWidget _street = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget _zip = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget _county = new MorphWidget("", Datatype.STRING, true);
+	private MorphWidget _country = new MorphWidget("", Datatype.STRING, true);
+	private Button _showMapButton = new Button("Show on Map");
 	
 /**
  * The Constructor creates a shop page for a new shop with shop data and shop type	
@@ -180,17 +180,17 @@ public class ShopPage extends APage {
 		adressGrid.setText(2, 0, "County");
 		adressGrid.setText(3, 0, "Country");	
 		
-		//AddWidgets
-		adressGrid.setWidget(0, 1, street);
-		adressGrid.setWidget(1, 1, zip);
-		adressGrid.setWidget(2, 1, county);
-		adressGrid.setWidget(3, 1, country);
 		
-		//SetText
-		street.setText(_shopData.getAddress().getStreet());
+		adressGrid.setWidget(0, 1, _street);
+		adressGrid.setWidget(1, 1, _zip);
+		adressGrid.setWidget(2, 1, _county);
+		adressGrid.setWidget(3, 1, _country);
+		
+		
+		_street.setText(_shopData.getAddress().getStreet());
 		//zip.setText(shopData.getAddress().get);
-		county.setText(_shopData.getAddress().getCity());
-		country.setText(_shopData.getAddress().getCountry().getCode());
+		_county.setText(_shopData.getAddress().getCity());
+		_country.setText(_shopData.getAddress().getCountry().getCode());
 		
 		//Width
 		//street.setWidth("100%");
@@ -208,43 +208,43 @@ public class ShopPage extends APage {
 		adressGrid.getCellFormatter().setStyleName(3, 1, "RegistrationPage-Row");
 		_verticalPanel_1.add(adressGrid);
 		
-		showMapButton.setWidth("100%");
-		_verticalPanel_1.add(showMapButton);
-		showMapButton.setVisible(false);
+		_showMapButton.setWidth("100%");
+		_verticalPanel_1.add(_showMapButton);
+		_showMapButton.setVisible(false);
 		
-		showMapButton.addClickHandler(new ClickHandler() {
+		_showMapButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				showMapButton.setText("Searching....");
+				_showMapButton.setText("Searching....");
 
-				_geoCoder.getLocations(street.getValue().trim()+", "
-						+zip.getValue().trim()+", "
-						+county.getValue().trim()+", "
-						+country.getValue().trim(), new LocationCallback() {
+				_geoCoder.getLocations(_street.getValue().trim()+", "
+						+_zip.getValue().trim()+", "
+						+_county.getValue().trim()+", "
+						+_country.getValue().trim(), new LocationCallback() {
 
 							
 							@Override
 							public void onSuccess(JsArray<Placemark> locations) {
 								_mapWidget.setCenter(locations.get(0).getPoint());
 								_marker.setLatLng(locations.get(0).getPoint());
-								showMapButton.setText("Show on map");
-								showMapButton.setVisible(false);
+								_showMapButton.setText("Show on map");
+								_showMapButton.setVisible(false);
 								
 								_shopData.getAddress().setCoordinates(
 										locations.get(0).getPoint().getLatitude(),
 										locations.get(0).getPoint().getLongitude());
 								
-								street.setText(locations.get(0).getStreet());
-								zip.setText(locations.get(0).getPostalCode());
-								county.setText(locations.get(0).getCounty());
-								country.setText(locations.get(0).getCountry());
+								_street.setText(locations.get(0).getStreet());
+								_zip.setText(locations.get(0).getPostalCode());
+								_county.setText(locations.get(0).getCounty());
+								_country.setText(locations.get(0).getCountry());
 								
 								
 								//TODO Problem with Country
 
 								_shopData.getAddress().setAddress(
-										street.getValue().trim(), 
+										_street.getValue().trim(), 
 
 										locations.get(0).getCity(), 
 										new Country(
@@ -257,7 +257,7 @@ public class ShopPage extends APage {
 							
 							@Override
 							public void onFailure(int statusCode) {
-								showMapButton.setText("Show on map");
+								_showMapButton.setText("Show on map");
 								System.out.println("can't find address");						
 							}
 						});
@@ -288,10 +288,10 @@ public class ShopPage extends APage {
 										locations.get(0).getCountry(), 
 										locations.get(0).getCountry()));
 						
-						street.setText(locations.get(0).getStreet());
-						zip.setText(locations.get(0).getPostalCode());
-						county.setText(locations.get(0).getCounty());
-						country.setText(locations.get(0).getCountry());
+						_street.setText(locations.get(0).getStreet());
+						_zip.setText(locations.get(0).getPostalCode());
+						_county.setText(locations.get(0).getCounty());
+						_country.setText(locations.get(0).getCountry());
 						
 					}
 					
@@ -307,29 +307,36 @@ public class ShopPage extends APage {
 				showSave();	
 			}
 		});
-		
-		street.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
-			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
+
+		_street.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
+
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {showMapButton.setVisible(true);}
+			public void onEmpty() {_showMapButton.setVisible(true);}
 		});
 		
-		zip.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
-			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
+
+		_zip.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
+
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {showMapButton.setVisible(true);}
+			public void onEmpty() {_showMapButton.setVisible(true);}
 		});
 		
-		county.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
-			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
+
+		_county.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
+
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {showMapButton.setVisible(true);}
+			public void onEmpty() {_showMapButton.setVisible(true);}
 		});
 		
-		country.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
-			public void onSuccess(Datatype errorType) {	showMapButton.setVisible(true);}			
+
+		_country.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+			public void onSuccess(Datatype errorType) {	_showMapButton.setVisible(true);}			
+
 			public void onError(Datatype errorType) {}			
-			public void onEmpty() {showMapButton.setVisible(true);}
+			public void onEmpty() {_showMapButton.setVisible(true);}
 		});
 		
 		

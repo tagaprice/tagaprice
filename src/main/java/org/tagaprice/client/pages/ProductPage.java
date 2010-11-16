@@ -59,6 +59,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Product page with product data and type
+ * 
+ *
+ */
+
 public class ProductPage extends APage {
 
 	private ProductData _productData;
@@ -72,11 +78,15 @@ public class ProductPage extends APage {
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
 	private MorphWidget _titleMorph = new MorphWidget("", Datatype.STRING, true);
-/**
- * The Constructor creates a ProductPage for a product
- * @param productData
- * @param _type
- */
+
+
+	/**
+	 * The Constructor creates a ProductPage for a product with product data and product type
+	 * 
+	 * @param productData
+	 * @param _type
+	 */
+
 	public ProductPage(ProductData productData, Type _type) {
 
 		init(this._verticalPanel_1);
@@ -107,17 +117,17 @@ public class ProductPage extends APage {
 				.getProgress());
 		hoPa1.add(progressWidget);
 
-		VerticalPanel vePa2 = new VerticalPanel();
-		vePa2.setWidth("100%");
-		hoPa1.add(vePa2);
-		hoPa1.setCellWidth(vePa2, "100%");
+		VerticalPanel verticalPanel2 = new VerticalPanel();
+		verticalPanel2.setWidth("100%");
+		hoPa1.add(verticalPanel2);
+		hoPa1.setCellWidth(verticalPanel2, "100%");
 
 		// Type
-		vePa2.add(_typeWidgetContainer);
+		verticalPanel2.add(_typeWidgetContainer);
 		drawTypeWidget();
 
 		// Rating
-		vePa2.add(new RatingWidget(this._productData.getRating(), false));
+		verticalPanel2.add(new RatingWidget(this._productData.getRating(), false));
 
 		// Listener
 		_handler = new PropertyChangeHandler() {
@@ -134,7 +144,11 @@ public class ProductPage extends APage {
 			}
 		};
 
+
 		_titleMorph.addMorphWidgetInfoHandler(new MorphWidgetInfoHandler() {
+/**
+ * The change of product data title is successful
+ */
 
 			@Override
 			public void onSuccess(Datatype errorType) {

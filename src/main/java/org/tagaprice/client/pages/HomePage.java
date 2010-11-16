@@ -34,49 +34,53 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
+/**
+ * 
+ *
+ */
 public class HomePage extends APage {
 
-	TaPManager Mng = TaPManager.getInstance();
+	TaPManager _Mng = TaPManager.getInstance();
 
-	Grid grid = new Grid(2, 3);
-	ImageTextButton newReceipt = new ImageTextButton("add Receipt", new Image(
+	Grid _grid = new Grid(2, 3);
+	ImageTextButton _newReceipt = new ImageTextButton("add Receipt", new Image(
 			ImageBundle.INSTANCE.productPriview()), "receipt/get");
 
 	public HomePage() {
-		init(grid);
+		init(_grid);
 		setStyleName("HomePage");
 
-		grid.setWidth("100%");
-		grid.setStyleName("HomePage-Grid");
+		_grid.setWidth("100%");
+		_grid.setStyleName("HomePage-Grid");
 		// grid.setBorderWidth(1);
-		grid.getCellFormatter().setWidth(0, 0, "33%");
-		grid.getCellFormatter().setWidth(0, 1, "33%");
-		grid.getCellFormatter().setWidth(0, 2, "33%");
-		grid.getCellFormatter().setHorizontalAlignment(0, 0,
+		_grid.getCellFormatter().setWidth(0, 0, "33%");
+		_grid.getCellFormatter().setWidth(0, 1, "33%");
+		_grid.getCellFormatter().setWidth(0, 2, "33%");
+		_grid.getCellFormatter().setHorizontalAlignment(0, 0,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setHorizontalAlignment(0, 1,
+		_grid.getCellFormatter().setHorizontalAlignment(0, 1,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setHorizontalAlignment(0, 2,
+		_grid.getCellFormatter().setHorizontalAlignment(0, 2,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setHorizontalAlignment(1, 0,
+		_grid.getCellFormatter().setHorizontalAlignment(1, 0,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setHorizontalAlignment(1, 1,
+		_grid.getCellFormatter().setHorizontalAlignment(1, 1,
 				HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setHorizontalAlignment(1, 2,
+		_grid.getCellFormatter().setHorizontalAlignment(1, 2,
 				HasHorizontalAlignment.ALIGN_CENTER);
 
 		//
 
-		grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(
+		_grid.setWidget(0, 0, new ImageTextButton("add Product", new Image(
 				ImageBundle.INSTANCE.productPriview()), "product/new"));
-		grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(
+		_grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(
 				ImageBundle.INSTANCE.newShopButton()), "shop/new"));
 
 		if (Cookies.getCookie("TaPSId") != null) { // / TODO check session
 													// validity
-			grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(
+			_grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(
 					ImageBundle.INSTANCE.loginButton()), "user/logout"));
-			grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(
+			_grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(
 					ImageBundle.INSTANCE.productPriview()), new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
@@ -107,12 +111,12 @@ public class HomePage extends APage {
 
 				}
 			}));
-			grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(
+			_grid.setWidget(1, 1, new ImageTextButton("My Receipts", new Image(
 					ImageBundle.INSTANCE.productPriview()), "receipt/list"));
 		} else {
-			grid.setWidget(0, 2, new ImageTextButton("Login", new Image(
+			_grid.setWidget(0, 2, new ImageTextButton("Login", new Image(
 					ImageBundle.INSTANCE.loginButton()), "user/login"));
-			grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(
+			_grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(
 					ImageBundle.INSTANCE.loginButton()),
 					"user/registration/new"));
 		}
@@ -127,7 +131,7 @@ public class HomePage extends APage {
 }
 
 class ImageTextButton extends Composite {
-	FlowPanel vePa1 = new FlowPanel();
+	FlowPanel _verticalPanael1 = new FlowPanel();
 	Label _label;
 	Image _image;
 
@@ -150,12 +154,12 @@ class ImageTextButton extends Composite {
 	}
 
 	private void init(String text, Image pic) {
-		initWidget(vePa1);
+		initWidget(_verticalPanael1);
 		_label = new Label(text);
 		_image = pic;
 
-		vePa1.add(_image);
-		vePa1.add(_label);
+		_verticalPanael1.add(_image);
+		_verticalPanael1.add(_label);
 
 		setStyleName("button");
 	}
