@@ -31,7 +31,7 @@ import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -298,7 +298,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * 
 	 * @param shop
 	 */
-	public void setShop(ShopData shopData){
+	public void setShop(Shop shopData){
 		shopPreview=new ShopPagePreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
 		

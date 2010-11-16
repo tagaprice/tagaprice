@@ -19,7 +19,7 @@ import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Country;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.Type;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
@@ -191,11 +191,11 @@ public class TaPManager {
 		//Create Page
 		uiMng.waitingPage();
 				
-		RPCHandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
+		RPCHandlerManager.getShopHandler().get(id, new AsyncCallback<Shop>() {
 			
 			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
-			public void onSuccess(final ShopData result) {
+			public void onSuccess(final Shop result) {
 				RPCHandlerManager.getTypeHandler().get(new Type(result.getTypeId()), new AsyncCallback<Type>() {
 
 					@Override
@@ -238,7 +238,7 @@ public class TaPManager {
 
 			@Override
 			public void onSuccess(Type result) {
-				ShopData sd = new ShopData("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
+				Shop sd = new Shop("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
 				
 				uiMng.showShop(sd,result);
 				

@@ -12,7 +12,7 @@ import org.tagaprice.shared.data.Price;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Quantity;
 import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -86,7 +86,7 @@ public class ReceiptDAO implements DAOClass<Receipt> {
 		
 		//Get shop
 		if(resSet.getLong("sid")>0){
-			ShopData sTemp = new ShopData(resSet.getLong("sid"));
+			Shop sTemp = new Shop(resSet.getLong("sid"));
 			shopDAO.get(sTemp);
 			receipt.setShop(sTemp);
 		}

@@ -21,7 +21,7 @@ import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -63,10 +63,10 @@ public class ListWidget<T extends APagePreview> extends Composite{
 		}
 	}
 
-	public void populateShopList(ArrayList<ShopData> shopData){
+	public void populateShopList(ArrayList<Shop> shopData){
 		verticalPanel.clear();
 
-		for(ShopData sd: shopData){
+		for(Shop sd: shopData){
 			verticalPanel.add(createPreview(sd));
 		}
 	}
@@ -83,8 +83,8 @@ public class ListWidget<T extends APagePreview> extends Composite{
 	private APagePreview createPreview(Entity e){
 		APagePreview rc = null;
 
-		if(e instanceof ShopData){
-			rc= new ShopPagePreview((ShopData)e, false);
+		if(e instanceof Shop){
+			rc= new ShopPagePreview((Shop)e, false);
 		}else if(e instanceof Product){
 			rc=new ProductPagePreview((Product) e, false);
 		}

@@ -16,7 +16,7 @@ import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.data.Price;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Quantity;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.SearchHandler;
@@ -75,7 +75,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	}
 
 	@Override
-	public ArrayList<Entity> search(String search, ShopData shopData)
+	public ArrayList<Entity> search(String search, Shop shopData)
 			throws IllegalArgumentException {
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		getProduct(search, mockUp);
@@ -133,7 +133,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			
 			while(res.next()){
 				try {
-					ShopData sd = new ShopData(res.getLong("ent_id"));
+					Shop sd = new Shop(res.getLong("ent_id"));
 					sDao.get(sd);
 					mockUp.add(sd);
 				} catch (NotFoundException e) {

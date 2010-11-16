@@ -30,7 +30,7 @@ import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.data.Price;
 import org.tagaprice.shared.data.PriceData;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.PriceHandler;
 
@@ -97,7 +97,7 @@ public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandl
 						
 						if(tempProduct==null) tempProduct = new Product(res.getLong("pid"));
 						
-						ShopData tempShop = new ShopData(res.getLong("sid"));
+						Shop tempShop = new Shop(res.getLong("sid"));
 						productDAO.get(tempProduct);
 						shopDAO.get(tempShop);
 						

@@ -27,7 +27,7 @@ public class Receipt extends Entity {
 	private Date _date;
 	/** in Cent (or similar) TODO what's that for? */
 	private int _bill;
-	private ShopData _shop;
+	private Shop _shop;
 	private ArrayList<Product> _products = new ArrayList<Product>();
 	
 	/**
@@ -61,11 +61,11 @@ public class Receipt extends Entity {
 	 * @param creatorId receipt's creator
 	 * @param date receipt date
 	 * @param bill bill in Cent (or similar)
-	 * @param shop {@link ShopData} this {@link Receipt} is from
+	 * @param shop {@link Shop} this {@link Receipt} is from
 	 * @param products list of {@link Product}s of this bill.
 	 * @param draft is this {@link Receipt} a draft only?
 	 */
-	public Receipt(String title, int localeId, long creatorId, Date date, int bill, ShopData shop, ArrayList<Product> products, boolean draft) {
+	public Receipt(String title, int localeId, long creatorId, Date date, int bill, Shop shop, ArrayList<Product> products, boolean draft) {
 		super(title, localeId, creatorId);
 		this._date = date;
 		this._bill = bill;
@@ -83,11 +83,11 @@ public class Receipt extends Entity {
 	 * @param creatorId receipt's creator
 	 * @param date receipt date
 	 * @param bill bill in Cent (or similar)
-	 * @param shop {@link ShopData} this {@link Receipt} is from
+	 * @param shop {@link Shop} this {@link Receipt} is from
 	 * @param products list of {@link Product}s of this bill.
 	 * @param draft is this {@link Receipt} a draft only? 
 	 */
-	public Receipt(long id, int rev, String title, long creatorId, Date date, int bill, ShopData shop, ArrayList<Product> products, boolean draft) {
+	public Receipt(long id, int rev, String title, long creatorId, Date date, int bill, Shop shop, ArrayList<Product> products, boolean draft) {
 		super(id, rev, title, creatorId);
 		this._date = date;
 		this._bill = bill;
@@ -155,16 +155,16 @@ public class Receipt extends Entity {
 	}
 	
 	/**
-	 * @return {@link ShopData} where this receipt is from.
+	 * @return {@link Shop} where this receipt is from.
 	 */
-	public ShopData getShop() {
+	public Shop getShop() {
 		return _shop;
 	}
 	
 	/**
-	 * @param shop {@link ShopData} where this receipt is from.
+	 * @param shop {@link Shop} where this receipt is from.
 	 */
-	public void setShop(ShopData shop) {
+	public void setShop(Shop shop) {
 		this._shop = shop;
 	}
 	

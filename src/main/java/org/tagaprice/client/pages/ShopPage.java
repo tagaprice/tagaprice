@@ -40,7 +40,7 @@ import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Country;
 import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyGroup;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.Type;
 import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 
@@ -71,7 +71,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ShopPage extends APage {
 
-	private ShopData shopData;
+	private Shop shopData;
 	private Type type;
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private HashMap<String, ArrayList<Property>> hashProperties = new HashMap<String, ArrayList<Property>>();
@@ -94,7 +94,7 @@ public class ShopPage extends APage {
 	private Button showMapButton = new Button("Show on Map");
 	
 	
-	public ShopPage(ShopData _shopData, Type _type){
+	public ShopPage(Shop _shopData, Type _type){
 		init(vePa1);
 		this.shopData=_shopData;
 		this.type=_type;
@@ -497,10 +497,10 @@ public class ShopPage extends APage {
 				//Validate Data
 				if(PropertyValidator.isValid(type, shopData.getProperties())){	
 				
-					RPCHandlerManager.getShopHandler().save(shopData, new AsyncCallback<ShopData>() {
+					RPCHandlerManager.getShopHandler().save(shopData, new AsyncCallback<Shop>() {
 						
 						@Override
-						public void onSuccess(ShopData result) {
+						public void onSuccess(Shop result) {
 							bottomInfo.setVisible(false);
 							topSave.setText("Save");
 							if(shopData.getId()==null){

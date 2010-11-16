@@ -1,13 +1,13 @@
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ShopHandlerAsync {
-	void get(long id, AsyncCallback<ShopData> callback)
+	void get(long id, AsyncCallback<Shop> callback)
 	throws IllegalArgumentException;
 
-void save(ShopData data, AsyncCallback<ShopData> callback) 
+void save(Shop data, AsyncCallback<Shop> callback) 
 	throws IllegalArgumentException;
 }

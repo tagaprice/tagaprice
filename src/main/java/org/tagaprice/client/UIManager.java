@@ -29,7 +29,7 @@ import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Product;
 import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.data.Type;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -119,7 +119,7 @@ public class UIManager extends APage {
 		centerPage.setWidget(currentPage);
 	}
 
-	public void showShop(ShopData shopData, Type type){
+	public void showShop(Shop shopData, Type type){
 		waitingPage();
 		currentPage = new ShopPage(shopData, type);
 		centerPage.setWidget(currentPage);

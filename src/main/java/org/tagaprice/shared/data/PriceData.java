@@ -27,7 +27,7 @@ public class PriceData  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Product _productData;
-	private ShopData _shopData;
+	private Shop _shopData;
 	private Price _price;
 	private Date _date;
 	
@@ -40,11 +40,11 @@ public class PriceData  implements Serializable {
 	/**
 	 * Create a new {@link PriceData}
 	 * @param product the {@link Product} to use
-	 * @param shop the {@link ShopData} to use
+	 * @param shop the {@link Shop} to use
 	 * @param p the actual {@link Price}
 	 * @param date {@link Date} when this {@link Price} was up to date.
 	 */
-	public PriceData(Product product, ShopData shop, Price p, Date date){
+	public PriceData(Product product, Shop shop, Price p, Date date){
 		this._productData=product;
 		this._shopData=shop;
 		this._price = p;
@@ -77,7 +77,7 @@ public class PriceData  implements Serializable {
 	/**
 	 * @return the shop this {@link PriceData} was up to date.
 	 */
-	public ShopData getShopData() {
+	public Shop getShopData() {
 		return _shopData;
 	}
 
@@ -85,7 +85,7 @@ public class PriceData  implements Serializable {
 	/**
 	 * @param shopData the shop this {@link PriceData} was up to date.
 	 */
-	public void setShopData(ShopData shopData) {
+	public void setShopData(Shop shopData) {
 		this._shopData = shopData;
 	}
 

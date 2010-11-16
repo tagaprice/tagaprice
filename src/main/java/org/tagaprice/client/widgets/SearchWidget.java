@@ -25,7 +25,7 @@ import org.tagaprice.shared.BoundingBox;
 import org.tagaprice.shared.Serializable;
 import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -65,7 +65,7 @@ public class SearchWidget extends Composite {
 	private boolean _popup;
 	private SelectionType _selectionType;
 	private BoundingBox _bbox=null;
-	private ShopData _shopData=null;
+	private Shop _shopData=null;
 	private long myCurRequest = 0;
 	
 	public SearchWidget(
@@ -130,7 +130,7 @@ public class SearchWidget extends Composite {
 			boolean showNew, 
 			boolean popup,
 			SelectionType selectionType,
-			ShopData shopData) {
+			Shop shopData) {
 		_shopData=shopData;
 		init(searchType, showNew, popup, selectionType);	
 		
@@ -257,8 +257,8 @@ public class SearchWidget extends Composite {
 					for(Entity sResult:result){
 						if(sResult instanceof Product){
 							selVePa.add(new ProductPagePreview((Product)sResult, false));
-						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
+						}else if(sResult instanceof Shop){
+							selVePa.add(new ShopPagePreview((Shop)sResult, false));
 						}
 					}
 				}
@@ -286,8 +286,8 @@ public class SearchWidget extends Composite {
 					for(Entity sResult:result){
 						if(sResult instanceof Product){
 							selVePa.add(new ProductPagePreview((Product)sResult, false));
-						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
+						}else if(sResult instanceof Shop){
+							selVePa.add(new ShopPagePreview((Shop)sResult, false));
 						}
 					}
 				}
@@ -317,8 +317,8 @@ public class SearchWidget extends Composite {
 						
 						if(sResult instanceof Product){
 							selVePa.add(new ProductPagePreview((Product)sResult, false));
-						}else if(sResult instanceof ShopData){
-							selVePa.add(new ShopPagePreview((ShopData)sResult, false));
+						}else if(sResult instanceof Shop){
+							selVePa.add(new ShopPagePreview((Shop)sResult, false));
 						}
 						
 					}

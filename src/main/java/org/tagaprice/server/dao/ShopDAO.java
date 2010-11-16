@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.ShopData;
+import org.tagaprice.shared.data.Shop;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class ShopDAO implements DAOClass<ShopData> {
+public class ShopDAO implements DAOClass<Shop> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	private CountryDAO countryDAO;
@@ -23,7 +23,7 @@ public class ShopDAO implements DAOClass<ShopData> {
 	}
 
 	@Override
-	public void get(ShopData shop) throws SQLException, NotFoundException {
+	public void get(Shop shop) throws SQLException, NotFoundException {
 		//Get Entity Data
 		entityDAO.get(shop);
 		
@@ -59,7 +59,7 @@ public class ShopDAO implements DAOClass<ShopData> {
 	}
 
 	@Override
-	public void save(ShopData shop) throws SQLException, NotFoundException,
+	public void save(Shop shop) throws SQLException, NotFoundException,
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		
