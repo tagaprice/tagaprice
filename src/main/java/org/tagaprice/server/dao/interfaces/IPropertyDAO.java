@@ -11,9 +11,9 @@ public interface IPropertyDAO {
 //	<T extends Entity> T getPropertiesByIdAndRef(T entity) throws DAOException;
 
 	/**
-	 * Saves properties of given entity to storage. If an old version of given entity exists, its 
+	 * Saves properties of given entity to storage. Creates new properties, deletes properties or creates new versions of properties as need.
 	 * @param property Property to be saved. It's id must be set and revision must be set.
-	 * @return If successful, returns the actually saved revision of given property, i.e. it's revision will be set. Otherwise returns null.
+	 * @return Returns true if successful, false if not.
 	 * @throws DAOException
 	 */
 	boolean saveProperties(Entity property) throws DAOException;
