@@ -14,10 +14,6 @@ public class DAOException extends ServerException {
 		super();
 	}
 	
-	public DAOException(String message, Exception e) {
-		super();
-	}
-	
 	public DAOException(String message) {
 		super(message);
 	}
