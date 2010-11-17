@@ -2,6 +2,7 @@ package org.tagaprice.shared.exception;
 
 import java.sql.SQLException;
 
+
 /**
  * Indicates that an error has occured when performing the requested action in a DAO. 
  * E.g. SQLException due to database misbehavior, XMLExceptions on parse errors, etc
