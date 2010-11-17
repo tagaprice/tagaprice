@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.DAOException;

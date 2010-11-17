@@ -14,6 +14,9 @@
 */
 package org.tagaprice.shared.entities;
 
+/**
+ * Represents an user account with address and email.
+ */
 public class Account extends Entity {
 	private static final long serialVersionUID = 1L;
 
@@ -21,13 +24,13 @@ public class Account extends Entity {
 	private Address address;
 
 	/**
-	 * Default constructor needed for serialization
+	 * Default constructor needed for serialization.
 	 */
 	public Account() {}
 
 	/**
-	 * constcructor used to query an account's current revision from the database
-	 * (using AccountDAO) 
+	 * Constructor used to query an account's current revision from the database.
+	 * (using AccountDAO)
 	 * @param id Account ID
 	 */
 	public Account(Long id) {
@@ -35,7 +38,7 @@ public class Account extends Entity {
 	}
 	
 	/**
-	 * constructor used to query a specific revision from the DB
+	 * Constructor used to query a specific revision from the DB.
 	 *(using AccountDAO)
 	 * @param id Account ID
 	 * @param rev account revision
@@ -45,10 +48,9 @@ public class Account extends Entity {
 	}
 
 	/**
-	 * constructor used to create a new Account
+	 * Constructor used to create a new Account.
 	 * @param title Account's descriptive name (e.g. "Administrator")
-	 * @param localeId the Locale of an account just tells us which locale the user prefers
-	 *     (a user isn't locked into a single local version of the site)
+	 * @param localeId the preferred locale setting of this user
 	 */
 	public Account(String title, int localeId, String mail, Address address) {
 		super(title, localeId, null);
@@ -57,7 +59,7 @@ public class Account extends Entity {
 	}
 
 	/**
-	 * constructor used to update an existing Account
+	 * Constructor used to update an existing Account.
 	 * @param id Account ID
 	 * @param rev current Account revision (will be checked by AccountDAO to detect concurrent storage requests)
 	 * @param title Account's (new) descriptive name (e.g. "Administrator")
@@ -95,18 +97,30 @@ public class Account extends Entity {
 				"}\n";
 	}
 	
+	/**
+	 * @param mail the email address of this account
+	 */
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
 	
+	/**
+	 * @return the email address of this account
+	 */
 	public String getMail() {
 		return mail;
 	}
 	
+	/**
+	 * @param address the address of this account
+	 */
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 	
+	/**
+	 * @return the address of this account
+	 */
 	public Address getAddress() {
 		return address;
 	}

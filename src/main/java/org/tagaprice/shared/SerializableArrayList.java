@@ -17,15 +17,24 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * An ArrayList that can only contain objects extending {@link ISerializable}
+ * and is itself extending {@link ISerializable}. 
+ * 
+ * TODO refactor this class (build wrapper instead ?)
+ */
 public class SerializableArrayList<T extends ISerializable> extends ArrayList<T> implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Just creates an empty {@link ArrayList}.
+	 */
 	public SerializableArrayList() {
 	}
 
 	@Override
 	public String getSerializeName() {
-		return "searchResult";
+		return "searchResult"; //TODO change this ?
 	}
 	
 	@Override
@@ -48,8 +57,9 @@ public class SerializableArrayList<T extends ISerializable> extends ArrayList<T>
 		return rc;
 	}
 	
+	@Override
 	public String toString() {
-		String rc = "SearchResult(count="+size()+") {\n";
+		String rc = "SearchResult(count="+size()+") {\n"; //TODO change this?
 		Iterator<T> it = iterator();
 		while(it.hasNext()) {
 			rc += it.next().toString()+"\n";

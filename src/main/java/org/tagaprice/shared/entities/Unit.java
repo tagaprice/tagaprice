@@ -14,6 +14,11 @@
 */
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.server.dao.UnitDAO;
+
+/**
+ * Represents a unit to measure {@link Product}s properties.
+ */
 public class Unit extends Entity {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,25 +33,25 @@ public class Unit extends Entity {
 	}
 	
 	/**
-	 * constructor for querying a Unit's current revision (using UnitDAO)
-	 * @param id Unit ID
+	 * Constructor for querying a Unit's current revision.
+	 * @param id {@link Unit} ID
 	 */
 	public Unit(long id) {
 		super(id);
 	}
 	
 	/**
-	 * constructor for querying a specific Unit revision (using UnitDAO)
-	 * @param id Unit ID
-	 * @param rev Unit revision
+	 * Constructor for querying a specific Unit revision.
+	 * @param id {@link Unit} ID
+	 * @param rev {@link Unit} revision
 	 */
 	public Unit(long id, int rev) {
 		super(id, rev);
 	}
 
 	/**
-	 * constructor for saving a new Unit (using UnitDAO)
-	 * @param title descriptive Unit name
+	 * Constructor for saving a new {@link Unit}.
+	 * @param title descriptive {@link Unit} name
 	 * @param localeId current locale
 	 * @param creatorId currently logged in user
 	 * @param standardId standard (SI) Unit ID (may be null if this unit is a standard-SI)
@@ -59,10 +64,10 @@ public class Unit extends Entity {
 	}
 	
 	/**
-	 * constructor for saving an existing Unit (using UnitDAO)
-	 * @param id Unit ID
-	 * @param rev current revision (will be checked by UnitDAO to detect concurrent storage attempts)
-	 * @param title descriptive Unit name
+	 * Constructor for saving an existing {@link Unit}.
+	 * @param id {@link Unit} ID
+	 * @param rev current revision (will be checked by {@link UnitDAO} to detect concurrent storage attempts)
+	 * @param title descriptive {@link Unit} name
 	 * @param creatorId currently logged in user
 	 * @param standardId standard (SI) Unit ID (may be null)
 	 * @param factor factor to calculate between the standard Unit and this one
@@ -73,18 +78,30 @@ public class Unit extends Entity {
 		this.factor = factor;
 	}
 
+	/**
+	 * @return standard (SI) Unit ID (may be null)
+	 */
 	public Long getStandardId() {
 		return standardId;
 	}
 	
+	/**
+	 * @param standardId set the standard (SI) Unit ID (may be null)
+	 */
 	public void _setStandardId(Long standardId) {
 		this.standardId = standardId;
 	}
 	
+	/**
+	 * @return factor to calculate between the standard Unit and this one
+	 */
 	public double getFactor() {
 		return factor;
 	}
 	
+	/**
+	 * @param factor factor to calculate between the standard Unit and this one
+	 */
 	public void _setFactor(double factor) {
 		this.factor = factor;
 	}

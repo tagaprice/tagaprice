@@ -16,6 +16,9 @@ package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.ISerializable;
 
+/**
+ * Represents a locale setting.
+ */
 public class Locale implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,10 +27,20 @@ public class Locale implements ISerializable {
 	private String title;
 	private String localTitle;
 
+	/**
+	 * Default constructor needed for serialization
+	 */
 	public Locale() {
 		this(-1, -1, null, null);
 	}
 	
+	/**
+	 * Consturctor used by the DAO to create a locale.
+	 * @param id ID of this locale
+	 * @param fallbackId fallback ID
+	 * @param title title of this locale
+	 * @param localTitle localized title of this locale
+	 */
 	public Locale(int id, Integer fallbackId, String title, String localTitle) {
 		this.id = id;
 		this.fallbackId = fallbackId;
@@ -35,18 +48,30 @@ public class Locale implements ISerializable {
 		this.localTitle = localTitle;
 	}
 	
+	/**
+	 * @return ID of this locale
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * @return ID of the fallback of this locale
+	 */
 	public Integer getFallbackId() {
 		return fallbackId;
 	}
 	
+	/**
+	 * @return title of this locale
+	 */
 	public String getTitle() {
 		return title;
 	}
 	
+	/**
+	 * @return loclalized title of this locale
+	 */
 	public String getLocalTitle() {
 		return localTitle;
 	}

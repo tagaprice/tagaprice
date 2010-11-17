@@ -14,19 +14,21 @@
 */
 package org.tagaprice.shared.entities;
 
+
 /**
- * Contains all important information to represent a
- * product. 
- *
+ * Contains all important information to represent a product. 
  */
 public class Product extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private Long brandId; // TODO create a Brand class
+	/** TODO create a Brand class */
+	private Long brandId;
 	private Long typeId;
 	private String imageSrc;
-	private int progress = 0; //In percent 0-100
-	private int rating = -1; //in percent 0-100, -1 means unrated
+	/** In percent 0-100 */
+	private int progress = 0;
+	/** in percent 0-100, -1 means unrated */
+	private int rating = -1;
 	private Price avgPrice;
 	private Quantity quantity = null;
 	private boolean hasReceipt;
@@ -47,49 +49,49 @@ public class Product extends Entity {
 	}
 	
 	/**
-	 * query a specific product revision (using ProductDAO)
+	 * query a specific product revision
 	 * @param id Poduct ID
-	 * @param rev revision
+	 * @param rev revision to query
 	 */
 	public Product(Long id, int rev) {
 		super(id, rev);
 	}
 	
 	/**
-	 * constructor for creating a new Product (using ProductDAO)
+	 * constructor for creating a new Product
 	 * @param title descriptive Product title (must not be empty or NULL)
 	 * @param localeId Product locale
 	 * @param creatorId Product's creator
 	 * @param brandId Product Brand (may be null if not yet set)
 	 * @param typeId ProductType (may be null if not yet set)
 	 * @param imageSrc image file URL (may be null if not yet set)
-	 * @param qty Product quantity (e.g. weight, volume, ...)
+	 * @param qantity Product quantity (e.g. weight, volume, ...)
 	 */
-	public Product(String title, int localeId, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+	public Product(String title, int localeId, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qantity) {
 		super(title, localeId, creatorId);
 		this.brandId = brandId;
 		this.typeId = typeId;
 		this.imageSrc = imageSrc;
-		this.quantity = qty;
+		this.quantity = qantity;
 	}
 	
 	/**
 	 * constructor for saving an existing Product
 	 * @param id Product ID
-	 * @param rev last existing revision (will be checked by ProductDAO to detect concurrent storage attempts) 
+	 * @param rev last existing revision (e.g. the revision this version is based on)
 	 * @param title (new) descriptive Product name
 	 * @param creatorId revision's creator ID
 	 * @param brandId (new) Brand ID (might be null)
 	 * @param typeId (new) ProductType ID (might be null)
 	 * @param imageSrc (new) image source URL (might be null)
-	 * @param qty (new) quantity (e.g. weight) 
+	 * @param qantity (new) quantity (e.g. weight) 
 	 */
-	public Product(long id, int rev, String title, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+	public Product(long id, int rev, String title, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qantity) {
 		super(id, rev, title, creatorId);
 		this.brandId = brandId;
 		this.typeId = typeId;
 		this.imageSrc = imageSrc;
-		this.quantity = qty;
+		this.quantity = qantity;
 	}
 	
 	/**
@@ -125,7 +127,7 @@ public class Product extends Entity {
 
 	/**
 	 * 
-	 * @return
+	 * @return the image URL
 	 */
 	public String getImageSrc(){
 		return imageSrc;
@@ -133,7 +135,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @param imageSrc
+	 * @param imageSrc the image URL
 	 */
 	public void setImageSrc(String imageSrc){
 		this.imageSrc=imageSrc;
@@ -141,7 +143,8 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @return
+	 * @return completeness of the collected information about this {@link Product} in percent.
+	 * If aprox. all data about this Product is known, this will return 100.
 	 */
 	public int getProgress(){
 		return progress;
@@ -149,7 +152,8 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @param progress
+	 * @param progress completeness of the collected information about this product, in percent
+	 * (valid values in the range of 1 - 100)
 	 */
 	public void setProgress(int progress){
 		this.progress=progress;
@@ -157,7 +161,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @return
+	 * @return the rating of this product
 	 */
 	public int getRating(){
 		return rating;
@@ -165,7 +169,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @param rating
+	 * @param rating the rating of this product
 	 */
 	public void setRating(int rating){
 		this.rating=rating;
@@ -187,7 +191,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @return
+	 * @return {@link Quantity} of this product
 	 */
 	public Quantity getQuantity() {
 		return quantity;
@@ -195,7 +199,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @param quantitiy
+	 * @param quantitiy {@link Quantity} of this product
 	 */
 	public void setQuantity(Quantity quantity) {
 		this.quantity = quantity;
@@ -203,7 +207,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @return
+	 * @return true, if a receipt exists for this product
 	 */
 	public boolean hasReceipt() {
 		return hasReceipt;
@@ -211,7 +215,7 @@ public class Product extends Entity {
 	
 	/**
 	 * 
-	 * @param hasReceipt
+	 * @param hasReceipt true, if a receipt exists for this product
 	 */
 	public void setHasReceipt(boolean hasReceipt) {
 		this.hasReceipt = hasReceipt;

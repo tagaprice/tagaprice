@@ -14,6 +14,7 @@
 */
 package org.tagaprice.shared.rpc;
 
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.RemoteService;

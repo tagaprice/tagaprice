@@ -17,6 +17,11 @@ package org.tagaprice.shared.entities;
 import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.ISerializable;
 
+/**
+ * Abstract class holding general information which every entity has,
+ * that is: an ID, a title, a revision number, a createrID and creatorID for this revision,
+ * a localeID and a list of properties.
+ */
 public abstract class Entity implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
@@ -80,8 +85,8 @@ public abstract class Entity implements ISerializable {
 	/**
 	 * full constructor
 	 * @param id Entity ID
-	 * @param rev revision nr (starting at 1, 0 has a special meaning depending on the action you're performing)
-	 * @param title Entity Title 
+	 * @param rev revision number (must be > 0)
+	 * @param title Entity Title
 	 * @param localeId Entity locale
 	 * @param creatorId Entity creator ID
 	 * @param revCreatorId revision creator ID
@@ -95,10 +100,16 @@ public abstract class Entity implements ISerializable {
 		this.revCreatorId = revCreatorId;
 	}
 	
+	/**
+	 * @return the ID of this entity
+	 */
 	public Long getId() {
 		return id;
 	}
 	
+	/**
+	 * @return true, if this entity has an ID, false otherwise.
+	 */
 	public boolean hasId() {
 		return id != null;
 	}
@@ -111,14 +122,23 @@ public abstract class Entity implements ISerializable {
 		this.id = id;
 	}
 	
+	/**
+	 * @return title of this entity
+	 */
 	public String getTitle() {
 		return title;
 	}
 	
+	/**
+	 * @param title title of this entity
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
+	/**
+	 * @return the revision number of this entity
+	 */
 	public int getRev() {
 		return rev;
 	}
@@ -131,7 +151,9 @@ public abstract class Entity implements ISerializable {
 		this.rev = rev;
 	}
 	
-	
+	/**
+	 * @return the creatorID for this entity
+	 */
 	public Long getCreatorId() {
 		return creatorId;
 	}
@@ -144,6 +166,9 @@ public abstract class Entity implements ISerializable {
 		this.creatorId = creatorId;
 	}
 	
+	/**
+	 * @return the CreatorID of this revision
+	 */
 	public Long getRevCreatorId() {
 		return revCreatorId;
 	}
@@ -156,6 +181,9 @@ public abstract class Entity implements ISerializable {
 		this.revCreatorId = revCreatorId;
 	}
 	
+	/**
+	 * @return the localeID
+	 */
 	public Integer getLocaleId() {
 		return localeId;
 	}
@@ -169,7 +197,7 @@ public abstract class Entity implements ISerializable {
 	}
 		
 	/**
-	 * @return the properties
+	 * @return the properties of this entity
 	 */
 	public SerializableArrayList<Property> getProperties() {
 		return properties;
@@ -181,7 +209,20 @@ public abstract class Entity implements ISerializable {
 	public void setProperties(SerializableArrayList<Property> properties) {
 		this.properties = properties;
 	}
+
 	
+	/**
+	 * compare two objects and return true if either both of them are null or they're equal
+	 * @param a first Object
+	 * @param b second Object
+	 * @return true if they're equal, false otherwise
+	 */
+	public static boolean _compare(Object a, Object b) {
+		return a == null ? b == null : a.equals(b);
+	}
+	
+	
+	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
@@ -200,16 +241,7 @@ public abstract class Entity implements ISerializable {
 		return rc;
 	}
 	
-	/**
-	 * compare two objects and return true if either both of them are null or they're equal
-	 * @param a first Object
-	 * @param b second Object
-	 * @return true if they're equal, false otherwise
-	 */
-	public static boolean _compare(Object a, Object b) {
-		return a == null ? b == null : a.equals(b);
-	}
-	
+	@Override
 	public String toString() {
 		return "Entity {\n" +
 				"id: " + getId() +

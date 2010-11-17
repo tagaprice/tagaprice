@@ -4,13 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.postgres.LoginDAO;
-import org.tagaprice.server.dao.postgres.ShopDAO;
+import org.tagaprice.server.dao.LoginDAO;
+import org.tagaprice.server.dao.ShopDAO;
 import org.tagaprice.shared.entities.Category;
 import org.tagaprice.shared.entities.Shop;
-import org.tagaprice.shared.exception.DAOException;
+import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
-import org.tagaprice.shared.exception.ServerException;
+import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ShopHandler;
 import org.tagaprice.shared.utility.PropertyValidator;
 
@@ -18,14 +19,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
 public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler{
-	ShopDAO shopDao; //TODO use mock instead
+	ShopDAO sDao;
 	LoginDAO loginDao; 
 	
 	public ShopHandlerImpl() {
 		DBConnection db;
 		try {
 			db = new DBConnection();
-			shopDao = new ShopDAO(db);
+			sDao = new ShopDAO(db);
 			loginDao = new LoginDAO(db);
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException(e);
@@ -36,24 +37,41 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	}
 	
 	@Override
-	public Shop get(long id) throws DAOException {
-		return shopDao.getById(id);
+	public Shop get(long id) throws IllegalArgumentException {
+		
+		Shop sd = new Shop();				
+		sd._setId(id);
+		
+		try {
+			sDao.get(sd);
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
+		}		
+		return sd;
 	}
 
 	@Override
-	public Shop save(Shop data) throws IllegalArgumentException, InvalidLoginException, ServerException {
+	public Shop save(Shop data) throws IllegalArgumentException, InvalidLoginException {
 		// TODO Auto-generated method stub		
-		CategoryHandlerImpl th = new CategoryHandlerImpl();
+		TypeHandlerImpl th = new TypeHandlerImpl();
 		
 		if(PropertyValidator.isValid(th.get(new Category(data.getTypeId())), data.getProperties())){		
 			try {				
-				data.setCreatorId(loginDao.getId(getSid()));
-				shopDao.save(data);				
+				data._setCreatorId(loginDao.getId(getSid()));
+				sDao.save(data);				
 			} catch (SQLException e) {
-				//TODO catch exception loginDao
-				throw new DAOException(e.getMessage(), e);
+				throw new IllegalArgumentException(e);
+			} catch (NotFoundException e) {
+				throw new IllegalArgumentException(e);
+			} catch (RevisionCheckException e) {
+				throw new IllegalArgumentException(e);
+			} catch (InvalidLocaleException e) {
+				throw new IllegalArgumentException(e);
 			}			
-		} else{
+			
+		}else{
 			System.out.println("save InVALID");
 		}
 		

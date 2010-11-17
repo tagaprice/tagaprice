@@ -8,6 +8,7 @@ import org.tagaprice.shared.entities.Property;
 import org.tagaprice.shared.entities.PropertyTypeDefinition;
 import org.tagaprice.shared.entities.PropertyGroup;
 
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**

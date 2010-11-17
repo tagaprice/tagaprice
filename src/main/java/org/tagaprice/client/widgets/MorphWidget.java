@@ -1,5 +1,4 @@
 package org.tagaprice.client.widgets;
-
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 import com.google.gwt.event.dom.client.BlurEvent;

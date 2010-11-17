@@ -14,6 +14,11 @@
 */
 package org.tagaprice.shared.entities;
 
+
+/**
+ * Represents a currency entity
+ * TODO this just has a title? is this title international, or depending on the locale?
+ */
 public class Currency extends Entity {
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +50,7 @@ public class Currency extends Entity {
 	 * constructor used to create a new Currency
 	 * @param title descriptive Currency name
 	 * @param localeId Locale
-	 * @param creatorId Currency's creator 
+	 * @param creatorId Currency's creator
 	 */
 	public Currency(String title, int localeId, long creatorId) {
 		super(title, localeId, creatorId);
@@ -54,7 +59,7 @@ public class Currency extends Entity {
 	/**
 	 * constructor used to save an existing Currency
 	 * @param id Currency ID
-	 * @param rev last existing revision (will be checked by CurrencyDAO to detect concurrent storage requests)
+	 * @param rev last existing revision (will be checked by CurrencyDAO to detect concurrent storage requests) (TODO not base revision, this revision is based on?)
 	 * @param title descriptive Currency name
 	 * @param creatorId revision's creator
 	 */

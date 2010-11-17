@@ -17,17 +17,18 @@ package org.tagaprice.server.rpc;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.postgres.LocaleDAO;
-import org.tagaprice.server.dao.postgres.LoginDAO;
-import org.tagaprice.server.dao.postgres.ReceiptDAO;
+import org.tagaprice.server.dao.LocaleDAO;
+import org.tagaprice.server.dao.LoginDAO;
+import org.tagaprice.server.dao.ReceiptDAO;
 import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
-import org.tagaprice.shared.exception.ServerException;
+import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ReceiptHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -61,39 +62,66 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 	
 	@Override
-	public Receipt get(Receipt data) throws ServerException {
+	public Receipt get(Receipt data) throws IllegalArgumentException, InvalidLoginException {
+		
+		
 		try {
-			return receiptDao.getById(loginDao.getId(getSid()));
-		} catch (Exception e) {
-			// TODO clean login dao from exceptions and remove this catch block
-			throw new ServerException(e.getMessage(), e);
+			data._setCreatorId(loginDao.getId(getSid()));
+			receiptDao.get(data);
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
 		}
+				
+		return data;		
+		
 	}
 	
 	@Override
-	public List<Receipt> getUserReceipts() throws ServerException {
+	public ArrayList<Receipt> getUserReceipts()
+			throws IllegalArgumentException, InvalidLoginException {
+		
+		ArrayList<Receipt> list = new ArrayList<Receipt>();
+		
 		try {
-			return receiptDao.getUserReceipts(loginDao.getId(getSid()));
-		} catch (Exception e) {
-			// TODO clean login dao from exceptions and remove this catch block
-			throw new ServerException(e.getMessage(), e);
+			receiptDao.getUserReceipts(list, loginDao.getId(getSid()));
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException(e);
 		}
+		
+		
+		return list;
 	}
 	
 
 	@Override
-	public Receipt save(Receipt data) throws ServerException {
+	public Receipt save(Receipt data) throws IllegalArgumentException, InvalidLoginException {
 		if(data==null){
 			
 			try {
 				data = new Receipt("default title", localeId, loginDao.getId(getSid()), new Date(), 1, null, null, true);
-			} catch (Exception e) {
-				// TODO clean login dao from exceptions and remove this catch block
-				throw new ServerException(e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new IllegalArgumentException("SQLException: "+e);
 			}		 
 			
 		}
-		receiptDao.save(data);
+		
+		//create new Draft
+		try {
+			receiptDao.save(data);
+		}  catch (SQLException e){
+			throw new IllegalArgumentException("SQLException: "+e);
+		} catch (NotFoundException e) {
+			throw new IllegalArgumentException("NotFoundException: "+e);		
+		} catch (RevisionCheckException e) {
+			throw new IllegalArgumentException("RevisionCheckException: "+e);
+		} catch (InvalidLocaleException e) {
+			throw new IllegalArgumentException("InvalidLocaleException: "+e);
+		}
+
 		return data;
 	}
 

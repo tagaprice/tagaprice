@@ -16,49 +16,77 @@ package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.ISerializable;
 
+/**
+ * Represents an amount of money in a given currency. 
+ */
 public class Price implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
-	private int price; // price in currency/100
-	private Currency currency;
+	/** price in currency/100 */
+	private int _price; 
+	private Currency _currency;
 	
-	public Price() {
-	}
+	/**
+	 * Default constructor needed for serialization.
+	 */
+	public Price() { }
 	
+	
+	/**
+	 * Create a new Price
+	 * @param price amount of money
+	 * @param currency currency of this price
+	 */
 	public Price(int price, Currency currency) {
-		setPrice(price);
-		setCurrency(currency);
+		_price = price;
+		_currency = currency;
 	}
 	
+	
+	/**
+	 * TODO i would remove this constructor and call the other one {@link Price#Price(int, Currency)}) 
+	 * since that is what this constructor simply does...
+	 * @param price
+	 * @param currencyId
+	 * @param currencyRev
+	 * @param currencyName
+	 * @param currencyLocale
+	 */
 	public Price(int price, int currencyId, int currencyRev, String currencyName, int currencyLocale) {
 		this(price, new Currency(currencyId, currencyRev, currencyName, currencyLocale));
 	}
 	
+	
+	/**
+	 * @return the amount of money of this price.
+	 */
 	public int getPrice() {
-		return price;
+		return _price;
 	}
+
 	
+	/**
+	 * @return {@link Currency} of this price.
+	 */
 	public Currency getCurrency() {
-		return currency;
+		return _currency;
 	}
 	
+	
+	/**
+	 * @param price set the amount of money of this price.
+	 */
 	public void setPrice(int price) {
-		this.price = price;
+		this._price = price;
 	}
 	
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
-	
-	public void setCurrency(long currencyId, int rev, String currencyName, int currencyLocale) {
-		setCurrency(new Currency(currencyId, rev, currencyName, currencyLocale));
-	}
 
 	@Override
 	public String getSerializeName() {
 		return "price";
 	}
 	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
