@@ -1,7 +1,5 @@
 package org.tagaprice.shared.exception;
 
-import java.sql.SQLException;
-
 
 /**
  * Indicates that an error has occured when performing the requested action in a DAO. 
@@ -12,7 +10,7 @@ import java.sql.SQLException;
 public class DAOException extends ServerException {
 	private static final long serialVersionUID = 4230329188076132982L;
 
-	public DAOException(String message, SQLException e) {
+	public DAOException(String message, Exception e) {
 		super();
 	}
 	
