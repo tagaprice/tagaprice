@@ -27,11 +27,10 @@ import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Category type, SerializableArrayList<Property> properties){
-		
-		HashMap<String, ArrayList<Property>> pl = propertyListToHash(properties);
+	public static boolean isValid(Category category, SerializableArrayList<Property> properties){
 		
 		PropertyGroup propertyGroup = PropertyValidator.extractPropertyGroupFromCategory(category);
+		HashMap<String, ArrayList<Property>> propertyMap = PropertyValidator.propertyListToHash(properties);
 		
 		//TestCount
 		if(!PropertyValidator.testCount(propertyGroup,propertyMap))

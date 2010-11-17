@@ -1,37 +1,29 @@
 /*
- * Copyright 2010 TagAPrice.org
- * 
- * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
- *
- * http://creativecommons.org/licenses/by-nc/3.0/
+* Copyright 2010 TagAPrice.org
+*
+* Licensed under the Creative Commons License. You may not
+* use this file except in compliance with the License.
+*
+* http://creativecommons.org/licenses/by-nc/3.0/
 */
 
 /**
- * Project: TagAPrice
- * Filename: PriceHandlerImpl.java
- * Date: 02.06.2010
+* Project: TagAPrice
+* Filename: PriceHandlerImpl.java
+* Date: 02.06.2010
 */
 package org.tagaprice.server.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.ProductDAO;
-import org.tagaprice.server.dao.ShopDAO;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Price;
-import org.tagaprice.shared.PriceData;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.exception.NotFoundException;
+import org.tagaprice.server.dao.postgres.ProductDAO;
+import org.tagaprice.server.dao.postgres.ShopDAO;
+import org.tagaprice.shared.utility.*;
+import org.tagaprice.shared.entities.*;
 import org.tagaprice.shared.rpc.PriceHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -39,116 +31,92 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandler {
 
-	private DBConnection db;
-	private ShopDAO shopDAO;
-	private ProductDAO productDAO;
-	
-	public PriceHandlerImpl() {
-		try {
-			db = new DBConnection();
-			shopDAO = new ShopDAO(db);
-			productDAO = new ProductDAO(db);
-		} catch (FileNotFoundException e) {
-			throw new IllegalArgumentException(e);
-		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
-		} 
-	}
-	
-	@Override
-	public ArrayList<PriceData> get(long id, BoundingBox bbox, PriceMapType type)
-			throws IllegalArgumentException {
-		ArrayList<PriceData> list = new ArrayList<PriceData>();
-		
-		PreparedStatement pstmt; 
-		try {
-		
-			if(type.equals(PriceMapType.PRODUCT)){
-				//return Last price plus location
-				
-				
-					
-					String sql ="SELECT pid, sid, lat, lng, price, re.created_at " +
-							"FROM receiptentry ree INNER JOIN receipt re " +
-							"ON re.rid=ree.rid " +
-							"INNER JOIN entity en " +
-							"ON en.ent_id=re.sid " +
-							"INNER JOIN shoprevision sr " +
-							"ON sr.shop_id=en.ent_id AND sr.rev=en.current_revision " +
-							"WHERE ree.pid = ? AND re.draft=false " +
-							"AND (lat BETWEEN ? AND ?) " +
-							"AND (lng BETWEEN ? AND ?)";
-					
-					
-					pstmt = db.prepareStatement(sql);
-					pstmt.setLong(1, id); //id
-					
-					pstmt.setDouble(2, bbox.getX1()); //lat left
-					pstmt.setDouble(3, bbox.getX2()); //lat right
-					
-					pstmt.setDouble(4,bbox.getY1()); //lng top
-					pstmt.setDouble(5, bbox.getY2()); //lng down
-					
-					
-					ResultSet res = pstmt.executeQuery();
-					//ProductData tempProduct = new ProductData(res.getLong("pid"));
-					ProductData tempProduct=null;
-					while(res.next()){
-						
-						if(tempProduct==null) tempProduct = new ProductData(res.getLong("pid"));
-						
-						ShopData tempShop = new ShopData(res.getLong("sid"));
-						productDAO.get(tempProduct);
-						shopDAO.get(tempShop);
-						
-						
-						list.add(new PriceData(
-								tempProduct, 
-								tempShop,
-								new Price(res.getInt("price"), 23, 8, "€", 1), 
-								new Date(res.getDate("created_at").getTime())));
-					}
-									
-			}
-			
-			if(type.equals(PriceMapType.SHOP)){
-				String sql = "SELECT * FROM receiptentry ree " +
-				"INNER JOIN receipt re " +
-				"ON re.rid=ree.rid " +
-				"WHERE re.sid = ? AND re.draft=false";
-				
-				pstmt = db.prepareStatement(sql);
-				pstmt.setLong(1, id);
-				
-				ResultSet res = pstmt.executeQuery();
-				
-				while(res.next()){
-					ProductData tempProduct = new ProductData(res.getLong("pid"));
-					//ShopData tempShop = new ShopData(res.getLong("sid"));
-					productDAO.get(tempProduct);
-					//shopDAO.get(tempShop);
-					
-					
-					list.add(new PriceData(
-							tempProduct, 
-							null,
-							new Price(res.getInt("price"), 23, 8, "€", 1), 
-							new Date(res.getDate("created_at").getTime())));
-				}
-				
-			}
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		return list;
-	}
+private DBConnection _db;
+@SuppressWarnings("unused")
+private ShopDAO _shopDAO;
+@SuppressWarnings("unused")
+private ProductDAO _productDAO;
+
+public PriceHandlerImpl() {
+try {
+_db = new DBConnection();
+_shopDAO = new ShopDAO(_db);
+_productDAO = new ProductDAO(_db);
+} catch (FileNotFoundException e) {
+throw new IllegalArgumentException(e);
+} catch (IOException e) {
+throw new IllegalArgumentException(e);
+}
+}
+
+@Override
+public ArrayList<PriceData> get(long id, BoundingBox bbox, PriceMapType priceMapType)
+throws IllegalArgumentException {
+ArrayList<PriceData> list = new ArrayList<PriceData>();
+
+//TODO IMPLEMENT in DAO
+// PreparedStatement pstmt;
+// String sql;
+// ResultSet res;
+// switch(priceMapType)
+// {
+// case PRODUCT:
+// sql ="SELECT pid, sid, lat, lng, price, re.created_at " +
+// "FROM receiptentry ree INNER JOIN receipt re " +
+// "ON re.rid=ree.rid " +
+// "INNER JOIN entity en " +
+// "ON en.ent_id=re.sid " +
+// "INNER JOIN shoprevision sr " +
+// "ON sr.shop_id=en.ent_id AND sr.rev=en.current_revision " +
+// "WHERE ree.pid = ? AND re.draft=false " +
+// "AND (lat BETWEEN ? AND ?) " +
+// "AND (lng BETWEEN ? AND ?)";
+//
+//
+// pstmt = db.prepareStatement(sql);
+// pstmt.setLong(1, id); //id
+//
+// pstmt.setDouble(2, bbox.getX1()); //lat left
+// pstmt.setDouble(3, bbox.getX2()); //lat right
+//
+// pstmt.setDouble(4,bbox.getY1()); //lng top
+// pstmt.setDouble(5, bbox.getY2()); //lng down
+//
+//
+// res = pstmt.executeQuery();
+// ProductData tempProduct=productDAO.getById(res.getLong("pid")); //TODO this should be in the while loop i think
+// while(res.next()){
+// list.add(new PriceData(
+// tempProduct,
+// shopDAO.getById(res.getLong("sid")),
+// new Price(res.getInt("price"), 23, 8, "€", 1),
+// new Date(res.getDate("created_at").getTime())));
+// }
+// break;
+// case SHOP:
+// sql = "SELECT * FROM receiptentry ree " +
+// "INNER JOIN receipt re " +
+// "ON re.rid=ree.rid " +
+// "WHERE re.sid = ? AND re.draft=false";
+//
+// pstmt = db.prepareStatement(sql);
+// pstmt.setLong(1, id);
+//
+// res = pstmt.executeQuery();
+//
+// while(res.next()){
+// list.add(new PriceData(
+// productDAO.getById(res.getLong("pid")),
+// null,
+// new Price(res.getInt("price"), 23, 8, "€", 1),
+// new Date(res.getDate("created_at").getTime())));
+// }
+// break;
+//
+// default:
+// throw new IllegalArgumentException("Unexcepted PriceMapType: "+priceMapType);
+// }
+return list;
+}
 
 }

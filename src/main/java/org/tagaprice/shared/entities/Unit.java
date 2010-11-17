@@ -14,8 +14,6 @@
 */
 package org.tagaprice.shared.entities;
 
-import org.tagaprice.server.dao.UnitDAO;
-
 /**
  * Represents a unit to measure {@link Product}s properties.
  */
