@@ -10,6 +10,10 @@ package org.tagaprice.shared.exception;
 public class DAOException extends ServerException {
 	private static final long serialVersionUID = 4230329188076132982L;
 
+	public DAOException(){
+		super();
+	}
+	
 	public DAOException(String message, Exception e) {
 		super();
 	}
