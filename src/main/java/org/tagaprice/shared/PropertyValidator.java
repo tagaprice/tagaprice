@@ -26,21 +26,22 @@ import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Category type, SearchResult<Property> properties){
+	public static boolean isValid(Category category, SearchResult<Property> properties){
 		
-		HashMap<String, ArrayList<Property>> pl = propertyListToHash(properties);
-		PropertyGroup pg = extractPropertyGroupFromType(type);
+		HashMap<String, ArrayList<Property>> propertyMap = PropertyValidator.propertyListToHash(properties);
+		
+		PropertyGroup propertyGroup = PropertyValidator.extractPropertyGroupFromCategory(category);
 		
 		//TestCount
-		if(!testCount(pg,pl))
+		if(!PropertyValidator.testCount(propertyGroup,propertyMap))
 			return false;
 		
 		//TestInt
-		if(!testInt(pg, pl))
+		if(!PropertyValidator.testInt(propertyGroup, propertyMap))
 			return false;
 		
 		//TestDouble
-		if(!testDouble(pg, pl))
+		if(!PropertyValidator.testDouble(propertyGroup, propertyMap))
 			return false;
 		
 		return true;
@@ -111,7 +112,10 @@ public class PropertyValidator {
 		return hashProperties;
 	}
 	
-	private static PropertyGroup extractPropertyGroupFromType(Category type){
+	/**
+	 * TODO refactor ("NutritionFacts"...)
+	 */
+	private static PropertyGroup extractPropertyGroupFromCategory(Category type){
 		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
 		
 		for(PropertyGroup pg:type.getPropertyGroups()){
