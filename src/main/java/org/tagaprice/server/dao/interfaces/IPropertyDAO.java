@@ -1,23 +1,29 @@
 package org.tagaprice.server.dao.interfaces;
 
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Property;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IPropertyDAO {
 
-	/**
-	 * Uses given entity to retrieve a entity with properties set. 
-	 * @param entity Entity to get information from. Given entity's id and revision must be set.
-	 * @return Entity with equal to the one given, besides that the one returned has its properties set.
-	 * @throws DAOException
-	 */
-	<T extends Entity> T setProperties(T entity) throws DAOException;
+	
+//	<T extends Entity> T getPropertiesByIdAndRef(T entity) throws DAOException;
 
 	/**
-	 * Save given entity to storage.
-	 * @param entity Entity to be saved. It's id must be set and revision must be set.
-	 * @return True if entity could be saved, false otherwise.
+	 * Saves properties of given entity to storage. Creates new properties, deletes properties or creates new versions of properties as need.
+	 * @param property Property to be saved. It's id must be set and revision must be set.
+	 * @return Returns true if successful, false if not.
 	 * @throws DAOException
 	 */
-	boolean save(Entity entity) throws DAOException;
+	boolean saveProperties(Entity property) throws DAOException;
+
+	/**
+	 * Retrieves properties for given entityId and entityRev. 
+	 * @param entityId Id of entity to find properties for.
+	 * @param entityRev Id of entity to find properties for.
+	 * @return Returns the properties for given entityId and entityRev, can be empty but never null.
+	 * @throws DAOException
+	 */
+	SerializableArrayList<Property> getPropertiesByIdAndRef(long entityId, int entityRev) throws DAOException;
 }

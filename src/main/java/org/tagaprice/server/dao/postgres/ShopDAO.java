@@ -82,47 +82,49 @@ public class ShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public boolean save(Shop shop) throws DAOException {
+	public Shop save(Shop shop) throws DAOException {
 		_log.debug("shop:"+shop);
 		PreparedStatement pstmt;
 
 		try {
-			if(!_entityDAO.save(shop))
-				return false;
+			Shop versionedShop = _entityDAO.save(shop);
+				
+			if(versionedShop == null)
+				return null;
 
-			if (shop.getRev() == 1) {
+			if (versionedShop.getRev() == 1) {
 				// create a new Shop
 				pstmt = _db.prepareStatement("INSERT INTO shop (shop_id) VALUES (?)");
-				pstmt.setLong(1, shop.getId());
+				pstmt.setLong(1, versionedShop.getId());
 				pstmt.executeUpdate();
-			} else if (shop.getRev() < 1) {
+			} else if (versionedShop.getRev() < 1) {
 				throw new DAOException("EntityDAO returned shop with revision < 0!");
 			}
 
 			String sql = "INSERT INTO shopRevision (shop_id, rev, type_id, imageUrl, lat, lng, street, city, country_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = _db.prepareStatement(sql);
-			pstmt.setLong(1, shop.getId());
-			pstmt.setInt(2, shop.getRev());
+			pstmt.setLong(1, versionedShop.getId());
+			pstmt.setInt(2, versionedShop.getRev());
 
-			if (shop.getTypeId() != null) pstmt.setLong(3, shop.getTypeId());
+			if (versionedShop.getTypeId() != null) pstmt.setLong(3, versionedShop.getTypeId());
 			else pstmt.setNull(3, Types.BIGINT);
 
-			pstmt.setString(4, shop.getImageSrc());
+			pstmt.setString(4, versionedShop.getImageSrc());
 
 
-			if (shop.getLat() != null && shop.getLng() != null) {
-				pstmt.setDouble(5, shop.getLat());
-				pstmt.setDouble(6, shop.getLng());
+			if (versionedShop.getLat() != null && versionedShop.getLng() != null) {
+				pstmt.setDouble(5, versionedShop.getLat());
+				pstmt.setDouble(6, versionedShop.getLng());
 			} else {
 				pstmt.setNull(5, Types.DOUBLE);
 				pstmt.setNull(6, Types.DOUBLE);
 			}
 
-			if (shop.getAddress() != null) {
-				pstmt.setString(7, shop.getAddress().getStreet());
-				pstmt.setString(8, shop.getAddress().getCity());
-				if (shop.getAddress().getCountry() != null)
-					pstmt.setString(9, shop.getAddress().getCountry().getCode());
+			if (versionedShop.getAddress() != null) {
+				pstmt.setString(7, versionedShop.getAddress().getStreet());
+				pstmt.setString(8, versionedShop.getAddress().getCity());
+				if (versionedShop.getAddress().getCountry() != null)
+					pstmt.setString(9, versionedShop.getAddress().getCountry().getCode());
 				else pstmt.setNull(9, Types.VARCHAR);
 
 			}
@@ -133,7 +135,7 @@ public class ShopDAO implements IShopDAO {
 			}
 
 			pstmt.executeUpdate();
-			return true;
+			return versionedShop;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
 			_log.error(msg+" Chaining and rethrowing.");

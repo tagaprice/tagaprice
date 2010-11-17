@@ -93,6 +93,12 @@ public class EntityDAOTest {
 		public String getSerializeName() {
 			return "testEntity";
 		}
+
+		@Override
+		public <T extends Entity> T newRevision() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 	
@@ -101,6 +107,7 @@ public class EntityDAOTest {
 	private LocaleDAO localeDAO;
 	private Account testAccount;
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();

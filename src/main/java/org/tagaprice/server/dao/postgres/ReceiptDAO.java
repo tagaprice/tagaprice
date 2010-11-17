@@ -74,7 +74,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		receipt.setDraft(true);
 			
 		
-		//GetReceiptData
+		//GetReceipt
 		String sql = "SELECT sid, re.created_at, draft " +
 				"FROM receipt re " +
 				"INNER JOIN entity en " +
@@ -137,22 +137,24 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public boolean save(Receipt receipt) throws DAOException {
+	public Receipt save(Receipt receipt) throws DAOException {
 		_log.debug("receipt:"+receipt);
-		//new Entity
-		if(!_entityDAO.save(receipt))
-			return false;
+
+		Receipt versionedReceipt = _entityDAO.save(receipt);
+
+		if(versionedReceipt == null)
+			return null;
 
 		PreparedStatement pstmt;
 		try {
-			if(receipt.getRev()==1){
+			if(versionedReceipt.getRev()==1){
 				//create new Receipt
 				pstmt = _db.prepareStatement("INSERT INTO receipt (rid) VALUES (?)");
-				pstmt.setLong(1, receipt.getId());
+				pstmt.setLong(1, versionedReceipt.getId());
 				pstmt.executeUpdate();
-			} else if (receipt.getRev() < 1){ 
+			} else if (versionedReceipt.getRev() < 1){ 
 				throw new DAOException("EntityDAO returned shop with revision < 0!");
-			} else if (receipt.getRev() > 1){
+			} else if (versionedReceipt.getRev() > 1){
 				pstmt = _db.prepareStatement("UPDATE receipt SET " +
 						"sid = ?, " +
 						"draft = ?, " +
@@ -160,25 +162,25 @@ public class ReceiptDAO implements IReceiptDAO {
 				"WHERE rid = ?");
 
 				//Set Shop
-				if(receipt.getShop()==null) 
+				if(versionedReceipt.getShop()==null) 
 					pstmt.setNull(1, Types.BIGINT);
 				else 
-					pstmt.setLong(1, receipt.getShop().getId());
+					pstmt.setLong(1, versionedReceipt.getShop().getId());
 
 				//setDraft
-				if(receipt.getDraft()) 
+				if(versionedReceipt.getDraft()) 
 					pstmt.setBoolean(2, true);
 				else 
 					pstmt.setBoolean(2, false);
 
 				//setDate
-				if(receipt.getDate()==null) 
+				if(versionedReceipt.getDate()==null) 
 					pstmt.setDate(3, new java.sql.Date(new Date().getTime()));
 				else 
-					pstmt.setDate(3, new java.sql.Date(receipt.getDate().getTime()));
+					pstmt.setDate(3, new java.sql.Date(versionedReceipt.getDate().getTime()));
 
 				//set WHERE 
-				pstmt.setLong(4, receipt.getId());
+				pstmt.setLong(4, versionedReceipt.getId());
 				pstmt.executeUpdate();
 
 
@@ -188,15 +190,15 @@ public class ReceiptDAO implements IReceiptDAO {
 				String sql = "DELETE FROM receiptentry " +
 				"WHERE rid = ?";
 				pstmt = _db.prepareStatement(sql);
-				pstmt.setLong(1, receipt.getId());
+				pstmt.setLong(1, versionedReceipt.getId());
 				pstmt.executeUpdate();
 
 				//Add new
-				for(Product pd:receipt.getProductData()){
+				for(Product pd:versionedReceipt.getProductData()){
 					pstmt = _db.prepareStatement("INSERT INTO receiptentry " +
 					"(rid, pid, price) VALUES (?,?,?)");
 
-					pstmt.setLong(1, receipt.getId());
+					pstmt.setLong(1, versionedReceipt.getId());
 					pstmt.setLong(2, pd.getId());
 					pstmt.setLong(3, pd.getAvgPrice().getPrice());
 
@@ -204,7 +206,7 @@ public class ReceiptDAO implements IReceiptDAO {
 				}
 
 			}		
-			return true;
+			return versionedReceipt;
 		} catch (SQLException e) {
 			String msg = "Failed to save receipt. SQLException: "+e.getMessage()+".";
 			_log.error(msg+" Chaining and rethrowing.");

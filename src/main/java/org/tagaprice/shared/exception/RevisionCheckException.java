@@ -14,6 +14,11 @@
 */
 package org.tagaprice.shared.exception;
 
+/**
+ * Thrown to indicate that a problem with the revision of an entity has occured. E.g. the current revision might be out dated.
+ * @author "forste"
+ *
+ */
 public class RevisionCheckException extends Exception {
 	private static final long serialVersionUID = 1L;
 

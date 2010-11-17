@@ -10,10 +10,10 @@ public interface IReceiptDAO {
 	/**
 	 * Saves given receipt to storage. If successful given receipt's revision will be set to the revision in the database.
 	 * @param receipt Receipt to be saved to storage. If the given receipt does not provide an id the revision must be 0. If an id is provided the revision must match the current revision.
-	 * @return True if receipt could be saved, false if not.
+	 * @return If successful, returns the actually saved revision of given receipt, i.e. it's revision will be set. Otherwise returns null.
 	 * @throws DAOException
 	 */
-	boolean save(Receipt receipt) throws DAOException;
+	Receipt save(Receipt receipt) throws DAOException;
 
 	/**
 	 * Retrieves receipt indicated by given id.

@@ -27,6 +27,7 @@ public class PropertyDAOTest {
 	private EntityDAO dao; //TODO testing entityDAO in PropertyDAOTest ??
 	private PropertyDefinitionDAO propDefDAO;
 	
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
@@ -40,9 +41,9 @@ public class PropertyDAOTest {
 		uid = a.getId();
 		
 		testPropDef = new PropertyTypeDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
-		propDefDAO.save(testPropDef);
+//		propDefDAO.save(testPropDef);
 		newPropDef = new PropertyTypeDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
-		propDefDAO.save(newPropDef);
+//		propDefDAO.save(newPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
 		

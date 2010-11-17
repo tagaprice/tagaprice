@@ -179,6 +179,12 @@ public class PropertyTypeDefinition extends Entity {
 		// TODO Auto-generated method stub
 		return "propertyDefinition";
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	// TODO implement missing PropertyDefinition.equals()

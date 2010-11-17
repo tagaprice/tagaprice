@@ -179,4 +179,10 @@ public class Receipt extends Entity {
 		return totalPrice;
 	}
 	// TODO implement missing ReceiptData.equals()
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

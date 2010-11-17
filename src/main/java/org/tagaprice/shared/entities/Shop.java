@@ -203,4 +203,10 @@ public class Shop extends Entity {
 		
 		return rc;
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

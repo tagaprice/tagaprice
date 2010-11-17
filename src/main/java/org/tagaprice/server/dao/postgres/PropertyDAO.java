@@ -17,7 +17,6 @@ import org.tagaprice.shared.entities.Property;
 import org.tagaprice.shared.entities.PropertyTypeDefinition;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
 
 public class PropertyDAO implements IPropertyDAO {
 	private DBConnection _db;
@@ -28,8 +27,9 @@ public class PropertyDAO implements IPropertyDAO {
 	}
 
 	@Override
-	public <T extends Entity> T setProperties(T entity) throws DAOException {
-		_log.debug("entity:"+entity);
+	public SerializableArrayList<Property> getPropertiesByIdAndRef(long id, int rev) throws DAOException {
+		_log.debug("id:"+id);
+		_log.debug("rev:"+rev);
 		UnitDAO unitDAO = new UnitDAO(_db);
 
 		//Get Property Data
@@ -43,8 +43,8 @@ public class PropertyDAO implements IPropertyDAO {
 
 		try {
 			PreparedStatement pstmt = _db.prepareStatement(sql);
-			pstmt.setLong(1, entity.getId());
-			pstmt.setInt(2, entity.getRev());
+			pstmt.setLong(1, id);
+			pstmt.setInt(2, rev);
 			ResultSet res = pstmt.executeQuery();
 
 			SerializableArrayList<Property> props = new SerializableArrayList<Property>();
@@ -52,11 +52,7 @@ public class PropertyDAO implements IPropertyDAO {
 			while(res.next()) {
 				Unit u = null;
 				if (res.getString("unit_id") != null) {
-					try {
-						u = unitDAO.getById(res.getLong("unit_id"));
-					} catch (DAOException e) {
-						//TODO handle
-					}
+					u = unitDAO.getById(res.getLong("unit_id"));
 				}
 				props.add(new Property(
 						res.getLong("eprop_id"),
@@ -65,8 +61,7 @@ public class PropertyDAO implements IPropertyDAO {
 						res.getString("value"), 
 						u));
 			}
-			entity.setProperties(props);
-			return entity;
+			return props;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve entity from database. SQLException: "+e.getMessage()+".";
 			_log.error(msg + " Chaining and rethrowing.");
@@ -76,18 +71,12 @@ public class PropertyDAO implements IPropertyDAO {
 	}
 
 	@Override
-	public boolean save(Entity entity) throws DAOException {
+	public boolean saveProperties(Entity entity) throws DAOException { 	//TODO reimplement method
 		_log.debug("entity:"+entity);
 		PropertyDefinitionDAO propDefDAO = new PropertyDefinitionDAO(_db);
 
 		// get the entity's properties from the database
-		Entity oldEntity = new Entity(entity.getId()) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getSerializeName() { return null; }
-		};
-		oldEntity = setProperties(oldEntity);
+		SerializableArrayList<Property> oldProperties = getPropertiesByIdAndRef(entity.getId(), 0);
 
 		// store them in a HashMap to speed up finding them by id
 		HashMap<Long, Property> oldProps = new HashMap<Long, Property>();
@@ -100,7 +89,7 @@ public class PropertyDAO implements IPropertyDAO {
 		}
 
 		try {
-			it = oldEntity.getProperties().iterator();
+			it = oldProperties.iterator();
 			while (it.hasNext()) {
 				Property item = it.next();
 
@@ -110,7 +99,9 @@ public class PropertyDAO implements IPropertyDAO {
 					stmt.setInt(1, entity.getRev()-1);
 					stmt.setLong(2, item.getId());
 				}
-				else oldProps.put(item.getId(), item);
+				else {
+					oldProps.put(item.getId(), item);
+				}
 			}
 
 			// find properties that were deleted
@@ -135,12 +126,7 @@ public class PropertyDAO implements IPropertyDAO {
 				// add new properties
 				if (!item.hasId()) {
 					PropertyTypeDefinition propDef;
-					try {
-						propDef = propDefDAO.get(item.getName(), entity.getLocaleId());
-					} catch (NotFoundException e) {
-						// TODO clean propDefDAO from NotFoundExceptions
-						throw new DAOException(e.getMessage(), e);
-					} 
+					propDef = propDefDAO.getByNameAndLocalId(item.getName(), entity.getLocaleId()); 
 					// new property, save it
 					PreparedStatement pstmt = _db.prepareStatement("INSERT INTO entityProperty (prop_id, ent_id, value, unit_id, min_rev) VALUES (?,?,?,?,?)");
 					pstmt.setLong(1, propDef.getId());
@@ -150,7 +136,9 @@ public class PropertyDAO implements IPropertyDAO {
 					if (item.hasUnit()) {
 						pstmt.setLong(4, item.getUnit().getId());
 					}
-					else pstmt.setNull(4, Types.BIGINT);
+					else {
+						pstmt.setNull(4, Types.BIGINT);
+					}
 
 					pstmt.setInt(5, entity.getRev());
 					pstmt.executeUpdate();

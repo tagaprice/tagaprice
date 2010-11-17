@@ -12,14 +12,18 @@ import javax.mail.internet.InternetAddress;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.Mail;
-import org.tagaprice.server.dao.DAOClass;
+import org.tagaprice.server.dao.interfaces.ILocaleAccountDAO;
 import org.tagaprice.shared.entities.LocalAccount;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
-import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class LocalAccountDAO implements DAOClass<LocalAccount> {
+//
+//TODO refactored used methods (methods marked with //USED are used in service), omit other methods + refactore AccountDAO
+//
+
+public class LocalAccountDAO implements ILocaleAccountDAO {
 	private DBConnection db;
 	private AccountDAO accountDAO;
 	
@@ -28,6 +32,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccount> {
 		accountDAO = new AccountDAO(db);
 	}
 	
+	//USED
 	public boolean isEmailAvailable(String email) throws SQLException, NotFoundException, NotFoundException{
 		if(!email.toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")) {
 			return false;
@@ -46,6 +51,7 @@ public class LocalAccountDAO implements DAOClass<LocalAccount> {
 		return false;
 	}
 	
+	//USED
 	public boolean confirm(String confirm) throws SQLException, NotFoundException, NotFoundException{
 		String sql = "" +
 				"UPDATE account " +
@@ -64,13 +70,18 @@ public class LocalAccountDAO implements DAOClass<LocalAccount> {
 	}
 	
 	
-	@Override
+	@Deprecated
 	public void get(LocalAccount account) throws SQLException, NotFoundException {
 		// password won't be set anyway
-		accountDAO.get(account);
+		try {
+			accountDAO.get(account);
+		} catch (DAOException e) {
+			throw new NotFoundException();
+		}
 	}
 
-	@Override
+	//USED
+	@SuppressWarnings("deprecation")
 	public void save(LocalAccount account) throws SQLException,
 			NotFoundException, RevisionCheckException, InvalidLocaleException {
 		accountDAO.save(account);

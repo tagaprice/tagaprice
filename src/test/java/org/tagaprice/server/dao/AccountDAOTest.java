@@ -29,6 +29,7 @@ public class AccountDAOTest {
 	private DBConnection db;
 	private Account testAccount;
 	
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();

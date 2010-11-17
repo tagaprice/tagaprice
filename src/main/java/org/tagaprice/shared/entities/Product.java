@@ -260,4 +260,10 @@ public class Product extends Entity {
 				super.toString() +
 				"}\n";
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

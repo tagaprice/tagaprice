@@ -17,10 +17,10 @@ public interface IUnitDAO {
 	/**
 	 * Saves given unit to storage. If successful given unit's revision will be set to the revision in the database.
 	 * @param unit Unit to save.
-	 * @return True if unit could be successfully saved, false if not.
+	 * @return If successful, returns the actually saved revision of given unit, i.e. it's revision will be set. Otherwise returns null.
 	 * @throws DAOException
 	 */
-	boolean save(Unit unit) throws DAOException;
+	Unit save(Unit unit) throws DAOException;
 
 	/**
 	 * Retrieves the unit indicated by given id from storage. 

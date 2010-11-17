@@ -16,9 +16,9 @@ public interface IProductDAO {
 	/**
 	 * Saves given product to storage. If successful given product's revision will be set to the revision in the database.
 	 * @param product Product to be saved to storage. If the given product does not provide an id the revision must be 0. If an id is provided the revision must match the current revision.
-	 * @return True if product could be saved, false if not.
+	 * @return If successful, returns the actually saved revision of given product, i.e. it's revision will be set. Otherwise returns null.
 	 * @throws DAOException
 	 */
-	boolean save(Product product) throws DAOException;
+	Product save(Product product) throws DAOException;
 
 }

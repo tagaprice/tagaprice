@@ -98,6 +98,12 @@ public class Category extends Entity {
 		// TODO Auto-generated method stub
 		return "unit";
 	}
+
+	@Override
+	public <T extends Entity> T newRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	// TODO implement missing Type.equals()
 }
