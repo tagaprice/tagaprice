@@ -9,8 +9,8 @@
 
 /**
  * Project: TagAPrice
- * Filename: TypeDraftAsync.java
- * Date: 27.05.2010
+ * Filename: PriceHandlerAsync.java
+ * Date: 02.06.2010
 */
 package org.tagaprice.shared.rpc;
 
@@ -20,19 +20,18 @@ import org.tagaprice.shared.Category;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface TypeHandlerAsync {
+public interface CategoryHandlerAsync {
 
 	void get(Category type, AsyncCallback<Category> callback) 
-		throws IllegalArgumentException;
+	throws IllegalArgumentException;
 
 	/**
 	 * 
 	 * @param id if ID == NULL return Type is root
- 	 * @param callback
+		 * @param callback
 	 * @throws IllegalArgumentException
 	 */
 	void getTypeList(Category type, AsyncCallback<ArrayList<Category>> callback)
 		throws IllegalArgumentException;
 
-	
 }
