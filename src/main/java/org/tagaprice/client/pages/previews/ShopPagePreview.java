@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class ShopPagePreview extends APagePreview {
-	private interface MyUiBinder extends UiBinder<Widget, ShopPagePreview>{}
+	public interface MyUiBinder extends UiBinder<Widget, ShopPagePreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
 	private ShopData shopData;
