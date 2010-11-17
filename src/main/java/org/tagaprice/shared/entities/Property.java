@@ -12,13 +12,15 @@
  * Filename: PropertyData.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
+
+import org.tagaprice.shared.ISerializable;
 
 
 /**
  * 
  */
-public class PropertyData implements Serializable {
+public class Property implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -28,18 +30,18 @@ public class PropertyData implements Serializable {
 	private Unit unit;
 	private boolean read=false;
 	
-	public PropertyData() {
+	public Property() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PropertyData (String name, String title, String value, Unit unit) {
+	public Property (String name, String title, String value, Unit unit) {
 		setName(name);
 		setTitle(title);
 		setValue(value);
 		setUnit(unit);
 	}
 	
-	public PropertyData(
+	public Property(
 			long id,
 			String name,
 			String title,
@@ -145,8 +147,8 @@ public class PropertyData implements Serializable {
 	public boolean equals(Object o) {
 		boolean rc = true;
 
-		if (o instanceof PropertyData) {
-			PropertyData p = (PropertyData) o;
+		if (o instanceof Property) {
+			Property p = (Property) o;
 			if (!Entity._compare(id, p.id)) rc = false;
 			if (!Entity._compare(getName(), p.getName())) rc = false;
 			if (!Entity._compare(getValue(), p.getValue())) rc = false;

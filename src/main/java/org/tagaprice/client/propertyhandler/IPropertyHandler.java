@@ -3,8 +3,8 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
 
 /**
  * Defines the main methods for all PropertyHandler.
@@ -42,5 +42,5 @@ public interface IPropertyHandler {
 	 * 
 	 * @return returns all properties hold by the handler.
 	 */
-	public HashMap<String, ArrayList<PropertyData>> getPropertyList();
+	public HashMap<String, ArrayList<Property>> getPropertyList();
 }

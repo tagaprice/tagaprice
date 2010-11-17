@@ -20,14 +20,14 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class AccountDAO implements DAOClass<AccountData> {
+public class AccountDAO implements DAOClass<Account> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	
@@ -46,7 +46,7 @@ public class AccountDAO implements DAOClass<AccountData> {
 	}
 
 	@Override
-	public void get(AccountData account) throws SQLException, NotFoundException {
+	public void get(Account account) throws SQLException, NotFoundException {
 		// check if it's really an account
 		PreparedStatement pstmt = db.prepareStatement("SELECT uid, mail FROM account WHERE uid = ?");
 		pstmt.setLong(1, account.getId());
@@ -64,7 +64,7 @@ public class AccountDAO implements DAOClass<AccountData> {
 	}
 
 	@Override
-	public void save(AccountData a) throws SQLException, NotFoundException,
+	public void save(Account a) throws SQLException, NotFoundException,
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		

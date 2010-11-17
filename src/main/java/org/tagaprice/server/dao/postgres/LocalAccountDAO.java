@@ -13,13 +13,13 @@ import javax.mail.internet.InternetAddress;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.Mail;
 import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.shared.LocalAccountData;
+import org.tagaprice.shared.entities.LocalAccount;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class LocalAccountDAO implements DAOClass<LocalAccountData> {
+public class LocalAccountDAO implements DAOClass<LocalAccount> {
 	private DBConnection db;
 	private AccountDAO accountDAO;
 	
@@ -65,13 +65,13 @@ public class LocalAccountDAO implements DAOClass<LocalAccountData> {
 	
 	
 	@Override
-	public void get(LocalAccountData account) throws SQLException, NotFoundException {
+	public void get(LocalAccount account) throws SQLException, NotFoundException {
 		// password won't be set anyway
 		accountDAO.get(account);
 	}
 
 	@Override
-	public void save(LocalAccountData account) throws SQLException,
+	public void save(LocalAccount account) throws SQLException,
 			NotFoundException, RevisionCheckException, InvalidLocaleException {
 		accountDAO.save(account);
 		

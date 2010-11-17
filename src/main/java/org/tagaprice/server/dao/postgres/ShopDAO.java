@@ -8,7 +8,7 @@ import java.sql.Types;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 
@@ -25,17 +25,17 @@ public class ShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public ShopData getById(long id) throws DAOException {
+	public Shop getById(long id) throws DAOException {
 		return getByIdAndRef(id, 0);
 	}
 	
 
 	@Override
-	public ShopData getByIdAndRef(long id, long rev) throws DAOException {
+	public Shop getByIdAndRef(long id, long rev) throws DAOException {
 		_log.debug("id:"+id);
 		//Get Entity Data
-		ShopData shop;
-		shop = _entityDAO.getByIdAndRev(new ShopData(), id, rev);
+		Shop shop;
+		shop = _entityDAO.getByIdAndRev(new Shop(), id, rev);
 		if(shop == null) return null;
 
 		// TODO implement fetching of a specific shop revision
@@ -82,7 +82,7 @@ public class ShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public boolean save(ShopData shop) throws DAOException {
+	public boolean save(Shop shop) throws DAOException {
 		_log.debug("shop:"+shop);
 		PreparedStatement pstmt;
 

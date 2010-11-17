@@ -17,10 +17,10 @@ package org.tagaprice.shared;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SearchResult<T extends Serializable> extends ArrayList<T> implements Serializable {
+public class SerializableArrayList<T extends ISerializable> extends ArrayList<T> implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
-	public SearchResult() {
+	public SerializableArrayList() {
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
-		if (o instanceof SearchResult<?>) {
-			SearchResult<?> l = (SearchResult<?>) o;
+		if (o instanceof SerializableArrayList<?>) {
+			SerializableArrayList<?> l = (SerializableArrayList<?>) o;
 			Iterator<?> it1 = iterator(), it2 = l.iterator();
 			
 			while (rc && it1.hasNext() && it2.hasNext()) {

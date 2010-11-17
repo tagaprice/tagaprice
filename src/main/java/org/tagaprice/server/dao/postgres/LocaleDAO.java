@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.ILocaleDAO;
-import org.tagaprice.shared.Locale;
+import org.tagaprice.shared.entities.Locale;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 /**

@@ -12,9 +12,11 @@
  * Filename: RequestError.java
  * Date: 12.06.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public class RequestError implements Serializable {
+import org.tagaprice.shared.ISerializable;
+
+public class RequestError implements ISerializable {
 	private static final long serialVersionUID = 1L;
 	private String message;
 

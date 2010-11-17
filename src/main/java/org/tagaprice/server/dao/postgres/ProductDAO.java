@@ -22,7 +22,7 @@ import java.sql.Types;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
-import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.exception.DAOException;
 
 public class ProductDAO implements IProductDAO {
@@ -36,12 +36,12 @@ public class ProductDAO implements IProductDAO {
 	}
 	
 	@Override
-	public ProductData getById(long id) throws DAOException {
+	public Product getById(long id) throws DAOException {
 		_log.debug("id:"+id);
 		
-		ProductData product;
+		Product product;
 		//Get Entity Data
-		product = _entityDAO.getById(new ProductData(), id);
+		product = _entityDAO.getById(new Product(), id);
 		if(product == null)	
 			return null;
 		
@@ -80,7 +80,7 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public boolean save(ProductData product) throws DAOException {
+	public boolean save(Product product) throws DAOException {
 		
 		if(!_entityDAO.save(product))
 			return false;

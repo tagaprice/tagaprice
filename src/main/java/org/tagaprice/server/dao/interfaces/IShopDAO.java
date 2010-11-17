@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IShopDAO {
@@ -11,7 +11,7 @@ public interface IShopDAO {
 	 * @return Shop indicated by given id or null if no shop could be found. 
 	 * @throws DAOException
 	 */
-	ShopData getById(long id) throws DAOException;
+	Shop getById(long id) throws DAOException;
 
 	/**
 	 * Saves given shop to storage. If successful given shop's revision will be set to the revision in the database.
@@ -19,7 +19,7 @@ public interface IShopDAO {
 	 * @return True if shop could be saved, false if not.
 	 * @throws DAOException
 	 */
-	boolean save(ShopData shop) throws DAOException;
+	boolean save(Shop shop) throws DAOException;
 
 	/**
 	 * Retrieves shop indicated by given id and given revision.
@@ -28,6 +28,6 @@ public interface IShopDAO {
 	 * @return Returns the shop indicated by given id or null if no shop could be found.
 	 * @throws DAOException
 	 */
-	ShopData getByIdAndRef(long id, long rev) throws DAOException;
+	Shop getByIdAndRef(long id, long rev) throws DAOException;
 
 }

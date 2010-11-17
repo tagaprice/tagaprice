@@ -7,16 +7,16 @@ import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
+public class PropertyDefinitionDAO implements DAOClass<PropertyTypeDefinition> {
 	private DBConnection db;
 	private EntityDAO entityDAO;
 	private UnitDAO unitDAO;
@@ -27,24 +27,24 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		unitDAO = new UnitDAO(db);
 	}
 	
-	public PropertyDefinition get(long id) throws SQLException, NotFoundException {
+	public PropertyTypeDefinition get(long id) throws SQLException, NotFoundException {
 		return get(id, 0);
 	}
 	
-	public PropertyDefinition get(long id, int rev) throws SQLException, NotFoundException {
-		PropertyDefinition def = new PropertyDefinition(id, rev);
+	public PropertyTypeDefinition get(long id, int rev) throws SQLException, NotFoundException {
+		PropertyTypeDefinition def = new PropertyTypeDefinition(id, rev);
 		get(def);
 		return def;
 	}
 	
-	public PropertyDefinition get(String name, int localeId) throws SQLException, NotFoundException {
-		PropertyDefinition def = new PropertyDefinition(name, localeId);
+	public PropertyTypeDefinition get(String name, int localeId) throws SQLException, NotFoundException {
+		PropertyTypeDefinition def = new PropertyTypeDefinition(name, localeId);
 		get(def);
 		return def;
 	}
 	
 	@Override
-	public void get(PropertyDefinition prop) throws SQLException, NotFoundException {
+	public void get(PropertyTypeDefinition prop) throws SQLException, NotFoundException {
 		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
 		PreparedStatement pstmt;
 		int pos = 1;
@@ -104,7 +104,7 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 	}
 	
 	@Override
-	public void save(PropertyDefinition prop) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
+	public void save(PropertyTypeDefinition prop) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		String sql;
 

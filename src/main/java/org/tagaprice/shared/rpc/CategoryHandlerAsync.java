@@ -16,7 +16,7 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Category;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

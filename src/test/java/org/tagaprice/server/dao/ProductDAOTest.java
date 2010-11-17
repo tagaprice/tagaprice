@@ -9,8 +9,8 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Product;
 
 public class ProductDAOTest {
 	private ProductDAO dao;
@@ -23,7 +23,7 @@ public class ProductDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new ProductDAO(db);
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("testAccount", localeId, "address@example.com", null);
+		Account a = new Account("testAccount", localeId, "address@example.com", null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 

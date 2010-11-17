@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.shared.ProductData;
+import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IProductDAO {
@@ -11,7 +11,7 @@ public interface IProductDAO {
 	 * @return Product indicated by given id or null if no product could be found. 
 	 * @throws DAOException
 	 */
-	ProductData getById(long id) throws DAOException;
+	Product getById(long id) throws DAOException;
 
 	/**
 	 * Saves given product to storage. If successful given product's revision will be set to the revision in the database.
@@ -19,6 +19,6 @@ public interface IProductDAO {
 	 * @return True if product could be saved, false if not.
 	 * @throws DAOException
 	 */
-	boolean save(ProductData product) throws DAOException;
+	boolean save(Product product) throws DAOException;
 
 }

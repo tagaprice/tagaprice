@@ -15,7 +15,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestDBConnection;
 import org.tagaprice.server.dao.postgres.LocalAccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
-import org.tagaprice.shared.LocalAccountData;
+import org.tagaprice.shared.entities.LocalAccount;
 
 public class LocalAccountDAOTest {
 	private DBConnection db;
@@ -37,9 +37,9 @@ public class LocalAccountDAOTest {
 	
 	@Test
 	public void testCreate() throws Exception {
-		LocalAccountData account = new LocalAccountData("testAccount", localeId, null, "mail@foo.invalid", pwd, null);
+		LocalAccount account = new LocalAccount("testAccount", localeId, null, "mail@foo.invalid", pwd, null);
 		dao.save(account);
-		LocalAccountData a2 = new LocalAccountData(account.getId());
+		LocalAccount a2 = new LocalAccount(account.getId());
 		dao.get(a2);
 		assertEquals("Accounts don't match!", account, a2);
 		

@@ -19,8 +19,8 @@ import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -44,7 +44,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class ProductPagePreview extends APagePreview {
 	public interface _MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
 	private _MyUiBinder _uiBinder = GWT.create(_MyUiBinder.class);
-	private ProductData _productData;
+	private Product _productData;
 	private boolean _editable;
 	private RatingWidget _ratingWidget;
 	private MorphWidget _price;
@@ -70,14 +70,14 @@ public class ProductPagePreview extends APagePreview {
 	 * @param editable
 	 * @param handler
 	 */
-	public ProductPagePreview(ProductData productData, boolean editable, ChangeHandler handler){
+	public ProductPagePreview(Product productData, boolean editable, ChangeHandler handler){
 		super();
 		init(productData, editable);
 		addChangeHandler(handler);
 	}
 	
 	
-	public ProductPagePreview(ProductData productData, boolean editable){
+	public ProductPagePreview(Product productData, boolean editable){
 		init(productData, editable);
 	}
 	
@@ -88,7 +88,7 @@ public class ProductPagePreview extends APagePreview {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public void init(ProductData productData, boolean editable) {
+	public void init(Product productData, boolean editable) {
 		_productData=productData;
 		_editable=editable;
 		initWidget(_uiBinder.createAndBindUi(this));
@@ -181,7 +181,7 @@ public class ProductPagePreview extends APagePreview {
 	 * Return current productData
 	 * @return 
 	 */
-	public ProductData getProductData(){
+	public Product getProductData(){
 		if(_editable){
 			_productData.getAvgPrice().setPrice((int)(Double.parseDouble(_price.getValue())*100));
 			_productData.getQuantity().setQuantity(new Integer(_quantitiy.getValue()));

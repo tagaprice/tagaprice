@@ -34,15 +34,16 @@ import org.tagaprice.client.widgets.TypeWidget;
 import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Category;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
+import org.tagaprice.shared.utility.PropertyValidator;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -66,8 +67,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ProductPage extends APage {
 
-	private ProductData _productData;
-	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
+	private Product _productData;
+	private HashMap<String, ArrayList<Property>> _hashProperties = new HashMap<String, ArrayList<Property>>();
 	private Category _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private IPropertyChangeHandler _handler;
@@ -84,7 +85,7 @@ public class ProductPage extends APage {
  * @param productData
  * @param _type
  */
-	public ProductPage(ProductData productData, Category _type) {
+	public ProductPage(Product productData, Category _type) {
 
 
 		init(this._verticalPanel_1);
@@ -92,10 +93,10 @@ public class ProductPage extends APage {
 
 		this._type = _type;
 		// Move PropertyData to hashPropertyData
-		for (PropertyData pd : this._productData.getProperties()) {
+		for (Property pd : this._productData.getProperties()) {
 			if (_hashProperties.get(pd.getName()) == null) {
 				_hashProperties
-						.put(pd.getName(), new ArrayList<PropertyData>());
+						.put(pd.getName(), new ArrayList<Property>());
 			}
 			_hashProperties.get(pd.getName()).add(pd);
 
@@ -237,7 +238,7 @@ public class ProductPage extends APage {
 		_handlerList.clear();
 
 		for (String ks : _hashProperties.keySet()) {
-			for (PropertyData pd : _hashProperties.get(ks)) {
+			for (Property pd : _hashProperties.get(ks)) {
 				pd.setRead(false);
 			}
 		}
@@ -308,10 +309,10 @@ public class ProductPage extends APage {
 						_productData.getProperties())) {
 					try {
 						RPCHandlerManager.getProductHandler().save(
-								_productData, new AsyncCallback<ProductData>() {
+								_productData, new AsyncCallback<Product>() {
 
 									@Override
-									public void onSuccess(ProductData result) {
+									public void onSuccess(Product result) {
 										__bottomInfo.setVisible(false);
 										topSave.setText("Save");
 										if (_productData.getId() == null) {
@@ -391,12 +392,12 @@ public class ProductPage extends APage {
 	 * @param hashProperties
 	 * @return
 	 */
-	private SearchResult<PropertyData> hashToPropertyList(
-			HashMap<String, ArrayList<PropertyData>> hashProperties) {
-		SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
+	private SerializableArrayList<Property> hashToPropertyList(
+			HashMap<String, ArrayList<Property>> hashProperties) {
+		SerializableArrayList<Property> newList = new SerializableArrayList<Property>();
 
 		for (String ks : hashProperties.keySet()) {
-			for (PropertyData pd : hashProperties.get(ks)) {
+			for (Property pd : hashProperties.get(ks)) {
 				newList.add(pd);
 				// System.out.println(pd.getName()+": "+pd.getValue());
 			}

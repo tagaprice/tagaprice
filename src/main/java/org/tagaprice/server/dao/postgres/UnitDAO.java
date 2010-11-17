@@ -22,8 +22,8 @@ import java.sql.Types;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IUnitDAO;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -41,10 +41,10 @@ public class UnitDAO implements IUnitDAO{
 	
 	
 	@Override
-	public SearchResult<Unit> getSimilar(long unitId) throws DAOException {
+	public SerializableArrayList<Unit> getSimilar(long unitId) throws DAOException {
 		_log.debug("id:"+unitId);
 		try {
-			SearchResult<Unit> rc = new SearchResult<Unit>();
+			SerializableArrayList<Unit> rc = new SerializableArrayList<Unit>();
 			long siId = unitId;
 
 			// get base ID for unit (e.g. meter for milimeters)

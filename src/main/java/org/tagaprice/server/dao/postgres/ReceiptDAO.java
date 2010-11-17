@@ -11,12 +11,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IReceiptDAO;
-import org.tagaprice.shared.Price;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.Quantity;
-import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.entities.Price;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
 
 public class ReceiptDAO implements IReceiptDAO {
@@ -34,7 +34,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public List<ReceiptData> getUserReceipts(long id) throws DAOException {
+	public List<Receipt> getUserReceipts(long id) throws DAOException {
 		_log.debug("id:"+id);
 		String sql = "SELECT rid FROM " +
 				"receipt re " +
@@ -48,7 +48,7 @@ public class ReceiptDAO implements IReceiptDAO {
 			pstmt = _db.prepareStatement(sql);
 			pstmt.setLong(1, id);
 			ResultSet resSet = pstmt.executeQuery();
-			List<ReceiptData> receipts = new ArrayList<ReceiptData>();
+			List<Receipt> receipts = new ArrayList<Receipt>();
 			while(resSet.next()){
 				receipts.add(getById(resSet.getLong("rid")));
 			}
@@ -63,14 +63,14 @@ public class ReceiptDAO implements IReceiptDAO {
 	
 	
 	@Override
-	public ReceiptData getById(long id) throws DAOException {
+	public Receipt getById(long id) throws DAOException {
 		_log.debug("id:"+id);
 		//get Entity Data
-		ReceiptData receipt = _entityDAO.getById(new ReceiptData(), id);
+		Receipt receipt = _entityDAO.getById(new Receipt(), id);
 		if(receipt == null)
 			return null;
 		receipt.setDate(new Date());
-		receipt.setProductData(new ArrayList<ProductData>());
+		receipt.setProductData(new ArrayList<Product>());
 		receipt.setDraft(true);
 			
 		
@@ -96,7 +96,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 			//Get shop
 			if(resSet.getLong("sid")>0){
-				ShopData shopTemp = _shopDAO.getById(resSet.getLong("sid"));
+				Shop shopTemp = _shopDAO.getById(resSet.getLong("sid"));
 				if(shopTemp == null)
 					return null;
 				receipt.setShop(shopTemp);
@@ -116,10 +116,10 @@ public class ReceiptDAO implements IReceiptDAO {
 			pstmt.setLong(2, receipt.getId());
 			ResultSet resSet2 = pstmt.executeQuery();
 
-			ArrayList<ProductData> productDataArray = new ArrayList<ProductData>();
+			ArrayList<Product> productDataArray = new ArrayList<Product>();
 
 			while(resSet2.next()){
-				ProductData tempProduct = _productDAO.getById(resSet2.getLong("pid"));
+				Product tempProduct = _productDAO.getById(resSet2.getLong("pid"));
 				tempProduct.setAvgPrice(new Price(resSet2.getInt("price"), 4, 1, "€", 1));
 				tempProduct.setQuantity(new Quantity(1, new Unit(23, 2, "kg", 1, null, 0)));			
 				productDataArray.add(tempProduct);
@@ -137,7 +137,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public boolean save(ReceiptData receipt) throws DAOException {
+	public boolean save(Receipt receipt) throws DAOException {
 		_log.debug("receipt:"+receipt);
 		//new Entity
 		if(!_entityDAO.save(receipt))
@@ -192,7 +192,7 @@ public class ReceiptDAO implements IReceiptDAO {
 				pstmt.executeUpdate();
 
 				//Add new
-				for(ProductData pd:receipt.getProductData()){
+				for(Product pd:receipt.getProductData()){
 					pstmt = _db.prepareStatement("INSERT INTO receiptentry " +
 					"(rid, pid, price) VALUES (?,?,?)");
 

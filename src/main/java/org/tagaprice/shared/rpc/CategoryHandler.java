@@ -15,7 +15,8 @@
 package org.tagaprice.shared.rpc;
 
 import java.util.List;
-import org.tagaprice.shared.Category;
+
+import org.tagaprice.shared.entities.Category;
 import org.tagaprice.shared.exception.ServerException;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

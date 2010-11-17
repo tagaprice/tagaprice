@@ -31,8 +31,8 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.EntityDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -99,14 +99,14 @@ public class EntityDAOTest {
 	protected TestDBConnection db;
 	private EntityDAO dao;
 	private LocaleDAO localeDAO;
-	private AccountData testAccount;
+	private Account testAccount;
 
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();
 		dao = new EntityDAO(db);
 		localeDAO = new LocaleDAO(db);
-		testAccount = new AccountData("testAccount", localeDAO.get("English").getId(), "mail@example.net", null);
+		testAccount = new Account("testAccount", localeDAO.get("English").getId(), "mail@example.net", null);
 		new AccountDAO(db).save(testAccount);
 	}
 

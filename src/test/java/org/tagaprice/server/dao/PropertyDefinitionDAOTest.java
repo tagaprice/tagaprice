@@ -9,9 +9,9 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.PropertyDefinitionDAO;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 public class PropertyDefinitionDAOTest {
 	private PropertyDefinitionDAO dao;
@@ -24,7 +24,7 @@ public class PropertyDefinitionDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new PropertyDefinitionDAO(db);
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("testAccount", localeId, "foo@test.invalid", null);
+		Account a = new Account("testAccount", localeId, "foo@test.invalid", null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 	}
@@ -36,9 +36,9 @@ public class PropertyDefinitionDAOTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		PropertyDefinition pdef = new PropertyDefinition("testWeight", "Test property named 'weight'", localeId, uid, Datatype.STRING, 5, 27, null, true);
+		PropertyTypeDefinition pdef = new PropertyTypeDefinition("testWeight", "Test property named 'weight'", localeId, uid, Datatype.STRING, 5, 27, null, true);
 		dao.save(pdef);
-		PropertyDefinition pdef2 = new PropertyDefinition(pdef.getId());
+		PropertyTypeDefinition pdef2 = new PropertyTypeDefinition(pdef.getId());
 		dao.get(pdef2);
 		assertEquals(pdef, pdef2);
 	}

@@ -12,7 +12,7 @@
  * Filename: ShopPreviewContainer.java
  * Date: 16.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
 
 /**
@@ -21,7 +21,7 @@ package org.tagaprice.shared;
  * shop. 
  *
  */
-public class ShopData extends Entity {
+public class Shop extends Entity {
 	private static final long serialVersionUID = 1;
 	
 	private Long typeId;
@@ -33,7 +33,7 @@ public class ShopData extends Entity {
 	/**
 	 * default constructor
 	 */
-	public ShopData() {
+	public Shop() {
 		super();
 	}
 	
@@ -41,7 +41,7 @@ public class ShopData extends Entity {
 	 * constructor for querying a shop's current revision (using ShopDAO) 
 	 * @param id Shop ID
 	 */
-	public ShopData(long id) {
+	public Shop(long id) {
 		super(id);
 	}
 	
@@ -50,7 +50,7 @@ public class ShopData extends Entity {
 	 * @param id Shop ID
 	 * @param rev Shop revision
 	 */
-	public ShopData(long id, int rev) {
+	public Shop(long id, int rev) {
 		super(id, rev);
 	}
 
@@ -63,14 +63,14 @@ public class ShopData extends Entity {
 	 * @param imageSrc shop photo or logo URL (may be null)
 	 * @param address shop address (may be null)
 	 */
-	public ShopData(String title, int localeId, long creatorId, Long typeId, String imageSrc, Address address) {
+	public Shop(String title, int localeId, long creatorId, Long typeId, String imageSrc, Address address) {
 		super(title, localeId, creatorId);
 		this.typeId = typeId;
 		this.imageSrc = imageSrc;
 		this.address = address;
 	}
 	
-	public ShopData(long id, int rev, String title, long creatorId, Long typeId, String imageSrc, Address address) {
+	public Shop(long id, int rev, String title, long creatorId, Long typeId, String imageSrc, Address address) {
 		super(id, rev, title, creatorId);
 		this.typeId = typeId;
 		this.imageSrc = imageSrc;
@@ -169,8 +169,8 @@ public class ShopData extends Entity {
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
-		if (o instanceof ShopData) {
-			ShopData s = (ShopData) o;
+		if (o instanceof Shop) {
+			Shop s = (Shop) o;
 			
 			if (!super.equals(s)) rc = false;
 			if (!_compare(getTypeId(), s.getTypeId())) rc = false;

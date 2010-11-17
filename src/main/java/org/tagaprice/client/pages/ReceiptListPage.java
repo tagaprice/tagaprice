@@ -6,8 +6,8 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Headline;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -34,14 +34,14 @@ public class ReceiptListPage extends APage {
 		
 		
 		try {
-			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<ReceiptData>>() {
+			RPCHandlerManager.getReceiptHandler().getUserReceipts(new AsyncCallback<ArrayList<Receipt>>() {
 /**
  * A new receipt with name, date and price is created in a personal receipt table				
  * @param result
  */
 	
 				@Override
-				public void onSuccess(ArrayList<ReceiptData> result) {
+				public void onSuccess(ArrayList<Receipt> result) {
 					
 					_table = new Grid(result.size()+1,3);
 					int c = 1;
@@ -55,7 +55,7 @@ public class ReceiptListPage extends APage {
 					long totalPrice = 0;
 					
 					//get Rows
-					for(final ReceiptData pd: result){
+					for(final Receipt pd: result){
 						Label title = new Label(pd.getTitle()+": "+pd.getId());
 						if(pd.getDraft()){
 							title.setText(title.getText()+" [DRAFT]");

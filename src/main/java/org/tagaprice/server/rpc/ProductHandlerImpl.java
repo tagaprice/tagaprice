@@ -21,12 +21,12 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.LoginDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
-import org.tagaprice.shared.Category;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.PropertyValidator;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.ProductHandler;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -51,12 +51,12 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 	
 	
 	@Override
-	public ProductData get(long id) throws IllegalArgumentException, ServerException {
+	public Product get(long id) throws IllegalArgumentException, ServerException {
 		return productDao.getById(id);
 	}
 
 	@Override
-	public ProductData save(ProductData data) throws IllegalArgumentException, InvalidLoginException, ServerException {
+	public Product save(Product data) throws IllegalArgumentException, InvalidLoginException, ServerException {
 		getSid();
 		CategoryHandlerImpl th = new CategoryHandlerImpl();
 		

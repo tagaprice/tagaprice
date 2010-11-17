@@ -12,7 +12,7 @@
  * Filename: ReceiptContainer.java
  * Date: 16.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,19 +22,19 @@ import java.util.Date;
  * Contains all important information to represent a receipt. 
  *
  */
-public class ReceiptData extends Entity {
+public class Receipt extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	private boolean draft;
 	private Date date;
 	private int bill; //in Cent
-	private ShopData shop;
-	private ArrayList<ProductData> productData = new ArrayList<ProductData>();
+	private Shop shop;
+	private ArrayList<Product> productData = new ArrayList<Product>();
 	
 	/**
 	 * default constructor (needed for serialization)
 	 */
-	public ReceiptData() {
+	public Receipt() {
 		super();
 	}
 	
@@ -42,7 +42,7 @@ public class ReceiptData extends Entity {
 	 * constructor used for querying the current revision of a Receipt from the database (using ReceiptDAO)
 	 * @param id Receipt ID
 	 */
-	public ReceiptData(long id) {
+	public Receipt(long id) {
 		super(id);
 	}
 	
@@ -51,7 +51,7 @@ public class ReceiptData extends Entity {
 	 * @param id Receipt ID
 	 * @param rev requested revision
 	 */
-	public ReceiptData(long id, int rev) {
+	public Receipt(long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -66,7 +66,7 @@ public class ReceiptData extends Entity {
 	 * @param products
 	 * @param draft
 	 */
-	public ReceiptData(String title, int localeId, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+	public Receipt(String title, int localeId, long creatorId, Date date, int bill, Shop shop, ArrayList<Product> products, boolean draft) {
 		super(title, localeId, creatorId);
 		this.date = date;
 		this.bill = bill;
@@ -74,7 +74,7 @@ public class ReceiptData extends Entity {
 		this.productData = products;
 	}
 	
-	public ReceiptData(long id, int rev, String title, long creatorId, Date date, int bill, ShopData shop, ArrayList<ProductData> products, boolean draft) {
+	public Receipt(long id, int rev, String title, long creatorId, Date date, int bill, Shop shop, ArrayList<Product> products, boolean draft) {
 		super(id, rev, title, creatorId);
 		this.date = date;
 		this.bill = bill;
@@ -134,7 +134,7 @@ public class ReceiptData extends Entity {
 	 * 
 	 * @return
 	 */
-	public ShopData getShop() {
+	public Shop getShop() {
 		return shop;
 	}
 	
@@ -142,7 +142,7 @@ public class ReceiptData extends Entity {
 	 * 
 	 * @param shop Shop
 	 */
-	public void setShop(ShopData shop) {
+	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
 	
@@ -150,7 +150,7 @@ public class ReceiptData extends Entity {
 	 * 
 	 * @return
 	 */
-	public ArrayList<ProductData> getProductData() {
+	public ArrayList<Product> getProductData() {
 		return productData;
 	}
 	
@@ -159,7 +159,7 @@ public class ReceiptData extends Entity {
 	 * @param productPreviewData
 	 */
 	public void setProductData(
-			ArrayList<ProductData> productData) {
+			ArrayList<Product> productData) {
 		this.productData = productData;
 	}
 
@@ -172,7 +172,7 @@ public class ReceiptData extends Entity {
 	public long getTotalPrice(){
 		
 		long totalPrice = 0;
-		for(ProductData pd: productData){
+		for(Product pd: productData){
 			totalPrice= totalPrice+pd.getAvgPrice().getPrice();
 		}
 		

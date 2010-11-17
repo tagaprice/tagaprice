@@ -3,8 +3,8 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
 
 import com.google.gwt.user.client.ui.Composite;
 
@@ -14,14 +14,14 @@ import com.google.gwt.user.client.ui.Composite;
  */
 abstract class APropertyHandler extends Composite implements IPropertyHandler {
 
-	private HashMap<String, ArrayList<PropertyData>> _hashProperties;
+	private HashMap<String, ArrayList<Property>> _hashProperties;
 	private PropertyGroup _propGroup;
 	private IPropertyChangeHandler _handler;
 
 	/**
 	 * The standard constructor to create a new propertyHandler (e.g.
 	 * NutritionFood). If a property is used by this handler the flag
-	 * <b>read</b> in {@link PropertyData#getRead()} is set TRUE.
+	 * <b>read</b> in {@link Property#getRead()} is set TRUE.
 	 * 
 	 * @param hashProperties
 	 *            the currently known properties
@@ -32,7 +32,7 @@ abstract class APropertyHandler extends Composite implements IPropertyHandler {
 	 *            change.
 	 */
 	public APropertyHandler(
-			HashMap<String, ArrayList<PropertyData>> hashProperties,
+			HashMap<String, ArrayList<Property>> hashProperties,
 			PropertyGroup propGroup, IPropertyChangeHandler handler) {
 		this._hashProperties = hashProperties;
 		this._propGroup = propGroup;
@@ -55,7 +55,7 @@ abstract class APropertyHandler extends Composite implements IPropertyHandler {
 	}
 
 	@Override
-	public HashMap<String, ArrayList<PropertyData>> getPropertyList() {
+	public HashMap<String, ArrayList<Property>> getPropertyList() {
 		return _hashProperties;
 	}
 }

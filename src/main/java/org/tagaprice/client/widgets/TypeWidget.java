@@ -5,7 +5,7 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.ImageBundle;
 
 import org.tagaprice.client.TaPManager;
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Category;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

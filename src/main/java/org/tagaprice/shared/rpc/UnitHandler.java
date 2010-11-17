@@ -16,8 +16,8 @@ package org.tagaprice.shared.rpc;
 
 import java.sql.SQLException;
 
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.ServerException;
@@ -43,5 +43,5 @@ public interface UnitHandler extends RemoteService {
 	 * @return list of matching units
 	 * @throws DAOException 
 	 */
-	SearchResult<Unit> getSimilar(long id) throws ServerException;
+	SerializableArrayList<Unit> getSimilar(long id) throws ServerException;
 }

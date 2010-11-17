@@ -18,8 +18,8 @@ import java.io.IOException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.UnitDAO;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.UnitHandler;
 
@@ -39,7 +39,7 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	}
 
 	@Override
-	public SearchResult<Unit> getSimilar(long id) throws ServerException {
+	public SerializableArrayList<Unit> getSimilar(long id) throws ServerException {
 		return dao.getSimilar(id);
 	}
 

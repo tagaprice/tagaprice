@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.UnitDAO;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.entities.Unit;
 
 public class UnitDAOTest {
 

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import org.tagaprice.client.widgets.HorizontalInfoWidget;
 import org.tagaprice.client.widgets.MorphWidget;
 import org.tagaprice.client.widgets.IMorphWidgetInfoHandler;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -17,9 +18,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  *
  */
 public class ListPropertyItem extends Composite {
-	private PropertyDefinition _definition;
+	private PropertyTypeDefinition _definition;
 	private  IPropertyChangeHandler _handler;
-	private  ArrayList<PropertyData> _propertyData;
+	private  ArrayList<Property> _propertyData;
 	private  VerticalPanel _vePa1 = new VerticalPanel();
 
 	
@@ -28,8 +29,8 @@ public class ListPropertyItem extends Composite {
 	 * @param definition is the definition of the property
 	 * @param propertyData is the value of the property
 	 */
-	public ListPropertyItem(PropertyDefinition definition,
-			ArrayList<PropertyData> propertyData) {
+	public ListPropertyItem(PropertyTypeDefinition definition,
+			ArrayList<Property> propertyData) {
 		this._definition = definition;
 		this._propertyData = propertyData;
 
@@ -51,7 +52,7 @@ public class ListPropertyItem extends Composite {
 		this._handler = handler;
 	}
 
-	private void addItem(final PropertyData pdCp) {
+	private void addItem(final Property pdCp) {
 
 		final HorizontalInfoWidget temp = new HorizontalInfoWidget();
 		temp.setStyleName("DefaultPropertyHandler");
@@ -94,7 +95,7 @@ public class ListPropertyItem extends Composite {
 					if (!_definition.isUnique()) {
 						// propertyData.add(pdCp);
 
-						addItem(new PropertyData(_definition.getName(),
+						addItem(new Property(_definition.getName(),
 								_definition.getTitle(), "", _definition.getUnit()));
 
 					}
@@ -127,13 +128,13 @@ public class ListPropertyItem extends Composite {
 	}
 
 	private void fillItems() {
-		for (PropertyData pd : _propertyData) {
+		for (Property pd : _propertyData) {
 			addItem(pd);
 			pd.setRead(true);
 		}
 
 		if (_propertyData.isEmpty() || !_definition.isUnique()) {
-			addItem(new PropertyData(_definition.getName(),
+			addItem(new Property(_definition.getName(),
 					_definition.getTitle(), "", _definition.getUnit()));
 
 		}

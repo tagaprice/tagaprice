@@ -2,7 +2,7 @@ package org.tagaprice.server.dao.interfaces;
 
 import java.util.List;
 
-import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IReceiptDAO {
@@ -13,7 +13,7 @@ public interface IReceiptDAO {
 	 * @return True if receipt could be saved, false if not.
 	 * @throws DAOException
 	 */
-	boolean save(ReceiptData receipt) throws DAOException;
+	boolean save(Receipt receipt) throws DAOException;
 
 	/**
 	 * Retrieves receipt indicated by given id.
@@ -21,7 +21,7 @@ public interface IReceiptDAO {
 	 * @return Receipt indicated by given id or null if no receipt could be found. 
 	 * @throws DAOException
 	 */
-	ReceiptData getById(long id) throws DAOException;
+	Receipt getById(long id) throws DAOException;
 
 	/**
 	 * Retrieves receipts created by user indicated by given id.
@@ -29,6 +29,6 @@ public interface IReceiptDAO {
 	 * @return Returns the list of user's receipts, can be empty but never null.
 	 * @throws DAOException
 	 */
-	List<ReceiptData> getUserReceipts(long id) throws DAOException;
+	List<Receipt> getUserReceipts(long id) throws DAOException;
 
 }

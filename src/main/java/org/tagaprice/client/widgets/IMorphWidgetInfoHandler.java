@@ -1,6 +1,6 @@
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 /**
  * Is called if the value of the MorphWidget has changed, and calls the specific

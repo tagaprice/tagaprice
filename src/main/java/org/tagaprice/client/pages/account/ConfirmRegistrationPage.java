@@ -5,7 +5,7 @@ import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.TitleWidget.Headline;
-import org.tagaprice.shared.Address;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 

@@ -24,12 +24,12 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.CategoryDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Category;
-import org.tagaprice.shared.PriceData;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.PriceData;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.CategoryHandler;
 import org.tagaprice.shared.rpc.PriceHandler;
+import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

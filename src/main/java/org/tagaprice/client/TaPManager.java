@@ -15,12 +15,12 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.Country;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Country;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.code.gwt.geolocation.client.Geolocation;
@@ -63,7 +63,7 @@ public class TaPManager {
 				//TODO Create a Split "=" parser
 				if(historyToken[0].equals("receipt/get")){
 					String[] equalToken = historyToken[1].split("=");
-					TaPMng.showReceiptPage(new ReceiptData(Long.parseLong(equalToken[1])));
+					TaPMng.showReceiptPage(new Receipt(Long.parseLong(equalToken[1])));
 				}else if(historyToken[0].equals("receipt/list")){
 					uiMng.showReceiptsList();
 				}else if(historyToken[0].equals("product/get")){
@@ -117,10 +117,10 @@ public class TaPManager {
 		uiMng.waitingPage();
 
 		try {
-			RPCHandlerManager.getProductHandler().get(id, new AsyncCallback<ProductData>() {
+			RPCHandlerManager.getProductHandler().get(id, new AsyncCallback<Product>() {
 
 				@Override
-				public void onSuccess(final ProductData pResult) {
+				public void onSuccess(final Product pResult) {
 
 					
 					//TODO set new Type("root", 9, 1, null) to new Type(1)
@@ -172,7 +172,7 @@ public class TaPManager {
 
 			@Override
 			public void onSuccess(Category result) {
-				ProductData pd3 = new ProductData("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
+				Product pd3 = new Product("Defaulf Procut Title" , 1, 1l, 2l, result.getId(), "logo.png", null);
 				uiMng.showProduct(pd3, result);	
 			}
 			
@@ -191,11 +191,11 @@ public class TaPManager {
 		//Create Page
 		uiMng.waitingPage();
 				
-		RPCHandlerManager.getShopHandler().get(id, new AsyncCallback<ShopData>() {
+		RPCHandlerManager.getShopHandler().get(id, new AsyncCallback<Shop>() {
 			
 			//TODO set new Type("root", 9, 1, null) to new Type(1)
 			@Override
-			public void onSuccess(final ShopData result) {
+			public void onSuccess(final Shop result) {
 				RPCHandlerManager.getTypeHandler().get(new Category(result.getTypeId()), new AsyncCallback<Category>() {
 
 					@Override
@@ -238,7 +238,7 @@ public class TaPManager {
 
 			@Override
 			public void onSuccess(Category result) {
-				ShopData sd = new ShopData("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
+				Shop sd = new Shop("Default Shop Title", 1, 1l, null, "logo.png", TaPMng.getCurrentAddress());
 				
 				uiMng.showShop(sd,result);
 				
@@ -254,14 +254,14 @@ public class TaPManager {
 	 * Starts Receipt Page
 	 * @param id
 	 */
-	public void showReceiptPage(ReceiptData data){
+	public void showReceiptPage(Receipt data){
 		uiMng.waitingPage();
 
 		try {
-			RPCHandlerManager.getReceiptHandler().get(data, new AsyncCallback<ReceiptData>() {
+			RPCHandlerManager.getReceiptHandler().get(data, new AsyncCallback<Receipt>() {
 
 				@Override
-				public void onSuccess(ReceiptData result) {
+				public void onSuccess(Receipt result) {
 					uiMng.showReceipt(result);				
 				}
 

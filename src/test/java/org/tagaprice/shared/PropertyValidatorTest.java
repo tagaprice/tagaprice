@@ -19,6 +19,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyGroup;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 
 public class PropertyValidatorTest {
@@ -31,13 +37,13 @@ public class PropertyValidatorTest {
 		type = new Category("eisen", 20, 21, new Category("metall", 10, 11, new Category("werkzeug", 5, 6, null)));
 		
 		PropertyGroup pg = new PropertyGroup("Test1", PropertyGroup.GroupType.LIST);
-		pg.addGroupElement(new PropertyDefinition(2L, 1, "ean", "ean", 1, PropertyDefinition.Datatype.INT,0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
-		pg.addGroupElement(new PropertyDefinition(2L, 1, "energy", "Energy", 1, PropertyDefinition.Datatype.DOUBLE, 0, 29,new Unit(15, 8, "g", 1, null, 0),true)); 
+		pg.addGroupElement(new PropertyTypeDefinition(2L, 1, "ean", "ean", 1, PropertyTypeDefinition.Datatype.INT,0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
+		pg.addGroupElement(new PropertyTypeDefinition(2L, 1, "energy", "Energy", 1, PropertyTypeDefinition.Datatype.DOUBLE, 0, 29,new Unit(15, 8, "g", 1, null, 0),true)); 
 		type.addPropertyGroup(pg);
 		
 		PropertyGroup pg2 = new PropertyGroup("Test2", PropertyGroup.GroupType.LIST);
-		pg2.addGroupElement(new PropertyDefinition(2L, 1, "ps", "Ps", 1, PropertyDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
-		pg2.addGroupElement(new PropertyDefinition(2L, 1, "kw", "kw", 1, PropertyDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),true));
+		pg2.addGroupElement(new PropertyTypeDefinition(2L, 1, "ps", "Ps", 1, PropertyTypeDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
+		pg2.addGroupElement(new PropertyTypeDefinition(2L, 1, "kw", "kw", 1, PropertyTypeDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),true));
 		type.addPropertyGroup(pg2);
 		
 		
@@ -47,15 +53,15 @@ public class PropertyValidatorTest {
 	@Test
 	public void testCount(){
 		//OK
-		SearchResult<PropertyData> properties1 = new SearchResult<PropertyData>();
-		properties1.add(new PropertyData("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
-		properties1.add(new PropertyData("ean", "EAN", "2", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
+		properties1.add(new Property("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
+		properties1.add(new Property("ean", "EAN", "2", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//FALSE
-		SearchResult<PropertyData> properties2 = new SearchResult<PropertyData>();
-		properties2.add(new PropertyData("energy", "Energy", "1", new Unit(5, 2, "g", 3, null, 0)));
-		properties2.add(new PropertyData("energy", "Energy", "2", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
+		properties2.add(new Property("energy", "Energy", "1", new Unit(5, 2, "g", 3, null, 0)));
+		properties2.add(new Property("energy", "Energy", "2", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties2));
 	}
 	
@@ -63,18 +69,18 @@ public class PropertyValidatorTest {
 	@Test
 	public void testInt(){
 		//OK
-		SearchResult<PropertyData> properties1 = new SearchResult<PropertyData>();
-		properties1.add(new PropertyData("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
+		properties1.add(new Property("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//ERROR
-		SearchResult<PropertyData> properties2 = new SearchResult<PropertyData>();
-		properties2.add(new PropertyData("ean", "EAN", "2.2", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
+		properties2.add(new Property("ean", "EAN", "2.2", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties2));
 		
 		//ERROR
-		SearchResult<PropertyData> properties3 = new SearchResult<PropertyData>();
-		properties3.add(new PropertyData("ean", "EAN", "text", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties3 = new SerializableArrayList<Property>();
+		properties3.add(new Property("ean", "EAN", "text", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties3));
 		
 	}
@@ -82,18 +88,18 @@ public class PropertyValidatorTest {
 	@Test
 	public void testDouble(){
 		//OK
-		SearchResult<PropertyData> properties1 = new SearchResult<PropertyData>();
-		properties1.add(new PropertyData("energy", "energy", "1", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
+		properties1.add(new Property("energy", "energy", "1", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//OK
-		SearchResult<PropertyData> properties2 = new SearchResult<PropertyData>();
-		properties2.add(new PropertyData("energy", "energy", "2.2", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
+		properties2.add(new Property("energy", "energy", "2.2", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties2));
 		
 		//ERROR
-		SearchResult<PropertyData> properties3 = new SearchResult<PropertyData>();
-		properties3.add(new PropertyData("energy", "energy", "text", new Unit(5, 2, "g", 3, null, 0)));
+		SerializableArrayList<Property> properties3 = new SerializableArrayList<Property>();
+		properties3.add(new Property("energy", "energy", "text", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties3));
 		
 	}

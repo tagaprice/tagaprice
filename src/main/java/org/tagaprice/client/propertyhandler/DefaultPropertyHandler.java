@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.PropertyData;
+import org.tagaprice.shared.entities.Property;
+
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -29,7 +30,7 @@ public class DefaultPropertyHandler extends APropertyHandler {
 	 *            change.
 	 */
 	public DefaultPropertyHandler(
-			HashMap<String, ArrayList<PropertyData>> hashProperties,
+			HashMap<String, ArrayList<Property>> hashProperties,
 			IPropertyChangeHandler handler) {
 		super(hashProperties, null, handler);
 
@@ -44,7 +45,7 @@ public class DefaultPropertyHandler extends APropertyHandler {
 
 	private void fillGrid() {
 		for (String ks : getPropertyList().keySet()) {
-			for (PropertyData pd : getPropertyList().get(ks)) {
+			for (Property pd : getPropertyList().get(ks)) {
 				if (!pd.getRead())
 					_vePa1.add(new Label(pd.getTitle() + " | " + pd.getName()
 							+ " | " + pd.getValue()));

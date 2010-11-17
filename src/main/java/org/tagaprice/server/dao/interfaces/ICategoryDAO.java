@@ -2,7 +2,7 @@ package org.tagaprice.server.dao.interfaces;
 
 import java.util.List;
 
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Category;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface ICategoryDAO {

@@ -1,6 +1,6 @@
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public class LocalAccountData extends AccountData {
+public class LocalAccount extends Account {
 
 	/**
 	 * Contains all important information to represent a
@@ -12,7 +12,7 @@ public class LocalAccountData extends AccountData {
 	/**
 	 * default constructor (used for serialization)
 	 */
-	public LocalAccountData() {
+	public LocalAccount() {
 		super();
 	}
 	
@@ -21,7 +21,7 @@ public class LocalAccountData extends AccountData {
 	 * constructor for querying a LocalAccount's current revision 
 	 * @param id Product ID
 	 */
-	public LocalAccountData(long id) {
+	public LocalAccount(long id) {
 		super(id);
 	}
 	
@@ -30,7 +30,7 @@ public class LocalAccountData extends AccountData {
 	 * @param id user ID
 	 * @param rev revision
 	 */
-	public LocalAccountData(long id, int rev) {
+	public LocalAccount(long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -50,7 +50,7 @@ public class LocalAccountData extends AccountData {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public LocalAccountData(
+	public LocalAccount(
 			String title, 
 			int localeId,
 			Long creatorId, 
@@ -78,7 +78,7 @@ public class LocalAccountData extends AccountData {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public LocalAccountData(
+	public LocalAccount(
 			long id, 
 			int rev,
 			String title, 
@@ -106,8 +106,8 @@ public class LocalAccountData extends AccountData {
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
-		if (o instanceof LocalAccountData) {
-			LocalAccountData a = (LocalAccountData) o;
+		if (o instanceof LocalAccount) {
+			LocalAccount a = (LocalAccount) o;
 			if (!super.equals(a)) rc = false;
 		}
 		else rc = false;

@@ -33,15 +33,15 @@ import org.tagaprice.client.widgets.TypeWidget;
 import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.Country;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Category;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Country;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -72,10 +72,10 @@ import org.tagaprice.client.propertyhandler.*;
 
 public class ShopPage extends APage {
 
-	private ShopData _shopData;
+	private Shop _shopData;
 	private Category _type;
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
-	private HashMap<String, ArrayList<PropertyData>> _hashProperties = new HashMap<String, ArrayList<PropertyData>>();
+	private HashMap<String, ArrayList<Property>> _hashProperties = new HashMap<String, ArrayList<Property>>();
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
 	private IPropertyChangeHandler _handler;
 	private InfoBoxWidget _bottomInfo = new InfoBoxWidget(false);
@@ -100,16 +100,16 @@ public class ShopPage extends APage {
  * @param shopData
  * @param _type
  */
-	public ShopPage(ShopData shopData, Category _type){
+	public ShopPage(Shop shopData, Category _type){
 		init(_verticalPanel_1);
 		this._shopData=shopData;
 		this._type=_type;
 		
 		
 		//Move PropertyData to hashPropertyData
-		for(PropertyData pd:this._shopData.getProperties()){
+		for(Property pd:this._shopData.getProperties()){
 			if(_hashProperties.get(pd.getName())==null){
-				_hashProperties.put(pd.getName(), new ArrayList<PropertyData>());
+				_hashProperties.put(pd.getName(), new ArrayList<Property>());
 			}			
 			_hashProperties.get(pd.getName()).add(pd);
 		}
@@ -444,7 +444,7 @@ public class ShopPage extends APage {
 		_handlerList.clear();
 		
 		for(String ks:_hashProperties.keySet()){
-			for(PropertyData pd:_hashProperties.get(ks)){
+			for(Property pd:_hashProperties.get(ks)){
 				pd.setRead(false);
 			}
 		}
@@ -517,10 +517,10 @@ public class ShopPage extends APage {
 				//Validate Data
 				if(PropertyValidator.isValid(_type, _shopData.getProperties())){	
 				
-					RPCHandlerManager.getShopHandler().save(_shopData, new AsyncCallback<ShopData>() {
+					RPCHandlerManager.getShopHandler().save(_shopData, new AsyncCallback<Shop>() {
 						
 						@Override
-						public void onSuccess(ShopData result) {
+						public void onSuccess(Shop result) {
 							_bottomInfo.setVisible(false);
 							topSave.setText("Save");
 							if(_shopData.getId()==null){
@@ -582,11 +582,11 @@ public class ShopPage extends APage {
 		_bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	
-	private SearchResult<PropertyData> hashToPropertyList(HashMap<String, ArrayList<PropertyData>> hashProperties){
-		SearchResult<PropertyData> newList = new SearchResult<PropertyData>();
+	private SerializableArrayList<Property> hashToPropertyList(HashMap<String, ArrayList<Property>> hashProperties){
+		SerializableArrayList<Property> newList = new SerializableArrayList<Property>();
 		
 		for(String ks:hashProperties.keySet()){
-			for(PropertyData pd:hashProperties.get(ks)){
+			for(Property pd:hashProperties.get(ks)){
 				newList.add(pd);
 				//System.out.println(pd.getName()+": "+pd.getValue());
 			}

@@ -12,28 +12,30 @@
  * Filename: PriceData.java
  * Date: 02.06.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
 import java.util.Date;
 
-public class PriceData  implements Serializable {
+import org.tagaprice.shared.ISerializable;
+
+public class PriceData  implements ISerializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ProductData productData;
-	private ShopData shopData;
+	private Product productData;
+	private Shop shopData;
 	private Price price;
 	private Date date;
 	
 	public PriceData() {
 	}
 	
-	public PriceData(ProductData productData){		
+	public PriceData(Product productData){		
 		this();
 		this.productData=productData;
 	}
 	
-	public PriceData(ProductData productData, ShopData shopData, Price p, Date date){
+	public PriceData(Product productData, Shop shopData, Price p, Date date){
 		this(productData);
 		this.shopData=shopData;
 		this.price = p;
@@ -45,19 +47,19 @@ public class PriceData  implements Serializable {
 		return "PriceData";
 	}
 
-	public ProductData getProductData() {
+	public Product getProductData() {
 		return productData;
 	}
 
-	public void setProductData(ProductData productData) {
+	public void setProductData(Product productData) {
 		this.productData = productData;
 	}
 
-	public ShopData getShopData() {
+	public Shop getShopData() {
 		return shopData;
 	}
 
-	public void setShopData(ShopData shopData) {
+	public void setShopData(Shop shopData) {
 		this.shopData = shopData;
 	}
 

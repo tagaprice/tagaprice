@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.shared.Locale;
+import org.tagaprice.shared.entities.Locale;
 import org.tagaprice.shared.exception.DAOException;
 
 /**

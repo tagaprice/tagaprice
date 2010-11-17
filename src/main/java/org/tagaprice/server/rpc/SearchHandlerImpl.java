@@ -12,16 +12,16 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.Price;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.Quantity;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Price;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.SearchHandler;
+import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -82,7 +82,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 	}
 
 	@Override
-	public ArrayList<Entity> search(String search, ShopData shopData)
+	public ArrayList<Entity> search(String search, Shop shopData)
 			throws IllegalArgumentException, DAOException {
 		ArrayList<Entity> mockUp = new ArrayList<Entity>();
 		getProduct(search, mockUp);
@@ -105,7 +105,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
-				ProductData sp = productDao.getById(res.getLong("ent_id"));
+				Product sp = productDao.getById(res.getLong("ent_id"));
 				sp.setAvgPrice(new Price(15, 4, 1, "€", 1));
 				sp.setImageSrc("logo.png");
 				sp.setQuantity(new Quantity(125, new Unit(23, 2, "g", 1, null, 0)));
@@ -133,7 +133,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()){
-				ShopData shop = shopDao.getById(res.getLong("ent_id"));
+				Shop shop = shopDao.getById(res.getLong("ent_id"));
 				mockUp.add(shop);
 			}
 			

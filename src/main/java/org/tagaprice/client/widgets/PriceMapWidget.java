@@ -6,10 +6,11 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.pages.IAddressHandler;
 import org.tagaprice.client.widgets.TitleWidget.Headline;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.PriceData;
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.PriceData;
+import org.tagaprice.shared.utility.BoundingBox;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -34,7 +35,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class PriceMapWidget extends Composite implements IAddressHandler {
 
-	public enum PriceMapType implements Serializable {
+	public enum PriceMapType implements ISerializable {
 
 		/**
 		 * PRODUCT (id: must be a Product_id) displays a map with shops in which

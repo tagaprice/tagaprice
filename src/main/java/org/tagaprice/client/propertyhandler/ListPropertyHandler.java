@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyGroup;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyGroup;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class ListPropertyHandler extends APropertyHandler {
 
-	private HashMap<String, PropertyDefinition> _definition = new HashMap<String, PropertyDefinition>();
+	private HashMap<String, PropertyTypeDefinition> _definition = new HashMap<String, PropertyTypeDefinition>();
 	private TitleWidget _title;
 	private VerticalPanel _vePa1 = new VerticalPanel();
 
@@ -33,7 +34,7 @@ public class ListPropertyHandler extends APropertyHandler {
 	 *            change.
 	 */
 	public ListPropertyHandler(
-			HashMap<String, ArrayList<PropertyData>> hashProperties,
+			HashMap<String, ArrayList<Property>> hashProperties,
 			PropertyGroup propGroup, IPropertyChangeHandler handler) {
 		super(hashProperties, propGroup, handler);
 
@@ -54,17 +55,17 @@ public class ListPropertyHandler extends APropertyHandler {
 	 * @param groupElements
 	 */
 	private void convertToHash() {
-		for (PropertyDefinition pg : getPropertyGroup().getGroupElements()) {
+		for (PropertyTypeDefinition pg : getPropertyGroup().getGroupElements()) {
 			_definition.put(pg.getName(), pg);
 		}
 	}
 
 	private void createGrid() {
 
-		for (PropertyDefinition pg : getPropertyGroup().getGroupElements()) {
+		for (PropertyTypeDefinition pg : getPropertyGroup().getGroupElements()) {
 			if (getPropertyList().get(pg.getName()) == null) {
 				getPropertyList().put(pg.getName(),
-						new ArrayList<PropertyData>());
+						new ArrayList<Property>());
 			}
 
 			ListPropertyItem temp = new ListPropertyItem(pg, getPropertyList()

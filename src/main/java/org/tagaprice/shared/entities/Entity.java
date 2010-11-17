@@ -12,9 +12,12 @@
  * Filename: Entity.java
  * Date: May 17, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public abstract class Entity implements Serializable {
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.ISerializable;
+
+public abstract class Entity implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id = null;
@@ -24,7 +27,7 @@ public abstract class Entity implements Serializable {
 	private Long creatorId = null;
 	private Long revCreatorId = null;
 
-	private SearchResult<PropertyData> properties = new SearchResult<PropertyData>(); 
+	private SerializableArrayList<Property> properties = new SerializableArrayList<Property>(); 
 
 	/**
 	 * default constructor (required for serialization)
@@ -168,14 +171,14 @@ public abstract class Entity implements Serializable {
 	/**
 	 * @return the properties
 	 */
-	public SearchResult<PropertyData> getProperties() {
+	public SerializableArrayList<Property> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(SearchResult<PropertyData> properties) {
+	public void setProperties(SerializableArrayList<Property> properties) {
 		this.properties = properties;
 	}
 	

@@ -5,11 +5,12 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.Serializable;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.ISerializable;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.utility.BoundingBox;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -33,7 +34,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class SearchWidget extends Composite {
 
-	public enum SearchType implements Serializable {
+	public enum SearchType implements ISerializable {
 
 		/**
 		 * Search for everything in the db.
@@ -59,7 +60,7 @@ public class SearchWidget extends Composite {
 	private boolean _popup;
 	private SearchType _searchType;
 	private SelectionType _selectionType;
-	private ShopData _shopData = null;
+	private Shop _shopData = null;
 
 	private boolean _showNew;
 	private long _myCurRequest = 0;
@@ -162,7 +163,7 @@ public class SearchWidget extends Composite {
 	 *            in this shop the db will search.
 	 */
 	public SearchWidget(boolean showNew, boolean popup,
-			SelectionType selectionType, ShopData shopData) {
+			SelectionType selectionType, Shop shopData) {
 		_shopData = shopData;
 		init(SearchType.PRODCUT, showNew, popup, selectionType);
 
@@ -295,12 +296,12 @@ public class SearchWidget extends Composite {
 								_popPa.showRelativeTo(_searchBox);
 
 							for (Entity sResult : result) {
-								if (sResult instanceof ProductData) {
+								if (sResult instanceof Product) {
 									_selVePa.add(new ProductPagePreview(
-											(ProductData) sResult, false));
-								} else if (sResult instanceof ShopData) {
+											(Product) sResult, false));
+								} else if (sResult instanceof Shop) {
 									_selVePa.add(new ShopPagePreview(
-											(ShopData) sResult, false));
+											(Shop) sResult, false));
 								}
 							}
 						}
@@ -327,12 +328,12 @@ public class SearchWidget extends Composite {
 								_popPa.showRelativeTo(_searchBox);
 
 							for (Entity sResult : result) {
-								if (sResult instanceof ProductData) {
+								if (sResult instanceof Product) {
 									_selVePa.add(new ProductPagePreview(
-											(ProductData) sResult, false));
-								} else if (sResult instanceof ShopData) {
+											(Product) sResult, false));
+								} else if (sResult instanceof Shop) {
 									_selVePa.add(new ShopPagePreview(
-											(ShopData) sResult, false));
+											(Shop) sResult, false));
 								}
 							}
 						}
@@ -360,12 +361,12 @@ public class SearchWidget extends Composite {
 							for (Entity sResult : result) {
 								// selVePa.add(new Label(sResult.getTitle()));
 
-								if (sResult instanceof ProductData) {
+								if (sResult instanceof Product) {
 									_selVePa.add(new ProductPagePreview(
-											(ProductData) sResult, false));
-								} else if (sResult instanceof ShopData) {
+											(Product) sResult, false));
+								} else if (sResult instanceof Shop) {
 									_selVePa.add(new ShopPagePreview(
-											(ShopData) sResult, false));
+											(Shop) sResult, false));
 								}
 
 							}

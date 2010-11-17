@@ -29,10 +29,10 @@ import org.tagaprice.client.widgets.ISelectiveListHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;
@@ -65,7 +65,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 //	MorphWidget title = new MorphWidget("Default title", Datatype.STRING, isEditable);
 	int bill=0;
 	ChangeHandler priceChangeHandler; 
-	ReceiptData receiptData;
+	Receipt receiptData;
 	ShopPagePreview shopPreview;
 	boolean allowSaving = false;
 	
@@ -90,7 +90,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * Creates a Receipt Page with receipt data 
 	 * @param receiptData
 	 */
-	public ReceiptPage(ReceiptData receiptData, boolean editable, boolean text){
+	public ReceiptPage(Receipt receiptData, boolean editable, boolean text){
 		//this();
 		
 		this.receiptData=receiptData;
@@ -105,7 +105,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			setShop(receiptData.getShop());
 		}
 		
-		for(ProductData pd: receiptData.getProductData()){
+		for(Product pd: receiptData.getProductData()){
 			addProduct(pd);
 		}
 		
@@ -115,7 +115,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	/**
 	 * 
 	 */
-	public ReceiptPage(ReceiptData _receiptData, boolean editable) {
+	public ReceiptPage(Receipt _receiptData, boolean editable) {
 		init(uiBinder.createAndBindUi(this));
 		
 		save.setVisible(false);
@@ -173,7 +173,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			setShop(receiptData.getShop());
 		}
 		
-		for(ProductData pd: receiptData.getProductData()){
+		for(Product pd: receiptData.getProductData()){
 			addProduct(pd);
 		}
 		
@@ -204,10 +204,10 @@ public class ReceiptPage extends AInfoBoxComposite {
 				//Save where Draft(false);
 				if(allowSaving){
 					try {
-						RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+						RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<Receipt>() {
 							
 							@Override
-							public void onSuccess(ReceiptData result) {
+							public void onSuccess(Receipt result) {
 								receiptData=result;
 								//receiptData._setRev(result.getRev());
 								showInfo("Succesfull saved", BoxType.WARNINGBOX);	
@@ -251,10 +251,10 @@ public class ReceiptPage extends AInfoBoxComposite {
 		refreshPrice();
 		if(allowSaving){
 			try {
-				RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<ReceiptData>() {
+				RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<Receipt>() {
 					
 					@Override
-					public void onSuccess(ReceiptData result) {
+					public void onSuccess(Receipt result) {
 						receiptData=result;
 						showInfo("Succesfull saved", BoxType.WARNINGBOX);	
 						Timer close = new Timer() {
@@ -298,7 +298,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * 
 	 * @param shop
 	 */
-	public void setShop(ShopData shopData){
+	public void setShop(Shop shopData){
 		shopPreview=new ShopPagePreview(shopData, isEditable);
 		shop.setWidget(shopPreview);
 		
@@ -329,13 +329,13 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * 
 	 * @param product
 	 */
-	public void addProduct(ProductData product){
+	public void addProduct(Product product){
 		productContainer.add(new ProductPagePreview(product, isEditable, priceChangeHandler));
 		refresh();
 	}
 	
 	
-	public ReceiptData getReceiptData(){
+	public Receipt getReceiptData(){
 		receiptData.setDate(date.getDate());	
 		receiptData.setTitle(title.getValue());
 		receiptData.setBill(bill);		
@@ -344,7 +344,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 			receiptData.setShop(shopPreview.getShopData());
 		}
 		
-		ArrayList<ProductData> productList = new ArrayList<ProductData>();		
+		ArrayList<Product> productList = new ArrayList<Product>();		
 		for(int i=0;i<productContainer.getWidgetCount();i++){
 			productList.add(((ProductPagePreview)productContainer.getWidget(i)).getProductData());
 		}		

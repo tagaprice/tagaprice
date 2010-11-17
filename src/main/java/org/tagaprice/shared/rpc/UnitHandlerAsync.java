@@ -14,8 +14,8 @@
 */
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Unit;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -24,5 +24,5 @@ public interface UnitHandlerAsync {
 	void get(long id, AsyncCallback<Unit> callback)
 		throws IllegalArgumentException;
 
-	void getSimilar(long id, AsyncCallback<SearchResult<Unit>> units);
+	void getSimilar(long id, AsyncCallback<SerializableArrayList<Unit>> units);
 }

@@ -12,9 +12,11 @@
  * Filename: TaPResponse.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public class ServerResponse implements Serializable {
+import org.tagaprice.shared.ISerializable;
+
+public class ServerResponse implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum StatusCode {
@@ -52,9 +54,9 @@ public class ServerResponse implements Serializable {
 	}
 	
 	protected StatusCode status;
-	protected Serializable response;
+	protected ISerializable response;
 	
-	public ServerResponse(StatusCode status, Serializable response) {
+	public ServerResponse(StatusCode status, ISerializable response) {
 		this.status = status;
 		this.response = response;
 	}
@@ -63,7 +65,7 @@ public class ServerResponse implements Serializable {
 		return status;
 	}
 	
-	public Serializable getResponse() {
+	public ISerializable getResponse() {
 		return response;
 	}
 	

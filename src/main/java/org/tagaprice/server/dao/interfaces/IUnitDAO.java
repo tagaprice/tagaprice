@@ -1,7 +1,7 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.Unit;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IUnitDAO {
@@ -12,7 +12,7 @@ public interface IUnitDAO {
 	 * @return All units similar to unit indicated by given unitId. Never null, can be empty.
 	 * @throws DAOException
 	 */
-	SearchResult<Unit> getSimilar(long unitId) throws DAOException;
+	SerializableArrayList<Unit> getSimilar(long unitId) throws DAOException;
 
 	/**
 	 * Saves given unit to storage. If successful given unit's revision will be set to the revision in the database.

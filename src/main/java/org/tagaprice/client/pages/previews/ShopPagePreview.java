@@ -18,7 +18,7 @@ package org.tagaprice.client.pages.previews;
 import org.tagaprice.client.ImageBundle;
 import org.tagaprice.client.widgets.ProgressWidget;
 import org.tagaprice.client.widgets.RatingWidget;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.entities.Shop;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -43,7 +43,7 @@ public class ShopPagePreview extends APagePreview {
 	public interface MyUiBinder extends UiBinder<Widget, ShopPagePreview>{}
 	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
-	private ShopData shopData;
+	private Shop shopData;
 	private boolean editable;
 	private RatingWidget ratingWidget;
 
@@ -63,7 +63,7 @@ public class ShopPagePreview extends APagePreview {
 	 * @param productData 
 	 * @param editable 
 	 */
-	public ShopPagePreview(ShopData _shopData, boolean _editable) {
+	public ShopPagePreview(Shop _shopData, boolean _editable) {
 		super();
 		shopData=_shopData;
 		editable=_editable;
@@ -130,7 +130,7 @@ public class ShopPagePreview extends APagePreview {
 	 * Return current ProductData
 	 * @return 
 	 */
-	public ShopData getShopData(){
+	public Shop getShopData(){
 		if(editable){
 			shopData.setRating(ratingWidget.getRating());
 		}

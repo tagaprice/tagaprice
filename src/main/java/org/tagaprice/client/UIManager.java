@@ -26,11 +26,12 @@ import org.tagaprice.client.pages.account.RegistrationPage;
 import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ProductData;
-import org.tagaprice.shared.ReceiptData;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
@@ -97,7 +98,7 @@ public class UIManager extends APage {
 
 
 
-	public void showReceipt(final ReceiptData receiptData){
+	public void showReceipt(final Receipt receiptData){
 		waitingPage();
 		ReceiptPage tempReceipt = new ReceiptPage(receiptData, true); 
 		centerPage.setWidget(tempReceipt);
@@ -112,13 +113,13 @@ public class UIManager extends APage {
 	}
 
 
-	public void showProduct(ProductData productData, Category type){
+	public void showProduct(Product productData, Category type){
 		waitingPage();
 		currentPage = new ProductPage(productData,type);
 		centerPage.setWidget(currentPage);
 	}
 
-	public void showShop(ShopData shopData, Category type){
+	public void showShop(Shop shopData, Category type){
 		waitingPage();
 		currentPage = new ShopPage(shopData, type);
 		centerPage.setWidget(currentPage);

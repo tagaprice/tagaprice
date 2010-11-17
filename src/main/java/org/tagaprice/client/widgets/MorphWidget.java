@@ -1,6 +1,7 @@
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
+
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;

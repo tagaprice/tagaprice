@@ -12,14 +12,14 @@
  * Filename: ProductPreviewContainer.java
  * Date: 14.05.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
 /**
  * Contains all important information to represent a
  * product. 
  *
  */
-public class ProductData extends Entity {
+public class Product extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	private Long brandId; // TODO create a Brand class
@@ -34,7 +34,7 @@ public class ProductData extends Entity {
 	/**
 	 * default constructor (used for serialization)
 	 */
-	public ProductData() {
+	public Product() {
 		super();
 	}
 	
@@ -42,7 +42,7 @@ public class ProductData extends Entity {
 	 * constructor for querying a Product's current revision 
 	 * @param id Product ID
 	 */
-	public ProductData(Long id) {
+	public Product(Long id) {
 		super(id);
 	}
 	
@@ -51,7 +51,7 @@ public class ProductData extends Entity {
 	 * @param id Poduct ID
 	 * @param rev revision
 	 */
-	public ProductData(Long id, int rev) {
+	public Product(Long id, int rev) {
 		super(id, rev);
 	}
 	
@@ -65,7 +65,7 @@ public class ProductData extends Entity {
 	 * @param imageSrc image file URL (may be null if not yet set)
 	 * @param qty Product quantity (e.g. weight, volume, ...)
 	 */
-	public ProductData(String title, int localeId, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+	public Product(String title, int localeId, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
 		super(title, localeId, creatorId);
 		this.brandId = brandId;
 		this.typeId = typeId;
@@ -84,7 +84,7 @@ public class ProductData extends Entity {
 	 * @param imageSrc (new) image source URL (might be null)
 	 * @param qty (new) quantity (e.g. weight) 
 	 */
-	public ProductData(long id, int rev, String title, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
+	public Product(long id, int rev, String title, long creatorId, Long brandId, Long typeId, String imageSrc, Quantity qty) {
 		super(id, rev, title, creatorId);
 		this.brandId = brandId;
 		this.typeId = typeId;
@@ -226,8 +226,8 @@ public class ProductData extends Entity {
 	public boolean equals(Object o) {
 		boolean rc = super.equals(o);
 
-		if (rc && o instanceof ProductData) {
-			ProductData p = (ProductData) o;
+		if (rc && o instanceof Product) {
+			Product p = (Product) o;
 			if (!_compare(getBrandId(), p.getBrandId())) rc = false;
 			if (!_compare(getTypeId(), p.getTypeId())) rc = false;
 			if (!_compare(getImageSrc(), p.getImageSrc())) rc = false;

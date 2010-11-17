@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.LoginDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
-import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.ShopData;
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.ServerException;
 import org.tagaprice.shared.rpc.ShopHandler;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -36,12 +36,12 @@ public class ShopHandlerImpl extends RemoteServiceServlet implements ShopHandler
 	}
 	
 	@Override
-	public ShopData get(long id) throws DAOException {
+	public Shop get(long id) throws DAOException {
 		return shopDao.getById(id);
 	}
 
 	@Override
-	public ShopData save(ShopData data) throws IllegalArgumentException, InvalidLoginException, ServerException {
+	public Shop save(Shop data) throws IllegalArgumentException, InvalidLoginException, ServerException {
 		// TODO Auto-generated method stub		
 		CategoryHandlerImpl th = new CategoryHandlerImpl();
 		

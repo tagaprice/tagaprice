@@ -1,6 +1,8 @@
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public class Country implements Serializable {
+import org.tagaprice.shared.ISerializable;
+
+public class Country implements ISerializable {
 	private static final long serialVersionUID = 1L;
 	private String code = null;
 	private String title = null;

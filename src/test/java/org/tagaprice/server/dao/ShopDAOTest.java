@@ -11,14 +11,14 @@ import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.CountryDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.Address;
-import org.tagaprice.shared.ShopData;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Shop;
 
 public class ShopDAOTest {
 	DBConnection db;
 	IShopDAO dao;
-	ShopData testShop;
+	Shop testShop;
 	int localeId;
 	long uid;
 
@@ -27,12 +27,12 @@ public class ShopDAOTest {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new ShopDAO(db);
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("Testaccount", localeId, "bar@test.invalid", null);
+		Account a = new Account("Testaccount", localeId, "bar@test.invalid", null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
 		Address address = new Address("street", "city", new CountryDAO(db).get("us"), -2.564, 132.863);
-		testShop = new ShopData("testshop title", localeId, uid, -16L, null, address);
+		testShop = new Shop("testshop title", localeId, uid, -16L, null, address);
 		
 	}
 
@@ -44,14 +44,14 @@ public class ShopDAOTest {
 	@Test
 	public void testCreate() throws Exception {
 		dao.save(testShop);
-		ShopData shop = dao.getById(testShop.getId());
+		Shop shop = dao.getById(testShop.getId());
 		assertEquals(testShop, shop);
 	}
 	
 	@Test
 	public void testRev() throws Exception {
-		ShopData shop, shop1, shop2;
-		shop = new ShopData("testshop title", localeId, uid, -16L, null, new Address());
+		Shop shop, shop1, shop2;
+		shop = new Shop("testshop title", localeId, uid, -16L, null, new Address());
 		dao.save(shop);
 		shop.setTitle("test-product v2");
 		shop.setImageSrc("/foo/bar.png");

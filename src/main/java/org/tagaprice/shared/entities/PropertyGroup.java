@@ -12,9 +12,11 @@
  * Filename: PropertyGroup.java
  * Date: May 21, 2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
+
+import org.tagaprice.shared.ISerializable;
 
 /**
  * A property group contains the definitions of the group members 
@@ -22,8 +24,8 @@ import java.util.ArrayList;
  * e.g. NutritionFacts is a group consisting of the PropertyDefinition for the Property "sugar", "fat", etc
  * 
  * **/
-public class PropertyGroup implements Serializable {
-	public enum GroupType implements Serializable {
+public class PropertyGroup implements ISerializable {
+	public enum GroupType implements ISerializable {
 		LIST, NUTRITIONFACTS;
 
 		public String getSerializeName() {
@@ -37,13 +39,13 @@ public class PropertyGroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String title;
 	private GroupType type;
-	private ArrayList<PropertyDefinition>  groupElements;
+	private ArrayList<PropertyTypeDefinition>  groupElements;
 	
 	public PropertyGroup() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PropertyGroup(String title, GroupType type, ArrayList<PropertyDefinition>  groupElements){
+	public PropertyGroup(String title, GroupType type, ArrayList<PropertyTypeDefinition>  groupElements){
 		this(title, type);
 		this.groupElements = groupElements;
 	}
@@ -51,18 +53,18 @@ public class PropertyGroup implements Serializable {
 	public PropertyGroup(String title, GroupType type){
 		this.type=type;
 		this.title=title;
-		groupElements = new ArrayList<PropertyDefinition>();
+		groupElements = new ArrayList<PropertyTypeDefinition>();
 	}
 	
-	public void addGroupElement(PropertyDefinition propDef){
+	public void addGroupElement(PropertyTypeDefinition propDef){
 		groupElements.add(propDef);
 	}
 	
-	public void addGroupElements(ArrayList<PropertyDefinition> propDefs){
+	public void addGroupElements(ArrayList<PropertyTypeDefinition> propDefs){
 		groupElements.addAll(propDefs);
 	}
 	
-	public ArrayList<PropertyDefinition> getGroupElements(){
+	public ArrayList<PropertyTypeDefinition> getGroupElements(){
 		return groupElements;
 	}
 

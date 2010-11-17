@@ -16,7 +16,7 @@ package org.tagaprice.shared.rpc;
 
 import java.util.List;
 
-import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.ServerException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -32,9 +32,9 @@ public interface ReceiptHandler extends RemoteService {
 	 * @throws IllegalArgumentException
 	 * @throws ServerException 
 	 */
-	ReceiptData get(ReceiptData data) throws ServerException;
+	Receipt get(Receipt data) throws ServerException;
 	
-	List<ReceiptData> getUserReceipts() throws ServerException;
+	List<Receipt> getUserReceipts() throws ServerException;
 	
-	ReceiptData save(ReceiptData data) throws ServerException;
+	Receipt save(Receipt data) throws ServerException;
 }

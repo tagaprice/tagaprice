@@ -11,15 +11,15 @@ import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.EntityDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.PropertyDefinitionDAO;
-import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.PropertyData;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.SearchResult;
-import org.tagaprice.shared.PropertyDefinition.Datatype;
+import org.tagaprice.shared.SerializableArrayList;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 public class PropertyDAOTest {
 	private TestEntity testEntity;
-	private PropertyDefinition testPropDef, newPropDef;
+	private PropertyTypeDefinition testPropDef, newPropDef;
 	private int localeId;
 	private long uid;
 	private DBConnection db;
@@ -35,19 +35,19 @@ public class PropertyDAOTest {
 		propDefDAO = new PropertyDefinitionDAO(db);
 		
 		localeId = new LocaleDAO(db).get("English").getId();
-		AccountData a = new AccountData("propertyTestAccount", localeId, null, null);
+		Account a = new Account("propertyTestAccount", localeId, null, null);
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
-		testPropDef = new PropertyDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
+		testPropDef = new PropertyTypeDefinition("testProperty", "Test Property", localeId, uid, Datatype.DOUBLE, null, null, null, true);
 		propDefDAO.save(testPropDef);
-		newPropDef = new PropertyDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
+		newPropDef = new PropertyTypeDefinition("newProperty", "New Test Property", localeId, uid, Datatype.INT, null, null, null, true);
 		propDefDAO.save(newPropDef);
 		
 		testEntity = new TestEntity("Title", localeId, uid);
 		
-		SearchResult<PropertyData> props = new SearchResult<PropertyData>();
-		props.add(new PropertyData(testPropDef.getName(), "propTitle", "propValue", null));
+		SerializableArrayList<Property> props = new SerializableArrayList<Property>();
+		props.add(new Property(testPropDef.getName(), "propTitle", "propValue", null));
 		testEntity.setProperties(props);
 		
 		dao.save(testEntity);
@@ -72,7 +72,7 @@ public class PropertyDAOTest {
 	
 	@Test
 	public void testRev() throws Exception {
-		testEntity.getProperties().add(new PropertyData(newPropDef.getName(), "new test property", "foobar", null));
+		testEntity.getProperties().add(new Property(newPropDef.getName(), "new test property", "foobar", null));
 		dao.save(testEntity);
 		
 		assertEquals(2, testEntity.getRev());

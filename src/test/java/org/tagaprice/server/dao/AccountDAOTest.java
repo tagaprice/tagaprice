@@ -22,19 +22,19 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
-import org.tagaprice.shared.AccountData;
+import org.tagaprice.shared.entities.Account;
 
 public class AccountDAOTest {
 	private AccountDAO dao;
 	private DBConnection db;
-	private AccountData testAccount;
+	private Account testAccount;
 	
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();
 		dao = new AccountDAO(db);
 		
-		testAccount = new AccountData("testAccount", new LocaleDAO(db).get("English").getId(), "mailaddress@example.org", null);
+		testAccount = new Account("testAccount", new LocaleDAO(db).get("English").getId(), "mailaddress@example.org", null);
 		dao.save(testAccount);
 		assertNotNull(testAccount.getId());
 	}
@@ -46,7 +46,7 @@ public class AccountDAOTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		AccountData a = new AccountData(testAccount.getId(), 0);
+		Account a = new Account(testAccount.getId(), 0);
 		dao.get(a);
 		assertEquals(a, testAccount);
 	}

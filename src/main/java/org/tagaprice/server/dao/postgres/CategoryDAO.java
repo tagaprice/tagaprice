@@ -23,9 +23,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.ICategoryDAO;
-import org.tagaprice.shared.PropertyDefinition;
-import org.tagaprice.shared.PropertyGroup;
-import org.tagaprice.shared.Category;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyGroup;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.NotFoundException;
 
@@ -71,7 +71,7 @@ public class CategoryDAO implements ICategoryDAO {
 			ResultSet res = pstmt.executeQuery();
 
 			while(res.next()){
-				PropertyDefinition tempProp = new PropertyDefinition(res.getLong("prop_id"));
+				PropertyTypeDefinition tempProp = new PropertyTypeDefinition(res.getLong("prop_id"));
 				try {
 					_propDAO.get(tempProp);
 				} catch (NotFoundException e) {

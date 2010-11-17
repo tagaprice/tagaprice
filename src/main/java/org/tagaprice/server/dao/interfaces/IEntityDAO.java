@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.shared.Entity;
+import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.exception.DAOException;
 
 public interface IEntityDAO {

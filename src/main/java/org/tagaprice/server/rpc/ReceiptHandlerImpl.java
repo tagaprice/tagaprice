@@ -24,7 +24,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.LoginDAO;
 import org.tagaprice.server.dao.postgres.ReceiptDAO;
-import org.tagaprice.shared.ReceiptData;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.ServerException;
@@ -61,7 +61,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 	
 	@Override
-	public ReceiptData get(ReceiptData data) throws ServerException {
+	public Receipt get(Receipt data) throws ServerException {
 		try {
 			return receiptDao.getById(loginDao.getId(getSid()));
 		} catch (Exception e) {
@@ -71,7 +71,7 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	}
 	
 	@Override
-	public List<ReceiptData> getUserReceipts() throws ServerException {
+	public List<Receipt> getUserReceipts() throws ServerException {
 		try {
 			return receiptDao.getUserReceipts(loginDao.getId(getSid()));
 		} catch (Exception e) {
@@ -82,11 +82,11 @@ public class ReceiptHandlerImpl extends RemoteServiceServlet implements ReceiptH
 	
 
 	@Override
-	public ReceiptData save(ReceiptData data) throws ServerException {
+	public Receipt save(Receipt data) throws ServerException {
 		if(data==null){
 			
 			try {
-				data = new ReceiptData("default title", localeId, loginDao.getId(getSid()), new Date(), 1, null, null, true);
+				data = new Receipt("default title", localeId, loginDao.getId(getSid()), new Date(), 1, null, null, true);
 			} catch (Exception e) {
 				// TODO clean login dao from exceptions and remove this catch block
 				throw new ServerException(e.getMessage(), e);

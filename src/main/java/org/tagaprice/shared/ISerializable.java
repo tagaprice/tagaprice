@@ -19,6 +19,6 @@ package org.tagaprice.shared;
  * @author Manuel Reithuber
  *
  */
-public interface Serializable extends java.io.Serializable, com.google.gwt.user.client.rpc.IsSerializable {
+public interface ISerializable extends java.io.Serializable, com.google.gwt.user.client.rpc.IsSerializable {
 	public String getSerializeName();
 }

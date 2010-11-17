@@ -1,6 +1,6 @@
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.Category;;
+import org.tagaprice.shared.entities.Category;
 
 /**
  * An ActionListener that will be called if the type change. 

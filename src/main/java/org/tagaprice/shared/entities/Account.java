@@ -12,9 +12,9 @@
  * Filename: Account.java
  * Date: 21.07.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.entities;
 
-public class AccountData extends Entity {
+public class Account extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	private String mail;
@@ -23,14 +23,14 @@ public class AccountData extends Entity {
 	/**
 	 * Default constructor needed for serialization
 	 */
-	public AccountData() {}
+	public Account() {}
 
 	/**
 	 * constcructor used to query an account's current revision from the database
 	 * (using AccountDAO) 
 	 * @param id Account ID
 	 */
-	public AccountData(Long id) {
+	public Account(Long id) {
 		super(id);
 	}
 	
@@ -40,7 +40,7 @@ public class AccountData extends Entity {
 	 * @param id Account ID
 	 * @param rev account revision
 	 */
-	public AccountData(Long id, int rev) {
+	public Account(Long id, int rev) {
 		super(id, rev);
 	}
 
@@ -50,7 +50,7 @@ public class AccountData extends Entity {
 	 * @param localeId the Locale of an account just tells us which locale the user prefers
 	 *     (a user isn't locked into a single local version of the site)
 	 */
-	public AccountData(String title, int localeId, String mail, Address address) {
+	public Account(String title, int localeId, String mail, Address address) {
 		super(title, localeId, null);
 		this.mail = mail;
 		this.address = address;
@@ -63,7 +63,7 @@ public class AccountData extends Entity {
 	 * @param title Account's (new) descriptive name (e.g. "Administrator")
 	 * @param revCreatorId revision creator (most times this will be the user himself, but sometimes admins will change a user's details)
 	 */
-	public AccountData(Long id, int rev, String title, Long revCreatorId, String mail, Address address) {
+	public Account(Long id, int rev, String title, Long revCreatorId, String mail, Address address) {
 		super(id, rev, title, revCreatorId);
 		this.mail = mail;
 		this.address = address;
@@ -77,8 +77,8 @@ public class AccountData extends Entity {
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
-		if (o instanceof AccountData) {
-			AccountData a = (AccountData) o;
+		if (o instanceof Account) {
+			Account a = (Account) o;
 			if (!super.equals(o)) rc = false;
 			if (!_compare(getMail(), a.getMail())) rc = false;
 		}
