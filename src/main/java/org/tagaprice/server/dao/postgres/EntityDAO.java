@@ -25,7 +25,6 @@ import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.PropertyData;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
@@ -119,7 +118,10 @@ public class EntityDAO implements IEntityDAO {
 					newVersion = newRevision(entity);
 //				}
 			}
-			_propertyDAO.saveProperties(entity);
+			
+			if(newVersion == null)
+				return null;
+			_propertyDAO.saveProperties(newVersion); //ignore return value
 			return newVersion;
 		} catch (SQLException e) {
 			String msg = "Failed to save entity. SQLException: "+e.getMessage()+".";
@@ -128,11 +130,6 @@ public class EntityDAO implements IEntityDAO {
 			throw new DAOException(msg, e);
 		}  catch (NotFoundException e) {
 			String msg = "Failed to save entity. NotFoundException: "+e.getMessage()+".";
-			_log.debug(e.getStackTrace());
-			_log.error(msg+" Chaining and rethrowing.");
-			throw new DAOException(msg, e);
-		} catch (InvalidLocaleException e) {
-			String msg = "Failed to save entity. InvalidLocaleException: "+e.getMessage()+".";
 			_log.debug(e.getStackTrace());
 			_log.error(msg+" Chaining and rethrowing.");
 			throw new DAOException(msg, e);
@@ -162,7 +159,6 @@ public class EntityDAO implements IEntityDAO {
 
 			@Override
 			public <T extends Entity> T newRevision() {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		};
@@ -210,7 +206,7 @@ public class EntityDAO implements IEntityDAO {
 		
 	}
 	
-	private <T extends Entity> T newEntity(T e) throws SQLException, RevisionCheckException, InvalidLocaleException, NotFoundException {
+	private <T extends Entity> T newEntity(T e) throws SQLException, RevisionCheckException, DAOException, NotFoundException {
 		PreparedStatement pstmt;
 		ResultSet res;
 		
@@ -219,7 +215,8 @@ public class EntityDAO implements IEntityDAO {
 		if (e.getRev() != 0) throw new RevisionCheckException("new entities have to use revision 0");
 		
 		// check localeId
-		_localeDAO.require(e.getLocaleId());
+		if(_localeDAO.getById(e.getLocaleId()) == null)
+			return null;
 		
 		// create entity
 		String sql;

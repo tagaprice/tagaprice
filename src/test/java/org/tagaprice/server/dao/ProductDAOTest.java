@@ -1,7 +1,5 @@
 package org.tagaprice.server.dao;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,14 +8,16 @@ import org.tagaprice.server.dao.postgres.AccountDAO;
 import org.tagaprice.server.dao.postgres.LocaleDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
 import org.tagaprice.shared.AccountData;
-import org.tagaprice.shared.ProductData;
 
 public class ProductDAOTest {
+	@SuppressWarnings("unused")
 	private ProductDAO dao;
 	private DBConnection db;
 	private int localeId;
+	@SuppressWarnings("unused")
 	private long uid;
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();

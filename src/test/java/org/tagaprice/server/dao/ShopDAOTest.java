@@ -22,6 +22,7 @@ public class ShopDAOTest {
 	int localeId;
 	long uid;
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new EntityDAOTest.TestDBConnection();

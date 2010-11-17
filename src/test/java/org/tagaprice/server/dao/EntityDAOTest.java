@@ -107,6 +107,7 @@ public class EntityDAOTest {
 	private LocaleDAO localeDAO;
 	private AccountData testAccount;
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		db = new TestDBConnection();

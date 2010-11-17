@@ -17,7 +17,6 @@ import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.SearchResult;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
 
 public class PropertyDAO implements IPropertyDAO {
 	private DBConnection _db;
@@ -127,12 +126,7 @@ public class PropertyDAO implements IPropertyDAO {
 				// add new properties
 				if (!item.hasId()) {
 					PropertyDefinition propDef;
-					try {
-						propDef = propDefDAO.get(item.getName(), entity.getLocaleId());
-					} catch (NotFoundException e) {
-						// TODO clean propDefDAO from NotFoundExceptions
-						throw new DAOException(e.getMessage(), e);
-					} 
+					propDef = propDefDAO.getByNameAndLocalId(item.getName(), entity.getLocaleId()); 
 					// new property, save it
 					PreparedStatement pstmt = _db.prepareStatement("INSERT INTO entityProperty (prop_id, ent_id, value, unit_id, min_rev) VALUES (?,?,?,?,?)");
 					pstmt.setLong(1, propDef.getId());

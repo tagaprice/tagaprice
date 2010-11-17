@@ -35,6 +35,7 @@ public class LocalAccountDAOTest {
 		db.forceRollback();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testCreate() throws Exception {
 		LocalAccountData account = new LocalAccountData("testAccount", localeId, null, "mail@foo.invalid", pwd, null);

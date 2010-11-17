@@ -20,7 +20,6 @@ import org.tagaprice.shared.Quantity;
 import org.tagaprice.shared.ShopData;
 import org.tagaprice.shared.Unit;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.SearchHandler;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

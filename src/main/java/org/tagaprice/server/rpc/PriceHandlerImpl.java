@@ -32,7 +32,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class PriceHandlerImpl extends RemoteServiceServlet implements PriceHandler {
 
 	private DBConnection _db;
+	@SuppressWarnings("unused")
 	private ShopDAO _shopDAO;
+	@SuppressWarnings("unused")
 	private ProductDAO _productDAO;
 	
 	public PriceHandlerImpl() {

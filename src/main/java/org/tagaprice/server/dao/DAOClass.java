@@ -17,6 +17,7 @@ package org.tagaprice.server.dao;
 import java.sql.SQLException;
 
 import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
@@ -27,6 +28,6 @@ import org.tagaprice.shared.exception.RevisionCheckException;
  */
 public interface DAOClass<T extends Serializable> {
 	
-	public void get(T entity) throws SQLException, NotFoundException;
+	public void get(T entity) throws SQLException, NotFoundException, DAOException;
 	public void save(T entity) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException;
 }

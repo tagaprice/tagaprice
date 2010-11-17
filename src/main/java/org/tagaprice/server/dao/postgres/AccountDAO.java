@@ -18,8 +18,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.server.dao.DAOClass;
+import org.tagaprice.server.dao.interfaces.IAccountDAO;
 import org.tagaprice.shared.AccountData;
 import org.tagaprice.shared.Entity;
 import org.tagaprice.shared.exception.DAOException;
@@ -27,9 +28,10 @@ import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class AccountDAO implements DAOClass<AccountData> {
+public class AccountDAO implements IAccountDAO {
 	private DBConnection db;
 	private EntityDAO entityDAO;
+	private static Logger _log = Logger.getLogger(AccountDAO.class);
 	
 	public AccountDAO(DBConnection db) {
 		entityDAO = new EntityDAO(db) {
@@ -45,25 +47,27 @@ public class AccountDAO implements DAOClass<AccountData> {
 		this.db = db;
 	}
 
-	@Override
-	public void get(AccountData account) throws SQLException, NotFoundException {
+	@Deprecated
+	public void get(AccountData account) throws DAOException {
 		// check if it's really an account
-		PreparedStatement pstmt = db.prepareStatement("SELECT uid, mail FROM account WHERE uid = ?");
-		pstmt.setLong(1, account.getId());
-		ResultSet res = pstmt.executeQuery();
-		if (res.next()) {
-			try {
-				entityDAO.getById(account, account.getId());
-			} catch (DAOException e) {
-				//TODO change
-				throw new NotFoundException(e.getMessage(), e);
+		try {
+			PreparedStatement pstmt = db.prepareStatement("SELECT uid, mail FROM account WHERE uid = ?");
+			pstmt.setLong(1, account.getId());
+			ResultSet res;
+			res = pstmt.executeQuery();
+			if (res.next()) {
+				//entityDAO.getById(account, account.getId());
+				account.setMail(res.getString("mail"));
 			}
-			account.setMail(res.getString("mail"));
-		}
-		else throw new NotFoundException("account not found: id "+account.getId());
+		} catch (SQLException e) {
+			String msg = "Failed to save entity. SQLException: "+e.getMessage()+".";
+			_log.debug(e.getStackTrace());
+			_log.error(msg+" Chaining and rethrowing.");
+			throw new DAOException(msg, e);
+		}  
 	}
 
-	@Override
+	@Deprecated
 	public void save(AccountData a) throws SQLException, NotFoundException,
 			RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;

@@ -5,11 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.apache.log4j.Logger;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.Entity;
-import org.tagaprice.server.dao.DAOClass;
-import org.tagaprice.server.dao.postgres.EntityDAO;
-import org.tagaprice.server.dao.postgres.UnitDAO;
+import org.tagaprice.server.dao.interfaces.IPropertyDefinitionDAO;
 import org.tagaprice.shared.PropertyDefinition;
 import org.tagaprice.shared.PropertyDefinition.Datatype;
 import org.tagaprice.shared.Unit;
@@ -18,114 +16,200 @@ import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 
-public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
-	private DBConnection db;
-	private EntityDAO entityDAO;
-	private UnitDAO unitDAO;
+public class PropertyDefinitionDAO implements IPropertyDefinitionDAO {
+	private DBConnection _db;
+	private EntityDAO _entityDAO;
+	private UnitDAO _unitDAO;
+	private static Logger _log = Logger.getLogger(PropertyDefinitionDAO.class);
 	
 	public PropertyDefinitionDAO(DBConnection db) {
-		this.db = db;
-		entityDAO = new EntityDAO(db);
-		unitDAO = new UnitDAO(db);
-	}
-	
-	public PropertyDefinition get(long id) throws SQLException, NotFoundException {
-		return get(id, 0);
-	}
-	
-	public PropertyDefinition get(long id, int rev) throws SQLException, NotFoundException {
-		PropertyDefinition def = new PropertyDefinition(id, rev);
-		get(def);
-		return def;
-	}
-	
-	public PropertyDefinition get(String name, int localeId) throws SQLException, NotFoundException {
-		PropertyDefinition def = new PropertyDefinition(name, localeId);
-		get(def);
-		return def;
+		this._db = db;
+		_entityDAO = new EntityDAO(db);
+		_unitDAO = new UnitDAO(db);
 	}
 	
 	@Override
-	public void get(PropertyDefinition prop) throws SQLException, NotFoundException {
+	public PropertyDefinition getById(long id) throws DAOException {
+		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
+		sql += "WHERE prop_id = ?";
+		
+		PreparedStatement pstmt;
+		try {
+			pstmt = _db.prepareStatement(sql);
+			pstmt.setLong(1, id);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) 
+				return null;
+			
+			return createPropertyDefinition(res);
+		} catch (SQLException e) {
+			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
+		}
+	}
+	
+	@Override
+	public PropertyDefinition getByIdAndRef(long id, int rev) throws DAOException {
+		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
+		sql += "WHERE prop_id = ?";
+		sql += "AND rev = ?";
+		
+		PreparedStatement pstmt;
+		try {
+			pstmt = _db.prepareStatement(sql);
+			pstmt.setLong(1, id);
+			pstmt.setLong(2, rev);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) 
+				return null;
+			
+			return createPropertyDefinition(res);
+		} catch (SQLException e) {
+			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
+		}
+	}
+	
+	@Override
+	public PropertyDefinition getByNameAndLocalId(String name, int localeId) throws DAOException  {
+		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
+		sql += "INNER JOIN entity ON (prop_id = ent_id) WHERE name = ? AND locale_id = ?";
+		
+		PreparedStatement pstmt;
+		try {
+			pstmt = _db.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setLong(2, localeId);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) 
+				return null;
+			
+			return createPropertyDefinition(res);
+		} catch (SQLException e) {
+			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
+		}
+	}
+	
+	/**
+	 * Creates a PropertyDefinition for given ResultSet and returns it.
+	 */
+	private PropertyDefinition createPropertyDefinition(ResultSet res) throws SQLException, DAOException {
+		PropertyDefinition propertyDefinition = new PropertyDefinition();
+
+		propertyDefinition._setId(res.getLong("prop_id"));
+		propertyDefinition.setName(res.getString("name"));
+		if (res.getString("minvalue") != null) propertyDefinition.setMinValue(res.getInt("minvalue"));
+		else propertyDefinition.setMinValue(null);
+		if (res.getString("maxvalue") != null) propertyDefinition.setMaxValue(res.getInt("maxvalue"));
+		else propertyDefinition.setMaxValue(null);
+		propertyDefinition.setType(Datatype.valueOf(res.getString("type").toUpperCase()));
+		propertyDefinition.setUnique(res.getBoolean("uniq"));
+
+		propertyDefinition = _entityDAO.getById(propertyDefinition, propertyDefinition.getId());
+
+		//get unit
+		if(res.getString("unit_id")!=null){
+			Unit unit = _unitDAO.getById(res.getLong("unit_id"));
+			propertyDefinition.setUnit(unit);
+		}
+		return propertyDefinition;
+	}
+	
+	/**
+	 * Retrieves PropertyDefinition for given propertyDefinition.
+	 * @param propertyDefinition
+	 * @return
+	 * @throws DAOException
+	 */
+	@Deprecated
+	@SuppressWarnings("unused")
+	private boolean get(PropertyDefinition propertyDefinition) throws DAOException {
 		String sql = "SELECT prop_id, name, minValue, maxValue, type, uniq, unit_id FROM propertyRevision ";
 		PreparedStatement pstmt;
 		int pos = 1;
-		if (prop.hasId()) {
+		if (propertyDefinition.hasId()) {
 			// get by ID
 			sql += "WHERE prop_id = ?";
 		}
 		else {
 			sql += "INNER JOIN entity ON (prop_id = ent_id) WHERE name = ? AND locale_id = ?";
 		}
-		if (prop.getRev() > 0) sql += "AND rev = ?";
-		
-		pstmt = db.prepareStatement(sql);
-		
-		if (prop.hasId()) {
-			pstmt.setLong(pos++, prop.getId());
-		}
-		else {
-			pstmt.setString(pos++, prop.getName());
-			pstmt.setLong(pos++, prop.getLocaleId());
-		}
-		if (prop.getRev() > 0) pstmt.setLong(pos++, prop.getRev());
-
-		ResultSet res = pstmt.executeQuery();
-		if (!res.next()) throw new NotFoundException("PropertyDefinition not found (id: "+prop.getId()+")");
-		
-		prop._setId(res.getLong("prop_id"));
-		prop.setName(res.getString("name"));
-		if (res.getString("minvalue") != null) prop.setMinValue(res.getInt("minvalue"));
-		else prop.setMinValue(null);
-		if (res.getString("maxvalue") != null) prop.setMaxValue(res.getInt("maxvalue"));
-		else prop.setMaxValue(null);
-		prop.setType(Datatype.valueOf(res.getString("type").toUpperCase()));
-		prop.setUnique(res.getBoolean("uniq"));
+		if (propertyDefinition.getRev() > 0) sql += "AND rev = ?";
 
 		try {
-			prop = entityDAO.getById(prop, prop.getId());
-		} catch (DAOException e) {
-			//TODO change
-			throw new NotFoundException(e.getMessage(), e);
-		}
-		
-		
-		//GetUnit
-		if(res.getString("unit_id")!=null){
-			Unit unit;
-			try {
-				unit = unitDAO.getById(res.getLong("unit_id"));
-				prop.setUnit(unit);
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new NotFoundException(e.getMessage(), e);
-			}		
+			pstmt = _db.prepareStatement(sql);
+
+			if (propertyDefinition.hasId()) {
+				pstmt.setLong(pos++, propertyDefinition.getId());
+			}
+			else {
+				pstmt.setString(pos++, propertyDefinition.getName());
+				pstmt.setLong(pos++, propertyDefinition.getLocaleId());
+			}
+			if (propertyDefinition.getRev() > 0) pstmt.setLong(pos++, propertyDefinition.getRev());
+
+			ResultSet res = pstmt.executeQuery();
+			if (!res.next()) 
+				return false;
+			
+			propertyDefinition = new PropertyDefinition();
+
+			propertyDefinition._setId(res.getLong("prop_id"));
+			propertyDefinition.setName(res.getString("name"));
+			if (res.getString("minvalue") != null) propertyDefinition.setMinValue(res.getInt("minvalue"));
+			else propertyDefinition.setMinValue(null);
+			if (res.getString("maxvalue") != null) propertyDefinition.setMaxValue(res.getInt("maxvalue"));
+			else propertyDefinition.setMaxValue(null);
+			propertyDefinition.setType(Datatype.valueOf(res.getString("type").toUpperCase()));
+			propertyDefinition.setUnique(res.getBoolean("uniq"));
+
+			propertyDefinition = _entityDAO.getById(propertyDefinition, propertyDefinition.getId());
+
+
+			//GetUnit
+			if(res.getString("unit_id")!=null){
+				Unit unit = _unitDAO.getById(res.getLong("unit_id"));
+				propertyDefinition.setUnit(unit);
+			}
+			return true;
+		} catch (SQLException e) {
+			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
+			_log.error(msg+" Chaining and rethrowing.");
+			_log.debug(e.getStackTrace());
+			throw new DAOException(msg, e);
 		}
 			
 	}
 	
-	@Override
-	public void save(PropertyDefinition prop) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
+	@SuppressWarnings("unused")
+	@Deprecated
+	private void save(PropertyDefinition prop) throws SQLException, NotFoundException, RevisionCheckException, InvalidLocaleException {
 		PreparedStatement pstmt;
 		String sql;
 
 		try {
-			entityDAO.save(prop);
+			_entityDAO.save(prop);
 		} catch (DAOException e) {
 			//TODO change
 			throw new NotFoundException(e.getMessage(), e);
 		}
 		if (prop.getRev() == 1) {
 			// create a new PropertyDefinition
-			pstmt = db.prepareStatement("INSERT INTO property (prop_id) VALUES (?)");
+			pstmt = _db.prepareStatement("INSERT INTO property (prop_id) VALUES (?)");
 			pstmt.setLong(1, prop.getId());
 			pstmt.executeUpdate();
 		}
 		else if (prop.getRev() < 1) throw new RevisionCheckException("invalid revision: "+prop.getRev());
 		
 		sql = "INSERT INTO propertyRevision (prop_id, rev, name, minValue, maxValue, type, uniq) VALUES (?, ?, ?, ?, ?, ?::propertyType, ?)";
-		pstmt = db.prepareStatement(sql);
+		pstmt = _db.prepareStatement(sql);
 		pstmt.setLong(1, prop.getId());
 		pstmt.setInt(2, prop.getRev());
 		pstmt.setString(3, prop.getName());
@@ -146,9 +230,8 @@ public class PropertyDefinitionDAO implements DAOClass<PropertyDefinition> {
 		//GetUnit
 		if(prop.getUnit()!=null)
 			try {
-				unitDAO.save(prop.getUnit());
+				_unitDAO.save(prop.getUnit());
 			} catch (DAOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw new NotFoundException(e.getMessage(), e);
 			}
