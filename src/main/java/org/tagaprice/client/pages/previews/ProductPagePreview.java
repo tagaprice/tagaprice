@@ -42,7 +42,7 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class ProductPagePreview extends APagePreview {
-	private interface _MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
+	public interface _MyUiBinder extends UiBinder<Widget, ProductPagePreview>{}
 	private _MyUiBinder _uiBinder = GWT.create(_MyUiBinder.class);
 	private ProductData _productData;
 	private boolean _editable;
