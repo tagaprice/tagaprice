@@ -24,7 +24,7 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LocaleDAO;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ReceiptDAO;
-import org.tagaprice.shared.data.Receipt;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;

@@ -12,17 +12,17 @@
  * Filename: PriceData.java
  * Date: 02.06.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import java.util.Date;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * 
  * TODO refactor this class
  */
-public class PriceData  implements Serializable {
+public class PriceData  implements ISerializable {
 
 	private static final long serialVersionUID = 1L;
 	

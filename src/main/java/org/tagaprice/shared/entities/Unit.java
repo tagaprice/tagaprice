@@ -12,7 +12,7 @@
  * Filename: Unit.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import org.tagaprice.server.dao.UnitDAO;
 

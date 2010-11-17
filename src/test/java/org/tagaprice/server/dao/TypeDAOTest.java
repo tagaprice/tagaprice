@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Category;
+import org.tagaprice.shared.entities.Category;
 
 public class TypeDAOTest {
 

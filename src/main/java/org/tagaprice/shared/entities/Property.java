@@ -12,15 +12,15 @@
  * Filename: PropertyData.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 
 /**
  * Holds information about a concrete property.
  */
-public class Property implements Serializable {
+public class Property implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long _id;

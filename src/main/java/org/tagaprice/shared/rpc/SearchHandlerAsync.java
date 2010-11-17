@@ -3,9 +3,9 @@ package org.tagaprice.shared.rpc;
 import java.util.ArrayList;
 
 import org.tagaprice.client.widgets.SearchWidget.SearchType;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.Shop;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

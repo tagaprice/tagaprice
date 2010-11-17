@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * An ArrayList that can only contain objects extending {@link Serializable}
- * and is itself extending {@link Serializable}. 
+ * An ArrayList that can only contain objects extending {@link ISerializable}
+ * and is itself extending {@link ISerializable}. 
  * 
  * TODO refactor this class (build wrapper instead ?)
  */
-public class SerializableArrayList<T extends Serializable> extends ArrayList<T> implements Serializable {
+public class SerializableArrayList<T extends ISerializable> extends ArrayList<T> implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	/**

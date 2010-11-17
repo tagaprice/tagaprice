@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.entities.Address;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

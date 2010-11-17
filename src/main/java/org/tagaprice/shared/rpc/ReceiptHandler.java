@@ -16,7 +16,7 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.data.Receipt;
+import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.user.client.rpc.RemoteService;

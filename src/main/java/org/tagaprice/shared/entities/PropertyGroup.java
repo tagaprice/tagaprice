@@ -12,21 +12,21 @@
  * Filename: PropertyGroup.java
  * Date: May 21, 2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * A {@link PropertyGroup} contains the definitions of the group members 
  * used in the Page-Widgets for handler  
  * e.g. NutritionFacts is a group consisting of the {@link PropertyTypeDefinition} for the Property "sugar", "fat", etc
  **/
-public class PropertyGroup implements Serializable {
+public class PropertyGroup implements ISerializable {
 	
 	/** TODO move to own file, maybe refactor so this is not needed anymore (more dynamic allocation of {@link PropertyGroup}s... */
-	public enum GroupType implements Serializable {
+	public enum GroupType implements ISerializable {
 		LIST, NUTRITIONFACTS;
 
 		public String getSerializeName() {

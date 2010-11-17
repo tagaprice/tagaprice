@@ -10,10 +10,10 @@ import java.util.Iterator;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.shared.SerializableArrayList;
-import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.Property;
-import org.tagaprice.shared.data.PropertyTypeDefinition;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

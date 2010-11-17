@@ -28,8 +28,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Account;
-import org.tagaprice.shared.data.Entity;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 

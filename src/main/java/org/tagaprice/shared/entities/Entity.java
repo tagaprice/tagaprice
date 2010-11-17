@@ -12,17 +12,17 @@
  * Filename: Entity.java
  * Date: May 17, 2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.SerializableArrayList;
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Abstract class holding general information which every entity has,
  * that is: an ID, a title, a revision number, a createrID and creatorID for this revision,
  * a localeID and a list of properties.
  */
-public abstract class Entity implements Serializable {
+public abstract class Entity implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id = null;
@@ -32,7 +32,6 @@ public abstract class Entity implements Serializable {
 	private Long creatorId = null;
 	private Long revCreatorId = null;
 
-	/** TODO {@link SerializableArrayList} is used as a list for properties. this may should be refactored... */
 	private SerializableArrayList<Property> properties = new SerializableArrayList<Property>(); 
 
 	/**
@@ -210,7 +209,20 @@ public abstract class Entity implements Serializable {
 	public void setProperties(SerializableArrayList<Property> properties) {
 		this.properties = properties;
 	}
+
 	
+	/**
+	 * compare two objects and return true if either both of them are null or they're equal
+	 * @param a first Object
+	 * @param b second Object
+	 * @return true if they're equal, false otherwise
+	 */
+	public static boolean _compare(Object a, Object b) {
+		return a == null ? b == null : a.equals(b);
+	}
+	
+	
+	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
@@ -229,16 +241,7 @@ public abstract class Entity implements Serializable {
 		return rc;
 	}
 	
-	/**
-	 * compare two objects and return true if either both of them are null or they're equal
-	 * @param a first Object
-	 * @param b second Object
-	 * @return true if they're equal, false otherwise
-	 */
-	public static boolean _compare(Object a, Object b) {
-		return a == null ? b == null : a.equals(b);
-	}
-	
+	@Override
 	public String toString() {
 		return "Entity {\n" +
 				"id: " + getId() +

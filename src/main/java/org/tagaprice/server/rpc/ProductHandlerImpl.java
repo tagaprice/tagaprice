@@ -21,14 +21,14 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.LoginDAO;
 import org.tagaprice.server.dao.ProductDAO;
-import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.Category;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;
 import org.tagaprice.shared.rpc.ProductHandler;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

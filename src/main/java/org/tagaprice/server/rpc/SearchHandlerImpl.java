@@ -11,15 +11,15 @@ import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.ProductDAO;
 import org.tagaprice.server.dao.ShopDAO;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.Price;
-import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.Quantity;
-import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Price;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.SearchHandler;
+import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

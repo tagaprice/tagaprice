@@ -12,7 +12,7 @@
  * Filename: ShopPreviewContainer.java
  * Date: 16.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 
 /**

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Price;
-import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.Quantity;
-import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Price;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

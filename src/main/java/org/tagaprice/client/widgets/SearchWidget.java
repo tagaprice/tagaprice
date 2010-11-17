@@ -21,11 +21,11 @@ import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.BoundingBox;
-import org.tagaprice.shared.Serializable;
-import org.tagaprice.shared.data.Entity;
-import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.Shop;
+import org.tagaprice.shared.ISerializable;
+import org.tagaprice.shared.entities.Entity;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class SearchWidget extends Composite {
 
-	public enum SearchType implements Serializable {
+	public enum SearchType implements ISerializable {
 		ALL, PRODCUT, SHOP;
 
 		@Override

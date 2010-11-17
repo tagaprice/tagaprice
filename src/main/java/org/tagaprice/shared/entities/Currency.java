@@ -12,7 +12,8 @@
  * Filename: Currency.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
+
 
 /**
  * Represents a currency entity

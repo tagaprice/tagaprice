@@ -8,10 +8,10 @@ import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
 import org.tagaprice.shared.SerializableArrayList;
-import org.tagaprice.shared.data.Account;
-import org.tagaprice.shared.data.Property;
-import org.tagaprice.shared.data.PropertyTypeDefinition;
-import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 public class PropertyDAOTest {
 	private TestEntity testEntity;

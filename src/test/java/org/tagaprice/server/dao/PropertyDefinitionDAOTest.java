@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Account;
-import org.tagaprice.shared.data.PropertyTypeDefinition;
-import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.entities.Account;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 public class PropertyDefinitionDAOTest {
 	private PropertyDefinitionDAO dao;

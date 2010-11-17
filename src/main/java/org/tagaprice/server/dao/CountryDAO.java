@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Country;
+import org.tagaprice.shared.entities.Country;
 import org.tagaprice.shared.exception.NotFoundException;
 
 public class CountryDAO {

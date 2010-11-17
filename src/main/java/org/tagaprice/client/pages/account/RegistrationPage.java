@@ -17,7 +17,7 @@ package org.tagaprice.client.pages.account;
 import org.tagaprice.client.pages.APage;
 import org.tagaprice.client.widgets.TitleWidget;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.shared.data.Address;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.rpc.LocalAccountHandler;
 import org.tagaprice.shared.rpc.LocalAccountHandlerAsync;
 import com.google.code.gwt.geolocation.client.Geolocation;

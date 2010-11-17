@@ -12,9 +12,9 @@
  * Filename: Address.java
  * Date: May 26, 2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Holds data about an address.
@@ -23,7 +23,7 @@ import org.tagaprice.shared.Serializable;
  * 
  *
  */
-public class Address implements Serializable {
+public class Address implements ISerializable {
 
 	
 	private static final long serialVersionUID = 1L;

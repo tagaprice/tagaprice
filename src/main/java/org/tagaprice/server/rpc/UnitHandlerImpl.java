@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.UnitDAO;
 import org.tagaprice.shared.SerializableArrayList;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.UnitHandler;
 

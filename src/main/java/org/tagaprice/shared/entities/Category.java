@@ -12,9 +12,10 @@
  * Filename: ProductType.java
  * Date: May 20, 2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
+
 
 /**
  * Categories are used to display and format {@link PropertyGroup}s on {@link Product}- and {@link Shop} pages.

@@ -12,13 +12,15 @@
  * Filename: BoundingBox.java
  * Date: 02.06.2010
 */
-package org.tagaprice.shared;
+package org.tagaprice.shared.utility;
+
+import org.tagaprice.shared.ISerializable;
 
 /**
  * This class implements an immutable rectangular BoundingBox.
  * @author MK
  */
-public class BoundingBox implements Serializable {
+public class BoundingBox implements ISerializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 	private double x1, y1;

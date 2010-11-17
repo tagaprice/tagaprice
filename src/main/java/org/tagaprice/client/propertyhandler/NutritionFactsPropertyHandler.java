@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.widgets.TitleWidget;
-import org.tagaprice.shared.data.Property;
-import org.tagaprice.shared.data.PropertyGroup;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
 
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.data.Shop;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.exception.RevisionCheckException;

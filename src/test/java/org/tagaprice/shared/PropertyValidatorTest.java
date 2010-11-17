@@ -19,11 +19,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.shared.data.Property;
-import org.tagaprice.shared.data.PropertyTypeDefinition;
-import org.tagaprice.shared.data.PropertyGroup;
-import org.tagaprice.shared.data.Category;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.utility.PropertyValidator;
 
 
 public class PropertyValidatorTest {

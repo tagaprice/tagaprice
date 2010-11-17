@@ -12,7 +12,7 @@
  * Filename: ReceiptContainer.java
  * Date: 16.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
 import java.util.Date;

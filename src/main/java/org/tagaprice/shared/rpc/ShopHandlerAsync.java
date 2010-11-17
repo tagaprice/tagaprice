@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc;
 
-import org.tagaprice.shared.data.Shop;
+import org.tagaprice.shared.entities.Shop;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

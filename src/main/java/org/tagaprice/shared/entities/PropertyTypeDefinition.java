@@ -12,9 +12,9 @@
  * Filename: TypeProperty.java
  * Date: May 20, 2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Defines a type of property
@@ -23,7 +23,7 @@ public class PropertyTypeDefinition extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	/** TODO refactor to own class ? */
-	public enum Datatype implements Serializable {
+	public enum Datatype implements ISerializable {
 	    STRING, DOUBLE, INT;
 
 	    public String getSerializeName() {

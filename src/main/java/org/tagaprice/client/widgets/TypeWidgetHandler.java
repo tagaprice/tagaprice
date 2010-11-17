@@ -14,7 +14,7 @@
 */
 package org.tagaprice.client.widgets;
 
-import org.tagaprice.shared.data.Category;
+import org.tagaprice.shared.entities.Category;
 
 public interface TypeWidgetHandler {
 

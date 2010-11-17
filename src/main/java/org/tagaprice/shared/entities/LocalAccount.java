@@ -6,7 +6,7 @@
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 /**
  * A {@link LocalAccount} represents an user account of TagAPrice.

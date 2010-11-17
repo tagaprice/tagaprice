@@ -17,9 +17,9 @@ package org.tagaprice.shared;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.shared.data.PropertyTypeDefinition;
-import org.tagaprice.shared.data.Unit;
-import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.entities.PropertyTypeDefinition;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
 public class PropertyDefinitionTest {
 

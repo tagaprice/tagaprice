@@ -12,7 +12,7 @@
  * Filename: Account.java
  * Date: 21.07.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
 /**
  * Represents an user account with address and email.

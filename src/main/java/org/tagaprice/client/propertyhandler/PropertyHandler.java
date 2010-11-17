@@ -17,8 +17,8 @@ package org.tagaprice.client.propertyhandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.tagaprice.shared.data.Property;
-import org.tagaprice.shared.data.PropertyGroup;
+import org.tagaprice.shared.entities.Property;
+import org.tagaprice.shared.entities.PropertyGroup;
 
 import com.google.gwt.user.client.ui.Composite;
 

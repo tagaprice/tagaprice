@@ -12,14 +12,14 @@
  * Filename: Quantity.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Quantity of a product on a receipt or similar.
  */
-public class Quantity implements Serializable {
+public class Quantity implements ISerializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int quantity;

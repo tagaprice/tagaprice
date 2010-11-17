@@ -15,12 +15,12 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.shared.data.Address;
-import org.tagaprice.shared.data.Country;
-import org.tagaprice.shared.data.Product;
-import org.tagaprice.shared.data.Receipt;
-import org.tagaprice.shared.data.Shop;
-import org.tagaprice.shared.data.Category;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Category;
+import org.tagaprice.shared.entities.Country;
+import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.code.gwt.geolocation.client.Geolocation;

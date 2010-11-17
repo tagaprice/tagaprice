@@ -1,12 +1,12 @@
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Represents a country by code, title and localTitle.
  * This class is immutable.
  */
-public class Country implements Serializable {
+public class Country implements ISerializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String code = null;

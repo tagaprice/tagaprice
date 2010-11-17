@@ -15,7 +15,7 @@
 package org.tagaprice.shared.rpc;
 
 import org.tagaprice.shared.SerializableArrayList;
-import org.tagaprice.shared.data.Unit;
+import org.tagaprice.shared.entities.Unit;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

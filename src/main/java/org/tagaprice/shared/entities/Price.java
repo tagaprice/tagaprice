@@ -12,14 +12,14 @@
  * Filename: Price.java
  * Date: 19.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.Serializable;
+import org.tagaprice.shared.ISerializable;
 
 /**
  * Represents an amount of money in a given currency. 
  */
-public class Price implements Serializable {
+public class Price implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
 	/** price in currency/100 */

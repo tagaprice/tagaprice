@@ -12,7 +12,8 @@
  * Filename: ProductPreviewContainer.java
  * Date: 14.05.2010
 */
-package org.tagaprice.shared.data;
+package org.tagaprice.shared.entities;
+
 
 /**
  * Contains all important information to represent a product. 
