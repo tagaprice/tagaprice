@@ -26,7 +26,7 @@ import org.tagaprice.shared.data.PropertyTypeDefinition.Datatype;
 public class PropertyValidator {
 
 	
-	public static boolean isValid(Category category, SearchResult<Property> properties){
+	public static boolean isValid(Category category, SerializableArrayList<Property> properties){
 		
 		HashMap<String, ArrayList<Property>> propertyMap = PropertyValidator.propertyListToHash(properties);
 		
@@ -100,7 +100,7 @@ public class PropertyValidator {
 		return true;
 	}
 	
-	private static HashMap<String, ArrayList<Property>> propertyListToHash(SearchResult<Property> properties){
+	private static HashMap<String, ArrayList<Property>> propertyListToHash(SerializableArrayList<Property> properties){
 		HashMap<String, ArrayList<Property>> hashProperties = new HashMap<String, ArrayList<Property>>();
 		for(Property pd:properties){
 			if(hashProperties.get(pd.getName())==null){

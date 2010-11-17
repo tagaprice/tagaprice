@@ -35,7 +35,7 @@ import org.tagaprice.client.widgets.TypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
 import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.PropertyValidator;
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.data.Address;
 import org.tagaprice.shared.data.Country;
 import org.tagaprice.shared.data.Property;
@@ -562,8 +562,8 @@ public class ShopPage extends APage {
 		bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 	
-	private SearchResult<Property> hashToPropertyList(HashMap<String, ArrayList<Property>> hashProperties){
-		SearchResult<Property> newList = new SearchResult<Property>();
+	private SerializableArrayList<Property> hashToPropertyList(HashMap<String, ArrayList<Property>> hashProperties){
+		SerializableArrayList<Property> newList = new SerializableArrayList<Property>();
 		
 		for(String ks:hashProperties.keySet()){
 			for(Property pd:hashProperties.get(ks)){

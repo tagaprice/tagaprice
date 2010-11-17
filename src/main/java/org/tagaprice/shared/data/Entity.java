@@ -14,7 +14,7 @@
 */
 package org.tagaprice.shared.data;
 
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.Serializable;
 
 /**
@@ -32,8 +32,8 @@ public abstract class Entity implements Serializable {
 	private Long creatorId = null;
 	private Long revCreatorId = null;
 
-	/** TODO {@link SearchResult} is used as a list for properties. this may should be refactored... */
-	private SearchResult<Property> properties = new SearchResult<Property>(); 
+	/** TODO {@link SerializableArrayList} is used as a list for properties. this may should be refactored... */
+	private SerializableArrayList<Property> properties = new SerializableArrayList<Property>(); 
 
 	/**
 	 * default constructor (required for serialization)
@@ -200,14 +200,14 @@ public abstract class Entity implements Serializable {
 	/**
 	 * @return the properties of this entity
 	 */
-	public SearchResult<Property> getProperties() {
+	public SerializableArrayList<Property> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(SearchResult<Property> properties) {
+	public void setProperties(SerializableArrayList<Property> properties) {
 		this.properties = properties;
 	}
 	

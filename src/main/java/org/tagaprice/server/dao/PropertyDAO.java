@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.data.Entity;
 import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyTypeDefinition;
@@ -46,7 +46,7 @@ public class PropertyDAO implements DAOClass<Entity> {
 		pstmt.setInt(2, entity.getRev());
 		ResultSet res = pstmt.executeQuery();
 		
-		SearchResult<Property> props = new SearchResult<Property>();
+		SerializableArrayList<Property> props = new SerializableArrayList<Property>();
 		
 		while(res.next()) {
 			Unit u = null;

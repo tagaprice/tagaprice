@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.EntityDAOTest.TestEntity;
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.data.Account;
 import org.tagaprice.shared.data.Property;
 import org.tagaprice.shared.data.PropertyTypeDefinition;
@@ -42,7 +42,7 @@ public class PropertyDAOTest {
 		
 		testEntity = new TestEntity("Title", localeId, uid);
 		
-		SearchResult<Property> props = new SearchResult<Property>();
+		SerializableArrayList<Property> props = new SerializableArrayList<Property>();
 		props.add(new Property(testPropDef.getName(), "propTitle", "propValue", null));
 		testEntity.setProperties(props);
 		

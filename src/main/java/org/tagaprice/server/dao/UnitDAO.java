@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.InvalidLocaleException;
 import org.tagaprice.shared.exception.NotFoundException;
@@ -35,10 +35,10 @@ public class UnitDAO implements DAOClass<Unit> {
 		this.db = db;
 	}
 	
-	public SearchResult<Unit> getSimilar(long id) throws NotFoundException {
+	public SerializableArrayList<Unit> getSimilar(long id) throws NotFoundException {
 		
 		try {
-			SearchResult<Unit> rc = new SearchResult<Unit>();
+			SerializableArrayList<Unit> rc = new SerializableArrayList<Unit>();
 			long siId = id;
 
 			// check if this Unit has a fallback ID (and use it as siId instead)
@@ -68,7 +68,7 @@ public class UnitDAO implements DAOClass<Unit> {
 		}
 	}
 	
-	public SearchResult<Unit> getSimilar(Unit unit) throws NotFoundException {
+	public SerializableArrayList<Unit> getSimilar(Unit unit) throws NotFoundException {
 		return getSimilar(unit.getId());
 	}
 	

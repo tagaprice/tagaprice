@@ -18,32 +18,31 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Represents a Search result as a list.
+ * An ArrayList that can only contain objects extending {@link Serializable}
+ * and is itself extending {@link Serializable}. 
  * 
- * TODO refactor this class (at least, rename)
- * 
- * @param <T> Generic parameter for this SearchResult, must extend {@link Serializable}.
+ * TODO refactor this class (build wrapper instead ?)
  */
-public class SearchResult<T extends Serializable> extends ArrayList<T> implements Serializable {
+public class SerializableArrayList<T extends Serializable> extends ArrayList<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Just creates an empty {@link ArrayList}.
 	 */
-	public SearchResult() {
+	public SerializableArrayList() {
 	}
 
 	@Override
 	public String getSerializeName() {
-		return "searchResult";
+		return "searchResult"; //TODO change this ?
 	}
 	
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
 		
-		if (o instanceof SearchResult<?>) {
-			SearchResult<?> l = (SearchResult<?>) o;
+		if (o instanceof SerializableArrayList<?>) {
+			SerializableArrayList<?> l = (SerializableArrayList<?>) o;
 			Iterator<?> it1 = iterator(), it2 = l.iterator();
 			
 			while (rc && it1.hasNext() && it2.hasNext()) {
@@ -58,8 +57,9 @@ public class SearchResult<T extends Serializable> extends ArrayList<T> implement
 		return rc;
 	}
 	
+	@Override
 	public String toString() {
-		String rc = "SearchResult(count="+size()+") {\n";
+		String rc = "SearchResult(count="+size()+") {\n"; //TODO change this?
 		Iterator<T> it = iterator();
 		while(it.hasNext()) {
 			rc += it.next().toString()+"\n";

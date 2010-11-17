@@ -52,13 +52,13 @@ public class PropertyValidatorTest {
 	@Test
 	public void testCount(){
 		//OK
-		SearchResult<Property> properties1 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
 		properties1.add(new Property("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
 		properties1.add(new Property("ean", "EAN", "2", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//FALSE
-		SearchResult<Property> properties2 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
 		properties2.add(new Property("energy", "Energy", "1", new Unit(5, 2, "g", 3, null, 0)));
 		properties2.add(new Property("energy", "Energy", "2", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties2));
@@ -68,17 +68,17 @@ public class PropertyValidatorTest {
 	@Test
 	public void testInt(){
 		//OK
-		SearchResult<Property> properties1 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
 		properties1.add(new Property("ean", "EAN", "1", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//ERROR
-		SearchResult<Property> properties2 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
 		properties2.add(new Property("ean", "EAN", "2.2", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties2));
 		
 		//ERROR
-		SearchResult<Property> properties3 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties3 = new SerializableArrayList<Property>();
 		properties3.add(new Property("ean", "EAN", "text", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties3));
 		
@@ -87,17 +87,17 @@ public class PropertyValidatorTest {
 	@Test
 	public void testDouble(){
 		//OK
-		SearchResult<Property> properties1 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties1 = new SerializableArrayList<Property>();
 		properties1.add(new Property("energy", "energy", "1", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties1));
 		
 		//OK
-		SearchResult<Property> properties2 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties2 = new SerializableArrayList<Property>();
 		properties2.add(new Property("energy", "energy", "2.2", new Unit(5, 2, "g", 3, null, 0)));
 		assertTrue(PropertyValidator.isValid(type, properties2));
 		
 		//ERROR
-		SearchResult<Property> properties3 = new SearchResult<Property>();
+		SerializableArrayList<Property> properties3 = new SerializableArrayList<Property>();
 		properties3.add(new Property("energy", "energy", "text", new Unit(5, 2, "g", 3, null, 0)));
 		assertFalse(PropertyValidator.isValid(type, properties3));
 		

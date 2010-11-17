@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.UnitDAO;
-import org.tagaprice.shared.SearchResult;
+import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.data.Unit;
 import org.tagaprice.shared.exception.NotFoundException;
 import org.tagaprice.shared.rpc.UnitHandler;
@@ -48,7 +48,7 @@ public class UnitHandlerImpl  extends RemoteServiceServlet implements UnitHandle
 	}
 
 	@Override
-	public SearchResult<Unit> getSimilar(long id) throws NotFoundException {
+	public SerializableArrayList<Unit> getSimilar(long id) throws NotFoundException {
 		return dao.getSimilar(id);
 	}
 
