@@ -17,13 +17,13 @@
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
-		<servlet-name>Price2</servlet-name>
+		<servlet-name>Category</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.CategoryHandlerImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Price2</servlet-name>
-		<url-pattern>/tagapriceui/rpc/price2</url-pattern>
+		<servlet-name>Category</servlet-name>
+		<url-pattern>/tagapriceui/rpc/category</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
