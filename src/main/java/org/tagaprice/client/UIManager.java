@@ -24,13 +24,13 @@ import org.tagaprice.client.pages.account.ConfirmRegistrationPage;
 import org.tagaprice.client.pages.account.LoginPage;
 import org.tagaprice.client.pages.account.RegistrationPage;
 import org.tagaprice.client.widgets.SearchWidget;
-import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Category;
 import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.enums.SearchType;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

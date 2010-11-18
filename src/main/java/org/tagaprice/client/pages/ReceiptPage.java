@@ -27,12 +27,12 @@ import org.tagaprice.client.widgets.SearchWidget;
 import org.tagaprice.client.widgets.SelectiveListWidget;
 import org.tagaprice.client.widgets.ISelectiveListHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
 import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.entities.Receipt;
 import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.enums.SearchType;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;

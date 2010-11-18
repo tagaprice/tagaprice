@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.CategoryDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;

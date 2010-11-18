@@ -33,7 +33,6 @@ import org.tagaprice.client.widgets.RatingWidget;
 import org.tagaprice.client.widgets.TypeWidget;
 import org.tagaprice.client.widgets.ITypeWidgetHandler;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.SerializableArrayList;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Category;
@@ -41,6 +40,7 @@ import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.entities.Property;
 import org.tagaprice.shared.entities.PropertyGroup;
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
+import org.tagaprice.shared.enums.PriceMapType;
 import org.tagaprice.shared.exception.InvalidLoginException;
 import org.tagaprice.shared.utility.PropertyValidator;
 

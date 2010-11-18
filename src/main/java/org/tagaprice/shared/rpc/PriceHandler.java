@@ -16,8 +16,8 @@ package org.tagaprice.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.shared.entities.PriceData;
+import org.tagaprice.shared.enums.PriceMapType;
 import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.user.client.rpc.RemoteService;
