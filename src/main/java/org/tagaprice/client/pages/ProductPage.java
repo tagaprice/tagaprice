@@ -60,7 +60,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Product page with product data and type
+ * Product page wich is used to save a new product with it properties or  to change a product 
  * 
  *
  */
@@ -73,7 +73,7 @@ public class ProductPage extends APage {
 	private VerticalPanel _verticalPanel_1 = new VerticalPanel();
 	private IPropertyChangeHandler _handler;
 	private ArrayList<IPropertyHandler> _handlerList = new ArrayList<IPropertyHandler>();
-	private InfoBoxWidget __bottomInfo = new InfoBoxWidget(false);
+	private InfoBoxWidget _bottomInfo = new InfoBoxWidget(false);
 	private PriceMapWidget _priceMap;
 	private SimplePanel _typeWidgetContainer = new SimplePanel();
 	private SimplePanel _propertyHandlerContainer = new SimplePanel();
@@ -81,7 +81,7 @@ public class ProductPage extends APage {
 
 
 /**
- * The Constructor creates a ProductPage for a product
+ * The Constructor creates a Product Page with product properties
  * @param productData
  * @param _type
  */
@@ -106,21 +106,21 @@ public class ProductPage extends APage {
 		_verticalPanel_1.setWidth("100%");
 
 		// Header
-		HorizontalPanel hoPa1 = new HorizontalPanel();
-		hoPa1.setWidth("100%");
+		HorizontalPanel horizontalPanel1 = new HorizontalPanel();
+		horizontalPanel1.setWidth("100%");
 		_verticalPanel_1.add(_titleMorph);
 		_titleMorph.setText(_productData.getTitle());
 		_titleMorph.setWidth("100%");
-		_verticalPanel_1.add(hoPa1);
+		_verticalPanel_1.add(horizontalPanel1);
 		ProgressWidget progressWidget = new ProgressWidget(new Image(
 				ImageBundle.INSTANCE.productPriview()),
 				_productData.getProgress());
-		hoPa1.add(progressWidget);
+		horizontalPanel1.add(progressWidget);
 
 		VerticalPanel verticalPanel2 = new VerticalPanel();
 		verticalPanel2.setWidth("100%");
-		hoPa1.add(verticalPanel2);
-		hoPa1.setCellWidth(verticalPanel2, "100%");
+		horizontalPanel1.add(verticalPanel2);
+		horizontalPanel1.setCellWidth(verticalPanel2, "100%");
 
 		// Type
 		verticalPanel2.add(_typeWidgetContainer);
@@ -145,9 +145,6 @@ public class ProductPage extends APage {
 		};
 
 
-/**
- * The change of product data title is successful
- */
 
 		_titleMorph.addMorphWidgetInfoHandler(new IMorphWidgetInfoHandler() {
 
@@ -202,7 +199,7 @@ public class ProductPage extends APage {
 		_propertyHandlerContainer.setWidth("100%");
 		registerHandler();
 
-		_verticalPanel_1.add(__bottomInfo);
+		_verticalPanel_1.add(_bottomInfo);
 	}
 
 	private void drawTypeWidget() {
@@ -243,8 +240,8 @@ public class ProductPage extends APage {
 			}
 		}
 
-		VerticalPanel hVePa = new VerticalPanel();
-		hVePa.setWidth("100%");
+		VerticalPanel hVerticalPanel = new VerticalPanel();
+		hVerticalPanel.setWidth("100%");
 
 		// Add Properties
 		for (PropertyGroup pg : this._type.getPropertyGroups()) {
@@ -253,18 +250,18 @@ public class ProductPage extends APage {
 				ListPropertyHandler temp = new ListPropertyHandler(
 						_hashProperties, pg, _handler);
 				_handlerList.add(temp);
-				hVePa.add(temp);
+				hVerticalPanel.add(temp);
 
 			}
 
 		}
 
-		DefaultPropertyHandler defH = new DefaultPropertyHandler(
+		DefaultPropertyHandler defaultPropertyHandler = new DefaultPropertyHandler(
 				_hashProperties, _handler);
-		_handlerList.add(defH);
-		hVePa.add(defH);
+		_handlerList.add(defaultPropertyHandler);
+		hVerticalPanel.add(defaultPropertyHandler);
 
-		_propertyHandlerContainer.setWidget(hVePa);
+		_propertyHandlerContainer.setWidget(hVerticalPanel);
 	}
 
 
@@ -313,7 +310,7 @@ public class ProductPage extends APage {
 
 									@Override
 									public void onSuccess(Product result) {
-										__bottomInfo.setVisible(false);
+										_bottomInfo.setVisible(false);
 										topSave.setText("Save");
 										if (_productData.getId() == null) {
 											History.newItem("product/get&id="
@@ -356,7 +353,7 @@ public class ProductPage extends APage {
 				HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomInfoHoPa.setCellVerticalAlignment(topSave,
 				HasVerticalAlignment.ALIGN_MIDDLE);
-		__bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+		_bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 
 	private void showSaveNotLogin() {
@@ -384,7 +381,7 @@ public class ProductPage extends APage {
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		bottomInfoHoPa.setCellVerticalAlignment(topAbort,
 				HasVerticalAlignment.ALIGN_MIDDLE);
-		__bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
+		_bottomInfo.showInfo(bottomInfoHoPa, BoxType.WARNINGBOX);
 	}
 
 	/**
