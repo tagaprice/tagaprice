@@ -18,11 +18,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.tagaprice.client.widgets.PriceMapWidget.PriceMapType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.postgres.ProductDAO;
 import org.tagaprice.server.dao.postgres.ShopDAO;
 import org.tagaprice.shared.entities.PriceData;
+import org.tagaprice.shared.enums.PriceMapType;
 import org.tagaprice.shared.rpc.PriceHandler;
 import org.tagaprice.shared.utility.BoundingBox;
 

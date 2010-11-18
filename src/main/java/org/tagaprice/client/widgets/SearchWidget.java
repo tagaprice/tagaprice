@@ -5,10 +5,10 @@ import org.tagaprice.client.RPCHandlerManager;
 import org.tagaprice.client.pages.previews.ProductPagePreview;
 import org.tagaprice.client.pages.previews.ShopPagePreview;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.ISerializable;
 import org.tagaprice.shared.entities.Entity;
 import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.entities.Shop;
+import org.tagaprice.shared.enums.SearchType;
 import org.tagaprice.shared.utility.BoundingBox;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,28 +33,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * 
  */
 public class SearchWidget extends Composite {
-
-	public enum SearchType implements ISerializable {
-
-		/**
-		 * Search for everything in the db.
-		 */
-		ALL,
-		/**
-		 * Will only search for products
-		 */
-		PRODCUT,
-
-		/**
-		 * Will only search for shops
-		 */
-		SHOP;
-
-		@Override
-		public String getSerializeName() {
-			return "org.tagaprice.client.widgets.SearchWidget";
-		}
-	}
 
 	private BoundingBox _bbox = null;
 	private boolean _popup;

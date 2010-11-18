@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.tagaprice.client.widgets.SearchWidget.SearchType;
 import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.dao.postgres.ProductDAO;
@@ -18,6 +17,7 @@ import org.tagaprice.shared.entities.Product;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.enums.SearchType;
 import org.tagaprice.shared.exception.DAOException;
 import org.tagaprice.shared.rpc.SearchHandler;
 import org.tagaprice.shared.utility.BoundingBox;
