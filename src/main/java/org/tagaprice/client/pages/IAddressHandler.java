@@ -12,7 +12,7 @@ public interface IAddressHandler {
 	 * Sets the position.
 	 * 
 	 * @param address
-	 *            is the current or selected postion.
+	 *            is the current or selected position.
 	 */
 	public abstract void setAddress(Address address);
 }
