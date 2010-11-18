@@ -58,48 +58,50 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ReceiptPage extends AInfoBoxComposite {
 	interface MyUiBinder extends UiBinder<Widget, ReceiptPage>{}
-	private MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	private MyUiBinder _uiBinder = GWT.create(MyUiBinder.class);
 	
 	
-	boolean isEditable=true;
+	boolean _isEditable=true;
 //	MorphWidget title = new MorphWidget("Default title", Datatype.STRING, isEditable);
-	int bill=0;
-	ChangeHandler priceChangeHandler; 
-	Receipt receiptData;
-	ShopPagePreview shopPreview;
-	boolean allowSaving = false;
+	int _bill=0;
+	ChangeHandler _priceChangeHandler; 
+	Receipt _receiptData;
+	ShopPagePreview _shopPreview;
+	boolean _allowSaving = false;
 	
-	private SearchWidget shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
-	private SearchWidget productChooser2;
+	private SearchWidget _shopChooser2 = new SearchWidget(SearchType.SHOP, true, false, SelectionType.PLUSBUTTON);
+	private SearchWidget _productChooser2;
 	
-	SelectiveListWidget productContainer = new SelectiveListWidget(SelectionType.MINUSBUTTON);
+	SelectiveListWidget _productContainer = new SelectiveListWidget(SelectionType.MINUSBUTTON);
 	
 	
-	@UiField VerticalPanel basePanel;
-	@UiField HorizontalPanel top;
-	@UiField DateWidget date;
-	@UiField(provided=true) MorphWidget title=new MorphWidget("Default title", Datatype.STRING, isEditable);
-	@UiField HorizontalPanel pricePanel;
+	@UiField VerticalPanel _basePanel;
+	@UiField HorizontalPanel _top;
+	@UiField DateWidget _date;
+	@UiField(provided=true) MorphWidget _title=new MorphWidget("Default title", Datatype.STRING, _isEditable);
+	@UiField HorizontalPanel _pricePanel;
 	@UiField SimplePanel shop;
-	@UiField SimplePanel veProductContainer;
-	@UiField SimplePanel product;
-	@UiField Label price;
-	@UiField Button save;
+	@UiField SimplePanel _veProductContainer;
+	@UiField SimplePanel _product;
+	@UiField Label _price;
+	@UiField Button _save;
 	
 	/**
 	 * Creates a Receipt Page with receipt data 
 	 * @param receiptData
+	 * @param editable
+	 * @param text
 	 */
 	public ReceiptPage(Receipt receiptData, boolean editable, boolean text){
 		//this();
 		
-		this.receiptData=receiptData;
-		veProductContainer.setWidget(productContainer);
+		this._receiptData=receiptData;
+		_veProductContainer.setWidget(_productContainer);
 		
-		isEditable=editable;
-		title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
+		_isEditable=editable;
+		_title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
 			
-		date.setDate(receiptData.getDate());
+		_date.setDate(receiptData.getDate());
 		
 		if(receiptData.getShop()!=null){
 			setShop(receiptData.getShop());
@@ -115,26 +117,26 @@ public class ReceiptPage extends AInfoBoxComposite {
 	/**
 	 * 
 	 */
-	public ReceiptPage(Receipt _receiptData, boolean editable) {
-		init(uiBinder.createAndBindUi(this));
+	public ReceiptPage(Receipt receiptData1, boolean editable) {
+		init(_uiBinder.createAndBindUi(this));
 		
-		save.setVisible(false);
+		_save.setVisible(false);
 		
-		this.receiptData=_receiptData;
+		this._receiptData=receiptData1;
 		
 		//Style
-		basePanel.setWidth("100%");
+		_basePanel.setWidth("100%");
 		
-		top.setWidth("100%");		
-		top.setCellWidth(date, "50px");
+		_top.setWidth("100%");		
+		_top.setCellWidth(_date, "50px");
 		
-		title.setWidth("100%");
+		_title.setWidth("100%");
 		
 		//shopChooser
 		shop = new SimplePanel();
-		shop.setWidget(shopChooser2);
-		basePanel.insert(shop, 2);		
-		basePanel.setCellHorizontalAlignment(pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
+		shop.setWidget(_shopChooser2);
+		_basePanel.insert(shop, 2);		
+		_basePanel.setCellHorizontalAlignment(_pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		
 		
@@ -142,7 +144,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//Listen on Select
-		shopChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {
+		_shopChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
@@ -152,7 +154,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//ProductsHandler
-		priceChangeHandler = new ChangeHandler() {			
+		_priceChangeHandler = new ChangeHandler() {			
 			@Override
 			public void onChange(ChangeEvent event) {
 				refresh();		
@@ -161,19 +163,19 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//------
-		veProductContainer.setWidget(productContainer);
+		_veProductContainer.setWidget(_productContainer);
 		
 		
-		isEditable=editable;
-		title = new MorphWidget(receiptData.getTitle(), Datatype.STRING, true);
+		_isEditable=editable;
+		_title = new MorphWidget(_receiptData.getTitle(), Datatype.STRING, true);
 		
-		date.setDate(receiptData.getDate());
+		_date.setDate(_receiptData.getDate());
 		
-		if(receiptData.getShop()!=null){
-			setShop(receiptData.getShop());
+		if(_receiptData.getShop()!=null){
+			setShop(_receiptData.getShop());
 		}
 		
-		for(Product pd: receiptData.getProductData()){
+		for(Product pd: _receiptData.getProductData()){
 			addProduct(pd);
 		}
 		
@@ -181,11 +183,11 @@ public class ReceiptPage extends AInfoBoxComposite {
 		//------
 		
 		//Products		
-		productContainer.addSelectiveListHandler(new ISelectiveListHandler() {
+		_productContainer.addSelectiveListHandler(new ISelectiveListHandler() {
 			
 			@Override
 			public void onClick(Widget widget, int index) {
-				productContainer.removeWidget(index);
+				_productContainer.removeWidget(index);
 				refresh();
 				
 			}
@@ -194,21 +196,21 @@ public class ReceiptPage extends AInfoBoxComposite {
 		
 		
 		//Save
-		save.setStyleName("Awesome");
-		save.setWidth("100%");
-		save.addClickHandler(new ClickHandler() {
+		_save.setStyleName("Awesome");
+		_save.setWidth("100%");
+		_save.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				receiptData.setDraft(false);//Now a new receipt will be created.
+				_receiptData.setDraft(false);//Now a new receipt will be created.
 				//Save where Draft(false);
-				if(allowSaving){
+				if(_allowSaving){
 					try {
 						RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<Receipt>() {
 							
 							@Override
 							public void onSuccess(Receipt result) {
-								receiptData=result;
+								_receiptData=result;
 								//receiptData._setRev(result.getRev());
 								showInfo("Succesfull saved", BoxType.WARNINGBOX);	
 								Timer close = new Timer() {
@@ -237,7 +239,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 		});
 		
 		refreshPrice();	
-		allowSaving=true;
+		_allowSaving=true;
 	}
 	
 	
@@ -249,13 +251,13 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 */
 	public void refresh(){
 		refreshPrice();
-		if(allowSaving){
+		if(_allowSaving){
 			try {
 				RPCHandlerManager.getReceiptHandler().save(getReceiptData(), new AsyncCallback<Receipt>() {
 					
 					@Override
 					public void onSuccess(Receipt result) {
-						receiptData=result;
+						_receiptData=result;
 						showInfo("Succesfull saved", BoxType.WARNINGBOX);	
 						Timer close = new Timer() {
 							
@@ -286,41 +288,43 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * 
 	 */
 	private void refreshPrice(){
-		bill=0;
-		for(int i=0;i<productContainer.getWidgetCount();i++){
-			bill+=((ProductPagePreview)productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
+		_bill=0;
+		for(int i=0;i<_productContainer.getWidgetCount();i++){
+			_bill+=((ProductPagePreview)_productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
 		}
 		
-		price.setText((bill/100.00)+"");
+		_price.setText((_bill/100.00)+"");
 	}
 	
 	/**
-	 * 
+	 * Sets shop data
 	 * @param shop
 	 */
 	public void setShop(Shop shopData){
-		shopPreview=new ShopPagePreview(shopData, isEditable);
-		shop.setWidget(shopPreview);
+		_shopPreview=new ShopPagePreview(shopData, _isEditable);
+		shop.setWidget(_shopPreview);
 		
-		product=new SimplePanel();
-		productChooser2 = new SearchWidget(true, true, SelectionType.PLUSBUTTON, shopData);
-		product.setWidget(productChooser2);
-		basePanel.insert(product, 4);
+		_product=new SimplePanel();
+		_productChooser2 = new SearchWidget(true, true, SelectionType.PLUSBUTTON, shopData);
+		_product.setWidget(_productChooser2);
+		_basePanel.insert(_product, 4);
 		
 		//ProductChooserListener
-		productChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {			
+		_productChooser2.getSelectiveVerticalPanel().addSelectiveListHandler(new ISelectiveListHandler() {			
 			@Override
 			public void onClick(Widget widget, int index) {
 				addProduct(((ProductPagePreview)widget).getProductData());	
-				productChooser2.hideSuggest();
+				_productChooser2.hideSuggest();
 			}
 		});
 		
-		save.setVisible(true);
+		_save.setVisible(true);
 
 	}
 
-	
+	/**
+	 * Sets a new Shop 
+	 */
 	public void setNewShop(){
 		shop.setWidget(new ShopPagePreview(null, true));
 	}
@@ -330,27 +334,30 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * @param product
 	 */
 	public void addProduct(Product product){
-		productContainer.add(new ProductPagePreview(product, isEditable, priceChangeHandler));
+		_productContainer.add(new ProductPagePreview(product, _isEditable, _priceChangeHandler));
 		refresh();
 	}
-	
+	/**
+	 * Returns receipt data
+	 * @return Receipt
+	 */
 	
 	public Receipt getReceiptData(){
-		receiptData.setDate(date.getDate());	
-		receiptData.setTitle(title.getValue());
-		receiptData.setBill(bill);		
+		_receiptData.setDate(_date.getDate());	
+		_receiptData.setTitle(_title.getValue());
+		_receiptData.setBill(_bill);		
 		
-		if(shopPreview!=null){
-			receiptData.setShop(shopPreview.getShopData());
+		if(_shopPreview!=null){
+			_receiptData.setShop(_shopPreview.getShopData());
 		}
 		
 		ArrayList<Product> productList = new ArrayList<Product>();		
-		for(int i=0;i<productContainer.getWidgetCount();i++){
-			productList.add(((ProductPagePreview)productContainer.getWidget(i)).getProductData());
+		for(int i=0;i<_productContainer.getWidgetCount();i++){
+			productList.add(((ProductPagePreview)_productContainer.getWidget(i)).getProductData());
 		}		
-		receiptData.setProductData(productList);
+		_receiptData.setProductData(productList);
 		
-		return receiptData;
+		return _receiptData;
 	}
 	
 }
