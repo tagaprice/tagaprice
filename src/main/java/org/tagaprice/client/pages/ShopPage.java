@@ -134,26 +134,26 @@ public class ShopPage extends APage {
 		_verticalPanel_1.setWidth("100%");
 		
 		//Header
-		HorizontalPanel hoPa1 = new HorizontalPanel();
-		hoPa1.setWidth("100%");
+		HorizontalPanel horizontalPanel1 = new HorizontalPanel();
+		horizontalPanel1.setWidth("100%");
 		_verticalPanel_1.add(_titleMorph);		
 		_titleMorph.setText(_shopData.getTitle());
 		_titleMorph.setWidth("100%");
-		_verticalPanel_1.add(hoPa1);
+		_verticalPanel_1.add(horizontalPanel1);
 		ProgressWidget progressWidget = new ProgressWidget(new Image(ImageBundle.INSTANCE.productPriview()), _shopData.getProgress());
-		hoPa1.add(progressWidget);
+		horizontalPanel1.add(progressWidget);
 		
-		VerticalPanel vePa2 = new VerticalPanel();
-		vePa2.setWidth("100%");
-		hoPa1.add(vePa2);
-		hoPa1.setCellWidth(vePa2, "100%");
+		VerticalPanel verticalPanel2 = new VerticalPanel();
+		verticalPanel2.setWidth("100%");
+		horizontalPanel1.add(verticalPanel2);
+		horizontalPanel1.setCellWidth(verticalPanel2, "100%");
 		
 		//Type
-		vePa2.add(_typeWidgetContainer);	
+		verticalPanel2.add(_typeWidgetContainer);	
 		drawTypeWidget();
 		
 		//Rating
-		vePa2.add(new RatingWidget(_shopData.getRating(), false));
+		verticalPanel2.add(new RatingWidget(_shopData.getRating(), false));
 		
 		
 		//Add Adress and map
@@ -450,8 +450,8 @@ public class ShopPage extends APage {
 		}
 		
 		
-		VerticalPanel hVePa = new VerticalPanel();
-		hVePa.setWidth("100%");
+		VerticalPanel hVerticalPanel = new VerticalPanel();
+		hVerticalPanel.setWidth("100%");
 		
 		
 		//Add Properties
@@ -466,20 +466,20 @@ public class ShopPage extends APage {
 			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){				
 				ListPropertyHandler temp= new ListPropertyHandler(_hashProperties, pg, _handler);
 				_handlerList.add(temp);
-				hVePa.add(temp);
+				hVerticalPanel.add(temp);
 				
 			}	
 			
 		}
 		
 		
-		DefaultPropertyHandler defH = new DefaultPropertyHandler(_hashProperties, _handler);
-		_handlerList.add(defH);
-		hVePa.add(defH);
+		DefaultPropertyHandler defaultPropertyHandler = new DefaultPropertyHandler(_hashProperties, _handler);
+		_handlerList.add(defaultPropertyHandler);
+		hVerticalPanel.add(defaultPropertyHandler);
 		
 		
 		
-		_propertyHandlerContainer.setWidget(hVePa);
+		_propertyHandlerContainer.setWidget(hVerticalPanel);
 	}
 	
 	private void showSave(){

@@ -35,13 +35,14 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
 /**
+ * Homepage with functionality to add a new product,  a new shop, a receipt  to login, sign up and logout.
+ * The user can add a new receipt and list his own  receipts only if he is logged in. 
+ * If not he should login or sign up. 
  * 
- *
  */
 public class HomePage extends APage {
 
 	TaPManager _Mng = TaPManager.getInstance();
-
 	Grid _grid = new Grid(2, 3);
 	ImageTextButton _newReceipt = new ImageTextButton("add Receipt", new Image(
 			ImageBundle.INSTANCE.productPriview()), "receipt/get");
@@ -76,12 +77,21 @@ public class HomePage extends APage {
 		_grid.setWidget(0, 1, new ImageTextButton("add Shop", new Image(
 				ImageBundle.INSTANCE.newShopButton()), "shop/new"));
 
-		if (Cookies.getCookie("TaPSId") != null) { // / TODO check session
-													// validity
+		/*
+		 * TaPSId is set, if the user is logged on.
+		 * This ist NOT secure AND STUPID!!!
+		 * TODO change this!!!
+		 */
+		if (Cookies.getCookie("TaPSId") != null) { 
 			_grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(
 					ImageBundle.INSTANCE.loginButton()), "user/logout"));
 			_grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(
 					ImageBundle.INSTANCE.productPriview()), new ClickHandler() {
+				
+				/**
+				 * Method wich handels a click event and the asynchronous callback from server 
+				 * reaction with onSuccess or onFailure
+				 */
 				@Override
 				public void onClick(ClickEvent event) {
 					TaPManager.getInstance().getUIManager().waitingPage();
