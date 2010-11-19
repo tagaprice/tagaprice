@@ -1,30 +1,29 @@
 package org.tagaprice.shared.entities;
 
+/**
+ * Contains all important information to represent a
+ * LocalAccount.
+ */
 public class LocalAccount extends Account {
-
-	/**
-	 * Contains all important information to represent a
-	 * LocalAccount. 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String password;
-	
+
 	/**
 	 * default constructor (used for serialization)
 	 */
 	public LocalAccount() {
 		super();
 	}
-	
-	
+
+
 	/**
-	 * constructor for querying a LocalAccount's current revision 
+	 * constructor for querying a LocalAccount's current revision
 	 * @param id Product ID
 	 */
 	public LocalAccount(long id) {
 		super(id);
 	}
-	
+
 	/**
 	 * query a specific LocalAccount revision
 	 * @param id user ID
@@ -33,8 +32,8 @@ public class LocalAccount extends Account {
 	public LocalAccount(long id, int rev) {
 		super(id, rev);
 	}
-	
-	
+
+
 	/**
 	 * constructor for creating a new LocalAccount
 	 * @param title
@@ -51,17 +50,17 @@ public class LocalAccount extends Account {
 	 * @param longitude
 	 */
 	public LocalAccount(
-			String title, 
+			String title,
 			int localeId,
-			Long creatorId, 
+			Long creatorId,
 			String mail,
 			String password,
 			Address address) {
 		super(title, localeId, mail, address);
-		
+
 		this.password = password;
 	}
-	
+
 	/**
 	 * constructor for saving existing Project
 	 * @param id
@@ -79,15 +78,15 @@ public class LocalAccount extends Account {
 	 * @param longitude
 	 */
 	public LocalAccount(
-			long id, 
+			long id,
 			int rev,
-			String title, 
+			String title,
 			long revCreatorId,
-			String mail, 
-			String password, 
+			String mail,
+			String password,
 			Address address){
-		super(id, rev, title, revCreatorId, mail, address);	
-		
+		super(id, rev, title, revCreatorId, mail, address);
+
 		this.password = password;
 	}
 
@@ -101,17 +100,17 @@ public class LocalAccount extends Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
-		
+
 		if (o instanceof LocalAccount) {
 			LocalAccount a = (LocalAccount) o;
 			if (!super.equals(a)) rc = false;
 		}
 		else rc = false;
-		
+
 		return rc;
 	}
 
@@ -119,6 +118,6 @@ public class LocalAccount extends Account {
 	public String getSerializeName() {
 		return "localAccount";
 	}
-	
-	
+
+
 }

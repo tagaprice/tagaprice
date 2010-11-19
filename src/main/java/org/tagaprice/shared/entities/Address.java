@@ -2,38 +2,38 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPriceUI
  * Filename: Address.java
  * Date: May 26, 2010
-*/
+ */
 package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.ISerializable;
 
 /**
  * Holds data about an address.
- * An address can be represented as combination of street, city and country or
- * by latitude and longitude.
+ * An address can be represented as combination of street, city and country and/or
+ * as a combination of latitude and longitude.
  * 
  *
  */
 public class Address implements ISerializable {
 
-	
+
 	private static final long serialVersionUID = 1L;
 	private String street;
 	private String city;
 	private Country country;
 	private Double lat;
 	private Double lng;
-	
-	
+
+
 	@Override
 	public String getSerializeName() {
 		return "Address";
@@ -90,8 +90,8 @@ public class Address implements ISerializable {
 	public Double getLng() {
 		return lng;
 	}
-	
-	
+
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
@@ -108,20 +108,20 @@ public class Address implements ISerializable {
 		this.lat = lat;
 		this.lng = lng;
 	}
-	
+
 	public void setAddress(String street, String city, Country country) {
 		setStreet(street);
 		setCity(city);
 		setCountry(country);
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
-		
+
 		if (o instanceof Address) {
 			Address a = (Address) o;
-			
+
 			if (!Entity._compare(getStreet(), a.getStreet())) rc = false;
 			if (!Entity._compare(getCity(), a.getCity())) rc = false;
 			if (!Entity._compare(getCountry(), a.getCountry())) rc = false;
@@ -129,7 +129,7 @@ public class Address implements ISerializable {
 			if (!Entity._compare(getLng(), a.getLng())) rc = false;
 		}
 		else rc = false;
-		
+
 		return rc;
 	}
 }

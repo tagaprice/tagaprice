@@ -1,13 +1,18 @@
 package org.tagaprice.shared.entities;
 
 /**
- * Represents a session for a user. A user may have multiple (active) sessions, for each session a Session Object with a unique session id will be created.
+ * Represents a session for a user. A user may have multiple (active) sessions, for each session a Session Object with a unique session id should be created.
  * @author "forste"
  */
 public class Session {
 	private final String _sid;
 	private final long _uid;
 
+	/**
+	 * 
+	 * @param sid Unique session id for this session.
+	 * @param uid User id of the user who requested this session.
+	 */
 	public Session(String sid, long uid) {
 		_sid = sid;
 		_uid = uid;
