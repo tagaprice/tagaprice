@@ -20,8 +20,8 @@ package org.tagaprice.shared.entities;
 public class Account extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private String mail;
-	private Address address;
+	private String _mail;
+	private Address _address;
 
 	/**
 	 * Default constructor needed for serialization.
@@ -54,8 +54,8 @@ public class Account extends Entity {
 	 */
 	public Account(String title, int localeId, String mail, Address address) {
 		super(title, localeId, null);
-		this.mail = mail;
-		this.address = address;
+		this._mail = mail;
+		this._address = address;
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class Account extends Entity {
 	 */
 	public Account(Long id, int rev, String title, Long revCreatorId, String mail, Address address) {
 		super(id, rev, title, revCreatorId);
-		this.mail = mail;
-		this.address = address;
+		this._mail = mail;
+		this._address = address;
 	}
 
 	@Override
@@ -101,28 +101,28 @@ public class Account extends Entity {
 	 * @param mail the email address of this account
 	 */
 	public void setMail(String mail) {
-		this.mail = mail;
+		this._mail = mail;
 	}
 	
 	/**
 	 * @return the email address of this account
 	 */
 	public String getMail() {
-		return mail;
+		return _mail;
 	}
 	
 	/**
 	 * @param address the address of this account
 	 */
 	public void setAddress(Address address) {
-		this.address = address;
+		this._address = address;
 	}
 	
 	/**
 	 * @return the address of this account
 	 */
 	public Address getAddress() {
-		return address;
+		return _address;
 	}
 
 	@Override
