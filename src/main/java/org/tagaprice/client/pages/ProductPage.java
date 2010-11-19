@@ -246,7 +246,7 @@ public class ProductPage extends APage {
 		// Add Properties
 		for (PropertyGroup pg : this._type.getPropertyGroups()) {
 
-			if (pg.getType().equals(PropertyGroup.GroupType.LIST)) {
+			if (pg.getType().equals(PropertyGroup.PropertyGroupType.LIST)) {
 				ListPropertyHandler temp = new ListPropertyHandler(
 						_hashProperties, pg, _handler);
 				_handlerList.add(temp);

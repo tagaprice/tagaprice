@@ -457,13 +457,13 @@ public class ShopPage extends APage {
 		//Add Properties
 		for(PropertyGroup pg:this._type.getPropertyGroups()){
 			
-			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
+			if(pg.getType().equals(PropertyGroup.PropertyGroupType.NUTRITIONFACTS)){
 				/*
 				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(hashProperties, pg, handler);
 				handlerList.add(temp);
 				hVePa.add(temp);
 				*/
-			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){				
+			}else if (pg.getType().equals(PropertyGroup.PropertyGroupType.LIST)){				
 				ListPropertyHandler temp= new ListPropertyHandler(_hashProperties, pg, _handler);
 				_handlerList.add(temp);
 				hVerticalPanel.add(temp);
