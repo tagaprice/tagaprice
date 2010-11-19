@@ -2,73 +2,110 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: tagaprice
  * Filename: Quantity.java
  * Date: 19.05.2010
-*/
+ */
 package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.ISerializable;
 
+/**
+ * TODO find better classname
+ * Quantity of a product on a receipt or similar.
+ */
 public class Quantity implements ISerializable {
 	private static final long serialVersionUID = 1L;
-	
-	private int quantity;
-	private Unit unit;
-	
+
+	private int _amount;
+	private Unit _unit;
+
+	/**
+	 * Default constructor needed for serialization
+	 */
 	public Quantity() {
 	}
-	
-	public Quantity(int quantity, Unit unit) {
-		setQuantity(quantity);
+
+	/**
+	 * Constructor for creating a new {@link Quantity}.
+	 * 
+	 * @param amount
+	 *            number for the quantity of this {@link Quantity}
+	 * @param unit
+	 *            {@link Unit} of this {@link Quantity} (may be null)
+	 */
+	public Quantity(int amount, Unit unit) {
+		setAmount(amount);
 		setUnit(unit);
 	}
-	
-	public Quantity(int quantity) {
-		this(quantity, null);
+
+	/**
+	 * Constructor for creating a new {@link Quantity} without {@link Unit}.
+	 * 
+	 * @param amount
+	 *            number for the quantity of this {@link Quantity}
+	 */
+	public Quantity(int amount) {
+		this(amount, null);
 	}
-	
-	public int getQuantity() {
-		return quantity;
+
+	/**
+	 * @return number for the quantity of this {@link Quantity}
+	 */
+	public int getAmount() {
+		return _amount;
 	}
-	
+
+	/**
+	 * @return {@link Unit} of this {@link Quantity}.
+	 */
 	public Unit getUnit() {
-		return unit;
+		return _unit;
 	}
-	
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+
+	/**
+	 * @param amount
+	 *            number for the quantity of this {@link Quantity}
+	 */
+	public void setAmount(int amount) {
+		this._amount = amount;
 	}
-	
+
+	/**
+	 * @param unit
+	 *            {@link Unit} of this {@link Quantity}.
+	 */
 	public void setUnit(Unit unit) {
-		this.unit = unit;
+		_unit = unit;
 	}
 
 	@Override
 	public String getSerializeName() {
 		return "quantity";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
-		
+
 		if (o instanceof Quantity) {
 			Quantity q = (Quantity) o;
-			if (getQuantity() != q.getQuantity()) rc = false;
+			if (getAmount() != q.getAmount())
+				rc = false;
 			else if (getUnit() != null) {
-				if (!getUnit().equals(q.getUnit())) rc = false;
-			}
-			else if (q.getUnit() != null) rc = false;
-		}
-		else rc = false;
-		
+				if (!getUnit().equals(q.getUnit()))
+					rc = false;
+			} else if (q.getUnit() != null)
+				rc = false;
+		} else
+			rc = false;
+
 		return rc;
 	}
 }
