@@ -8,14 +8,14 @@ public class ServerException extends Exception {
 	private static final long serialVersionUID = -8255098943533093519L;
 
 	public ServerException() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public ServerException(String message) {
-		// TODO Auto-generated constructor stub
+		super(message);
 	}
-	
+
 	public ServerException(String message, Throwable cause) {
-		// TODO Auto-generated constructor stub
+		super(message, cause);
 	}
 }

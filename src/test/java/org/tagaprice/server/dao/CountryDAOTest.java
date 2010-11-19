@@ -25,7 +25,7 @@ public class CountryDAOTest {
 
 	@Test
 	public void testGet() throws Exception {
-		Country c = dao.get("us");
+		Country c = dao.getByCountryCode("us");
 		assertEquals("us", c.getCode());
 		assertEquals("United States", c.getTitle());
 		assertEquals(null, c.getLocalTitle());

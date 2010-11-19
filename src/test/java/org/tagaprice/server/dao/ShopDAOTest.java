@@ -32,7 +32,7 @@ public class ShopDAOTest {
 		new AccountDAO(db).save(a);
 		uid = a.getId();
 		
-		Address address = new Address("street", "city", new CountryDAO(db).get("us"), -2.564, 132.863);
+		Address address = new Address("street", "city", new CountryDAO(db).getByCountryCode("us"), -2.564, 132.863);
 		testShop = new Shop("testshop title", localeId, uid, -16L, null, address);
 		
 	}

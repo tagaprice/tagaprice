@@ -10,14 +10,13 @@ import org.tagaprice.server.DBConnection;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.exception.DAOException;
-import org.tagaprice.shared.exception.NotFoundException;
 
 public class ShopDAO implements IShopDAO {
 	private DBConnection _db;
 	private EntityDAO _entityDAO;
 	private CountryDAO _countryDAO;
 	private static Logger _log = Logger.getLogger(ShopDAO.class);
-	
+
 	public ShopDAO(DBConnection db) {
 		this._db = db;
 		_entityDAO = new EntityDAO(db);
@@ -28,11 +27,11 @@ public class ShopDAO implements IShopDAO {
 	public Shop getById(long id) throws DAOException {
 		return getByIdAndRef(id, 0);
 	}
-	
+
 
 	@Override
 	public Shop getByIdAndRef(long id, long rev) throws DAOException {
-		_log.debug("id:"+id);
+		ShopDAO._log.debug("id:"+id);
 		//Get Entity Data
 		Shop shop;
 		shop = _entityDAO.getByIdAndRev(new Shop(), id, rev);
@@ -41,9 +40,9 @@ public class ShopDAO implements IShopDAO {
 		// TODO implement fetching of a specific shop revision
 		//Get Shop Data
 		String sql = "SELECT type_id, imageUrl, lat, lng, street, city, country_code " +
-				"FROM shopRevision " +
-				"INNER JOIN ENTITY ON(ent_id = shop_id) " +
-				"WHERE shop_id = ? AND rev = ?";
+		"FROM shopRevision " +
+		"INNER JOIN ENTITY ON(ent_id = shop_id) " +
+		"WHERE shop_id = ? AND rev = ?";
 		PreparedStatement pstmt;
 		try {
 			pstmt = _db.prepareStatement(sql);
@@ -63,32 +62,29 @@ public class ShopDAO implements IShopDAO {
 			}
 			else shop.getAddress().setCoordinates(null, null);
 
-			String countryCode = res.getString("country_code"); 
+			String countryCode = res.getString("country_code");
 
 			shop.getAddress().setAddress(
 					res.getString("street"),
 					res.getString("city"),
-					countryCode != null ? _countryDAO.get(countryCode) : null);
+					countryCode != null ? _countryDAO.getByCountryCode(countryCode) : null);
 			return shop;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
-			_log.error(msg+" Chaining and rethrowing.");
-			_log.debug(e.getStackTrace());
+			ShopDAO._log.error(msg+" Chaining and rethrowing.");
+			ShopDAO._log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
-		} catch (NotFoundException e) {
-			// TODO clean countryDAO from NotFoundExceptions
-			throw new DAOException(e.getMessage(), e);
 		}
 	}
 
 	@Override
 	public Shop save(Shop shop) throws DAOException {
-		_log.debug("shop:"+shop);
+		ShopDAO._log.debug("shop:"+shop);
 		PreparedStatement pstmt;
 
 		try {
 			Shop versionedShop = _entityDAO.save(shop);
-				
+
 			if(versionedShop == null)
 				return null;
 
@@ -138,8 +134,8 @@ public class ShopDAO implements IShopDAO {
 			return versionedShop;
 		} catch (SQLException e) {
 			String msg = "Failed to retrieve shop. SQLException: "+e.getMessage()+".";
-			_log.error(msg+" Chaining and rethrowing.");
-			_log.debug(e.getStackTrace());
+			ShopDAO._log.error(msg+" Chaining and rethrowing.");
+			ShopDAO._log.debug(e.getStackTrace());
 			throw new DAOException(msg, e);
 		}
 	}
