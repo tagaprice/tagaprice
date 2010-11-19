@@ -60,7 +60,7 @@ public class ProductHandlerImpl extends RemoteServiceServlet implements ProductH
 		getSid();
 		CategoryHandlerImpl th = new CategoryHandlerImpl();
 
-		if(PropertyValidator.isValid(th.get(new Category(data.getTypeId())), data.getProperties())){
+		if(PropertyValidator.isValid(th.get(new Category(data.getCategoryId())), data.getProperties())){
 
 
 			try {

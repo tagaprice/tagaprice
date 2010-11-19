@@ -66,9 +66,9 @@ public class ProductDAO implements IProductDAO {
 		else 
 			product.setBrandId(null);
 		if (res.getString("type_id") != null) 
-			product.setTypeId(res.getLong("type_id"));
+			product.setCategoryId(res.getLong("type_id"));
 		else 
-			product.setTypeId(null);
+			product.setCategoryId(null);
 		product.setImageSrc(res.getString("imageurl"));
 		return product;	
 		} catch (SQLException e) {
@@ -107,8 +107,8 @@ public class ProductDAO implements IProductDAO {
 				pstmt.setLong(3, versionedProduct.getBrandId());
 			else 
 				pstmt.setNull(3, Types.BIGINT);
-			if (versionedProduct.getTypeId() != null) 
-				pstmt.setLong(4, versionedProduct.getTypeId());
+			if (versionedProduct.getCategoryId() != null) 
+				pstmt.setLong(4, versionedProduct.getCategoryId());
 			else 
 				pstmt.setNull(4, Types.BIGINT);
 			pstmt.setString(5, versionedProduct.getImageSrc());
