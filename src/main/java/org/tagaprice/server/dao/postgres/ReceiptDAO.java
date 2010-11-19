@@ -200,7 +200,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 					pstmt.setLong(1, versionedReceipt.getId());
 					pstmt.setLong(2, pd.getId());
-					pstmt.setLong(3, pd.getAvgPrice().getPrice());
+					pstmt.setLong(3, pd.getAvgPrice().getAmount());
 
 					pstmt.executeUpdate();
 				}

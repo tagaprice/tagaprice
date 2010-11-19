@@ -127,7 +127,7 @@ public class ProductPagePreview extends APagePreview {
 		
 		
 		name.setText(_productData.getTitle());
-		_price=new MorphWidget(""+(this._productData.getAvgPrice().getPrice()/100.00),Datatype.DOUBLE, _editable);
+		_price=new MorphWidget(""+(this._productData.getAvgPrice().getAmount()/100.00),Datatype.DOUBLE, _editable);
 		_price.setWidth("40px");
 		pricePanel.setWidget(_price);
 		
@@ -183,7 +183,7 @@ public class ProductPagePreview extends APagePreview {
 	 */
 	public Product getProductData(){
 		if(_editable){
-			_productData.getAvgPrice().setPrice((int)(Double.parseDouble(_price.getValue())*100));
+			_productData.getAvgPrice().setAmount((int)(Double.parseDouble(_price.getValue())*100));
 			_productData.getQuantity().setQuantity(new Integer(_quantitiy.getValue()));
 			_productData.setRating(_ratingWidget.getRating());
 		}

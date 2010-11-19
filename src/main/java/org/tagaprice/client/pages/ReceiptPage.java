@@ -290,7 +290,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	private void refreshPrice(){
 		_bill=0;
 		for(int i=0;i<_productContainer.getWidgetCount();i++){
-			_bill+=((ProductPagePreview)_productContainer.getWidget(i)).getProductData().getAvgPrice().getPrice();
+			_bill+=((ProductPagePreview)_productContainer.getWidget(i)).getProductData().getAvgPrice().getAmount();
 		}
 		
 		_price.setText((_bill/100.00)+"");

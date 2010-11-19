@@ -173,7 +173,7 @@ public class Receipt extends Entity {
 		
 		long totalPrice = 0;
 		for(Product pd: productData){
-			totalPrice= totalPrice+pd.getAvgPrice().getPrice();
+			totalPrice= totalPrice+pd.getAvgPrice().getAmount();
 		}
 		
 		return totalPrice;

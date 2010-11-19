@@ -214,7 +214,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 			_priceTable.setText(row, 3 + pinOff + colOff, DateTimeFormat
 					.getLongDateFormat().format(pd.getDate()));
 			_priceTable.setText(row, 4 + pinOff + colOff, ""
-					+ (pd.getPrice().getPrice() / 100.00) + ""
+					+ (pd.getPrice().getAmount() / 100.00) + ""
 					+ pd.getPrice().getCurrency().getTitle());
 
 			if (!_type.equals(PriceMapType.SHOP))
