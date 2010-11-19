@@ -108,7 +108,7 @@ public class SearchHandlerImpl extends RemoteServiceServlet implements SearchHan
 				sp.setAvgPrice(new Price(15, 4, 1, "€", 1));
 				sp.setImageSrc("logo.png");
 				sp.setQuantity(new Quantity(125, new Unit(23, 2, "g", 1, null, 0)));
-				sp.setTypeId(20l);
+				sp.setCategoryId(20l);
 				mockUp.add(sp);
 			}
 		} catch (SQLException e) {

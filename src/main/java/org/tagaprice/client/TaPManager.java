@@ -128,7 +128,7 @@ public class TaPManager {
 							// TODO set new Type("root", 9, 1, null) to new
 							// Type(1)
 							RPCHandlerManager.getTypeHandler().get(
-									new Category(pResult.getTypeId()),
+									new Category(pResult.getCategoryId()),
 									new AsyncCallback<Category>() {
 
 										@Override

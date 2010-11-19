@@ -246,7 +246,7 @@ public class ProductPage extends APage {
 		// Add Properties
 		for (PropertyGroup pg : this._type.getPropertyGroups()) {
 
-			if (pg.getType().equals(PropertyGroup.GroupType.LIST)) {
+			if (pg.getType().equals(PropertyGroup.PropertyGroupType.LIST)) {
 				ListPropertyHandler temp = new ListPropertyHandler(
 						_hashProperties, pg, _handler);
 				_handlerList.add(temp);
@@ -299,7 +299,7 @@ public class ProductPage extends APage {
 				topSave.setText("Saving...");
 
 				_productData.setProperties(hashToPropertyList(_hashProperties));
-				_productData.setTypeId(new Long(_type.getId()));
+				_productData.setCategoryId(new Long(_type.getId()));
 
 				// Validate Data
 				if (PropertyValidator.isValid(_type,

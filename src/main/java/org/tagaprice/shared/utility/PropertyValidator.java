@@ -116,7 +116,7 @@ public class PropertyValidator {
 	 * TODO refactor ("NutritionFacts"...)
 	 */
 	private static PropertyGroup extractPropertyGroupFromCategory(Category type){
-		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.GroupType.LIST);
+		PropertyGroup returnVal = new PropertyGroup("NutritionFacts", PropertyGroup.PropertyGroupType.LIST);
 		
 		for(PropertyGroup pg:type.getPropertyGroups()){
 			for(PropertyTypeDefinition pd:pg.getGroupElements()){

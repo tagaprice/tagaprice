@@ -36,12 +36,12 @@ public class PropertyValidatorTest {
 		//Create Type
 		type = new Category("eisen", 20, 21, new Category("metall", 10, 11, new Category("werkzeug", 5, 6, null)));
 		
-		PropertyGroup pg = new PropertyGroup("Test1", PropertyGroup.GroupType.LIST);
+		PropertyGroup pg = new PropertyGroup("Test1", PropertyGroup.PropertyGroupType.LIST);
 		pg.addGroupElement(new PropertyTypeDefinition(2L, 1, "ean", "ean", 1, PropertyTypeDefinition.Datatype.INT,0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
 		pg.addGroupElement(new PropertyTypeDefinition(2L, 1, "energy", "Energy", 1, PropertyTypeDefinition.Datatype.DOUBLE, 0, 29,new Unit(15, 8, "g", 1, null, 0),true)); 
 		type.addPropertyGroup(pg);
 		
-		PropertyGroup pg2 = new PropertyGroup("Test2", PropertyGroup.GroupType.LIST);
+		PropertyGroup pg2 = new PropertyGroup("Test2", PropertyGroup.PropertyGroupType.LIST);
 		pg2.addGroupElement(new PropertyTypeDefinition(2L, 1, "ps", "Ps", 1, PropertyTypeDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),false)); 
 		pg2.addGroupElement(new PropertyTypeDefinition(2L, 1, "kw", "kw", 1, PropertyTypeDefinition.Datatype.INT, 0, 29, new Unit(15, 8, "g", 1, null, 0),true));
 		type.addPropertyGroup(pg2);

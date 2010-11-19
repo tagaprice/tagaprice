@@ -68,7 +68,7 @@ public class TypeWidget extends Composite {
 		
 		
 		
-		if(iterType.getSuperType() != null){		
+		if(iterType.getSuperCategory() != null){		
 			do{
 				final Category innerType = iterType;
 
@@ -182,8 +182,8 @@ public class TypeWidget extends Composite {
 					}
 				});
 
-				iterType = iterType.getSuperType();
-			} while (iterType.getSuperType() != null);
+				iterType = iterType.getSuperCategory();
+			} while (iterType.getSuperCategory() != null);
 		}
 
 		// root

@@ -162,9 +162,9 @@ public class ShopPage extends APage {
 		_mapWidget.setHeight("200px");
 		MarkerOptions makerOption = MarkerOptions.newInstance();
 		makerOption.setDraggable(true);
-		if(_shopData.getAddress().getLat()!=null){
-			_mapWidget.setCenter(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()));
-			_marker = new Marker(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()), makerOption);
+		if(_shopData.getAddress().getLatitude()!=null){
+			_mapWidget.setCenter(LatLng.newInstance(_shopData.getAddress().getLatitude(),_shopData.getAddress().getLongitude()));
+			_marker = new Marker(LatLng.newInstance(_shopData.getAddress().getLatitude(),_shopData.getAddress().getLongitude()), makerOption);
 		}else{
 			_marker = new Marker(_mapWidget.getCenter(), makerOption);
 		}
@@ -457,13 +457,13 @@ public class ShopPage extends APage {
 		//Add Properties
 		for(PropertyGroup pg:this._type.getPropertyGroups()){
 			
-			if(pg.getType().equals(PropertyGroup.GroupType.NUTRITIONFACTS)){
+			if(pg.getType().equals(PropertyGroup.PropertyGroupType.NUTRITIONFACTS)){
 				/*
 				NutritionFactsPropertyHandler temp = new NutritionFactsPropertyHandler(hashProperties, pg, handler);
 				handlerList.add(temp);
 				hVePa.add(temp);
 				*/
-			}else if (pg.getType().equals(PropertyGroup.GroupType.LIST)){				
+			}else if (pg.getType().equals(PropertyGroup.PropertyGroupType.LIST)){				
 				ListPropertyHandler temp= new ListPropertyHandler(_hashProperties, pg, _handler);
 				_handlerList.add(temp);
 				hVerticalPanel.add(temp);

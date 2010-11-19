@@ -21,17 +21,18 @@ import org.tagaprice.shared.ISerializable;
  * An address can be represented as combination of street, city and country and/or
  * as a combination of latitude and longitude.
  * 
- *
+ * Fields that are not explicitly set are null (no lookup or likewise is conducted).
+ * 
+ * TODO this is currently not saved in the database. save it.
  */
 public class Address implements ISerializable {
 
-
 	private static final long serialVersionUID = 1L;
-	private String street;
-	private String city;
-	private Country country;
-	private Double lat;
-	private Double lng;
+	private String _street;
+	private String _city;
+	private Country _country;
+	private Double _latitude;
+	private Double _longitude;
 
 
 	@Override
@@ -45,70 +46,128 @@ public class Address implements ISerializable {
 	public Address() {
 	}
 
-	public Address(String street, String city, Country country, Double lat, Double lng) {
-		this.street = street;
-		this.city = city;
-		this.country = country;
-		this.lat = lat;
-		this.lng = lng;
+	/**
+	 * Constructor to represent an {@link Address} by coordinates and street/city/country.
+	 * 
+	 * @param street
+	 *            street of the {@link Address}
+	 * @param city
+	 *            city of the {@link Address}
+	 * @param country
+	 *            country of the {@link Address}
+	 * @param latitude
+	 *            latitude of the position of the {@link Address}
+	 * @param longitude
+	 *            longitude of the position of the {@link Address}
+	 */
+	public Address(String street, String city, Country country, Double latitude, Double longitude) {
+		_street = street;
+		_city = city;
+		_country = country;
+		_latitude = latitude;
+		_longitude = longitude;
 	}
 
-
+	/**
+	 * Constructor to represent an {@link Address} bystreet/city/country.
+	 * 
+	 * @param street
+	 *            street of the {@link Address}
+	 * @param city
+	 *            city of the {@link Address}
+	 * @param country
+	 *            country of the {@link Address}
+	 */
 	public Address(String street, String city, Country country) {
-		this.street = street;
-		this.city = city;
-		this.country = country;
+		_street = street;
+		_city = city;
+		_country = country;
 	}
 
-
+	/**
+	 * Constructor to represent an {@link Address} by coordinates.
+	 * 
+	 * @param latitude
+	 *            latitude of the position of the {@link Address}
+	 * @param longitude
+	 *            longitude of the position of the {@link Address}
+	 */
 	public Address(Double lat, Double lng) {
-		this.lat = lat;
-		this.lng = lng;
+		_latitude = lat;
+		_longitude = lng;
 	}
 
-
+	/**
+	 * @return the street
+	 */
 	public String getStreet() {
-		return street;
+		return _street;
 	}
 
-
+	/**
+	 * @return the city
+	 */
 	public String getCity() {
-		return city;
+		return _city;
 	}
 
-
+	/**
+	 * @return the country
+	 */
 	public Country getCountry() {
-		return country;
+		return _country;
 	}
 
-
-	public Double getLat() {
-		return lat;
+	/**
+	 * @return latitude of the coordinates of this {@link Address}
+	 */
+	public Double getLatitude() {
+		return _latitude;
 	}
 
-
-	public Double getLng() {
-		return lng;
+	/**
+	 * @return longitude of the coordinates of this {@link Address}
+	 */
+	public Double getLongitude() {
+		return _longitude;
 	}
 
-
+	/**
+	 * @param street set the street
+	 */
 	public void setStreet(String street) {
-		this.street = street;
+		_street = street;
 	}
 
+	/**
+	 * @param city set the city
+	 */
 	public void setCity(String city) {
-		this.city = city;
+		_city = city;
 	}
 
+	/**
+	 * @param country set the country
+	 */
 	public void setCountry(Country country) {
-		this.country = country;
+		_country = country;
 	}
 
-	public void setCoordinates(Double lat, Double lng) {
-		this.lat = lat;
-		this.lng = lng;
+	/**
+	 * @param latitude set the latitude of the coordinates of the {@link Address}
+	 * @param longitude set the longitude of the coordinates of the {@link Address}
+	 */
+	public void setCoordinates(Double latitude, Double longitude) {
+		_latitude = latitude;
+		_longitude = longitude;
 	}
 
+	/**
+	 * Set the street/city/country fields of the {@link Address}.
+	 * @param street the street
+	 * @param city the city
+	 * @param country the country
+	 */
 	public void setAddress(String street, String city, Country country) {
 		setStreet(street);
 		setCity(city);
@@ -117,19 +176,24 @@ public class Address implements ISerializable {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean rc = true;
+		boolean areEqual = true;
 
 		if (o instanceof Address) {
 			Address a = (Address) o;
 
-			if (!Entity._compare(getStreet(), a.getStreet())) rc = false;
-			if (!Entity._compare(getCity(), a.getCity())) rc = false;
-			if (!Entity._compare(getCountry(), a.getCountry())) rc = false;
-			if (!Entity._compare(getLat(), a.getLat())) rc = false;
-			if (!Entity._compare(getLng(), a.getLng())) rc = false;
-		}
-		else rc = false;
+			if (!Entity._compare(getStreet(), a.getStreet()))
+				areEqual = false;
+			if (!Entity._compare(getCity(), a.getCity()))
+				areEqual = false;
+			if (!Entity._compare(getCountry(), a.getCountry()))
+				areEqual = false;
+			if (!Entity._compare(getLatitude(), a.getLatitude()))
+				areEqual = false;
+			if (!Entity._compare(getLongitude(), a.getLongitude()))
+				areEqual = false;
+		} else
+			areEqual = false;
 
-		return rc;
+		return areEqual;
 	}
 }

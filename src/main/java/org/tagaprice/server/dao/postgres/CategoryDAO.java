@@ -59,7 +59,7 @@ public class CategoryDAO implements ICategoryDAO {
 			 */
 
 			//TODO Create PropertyGroups in db and add a group to a Type
-			PropertyGroup pg5 = new PropertyGroup("NoCatList", PropertyGroup.GroupType.LIST);
+			PropertyGroup pg5 = new PropertyGroup("NoCatList", PropertyGroup.PropertyGroupType.LIST);
 
 			String sql ="SELECT prop_id FROM propertyrevision pr " +
 			"INNER JOIN entity en " +
@@ -153,9 +153,9 @@ public class CategoryDAO implements ICategoryDAO {
 		ResultSet res = pstmt.executeQuery();
 		
 		if(res.next()){ //category has super category
-			category.setSuperType(getAndSetSuperCategoryRecursive(res.getLong("parent_id")));
+			category.setSuperCategory(getAndSetSuperCategoryRecursive(res.getLong("parent_id")));
 		} else {
-			category.setSuperType(null);
+			category.setSuperCategory(null);
 		}
 		return category;
 	}
