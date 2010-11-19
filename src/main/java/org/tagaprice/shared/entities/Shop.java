@@ -2,51 +2,59 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPriceUI
  * Filename: ShopPreviewContainer.java
  * Date: 16.05.2010
-*/
+ */
 package org.tagaprice.shared.entities;
 
 
 /**
- * Contains all important information to represent a shop.
+ * A {@link Shop} represents a shop where products can be bought.
+ * It has the following properties:
+ * - A {@link Category}
+ * - An image (represented as an URL)
+ * - An {@link Address} representing the location of the shop.
+ * 
+ * Further properties:
+ * - A rating in percent (-1 meaning unrated)
+ * - A progress meter representing the completeness of the collected information about this {@link SHop} in percent.
  */
 public class Shop extends Entity {
 	private static final long serialVersionUID = 1;
-	
-	/** ID of the type for this {@link Shop} */
-	private Long typeId;
-	private String imageSrc;
+
+	/** ID of the category for this {@link Shop} */
+	private Long _categoryId;
+	private String _imageSrc;
 	/** In percent 0-100 */
-	private int progress;
+	private int _progress;
 	/** in percent 0-100, -1 means unrated */
-	private int rating;
-	private Address address = new Address();
-	
+	private int _rating;
+	private Address _address = new Address();
+
 	/**
 	 * Default constructor needed for serialization.
 	 */
 	public Shop() {
 		super();
 	}
-	
+
 	/**
-	 * Constructor for querying a shop's current revision. 
+	 * Constructor for querying a shop's current revision.
 	 * @param id Shop ID
 	 */
 	public Shop(long id) {
 		super(id);
 	}
-	
+
 	/**
-	 * Constructor for querying a specific shop revision. 
+	 * Constructor for querying a specific shop revision.
 	 * @param id Shop ID
 	 * @param rev Shop revision
 	 */
@@ -65,13 +73,13 @@ public class Shop extends Entity {
 	 */
 	public Shop(String title, int localeId, long creatorId, Long typeId, String imageSrc, Address address) {
 		super(title, localeId, creatorId);
-		this.typeId = typeId;
-		this.imageSrc = imageSrc;
-		this.address = address;
+		_categoryId = typeId;
+		_imageSrc = imageSrc;
+		_address = address;
 	}
-	
+
 	/**
-	 * Constructor for saving changes of an existing {@link Shop}. 
+	 * Constructor for saving changes of an existing {@link Shop}.
 	 * @param id Shop ID
 	 * @param rev Shop revision
 	 * @param title descriptive Shop Name (must not be empty)
@@ -83,16 +91,16 @@ public class Shop extends Entity {
 	 */
 	public Shop(long id, int rev, String title, long creatorId, Long typeId, String imageSrc, Address address) {
 		super(id, rev, title, creatorId);
-		this.typeId = typeId;
-		this.imageSrc = imageSrc;
-		this.address = address;
+		_categoryId = typeId;
+		_imageSrc = imageSrc;
+		_address = address;
 	}
-	
+
 	/**
 	 * @return the URL of the image of this {@link Shop}
 	 */
 	public String getImageSrc() {
-		return imageSrc;
+		return _imageSrc;
 	}
 
 	/**
@@ -100,7 +108,7 @@ public class Shop extends Entity {
 	 * @param imageSrc URL of the image of this {@link Shop}
 	 */
 	public void setImageSrc(String imageSrc) {
-		this.imageSrc = imageSrc;
+		_imageSrc = imageSrc;
 	}
 
 	/**
@@ -108,7 +116,7 @@ public class Shop extends Entity {
 	 * If aprox. all data about this Product is known, this will return 100.
 	 */
 	public int getProgress() {
-		return progress;
+		return _progress;
 	}
 
 	/**
@@ -117,14 +125,14 @@ public class Shop extends Entity {
 	 * (valid values in the range of 1 - 100)
 	 */
 	public void setProgress(int progress) {
-		this.progress = progress;
+		_progress = progress;
 	}
 
 	/**
 	 * @return rating of this {@link Shop}
 	 */
 	public int getRating() {
-		return rating;
+		return _rating;
 	}
 
 	/**
@@ -132,51 +140,53 @@ public class Shop extends Entity {
 	 * @param rating rating of this {@link Shop}
 	 */
 	public void setRating(int rating) {
-		this.rating = rating;
+		_rating = rating;
 	}
 
 	/**
 	 * @return {@link Address} of this {@link Shop}
 	 */
 	public Address getAddress() {
-		return address;
+		return _address;
 	}
-	
+
 	/**
 	 * @param address {@link Address} of this {@link Shop}
 	 */
 	public void setAddress(Address address) {
-		this.address = address;
+		_address = address;
 	}
-	
+
 	/**
 	 * @return the latitude
 	 * @deprecated use getAddress instead ?
 	 */
+	@Deprecated
 	public Double getLat() {
-		return address != null ? address.getLatitude() : null;
+		return _address != null ? _address.getLatitude() : null;
 	}
 
 	/**
 	 * @return the longitude
 	 * @deprecated use getAddress instead ?
 	 */
+	@Deprecated
 	public Double getLng() {
-		return address != null ? address.getLongitude() : null;
+		return _address != null ? _address.getLongitude() : null;
 	}
 
 	/**
 	 * @return the ID of the type of this {@link Shop}
 	 */
 	public Long getTypeId() {
-		return typeId;
+		return _categoryId;
 	}
 
 	/**
 	 * @param typeId ID of the type of this {@link Shop}
 	 */
 	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
+		_categoryId = typeId;
 	}
 
 
@@ -184,26 +194,29 @@ public class Shop extends Entity {
 	public String getSerializeName() {
 		return "shop";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
-		
+
 		if (o instanceof Shop) {
 			Shop s = (Shop) o;
-			
+
 			if (!super.equals(s)) rc = false;
-			if (!_compare(getTypeId(), s.getTypeId())) rc = false;
-			if (!_compare(getImageSrc(), s.getImageSrc())) rc = false;
+			if (!Entity._compare(getTypeId(), s.getTypeId())) rc = false;
+			if (!Entity._compare(getImageSrc(), s.getImageSrc())) rc = false;
 			if (getProgress() != s.getProgress()) rc = false;
 			if (getRating() != s.getRating()) rc = false;
-			if (!_compare(getAddress(), s.getAddress())) rc = false;
+			if (!Entity._compare(getAddress(), s.getAddress())) rc = false;
 		}
 		else rc = false;
-		
+
 		return rc;
 	}
 
+	/**
+	 * TODO implement this function (newRevision)
+	 */
 	@Override
 	public <T extends Entity> T newRevision() {
 		// TODO Auto-generated method stub
