@@ -1,12 +1,21 @@
+/*
+ * Copyright 2010 TagAPrice.org
+ * 
+ * Licensed under the Creative Commons License. You may not
+ * use this file except in compliance with the License.
+ *
+ * http://creativecommons.org/licenses/by-nc/3.0/
+ */
 package org.tagaprice.shared.entities;
 
 /**
- * Contains all important information to represent a
- * LocalAccount.
+ * A {@link LocalAccount} represents an user account of TagAPrice.
+ * Stores account data + password.
  */
 public class LocalAccount extends Account {
+
 	private static final long serialVersionUID = 1L;
-	private String password;
+	private String _password;
 
 	/**
 	 * default constructor (used for serialization)
@@ -15,10 +24,9 @@ public class LocalAccount extends Account {
 		super();
 	}
 
-
 	/**
-	 * constructor for querying a LocalAccount's current revision
-	 * @param id Product ID
+	 * constructor for querying a {@link LocalAccount}'s current revision
+	 * @param id user ID
 	 */
 	public LocalAccount(long id) {
 		super(id);
@@ -27,7 +35,7 @@ public class LocalAccount extends Account {
 	/**
 	 * query a specific LocalAccount revision
 	 * @param id user ID
-	 * @param rev revision
+	 * @param rev revision to get
 	 */
 	public LocalAccount(long id, int rev) {
 		super(id, rev);
@@ -35,19 +43,13 @@ public class LocalAccount extends Account {
 
 
 	/**
-	 * constructor for creating a new LocalAccount
-	 * @param title
-	 * @param localeId
-	 * @param creatorId
-	 * @param password
-	 * @param email
-	 * @param language
-	 * @param street
-	 * @param zip
-	 * @param county
-	 * @param country
-	 * @param latitude
-	 * @param longitude
+	 * constructor for creating a new {@link LocalAccount}
+	 * @param title {@link Account}'s descriptive name (e.g. "Administrator")
+	 * @param localeId the locale setting of this user
+	 * @param creatorId creator of this revision
+	 * @param mail email address of this {@link Account}
+	 * @param password password of this {@link LocalAccount}
+	 * @param address address of this {@link Account}
 	 */
 	public LocalAccount(
 			String title,
@@ -58,47 +60,21 @@ public class LocalAccount extends Account {
 			Address address) {
 		super(title, localeId, mail, address);
 
-		this.password = password;
+		_password = password;
 	}
 
 	/**
-	 * constructor for saving existing Project
-	 * @param id
-	 * @param rev
-	 * @param title
-	 * @param creatorId
-	 * @param password
-	 * @param email
-	 * @param language
-	 * @param street
-	 * @param zip
-	 * @param county
-	 * @param country
-	 * @param latitude
-	 * @param longitude
+	 * @return the password for this {@link LocalAccount}
 	 */
-	public LocalAccount(
-			long id,
-			int rev,
-			String title,
-			long revCreatorId,
-			String mail,
-			String password,
-			Address address){
-		super(id, rev, title, revCreatorId, mail, address);
-
-		this.password = password;
-	}
-
-
 	public String getPassword() {
-		return password;
+		return _password;
 	}
 
-
-
+	/**
+	 * @param password the password for this {@link LocalAccount}
+	 */
 	public void setPassword(String password) {
-		this.password = password;
+		_password = password;
 	}
 
 	@Override
@@ -118,6 +94,4 @@ public class LocalAccount extends Account {
 	public String getSerializeName() {
 		return "localAccount";
 	}
-
-
 }
