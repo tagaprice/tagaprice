@@ -154,7 +154,7 @@ public class Shop extends Entity {
 	 * @deprecated use getAddress instead ?
 	 */
 	public Double getLat() {
-		return address != null ? address.getLat() : null;
+		return address != null ? address.getLatitude() : null;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class Shop extends Entity {
 	 * @deprecated use getAddress instead ?
 	 */
 	public Double getLng() {
-		return address != null ? address.getLng() : null;
+		return address != null ? address.getLongitude() : null;
 	}
 
 	/**

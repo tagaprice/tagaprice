@@ -162,9 +162,9 @@ public class ShopPage extends APage {
 		_mapWidget.setHeight("200px");
 		MarkerOptions makerOption = MarkerOptions.newInstance();
 		makerOption.setDraggable(true);
-		if(_shopData.getAddress().getLat()!=null){
-			_mapWidget.setCenter(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()));
-			_marker = new Marker(LatLng.newInstance(_shopData.getAddress().getLat(),_shopData.getAddress().getLng()), makerOption);
+		if(_shopData.getAddress().getLatitude()!=null){
+			_mapWidget.setCenter(LatLng.newInstance(_shopData.getAddress().getLatitude(),_shopData.getAddress().getLongitude()));
+			_marker = new Marker(LatLng.newInstance(_shopData.getAddress().getLatitude(),_shopData.getAddress().getLongitude()), makerOption);
 		}else{
 			_marker = new Marker(_mapWidget.getCenter(), makerOption);
 		}

@@ -59,7 +59,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 				|| _type.equals(PriceMapType.CATEGORY)
 				|| _type.equals(PriceMapType.BRANDING)) {
 			_map = new MapWidget(LatLng.newInstance(_TaPM.getCurrentAddress()
-					.getLat(), _TaPM.getCurrentAddress().getLng()), 16);
+					.getLatitude(), _TaPM.getCurrentAddress().getLongitude()), 16);
 			_map.addControl(new SmallZoomControl3D());
 			_map.addControl(new HierarchicalMapTypeControl());
 
@@ -98,7 +98,7 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 	public void setAddress(Address address) {
 		System.out.println("setAdress");
 		if (_map != null)
-			_map.setCenter(LatLng.newInstance(address.getLat(), address.getLng()));
+			_map.setCenter(LatLng.newInstance(address.getLatitude(), address.getLongitude()));
 	}
 
 	
@@ -219,8 +219,8 @@ public class PriceMapWidget extends Composite implements IAddressHandler {
 
 			if (!_type.equals(PriceMapType.SHOP))
 				_map.addOverlay(new Marker(LatLng.newInstance(pd.getShopData()
-						.getAddress().getLat(), pd.getShopData().getAddress()
-						.getLng())));
+						.getAddress().getLatitude(), pd.getShopData().getAddress()
+						.getLongitude())));
 
 			row++;
 		}
