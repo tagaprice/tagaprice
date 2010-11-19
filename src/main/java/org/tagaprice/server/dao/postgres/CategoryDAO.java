@@ -153,9 +153,9 @@ public class CategoryDAO implements ICategoryDAO {
 		ResultSet res = pstmt.executeQuery();
 		
 		if(res.next()){ //category has super category
-			category.setSuperType(getAndSetSuperCategoryRecursive(res.getLong("parent_id")));
+			category.setSuperCategory(getAndSetSuperCategoryRecursive(res.getLong("parent_id")));
 		} else {
-			category.setSuperType(null);
+			category.setSuperCategory(null);
 		}
 		return category;
 	}

@@ -2,95 +2,134 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: TagAPriceUI
  * Filename: ProductType.java
  * Date: May 20, 2010
-*/
+ */
 package org.tagaprice.shared.entities;
 
 import java.util.ArrayList;
 
+/**
+ * A {@link Category} builds a hierarchy of labels, used for {@link Shop}s and {@link Product}s. It also holds
+ * {@link PropertyGroup}s to format groups of properties and present default-properties for the user to enter
+ * 
+ */
 public class Category extends Entity {
 	private static final long serialVersionUID = 1L;
 
-	private Category superType;
-	private ArrayList<PropertyGroup> properties = new ArrayList<PropertyGroup>();
-	
+	private Category _superCategory;
+	private ArrayList<PropertyGroup> _propertyGroups = new ArrayList<PropertyGroup>();
+
 	/**
 	 * default constructor (needed for serialization)
 	 */
 	public Category() {
 		super();
 	}
-	
+
 	/**
-	 * constructor for querying a Type (using TypeDAO)
-	 * @param id Type ID
+	 * Constructor for querying a {@link Category}.
+	 * 
+	 * @param id
+	 *            {@link Category} ID in the database
 	 */
 	public Category(long id) {
 		super(id);
 	}
-	
+
 	/**
-	 * constructor for querying a specific Type revision (using TypeDAO) 
-	 * @param id Type ID
-	 * @param rev Type revision
+	 * Constructor for querying a specific {@link Category} revision.
+	 * 
+	 * @param id
+	 *            {@link Category} ID in the database
+	 * @param rev
+	 *            {@link Category} revision
 	 */
 	public Category(long id, int rev) {
 		super(id, rev);
 	}
-	
+
 	/**
-	 * constructor for saving a new Type (using TypeDAO)
-	 * @param title descriptive Type name
-	 * @param localeId Type's locale
-	 * @param creatorId Type's creator (usually the currently logged in User)
-	 * @param superType reference to a supertype (may be null)
+	 * Constructor for saving a new {@link Category}.
+	 * 
+	 * @param title
+	 *            descriptive {@link Category} name
+	 * @param localeId
+	 *            {@link Category}'s locale
+	 * @param creatorId
+	 *            {@link Category}'s creator (usually the currently logged in User)
+	 * @param superCategory
+	 *            reference to a super{@link Category} (may be null)
 	 */
 	public Category(String title, int localeId, long creatorId, Category superType) {
 		super(title, localeId, creatorId);
-		this.superType = superType;
+		this._superCategory = superType;
 	}
-	
+
 	/**
-	 * constructor for saving changes of an existing Type (using TypeDAO)
-	 * @param typeId Type ID
-	 * @param rev Type revision (will be checked by TypeDAO to prevent concurrent write attempts)
-	 * @param title (new) descriptive Type name
-	 * @param creatorId Type revision's creator (usually the currently logged in User)
-	 * @param superType (new) reference to a supertype (may be null)
+	 * Constructor for saving changes of an existing {@link Category}.
+	 * 
+	 * @param categoryId
+	 *            {@link Category} ID in the database
+	 * @param rev
+	 *            {@link Category} revision this revision is based on
+	 * @param title
+	 *            descriptive {@link Category} name
+	 * @param localeId
+	 *            {@link Category}'s locale
+	 * @param creatorId
+	 *            {@link Category}'s creator (usually the currently logged in User)
+	 * @param superCategory
+	 *            reference to a super{@link Category} (may be null)
 	 */
-	public Category(long typeId, int rev, String title, long creatorId, Category superType) {
-		super(typeId, rev, title, creatorId);
-		this.superType = superType;
+	public Category(long categoryId, int rev, String title, long creatorId, Category superType) {
+		super(categoryId, rev, title, creatorId);
+		this._superCategory = superType;
 	}
-	
-	public ArrayList<PropertyGroup> getPropertyGroups(){
-		return properties;
+
+	/**
+	 * @return the {@link PropertyGroup}s of this {@link Category}.
+	 */
+	public ArrayList<PropertyGroup> getPropertyGroups() {
+		return _propertyGroups;
 	}
-	
-	public void addPropertyGroups(ArrayList<PropertyGroup> properties){
-		for(PropertyGroup p: properties)
-		properties.add(p);
+
+	/**
+	 * @param propertyGroups
+	 *            add all this {@link PropertyGroup}s
+	 */
+	public void addPropertyGroups(ArrayList<PropertyGroup> propertyGroups) {
+		propertyGroups.addAll(propertyGroups);
 	}
-	
-	public void addPropertyGroup(PropertyGroup property){
-		properties.add(property);
+
+	/**
+	 * @param property
+	 *            add this {@link PropertyGroup}
+	 */
+	public void addPropertyGroup(PropertyGroup property) {
+		_propertyGroups.add(property);
 	}
-	
-	
-	public Category getSuperType(){
-		return superType;
+
+	/**
+	 * @return the {@link Category} this {@link Category} is a sub{@link Category} of
+	 */
+	public Category getSuperCategory() {
+		return _superCategory;
 	}
-	
-	public void setSuperType(Category superType){
-		this.superType=superType;
+
+	/**
+	 * @param superCategory
+	 *            set a new super{@link Category}
+	 */
+	public void setSuperCategory(Category superCategory) {
+		this._superCategory = superCategory;
 	}
 
 	@Override
@@ -99,11 +138,14 @@ public class Category extends Entity {
 		return "unit";
 	}
 
+	/**
+	 * TODO implement this, or leave it up to {@link Entity}?
+	 */
 	@Override
 	public <T extends Entity> T newRevision() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	// TODO implement missing Type.equals()
+
+	// TODO implement missing Category.equals()
 }

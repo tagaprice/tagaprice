@@ -38,7 +38,7 @@ public class TypeDAOTest {
 		//Test Root
 		Category type = dao.getById(13);
 		assertEquals(type.getTitle(),"root");
-		assertEquals(type.getSuperType(),null);
+		assertEquals(type.getSuperCategory(),null);
 	}
 	
 	
@@ -47,8 +47,8 @@ public class TypeDAOTest {
 		//Test Root
 		Category type = dao.getById(15);
 		assertEquals(type.getTitle(),"green");
-		assertEquals(type.getSuperType().getTitle(),"red");
-		assertEquals(type.getSuperType().getSuperType().getTitle(),"root");
+		assertEquals(type.getSuperCategory().getTitle(),"red");
+		assertEquals(type.getSuperCategory().getSuperCategory().getTitle(),"root");
 	}
 	
 	@Test
