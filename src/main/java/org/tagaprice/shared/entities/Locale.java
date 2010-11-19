@@ -2,30 +2,35 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
-*/
+ */
 
 /**
  * Project: tagaprice
  * Filename: Locale.java
  * Date: 15.06.2010
-*/
+ */
 package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.ISerializable;
 
 /**
  * Represents a locale setting.
+ * It holds the following information:
+ * - An ID to represent this {@link Locale} in the database
+ * - A fallbackID if this {@link Locale} is not complete
+ * - A title, representing this {@link Locale} with an international/English title
+ * - A localized title, representing this {@link Locale} as spelled in the {@link Locale} language.
  */
 public class Locale implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
-	private Integer fallbackId;
-	private String title;
-	private String localTitle;
+	private int _id;
+	private Integer _fallbackId;
+	private String _title;
+	private String _localTitle;
 
 	/**
 	 * Default constructor needed for serialization
@@ -33,78 +38,78 @@ public class Locale implements ISerializable {
 	public Locale() {
 		this(-1, -1, null, null);
 	}
-	
+
 	/**
-	 * Consturctor used by the DAO to create a locale.
-	 * @param id ID of this locale
+	 * Constructor used by the DAO to create a {@link Locale}.
+	 * @param id ID of this {@link Locale}
 	 * @param fallbackId fallback ID
-	 * @param title title of this locale
-	 * @param localTitle localized title of this locale
+	 * @param title title of this {@link Locale}
+	 * @param localTitle localized title of this {@link Locale}
 	 */
 	public Locale(int id, Integer fallbackId, String title, String localTitle) {
-		this.id = id;
-		this.fallbackId = fallbackId;
-		this.title = title;
-		this.localTitle = localTitle;
+		_id = id;
+		_fallbackId = fallbackId;
+		_title = title;
+		_localTitle = localTitle;
 	}
-	
+
 	/**
-	 * @return ID of this locale
+	 * @return ID of this {@link Locale}
 	 */
 	public int getId() {
-		return id;
+		return _id;
 	}
-	
+
 	/**
-	 * @return ID of the fallback of this locale
+	 * @return ID of the fallback of this {@link Locale}
 	 */
 	public Integer getFallbackId() {
-		return fallbackId;
+		return _fallbackId;
 	}
-	
+
 	/**
-	 * @return title of this locale
+	 * @return title of this {@link Locale}
 	 */
 	public String getTitle() {
-		return title;
+		return _title;
 	}
-	
+
 	/**
-	 * @return loclalized title of this locale
+	 * @return loclalized title of this {@link Locale}
 	 */
 	public String getLocalTitle() {
-		return localTitle;
+		return _localTitle;
 	}
-	
+
 	@Override
 	public String getSerializeName() {
 		return "locale";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		boolean rc = true;
 		if (o instanceof Locale) {
 			Locale l = (Locale) o;
 			if (l.getId() != getId()) rc = false;
-			
+
 			if (getFallbackId() != null) {
 				if (!getFallbackId().equals(l.getFallbackId())) rc = false;
 			}
 			else if (l.getFallbackId() != null) rc = false;
-			
+
 			if (getTitle() != null) {
 				if (!getTitle().equals(l.getTitle())) rc = false;
 			}
 			else if (l.getTitle() != null) rc = false;
-			
+
 			if (getLocalTitle() != null) {
 				if (!getLocalTitle().equals(l.getLocalTitle())) rc = false;
 			}
 			else if (l.getLocalTitle() != null) rc = false;
 		}
 		else rc = false;
-		
+
 		return rc;
 	}
 
