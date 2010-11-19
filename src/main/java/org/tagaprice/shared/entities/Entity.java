@@ -14,23 +14,28 @@
  */
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.server.dao.postgres.EntityDAO;
 import org.tagaprice.shared.ISerializable;
 import org.tagaprice.shared.SerializableArrayList;
 
 /**
  * Abstract class holding general information which every entity deriving from this class has,
- * that is: an ID, a title, a revision number, a createrID and creatorID for this revision,
- * a localeID and a list of properties.
+ * 
+ * that is: an ID, a title, a revision number, a creatorID and creatorID for this revision, a localeID
+ * and a list of properties.
+ * 
+ * Entities are under revision control, but only support a linear revision history. So they have no support for merging
+ * different versions or creating multiple branches.
  */
 public abstract class Entity implements ISerializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id = null;
-	private String title;
-	private int rev = 0;
-	private Integer localeId = -1;
-	private Long creatorId = null;
-	private Long revCreatorId = null;
+	private Long _id = null;
+	private String _title;
+	private int _rev = 0;
+	private Integer _localeId = -1;
+	private Long _creatorId = null;
+	private Long _revCreatorId = null;
 
 	private SerializableArrayList<Property> properties = new SerializableArrayList<Property>();
 
@@ -42,169 +47,204 @@ public abstract class Entity implements ISerializable {
 	}
 
 	/**
-	 * constructor used to request the last revision of an Entity from the database
-	 * (in combination with EntityDAO)
-	 * @param id Entity ID
+	 * Constructor used to request the last revision of an {@link Entity} from the database.
+	 * 
+	 * @param id
+	 *            {@link Entity} ID
 	 */
 	public Entity(Long id) {
 		this(id, 0);
 	}
 
 	/**
-	 * constructor used to query a specific revision of an Entity from the database
-	 * (in combination with EntityDAO)
-	 * @param id Entity ID
-	 * @param rev Entity revision (must be > 0)
+	 * Constructor used to query a specific revision of an {@link Entity} from the database.
+	 * 
+	 * @param id
+	 *            {@link Entity} ID
+	 * @param rev
+	 *            {@link Entity} revision (must be > 0)
 	 */
 	public Entity(Long id, int rev) {
 		this(id, rev, null, null, null, null);
 	}
 
 	/**
-	 * Constructor used to save an existing Entity into the database
-	 *
-	 * @param id Entity ID
-	 * @param rev current entity revision (will be checked by the EntityDAO)
-	 * @param title (new) Entity title
-	 * @param revCreatorId revision's creator
+	 * Constructor used to save an existing Entity into the database.
+	 * 
+	 * @param id
+	 *            {@link Entity} ID
+	 * @param rev
+	 *            current {@link Entity} revision (will be checked by the EntityDAO) (must be > 0)
+	 * @param title
+	 *            (new) Entity title
+	 * @param revCreatorId
+	 *            revision's creator
 	 */
 	public Entity(Long id, int rev, String title, Long revCreatorId) {
 		this(id, rev, title, null, null, revCreatorId);
 	}
 
 	/**
-	 * constructor for storing a new entity in the database
-	 * @param title new Entity's title
-	 * @param localeId new Entity's locale
-	 * @param creatorId new Entity's creator
+	 * Constructor for storing a new {@link Entity} in the database.
+	 * 
+	 * @param title
+	 *            new Entity's title
+	 * @param localeId
+	 *            new Entity's locale
+	 * @param creatorId
+	 *            new Entity's creator
 	 */
 	public Entity(String title, int localeId, Long creatorId) {
 		this(null, 0, title, localeId, creatorId, creatorId);
 	}
 
 	/**
-	 * full constructor
-	 * @param id Entity ID
-	 * @param rev revision number (must be > 0)
-	 * @param title Entity Title
-	 * @param localeId Entity locale
-	 * @param creatorId Entity creator ID
-	 * @param revCreatorId revision creator ID
+	 * TODO Constructor to set all fields. This is used only for testing. We may want to remove this when refactoring tests.
+	 * 
+	 * @param id
+	 *            {@link Entity} ID
+	 * @param rev
+	 *            revision number (must be > 0)
+	 * @param title
+	 *            Entity Title
+	 * @param localeId
+	 *            Entity locale
+	 * @param creatorId
+	 *            Entity creator ID
+	 * @param revCreatorId
+	 *            revision creator ID
 	 */
-	public Entity(Long id, int rev, String title, Integer localeId, Long creatorId, Long revCreatorId) {
-		this.id = id;
-		this.title = title;
-		this.rev = rev;
-		this.localeId = localeId;
-		this.creatorId = creatorId;
-		this.revCreatorId = revCreatorId;
+	protected Entity(Long id, int rev, String title, Integer localeId, Long creatorId, Long revCreatorId) {
+		_id = id;
+		_title = title;
+		_rev = rev;
+		_localeId = localeId;
+		_creatorId = creatorId;
+		_revCreatorId = revCreatorId;
 	}
 
 	/**
-	 * @return the ID of this entity
+	 * @return the ID of this {@link Entity}
 	 */
 	public Long getId() {
-		return id;
+		return _id;
 	}
 
 	/**
-	 * @return true, if this entity has an ID, false otherwise.
+	 * @return true, if this {@link Entity} has an ID, false otherwise.
 	 */
 	public boolean hasId() {
-		return id != null;
+		return _id != null;
 	}
 
 	/**
-	 * This method should just be used by EntityDAO
-	 * @param id new entity ID
+	 * This method should just be used by {@link EntityDAO}
+	 * Set the ID of this {@link Entity}.
+	 * 
+	 * @param id
+	 *            new entity ID
 	 */
 	public void _setId(long id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	/**
-	 * @return title of this entity
+	 * @return title of this {@link Entity}
 	 */
 	public String getTitle() {
-		return title;
+		return _title;
 	}
 
 	/**
-	 * @param title title of this entity
+	 * @param title
+	 *            title of this {@link Entity}
 	 */
 	public void setTitle(String title) {
-		this.title = title;
+		this._title = title;
 	}
 
 	/**
-	 * @return the revision number of this entity
+	 * @return the revision number of this {@link Entity}
 	 */
 	public int getRev() {
-		return rev;
+		return _rev;
 	}
 
 	/**
-	 * This method should just be used by EntityDAO
-	 * @param rev new revision
+	 * This method should just be used by {@link EntityDAO}
+	 * Set the revision of this {@link Entity}.
+	 * 
+	 * @param rev
+	 *            new revision
 	 */
 	public void setRev(int rev) {
-		this.rev = rev;
+		this._rev = rev;
 	}
 
 	/**
-	 * @return the creatorID for this entity
+	 * @return the creatorID for this {@link Entity}
 	 */
 	public Long getCreatorId() {
-		return creatorId;
+		return _creatorId;
 	}
 
 	/**
-	 * This method should just be called by EntityDAO
-	 * @param creatorId Creator ID
+	 * This method should just be called by {@link EntityDAO}
+	 * Set the ID of the creator of this {@link Entity}.
+	 * 
+	 * @param creatorId
+	 *            Creator ID
 	 */
 	public void setCreatorId(Long creatorId) {
-		this.creatorId = creatorId;
+		this._creatorId = creatorId;
 	}
 
 	/**
 	 * @return the CreatorID of this revision
 	 */
 	public Long getRevCreatorId() {
-		return revCreatorId;
+		return _revCreatorId;
 	}
 
 	/**
-	 * This method should just be called by EntityDAO
-	 * @param revCreatorId revision's creator ID
+	 * This method should just be called by {@link EntityDAO}
+	 * Set the ID of the creator of this revision of this {@link Entity}.
+	 * 
+	 * @param revCreatorId
+	 *            revision's creator ID
 	 */
 	public void setRevCreatorId(Long revCreatorId) {
-		this.revCreatorId = revCreatorId;
+		this._revCreatorId = revCreatorId;
 	}
 
 	/**
 	 * @return the localeID
 	 */
 	public Integer getLocaleId() {
-		return localeId;
+		return _localeId;
 	}
 
 	/**
-	 * This method should just be used by EntityDAO
-	 * @param localeId new localeId
+	 * This method should just be used by {@link EntityDAO}
+	 * Set the ID of the locale of this {@link Entity}.
+	 * 
+	 * @param localeId
+	 *            new localeId
 	 */
 	public void setLocaleId(Integer localeId) {
-		this.localeId = localeId;
+		this._localeId = localeId;
 	}
 
 	/**
-	 * @return the properties of this entity
+	 * @return the properties of this {@link Entity}
 	 */
 	public SerializableArrayList<Property> getProperties() {
 		return properties;
 	}
 
 	/**
-	 * @param properties the properties to set
+	 * @param properties
+	 *            the properties to set
 	 */
 	public void setProperties(SerializableArrayList<Property> properties) {
 		this.properties = properties;
@@ -213,8 +253,11 @@ public abstract class Entity implements ISerializable {
 
 	/**
 	 * compare two objects and return true if either both of them are null or they're equal
-	 * @param a first Object
-	 * @param b second Object
+	 * 
+	 * @param a
+	 *            first Object
+	 * @param b
+	 *            second Object
 	 * @return true if they're equal, false otherwise
 	 */
 	public static boolean _compare(Object a, Object b) {
@@ -228,34 +271,37 @@ public abstract class Entity implements ISerializable {
 
 		if (rc && o instanceof Entity) {
 			Entity e = (Entity) o;
-			if (!Entity._compare(getId(), e.getId())) rc = false;
-			if (getRev() != e.getRev()) rc = false;
-			if (!Entity._compare(getTitle(), e.getTitle())) rc = false;
-			if (!Entity._compare(getLocaleId(), e.getLocaleId())) rc = false;
-			if (!Entity._compare(getCreatorId(), e.getCreatorId())) rc = false;
-			if (!Entity._compare(getRevCreatorId(), e.getRevCreatorId())) rc = false;
-			if (!Entity._compare(getProperties(), e.getProperties())) rc = false;
-		}
-		else rc = false;
+			if (!Entity._compare(getId(), e.getId()))
+				rc = false;
+			if (getRev() != e.getRev())
+				rc = false;
+			if (!Entity._compare(getTitle(), e.getTitle()))
+				rc = false;
+			if (!Entity._compare(getLocaleId(), e.getLocaleId()))
+				rc = false;
+			if (!Entity._compare(getCreatorId(), e.getCreatorId()))
+				rc = false;
+			if (!Entity._compare(getRevCreatorId(), e.getRevCreatorId()))
+				rc = false;
+			if (!Entity._compare(getProperties(), e.getProperties()))
+				rc = false;
+		} else
+			rc = false;
 
 		return rc;
 	}
 
 	@Override
 	public String toString() {
-		return "Entity {\n" +
-		"id: " + getId() +
-		"\nrev: " + getRev() +
-		"\ntitle: "+getTitle() +
-		"\nlocale: "+getLocaleId() +
-		"\ncreator: "+getCreatorId()+
-		"\nrevCreator: "+getRevCreatorId()+
-		"\nproperties: "+getProperties().toString()+
-		"\n}\n";
+		return "Entity {\n" + "id: " + getId() + "\nrev: " + getRev() + "\ntitle: " + getTitle() + "\nlocale: "
+		+ getLocaleId() + "\ncreator: " + getCreatorId() + "\nrevCreator: " + getRevCreatorId()
+		+ "\nproperties: " + getProperties().toString() + "\n}\n";
 	}
 
 	/**
-	 * Returns a shallow copy of this object with the revision increased by one. If original revision has been -1, revision of returned object will be set to 0.
+	 * Returns a shallow copy of this object with the revision increased by one. If original revision has been -1,
+	 * revision of returned object will be set to 0.
+	 * 
 	 * @param <T>
 	 * @return
 	 */
