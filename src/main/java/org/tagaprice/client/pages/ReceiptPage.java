@@ -17,40 +17,22 @@ package org.tagaprice.client.pages;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.AInfoBoxComposite;
-import org.tagaprice.client.RPCHandlerManager;
-import org.tagaprice.client.pages.previews.ProductPagePreview;
-import org.tagaprice.client.pages.previews.ShopPagePreview;
-import org.tagaprice.client.widgets.DateWidget;
-import org.tagaprice.client.widgets.ISelectiveListHandler;
+import org.tagaprice.client.*;
+import org.tagaprice.client.pages.previews.*;
+import org.tagaprice.client.widgets.*;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.client.widgets.MorphWidget;
-import org.tagaprice.client.widgets.SearchWidget;
-import org.tagaprice.client.widgets.SelectiveListWidget;
 import org.tagaprice.client.widgets.SelectiveListWidget.SelectionType;
-import org.tagaprice.shared.entities.Product;
+import org.tagaprice.shared.entities.*;
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
-import org.tagaprice.shared.entities.Receipt;
-import org.tagaprice.shared.entities.Shop;
 import org.tagaprice.shared.enums.SearchType;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * Displays editable receipt including shop and product search.
@@ -80,7 +62,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	@UiField DateWidget _date;
 	@UiField(provided=true) MorphWidget _title=new MorphWidget("Default title", Datatype.STRING, _isEditable);
 	@UiField HorizontalPanel _pricePanel;
-	@UiField SimplePanel shop;
+	@UiField SimplePanel _shop;
 	@UiField SimplePanel _veProductContainer;
 	@UiField SimplePanel _product;
 	@UiField Label _price;
@@ -133,9 +115,9 @@ public class ReceiptPage extends AInfoBoxComposite {
 		_title.setWidth("100%");
 
 		//shopChooser
-		shop = new SimplePanel();
-		shop.setWidget(_shopChooser2);
-		_basePanel.insert(shop, 2);
+		_shop = new SimplePanel();
+		_shop.setWidget(_shopChooser2);
+		_basePanel.insert(_shop, 2);
 		_basePanel.setCellHorizontalAlignment(_pricePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 
@@ -298,11 +280,11 @@ public class ReceiptPage extends AInfoBoxComposite {
 
 	/**
 	 * Sets shop data
-	 * @param shop
+	 * @param _shop
 	 */
 	public void setShop(Shop shopData){
 		_shopPreview=new ShopPagePreview(shopData, _isEditable);
-		shop.setWidget(_shopPreview);
+		_shop.setWidget(_shopPreview);
 
 		_product=new SimplePanel();
 		_productChooser2 = new SearchWidget(true, true, SelectionType.PLUSBUTTON, shopData);
@@ -326,7 +308,7 @@ public class ReceiptPage extends AInfoBoxComposite {
 	 * Sets a new Shop
 	 */
 	public void setNewShop(){
-		shop.setWidget(new ShopPagePreview(null, true));
+		_shop.setWidget(new ShopPagePreview(null, true));
 	}
 
 	/**

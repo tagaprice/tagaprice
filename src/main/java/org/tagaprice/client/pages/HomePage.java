@@ -2,7 +2,7 @@
  * Copyright 2010 TagAPrice.org
  * 
  * Licensed under the Creative Commons License. You may not
- * use this file except in compliance with the License. 
+ * use this file except in compliance with the License.
  *
  * http://creativecommons.org/licenses/by-nc/3.0/
  */
@@ -14,33 +14,63 @@
  */
 package org.tagaprice.client.pages;
 
-import org.tagaprice.client.RPCHandlerManager;
+import org.tagaprice.client.*;
 import org.tagaprice.client.ImageBundle;
-import org.tagaprice.client.TaPManager;
 import org.tagaprice.client.widgets.InfoBoxWidget.BoxType;
-import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.Receipt;
+import org.tagaprice.shared.entities.*;
 import org.tagaprice.shared.exception.InvalidLoginException;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.History;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * Homepage with functionality to add a new product,  a new shop, a receipt  to login, sign up and logout.
- * The user can add a new receipt and list his own  receipts only if he is logged in. 
- * If not he should login or sign up. 
+ * The user can add a new receipt and list his own  receipts only if he is logged in.
+ * If not he should login or sign up.
  * 
  */
 public class HomePage extends APage {
+
+	public class ImageTextButton extends Composite {
+		FlowPanel _verticalPanael1 = new FlowPanel();
+		Label _label;
+		Image _image;
+
+		public ImageTextButton(String text, Image pic, ClickHandler handler) {
+			init(text, pic);
+			addClickHandler(handler);
+		}
+
+		public ImageTextButton(String text, Image pic, final String link) {
+			init(text, pic);
+
+			addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					History.newItem(link);
+				}
+			});
+
+		}
+
+		private void init(String text, Image pic) {
+			initWidget(_verticalPanael1);
+			_label = new Label(text);
+			_image = pic;
+
+			_verticalPanael1.add(_image);
+			_verticalPanael1.add(_label);
+
+			setStyleName("button");
+		}
+
+		private void addClickHandler(ClickHandler handler) {
+			addDomHandler(handler, ClickEvent.getType());
+		}
+	}
 
 	TaPManager _Mng = TaPManager.getInstance();
 	Grid _grid = new Grid(2, 3);
@@ -82,14 +112,14 @@ public class HomePage extends APage {
 		 * This ist NOT secure AND STUPID!!!
 		 * TODO change this!!!
 		 */
-		if (Cookies.getCookie("TaPSId") != null) { 
+		if (Cookies.getCookie("TaPSId") != null) {
 			_grid.setWidget(0, 2, new ImageTextButton("Logout", new Image(
 					ImageBundle.INSTANCE.loginButton()), "user/logout"));
 			_grid.setWidget(1, 0, new ImageTextButton("add Receipt", new Image(
 					ImageBundle.INSTANCE.productPriview()), new ClickHandler() {
-				
+
 				/**
-				 * Method wich handels a click event and the asynchronous callback from server 
+				 * Method wich handels a click event and the asynchronous callback from server
 				 * reaction with onSuccess or onFailure
 				 */
 				@Override
@@ -100,19 +130,19 @@ public class HomePage extends APage {
 						RPCHandlerManager.getReceiptHandler().save(null,
 								new AsyncCallback<Receipt>() {
 
-									@Override
-									public void onSuccess(Receipt result) {
-										History.newItem("receipt/get&id="
-												+ result.getId());
+							@Override
+							public void onSuccess(Receipt result) {
+								History.newItem("receipt/get&id="
+										+ result.getId());
 
-									}
+							}
 
-									@Override
-									public void onFailure(Throwable caught) {
-										showInfo("Fail: " + caught,
-												BoxType.WARNINGBOX);
-									}
-								});
+							@Override
+							public void onFailure(Throwable caught) {
+								showInfo("Fail: " + caught,
+										BoxType.WARNINGBOX);
+							}
+						});
 					} catch (IllegalArgumentException e) {
 						showInfo("Fail: " + e, BoxType.WARNINGBOX);
 					} catch (InvalidLoginException e) {
@@ -128,7 +158,7 @@ public class HomePage extends APage {
 					ImageBundle.INSTANCE.loginButton()), "user/login"));
 			_grid.setWidget(1, 0, new ImageTextButton("Sign Up", new Image(
 					ImageBundle.INSTANCE.loginButton()),
-					"user/registration/new"));
+			"user/registration/new"));
 		}
 
 	}
@@ -137,44 +167,5 @@ public class HomePage extends APage {
 	public void setAddress(Address address) {
 		// TODO Auto-generated method stub
 
-	}
-}
-
-class ImageTextButton extends Composite {
-	FlowPanel _verticalPanael1 = new FlowPanel();
-	Label _label;
-	Image _image;
-
-	public ImageTextButton(String text, Image pic, ClickHandler handler) {
-		init(text, pic);
-		addClickHandler(handler);
-	}
-
-	public ImageTextButton(String text, Image pic, final String link) {
-		init(text, pic);
-
-		addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem(link);
-			}
-		});
-
-	}
-
-	private void init(String text, Image pic) {
-		initWidget(_verticalPanael1);
-		_label = new Label(text);
-		_image = pic;
-
-		_verticalPanael1.add(_image);
-		_verticalPanael1.add(_label);
-
-		setStyleName("button");
-	}
-
-	private void addClickHandler(ClickHandler handler) {
-		addDomHandler(handler, ClickEvent.getType());
 	}
 }

@@ -4,24 +4,24 @@
 xmlns:g='urn:import:com.google.gwt.user.client.ui' 
 xmlns:my='urn:import:org.tagaprice.client.widgets'>
 
-<g:VerticalPanel ui:field="basePanel">
-	<g:HorizontalPanel ui:field="top">
-		<my:MorphWidget ui:field="title" />
-		<my:DateWidget ui:field="date" />
+<g:VerticalPanel ui:field="_basePanel">
+	<g:HorizontalPanel ui:field="_top">
+		<my:MorphWidget ui:field="_title" />
+		<my:DateWidget ui:field="_date" />
 	</g:HorizontalPanel>	
 	
-	<g:SimplePanel ui:field="shop" />
-	<g:SimplePanel ui:field="veProductContainer" />
+	<g:SimplePanel ui:field="_shop" />
+	<g:SimplePanel ui:field="_veProductContainer" />
 	
-	<g:SimplePanel ui:field="product" />
+	<g:SimplePanel ui:field="_product" />
 	
-	<g:HorizontalPanel ui:field="pricePanel">
+	<g:HorizontalPanel ui:field="_pricePanel">
 		<g:Label>Gesamt Preis:</g:Label>
-		<g:Label ui:field="price">0.0</g:Label>
+		<g:Label ui:field="_price">0.0</g:Label>
 		<g:Label>€</g:Label>
 	</g:HorizontalPanel>	
 	
-	<g:Button ui:field="save">FERTIG</g:Button>
+	<g:Button ui:field="_save">FERTIG</g:Button>
 </g:VerticalPanel>
 
 

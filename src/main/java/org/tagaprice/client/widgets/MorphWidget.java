@@ -1,14 +1,8 @@
 package org.tagaprice.client.widgets;
 import org.tagaprice.shared.entities.PropertyTypeDefinition.Datatype;
 
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * The MorphWidget is a special TextBox which is defined by a type (integer,
@@ -21,6 +15,8 @@ public class MorphWidget extends SimplePanel {
 	private IMorphWidgetInfoHandler _handler;
 	private TextBox _textBox = new TextBox();
 	private Datatype _type;
+
+	public MorphWidget() {}
 
 	/**
 	 * Creates a MorphWidget with a value, a special type (integer,

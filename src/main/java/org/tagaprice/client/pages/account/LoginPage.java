@@ -119,7 +119,7 @@ public class LoginPage extends APage {
 			public void onClick(ClickEvent event) {
 				System.out.println("send");
 
-				_userHandler.login(_mail.getText().trim(), _password.getText()
+				_userHandler.loginDeprecated(_mail.getText().trim(), _password.getText()
 						.trim(), new AsyncCallback<String>() {
 
 					@Override

@@ -29,7 +29,7 @@ public interface LocalAccountHandlerAsync {
 			AsyncCallback<Boolean> callback) 
 		throws IllegalArgumentException;
 	
-	void login(String mail, String password, AsyncCallback<String> callback)
+	void loginDeprecated(String mail, String password, AsyncCallback<String> callback)
 		throws IllegalArgumentException;
 	
 	void getId(AsyncCallback<Long> callback) throws IllegalArgumentException;
