@@ -15,8 +15,8 @@ import org.tagaprice.shared.entities.Entity;
 /**
  * A ConnectinoManager that uses {@link DBConnection} for convenience Testing with DBUnit.
  * Easy method for simple adding data with {@link XmlDataSet}.
- * If no tables where found, they are added automatically with first connection.
- * Needs a Postgres DB with existing database!
+ * The tables are deleted and created with every testrun.
+ * Needs a Postgres DB with existing database! Don't foregt jdbc.properties!
  * 
  * @author Martin Weik (afraidoferrors)
  *
@@ -31,7 +31,7 @@ public class DatabaseManager {
 
 	/**
 	 * This method is to export data from the database into xml files.
-	 * It will interactive ask You connection parameters and the table name and then store it to
+	 * It will interactive ask You connection parameters and the table name and then store it to a file.
 	 * @param args nothing
 	 */
 	public static void main(String[] args) {
