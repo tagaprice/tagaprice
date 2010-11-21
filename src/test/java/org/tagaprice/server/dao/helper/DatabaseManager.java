@@ -11,7 +11,6 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.slf4j.*;
 import org.tagaprice.server.DBConnection;
-import org.tagaprice.shared.entities.Entity;
 /**
  * A ConnectinoManager that uses {@link DBConnection} for convenience Testing with DBUnit.
  * Easy method for simple adding data with {@link XmlDataSet}.
@@ -208,7 +207,7 @@ public class DatabaseManager {
 	 * @param myClass the class of the desired Entity
 	 * @return the found dataset for comparision
 	 */
-	public static IDataSet setupEntitytable(Class<? extends Entity> entityClass) {
+	public static IDataSet setupEntitytable(Class<?> entityClass) {
 		return DatabaseManager.setupEntitytable(entityClass, true);
 	}
 
@@ -220,7 +219,7 @@ public class DatabaseManager {
 	 * @param clean if true, all data in the database are erased
 	 * @return the found dataset for comparision
 	 */
-	public static IDataSet setupEntitytable(Class<? extends Entity> entityClass, boolean clean) {
+	public static IDataSet setupEntitytable(Class<?> entityClass, boolean clean) {
 		if(DatabaseManager.dbUnitConnection == null) {
 			DatabaseManager.getDBUnitConnection();
 		}
