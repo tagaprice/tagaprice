@@ -13,6 +13,11 @@ import org.junit.*;
 public class CountryTest {
 	private Country country;
 
+	/**
+	 * Small class to test the equals method of Country
+	 * @author Martin Weik (afraidoferrors)
+	 *
+	 */
 	public class CountryWithCounty extends Country {
 
 		private static final long serialVersionUID = 1L;
@@ -100,13 +105,9 @@ public class CountryTest {
 	/**
 	 * TODO Discussion... should equals return NPE?
 	 */
-	@Test
+	@Test(expected=NullPointerException.class)
 	public void testEqualsObjectNullCase() {
-		try {
-			Assert.fail("equals was called with null and die NOT threw a NPE");
-		} catch (NullPointerException npe){
-
-		}
+		country.equals(null);
 	}
 
 	@Test
