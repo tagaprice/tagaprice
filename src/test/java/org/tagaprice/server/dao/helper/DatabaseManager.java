@@ -1,32 +1,18 @@
 package org.tagaprice.server.dao.helper;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.IDataSet;
+import org.dbunit.database.*;
+import org.dbunit.dataset.*;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.tagaprice.server.DBConnection;
 /**
+ *TODO THIS CLASS NEEDS HEAV REFACTORING!!!
  * A ConnectinoManager that uses {@link DBConnection} for convenience Testing with DBUnit.
  * Easy method for simple adding data with {@link XmlDataSet}.
  * The tables are deleted and created with every testrun.
@@ -154,9 +140,11 @@ public class DatabaseManager {
 
 		if(!DatabaseManager.tablesExist) {
 			//delete all tables and create them again
+			Connection conn = null;
 			try {
-				Statement queryTables = DatabaseManager.javaConnection.createStatement();
-				Statement queryDrop = DatabaseManager.javaConnection.createStatement();
+				conn = DatabaseManager.dbConnection.getConnection();
+				Statement queryTables = conn.createStatement();
+				Statement queryDrop = conn.createStatement();
 				ResultSet resultsTables;
 				// TODO this must be fixed. types in postgres are...
 				queryDrop.execute("DROP TYPE IF EXISTS propertytype CASCADE");
@@ -185,6 +173,15 @@ public class DatabaseManager {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return DatabaseManager.tablesExist;
@@ -196,9 +193,11 @@ public class DatabaseManager {
 		ArrayList<String> files = new ArrayList<String>();
 		files.addAll(Arrays.asList(directory.list()));
 		Collections.sort(files);
+		Connection conn = null;
 		for (String filename : files) {
 			DatabaseManager.logger.info(filename);
-			Statement stmnt = DatabaseManager.javaConnection.createStatement();
+			conn = DatabaseManager.dbConnection.getConnection();
+			Statement stmnt = conn.createStatement();
 			if (filename.endsWith(".sql")) {
 				System.out.println("Parsing " + directoryName + filename);
 				File file = new File(directoryName + filename);
@@ -215,6 +214,7 @@ public class DatabaseManager {
 				}
 			}
 		}
+		conn.close();
 
 	}
 
@@ -258,7 +258,7 @@ public class DatabaseManager {
 		 */
 		DatabaseManager.connect();
 		File xmlFile = new File("./src/test/resources/WEB-INF/testdata/" + entityClass.getSimpleName() + "_dao.xml");
-		System.out.println(xmlFile.getAbsolutePath());
+		//System.out.println(xmlFile.getAbsolutePath());
 
 		try {
 			IDataSet dataSet = new XmlDataSet(new FileInputStream(xmlFile));
