@@ -1,21 +1,36 @@
 package org.tagaprice.server.dao.helper;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
 
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.*;
-import org.dbunit.dataset.*;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.QueryDataSet;
+import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tagaprice.server.DBConnection;
 /**
  * A ConnectinoManager that uses {@link DBConnection} for convenience Testing with DBUnit.
  * Easy method for simple adding data with {@link XmlDataSet}.
  * The tables are deleted and created with every testrun.
- * Needs a Postgres DB with existing database! Don't foregt jdbc.properties!
+ * Needs a Postgres DB with existing database! Don't forget jdbc.properties!
  * 
  * @author Martin Weik (afraidoferrors)
  *
