@@ -81,18 +81,15 @@ public class DatabaseManager {
 
 	}
 
-
-	/**
-	 * a easy to use facade for {@link DBConnection}
-	 * @return a {@link Connection} to the database through {@link DBConnection}
-	 */
-	public static Connection getConnection() {
+	public static void connect() {
 		try {
 			//initialise connections if not allready done
 			if(DatabaseManager.dbConnection == null)
 				DatabaseManager.dbConnection = new DBConnection();
-			if(DatabaseManager.javaConnection == null)
-				DatabaseManager.javaConnection = DatabaseManager.dbConnection.getConnection();
+			//if(DatabaseManager.javaConnection == null)
+			DatabaseManager.javaConnection = DatabaseManager.dbConnection.getConnection();
+			//if(DatabaseManager.dbUnitConnection == null)
+			DatabaseManager.dbUnitConnection = new DatabaseConnection(DatabaseManager.dbConnection.getConnection());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,9 +99,36 @@ public class DatabaseManager {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (DatabaseUnitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		//DatabaseManager.tablesExist();
+		DatabaseManager.tablesExist();
+	}
+
+	public static DBConnection getDBConnection() {
+		//if(DatabaseManager.dbConnection == null
+		DatabaseManager.connect();
+
+		return DatabaseManager.dbConnection;
+	}
+
+	/**
+	 * a easy to use facade for {@link DBConnection}
+	 * @return a {@link Connection} to the database through {@link DBConnection}
+	 */
+	public static Connection getJavaConnection() {
+		//if(DatabaseManager.javaConnection == null)
+		DatabaseManager.connect();
+
 		return DatabaseManager.javaConnection;
+	}
+
+	public static DatabaseConnection getDBUnitConnection() {
+		//if(DatabaseManager.dbUnitConnection == null)
+		DatabaseManager.connect();
+
+		return DatabaseManager.dbUnitConnection;
 	}
 
 	/**
@@ -149,26 +173,6 @@ public class DatabaseManager {
 			}
 		}
 		return DatabaseManager.tablesExist;
-	}
-
-	public static DBConnection getDBConnection() {
-		if(DatabaseManager.dbConnection == null){
-			DatabaseManager.getConnection();
-		}
-		return DatabaseManager.dbConnection;
-	}
-
-	public static DatabaseConnection getDBUnitConnection() {
-		if(DatabaseManager.dbUnitConnection == null || DatabaseManager.javaConnection == null) {
-			DatabaseManager.getConnection();
-		}
-		try {
-			DatabaseManager.dbUnitConnection = new DatabaseConnection(DatabaseManager.javaConnection);
-		} catch (DatabaseUnitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return DatabaseManager.dbUnitConnection;
 	}
 
 	private static void loadTables() throws FileNotFoundException, SQLException {
@@ -220,9 +224,9 @@ public class DatabaseManager {
 	 * @return the found dataset for comparision
 	 */
 	public static IDataSet setupEntitytable(Class<?> entityClass, boolean clean) {
-		if(DatabaseManager.dbUnitConnection == null) {
-			DatabaseManager.getDBUnitConnection();
-		}
+		//if(DatabaseManager.dbUnitConnection == null) {
+		//DatabaseManager.getDBUnitConnection();
+		//}
 		/*
 		 * This doesn't work and I have NO idea why????
 		 * Look at DBConnection.loadRessourceFile
@@ -237,6 +241,7 @@ public class DatabaseManager {
 			System.out.println(e);
 		}
 		 */
+		DatabaseManager.connect();
 		File xmlFile = new File("./src/test/resources/WEB-INF/testdata/" + entityClass.getSimpleName() + "_dao.xml");
 		System.out.println(xmlFile.getAbsolutePath());
 
