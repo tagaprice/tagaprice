@@ -22,6 +22,7 @@ import javax.sql.ConnectionPoolDataSource;
 import javax.sql.PooledConnection;
 
 import org.postgresql.ds.PGConnectionPoolDataSource;
+import org.tagaprice.server.utilities.PropertiesFileLoader;
 
 /**
  * Wrapper around a database connection.
@@ -197,10 +198,9 @@ public class DBConnection {
 	}
 
 
-
 	private void applyProperties(PGConnectionPoolDataSource ds, String fileName) throws IOException {
 		Properties prop = new Properties();
-		InputStream propStream = loadResourceFile(fileName);
+		InputStream propStream = PropertiesFileLoader.loadResourceFile(fileName);
 
 		prop.load(propStream);
 		propStream.close();
