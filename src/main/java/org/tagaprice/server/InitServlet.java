@@ -11,11 +11,19 @@ import javax.servlet.ServletResponse;
 /**
  * Initialization Servlet
  * 
- *  This Servlet simply does initialization stuff, not more, not less
+ *  This Servlet is just for general initialization stuff.
+ * 
+ *  Initializes the mail system.
  */
 public class InitServlet extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Initializes the mail system.
+	 * 
+	 * @throws ServletException if the initialization of the mail system fails for any reason.
+	 */
+	@Override
 	public void init() throws ServletException {
 		try {
 			Mail.init();
@@ -23,10 +31,13 @@ public class InitServlet extends GenericServlet {
 			throw new ServletException("mailing subsystem init failed: "+e.getMessage(), e);
 		}
 	}
-	
+
+	/**
+	 * This method does nothing
+	 */
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
-			throws ServletException, IOException {
+	throws ServletException, IOException {
 		// nothing
 	}
 
