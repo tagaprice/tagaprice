@@ -30,9 +30,9 @@ import org.postgresql.ds.PGConnectionPoolDataSource;
  */
 public class DBConnection {
 	// shared connection pool
-	private static ConnectionPoolDataSource dataSource;
-	private PooledConnection dbConn;
-	protected int transactionDepth = 0;
+	private static ConnectionPoolDataSource s_dataSource;
+	private PooledConnection _dbConn;
+	protected int _transactionDepth = 0;
 
 	/**
 	 * Constructor that tries to get the DB configuration from the file jdbc.properties in the classpath.
@@ -45,11 +45,11 @@ public class DBConnection {
 	public DBConnection() throws IOException, FileNotFoundException {
 
 		// init static fields
-		if (DBConnection.dataSource == null) {
+		if (DBConnection.s_dataSource == null) {
 
 			PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
 			applyProperties(ds, "jdbc.properties");
-			DBConnection.dataSource = ds;
+			DBConnection.s_dataSource = ds;
 		}
 	}
 
@@ -61,8 +61,8 @@ public class DBConnection {
 	 *             if a database access error occurs.
 	 */
 	public void disconnect() throws SQLException {
-		if (dbConn != null) {
-			dbConn.close();
+		if (_dbConn != null) {
+			_dbConn.close();
 		}
 	}
 
@@ -74,10 +74,10 @@ public class DBConnection {
 	 *             if a database access error occurs.
 	 */
 	public Connection getConnection() throws SQLException {
-		if (dbConn == null) {
-			dbConn = DBConnection.dataSource.getPooledConnection();
+		if (_dbConn == null) {
+			_dbConn = DBConnection.s_dataSource.getPooledConnection();
 		}
-		return dbConn.getConnection();
+		return _dbConn.getConnection();
 	}
 
 	/**
@@ -124,11 +124,11 @@ public class DBConnection {
 	 *             if a database access error occurs
 	 */
 	public void begin() throws SQLException {
-		if (transactionDepth == 0) {
+		if (_transactionDepth == 0) {
 			Statement stmt = getConnection().createStatement();
 			stmt.execute("BEGIN");
 		}
-		transactionDepth++;
+		_transactionDepth++;
 	}
 
 	/**
@@ -141,9 +141,9 @@ public class DBConnection {
 	 *             if a database access error occurs of the transaction cannot be commited (e.g. ROLLBACK)
 	 */
 	public void commit() throws SQLException {
-		if (transactionDepth > 0) {
-			transactionDepth--;
-			if (transactionDepth == 0) {
+		if (_transactionDepth > 0) {
+			_transactionDepth--;
+			if (_transactionDepth == 0) {
 				Statement stmt = getConnection().createStatement();
 				stmt.execute("COMMIT");
 			}
@@ -158,9 +158,9 @@ public class DBConnection {
 	 * @throws SQLException if a database access error occurs, or no transaction is in progress
 	 */
 	public void rollback() throws SQLException {
-		if (transactionDepth > 0) {
-			transactionDepth--;
-			if (transactionDepth == 0) {
+		if (_transactionDepth > 0) {
+			_transactionDepth--;
+			if (_transactionDepth == 0) {
 				Statement stmt = getConnection().createStatement();
 				stmt.execute("ROLLBACK");
 			}
@@ -174,7 +174,7 @@ public class DBConnection {
 	 * @throws SQLException if a database access error occurs, or no transaction is in progress
 	 */
 	public void forceRollback() throws SQLException {
-		transactionDepth = 1;
+		_transactionDepth = 1;
 		rollback();
 	}
 
