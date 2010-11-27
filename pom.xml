@@ -24,6 +24,12 @@
 			<url>http://download.java.net/maven/2/</url>
 			<layout>default</layout>
 		</repository>
+		<repository>
+			<id>public</id>
+			<name>Public Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+		</repository>
 	</repositories>
 
 	<issueManagement>
@@ -34,6 +40,7 @@
 		<url>http://github.com/tagaprice/tagaprice</url>
 	</scm>
 	<dependencies>
+		<!-- google web toolkit -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -51,6 +58,7 @@
 			<artifactId>gwt-maps</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<!-- google web toolkit -->		
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -66,11 +74,13 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 		</dependency>
+		<!-- mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -109,6 +119,27 @@
 			<artifactId>maven-emma-plugin</artifactId>
 			<version>0.5</version>
 		</dependency>
+		<dependency>
+			<groupId>emma</groupId>
+			<artifactId>maven-emma-plugin</artifactId>
+			<version>0.5</version>
+		</dependency>
+<!--		<dependency>
+                        <groupId>org.hipbernate</groupId>
+                        <artifactId>hibernate-c3p0</artifactId>
+                        <version>3.6.0.Final</version>
+                </dependency>-->
+<!--		<dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version></version>
+                </dependency>-->
+		<dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version>3.5.4-Final</version>
+			<type>pom</type>
+                </dependency>
 	</dependencies>
 	<build>
 		<!-- jb -->
