@@ -40,6 +40,28 @@
 		<url>http://github.com/tagaprice/tagaprice</url>
 	</scm>
 	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.0.5.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- google web toolkit -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -58,17 +80,18 @@
 			<artifactId>gwt-maps</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		<!-- google web toolkit -->		
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
-		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-html5</artifactId>
 			<version>0.1_20100803</version>
 		</dependency>
+		<!-- postgres jdbc -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+		</dependency>
+		<!-- json -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -134,12 +157,22 @@
                         <artifactId>hibernate</artifactId>
                         <version></version>
                 </dependency>-->
+		<!-- hibernate - o/r mapper -->
 		<dependency>
                         <groupId>org.hibernate</groupId>
                         <artifactId>hibernate</artifactId>
                         <version>3.5.4-Final</version>
 			<type>pom</type>
                 </dependency>
+		<!-- hibernate-sql-db - test db -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>2.0.0</version>
+			<scope>test</scope>
+                </dependency>
+		
+		
 	</dependencies>
 	<build>
 		<!-- jb -->
