@@ -4,3 +4,6 @@ jdbc.properties
 mail.properties
 target
 doc/
+.project
+.settings/
+.metadata/
