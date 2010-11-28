@@ -8,6 +8,7 @@
 	<name>tagAprice</name>
 	<url>http://www.tagaprice.org</url>
 
+
 	<repositories>
 		<repository>
 			<id>tagaprice-repo</id>
@@ -24,6 +25,12 @@
 			<url>http://download.java.net/maven/2/</url>
 			<layout>default</layout>
 		</repository>
+		<repository>
+			<id>public</id>
+			<name>Public Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+		</repository>
 	</repositories>
 
 	<issueManagement>
@@ -34,6 +41,29 @@
 		<url>http://github.com/tagaprice/tagaprice</url>
 	</scm>
 	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.0.5.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- google web toolkit -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -52,25 +82,29 @@
 			<version>1.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-html5</artifactId>
 			<version>0.1_20100803</version>
 		</dependency>
+		<!-- postgres jdbc -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+		</dependency>
+		<!-- json -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 		</dependency>
+		<!-- mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -109,6 +143,37 @@
 			<artifactId>maven-emma-plugin</artifactId>
 			<version>0.5</version>
 		</dependency>
+		<dependency>
+			<groupId>emma</groupId>
+			<artifactId>maven-emma-plugin</artifactId>
+			<version>0.5</version>
+		</dependency>
+<!--		<dependency>
+                        <groupId>org.hipbernate</groupId>
+                        <artifactId>hibernate-c3p0</artifactId>
+                        <version>3.6.0.Final</version>
+                </dependency>-->
+<!--		<dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version></version>
+                </dependency>-->
+		<!-- hibernate - o/r mapper -->
+		<dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version>3.5.4-Final</version>
+			<type>pom</type>
+                </dependency>
+		<!-- hibernate-sql-db - test db -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>2.0.0</version>
+			<scope>test</scope>
+                </dependency>
+		
+		
 	</dependencies>
 	<build>
 		<!-- jb -->
@@ -173,6 +238,36 @@
 				<version>1.0-alpha-2</version>
 			</plugin>
 
+			<!-- maven eclipse integration configuration -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<!-- load additional config files for eclipse (code style, formatter,...) -->
+ 					<additionalConfig>
+  						<file>
+							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.core.resources.prefs</name>
+							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.core.resources.prefs</url>
+  						</file>
+  						<file>
+							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.jdt.core.prefs</name>
+							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.jdt.core.prefs</url>
+  						</file>
+  						<file>
+							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.jdt.ui.prefs</name>
+							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.jdt.ui.prefs</url>
+  						</file>
+						<!-- i think this is not needed...
+						<file>
+							<name>${project-eclipse-mavenIntegration-settingsPath}org.maven.ide.eclipse.prefs</name>
+							<url>${project-eclipse-mavenIntegration-settingsUrl}org.maven.ide.eclipse.prefs</url>
+  						</file>
+						-->
+ 					</additionalConfig>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 		<resources>
 			<resource>
@@ -204,5 +299,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project-eclipse-mavenIntegration-settingsUrl>https://github.com/tagaprice/tagaprice/wiki/developement/eclipse_settings/</project-eclipse-mavenIntegration-settingsUrl>
+		<project-eclipse-mavenIntegration-settingsPath>.settings/</project-eclipse-mavenIntegration-settingsPath>
 	</properties>
 </project>
