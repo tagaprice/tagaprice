@@ -16,22 +16,22 @@ import org.springframework.core.io.ClassPathResource;
 import org.tagaprice.core.beans.Product;
 import org.tagaprice.server.dao.ints.IProductDAO;
 
-public class ProductManagementTest {
-	IProductManagement _productManagement;
-	private IProductDAO _mockedDao;
-	static XmlBeanFactory context;
+public class DefaultProductServiceTest {
+	DefaultProductService _productManagement;
+	private IProductDAO _productDaoMock;
+	static XmlBeanFactory _context;
 
 	@BeforeClass
 	public static void setUpBefore() throws Exception {
 		ClassPathResource res = new ClassPathResource("test-beans.xml");
-		ProductManagementTest.context = new XmlBeanFactory(res);
+		DefaultProductServiceTest._context = new XmlBeanFactory(res);
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		_productManagement = (IProductManagement) ProductManagementTest.context.getBean("productManagement");
-		_mockedDao = mock(IProductDAO.class);
-		_productManagement.setProductDAO(_mockedDao); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
+		_productManagement = (DefaultProductService) DefaultProductServiceTest._context.getBean("standardProductManagement");
+		_productDaoMock = mock(IProductDAO.class);
+		_productManagement.setProductDAO(_productDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
 	}
 
 	@After
@@ -42,7 +42,7 @@ public class ProductManagementTest {
 		Product productToSave = new Product().setId(null).setTitle("productTitle");
 		Product expected = new Product().setId((long) 1).setTitle("productTitle");
 
-		when(_mockedDao.save(productToSave)).thenReturn(expected);
+		when(_productDaoMock.save(productToSave)).thenReturn(expected);
 
 
 		Product actual = _productManagement.save(productToSave);

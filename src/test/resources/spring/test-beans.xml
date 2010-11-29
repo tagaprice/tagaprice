@@ -9,9 +9,8 @@
 			   http://www.springframework.org/schema/aop
 			   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 			   http://www.springframework.org/schema/context
-			   http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+			   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
        <!-- service -->
-       <bean id="productManagement"
-	     class="org.tagaprice.server.service.StandardProductManagement"
-	     />
+       <bean id="defaultProductService"
+	     class="org.tagaprice.server.service.defaultProductService"/>
 </beans>
