@@ -4,7 +4,7 @@ public class ProductRevision extends EntityRevision {
 	
 	/** TODO change this to type URL ? */
 	private String _imageUrl;
-	
+
 	
 	private ProductRevision() { }
 	

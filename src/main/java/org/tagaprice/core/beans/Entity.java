@@ -14,14 +14,32 @@ public abstract class Entity {
 	private Integer _currentRevisionNumber = null;
 	private EntityRevision _currentRevision = null;
 	private Date _createdAt = null;
+	private int _localeId;
 	//	private Long _rev = null;
+
 
 
 	protected Entity() { }
 	
-	protected Entity(long id) {
-		_id = id;
+	
+	protected Entity(int localeId, Date createdAt, int currentRevisionNumber) {
+		_localeId = localeId;
+		_createdAt = createdAt;
+		_currentRevisionNumber = currentRevisionNumber;
 	}
+	
+	
+
+
+	public int getLocaleId() {
+		return _localeId;
+	}
+
+
+	private void setLocaleId(int localeId) {
+		_localeId = localeId;
+	}
+	
 
 	public Long getId() {
 		return _id;
@@ -31,7 +49,7 @@ public abstract class Entity {
 	 * this is used by hibernate to set the id through reflection
 	 */
 	@SuppressWarnings("unused")
-	private void setId(Long id) {
+	public void setId(Long id) {
 		_id = id;
 	}
 	
@@ -59,6 +77,50 @@ public abstract class Entity {
 		return _currentRevisionNumber;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
+		result = prime * result + ((_currentRevisionNumber == null) ? 0 : _currentRevisionNumber.hashCode());
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + _localeId;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entity other = (Entity) obj;
+		if (_createdAt == null) {
+			if (other._createdAt != null)
+				return false;
+		} else if (!_createdAt.equals(other._createdAt))
+			return false;
+		if (_currentRevisionNumber == null) {
+			if (other._currentRevisionNumber != null)
+				return false;
+		} else if (!_currentRevisionNumber.equals(other._currentRevisionNumber))
+			return false;
+		if (_id == null) {
+			if (other._id != null)
+				return false;
+		} else if (!_id.equals(other._id))
+			return false;
+		if (_localeId != other._localeId)
+			return false;
+		return true;
+	}
+
+	
+	
 
 	
 	//	public Long getRev() {

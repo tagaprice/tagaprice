@@ -16,11 +16,4 @@ import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
  */
 @ContextConfiguration
 @DirtiesContext
-public class HibernateProductDAOTests extends AbstractProductDAOTest {
-	
-	@Before
-	public void setUp() throws Exception {
-		_productDAO = getContext().getBean("productDao", HibernateProductDAO.class);
-	}
-
-}
+public class HibernateProductDAOTests extends AbstractProductDAOTest { }

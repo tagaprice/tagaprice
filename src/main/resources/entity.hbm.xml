@@ -13,14 +13,14 @@
 	    </id>
 	    
 	    <!-- TODO check if constrained="true" is needed -->
-	    <one-to-one 
+	    <!-- <one-to-one 
 	    	name="currentRevision"
 	    	class="EntityRevision"
-	    />
+	    />-->
 
-		<property name="currentRevisionNumber" column="current_rev" />
-			    
+		<property name="currentRevisionNumber" column="current_revision" />
 	    <property name="createdAt" column="created_at"/>
+	    <property name="localeId" column="locale_id" />
 	
 <!-- subclass Product -->
 		<joined-subclass name="Product" table="product">

@@ -7,7 +7,7 @@
 <!-- this currently only maps entity and product -->
 <hibernate-mapping package="org.tagaprice.core.beans">
 
-    <class name="EntityRevision" table="entityrevision">
+    <!--<class name="EntityRevision" table="entityrevision">
 	    <composite-id name="entityRevisionId" class="EntityRevisionId">
 	    	<key-property name="id" column="ent_id" />
 	    	<key-property name="revision" column="rev" />
@@ -16,7 +16,7 @@
 	    <property name="title" column="title" />
 	    <property name="createdAt" column="created_at" type="timestamp" />
 	
-<!-- subclass ProductRevision -->
+ subclass ProductRevision 
 		<joined-subclass name="org.tagaprice.core.beans.ProductRevision" table="productrevision">
 	        <key>
 	        	<column name="id" />
@@ -28,4 +28,4 @@
 	    	
 	</class>
 	
-</hibernate-mapping>
+--></hibernate-mapping>
