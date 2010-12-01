@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.tagaprice.core.beans.Product;
 import org.tagaprice.server.dao.ints.IProductDAO;
 
-public class StandardProductManagement implements IProductManagement {
+public class DefaultProductService implements IProductService {
 	//	private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
 	@Autowired
 	private IProductDAO _productDao;
@@ -14,7 +14,6 @@ public class StandardProductManagement implements IProductManagement {
 		return _productDao.save(product);
 	}
 
-	@Override
 	public void setProductDAO(IProductDAO productDao) {
 		_productDao = productDao;
 	}

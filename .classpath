@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="src" path="src/main/resources/spring"/>
+	<classpathentry kind="src" path="src/main/resources/log4j"/>
+	<classpathentry kind="src" path="src/test/resources/spring"/>
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources/WEB-INF/conf"/>
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/webapp"/>

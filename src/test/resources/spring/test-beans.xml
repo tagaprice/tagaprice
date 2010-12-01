@@ -10,9 +10,8 @@
 			   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- service -->
-	<bean id="productManagement" class="org.tagaprice.server.service.StandardProductManagement" />
-
-
+       <bean id="defaultProductService"
+	     class="org.tagaprice.server.service.defaultProductService"/>
 
 
 	<!-- hibernate spring test setup -->
