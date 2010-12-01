@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
 
+import org.hamcrest.core.Is;
 import org.junit.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.beans.Product;
@@ -27,7 +28,7 @@ public class AbstractProductDaoTest extends AbstractDAOTest {
 	public void setUp() throws Exception {
 		// TODO setup db
 		
-		_productDao = getContext().getBean("productDao", HibernateProductDAO.class);
+		_productDao = getContext().getBean("productDao", IProductDAO.class);
 	}
 
 	@After
@@ -36,19 +37,12 @@ public class AbstractProductDaoTest extends AbstractDAOTest {
 	
 	
 	@Test
-	@Transactional
+	/** TODO adapt test to use EntityRevision */
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
-		
-		// TODO finish implementation of this test
 		Date savedDate = new Date();
 		Product productToSave = new Product(0, savedDate, 0);
-		productToSave.setId((long) 0);
 		
-		
-		
-		Product expected = new Product(0, savedDate, 0);
-		expected.setId((long) 0);
-
+		Product expected = new Product(1, 0, savedDate, 0);
 		
 		Product actual = _productDao.save(productToSave);
 

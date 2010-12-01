@@ -15,12 +15,16 @@ public abstract class Entity {
 	private EntityRevision _currentRevision = null;
 	private Date _createdAt = null;
 	private int _localeId;
-	//	private Long _rev = null;
-
 
 
 	protected Entity() { }
 	
+	protected Entity(long id, int localeId, Date createdAt, int currentRevisionNumber) {
+		_id = id;
+		_localeId = localeId;
+		_createdAt = createdAt;
+		_currentRevisionNumber = currentRevisionNumber;
+	}
 	
 	protected Entity(int localeId, Date createdAt, int currentRevisionNumber) {
 		_localeId = localeId;
@@ -49,7 +53,7 @@ public abstract class Entity {
 	 * this is used by hibernate to set the id through reflection
 	 */
 	@SuppressWarnings("unused")
-	public void setId(Long id) {
+	private void setId(Long id) {
 		_id = id;
 	}
 	
@@ -76,7 +80,14 @@ public abstract class Entity {
 	public Integer getCurrentRevisionNumber() {
 		return _currentRevisionNumber;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Entity [_id=" + _id + ", _currentRevisionNumber="
+				+ _currentRevisionNumber + ", _currentRevision="
+				+ _currentRevision + ", _createdAt=" + _createdAt
+				+ ", _localeId=" + _localeId + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -118,18 +129,4 @@ public abstract class Entity {
 			return false;
 		return true;
 	}
-
-	
-	
-
-	
-	//	public Long getRev() {
-	//		return _rev;
-	//	}
-	//
-	//
-	//	public void setRev(Long rev) {
-	//		_rev = rev;
-	//	}
-
 }
