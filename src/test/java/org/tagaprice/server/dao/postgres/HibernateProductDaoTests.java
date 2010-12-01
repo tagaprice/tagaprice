@@ -3,7 +3,7 @@ package org.tagaprice.server.dao.postgres;
 import org.junit.Before;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.tagaprice.server.dao.AbstractProductDAOTest;
+import org.tagaprice.server.dao.AbstractProductDaoTest;
 import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
 
 /**
@@ -16,4 +16,4 @@ import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
  */
 @ContextConfiguration
 @DirtiesContext
-public class HibernateProductDAOTests extends AbstractProductDAOTest { }
+public class HibernateProductDaoTests extends AbstractProductDaoTest { }

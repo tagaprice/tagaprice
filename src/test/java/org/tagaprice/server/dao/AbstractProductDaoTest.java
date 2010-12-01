@@ -19,7 +19,7 @@ import org.tagaprice.server.dao.ints.IProductDAO;
  * @author "haja"
  *
  */
-public class AbstractProductDAOTest extends AbstractDAOTest {
+public class AbstractProductDaoTest extends AbstractDAOTest {
 	
 	protected IProductDAO _productDao;
 
@@ -34,7 +34,9 @@ public class AbstractProductDAOTest extends AbstractDAOTest {
 	public void tearDown() throws Exception {
 	}
 	
+	
 	@Test
+	@Transactional
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
 		
 		// TODO finish implementation of this test
