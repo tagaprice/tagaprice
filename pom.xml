@@ -193,6 +193,12 @@
 			<version>2.5.6</version>
 		</dependency>
 
+		<!-- this is needed by hibernate (TODO dependencies should be resolved automatically?) -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.4.GA</version>
+		</dependency>
 
 
 	</dependencies>
