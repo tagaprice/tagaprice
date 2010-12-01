@@ -1,17 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 			   http://www.springframework.org/schema/aop
 			   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 			   http://www.springframework.org/schema/context
-			   http://www.springframework.org/schema/context/spring-context-3.0.xsd"
-       <!-- service -->
-       <bean id="productManagement"
-	     class="org.tagaprice.server.service.StandardProductManagement"
-	     />
+			   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- service -->
+	<bean id="productManagement" class="org.tagaprice.server.service.StandardProductManagement" />
+
+
+
+
+	<!-- hibernate spring test setup -->
+
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:testdb" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="mappingLocations"> <!-- TODO use resources here instead and fix setup -->
+			<list>
+				<value>/src/main/resources/entity.hbm.xml</value>
+				<value>/src/main/resources/entityrevision.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- Transaction management -->
+	<!-- <tx:annotation-driven/> -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+
+	<!-- DAO setup -->
+	<bean id="productDao" class="org.tagaprice.server.dao.hibernate.HibernateProductDAO">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+
 </beans>

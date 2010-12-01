@@ -1,16 +1,14 @@
 package org.tagaprice.core.beans;
 
-public class Product extends Entity<Product> {
+public class Product extends Entity {
 
-	public Product() {
-		super();
+	public Product() { }
+
+	public Product(long id) {
+		super(id);
 	}
 
-	@Override
-	protected Product self() {
-		return this;
-	}
-
+	
 
 	//	public boolean isNew() {
 	//		return (this.id == null);

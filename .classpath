@@ -5,81 +5,85 @@
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/webapp"/>
 	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/mail/mail/1.4.3/mail-1.4.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/ant/ant/1.6.3/ant-1.6.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/dbunit/dbunit/2.4.8/dbunit-2.4.8.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/org/dbunit/dbunit/2.4.8/dbunit-2.4.8-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/org/dbunit/dbunit/2.4.8/dbunit-2.4.8-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/emma/emma/2.0.5312/emma-2.0.5312.jar"/>
 	<classpathentry kind="var" path="M2_REPO/emma/emma_ant/2.0.5312/emma_ant-2.0.5312.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/gwt/gwt-html5/0.1_20100803/gwt-html5-0.1_20100803.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/gwt/google-apis/gwt-maps/1.1.0/gwt-maps-1.1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/google/gwt/gwt-servlet/2.0.4/gwt-servlet-2.0.4.jar" sourcepath="M2_REPO/com/google/gwt/gwt-servlet/2.0.4/gwt-servlet-2.0.4-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/com/google/gwt/gwt-servlet/2.0.4/gwt-servlet-2.0.4.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/com/google/gwt/gwt-servlet/2.0.4/gwt-servlet-2.0.4-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/com/google/gwt/gwt-servlet/2.0.4/gwt-servlet-2.0.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/com/google/gwt/gwt-user/2.0.4/gwt-user-2.0.4.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/com/google/gwt/gwt-user/2.0.4/gwt-user-2.0.4-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/com/google/gwt/gwt-user/2.0.4/gwt-user-2.0.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-core/3.5.4-Final/hibernate-core-3.5.4-Final.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/2.0.0/hsqldb-2.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/json/json/20090211/json-20090211.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/junit/junit/4.8.2/junit-4.8.2-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/junit/junit/4.8.2/junit-4.8.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/emma/maven-emma-plugin/0.5/maven-emma-plugin-0.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mockito/mockito-all/1.8.5/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/forste/.m2/repository/postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/home/n0s/.m2/repository/postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://static.springsource.org/spring/docs/3.0.x/javadoc-api/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-orm/2.5.6/spring-orm-2.5.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
