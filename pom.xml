@@ -270,10 +270,18 @@
 			<resource>
 				<directory>src/main/webapp</directory>
 			</resource>
+			<resource>
+				<!-- sever ressource setup -->
+				<directory>src/main/resources</directory>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources/WEB-INF/conf</directory>
+			</testResource>
+			<testResource>
+				<!-- sever test ressource setup -->
+				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
 	</build>
