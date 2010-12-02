@@ -7,4 +7,5 @@ doc/
 .project
 .settings/
 .metadata/
+.classpath
 *~
