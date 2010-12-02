@@ -25,10 +25,10 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mappingLocations"> <!-- TODO use resources here instead and fix setup -->
+		<property name="mappingResources">
 			<list>
-				<value>/src/main/resources/hibernate/entity.hbm.xml</value>
-				<value>/src/main/resources/hibernate/entityrevision.hbm.xml</value>
+				<value>/hibernate/entity.hbm.xml</value>
+				<value>/hibernate/entityrevision.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -42,21 +42,15 @@
 	</bean>
 
 	<!-- enable the configuration of transactional behavior based on annotations -->
-	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<!-- a PlatformTransactionManager is still required -->
-	<bean id="txManager"
+	<!-- a PlatformTransactionManager is still required
+	 TODO rename and check, where the reference to this transactionManager is needed-->
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<!-- (this dependency is defined somewhere else) -->
 		<property name="dataSource" ref="dataSource" />
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-
-	<!-- DAO setup -->
-	<bean id="productDao" class="org.tagaprice.server.dao.hibernate.HibernateProductDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
-
 </beans>

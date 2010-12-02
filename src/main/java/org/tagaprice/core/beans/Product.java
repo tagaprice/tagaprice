@@ -6,9 +6,9 @@ public class Product extends Entity {
 
 	public Product() { }
 
-	public Product(long id, int localeId, Date createdAt, int currentRevisionNumber) {
-		super(id, localeId, createdAt, currentRevisionNumber);
-	}
+//	public Product(long id, int localeId, Date createdAt, int currentRevisionNumber) {
+//		super(id, localeId, createdAt, currentRevisionNumber);
+//	}
 	
 	public Product(int localeId, Date createdAt, int currentRevisionNumber) {
 		super(localeId, createdAt, currentRevisionNumber);
@@ -22,10 +22,4 @@ public class Product extends Entity {
 				+ ", getCurrentRevisionNumber()=" + getCurrentRevisionNumber()
 				+ "]";
 	}
-
-	
-
-	//	public boolean isNew() {
-	//		return (this.id == null);
-	//	}
 }

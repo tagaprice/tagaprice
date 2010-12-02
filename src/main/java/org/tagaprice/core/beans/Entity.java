@@ -34,6 +34,11 @@ public abstract class Entity {
 	
 	
 
+	
+
+	//	public boolean isNew() {
+	//		return (this.id == null);
+	//	}
 
 	public int getLocaleId() {
 		return _localeId;

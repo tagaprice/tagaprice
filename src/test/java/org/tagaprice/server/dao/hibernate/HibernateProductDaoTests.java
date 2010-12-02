@@ -1,7 +1,5 @@
-package org.tagaprice.server.dao.postgres;
+package org.tagaprice.server.dao.hibernate;
 
-import org.junit.Before;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.tagaprice.server.dao.AbstractProductDaoTest;
 import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
@@ -9,11 +7,10 @@ import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
 /**
  * Unit tests for the {@link HibernateProductDAO}.
  * 
- * TODO "HibernateProductDAOTests-context.xml" determines the actual beans to test.
+ * Runs all unit test with the spring configuration of this class.
  * 
- * @author "haja"
+ * @author haja
  * 
  */
-@ContextConfiguration
-@DirtiesContext
+@ContextConfiguration //this loads the xml file with the same name in the same directory as the class from the resources
 public class HibernateProductDaoTests extends AbstractProductDaoTest { }
