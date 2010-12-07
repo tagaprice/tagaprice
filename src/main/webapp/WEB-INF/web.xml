@@ -5,8 +5,9 @@
 
 <web-app>
 	<!-- Servlets -->
+	<!-- 
 	<servlet>
-		<servlet-name>jUnitHostImpl</servlet-name>
+		<servlet-name>ProductService</servlet-name>
 		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
 	</servlet>
 	<servlet>
@@ -14,99 +15,31 @@
 		<servlet-class>org.tagaprice.server.InitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	 -->
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
-		<servlet-name>Category</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.CategoryHandlerImpl</servlet-class>
+		<servlet-name>ProductService</servlet-name>
+		<servlet-class>org.tagaprice.client.gwt.server.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Category</servlet-name>
-		<url-pattern>/tagapriceui/rpc/category</url-pattern>
+		<servlet-name>ProductService</servlet-name>
+		<url-pattern>/TagAPrice/productservice</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>Product</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.ProductHandlerImpl</servlet-class>
-	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>Product</servlet-name>
-		<url-pattern>/tagapriceui/rpc/product</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Shop</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.ShopHandlerImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Shop</servlet-name>
-		<url-pattern>/tagapriceui/rpc/shop</url-pattern>
-	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>Receipt</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.ReceiptHandlerImpl</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Receipt</servlet-name>
-		<url-pattern>/tagapriceui/rpc/receipt</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Price</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.PriceHandlerImpl</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Price</servlet-name>
-		<url-pattern>/tagapriceui/rpc/price</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Unit</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.UnitHandlerImpl</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Unit</servlet-name>
-		<url-pattern>/tagapriceui/rpc/unit</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Account</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.LocalAccountHandlerImpl</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Account</servlet-name>
-		<url-pattern>/tagapriceui/rpc/account</url-pattern>
-	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>Search</servlet-name>
-		<servlet-class>org.tagaprice.server.rpc.SearchHandlerImpl</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Search</servlet-name>
-		<url-pattern>/tagapriceui/rpc/search</url-pattern>
-	</servlet-mapping>
 	
 	
 	
 	
 	<!-- END: RPC-->
-
+	<!--
 	<servlet-mapping>
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<url-pattern>/tagapriceui/junithost</url-pattern>
 	</servlet-mapping>
+	-->
 	
 	
 

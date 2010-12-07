@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='tagapriceui'>
+<module rename-to='TagAPrice'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.resources.Resources" />
-  <inherits name="com.google.gwt.junit.JUnit"/>
+  <!-- <inherits name="com.google.gwt.junit.JUnit"/> -->
+  <inherits name="com.google.gwt.logging.LogImpl" /> 
+  <inherits name="com.google.gwt.place.Place" /> 
+  <inherits name="com.google.gwt.place.Place" /> 
+  <inherits name="com.google.gwt.activity.Activity" /> 
+- <replace-with class="org.tagaprice.client.gwt.client.ClientFactoryImpl">
+  <when-type-is class="org.tagaprice.client.gwt.client.ClientFactory" /> 
+  </replace-with>
+  
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
@@ -17,12 +25,10 @@
   <inherits name='com.google.gwt.maps.GoogleMaps' />
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='org.tagaprice.client.TagAPriceUI'/>
+  <entry-point class='org.tagaprice.client.gwt.client.TagAPrice'/>
   <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=true&amp;key=ABQIAAAAmkm_NVB3ydA1uhh-Cxq1GRQ5GsBjyuBUf1bknn4Hhi0YSQaxCBSPAMRdoQMqKe_vK5E0JMVVEPcxdg" />
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
-  
-
 </module>
