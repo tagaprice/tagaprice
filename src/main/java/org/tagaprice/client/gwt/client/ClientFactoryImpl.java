@@ -8,14 +8,20 @@ import org.tagaprice.client.gwt.shared.entities.ProductCore;
 import com.google.gwt.event.shared.*;
 import com.google.gwt.place.shared.PlaceController;
 /**
- * The ClientFactory provieds an EventBus, a PlaceController and the Views(EditProduct and ListProducts)
+ * The ClientFactory provides singletones for <ul><li>an EventBus</li><li>a PlaceController</li><li>and the Views</li></ul>.
  * @author Helga Weik (kaltra)
  *
  */
 public class ClientFactoryImpl implements ClientFactory {
+	/**
+	 * The EventBus is unique for the whole GWT Application.
+	 */
 	private static final EventBus eventBus = new SimpleEventBus();
+	/**
+	 * The PlaceController is unique for the whole GWT Application.
+	 */
 	private static final PlaceController placeController = new PlaceController(
-			eventBus);
+			ClientFactoryImpl.eventBus);
 	private static final ListProductsViewImpl<ProductCore> productListView = new ListProductsViewImpl<ProductCore>();
 	private static final EditProductView editProductView = new EditProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
@@ -23,41 +29,32 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductServiceDispatch productServiceDispatch = new ProductServiceDispatch();
 
 	public ClientFactoryImpl() {
-		productListView.setColumnDefinitions(productCoreColumnDefinitions
+		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
 				.getColumnDefinitions());
 	}
-/**
- * The EventBus return an event ??
- */
+
 	@Override
 	public EventBus getEventBus() {
-		return eventBus;
+		return ClientFactoryImpl.eventBus;
 	}
-/**
- * The PlaceController registers an event???
- */
+
 	@Override
 	public PlaceController getPlaceController() {
-		return placeController;
+		return ClientFactoryImpl.placeController;
 	}
-/**
- * 
- */
+
 	@Override
 	public EditProductView getEditProductView() {
-		return editProductView;
+		return ClientFactoryImpl.editProductView;
 	}
-/**
- * 
- */
 	@Override
 	public ListProductsView<ProductCore> getListProductsView() {
-		return productListView;
+		return ClientFactoryImpl.productListView;
 	}
 
 	@Override
 	public ProductServiceDispatch getProductServiceDispatch() {
-		return productServiceDispatch;
+		return ClientFactoryImpl.productServiceDispatch;
 	}
 
 }

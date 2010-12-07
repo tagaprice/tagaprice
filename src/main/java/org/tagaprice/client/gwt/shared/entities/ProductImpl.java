@@ -2,10 +2,9 @@ package org.tagaprice.client.gwt.shared.entities;
 
 import java.io.Serializable;
 /**
- * 
- * @author Helga Weik (kaltra)
  * A Product has properties: id, name, price, description and category
  * The class implements the Interface Product und the Interface Serializable
+ * @author Helga Weik (kaltra)
  */
 
 public class ProductImpl implements Product, Serializable {
@@ -21,14 +20,14 @@ public class ProductImpl implements Product, Serializable {
 
 	public ProductImpl() {
 	}
-/**
- * The Constructor generates a new Object Product with the parameters below
- * @param id
- * @param name
- * @param price
- * @param description
- * @param category
- */
+	/**
+	 * The Constructor generates a new Object Product with the parameters below
+	 * @param id
+	 * @param name
+	 * @param price
+	 * @param description
+	 * @param category
+	 */
 	public ProductImpl(int id, String name, int price, String description,
 			String category) {
 		super();
@@ -38,66 +37,66 @@ public class ProductImpl implements Product, Serializable {
 		this.description = description;
 		this.category = category;
 	}
-/**
- * Returns the id of a product
- */
+	/**
+	 * Returns the id of a product
+	 */
 	@Override
 	public int getId() {
 		return this.id;
 	}
-/**
- * Sets the id of a product
- */
+	/**
+	 * Sets the id of a product
+	 */
 	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
-/**
- * returns the name of a product
-*/
+	/**
+	 * returns the name of a product
+	 */
 	@Override
 	public String getName() {
 		return this.name;
 	}
-/**
- * Sets the name of product
- */
+	/**
+	 * Sets the name of product
+	 */
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
-/**
- * returns the description of a product
-*/
+	/**
+	 * returns the description of a product
+	 */
 	@Override
 	public String getDescription() {
 		return this.description;
 	}
 
-/**
- * Sets the description of a product
- */
+	/**
+	 * Sets the description of a product
+	 */
 	@Override
 	public void setDescription(String description) {
 		this.description = description;
 	}
-/**
- * returns the category of a product
- */
+	/**
+	 * returns the category of a product
+	 */
 	@Override
 	public String getCategory() {
 		return this.category;
 	}
-/**
- * Sets the cotegory of a product for example Icetee is a drink
- */
+	/**
+	 * Sets the cotegory of a product for example Icetee is a drink
+	 */
 	@Override
 	public void setCategory(String category) {
 		this.category = category;
 	}
-/**
- * ?
- */
+	/**
+	 * ?
+	 */
 	@Override
 	public void copyFields(Product p) {
 		this.id = p.getId();
@@ -106,16 +105,16 @@ public class ProductImpl implements Product, Serializable {
 		this.description = p.getDescription();
 		this.category = p.getCategory();
 	}
-/**
- * Sets the price for a product
- */
+	/**
+	 * Sets the price for a product
+	 */
 	@Override
 	public void setPrice(int price) {
 		this.price = price;
 	}
-/**
- * Returns the price of a product
- */
+	/**
+	 * Returns the price of a product
+	 */
 	@Override
 	public int getPrice() {
 		return this.price;

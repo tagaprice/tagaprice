@@ -1,8 +1,8 @@
 package org.tagaprice.client.gwt.shared.entities;
 /**
  * 
+ * The interface Product has methods which are implemented in the class ProductImpl.java
  * @author Helga Weik (kaltra)
- * The interface Product has methods wich are implemented in the class ProductImpl.java
  *
  */
 
