@@ -1,0 +1,17 @@
+package org.tagaprice.client.gwt.shared.logging;
+
+public class MyLoggerImpl implements MyLogger {
+	@SuppressWarnings("rawtypes")
+	private Class theClass;
+
+	public MyLoggerImpl(@SuppressWarnings("rawtypes") Class theClass) {
+		this.theClass = theClass;
+	}
+
+	@Override
+	public void log(String message) {
+		System.out.println("Class: " + this.theClass.getName() + " Log: "
+				+ message);
+	}
+
+}
