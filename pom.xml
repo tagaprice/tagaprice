@@ -56,6 +56,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>3.0.5.RELEASE</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -143,32 +150,52 @@
 			<artifactId>maven-emma-plugin</artifactId>
 			<version>0.5</version>
 		</dependency>
-<!--		<dependency>
-                        <groupId>org.hipbernate</groupId>
-                        <artifactId>hibernate-c3p0</artifactId>
-                        <version>3.6.0.Final</version>
-                </dependency>-->
-<!--		<dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate</artifactId>
-                        <version></version>
-                </dependency>-->
+		<!--		<dependency>
+			<groupId>org.hipbernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>3.6.0.Final</version>
+		</dependency>-->
+		<!--		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version></version>
+		</dependency>-->
 		<!-- hibernate - o/r mapper -->
 		<dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate</artifactId>
-                        <version>3.5.4-Final</version>
-			<type>pom</type>
-                </dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.5.4-Final</version>
+			<!--	<type>pom</type> -->
+		</dependency>
 		<!-- hibernate-sql-db - test db -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
-                        <artifactId>hsqldb</artifactId>
-                        <version>2.0.0</version>
+			<artifactId>hsqldb</artifactId>
+			<version>2.0.0</version>
 			<scope>test</scope>
-                </dependency>
-		
-		
+		</dependency>
+
+		<!-- connection pool / BasicDataSource from apach -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- spring orm support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+
+		<!-- this is needed by hibernate (TODO dependencies should be resolved automatically?) -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.4.GA</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<!-- jb -->
@@ -268,10 +295,18 @@
 			<resource>
 				<directory>src/main/webapp</directory>
 			</resource>
+			<resource>
+				<!-- sever ressource setup -->
+				<directory>src/main/resources</directory>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources/WEB-INF/conf</directory>
+			</testResource>
+			<testResource>
+				<!-- sever test ressource setup -->
+				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
 	</build>

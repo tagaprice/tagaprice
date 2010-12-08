@@ -5,6 +5,8 @@ mail.properties
 target
 doc/
 .project
-.settings
-.classpath
 TagAPrice.launch
+.settings/
+.metadata/
+.classpath
+*~
