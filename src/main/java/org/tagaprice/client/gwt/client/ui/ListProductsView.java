@@ -2,7 +2,6 @@ package org.tagaprice.client.gwt.client.ui;
 
 import java.util.ArrayList;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -18,15 +17,17 @@ public interface ListProductsView<T> extends IsWidget {
 	public interface Presenter {
 		public void goTo(Place place);
 
-		public void onAddProductButtonClicked(ClickEvent event);
+		public void onAddProduct();
 
-		public void onTableEntryClicked(ClickEvent event);
+		/**
+		 * 
+		 * @param index the item in the ArrayList<T> data at position index
+		 */
+		public void onEditProduct(int index);
 	}
 
 	public void setPresenter(Presenter presenter);
 
 	public void setData(ArrayList<T> data);
-
-	public int getIdForEvent(ClickEvent event);
 
 }

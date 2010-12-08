@@ -18,12 +18,12 @@ import com.google.gwt.user.client.ui.*;
  * @param <T>
  */
 public class ListProductsViewImpl<T> extends Composite implements
-		ListProductsView<T> {
+ListProductsView<T> {
 
 	Presenter presenter;
 
 	private static MyLogger logger = LoggerFactory
-			.getLogger(ListProductsViewImpl.class);
+	.getLogger(ListProductsViewImpl.class);
 
 	/**
 	 * UiBinder Magic...
@@ -33,7 +33,7 @@ public class ListProductsViewImpl<T> extends Composite implements
 	 */
 	@SuppressWarnings("rawtypes")
 	interface ListProductsViewImplUiBinder extends
-			UiBinder<Widget, ListProductsViewImpl> {
+	UiBinder<Widget, ListProductsViewImpl> {
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ListProductsViewImpl<T> extends Composite implements
 	 * UiBinder Magic again...
 	 */
 	private static ListProductsViewImplUiBinder uiBinder = GWT
-			.create(ListProductsViewImplUiBinder.class);
+	.create(ListProductsViewImplUiBinder.class);
 
 	/**
 	 * and again...
@@ -62,21 +62,21 @@ public class ListProductsViewImpl<T> extends Composite implements
 
 	@UiHandler("addProduct")
 	public void onAddProductButtonClicked(ClickEvent event) {
-		logger.log("Button addProduct clicked");
-		this.presenter.onAddProductButtonClicked(event);
+		ListProductsViewImpl.logger.log("Button addProduct clicked");
+		this.presenter.onAddProduct();
 	}
 
 	@UiHandler("table")
 	public void onTableEntryClicked(ClickEvent event) {
-		logger.log("Entry on Table clicked");
-		this.presenter.onTableEntryClicked(event);
+		ListProductsViewImpl.logger.log("Entry on Table clicked");
+		this.presenter.onEditProduct(this.table.getCellForEvent(event).getRowIndex());
 	}
 
 	ArrayList<ColumnDefinition<T>> columnDefinitions;
 
 	public ListProductsViewImpl() {
 		super();
-		this.initWidget(uiBinder.createAndBindUi(this));
+		this.initWidget(ListProductsViewImpl.uiBinder.createAndBindUi(this));
 	}
 
 	/**
@@ -95,15 +95,10 @@ public class ListProductsViewImpl<T> extends Composite implements
 			T elem = data.get(i);
 			for (int j = 0; j < this.columnDefinitions.size(); j++) {
 				ColumnDefinition<T> actualColumnDefinition = this.columnDefinitions
-						.get(j);
+				.get(j);
 				this.table.setWidget(i, j, actualColumnDefinition.render(elem));
 			}
 		}
-	}
-
-	@Override
-	public int getIdForEvent(ClickEvent event) {
-		return this.table.getCellForEvent(event).getRowIndex();
 	}
 
 }

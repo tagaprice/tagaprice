@@ -13,7 +13,6 @@ import org.tagaprice.client.gwt.shared.logging.*;
 
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -29,6 +28,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	private ProductListPlace place;
 	private ClientFactory clientFactory;
+	private ArrayList<ProductCore> products;
 	/**
 	 * 
 	 * The ListProductsActivity constructor takes the argument ProductListPlace
@@ -67,7 +67,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	@Override
 	public void onStop() {
-		// TODO Auto-generated method stub
+		this.clientFactory.getListProductsView().setPresenter(null);
 
 	}
 	/**
@@ -88,6 +88,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 			@Override
 			public void onSuccess(ArrayList<ProductCore> result) {
+				products = result;
 				listProductsView.setData(result);
 			}
 
@@ -103,15 +104,14 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	 * 
 	 */
 	@Override
-	public void onTableEntryClicked(ClickEvent event) {
-		int id = this.clientFactory.getListProductsView().getIdForEvent(event);
-		this.goTo(new EditProductPlace(id));
+	public void onEditProduct(int index) {
+		this.goTo(new EditProductPlace(this.products.get(index).getId()));
 	}
 	/**
 	 * 
 	 */
 	@Override
-	public void onAddProductButtonClicked(ClickEvent event) {
+	public void onAddProduct() {
 		this.goTo(new EditProductPlace());
 	}
 }
