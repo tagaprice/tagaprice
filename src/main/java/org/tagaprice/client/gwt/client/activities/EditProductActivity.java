@@ -70,7 +70,7 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 	 * and starts a new Activity
 	 */
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		EditProductActivity.logger.log("activity startet");
 		final EditProductView editProductView = this.clientFactory.getEditProductView();
 		editProductView.setPresenter(this);
@@ -78,6 +78,7 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 		if (this.place.isNewProduct()) {
 			EditProductActivity.logger.log("is new product");
 			this.updateView(p);
+			panel.setWidget(editProductView.asWidget());
 		} else {
 			EditProductActivity.logger.log("is existing product");
 			this.clientFactory.getProductServiceDispatch().getProductById(this.place.getProductId(),
@@ -92,7 +93,7 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 				public void onSuccess(Product result) {
 					EditProductActivity.logger.log("succesful call");
 					EditProductActivity.this.updateView(result);
-
+					panel.setWidget(editProductView.asWidget());
 				}
 
 				/**
@@ -108,7 +109,7 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 			});
 		}
 
-		panel.setWidget(editProductView.asWidget());
+
 	}
 
 	public void updateView(Product p) {

@@ -34,8 +34,11 @@ public class AppActivityMapper implements ActivityMapper {
 			logger.log("return new EditProductsActivity");
 			return new EditProductActivity((EditProductPlace) place,
 					this.clientFactory);
+		} else {
+			//THIS ELSE IS IMPORTANT TO AVOID FAILURES
+			//IF THE PROGRAMER FORGOTT TO RETURN A VALUE
+			return null;
 		}
-		return null;
 	}
 
 }

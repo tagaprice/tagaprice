@@ -75,7 +75,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	 * the view and starts a new Activity
 	 */
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		ListProductsActivity.logger.log("Activity starts...");
 		final ListProductsView<ProductCore> listProductsView = this.clientFactory
 		.getListProductsView();
@@ -90,6 +90,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 			public void onSuccess(ArrayList<ProductCore> result) {
 				products = result;
 				listProductsView.setData(result);
+				panel.setWidget(listProductsView.asWidget());
 			}
 
 			@Override
@@ -98,7 +99,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 			}
 		});
-		panel.setWidget(listProductsView.asWidget());
+
 	}
 	/**
 	 * 

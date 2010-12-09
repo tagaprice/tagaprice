@@ -21,8 +21,10 @@ public class TagAPrice implements EntryPoint {
 
 	private Place defaultPlace = new ProductListPlace("");
 	private HorizontalPanel topPanel = new HorizontalPanel();
-	private SimplePanel leftPanel = new SimplePanel();
+	private VerticalPanel leftPanel = new VerticalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
+
+	final private NotificationMole mole = new NotificationMole();
 
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
@@ -44,8 +46,12 @@ public class TagAPrice implements EntryPoint {
 		//Configure Logo
 		this.topPanel.add(new Image("TagaAPriceLogo.png"));
 		this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
+		this.topPanel.add(this.mole);
+		//This is quite a mess...
+		clientFactory.getProductServiceDispatch().setMole(this.mole);
 
-		this.leftPanel.add(new HTML("<h3>the menu</h3>"));
+		this.leftPanel.add(new HTML("<h3>menu</h3>"));
+
 		this.mainPanel.addStyleName("mainPanel");
 
 		ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
