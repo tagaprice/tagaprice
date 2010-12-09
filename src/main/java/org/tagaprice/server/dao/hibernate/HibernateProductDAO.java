@@ -2,7 +2,7 @@ package org.tagaprice.server.dao.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.tagaprice.core.beans.Product;
-import org.tagaprice.server.dao.ints.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /** TODO proper setup through spring beans config */
 public class HibernateProductDAO implements IProductDAO {

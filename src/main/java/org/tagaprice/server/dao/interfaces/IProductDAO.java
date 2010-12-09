@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao.ints;
+package org.tagaprice.server.dao.interfaces;
 
 import org.tagaprice.core.beans.Product;
 

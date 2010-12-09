@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.beans.Locale;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
-import org.tagaprice.server.dao.ints.ILocaleDAO;
+import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 
 @ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractLocaleDaoTests-context.xml" })
 public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringContextTests {

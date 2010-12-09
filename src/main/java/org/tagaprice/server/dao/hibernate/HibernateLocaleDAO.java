@@ -2,7 +2,7 @@ package org.tagaprice.server.dao.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.tagaprice.core.beans.Locale;
-import org.tagaprice.server.dao.ints.ILocaleDAO;
+import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 
 /** TODO proper setup through spring beans config */
 public class HibernateLocaleDAO implements ILocaleDAO {

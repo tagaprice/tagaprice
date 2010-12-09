@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.tagaprice.server.dao.ints.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class DefaultProductServiceTest {
 	DefaultProductService _productManagement;

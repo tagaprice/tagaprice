@@ -2,7 +2,7 @@ package org.tagaprice.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tagaprice.core.beans.Product;
-import org.tagaprice.server.dao.ints.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class DefaultProductService implements IProductService {
 	//	private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
