@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.core.beans.Locale;
+import org.tagaprice.core.entities.Locale;
 
 
 public interface ILocaleDAO {

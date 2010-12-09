@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.tagaprice.core.beans.Locale;
+import org.tagaprice.core.entities.Locale;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 

@@ -6,8 +6,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
 import org.junit.*;
-import org.tagaprice.core.beans.Locale;
-import org.tagaprice.core.beans.Product;
+import org.tagaprice.core.entities.Locale;
+import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.springframework.test.context.ContextConfiguration;

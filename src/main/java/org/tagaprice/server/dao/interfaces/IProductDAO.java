@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.tagaprice.core.beans.Product;
+import org.tagaprice.core.entities.Product;
 
 public interface IProductDAO {
 

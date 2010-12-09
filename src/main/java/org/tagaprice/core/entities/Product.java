@@ -1,4 +1,4 @@
-package org.tagaprice.core.beans;
+package org.tagaprice.core.entities;
 
 import java.util.Date;
 
