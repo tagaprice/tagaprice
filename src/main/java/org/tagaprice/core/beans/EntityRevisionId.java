@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author "Harald Jagenteufel"
  *
  */
+@SuppressWarnings("serial")
 public class EntityRevisionId implements Serializable {
 	private long _id;
 	private int _revision;
@@ -15,10 +16,12 @@ public class EntityRevisionId implements Serializable {
 	private EntityRevisionId() { }
 
 
+	@SuppressWarnings("unused")
 	private void setId(long id) {
 		_id = id;
 	}
 
+	@SuppressWarnings("unused")
 	private void setRevision(int revision) {
 		_revision = revision;
 	}

@@ -37,6 +37,7 @@ public abstract class Entity {
 	}
 
 
+	@SuppressWarnings("unused")
 	private void setLocale(Locale locale) {
 		_locale = locale;
 	}
@@ -54,6 +55,7 @@ public abstract class Entity {
 		_id = id;
 	}
 
+	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;
 	}
@@ -70,6 +72,7 @@ public abstract class Entity {
 		_currentRevision = entityRevision;
 	}
 
+	@SuppressWarnings("unused")
 	private void setCurrentRevisionNumber(Integer currentRevisionNumber) {
 		_currentRevisionNumber = currentRevisionNumber;
 	}

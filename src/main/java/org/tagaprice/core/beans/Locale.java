@@ -15,6 +15,7 @@ public class Locale {
 	private Date _createdAt = null;
 
 
+	@SuppressWarnings("unused")
 	private Locale() { }
 
 
@@ -36,6 +37,7 @@ public class Locale {
 	/**
 	 * @param id the id to set
 	 */
+	@SuppressWarnings("unused")
 	private void setId(int id) {
 		_id = id;
 	}
@@ -50,6 +52,7 @@ public class Locale {
 	/**
 	 * @param fallback the fallback to set
 	 */
+	@SuppressWarnings("unused")
 	private void setFallback(Locale fallback) {
 		_fallback = fallback;
 	}
@@ -64,6 +67,7 @@ public class Locale {
 	/**
 	 * @param title the title to set
 	 */
+	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		_title = title;
 	}
@@ -92,6 +96,7 @@ public class Locale {
 	/**
 	 * @param createdAt the createdAt to set
 	 */
+	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;
 	}

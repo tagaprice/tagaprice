@@ -15,14 +15,17 @@ public class EntityRevision {
 
 
 
+	@SuppressWarnings("unused")
 	private void setEntityRevisionId(EntityRevisionId entityRevisionId) {
 		_entityRevisionId = entityRevisionId;
 	}
 
+	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		_title = title;
 	}
 
+	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;
 	}

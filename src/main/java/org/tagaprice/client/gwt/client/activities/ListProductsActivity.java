@@ -26,6 +26,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	private static MyLogger logger = LoggerFactory
 	.getLogger(ListProductsActivity.class);
 
+	@SuppressWarnings("unused")
 	private ProductListPlace place;
 	private ClientFactory clientFactory;
 	private ArrayList<ProductCore> products;
