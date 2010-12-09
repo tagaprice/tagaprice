@@ -9,20 +9,20 @@
 	<bean id="dbTestInitializer" class="org.tagaprice.server.dao.helper.DbTestInitializer">
 		<constructor-arg index="0" ref="dataSource" />
 		<!-- list of tables to drop -->
-		<constructor-arg index="1">
+		<property name="tablesToDrop">
 			<list>
 				<value>country</value>
 				<value>entity</value>
 				<value>product</value>
 			</list>
-		</constructor-arg>
+		</property>
 		<!-- list of resources to sql-scripts that will be executed -->
-		<constructor-arg index="2">
+		<property name="scriptsToExecute">
 			<list>
 				<value>/sql_hsqldb/tables/10_country.sql</value>
 				<value>/sql_hsqldb/tables/20_entity.sql</value>
 				<value>/sql_hsqldb/tables/30_product.sql</value>
 			</list>
-		</constructor-arg>
+		</property>
 	</bean>
 </beans>

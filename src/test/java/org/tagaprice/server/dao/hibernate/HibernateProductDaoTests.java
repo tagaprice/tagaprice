@@ -1,7 +1,7 @@
 package org.tagaprice.server.dao.hibernate;
 
 import org.springframework.test.context.ContextConfiguration;
-import org.tagaprice.server.dao.AbstractProductDaoTest;
+import org.tagaprice.server.dao.AbstractProductDaoTests;
 import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
 
 /**
@@ -13,4 +13,4 @@ import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
  * 
  */
 @ContextConfiguration //this loads the xml file with the same name in the same directory as the class from the resources
-public class HibernateProductDaoTests extends AbstractProductDaoTest { }
+public class HibernateProductDaoTests extends AbstractProductDaoTests { }

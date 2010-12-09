@@ -30,20 +30,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 
 
 	/**
-	 * Configure the {@link DbTestInitializer} with a {@link DataSource}, tables to drop and scripts to execute
-	 * after dropping the tables.
-	 * These scripts typically consist of DDL to recreate the dropped tables.
-	 * 
+	 * Configure the {@link DbTestInitializer} with a {@link DataSource}.
 	 */
-	public DbTestInitializer(DataSource dataSource, Iterable<String> tablesToDrop,
-			Iterable<String> scriptsToExecuteResourcePaths) {
-		_tablesToDrop = tablesToDrop;
-
-		_scriptsToExecute = new LinkedList<Resource>();
-		for (String resourceString : scriptsToExecuteResourcePaths) {
-			_scriptsToExecute.add(new ClassPathResource(resourceString));
-		}
-
+	public DbTestInitializer(DataSource dataSource) {
 		_jdbcTemplate = new SimpleJdbcTemplate(dataSource);
 	}
 
@@ -55,7 +44,7 @@ public class DbTestInitializer implements IDbTestInitializer {
 	 */
 	@Override
 	public void dropAndRecreate() {
-		DbTestInitializer._log.debug("dropAndRecreate");
+		DbTestInitializer._log.info("dropAndRecreate");
 
 		JdbcOperations jdbcOperations = _jdbcTemplate.getJdbcOperations();
 		String dropTableSqlStatement = "DROP TABLE IF EXISTS %s CASCADE";
@@ -80,6 +69,23 @@ public class DbTestInitializer implements IDbTestInitializer {
 	 */
 	@Override
 	public void fillTables() {
+		DbTestInitializer._log.info("fillTables");
 		// TODO fill tables with dbUnit
+	}
+
+
+	@Override
+	public void setTablesToDrop(Iterable<String> tablesToDrop) {
+		_tablesToDrop = tablesToDrop;
+	}
+
+
+	@Override
+	public void setScriptsToExecute(Iterable<String> scriptsToExecuteResourcePaths) {
+		_scriptsToExecute = new LinkedList<Resource>();
+
+		for (String resourceString : scriptsToExecuteResourcePaths) {
+			_scriptsToExecute.add(new ClassPathResource(resourceString));
+		}
 	}
 }

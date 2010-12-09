@@ -26,9 +26,9 @@ import org.springframework.test.util.ReflectionTestUtils;
  */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @TestExecutionListeners({})
-@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
+@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractProductDaoTests-context.xml" })
 // extension is needed for application context, otherwise it would work with the two annotations above
-public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
