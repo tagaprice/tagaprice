@@ -6,20 +6,12 @@ public class Product extends Entity {
 
 	public Product() { }
 
-//	public Product(long id, int localeId, Date createdAt, int currentRevisionNumber) {
-//		super(id, localeId, createdAt, currentRevisionNumber);
-//	}
-	
-	public Product(int localeId, Date createdAt, int currentRevisionNumber) {
-		super(localeId, createdAt, currentRevisionNumber);
+	public Product(Locale locale, Date createdAt, int currentRevisionNumber) {
+		super(locale, createdAt, currentRevisionNumber);
 	}
 
 	@Override
 	public String toString() {
-		return "Product [getLocaleId()=" + getLocaleId() + ", getId()="
-				+ getId() + ", getCreatedAt()=" + getCreatedAt()
-				+ ", getCurrentRevision()=" + getCurrentRevision()
-				+ ", getCurrentRevisionNumber()=" + getCurrentRevisionNumber()
-				+ "]";
+		return "Product derived from " + super.toString();
 	}
 }

@@ -11,21 +11,15 @@
 		<!-- list of tables to drop -->
 		<property name="tablesToDrop">
 			<list>
-				<value>country</value>
 				<value>locale</value>
-				<value>entity</value>
-				<value>product</value>
 			</list>
 		</property>
 		<!-- list of resources to sql-scripts that will be executed -->
 		<property name="scriptsToExecute">
 			<list>
-				<value>/sql_hsqldb/tables/10_country.sql</value>
 				<value>/sql_hsqldb/tables/10_locale.sql</value>
-				<value>/sql_hsqldb/tables/20_entity.sql</value>
-				<value>/sql_hsqldb/tables/30_product.sql</value>
 			</list>
 		</property>
-		<property name="dbUnitData" value="classpath:WEB-INF/testdata/Product_dao.xml" />
+		<property name="dbUnitData" value="classpath:WEB-INF/testdata/Locale_dao.xml" />
 	</bean>
 </beans>

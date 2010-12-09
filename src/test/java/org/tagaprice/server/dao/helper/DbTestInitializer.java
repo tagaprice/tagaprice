@@ -1,11 +1,20 @@
 package org.tagaprice.server.dao.helper;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.operation.DatabaseOperation;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -24,9 +33,13 @@ public class DbTestInitializer implements IDbTestInitializer {
 	private static final Logger _log = Logger.getLogger(DbTestInitializer.class);
 
 	private SimpleJdbcTemplate _jdbcTemplate;
+	private IDatabaseConnection _connection;
 
 	private Iterable<String> _tablesToDrop;
 	private List<Resource> _scriptsToExecute;
+
+	private IDataSet _dbUnitDataSet;
+
 
 
 	/**
@@ -34,6 +47,13 @@ public class DbTestInitializer implements IDbTestInitializer {
 	 */
 	public DbTestInitializer(DataSource dataSource) {
 		_jdbcTemplate = new SimpleJdbcTemplate(dataSource);
+		try {
+			_connection = new DatabaseConnection(dataSource.getConnection());
+		} catch (DatabaseUnitException e) {
+			DbTestInitializer._log.error(e);
+		} catch (SQLException e) {
+			DbTestInitializer._log.error(e);
+		}
 	}
 
 
@@ -68,24 +88,56 @@ public class DbTestInitializer implements IDbTestInitializer {
 	 * @see org.tagaprice.server.dao.helper.IDbTestInitializer#fillTables()
 	 */
 	@Override
-	public void fillTables() {
+	public IDataSet fillTables() {
 		DbTestInitializer._log.info("fillTables");
-		// TODO fill tables with dbUnit
+		try {
+			DatabaseOperation.CLEAN_INSERT.execute(_connection, _dbUnitDataSet);
+		} catch (DatabaseUnitException e) {
+			DbTestInitializer._log.error(e);
+		} catch (SQLException e) {
+			DbTestInitializer._log.error(e);
+		}
+		return _dbUnitDataSet;
+	}
+
+	@Override
+	public void resetTables() {
+		DbTestInitializer._log.info("resetTables");
+		try {
+			DatabaseOperation.DELETE.execute(_connection, _dbUnitDataSet);
+		} catch (DatabaseUnitException e) {
+			DbTestInitializer._log.error(e);
+		} catch (SQLException e) {
+			DbTestInitializer._log.error(e);
+		}
 	}
 
 
 	@Override
-	public void setTablesToDrop(Iterable<String> tablesToDrop) {
+	public void setTablesToDrop(List<String> tablesToDrop) {
 		_tablesToDrop = tablesToDrop;
 	}
 
 
 	@Override
-	public void setScriptsToExecute(Iterable<String> scriptsToExecuteResourcePaths) {
-		_scriptsToExecute = new LinkedList<Resource>();
+	public void setScriptsToExecute(List<String> scriptsToExecuteResourcePaths) {
+		LinkedList<Resource> scriptsToExecute = new LinkedList<Resource>();
 
 		for (String resourceString : scriptsToExecuteResourcePaths) {
-			_scriptsToExecute.add(new ClassPathResource(resourceString));
+			scriptsToExecute.add(new ClassPathResource(resourceString));
+		}
+		_scriptsToExecute = scriptsToExecute;
+	}
+
+
+	@Override
+	public void setDbUnitData(Resource fillData) {
+		try {
+			_dbUnitDataSet = new XmlDataSet(fillData.getInputStream());
+		} catch (DataSetException e) {
+			DbTestInitializer._log.error(e);
+		} catch (IOException e) {
+			DbTestInitializer._log.error(e);
 		}
 	}
 }

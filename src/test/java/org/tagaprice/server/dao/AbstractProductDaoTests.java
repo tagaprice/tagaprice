@@ -5,10 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.*;
+import org.tagaprice.core.beans.Locale;
 import org.tagaprice.core.beans.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.ints.IProductDAO;
@@ -32,7 +30,6 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
-	protected List<String> _affectedTables = new LinkedList<String>();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -42,15 +39,9 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Before
 	public void setUp() throws Exception {
 		// TODO this should be in setUpBeforeClass
-		_affectedTables.add("entity");
+
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
-		// TODO configure this through spring config
-		//		_dbInitializer = new DbTestInitializer((DataSource) applicationContext.getBean("dataSource"), _affectedTables,
-		//				new LinkedList<Resource>());
-
-
-		// TODO setup db using DBUnit
 		_dbInitializer.dropAndRecreate();
 		_dbInitializer.fillTables();
 
@@ -60,19 +51,38 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@After
 	public void tearDown() throws Exception {
+		_dbInitializer.resetTables();
 	}
 
 
 	@Test
 	/** TODO adapt test to use EntityRevision */
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
-		Date savedDate = new Date();
-		Product productToSave = new Product(0, savedDate, 0);
 
-		Product expected = new Product(0, savedDate, 0);
+		Date localeDate = new Date();
+
+		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
+		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
+		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
+
+		Date savedDate = new Date();
+		Product productToSave = new Product(locale, savedDate, 0);
+
+
+		Locale localeExpected = new Locale(null, "testTitle", "testLocalTitle", localeDate);
+		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setId", 0);
+		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setFallback", localeExpected);
+
+		Product expected = new Product(localeExpected , savedDate, 0);
 		ReflectionTestUtils.invokeSetterMethod(expected, "setId", (long) 0);
 
+
+		System.out.println("expected: " + expected);
+		System.out.println("toSave:   " + productToSave);
+
 		Product actual = _productDao.save(productToSave);
+
+		//System.out.println("actual:   " + actual);
 
 		assertThat(actual, equalTo(expected));
 	}
