@@ -34,7 +34,8 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- this cannot be used because it's initialized before the recreation of the tables is executed
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
