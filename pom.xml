@@ -301,9 +301,11 @@
 			</resource>
 		</resources>
 		<testResources>
+			<!-- TODO this might not be good
 			<testResource>
 				<directory>src/test/resources/WEB-INF/conf</directory>
 			</testResource>
+			-->
 			<testResource>
 				<!-- sever test ressource setup -->
 				<directory>src/test/resources</directory>
