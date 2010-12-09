@@ -27,7 +27,7 @@ public class AppActivityMapper implements ActivityMapper {
 			return new ListProductsActivity((ProductListPlace) place,
 					this.clientFactory);
 		} else if (place instanceof EditProductPlace) {
-			return new EditProductActivity((EditProductPlace) place,
+			new EditProductActivity((EditProductPlace) place,
 					this.clientFactory);
 		}
 		return null;

@@ -26,12 +26,7 @@
 	<servlet-mapping>
 		<servlet-name>ProductService</servlet-name>
 		<url-pattern>/TagAPrice/productservice</url-pattern>
-	</servlet-mapping>
-
-
-	
-	
-	
+	</servlet-mapping>	
 	
 	<!-- END: RPC-->
 	<!--

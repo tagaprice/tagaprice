@@ -6,6 +6,7 @@ import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.core.client.*;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.ui.*;
@@ -19,7 +20,9 @@ public class TagAPrice implements EntryPoint {
 	.getLogger(TagAPrice.class);
 
 	private Place defaultPlace = new ProductListPlace("productlist");
-	private SimplePanel appWidget = new SimplePanel();
+	private HorizontalPanel topPanel = new HorizontalPanel();
+	private SimplePanel leftPanel = new SimplePanel();
+	private SimplePanel mainPanel = new SimplePanel();
 
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
@@ -32,10 +35,23 @@ public class TagAPrice implements EntryPoint {
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 
+		//LAYOUT
+		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.EM);
+		completeScreen.addNorth(topPanel, 7);
+		completeScreen.addWest(leftPanel, 10);
+		completeScreen.add(mainPanel);
+
+		//Configure Logo
+		topPanel.add(new Image("TagaAPriceLogo.png"));
+		topPanel.add(new HTML("<h1>TagAPrice</h1>"));
+
+		leftPanel.add(new HTML("<h3>the menu</h3>"));
+		mainPanel.addStyleName("mainPanel");
+
 		ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
 		ActivityManager activityManager = new ActivityManager(activityMapper,
 				eventBus);
-		activityManager.setDisplay(this.appWidget);
+		activityManager.setDisplay(this.mainPanel);
 
 		AppPlaceHistoryMapper historyMapper = GWT
 		.create(AppPlaceHistoryMapper.class);
@@ -43,7 +59,17 @@ public class TagAPrice implements EntryPoint {
 				historyMapper);
 		historyHandler.register(placeController, eventBus, this.defaultPlace);
 
-		RootPanel.get().add(this.appWidget);
+
+
+		String content = "Lorem ipsum blablalbla";
+		DockLayoutPanel p = new DockLayoutPanel(Unit.EM);
+		p.addNorth(new HTML("header"), 2);
+		p.addSouth(new HTML("footer"), 2);
+		p.addWest(new HTML("navigation"), 10);
+		p.add(new HTML(content));
+
+
+		RootLayoutPanel.get().add(completeScreen);
 		historyHandler.handleCurrentHistory();
 
 	}

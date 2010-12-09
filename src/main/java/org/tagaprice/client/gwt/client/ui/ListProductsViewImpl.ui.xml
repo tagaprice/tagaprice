@@ -1,12 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+		
 	<g:VerticalPanel>
 		<g:HTML>
 			<h1>TagAPrice Productmanagement - Edit / Add Product</h1>
 		</g:HTML>
 
-		<g:DecoratorPanel>
+		<g:DecoratorPanel addStyleNames="withMargin">
 			<g:VerticalPanel>
 				<g:HTML>
 					<h2>Filter by Category (doesn't work right now)</h2>
@@ -14,7 +15,7 @@
 				<g:TextBox></g:TextBox>
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
-		<g:DecoratorPanel>
+		<g:DecoratorPanel addStyleNames="withMargin">
 			<g:VerticalPanel>
 				<g:HTML>
 					<h2>List of products</h2>

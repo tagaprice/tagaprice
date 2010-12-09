@@ -5,3 +5,18 @@ body {
 .gwt-DialogBox {
 	width: 400px;
 }
+
+.withPadding {
+	padding: 1em;
+}
+
+.withMargin {
+	margin: 0.5em;
+}
+
+.mainPanel {
+	width: 100%;
+	height: 100%;
+	border: 3px solid #BCF;
+	padding: 0.5em;
+}
