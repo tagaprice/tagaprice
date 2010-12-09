@@ -3,11 +3,10 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:VerticalPanel>
 		<g:HTML>
-			<h1>TagAPrice Productmanagement - Edit / Add Product</h1>
+			<h1>Edit / Add product</h1>
 		</g:HTML>
 		<g:DecoratorPanel>
 			<g:HTMLPanel>
-
 				<table>
 					<tr>
 						<td>

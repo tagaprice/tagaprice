@@ -12,14 +12,14 @@ import com.google.gwt.user.client.ui.*;
  */
 public class EditProductViewImpl extends Composite implements EditProductView {
 	interface EditProductViewImplUiBinder extends
-			UiBinder<Widget, EditProductViewImpl> {
+	UiBinder<Widget, EditProductViewImpl> {
 	}
 
 	private static EditProductViewImplUiBinder uiBinder = GWT
-			.create(EditProductViewImplUiBinder.class);
+	.create(EditProductViewImplUiBinder.class);
 
 	public EditProductViewImpl() {
-		this.initWidget(uiBinder.createAndBindUi(this));
+		this.initWidget(EditProductViewImpl.uiBinder.createAndBindUi(this));
 	}
 
 	private Presenter presenter;
@@ -91,19 +91,19 @@ public class EditProductViewImpl extends Composite implements EditProductView {
 	public String getCategory() {
 		return this.category.getText();
 	}
-/**
- * delegates the "click" to the presenter which saves the entry made by a user
- * @param event
- */
+	/**
+	 * delegates the "click" to the presenter which saves the entry made by a user
+	 * @param event
+	 */
 	@UiHandler("saveButton")
 	public void onSaveButtonClicked(ClickEvent event) {
 		this.presenter.onSaveButtonClicked(event);
 	}
-/**
- * delegates the "click" to the presenter which cancels an action
- * 
- * @param event
- */
+	/**
+	 * delegates the "click" to the presenter which cancels an action
+	 * 
+	 * @param event
+	 */
 	@UiHandler("cancelButton")
 	public void onCancelButtonClicked(ClickEvent event) {
 		this.presenter.onCancelButtonClicked(event);
@@ -113,9 +113,9 @@ public class EditProductViewImpl extends Composite implements EditProductView {
 	public void setPrice(int price) {
 		this.price.setText(String.valueOf(price));
 	}
-/**
- * ?
-*/
+	/**
+	 * ?
+	 */
 	@Override
 	public int getPrice() {
 		int price = 0;

@@ -1,3 +1,4 @@
+
 body {
 	margin: 1em;
 }
@@ -19,4 +20,11 @@ body {
 	height: 100%;
 	border: 3px solid #BCF;
 	padding: 0.5em;
+
+body {
+	margin: 1em;
+}
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
 }

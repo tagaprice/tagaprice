@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.mvp;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.activities.*;
 import org.tagaprice.client.gwt.client.places.*;
+import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.place.shared.Place;
@@ -12,6 +13,7 @@ import com.google.gwt.place.shared.Place;
  * 
  */
 public class AppActivityMapper implements ActivityMapper {
+	MyLogger logger = LoggerFactory.getLogger(AppActivityMapper.class);
 
 	private ClientFactory clientFactory;
 
@@ -22,12 +24,15 @@ public class AppActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
+		logger.log("I was asked for an activity...");
 		// TODO make this gin
 		if (place instanceof ProductListPlace) {
+			logger.log("return new ListProductsActivity");
 			return new ListProductsActivity((ProductListPlace) place,
 					this.clientFactory);
 		} else if (place instanceof EditProductPlace) {
-			new EditProductActivity((EditProductPlace) place,
+			logger.log("return new EditProductsActivity");
+			return new EditProductActivity((EditProductPlace) place,
 					this.clientFactory);
 		}
 		return null;

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.shared.logging.*;
 
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.*;
@@ -14,16 +13,14 @@ import com.google.gwt.user.client.ui.*;
 /**
  * The Class ListProductsViewImpl<T> uses UIBinder and the template ListProductsViewImpl.ui.xml
  * 
- *
+ * 
  * @param <T>
  */
-public class ListProductsViewImpl<T> extends Composite implements
-ListProductsView<T> {
+public class ListProductsViewImpl<T> extends Composite implements ListProductsView<T> {
 
 	Presenter presenter;
 
-	private static MyLogger logger = LoggerFactory
-	.getLogger(ListProductsViewImpl.class);
+	private static MyLogger logger = LoggerFactory.getLogger(ListProductsViewImpl.class);
 
 	/**
 	 * UiBinder Magic...
@@ -32,8 +29,7 @@ ListProductsView<T> {
 	 * 
 	 */
 	@SuppressWarnings("rawtypes")
-	interface ListProductsViewImplUiBinder extends
-	UiBinder<Widget, ListProductsViewImpl> {
+	interface ListProductsViewImplUiBinder extends UiBinder<Widget, ListProductsViewImpl> {
 	}
 
 	@Override
@@ -44,8 +40,7 @@ ListProductsView<T> {
 	/**
 	 * UiBinder Magic again...
 	 */
-	private static ListProductsViewImplUiBinder uiBinder = GWT
-	.create(ListProductsViewImplUiBinder.class);
+	private static ListProductsViewImplUiBinder uiBinder = GWT.create(ListProductsViewImplUiBinder.class);
 
 	/**
 	 * and again...
@@ -84,8 +79,7 @@ ListProductsView<T> {
 	 * 
 	 * @param columnDefinitions
 	 */
-	public void setColumnDefinitions(
-			ArrayList<ColumnDefinition<T>> columnDefinitions) {
+	public void setColumnDefinitions(ArrayList<ColumnDefinition<T>> columnDefinitions) {
 		this.columnDefinitions = columnDefinitions;
 	}
 
@@ -94,8 +88,7 @@ ListProductsView<T> {
 		for (int i = 0; i < data.size(); i++) {
 			T elem = data.get(i);
 			for (int j = 0; j < this.columnDefinitions.size(); j++) {
-				ColumnDefinition<T> actualColumnDefinition = this.columnDefinitions
-				.get(j);
+				ColumnDefinition<T> actualColumnDefinition = this.columnDefinitions.get(j);
 				this.table.setWidget(i, j, actualColumnDefinition.render(elem));
 			}
 		}
