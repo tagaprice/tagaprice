@@ -10,39 +10,48 @@ import org.tagaprice.client.gwt.client.ui.ListProductsView.Presenter;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
 import org.tagaprice.client.gwt.shared.logging.*;
 
-
-
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+
 /**
  * The class implements the Presenter interface of the ListProductsView
+ * 
  * @author Helga Weik (kaltra)
- *
+ * 
  */
 public class ListProductsActivity extends AbstractActivity implements Presenter {
-	private static MyLogger logger = LoggerFactory
-	.getLogger(ListProductsActivity.class);
+	private static MyLogger logger = LoggerFactory.getLogger(ListProductsActivity.class);
 
-	private ProductListPlace place;
+	private ListProductsPlace place;
 	private ClientFactory clientFactory;
 	private ArrayList<ProductCore> products;
+
+	private final ListProductsView<ProductCore> listProductsView;
+	private ProductServiceAsync productServiceAsync;
+
 	/**
 	 * 
 	 * The ListProductsActivity constructor takes the argument ProductListPlace
 	 * and the argument ClientFactory
 	 * A new activity will be created for each ListProductsPlace
 	 * The ClientFactory is used by the ListProductsPlace to obtain a reference to the ListProductsView
+	 * 
 	 * @param place
 	 * @param clientFactory
 	 */
-	public ListProductsActivity(ProductListPlace place,
-			ClientFactory clientFactory) {
+	public ListProductsActivity(ListProductsPlace place, ClientFactory clientFactory) {
+		// Store parameters...
 		this.place = place;
 		this.clientFactory = clientFactory;
+
+		// load data to work
+		this.listProductsView = this.clientFactory.getListProductsView();
+		this.productServiceAsync = this.clientFactory.getProductServiceDispatch();
 	}
+
 	/**
 	 * The method provides a warning to the user before stopping the ListProducts activity
 	 * by closing the window or navigating to another place
@@ -67,9 +76,10 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	@Override
 	public void onStop() {
-		this.clientFactory.getListProductsView().setPresenter(null);
+		this.listProductsView.setPresenter(null);
 
 	}
+
 	/**
 	 * The start method is invoked by the ActivityManager and sets things in motion by updating
 	 * the view and starts a new Activity
@@ -77,17 +87,13 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		ListProductsActivity.logger.log("Activity starts...");
-		final ListProductsView<ProductCore> listProductsView = this.clientFactory
-		.getListProductsView();
-		listProductsView.setPresenter(this);
 
-		ProductServiceAsync productServiceAsync = this.clientFactory
-		.getProductServiceDispatch();
-		productServiceAsync
-		.getProducts(new AsyncCallback<ArrayList<ProductCore>>() {
+		listProductsView.setPresenter(this);
+		productServiceAsync.getProducts(new AsyncCallback<ArrayList<ProductCore>>() {
 
 			@Override
 			public void onSuccess(ArrayList<ProductCore> result) {
+				ListProductsActivity.logger.log("RPC request successfull");
 				products = result;
 				listProductsView.setData(result);
 				panel.setWidget(listProductsView.asWidget());
@@ -101,6 +107,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		});
 
 	}
+
 	/**
 	 * 
 	 */
@@ -108,6 +115,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	public void onEditProduct(int index) {
 		this.goTo(new EditProductPlace(this.products.get(index).getId()));
 	}
+
 	/**
 	 * 
 	 */

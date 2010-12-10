@@ -143,7 +143,7 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 
 			@Override
 			public void onSuccess(Void result) {
-				placeController.goTo(new ProductListPlace(new HashMap<String, String>()));
+				placeController.goTo(new ListProductsPlace(new HashMap<String, String>()));
 			}
 
 			@Override
@@ -156,6 +156,6 @@ public class EditProductActivity implements EditProductView.Presenter, Activity 
 
 	@Override
 	public void onCancelButtonClicked(ClickEvent event) {
-		this.clientFactory.getPlaceController().goTo(new ProductListPlace(new HashMap<String, String>()));
+		this.clientFactory.getPlaceController().goTo(new ListProductsPlace(new HashMap<String, String>()));
 	}
 }

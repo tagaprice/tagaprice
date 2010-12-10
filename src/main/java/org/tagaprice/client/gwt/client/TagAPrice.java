@@ -1,7 +1,7 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.mvp.*;
-import org.tagaprice.client.gwt.client.places.ProductListPlace;
+import org.tagaprice.client.gwt.client.places.ListProductsPlace;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
@@ -19,7 +19,7 @@ public class TagAPrice implements EntryPoint {
 	private static MyLogger logger = LoggerFactory
 	.getLogger(TagAPrice.class);
 
-	private Place defaultPlace = new ProductListPlace("");
+	private Place defaultPlace = new ListProductsPlace("");
 	private HorizontalPanel topPanel = new HorizontalPanel();
 	private VerticalPanel leftPanel = new VerticalPanel();
 	private SimplePanel mainPanel = new SimplePanel();

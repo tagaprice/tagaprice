@@ -26,9 +26,9 @@ public class AppActivityMapper implements ActivityMapper {
 	public Activity getActivity(Place place) {
 		logger.log("I was asked for an activity...");
 		// TODO make this gin
-		if (place instanceof ProductListPlace) {
+		if (place instanceof ListProductsPlace) {
 			logger.log("return new ListProductsActivity");
-			return new ListProductsActivity((ProductListPlace) place,
+			return new ListProductsActivity((ListProductsPlace) place,
 					this.clientFactory);
 		} else if (place instanceof EditProductPlace) {
 			logger.log("return new EditProductsActivity");
