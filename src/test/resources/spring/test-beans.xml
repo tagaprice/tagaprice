@@ -45,6 +45,17 @@
 		</property>
 	</bean>
 
+	<!-- Services
+	     Services are transactional based on annotations. Thus a
+	     TransactionManager transactionManager must be defined. 
+	     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative
+	  -->
+	<bean id="defaultProductManagement"
+	      class="org.tagaprice.server.service.DefaultProductService">
+	  <!--<property name="productDao" ref="defaultProductDao"/>-->
+	</bean>
+
+
 	<!-- enable the configuration of transactional behavior based on annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 

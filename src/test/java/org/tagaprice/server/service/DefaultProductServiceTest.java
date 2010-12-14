@@ -17,13 +17,13 @@ public class DefaultProductServiceTest {
 
 	@BeforeClass
 	public static void setUpBefore() throws Exception {
-		ClassPathResource res = new ClassPathResource("test-beans.xml");
+		ClassPathResource res = new ClassPathResource("spring/test-beans.xml");
 		DefaultProductServiceTest._context = new XmlBeanFactory(res);
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		_productManagement = (DefaultProductService) DefaultProductServiceTest._context.getBean("standardProductManagement");
+		_productManagement = (DefaultProductService) DefaultProductServiceTest._context.getBean("defaultProductManagement");
 		_productDaoMock = mock(IProductDAO.class);
 		_productManagement.setProductDAO(_productDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
 	}
@@ -35,7 +35,7 @@ public class DefaultProductServiceTest {
 	public void saveNewProduct_shouldReturnProductWithActualProductRevision() {
 		//		Product productToSave = new Product().setId(null).setTitle("productTitle");
 		//		Product expected = new Product().setId((long) 1).setTitle("productTitle");
-		//
+
 		//		when(_productDaoMock.save(productToSave)).thenReturn(expected);
 		//
 		//
