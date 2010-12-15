@@ -1,8 +1,8 @@
 package org.tagaprice.client.gwt.client.mvp;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.activities.*;
-import org.tagaprice.client.gwt.client.places.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;

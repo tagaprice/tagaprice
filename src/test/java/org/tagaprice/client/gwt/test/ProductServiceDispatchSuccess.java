@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.test;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.dispatch.ProductServiceDispatch;
+import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.shared.entities.*;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;

@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.mvp;
 
-import org.tagaprice.client.gwt.client.places.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.EditProductPlace;
+import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
 
 import com.google.gwt.place.shared.*;
 

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.places.*;
-import org.tagaprice.client.gwt.client.ui.ListProductsView;
+import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.test.ProductServiceDispatchSuccess;
 

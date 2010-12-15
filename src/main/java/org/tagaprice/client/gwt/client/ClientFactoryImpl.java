@@ -1,8 +1,9 @@
 package org.tagaprice.client.gwt.client;
 
-import org.tagaprice.client.gwt.client.dispatch.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
-import org.tagaprice.client.gwt.client.ui.*;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
 
 import com.google.gwt.event.shared.*;
