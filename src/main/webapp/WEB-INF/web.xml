@@ -20,7 +20,7 @@
 	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>ProductService</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.ProductServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
