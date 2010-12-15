@@ -20,7 +20,7 @@
 
 		<property name="currentRevisionNumber" column="current_revision" />
 	    <property name="createdAt" column="created_at"/>
-	    <property name="localeId" column="locale_id" />
+	    <many-to-one name="locale" column="locale_id"/>
 	
 <!-- subclass Product -->
 		<joined-subclass name="Product" table="product">

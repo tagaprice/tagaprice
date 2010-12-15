@@ -1,20 +1,14 @@
 package org.tagaprice.server.service;
 
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.*;
-
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.tagaprice.core.beans.Product;
-import org.tagaprice.server.dao.ints.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class DefaultProductServiceTest {
 	DefaultProductService _productManagement;
@@ -39,15 +33,15 @@ public class DefaultProductServiceTest {
 
 	@Test
 	public void saveNewProduct_shouldReturnProductWithActualProductRevision() {
-//		Product productToSave = new Product().setId(null).setTitle("productTitle");
-//		Product expected = new Product().setId((long) 1).setTitle("productTitle");
-//
-//		when(_productDaoMock.save(productToSave)).thenReturn(expected);
-//
-//
-//		Product actual = _productManagement.save(productToSave);
-//
-//		assertThat(actual, equalTo(expected));
+		//		Product productToSave = new Product().setId(null).setTitle("productTitle");
+		//		Product expected = new Product().setId((long) 1).setTitle("productTitle");
+		//
+		//		when(_productDaoMock.save(productToSave)).thenReturn(expected);
+		//
+		//
+		//		Product actual = _productManagement.save(productToSave);
+		//
+		//		assertThat(actual, equalTo(expected));
 	}
 
 }

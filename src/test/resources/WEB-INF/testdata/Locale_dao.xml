@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<table name="Entity">
+		<column>ent_id</column>
+		<!-- TODO insert testdata here -->
+	</table>
+
+	<table name="Product">
+		<column>prod_id</column>
+	</table>
+
+	<table name="Locale">
+		<column>locale_id</column>
+		<column>fallback_id</column>
+		<column>title</column>
+		<column>localtitle</column>
+		<column>created_at</column>
+		<row>
+			<value>0</value>
+			<value>0</value>
+			<value>testTitle</value>
+			<value>testLocalTitle</value>
+		</row>
+	</table>
+</dataset>

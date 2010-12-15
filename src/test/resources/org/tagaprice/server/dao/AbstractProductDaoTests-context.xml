@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+
+	<bean id="dbTestInitializer" class="org.tagaprice.server.dao.helper.DbTestInitializer">
+		<constructor-arg index="0" ref="dataSource" />
+		<!-- list of tables to drop -->
+		<property name="tablesToDrop">
+			<list>
+				<value>country</value>
+				<value>locale</value>
+				<value>entity</value>
+				<value>product</value>
+			</list>
+		</property>
+		<!-- list of resources to sql-scripts that will be executed -->
+		<property name="scriptsToExecute">
+			<list>
+				<value>/sql_hsqldb/tables/10_country.sql</value>
+				<value>/sql_hsqldb/tables/10_locale.sql</value>
+				<value>/sql_hsqldb/tables/20_entity.sql</value>
+				<value>/sql_hsqldb/tables/30_product.sql</value>
+			</list>
+		</property>
+		<property name="dbUnitData" value="classpath:WEB-INF/testdata/Product_dao.xml" />
+	</bean>
+</beans>

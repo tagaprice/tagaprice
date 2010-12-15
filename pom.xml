@@ -301,9 +301,11 @@
 			</resource>
 		</resources>
 		<testResources>
+			<!-- TODO this might not be good
 			<testResource>
 				<directory>src/test/resources/WEB-INF/conf</directory>
 			</testResource>
+			-->
 			<testResource>
 				<!-- sever test ressource setup -->
 				<directory>src/test/resources</directory>
@@ -317,6 +319,14 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.6</version>
+				<configuration>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+					</excludes>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

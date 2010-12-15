@@ -1,9 +1,6 @@
 package org.tagaprice.server.dao;
 
 import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,13 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestExecutionListeners({})
 //@ContextConfiguration(locations={"spring/test-beans.xml"})
 public abstract class AbstractDAOTest {
-//	private static ApplicationContext s_context = new FileSystemXmlApplicationContext("/src/test/resources/spring/test-beans.xml");
-//	
-//	private void setApplicationContext(ApplicationContext context) {
-//		s_context = context;
-//	}
-//	
-//	protected ApplicationContext getApplicationContext() {
-//		return AbstractDAOTest.s_context;
-//	}
+	//	private static ApplicationContext s_context = new FileSystemXmlApplicationContext("/src/test/resources/spring/test-beans.xml");
+	//
+	//	private void setApplicationContext(ApplicationContext context) {
+	//		s_context = context;
+	//	}
+	//
+	//	protected ApplicationContext getApplicationContext() {
+	//		return AbstractDAOTest.s_context;
+	//	}
 }

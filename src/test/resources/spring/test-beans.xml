@@ -17,7 +17,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<property name="url" value="jdbc:hsqldb:mem:test" />
+		<!--<property name="url" value="jdbc:hsqldb:mem:test" />
+		-->
+		<property name="url" value="jdbc:hsqldb:hsql://localhost/xdb" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
@@ -29,12 +31,14 @@
 			<list>
 				<value>/hibernate/entity.hbm.xml</value>
 				<value>/hibernate/entityrevision.hbm.xml</value>
+				<value>/hibernate/locale.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- this cannot be used because it's initialized before the recreation of the tables is executed
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
