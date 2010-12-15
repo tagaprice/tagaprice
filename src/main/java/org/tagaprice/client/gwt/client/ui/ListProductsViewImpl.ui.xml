@@ -4,7 +4,7 @@
 		
 	<g:VerticalPanel>
 		<g:HTML>
-			<h1>TagAPrice Productmanagement - Edit / Add Product</h1>
+			<h1>List of products</h1>
 		</g:HTML>
 
 		<g:DecoratorPanel addStyleNames="withMargin">
@@ -29,5 +29,4 @@
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
 	</g:VerticalPanel>
-
 </ui:UiBinder>

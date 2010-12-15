@@ -8,7 +8,7 @@ import com.google.gwt.place.shared.*;
  * Some GWT Magic
  * 
  */
-@WithTokenizers({ ProductListPlace.Tokenizer.class,
+@WithTokenizers({ ListProductsPlace.Tokenizer.class,
 		EditProductPlace.Tokenizer.class })
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 

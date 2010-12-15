@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.client;
 
-import org.tagaprice.client.gwt.client.dispatch.ProductServiceDispatch;
+import org.tagaprice.client.gwt.client.dispatch.*;
 import org.tagaprice.client.gwt.client.ui.*;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
 

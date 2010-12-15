@@ -1,7 +1,7 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.mvp.*;
-import org.tagaprice.client.gwt.client.places.ProductListPlace;
+import org.tagaprice.client.gwt.client.places.ListProductsPlace;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
@@ -19,10 +19,12 @@ public class TagAPrice implements EntryPoint {
 	private static MyLogger logger = LoggerFactory
 	.getLogger(TagAPrice.class);
 
-	private Place defaultPlace = new ProductListPlace("productlist");
+	private Place defaultPlace = new ListProductsPlace("");
 	private HorizontalPanel topPanel = new HorizontalPanel();
-	private SimplePanel leftPanel = new SimplePanel();
+	private VerticalPanel leftPanel = new VerticalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
+
+	final private NotificationMole mole = new NotificationMole();
 
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
@@ -37,16 +39,20 @@ public class TagAPrice implements EntryPoint {
 
 		//LAYOUT
 		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.EM);
-		completeScreen.addNorth(topPanel, 7);
-		completeScreen.addWest(leftPanel, 10);
-		completeScreen.add(mainPanel);
+		completeScreen.addNorth(this.topPanel, 7);
+		completeScreen.addWest(this.leftPanel, 10);
+		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
-		topPanel.add(new Image("TagaAPriceLogo.png"));
-		topPanel.add(new HTML("<h1>TagAPrice</h1>"));
+		this.topPanel.add(new Image("TagaAPriceLogo.png"));
+		this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
+		this.topPanel.add(this.mole);
+		//This is quite a mess...
+		clientFactory.getProductServiceDispatch().setMole(this.mole);
 
-		leftPanel.add(new HTML("<h3>the menu</h3>"));
-		mainPanel.addStyleName("mainPanel");
+		this.leftPanel.add(new HTML("<h3>menu</h3>"));
+
+		this.mainPanel.addStyleName("mainPanel");
 
 		ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
 		ActivityManager activityManager = new ActivityManager(activityMapper,
@@ -58,16 +64,6 @@ public class TagAPrice implements EntryPoint {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
 		historyHandler.register(placeController, eventBus, this.defaultPlace);
-
-
-
-		String content = "Lorem ipsum blablalbla";
-		DockLayoutPanel p = new DockLayoutPanel(Unit.EM);
-		p.addNorth(new HTML("header"), 2);
-		p.addSouth(new HTML("footer"), 2);
-		p.addWest(new HTML("navigation"), 10);
-		p.add(new HTML(content));
-
 
 		RootLayoutPanel.get().add(completeScreen);
 		historyHandler.handleCurrentHistory();

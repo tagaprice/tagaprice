@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.client;
 
-import org.tagaprice.client.gwt.client.dispatch.ProductServiceDispatch;
+import org.tagaprice.client.gwt.client.dispatch.*;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
 import org.tagaprice.client.gwt.client.ui.*;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
@@ -26,7 +26,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final EditProductView editProductView = new EditProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
 
-	private static final ProductServiceDispatch productServiceDispatch = new ProductServiceDispatch();
+	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
