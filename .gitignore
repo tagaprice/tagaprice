@@ -11,3 +11,4 @@ TagAPrice.launch
 .classpath
 *~
 tomcat/
+bin/
