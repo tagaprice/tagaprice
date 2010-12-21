@@ -39,5 +39,4 @@ public class DefaultProductServiceTest  extends AbstractTransactionalJUnit4Sprin
 		//
 		//		assertThat(actual, equalTo(expected));
 	}
-
 }

@@ -5,7 +5,7 @@
     
 <!-- of the basic data of an entity with all its subtypes (no revisioning tables) -->
 <!-- this currently only maps entity and product -->
-<hibernate-mapping package="org.tagaprice.core.beans">
+<hibernate-mapping package="org.tagaprice.core.entities">
 
     <class name="Locale" table="locale">
 	    <id name="id" column="locale_id">
