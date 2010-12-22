@@ -2,7 +2,9 @@ package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.devView.EditProductViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
+import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.ListProductsViewImpl;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
 
