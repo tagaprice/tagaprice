@@ -6,10 +6,26 @@ import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.dump.IUser;
 
 /**
- * Implements a revision for a {@link AEntity}. Only the server is allowed to create a new {@link IRevision}
+ * This interface is used to set an unique Id and revision for an {@link AEntity}. And to FIND an {@link AEntity}
  * 
  */
-public interface IRevision extends Serializable {
+public interface IRevisionId extends Serializable {
+
+	/**
+	 * Set a unique id for an {@link AEntity}. It is used to find an {@link AEntity} and by UPDATE an {@link AEntity}
+	 * 
+	 * @param id
+	 *            unique id. Is set to FIND an {@link AEntity}.
+	 */
+	public void setId(long id);
+
+
+
+	/**
+	 * Returns a unique {@link AEntity} ID
+	 * @return Returns a unique {@link AEntity} ID
+	 */
+	public long getId();
 
 	/**
 	 * Set the revision id for a {@link AEntity}. This method must not be used on the client.
@@ -42,12 +58,6 @@ public interface IRevision extends Serializable {
 	public IUser getUser();
 
 	/**
-	 * 
-	 * @return Returned the {@link Date} when the {@link IRevision} was created.
-	 */
-	public Date getDate();
-
-	/**
 	 * Set the {@link Date} when the {@link IRevision} is going to be created. This method must not be used on the client.
 	 * 
 	 * @param date
@@ -55,5 +65,13 @@ public interface IRevision extends Serializable {
 	 *            method.
 	 */
 	public void setDate(Date date);
+
+	/**
+	 * 
+	 * @return Returned the {@link Date} when the {@link IRevision} was created.
+	 */
+	public Date getDate();
+
+
 
 }

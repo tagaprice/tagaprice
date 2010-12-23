@@ -1,7 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities;
 
-import org.tagaprice.client.gwt.shared.entities.dump.IUser;
-
 
 /**
  * The {@link AEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
@@ -15,10 +13,9 @@ public abstract class AEntity implements IEntity {
 
 
 	private static final long serialVersionUID = 1L;
-	long _id;
-	IRevision _rev;
-	String _title;
-	IUser _iUser;
+	private long _id;
+	private IRevisionId _revId;
+	private String _title;
 
 
 	/**
@@ -58,16 +55,6 @@ public abstract class AEntity implements IEntity {
 	}
 
 
-	@Override
-	public IRevision getRev() {
-		return _rev;
-	}
-
-
-	@Override
-	public void setRev(IRevision rev) {
-		_rev = rev;
-	}
 
 
 	@Override
@@ -81,6 +68,15 @@ public abstract class AEntity implements IEntity {
 	}
 
 
+	@Override
+	public IRevisionId getRevisionId() {
+		return _revId;
+	}
+
+	@Override
+	public void setRevisionId(IRevisionId revisionID) {
+		_revId=revisionID;
+	}
 
 
 

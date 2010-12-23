@@ -13,8 +13,8 @@ public class Product extends AEntity implements IProduct {
 
 	private static final long serialVersionUID = 1L;
 
-	ICategory _category;
-	IUnit _iUnit;
+	private ICategory _category;
+	private IUnit _iUnit;
 
 	@Override
 	public void setCategory(ICategory category) {

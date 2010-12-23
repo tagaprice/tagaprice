@@ -20,15 +20,15 @@ public interface IEntity extends Serializable  {
 	 * Returns the RevisionId of the {@link AEntity}
 	 * @return Returns the RevisionId of the {@link AEntity
 	 */
-	public IRevision getRev();
+	public IRevisionId getRevisionId();
 
 
 
 	/**
 	 * Set the RevisionId of the {@link AEntity}. This method must not be used by the client.
-	 * @param rev set the RevisionID. Only the server is allowed to user this method.
+	 * @param revisionID set the RevisionID. Only the server is allowed to user this method.
 	 */
-	public void setRev(IRevision rev);
+	public void setRevisionId(IRevisionId revisionID);
 	/**
 	 * Returns the Title of the {@link AEntity}
 	 * @return Returns the Title of the {@link AEntity}
