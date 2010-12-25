@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.rpc.productmanagement;
+package org.tagaprice.client.gwt.shared.rpc.productmanagement.old;
 
 import java.util.ArrayList;
 

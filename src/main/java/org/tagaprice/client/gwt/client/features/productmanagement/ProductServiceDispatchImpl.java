@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.rpc.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.*;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductService;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;

@@ -7,7 +7,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.Ed
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
 import org.tagaprice.client.gwt.shared.entities.ProductCore;
 import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.productmanagement.ProductServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductServiceAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
