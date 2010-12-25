@@ -29,6 +29,7 @@ public abstract class AEntity implements IEntity {
 	 * 
 	 * @param id
 	 *            Unique EntityID
+	 * @param title The title of the {@link AEntity}. It must not be null.
 	 */
 	public AEntity(IRevisionId revisionId, String title) {
 		setRevisionId(revisionId);
@@ -41,7 +42,7 @@ public abstract class AEntity implements IEntity {
 	 * Is used to create a new {@link AEntity}
 	 * 
 	 * @param title
-	 *            The title of the {@link AEntity}. Every {@link AEntity} needs a title.
+	 *            The title of the {@link AEntity}. Every {@link AEntity} needs a title. It must not be null.
 	 */
 	public AEntity(String title) {
 		this(null, title);
@@ -49,12 +50,13 @@ public abstract class AEntity implements IEntity {
 
 
 	@Override
-	public String getTitle() {
+	public String getTitle()  throws NullPointerException{
+		if(_title==null) throw new NullPointerException("The Entity title is null");
 		return _title;
 	}
 
 	@Override
-	public void setTitle(String title) {
+	public void setTitle(String title){
 		_title = title;
 	}
 
