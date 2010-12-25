@@ -8,7 +8,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 
 import com.google.gwt.user.client.rpc.*;
 
-@RemoteServiceRelativePath("productservice")
+@RemoteServiceRelativePath("productserviceOld")
 public interface ProductService extends RemoteService {
 
 	public Product getProductById(int id);

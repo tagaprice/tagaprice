@@ -19,13 +19,13 @@
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
-		<servlet-name>ProductService</servlet-name>
+		<servlet-name>productserviceOld</servlet-name>
 		<servlet-class>org.tagaprice.client.gwt.server.mock.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ProductService</servlet-name>
-		<url-pattern>/TagAPrice/productservice</url-pattern>
+		<servlet-name>productserviceOld</servlet-name>
+		<url-pattern>/TagAPrice/productserviceOld</url-pattern>
 	</servlet-mapping>	
 	
 	<!-- END: RPC-->
