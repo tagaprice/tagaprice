@@ -13,7 +13,6 @@ public abstract class AEntity implements IEntity {
 
 
 	private static final long serialVersionUID = 1L;
-	private long _id;
 	private IRevisionId _revId;
 	private String _title;
 
@@ -25,36 +24,28 @@ public abstract class AEntity implements IEntity {
 	}
 
 	/**
-	 * Is used to find a {@link AEntity} with a special id.
+	 * <b>SERVER USE ONLY</b>
+	 * This constructor is used by the server to fetch a {@link AEntity} after SAVING or FINDING a {@link AEntity}.
 	 * 
 	 * @param id
 	 *            Unique EntityID
 	 */
-	public AEntity(long id) {
-		setId(id);
+	public AEntity(IRevisionId revisionId, String title) {
+		setRevisionId(revisionId);
+		setTitle(title);
+
 	}
 
 	/**
+	 * <b>CLIENT USE ONLY</b>
 	 * Is used to create a new {@link AEntity}
 	 * 
 	 * @param title
 	 *            The title of the {@link AEntity}. Every {@link AEntity} needs a title.
 	 */
 	public AEntity(String title) {
-		setTitle(title);
+		this(null, title);
 	}
-
-	@Override
-	public long getId() {
-		return _id;
-	}
-
-	@Override
-	public void setId(long id) {
-		_id = id;
-	}
-
-
 
 
 	@Override
@@ -69,12 +60,16 @@ public abstract class AEntity implements IEntity {
 
 
 	@Override
-	public IRevisionId getRevisionId() {
+	public IRevisionId getRevisionId() throws NullPointerException {
+		if(_revId==null) throw new NullPointerException("Revision and ID are not set.");
 		return _revId;
 	}
 
-	@Override
-	public void setRevisionId(IRevisionId revisionID) {
+	/**
+	 * Set the RevisionId of the {@link AEntity}.
+	 * @param revisionID set the RevisionID.
+	 */
+	private void setRevisionId(IRevisionId revisionID){
 		_revId=revisionID;
 	}
 
