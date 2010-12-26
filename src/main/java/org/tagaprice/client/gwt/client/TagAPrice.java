@@ -7,8 +7,11 @@ import org.tagaprice.client.gwt.shared.logging.*;
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.core.client.*;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.*;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.*;
 /**
  * GWT STARTPOINT - This is the class with the EntryPoint.
@@ -51,6 +54,30 @@ public class TagAPrice implements EntryPoint {
 		clientFactory.getProductServiceDispatch().setMole(this.mole);
 
 		this.leftPanel.add(new HTML("<h3>menu</h3>"));
+		Label createProduct = new Label("Create Product");
+		createProduct.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateProduct:/create");}});
+
+		Label getProduct = new Label("getProduct");
+		getProduct.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateProduct:/show");}});
+
+		Label getProductById = new Label("getProductById");
+		getProductById.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateProduct:/show/id/1");}});
+
+		Label getProductByIdAndRev = new Label("getProductByIdAndRev");
+		getProductByIdAndRev.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateProduct:/show/id/1/rev/3");}});
+
+		this.leftPanel.add(createProduct);
+		this.leftPanel.add(getProduct);
+		this.leftPanel.add(getProductById);
+		this.leftPanel.add(getProductByIdAndRev);
 
 		this.mainPanel.addStyleName("mainPanel");
 
