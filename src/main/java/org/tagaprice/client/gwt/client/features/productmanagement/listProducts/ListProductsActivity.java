@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.EditProductPlace;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
-import org.tagaprice.client.gwt.shared.entities.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductServiceAsync;
 

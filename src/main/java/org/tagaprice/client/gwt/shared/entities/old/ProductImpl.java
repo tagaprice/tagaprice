@@ -1,6 +1,7 @@
-package org.tagaprice.client.gwt.shared.entities;
+package org.tagaprice.client.gwt.shared.entities.old;
 
 import java.io.Serializable;
+
 /**
  * A Product has properties: id, name, price, description and category
  * The class implements the Interface Product und the Interface Serializable

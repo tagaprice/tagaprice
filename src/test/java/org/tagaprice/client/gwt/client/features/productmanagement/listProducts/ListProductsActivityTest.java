@@ -7,6 +7,8 @@ import org.mockito.Mockito;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCoreImpl;
 import org.tagaprice.client.gwt.test.ProductServiceDispatchSuccess;
 
 import com.google.gwt.junit.GWTMockUtilities;

@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.client;
 import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.EditProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
-import org.tagaprice.client.gwt.shared.entities.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;

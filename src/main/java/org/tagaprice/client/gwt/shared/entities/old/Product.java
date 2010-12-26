@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities;
+package org.tagaprice.client.gwt.shared.entities.old;
 /**
  * 
  * The interface Product has methods which are implemented in the class ProductImpl.java

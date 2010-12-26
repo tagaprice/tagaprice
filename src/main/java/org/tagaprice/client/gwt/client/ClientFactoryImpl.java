@@ -6,7 +6,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.de
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.ListProductsViewImpl;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
-import org.tagaprice.client.gwt.shared.entities.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
 
 import com.google.gwt.event.shared.*;
 import com.google.gwt.place.shared.PlaceController;

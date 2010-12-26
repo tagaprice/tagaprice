@@ -1,6 +1,7 @@
-package org.tagaprice.client.gwt.shared.entities;
+package org.tagaprice.client.gwt.shared.entities.old;
 
 import java.io.Serializable;
+
 
 /**
  * This Class represents a "Skeleton" of a product with reduced fields for quicker loading.

@@ -3,6 +3,8 @@ package org.tagaprice.client.gwt.shared.rpc.productmanagement.old;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.old.Product;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
 
 
 
