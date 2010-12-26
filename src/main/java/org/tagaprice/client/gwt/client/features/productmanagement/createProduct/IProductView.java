@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.productmanagement;
+package org.tagaprice.client.gwt.client.features.productmanagement.createProduct;
 
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IUnit;
