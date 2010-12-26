@@ -13,10 +13,24 @@ public class RevisionId implements IRevisionId {
 
 
 	private static final long serialVersionUID = 2011503142739304476L;
-	private long _id;
-	private long _rev;
+	private Long _id;
+	private Long _rev;
 	private IUser _user;
 	private Date _date;
+
+	public RevisionId(){
+
+	}
+
+	public RevisionId(long id) {
+		setId(id);
+	}
+
+	public RevisionId(long id, long revision){
+		this(id);
+		setRevision(revision);
+	}
+
 
 
 	@Override
@@ -25,7 +39,7 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public long getId() {
+	public Long getId() {
 		return _id;
 	}
 
@@ -35,7 +49,7 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public long getRevision() {
+	public Long getRevision() {
 		return _rev;
 	}
 

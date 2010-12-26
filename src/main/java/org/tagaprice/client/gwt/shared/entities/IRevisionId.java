@@ -25,7 +25,7 @@ public interface IRevisionId extends Serializable {
 	 * Returns a unique {@link AEntity} ID
 	 * @return Returns a unique {@link AEntity} ID
 	 */
-	public long getId();
+	public Long getId();
 
 	/**
 	 * Set the revision id for a {@link AEntity}. This method must not be used on the client.
@@ -41,7 +41,7 @@ public interface IRevisionId extends Serializable {
 	 * 
 	 * @return Returns the RevisionId for a {@link AEntity}
 	 */
-	public long getRevision();
+	public Long getRevision();
 
 	/**
 	 * Set the user who created this {@link IRevision}
