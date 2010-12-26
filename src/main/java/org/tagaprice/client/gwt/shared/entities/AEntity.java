@@ -50,8 +50,7 @@ public abstract class AEntity implements IEntity {
 
 
 	@Override
-	public String getTitle()  throws NullPointerException{
-		if(_title==null) throw new NullPointerException("The Entity title is null");
+	public String getTitle() {
 		return _title;
 	}
 
@@ -62,8 +61,7 @@ public abstract class AEntity implements IEntity {
 
 
 	@Override
-	public IRevisionId getRevisionId() throws NullPointerException {
-		if(_revId==null) throw new NullPointerException("Revision and ID are not set.");
+	public IRevisionId getRevisionId() {
 		return _revId;
 	}
 
