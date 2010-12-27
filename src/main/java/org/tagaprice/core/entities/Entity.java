@@ -9,6 +9,9 @@ import java.util.Date;
  * @author haja
  *
  */
+//@Entity
+//@Table(name="entity")
+
 public abstract class Entity {
 	private Long _id = null;
 	private String _title;

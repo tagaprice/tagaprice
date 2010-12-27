@@ -42,8 +42,8 @@
 				<!-- this cannot be used because it's initialized before the recreation of the tables is executed -->
 				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop>-->
 	<!-- 			<prop key="hibernate.show_sql">true</prop> -->
-	<!-- 			<prop key="hibernate.connection.autocommit">true</prop><\!-- TODO -->
-	<!-- 			do not use autocommit -\-> -->
+	<!-- 			<prop key="hibernate.connection.autocommit">true</prop> -->
+	<!--			TODO do not use autocommit -->
 	<!-- 		</props> -->
 	<!-- 	</property> -->
 	<!-- </bean> -->
@@ -67,7 +67,7 @@
 	<!--  TODO rename and check, where the reference to this transactionManager is needed> -->
 	<!-- <bean id="transactionManager" -->
 	<!-- 	class="org.springframework.orm.hibernate3.HibernateTransactionManager"> -->
-	<!-- 	<\!-- <property name="dataSource" ref="dataSource" /> -\-> -->
+	<!-- 	<property name="dataSource" ref="dataSource" /> -->
 	<!-- 	<property name="sessionFactory" ref="sessionFactory" /> -->
 	<!-- </bean> -->
 </beans>
