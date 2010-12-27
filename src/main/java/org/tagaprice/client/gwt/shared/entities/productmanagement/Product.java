@@ -1,7 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
@@ -16,7 +14,7 @@ public class Product extends AEntity implements IProduct {
 	private static final long serialVersionUID = 1L;
 
 	private ICategory _category;
-	private ArrayList<IQuantity> _quantities = new ArrayList<IQuantity>();
+	private IQuantity _quantity;
 
 	@Override
 	public void setCategory(ICategory category) {
@@ -31,19 +29,13 @@ public class Product extends AEntity implements IProduct {
 
 
 	@Override
-	public void addQuantity(IQuantity quantity) {
-		_quantities.add(quantity);
+	public void setQuantity(IQuantity quantity) {
+		_quantity=quantity;
 	}
 
 	@Override
-	public void addQuantities(ArrayList<IQuantity> quantities) {
-		_quantities.addAll(quantities);
-
-	}
-
-	@Override
-	public ArrayList<IQuantity> getQuantities() {
-		return _quantities;
+	public IQuantity getQuantity() {
+		return _quantity;
 	}
 
 }

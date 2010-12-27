@@ -1,7 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.shared.entities.IEntity;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
@@ -9,19 +7,22 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
 /**
  * Defines all methods needed to buy a {@link Product}
- *
+ * 
  */
 public interface IProduct extends IEntity {
 
 
 	/**
 	 * Sets the depending {@link ICategory} for a product.
-	 * @param category Is the depending {@link ICategory} for a product
+	 * 
+	 * @param category
+	 *            Is the depending {@link ICategory} for a product
 	 */
 	public void setCategory(ICategory category);
 
 	/**
 	 * Returns the {@link ICategory} which this {@link IProduct} depends from.
+	 * 
 	 * @return Returns the {@link ICategory} which this {@link IProduct} depends from.
 	 */
 	public ICategory getCategory();
@@ -29,21 +30,23 @@ public interface IProduct extends IEntity {
 
 
 	/**
-	 * Add a {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * @param quantity the {@link IQuantity} in which this {@link IProduct} can be bought.
+	 * Defines the {@link IQuantity} with which this {@link IProduct} must be bought. There are two different ways a
+	 * {@link IProduct} can be bought.
+	 * 1.) The quantity is fix. Like CocaCola 1.5L. The quantity is 1.5 and the unit is L (liter)
+	 * 2.) The quantity is not fix. Like gas. Every user will buy the gas in different quantities. So the quantity has
+	 * to be zero (0) and the unit is L (liter). With this definition the user must enter the quantity of his product.
+	 * 
+	 * @param quantity
+	 *            the {@link IQuantity} in which this {@link IProduct} can be bought.
 	 */
-	public void addQuantity(IQuantity quantity);
+	public void setQuantity(IQuantity quantity);
+
 
 	/**
-	 * Add a list of {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * @param quantities a list of {@link IQuantity} in which this {@link IProduct} can be bought.
+	 * Returns the {@link IQuantity} with which this {@link IProduct} must be bought.
+	 * 
+	 * @return the {@link IQuantity} with which this {@link IProduct} must be bought.
 	 */
-	public void addQuantities(ArrayList<IQuantity> quantities);
-
-	/**
-	 * Returns a list of {@link IQuantity}s corresponding to this {@link IProduct}.
-	 * @return a list of {@link IQuantity}s corresponding to this {@link IProduct}.
-	 */
-	public ArrayList<IQuantity> getQuantities();
+	public IQuantity getQuantity();
 
 }

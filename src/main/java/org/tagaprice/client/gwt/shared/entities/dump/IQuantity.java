@@ -13,7 +13,7 @@ public interface IQuantity {
 	 * @param quantity
 	 *            Sets the {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} size.
 	 */
-	public void setQuantity(long quantity);
+	public void setQuantity(double quantity);
 
 	/**
 	 * Returns the size in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
@@ -22,7 +22,7 @@ public interface IQuantity {
 	 * @return the size in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
 	 *         bought
 	 */
-	public long getQuantity();
+	public double getQuantity();
 
 	/**
 	 * Sets the {@link IUnit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
