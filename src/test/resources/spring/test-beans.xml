@@ -27,12 +27,11 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mappingResources">
-			<list>
-				<value>/hibernate/entity.hbm.xml</value>
-				<value>/hibernate/entityrevision.hbm.xml</value>
-				<value>/hibernate/locale.hbm.xml</value>
-			</list>
+		<property name="configLocation">
+			<value>classpath:hibernate/hibernate.cfg.xml</value>
+		</property>
+		<property  name="configurationClass">
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>
 		<property name="hibernateProperties">
 			<props>
