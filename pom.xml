@@ -167,6 +167,11 @@
 			<version>3.5.4-Final</version>
 			<!--	<type>pom</type> -->
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.4-Final</version>
+		</dependency>
 		<!-- hibernate-sql-db - test db -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
