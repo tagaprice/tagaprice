@@ -24,89 +24,90 @@ import javax.persistence.Transient;
 		@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")
 })
 public abstract class Entity {
-	private Long _id = null;
-	private String _title;
-	private Locale _locale = null;
-	private Date _createdAt = null;
-	private Integer _revisionNumber = null;
-	private Account _creator = null;
-	private Group _group;
+	private Long id = null;
+	private String title;
+	private Locale locale = null;
+	private Date createdAt = null;
+	private Integer revisionNumber = null;
+	private Account creator = null;
+	private Group group;
 
 	protected Entity() { }
 
-	protected Entity(Long id, String title, Locale locale, Date createdAt, int currentRevisionNumber, Account creator, Group group) {
-		_id = id;
-		setTitle(title);
-		_locale = locale;
-		_createdAt = createdAt;
-		_revisionNumber = currentRevisionNumber;
-		_creator = creator;
-		setGroup(group);
+	protected Entity(Long id, String title, Locale locale, Date createdAt, int revisionNumber, Account creator, Group group) {
+		this.id = id;
+		this.title = title;
+		this.locale = locale;
+		this.createdAt = createdAt;
+		this.revisionNumber = revisionNumber;
+		this.creator = creator;
+		this.group = group;
 	}
 
 	@Id
 	@Column(name="ent_id")
 	public Long getId() {
-		return _id;
+		return id;
 	}
 	@SuppressWarnings("unused")
 	private void setId(Long id) {
-		_id = id;
+		this.id = id;
 	}
 
 	@Column(name="title")
 	public String getTitle() {
-		return _title;
+		return title;
 	}
+	@SuppressWarnings("unused")
 	private void setTitle(String title) {
-		_title = title;
+		this.title = title;
 	}
 
 	@ManyToOne
 	@JoinColumn(name = "locale_id")
 	public Locale getLocale() {
-		return _locale;
+		return locale;
 	}
 	@SuppressWarnings("unused")
 	private void setLocale(Locale locale) {
-		_locale = locale;
+		this.locale = locale;
 	}
 
 	@Column(name="created_at")
 	public Date getCreatedAt() {
-		return _createdAt;
+		return createdAt;
 	}
 	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
+		this.createdAt = createdAt;
 	}
 
 	@Id
 	@Column(name="rev")
 	public Integer getRevisionNumber() {
-		return _revisionNumber;
+		return revisionNumber;
 	}
 	@SuppressWarnings("unused")
 	private void setRevisionNumber(Integer revisionNumber) {
-		_revisionNumber = revisionNumber;
+		this.revisionNumber = revisionNumber;
 	}
 
 	@ManyToOne
 	@JoinColumn(name = "creator")
 	public Account getCreator() {
-		return _creator;
+		return creator;
 	}
 	@SuppressWarnings("unused")
 	private void setCreator(Account creator) {
-		_creator = creator;
+		this.creator = creator;
 	}
 
 	@Transient
 	public Group getGroup() {
-		return _group;
+		return group;
 	}
 	private void setGroup(Group group) {
-		_group = group;
+		this.group = group;
 	}
 
 
@@ -114,10 +115,10 @@ public abstract class Entity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
-		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
-		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
-		result = prime * result + ((_locale == null) ? 0 : _locale.hashCode());
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((revisionNumber == null) ? 0 : revisionNumber.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
 		return result;
 	}
 
@@ -130,32 +131,32 @@ public abstract class Entity {
 		if (getClass() != obj.getClass())
 			return false;
 		Entity other = (Entity) obj;
-		if (_createdAt == null) {
-			if (other._createdAt != null)
+		if (createdAt == null) {
+			if (other.createdAt != null)
 				return false;
-		} else if (!_createdAt.equals(other._createdAt))
+		} else if (!createdAt.equals(other.createdAt))
 			return false;
-		if (_revisionNumber == null) {
-			if (other._revisionNumber != null)
+		if (revisionNumber == null) {
+			if (other.revisionNumber != null)
 				return false;
-		} else if (!_revisionNumber.equals(other._revisionNumber))
+		} else if (!revisionNumber.equals(other.revisionNumber))
 			return false;
-		if (_id == null) {
-			if (other._id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!_id.equals(other._id))
+		} else if (!id.equals(other.id))
 			return false;
-		if (_locale == null) {
-			if (other._locale != null)
+		if (locale == null) {
+			if (other.locale != null)
 				return false;
-		} else if (!_locale.equals(other._locale))
+		} else if (!locale.equals(other.locale))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Entity [_id=" + _id + ", _currentRevisionNumber=" + _revisionNumber + ", _createdAt=" + _createdAt + ", _locale=" + _locale + "]";
+		return "Entity [_id=" + id + ", _currentRevisionNumber=" + revisionNumber + ", _createdAt=" + createdAt + ", _locale=" + locale + "]";
 	}
 
 }
