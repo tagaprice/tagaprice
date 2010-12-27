@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.client.generics;
 
+import java.io.UnsupportedEncodingException;
+import java.net.*;
 import java.util.HashMap;
 
 /**
@@ -59,13 +61,21 @@ public class TokenCreator {
 			String[] t = _token.split("/");
 
 			if (t.length > 1) {
-
 				if (t[1] != null) {
 					_root = t[1];
 				}
 
 				for (int i = 2; i < t.length; i = i + 2) {
-					_nodes.put(t[i], t[i + 1]);
+					String varname = "";
+					String value = "";
+					try {
+						varname = URLDecoder.decode(t[i], "UTF-8");
+						value = URLDecoder.decode(t[i+1], "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					_nodes.put(varname, value);
 				}
 			}
 		}
@@ -91,6 +101,13 @@ public class TokenCreator {
 		 * @param value The value of this parameter.
 		 */
 		public void addNode(String name, String value) {
+			try {
+				name = URLEncoder.encode(name, "UTF-8");
+				value = URLEncoder.encode(value, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			_nodes.append("/");
 			_nodes.append(name);
 			_nodes.append("/");

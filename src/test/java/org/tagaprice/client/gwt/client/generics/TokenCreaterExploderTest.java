@@ -28,8 +28,9 @@ public class TokenCreaterExploderTest {
 	 */
 	@Test
 	public void testEscapedExplosion() {
-		String testString = "/theRoot/varName/var/Value";
+		String testString = "/theRoot/the%2FVarName/the%2FValue";
 		exploder = TokenCreator.getExploder(testString);
+		Assert.assertEquals("the/Value", exploder.getNode("the/VarName"));
 	}
 
 }

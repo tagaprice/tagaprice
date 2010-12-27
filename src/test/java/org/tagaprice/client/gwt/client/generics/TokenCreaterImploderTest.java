@@ -31,6 +31,6 @@ public class TokenCreaterImploderTest {
 	public void testEscapeImplotion() {
 		imploder.setRoot("theRoot");
 		imploder.addNode("the/VarName", "the/Value");
-		Assert.assertEquals("/theRoot/the/VarName/the/Value", imploder.getToken());
+		Assert.assertEquals("/theRoot/the%2FVarName/the%2FValue", imploder.getToken());
 	}
 }
