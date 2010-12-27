@@ -11,48 +11,50 @@ import java.util.Date;
  */
 public abstract class Entity {
 	private Long _id = null;
-	/** TODO remove this, needed by hibernate... */
-	private Integer _currentRevisionNumber = null;
-	private EntityRevision _currentRevision = null;
-	private Date _createdAt = null;
+	private String _title;
 	private Locale _locale = null;
+	private Date _createdAt = null;
+	private Integer _currentRevisionNumber = null;
+	private Account _creator = null;
+	private Group _group;
 
+	@Deprecated
+	private EntityRevision _currentRevision = null;
 
 	protected Entity() { }
 
-	protected Entity(Locale locale, Date createdAt, int currentRevisionNumber) {
+	protected Entity(Long id, String title, Locale locale, Date createdAt, int currentRevisionNumber, Account creator, Group group) {
+		_id = id;
+		_title = title;
 		_locale = locale;
 		_createdAt = createdAt;
 		_currentRevisionNumber = currentRevisionNumber;
+		_creator = creator;
+		_group = group;
 	}
 
-
-
-	//	public boolean isNew() {
-	//		return (this.id == null);
-	//	}
-
-	public Locale getLocale() {
-		return _locale;
-	}
-
-
-	@SuppressWarnings("unused")
-	private void setLocale(Locale locale) {
-		_locale = locale;
-	}
 
 
 	public Long getId() {
 		return _id;
 	}
 
-	/**
-	 * this is used by hibernate to set the id through reflection
-	 */
 	@SuppressWarnings("unused")
 	private void setId(Long id) {
 		_id = id;
+	}
+
+	public Locale getLocale() {
+		return _locale;
+	}
+
+	@SuppressWarnings("unused")
+	private void setLocale(Locale locale) {
+		_locale = locale;
+	}
+
+	public Date getCreatedAt() {
+		return _createdAt;
 	}
 
 	@SuppressWarnings("unused")
@@ -60,16 +62,8 @@ public abstract class Entity {
 		_createdAt = createdAt;
 	}
 
-	public Date getCreatedAt() {
-		return _createdAt;
-	}
-
-	public EntityRevision getCurrentRevision() {
-		return _currentRevision;
-	}
-
-	public void setCurrentRevision(EntityRevision entityRevision) {
-		_currentRevision = entityRevision;
+	public Integer getCurrentRevisionNumber() {
+		return _currentRevisionNumber;
 	}
 
 	@SuppressWarnings("unused")
@@ -77,9 +71,26 @@ public abstract class Entity {
 		_currentRevisionNumber = currentRevisionNumber;
 	}
 
-	public Integer getCurrentRevisionNumber() {
-		return _currentRevisionNumber;
+	public Account getCreator() {
+		return _creator;
 	}
+
+	@SuppressWarnings("unused")
+	private void setCreator(Account creator) {
+		_creator = creator;
+	}
+
+
+	@Deprecated
+	public EntityRevision getCurrentRevision() {
+		return _currentRevision;
+	}
+
+	@Deprecated
+	public void setCurrentRevision(EntityRevision entityRevision) {
+		_currentRevision = entityRevision;
+	}
+
 
 
 
@@ -137,4 +148,6 @@ public abstract class Entity {
 		return "Entity [_id=" + _id + ", _currentRevisionNumber=" + _currentRevisionNumber + ", _currentRevision="
 		+ _currentRevision + ", _createdAt=" + _createdAt + ", _locale=" + _locale + "]";
 	}
+
+
 }
