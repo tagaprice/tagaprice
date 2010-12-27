@@ -6,8 +6,9 @@
   <!-- <inherits name="com.google.gwt.junit.JUnit"/> -->
   <inherits name="com.google.gwt.logging.LogImpl" /> 
   <inherits name="com.google.gwt.place.Place" /> 
-  <inherits name="com.google.gwt.place.Place" /> 
   <inherits name="com.google.gwt.activity.Activity" /> 
+  <inherits name="com.google.gwt.i18n.I18N"/>
+  
 - <replace-with class="org.tagaprice.client.gwt.client.ClientFactoryImpl">
   <when-type-is class="org.tagaprice.client.gwt.client.ClientFactory" /> 
   </replace-with>

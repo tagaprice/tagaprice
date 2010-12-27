@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
+import org.tagaprice.client.gwt.client.generics.I18N;
 import org.tagaprice.client.gwt.client.mvp.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 
@@ -53,7 +54,7 @@ public class TagAPrice implements EntryPoint {
 		//This is quite a mess...
 		clientFactory.getProductServiceDispatch().setMole(this.mole);
 
-		this.leftPanel.add(new HTML("<h3>menu</h3>"));
+		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
 		Label createProduct = new Label("Create Product");
 		createProduct.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
