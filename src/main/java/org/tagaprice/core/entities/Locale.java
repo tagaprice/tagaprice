@@ -2,11 +2,20 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * TODO regenerate equals and hashcode after implementatioin
  * @author haja
  *
  */
+@Entity
+@Table(name="locale")
 public class Locale {
 	private int _id;
 	private Locale _fallback = null;
@@ -18,7 +27,6 @@ public class Locale {
 	@SuppressWarnings("unused")
 	private Locale() { }
 
-
 	public Locale(Locale fallback, String title, String localTitle, Date createdAt) {
 		_fallback = fallback;
 		_title = title;
@@ -27,75 +35,48 @@ public class Locale {
 	}
 
 
-	/**
-	 * @return the id
-	 */
+	@Id
+	@Column(name="locale_id")
 	public int getId() {
 		return _id;
 	}
-
-	/**
-	 * @param id the id to set
-	 */
 	@SuppressWarnings("unused")
 	private void setId(int id) {
 		_id = id;
 	}
 
-	/**
-	 * @return the fallback
-	 */
+	@ManyToOne
+	@JoinColumn(name = "fallback_Id")
 	public Locale getFallback() {
 		return _fallback;
 	}
-
-	/**
-	 * @param fallback the fallback to set
-	 */
 	@SuppressWarnings("unused")
 	private void setFallback(Locale fallback) {
 		_fallback = fallback;
 	}
 
-	/**
-	 * @return the title
-	 */
+	@Column(name="title")
 	public String getTitle() {
 		return _title;
 	}
-
-	/**
-	 * @param title the title to set
-	 */
 	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		_title = title;
 	}
 
-	/**
-	 * @return the localTitle
-	 */
+	@Column(name="localtitle")
 	public String getLocalTitle() {
 		return _localTitle;
 	}
-
-	/**
-	 * @param localTitle the localTitle to set
-	 */
-	public void setLocalTitle(String localTitle) {
+	@SuppressWarnings("unused")
+	private void setLocalTitle(String localTitle) {
 		_localTitle = localTitle;
 	}
 
-	/**
-	 * @return the createdAt
-	 */
+	@Column(name="created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
-
-	/**
-	 * @param createdAt the createdAt to set
-	 */
 	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;

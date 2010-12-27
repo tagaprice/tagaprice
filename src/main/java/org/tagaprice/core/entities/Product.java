@@ -2,7 +2,10 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
-public class Product extends Entity {
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@PrimaryKeyJoinColumn(name="productrevision")
+public class Product extends RevisionableEntity {
 
 	private Category _category;
 	private Brand _brand;
