@@ -3,10 +3,11 @@ package org.tagaprice.core.entities;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-@javax.persistence.Entity
+@Entity
 @Table(name="account")
 @PrimaryKeyJoinColumn(name="uid")
 public class Account extends RevisionableEntity {
@@ -53,13 +54,4 @@ public class Account extends RevisionableEntity {
 	private void setLocked(Boolean locked) {
 		_locked = locked;
 	}
-
-
-
-
-
-
-
-
-
 }
