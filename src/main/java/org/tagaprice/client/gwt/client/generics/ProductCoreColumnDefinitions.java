@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.client.generics;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
 
 
 

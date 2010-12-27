@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.old.Product;
+import org.tagaprice.client.gwt.shared.entities.old.ProductImpl;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.Activity;

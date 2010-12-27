@@ -1,8 +1,10 @@
 package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.entities.dump.IUnit;
+import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
 /**
  * This class is used to send {@link Product} data from client to server and from server to client. It will also be used
@@ -14,7 +16,7 @@ public class Product extends AEntity implements IProduct {
 	private static final long serialVersionUID = 1L;
 
 	private ICategory _category;
-	private IUnit _iUnit;
+	private ArrayList<IQuantity> _quantities = new ArrayList<IQuantity>();
 
 	@Override
 	public void setCategory(ICategory category) {
@@ -27,14 +29,21 @@ public class Product extends AEntity implements IProduct {
 		return _category;
 	}
 
+
 	@Override
-	public void setUnit(IUnit unit) {
-		_iUnit=unit;
+	public void addQuantity(IQuantity quantity) {
+		_quantities.add(quantity);
 	}
 
 	@Override
-	public IUnit getUnit() {
-		return _iUnit;
+	public void addQuantities(ArrayList<IQuantity> quantities) {
+		_quantities.addAll(quantities);
+
+	}
+
+	@Override
+	public ArrayList<IQuantity> getQuantities() {
+		return _quantities;
 	}
 
 }
