@@ -1,9 +1,9 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
-import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.EditProductView;
+import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
-import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
@@ -29,14 +29,14 @@ public interface ClientFactory {
 	 * 
 	 * @return
 	 */
-	EditProductView getEditProductView();
+	ICreateProductView getEditProductView();
 
 	/**
 	 * Singleton for ListProductsView
 	 * 
 	 * @return
 	 */
-	ListProductsView<ProductCore> getListProductsView();
+	ListProductsView<IProduct> getListProductsView();
 
 	/**
 	 * Locale Dispatch for remote RPC Service

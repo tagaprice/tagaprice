@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.client.generics;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 
 
 
@@ -10,65 +10,27 @@ import com.google.gwt.user.client.ui.*;
 
 public class ProductCoreColumnDefinitions {
 
-	ArrayList<ColumnDefinition<ProductCore>> columns = new ArrayList<ColumnDefinition<ProductCore>>();
+	ArrayList<ColumnDefinition<IProduct>> columns = new ArrayList<ColumnDefinition<IProduct>>();
 
 	public ProductCoreColumnDefinitions() {
-		this.columns.add(new ColumnDefinition<ProductCore>() {
+		this.columns.add(new ColumnDefinition<IProduct>() {
 
 			@Override
-			public Widget render(ProductCore t) {
-				return new CheckBox();
-			}
-
-			@Override
-			public boolean isClickable() {
-				return true;
+			public Widget render(IProduct t) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			@Override
 			public String getColumnName() {
-				return "checkbox";
+				// TODO Auto-generated method stub
+				return null;
 			}
 		});
 
-		this.columns.add(new ColumnDefinition<ProductCore>() {
-
-			@Override
-			public Widget render(ProductCore t) {
-				return new HTML(String.valueOf(t.getId()));
-			}
-
-			@Override
-			public boolean isSelectable() {
-				return true;
-			}
-
-			@Override
-			public String getColumnName() {
-				return "id";
-			}
-		});
-
-		this.columns.add(new ColumnDefinition<ProductCore>() {
-
-			@Override
-			public Widget render(ProductCore t) {
-				return new HTML(t.getName());
-			}
-
-			@Override
-			public boolean isSelectable() {
-				return true;
-			}
-
-			@Override
-			public String getColumnName() {
-				return "name";
-			}
-		});
 	}
 
-	public ArrayList<ColumnDefinition<ProductCore>> getColumnDefinitions() {
+	public ArrayList<ColumnDefinition<IProduct>> getColumnDefinitions() {
 		return this.columns;
 	}
 }
