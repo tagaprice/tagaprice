@@ -3,32 +3,32 @@ package org.tagaprice.client.gwt.client.generics;
 import java.util.HashMap;
 
 /**
- * The {@link TokenCreater} is able implode and explode a token. You should use the {@link TokenCreater} when you create
+ * The {@link TokenCreator} is able implode and explode a token. You should use the {@link TokenCreator} when you create
  * a token or you wanna split a token.
- * With the {@link TokenCreater} it is very easy and secure, when you work with your own tokens.
+ * With the {@link TokenCreator} it is very easy and secure, when you work with your own tokens.
  * 
  */
-public class TokenCreater {
+public class TokenCreator {
 
 
 	/**
-	 * Return a {@link TokenCreater}  that can split a token.
+	 * Return a {@link TokenCreator}  that can split a token.
 	 * @param token The token you want to split.
 	 * @return An {@link Exploder} object depending on your token
 	 */
-	public Exploder getExploder(String token) {
+	public static Exploder getExploder(String token) {
 		return new Exploder(token);
 	}
 
 	/**
-	 * Returns a {@link TokenCreater} with which you can create a new token.
+	 * Returns a {@link TokenCreator} with which you can create a new token.
 	 * @return a {@link Imploder} object helps you creating a token.
 	 */
-	public Imploder getImploder() {
+	public static Imploder getImploder() {
 		return new Imploder();
 	}
 
-	public class Exploder {
+	public static class Exploder {
 		String _token;
 		String _root;
 		HashMap<String, String> _nodes = new HashMap<String, String>();
@@ -71,12 +71,10 @@ public class TokenCreater {
 		}
 	}
 
-	public class Imploder {
+	public static class Imploder {
 
 		private String _root;
 		private StringBuffer _nodes = new StringBuffer();
-
-
 
 		/**
 		 * Set the root token element. It has no value.

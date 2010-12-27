@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.client.features.productmanagement.createProduct;
 
-import org.tagaprice.client.gwt.client.generics.TokenCreater;
+import org.tagaprice.client.gwt.client.generics.TokenCreator;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
@@ -37,7 +37,7 @@ public class CreateProductPlace extends Place {
 		public CreateProductPlace getPlace(String token) {
 			CreateProductPlace.logger.log("Tokenizer token " + token);
 
-			TokenCreater.Exploder e = new TokenCreater().getExploder(token);
+			TokenCreator.Exploder e = new TokenCreator().getExploder(token);
 
 
 			if(e.getRoot()!=null){
@@ -60,12 +60,12 @@ public class CreateProductPlace extends Place {
 		public String getToken(CreateProductPlace place) {
 			if(place.getRevisionId().getId()==null){
 				CreateProductPlace.logger.log("Tokenizer create product");
-				TokenCreater.Imploder t = new TokenCreater().getImploder();
+				TokenCreator.Imploder t = new TokenCreator().getImploder();
 				t.setRoot("create");
 				return t.getToken();
 			}else if(place.getRevisionId().getId()!=null){
 				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
-				TokenCreater.Imploder t = new TokenCreater().getImploder();
+				TokenCreator.Imploder t = new TokenCreator().getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getRevisionId().getId());
 
