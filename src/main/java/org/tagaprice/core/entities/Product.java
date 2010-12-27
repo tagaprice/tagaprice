@@ -53,7 +53,6 @@ public class Product extends RevisionableEntity {
 		_brand = brand;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Product derived from " + super.toString();
