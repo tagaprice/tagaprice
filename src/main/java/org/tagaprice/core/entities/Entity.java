@@ -2,6 +2,15 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  * Entity bean to map from the database using hibernate.
  * This class is immutable.
@@ -9,92 +18,96 @@ import java.util.Date;
  * @author haja
  *
  */
-//@Entity
-//@Table(name="entity")
-
+@javax.persistence.Entity
+@Table(name="entityrevision")
+@SecondaryTable(name="entity", pkJoinColumns={
+		@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")
+})
 public abstract class Entity {
 	private Long _id = null;
 	private String _title;
 	private Locale _locale = null;
 	private Date _createdAt = null;
-	private Integer _currentRevisionNumber = null;
+	private Integer _revisionNumber = null;
 	private Account _creator = null;
 	private Group _group;
-
-	@Deprecated
-	private EntityRevision _currentRevision = null;
 
 	protected Entity() { }
 
 	protected Entity(Long id, String title, Locale locale, Date createdAt, int currentRevisionNumber, Account creator, Group group) {
 		_id = id;
-		_title = title;
+		setTitle(title);
 		_locale = locale;
 		_createdAt = createdAt;
-		_currentRevisionNumber = currentRevisionNumber;
+		_revisionNumber = currentRevisionNumber;
 		_creator = creator;
-		_group = group;
+		setGroup(group);
 	}
 
-
-
+	@Id
+	@Column(name="ent_id")
 	public Long getId() {
 		return _id;
 	}
-
 	@SuppressWarnings("unused")
 	private void setId(Long id) {
 		_id = id;
 	}
 
+	@Column(name="title")
+	public String getTitle() {
+		return _title;
+	}
+	private void setTitle(String title) {
+		_title = title;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "locale_id")
 	public Locale getLocale() {
 		return _locale;
 	}
-
 	@SuppressWarnings("unused")
 	private void setLocale(Locale locale) {
 		_locale = locale;
 	}
 
+	@Column(name="created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
-
 	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;
 	}
 
-	public Integer getCurrentRevisionNumber() {
-		return _currentRevisionNumber;
+	@Id
+	@Column(name="rev")
+	public Integer getRevisionNumber() {
+		return _revisionNumber;
 	}
-
 	@SuppressWarnings("unused")
-	private void setCurrentRevisionNumber(Integer currentRevisionNumber) {
-		_currentRevisionNumber = currentRevisionNumber;
+	private void setRevisionNumber(Integer revisionNumber) {
+		_revisionNumber = revisionNumber;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}
-
 	@SuppressWarnings("unused")
 	private void setCreator(Account creator) {
 		_creator = creator;
 	}
 
-
-	@Deprecated
-	public EntityRevision getCurrentRevision() {
-		return _currentRevision;
+	@Transient
+	public Group getGroup() {
+		return _group;
 	}
-
-	@Deprecated
-	public void setCurrentRevision(EntityRevision entityRevision) {
-		_currentRevision = entityRevision;
+	private void setGroup(Group group) {
+		_group = group;
 	}
-
-
 
 
 	@Override
@@ -102,8 +115,7 @@ public abstract class Entity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
-		result = prime * result + ((_currentRevision == null) ? 0 : _currentRevision.hashCode());
-		result = prime * result + ((_currentRevisionNumber == null) ? 0 : _currentRevisionNumber.hashCode());
+		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
 		result = prime * result + ((_locale == null) ? 0 : _locale.hashCode());
 		return result;
@@ -123,15 +135,10 @@ public abstract class Entity {
 				return false;
 		} else if (!_createdAt.equals(other._createdAt))
 			return false;
-		if (_currentRevision == null) {
-			if (other._currentRevision != null)
+		if (_revisionNumber == null) {
+			if (other._revisionNumber != null)
 				return false;
-		} else if (!_currentRevision.equals(other._currentRevision))
-			return false;
-		if (_currentRevisionNumber == null) {
-			if (other._currentRevisionNumber != null)
-				return false;
-		} else if (!_currentRevisionNumber.equals(other._currentRevisionNumber))
+		} else if (!_revisionNumber.equals(other._revisionNumber))
 			return false;
 		if (_id == null) {
 			if (other._id != null)
@@ -148,9 +155,7 @@ public abstract class Entity {
 
 	@Override
 	public String toString() {
-		return "Entity [_id=" + _id + ", _currentRevisionNumber=" + _currentRevisionNumber + ", _currentRevision="
-		+ _currentRevision + ", _createdAt=" + _createdAt + ", _locale=" + _locale + "]";
+		return "Entity [_id=" + _id + ", _currentRevisionNumber=" + _revisionNumber + ", _createdAt=" + _createdAt + ", _locale=" + _locale + "]";
 	}
-
 
 }
