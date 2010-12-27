@@ -12,7 +12,7 @@ import javax.persistence.*;
 @SecondaryTable(name="producttype", pkJoinColumns={
 		@PrimaryKeyJoinColumn(name="type_id", referencedColumnName="type_id")
 })
-public class Category {
+public class Category extends RevisionableEntity {
 
 	private Category _parent;
 

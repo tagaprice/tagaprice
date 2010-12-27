@@ -16,7 +16,7 @@ import javax.persistence.Table;
 	@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
 	@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")
 })
-@SecondaryTable(name="producttype", pkJoinColumns={
+@SecondaryTable(name="product", pkJoinColumns={
 		@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="prod_id")
 })
 public class Product extends RevisionableEntity {
