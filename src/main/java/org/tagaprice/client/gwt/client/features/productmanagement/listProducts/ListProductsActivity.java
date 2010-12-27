@@ -3,16 +3,14 @@ package org.tagaprice.client.gwt.client.features.productmanagement.listProducts;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.EditProductPlace;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
-import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 /**
@@ -26,10 +24,10 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	private ListProductsPlace place;
 	private ClientFactory clientFactory;
-	private ArrayList<ProductCore> products;
+	private ArrayList<IProduct> products;
 
-	private final ListProductsView<ProductCore> listProductsView;
-	private ProductServiceAsync productServiceAsync;
+	private final ListProductsView<IProduct> listProductsView;
+	private IProductServiceAsync productServiceAsync;
 
 	/**
 	 * 
@@ -88,22 +86,6 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		ListProductsActivity.logger.log("Activity starts...");
 
 		listProductsView.setPresenter(this);
-		productServiceAsync.getProducts(new AsyncCallback<ArrayList<ProductCore>>() {
-
-			@Override
-			public void onSuccess(ArrayList<ProductCore> result) {
-				ListProductsActivity.logger.log("RPC request successfull");
-				products = result;
-				listProductsView.setData(result);
-				panel.setWidget(listProductsView.asWidget());
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Say something...
-
-			}
-		});
 
 	}
 
@@ -112,7 +94,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	 */
 	@Override
 	public void onEditProduct(int index) {
-		this.goTo(new EditProductPlace(this.products.get(index).getId()));
+		//this.goTo(new EditProductPlace(this.products.get(index).getId()));
 	}
 
 	/**
@@ -120,6 +102,6 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	 */
 	@Override
 	public void onAddProduct() {
-		this.goTo(new EditProductPlace());
+		//this.goTo(new EditProductPlace());
 	}
 }

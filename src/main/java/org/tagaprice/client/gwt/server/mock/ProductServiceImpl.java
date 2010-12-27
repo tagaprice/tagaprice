@@ -1,86 +1,30 @@
 package org.tagaprice.client.gwt.server.mock;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.shared.entities.*;
-import org.tagaprice.client.gwt.shared.entities.old.Product;
-import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
-import org.tagaprice.client.gwt.shared.entities.old.ProductCoreImpl;
-import org.tagaprice.client.gwt.shared.entities.old.ProductImpl;
-import org.tagaprice.client.gwt.shared.rpc.productmanagement.old.ProductService;
-
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ProductServiceImpl extends RemoteServiceServlet implements
-		ProductService {
+IProductService {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -589742797415233033L;
-	ArrayList<Product> products;
-
-	public ProductServiceImpl() {
-		this.products = new ArrayList<Product>();
-		this.products.add(new ProductImpl(0, "NOEM Mix Erdbeere", 95,
-				"supertolles Joghurt", "Milchprodukte"));
-		this.products.add(new ProductImpl(1, "Soletti", 120, "Knabberspass",
-				"Knabberzeugs"));
-		this.products.add(new ProductImpl(2, "Milch", 95, "gute Milch",
-				"Milchprodukte"));
-	}
+	private static final long serialVersionUID = 5070553288173843014L;
 
 	@Override
-	public Product getProductById(int id) {
-		for (Product p : this.products) {
-			if (p.getId() == id) {
-				return p;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public Product getProductByName(String name) {
-		for (Product p : this.products) {
-			if (p.getName().equals(name)) {
-				return p;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public ArrayList<ProductCore> getProducts() {
-		ArrayList<ProductCore> productCores = new ArrayList<ProductCore>();
-		for (Product p : this.products) {
-			productCores.add(new ProductCoreImpl(p.getId(), p.getName()));
-		}
-		return productCores;
-	}
-
-	@Override
-	public Product getProductsByCategory(String category) {
+	public IProduct getProduct(IRevisionId revionsId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void saveProduct(Product product, boolean exists) {
-		// TODO proper id management
-		if (exists) {
-			for (Product existingProduct : this.products) {
-				if (existingProduct.getId() == product.getId()) {
-					existingProduct.setName(product.getName());
-					existingProduct.setDescription(product.getDescription());
-					existingProduct.setCategory(product.getCategory());
-				}
-			}
-		} else {
-			this.products.add(product);
-		}
-
+	public IProduct saveProduct(IProduct product) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 
 }

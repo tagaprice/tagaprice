@@ -1,12 +1,12 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.*;
-import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.*;
-import org.tagaprice.client.gwt.client.features.productmanagement.editProduct.devView.EditProductViewImpl;
+import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.CreateProductViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.ListProductsViewImpl;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
-import org.tagaprice.client.gwt.shared.entities.old.ProductCore;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 
 import com.google.gwt.event.shared.*;
 import com.google.gwt.place.shared.PlaceController;
@@ -25,8 +25,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	 */
 	private static final PlaceController placeController = new PlaceController(
 			ClientFactoryImpl.eventBus);
-	private static final ListProductsViewImpl<ProductCore> productListView = new ListProductsViewImpl<ProductCore>();
-	private static final EditProductView editProductView = new EditProductViewImpl();
+	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
+	private static final ICreateProductView editProductView = new CreateProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
 
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
@@ -47,11 +47,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public EditProductView getEditProductView() {
+	public ICreateProductView getEditProductView() {
 		return ClientFactoryImpl.editProductView;
 	}
 	@Override
-	public ListProductsView<ProductCore> getListProductsView() {
+	public ListProductsView<IProduct> getListProductsView() {
 		return ClientFactoryImpl.productListView;
 	}
 
