@@ -11,8 +11,8 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
  */
 public class Product extends AEntity implements IProduct {
 
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 4858431133448109402L;
 	private ICategory _category;
 	private IQuantity _quantity;
 
