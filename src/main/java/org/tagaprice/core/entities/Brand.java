@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 	@SecondaryTable(name="brand", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="brand_id")})
 
 })
-public class Brand extends NonRevisionableEntity {
+public class Brand {
 	private Long _id = null;
 	private String _title;
 	private Locale _locale = null;
@@ -42,7 +42,6 @@ public class Brand extends NonRevisionableEntity {
 		this._group = group;
 	}
 
-	@Override
 	@Id
 	@Column(name="ent_id")
 	public Long getId() {
@@ -53,7 +52,6 @@ public class Brand extends NonRevisionableEntity {
 		this._id = id;
 	}
 
-	@Override
 	@Column(name="title")
 	public String getTitle() {
 		return _title;
@@ -63,7 +61,6 @@ public class Brand extends NonRevisionableEntity {
 		this._title = title;
 	}
 
-	@Override
 	@ManyToOne
 	@JoinColumn(name = "locale_id")
 	public Locale getLocale() {
@@ -74,7 +71,6 @@ public class Brand extends NonRevisionableEntity {
 		this._locale = locale;
 	}
 
-	@Override
 	@Column(name="created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
@@ -84,7 +80,6 @@ public class Brand extends NonRevisionableEntity {
 		this._createdAt = createdAt;
 	}
 
-	@Override
 	@Id
 	@Column(name="rev")
 	public Integer getRevisionNumber() {
@@ -95,7 +90,6 @@ public class Brand extends NonRevisionableEntity {
 		return;
 	}
 
-	@Override
 	@ManyToOne
 	@JoinColumn(name = "creator")
 	public Account getCreator() {
@@ -106,7 +100,6 @@ public class Brand extends NonRevisionableEntity {
 		this._creator = creator;
 	}
 
-	@Override
 	@Transient
 	public Group getGroup() {
 		return _group;
