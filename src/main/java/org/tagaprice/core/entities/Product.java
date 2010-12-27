@@ -2,11 +2,24 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
 
-@PrimaryKeyJoinColumn(name="productrevision")
+@Entity
+@Table(name="productrevision")
+@PrimaryKeyJoinColumns({
+	@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
+	@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")
+})
+@SecondaryTable(name="producttype", pkJoinColumns={
+		@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="prod_id")
+})
 public class Product extends RevisionableEntity {
-
 	private Category _category;
 	private Brand _brand;
 
@@ -18,6 +31,28 @@ public class Product extends RevisionableEntity {
 		_category = category;
 		_brand = brand;
 	}
+
+
+	@ManyToOne
+	@JoinColumn(name = "type_id")
+	public Category getCategory() {
+		return _category;
+	}
+	@SuppressWarnings("unused")
+	private void setCategory(Category category) {
+		_category = category;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="brand_id")
+	public Brand getBrand() {
+		return _brand;
+	}
+	@SuppressWarnings("unused")
+	private void setBrand(Brand brand) {
+		_brand = brand;
+	}
+
 
 	@Override
 	public String toString() {
