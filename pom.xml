@@ -191,7 +191,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>2.5.6</version>
+			<version>3.0.5.RELEASE</version>
 		</dependency>
 
 		<!-- this is needed by hibernate (TODO dependencies should be resolved automatically?) -->
