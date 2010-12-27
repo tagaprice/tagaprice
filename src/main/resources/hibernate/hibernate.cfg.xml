@@ -4,12 +4,11 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<mapping package="org.tagaprice.core.entities"/>
-		<mapping class="RevisionableEntity" />
-		<mapping class="Locale" />
-		<mapping class="Account" />
-		<mapping class="Product" />
-		<mapping class="Category" />
-		<mapping class="Brand" />
+		<mapping class="org.tagaprice.core.entities.RevisionableEntity" />
+		<mapping class="org.tagaprice.core.entities.Locale" />
+		<mapping class="org.tagaprice.core.entities.Account" />
+		<mapping class="org.tagaprice.core.entities.Product" />
+		<mapping class="org.tagaprice.core.entities.Category" />
+		<mapping class="org.tagaprice.core.entities.Brand" />
 	</session-factory>
 </hibernate-configuration>
