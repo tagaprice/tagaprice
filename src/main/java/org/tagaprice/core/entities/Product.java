@@ -7,8 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.PrimaryKeyJoinColumns;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="productrevision")
@@ -16,9 +16,9 @@ import javax.persistence.Table;
 	@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
 	@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")
 })
-@SecondaryTable(name="product", pkJoinColumns={
-		@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="prod_id")
-})
+//@SecondaryTable(name="product", pkJoinColumns={
+//		@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="prod_id")
+//})
 public class Product extends RevisionableEntity {
 	private Category _category;
 	private Brand _brand;
@@ -33,8 +33,9 @@ public class Product extends RevisionableEntity {
 	}
 
 
-	@ManyToOne
-	@JoinColumn(name = "type_id")
+	//	@ManyToOne
+	//	@JoinColumn(name = "type_id")
+	@Transient
 	public Category getCategory() {
 		return _category;
 	}

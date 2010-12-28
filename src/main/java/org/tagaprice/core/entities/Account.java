@@ -14,11 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="entityrevision")
+@Table(name="entity")
 @SecondaryTables({
-	@SecondaryTable(name="entity", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
+	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
 	,
-	@SecondaryTable(name="account", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="uid")})
+	@SecondaryTable(name="account", pkJoinColumns= {@PrimaryKeyJoinColumn(name="uid", referencedColumnName="ent_id")})
 
 })
 public class Account {
@@ -62,7 +62,7 @@ public class Account {
 		this._id = id;
 	}
 
-	@Column(name="title")
+	@Column(table="entityrevision", name="title")
 	public String getTitle() {
 		return _title;
 	}
@@ -90,7 +90,6 @@ public class Account {
 		this._createdAt = createdAt;
 	}
 
-	@Id
 	@Column(name="rev")
 	public Integer getRevisionNumber() {
 		return 0;
