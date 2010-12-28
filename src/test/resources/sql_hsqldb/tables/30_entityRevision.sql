@@ -13,8 +13,3 @@ CREATE TABLE entityRevision (
 --	CHECK (rev >= 1)
 );
 
---ALTER TABLE entity ADD CONSTRAINT fkey_currentRev
---FOREIGN KEY (ent_id, current_revision)
---REFERENCES entityRevision(ent_id, rev)
---DEFERRABLE INITIALLY DEFERRED;
-

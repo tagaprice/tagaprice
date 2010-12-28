@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 @Entity
@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 //			@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="prod_id"),
 //			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
 //	),
-//@SecondaryTable(name="entity")
+//@SecondaryTable(name="entity",pkJoinColumns=@PrimaryKeyJoinColumn(name="ent_id"))
 //})
 public class Product implements Serializable  {
 	private Long _id = null;
