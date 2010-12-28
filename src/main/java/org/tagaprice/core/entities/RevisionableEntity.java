@@ -4,13 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -21,12 +16,12 @@ import javax.persistence.Transient;
  * @author haja
  *
  */
-@javax.persistence.Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="entityrevision")
-@SecondaryTable(name="entity", pkJoinColumns={
-		@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")
-})
+//@javax.persistence.Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@Table(name="entityrevision")
+//@SecondaryTable(name="entity", pkJoinColumns={
+//		@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")
+//})
 public abstract class RevisionableEntity {
 	private Long _id = null;
 	private String _title;
@@ -68,7 +63,7 @@ public abstract class RevisionableEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "locale_id")
+	@JoinColumn(table="entity", name = "locale_id", referencedColumnName="locale_id")
 	public Locale getLocale() {
 		return _locale;
 	}
@@ -97,7 +92,7 @@ public abstract class RevisionableEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "creator")
+	@JoinColumn(table="entity", name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}

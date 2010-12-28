@@ -2,25 +2,20 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
-import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-@Entity
-@Table(name="entity")
-@SecondaryTables({
-	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
-	,
-	@SecondaryTable(name="brand", pkJoinColumns= {@PrimaryKeyJoinColumn(name="brand_id", referencedColumnName="ent_id")})
-
-})
+//@Entity
+//@Table(name="entity")
+//@SecondaryTables({
+//	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
+//	,
+//@SecondaryTable(name="brand", pkJoinColumns= {@PrimaryKeyJoinColumn(name="brand_id", referencedColumnName="ent_id")})
+//
+//})
 public class Brand {
 	private Long _id = null;
 	private String _title;
@@ -52,7 +47,8 @@ public class Brand {
 		this._id = id;
 	}
 
-	@Column(table="entityrevision", name="title")
+	//	@Column(table="entityrevision", name="title")
+	@Transient
 	public String getTitle() {
 		return _title;
 	}

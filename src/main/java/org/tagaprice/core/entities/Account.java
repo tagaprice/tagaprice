@@ -15,12 +15,12 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="entity")
-@SecondaryTables({
-	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
-	,
+//@SecondaryTables({
+//	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
+//	,
 	@SecondaryTable(name="account", pkJoinColumns= {@PrimaryKeyJoinColumn(name="uid", referencedColumnName="ent_id")})
-
-})
+//
+//})
 public class Account {
 	private Long _id = null;
 	private String _title;
@@ -62,7 +62,8 @@ public class Account {
 		this._id = id;
 	}
 
-	@Column(table="entityrevision", name="title")
+	//	@Column(table="entityrevision", name="title")
+	@Transient
 	public String getTitle() {
 		return _title;
 	}
