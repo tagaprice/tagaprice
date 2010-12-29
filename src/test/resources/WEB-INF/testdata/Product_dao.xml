@@ -1,10 +1,54 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<table name="Locale">
-		<column>locale_id</column>
-		<column>fallback_id</column>
+	<table name="entityrevision">
+		<column>ent_id</column>
+		<column>rev</column>
 		<column>title</column>
-		<column>localtitle</column>
 		<column>created_at</column>
+		<column>group_id</column>
+		<column>creator</column>
+		<row>
+            <value>99</value>
+            <value>1</value>
+            <value>"product99"</value>
+            <value>29.12.2010</value>
+            <null/>
+            <null/> <!-- TODO insert reference -->
+        </row>
 	</table>
+	<table name="entity">
+		<column>ent_id</column>
+		<column>locale_id</column>
+		<column>created_at</column>
+		<column>current_revision</column>
+		<column>creator</column>
+		<row>
+            <value>99</value>
+            <null/> <!-- TODO insert reference -->
+            <value>29.12.2010</value>
+            <value>1</value>
+            <null/> <!-- TODO insert reference -->
+        </row>
+	</table>
+	<table name="productrevision">
+		<column>prod_id</column>
+		<column>rev</column>
+		<column>type_id</column>
+		<column>brand_id</column>
+		<column>imageurl</column>
+		<row>
+            <value>99</value>
+            <value>1</value>
+            <null/>
+            <null/>
+            <value>url@image.at</value>
+        </row>
+	</table>
+	<table name="product">
+		<column>prod_id</column>
+		<row>
+            <value>99</value>
+        </row>
+	</table>
+	
 </dataset>

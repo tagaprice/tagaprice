@@ -22,6 +22,10 @@ public class HibernateProductDAO implements IProductDAO {
 		return product;
 	}
 
+	@Override
+	public Product getById(Long id) {
+		return (Product) _sessionFactory.getCurrentSession().load(Product.class, id);
+	}
 }
 
 

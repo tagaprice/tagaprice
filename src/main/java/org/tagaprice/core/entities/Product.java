@@ -3,10 +3,6 @@ package org.tagaprice.core.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.*;
 
 
@@ -17,9 +13,12 @@ import javax.persistence.*;
 			@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
 			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
 	),
+	@SecondaryTable(name="product"),
 	@SecondaryTable(name="entity")
 })
+//TODO use RevisionableEntity as superclass and get it to work
 public class Product implements Serializable  {
+	private static final long serialVersionUID = 1L;
 	private Long _id = null;
 	private String _title;
 	private Locale _locale = null;
@@ -33,7 +32,7 @@ public class Product implements Serializable  {
 
 	public Product() { }
 
-	public Product(Long id, String title, Locale locale, Date createdAt, int revisionNumber, Account creator, Group group,
+	public Product(Long id, String title, Locale locale, Date createdAt, Integer revisionNumber, Account creator, Group group,
 			Category category, Brand brand) {
 		this._id = id;
 		this._title = title;
@@ -140,6 +139,50 @@ public class Product implements Serializable  {
 	@SuppressWarnings("unused")
 	private void setBrand(Brand brand) {
 		_brand = brand;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
+		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (_createdAt == null) {
+			if (other._createdAt != null)
+				return false;
+		} else if (!_createdAt.equals(other._createdAt))
+			return false;
+		if (_id == null) {
+			if (other._id != null)
+				return false;
+		} else if (!_id.equals(other._id))
+			return false;
+		if (_revisionNumber == null) {
+			if (other._revisionNumber != null)
+				return false;
+		} else if (!_revisionNumber.equals(other._revisionNumber))
+			return false;
+		if (_title == null) {
+			if (other._title != null)
+				return false;
+		} else if (!_title.equals(other._title))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
 import org.junit.*;
-import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -61,19 +60,19 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		Date localeDate = new Date();
 
-		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
+		//		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
+		//		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
+		//		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
 
 		Date savedDate = new Date();
-		Product productToSave = null; //TODO fix ctor: call new Product(locale, savedDate, 0);
+		Product productToSave = new Product(new Long(0), "title", null, null, 0, null, null, null, null);
 
 
-		Locale localeExpected = new Locale(null, "testTitle", "testLocalTitle", localeDate);
-		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setId", 0);
-		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setFallback", localeExpected);
+		//		Locale localeExpected = new Locale(null, "testTitle", "testLocalTitle", localeDate);
+		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setId", 0);
+		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setFallback", localeExpected);
 
-		Product expected = null; //TODO fix ctor call: new Product(localeExpected , savedDate, 0);
+		Product expected = new Product(new Long(0), "title", null, null, 0, null, null, null, null);
 		ReflectionTestUtils.invokeSetterMethod(expected, "setId", (long) 0);
 
 
@@ -85,6 +84,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		//System.out.println("actual:   " + actual);
 
 		assertThat(actual, equalTo(expected));
+	}
+
+	@Test
+	public void loadProduct_shouldReturnProductWithActualProductRevision() {
+		//TODO implement
+
 	}
 
 }
