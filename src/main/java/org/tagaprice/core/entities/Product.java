@@ -12,13 +12,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="entityrevision")
-//@SecondaryTables({
-//	@SecondaryTable(name="productrevision", pkJoinColumns= {
-//			@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="prod_id"),
-//			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
-//	),
-@SecondaryTable(name="entity") //,pkJoinColumns=@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id"))
-//})
+@SecondaryTables({
+	@SecondaryTable(name="productrevision", pkJoinColumns= {
+			@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
+			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
+	),
+	@SecondaryTable(name="entity")
+})
 public class Product implements Serializable  {
 	private Long _id = null;
 	private String _title;
