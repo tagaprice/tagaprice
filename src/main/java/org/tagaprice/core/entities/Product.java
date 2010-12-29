@@ -17,7 +17,7 @@ import javax.persistence.*;
 //			@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="prod_id"),
 //			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
 //	),
-//@SecondaryTable(name="entity",pkJoinColumns=@PrimaryKeyJoinColumn(name="ent_id"))
+@SecondaryTable(name="entity") //,pkJoinColumns=@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id"))
 //})
 public class Product implements Serializable  {
 	private Long _id = null;

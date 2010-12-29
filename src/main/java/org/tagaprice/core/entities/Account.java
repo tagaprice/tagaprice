@@ -3,22 +3,17 @@ package org.tagaprice.core.entities;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity
-@Table(name="entity")
+//@Entity
+//@Table(name="entity")
 //@SecondaryTables({
 //	@SecondaryTable(name="entityrevision", pkJoinColumns= {@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id")})
 //	,
-	@SecondaryTable(name="account", pkJoinColumns= {@PrimaryKeyJoinColumn(name="uid", referencedColumnName="ent_id")})
+//	@SecondaryTable(name="account", pkJoinColumns= {@PrimaryKeyJoinColumn(name="uid", referencedColumnName="ent_id")})
 //
 //})
 public class Account {
@@ -119,7 +114,8 @@ public class Account {
 		this._group = group;
 	}
 
-	@Column(table="account",name="mail")
+	//	@Column(table="account",name="mail")
+	@Transient
 	public String getEmail() {
 		return _email;
 	}
@@ -128,7 +124,8 @@ public class Account {
 		_email = email;
 	}
 
-	@Column(table="account",name="last_login")
+	//	@Column(table="account",name="last_login")
+	@Transient
 	public Date getLastLogin() {
 		return _lastLogin;
 	}
@@ -137,7 +134,8 @@ public class Account {
 		_lastLogin = lastLogin;
 	}
 
-	@Column(table="account",name="locked")
+	//	@Column(table="account",name="locked")
+	@Transient
 	public Boolean isLocked() {
 		return _locked;
 	}
