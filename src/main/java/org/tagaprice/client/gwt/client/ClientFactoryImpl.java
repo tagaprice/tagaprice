@@ -60,4 +60,9 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.productServiceDispatch;
 	}
 
+	@Override
+	public ICreateProductView getCreateProductView() {
+		return new CreateProductViewImpl();
+	}
+
 }

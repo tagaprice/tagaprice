@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
@@ -29,15 +30,14 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private Presenter presenter;
 
 	@UiField
-	TextBox id;
+	Label id;
 	@UiField
 	TextBox name;
 	@UiField
 	TextBox price;
+
 	@UiField
-	TextBox description;
-	@UiField
-	TextBox category;
+	CategorySelecter category;
 
 	@UiField
 	Button saveButton;

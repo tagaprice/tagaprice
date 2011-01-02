@@ -24,12 +24,6 @@ public interface ClientFactory {
 	 */
 	PlaceController getPlaceController();
 
-	/**
-	 * Singleton for EditProductView
-	 * 
-	 * @return
-	 */
-	ICreateProductView getEditProductView();
 
 	/**
 	 * Singleton for ListProductsView
@@ -44,4 +38,21 @@ public interface ClientFactory {
 	 * @return
 	 */
 	ProductServiceDispatch getProductServiceDispatch();
+
+	/****************** VIEWS ***********************/
+
+	/**
+	 * Returns the CreateProductView for the selected screen
+	 * @return
+	 */
+	ICreateProductView getCreateProductView();
+
+	/**
+	 * Singleton for EditProductView
+	 * 
+	 * @return
+	 */
+	ICreateProductView getEditProductView();
+
+	/****************** WIDGETS ***********************/
 }

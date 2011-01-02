@@ -9,7 +9,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Label;
 
 public class CreateProductActivity implements ICreateProductView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateProductActivity.class);
@@ -47,10 +46,12 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 		if(_place.getRevisionId().getId()==null){
 			CreateProductActivity._logger.log("Create new Product");
-			panel.setWidget(new Label("Create new Product"));
+			panel.setWidget(_clientFactory.getCreateProductView());
+			//panel.setWidget(new Label("Create new Product"));
 		}else if(_place.getRevisionId().getId()!=null){
 			CreateProductActivity._logger.log("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision());
-			panel.setWidget(new Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
+			//panel.setWidget(new Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
+			panel.setWidget(_clientFactory.getCreateProductView());
 		}
 
 	}
