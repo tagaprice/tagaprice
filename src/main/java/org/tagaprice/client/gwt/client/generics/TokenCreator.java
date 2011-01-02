@@ -1,7 +1,6 @@
 package org.tagaprice.client.gwt.client.generics;
 
 import java.util.HashMap;
-import com.google.gwt.http.client.URL;
 
 /**
  * The {@link TokenCreator} is able implode and explode a token. You should use the {@link TokenCreator} when you create
@@ -11,6 +10,8 @@ import com.google.gwt.http.client.URL;
  */
 public class TokenCreator {
 
+	public static final String encodedSlash = "%2F";
+	public static final String encodedPercent = "%25";
 
 	/**
 	 * Return a {@link TokenCreator}  that can split a token.
@@ -57,6 +58,7 @@ public class TokenCreator {
 		}
 
 		private void doExplosion() {
+
 			String[] t = _token.split("/");
 
 			if (t.length > 1) {
@@ -65,11 +67,14 @@ public class TokenCreator {
 				}
 
 				for (int i = 2; i < t.length; i = i + 2) {
-					String varname = "";
-					String value = "";
+					String varname = t[i];
+					String value = t[i+1];
 
-					varname = URL.decode(t[i]);
-					value = URL.decode(t[i+1]);
+					varname = varname.replace(TokenCreator.encodedPercent, "%");
+					varname = varname.replace(TokenCreator.encodedSlash, "/");
+
+					value = value.replace(TokenCreator.encodedPercent, "%");
+					value = value.replace(TokenCreator.encodedSlash, "/");
 
 					_nodes.put(varname, value);
 				}
@@ -96,13 +101,16 @@ public class TokenCreator {
 		 * @param name The name of the token parameter.
 		 * @param value The value of this parameter.
 		 */
-		public void addNode(String name, String value) {
+		public void addNode(String varname, String value) {
 
-			name = URL.encode(name);
-			value = URL.encode(value);
+			varname = varname.replace("%", TokenCreator.encodedPercent);
+			varname = varname.replace("/", TokenCreator.encodedSlash);
+
+			value = value.replace("%", TokenCreator.encodedPercent);
+			value = value.replace("/", TokenCreator.encodedSlash);
 
 			_nodes.append("/");
-			_nodes.append(name);
+			_nodes.append(varname);
 			_nodes.append("/");
 			_nodes.append(value);
 		}

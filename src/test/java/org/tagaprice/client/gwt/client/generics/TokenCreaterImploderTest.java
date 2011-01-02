@@ -32,5 +32,7 @@ public class TokenCreaterImploderTest {
 		imploder.setRoot("theRoot");
 		imploder.addNode("the/VarName", "the/Value");
 		Assert.assertEquals("/theRoot/the%2FVarName/the%2FValue", imploder.getToken());
+		imploder.addNode("the/VarNameWith%", "the/ValueWith%");
+		Assert.assertEquals("/theRoot/the%2FVarName/the%2FValue/the%2FVarNameWith%25/the%2FValueWith%25", imploder.getToken());
 	}
 }
