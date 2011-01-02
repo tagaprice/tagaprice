@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
@@ -25,9 +26,22 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
+
+		//Set I18N
+		nameI18N.setText(I18N.I18N.name());
+		priceI18N.setText(I18N.I18N.price());
+		categoryI18N.setText(I18N.I18N.category());
 	}
 
 	private Presenter presenter;
+
+
+	@UiField
+	Label nameI18N;
+	@UiField
+	Label priceI18N;
+	@UiField
+	Label categoryI18N;
 
 	@UiField
 	Label id;
@@ -35,7 +49,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	TextBox name;
 	@UiField
 	TextBox price;
-
 	@UiField
 	CategorySelecter category;
 
@@ -77,6 +90,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		// TODO Auto-generated method stub
 
 	}
+
 
 
 

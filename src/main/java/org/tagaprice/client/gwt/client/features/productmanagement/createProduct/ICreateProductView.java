@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface ICreateProductView extends IsWidget {
 
+
 	/**
 	 * Sets the displayed title
 	 * 

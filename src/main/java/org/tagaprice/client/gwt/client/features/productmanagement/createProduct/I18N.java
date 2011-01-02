@@ -6,4 +6,7 @@ import com.google.gwt.i18n.client.Messages;
 public interface I18N extends Messages{
 	public static final I18N I18N = GWT.create(I18N.class);
 	String title();
+	String name();
+	String price();
+	String category();
 }
