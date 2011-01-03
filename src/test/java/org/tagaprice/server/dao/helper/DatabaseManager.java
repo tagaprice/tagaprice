@@ -41,9 +41,12 @@ public class DatabaseManager {
 			System.err.println("Couldn't find driver class:");
 			cnfe.printStackTrace();
 		}
-		String hostname = "localhost";
 		PrintStream out = System.out;
 		Scanner in = new Scanner(System.in);
+		out.print("hostname: ");
+		String hostname = in.nextLine();
+		out.print("port: ");
+		String port = in.nextLine();
 		out.print("databasename: ");
 		String databasename = in.nextLine();
 		out.print("username: ");
@@ -57,7 +60,7 @@ public class DatabaseManager {
 		DatabaseConnection dc;
 		QueryDataSet qds;
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://" + hostname + "/" + databasename,
+			c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":"+port+"/" + databasename,
 					username, password);
 			dc = new DatabaseConnection(c);
 			qds = new QueryDataSet(dc);
