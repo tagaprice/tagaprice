@@ -11,6 +11,7 @@ import org.junit.*;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -57,6 +58,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 
 	@Test
+	@Rollback(false)//rollback can be switch here
 	/** TODO adapt test to use EntityRevision */
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
 
