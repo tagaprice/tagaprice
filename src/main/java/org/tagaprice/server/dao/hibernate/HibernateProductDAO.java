@@ -1,5 +1,7 @@
 package org.tagaprice.server.dao.hibernate;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.entities.Product;
@@ -31,6 +33,11 @@ public class HibernateProductDAO implements IProductDAO {
 		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",revision);
 
 		return (Product) _sessionFactory.getCurrentSession().load(Product.class, key);
+	}
+
+	@Override
+	public List<Product> getAll() {
+		return _sessionFactory.getCurrentSession().createQuery("from Product").list();
 	}
 }
 

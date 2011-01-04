@@ -5,6 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
+import java.util.List;
+
 import org.junit.*;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -97,5 +99,19 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		System.out.println(actual.getTitle());
 	}
+
+	@Test
+	public void loadAllProducts() {
+		//		Product key = new Product();
+
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setId", 1);
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",1);
+
+		List<Product> products = _productDao.getAll();
+		for(Product p : products) {
+			System.out.println(p.getTitle());
+		}
+	}
+
 
 }
