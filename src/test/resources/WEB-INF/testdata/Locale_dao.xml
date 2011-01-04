@@ -15,11 +15,5 @@
 		<column>title</column>
 		<column>localtitle</column>
 		<column>created_at</column>
-		<row>
-			<value>0</value>
-			<value>0</value>
-			<value>testTitle</value>
-			<value>testLocalTitle</value>
-		</row>
 	</table>
 </dataset>

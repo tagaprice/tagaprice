@@ -1,6 +1,7 @@
 package org.tagaprice.server.dao.hibernate;
 
 import org.hibernate.SessionFactory;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
@@ -23,8 +24,13 @@ public class HibernateProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public Product getById(Long id) {
-		return (Product) _sessionFactory.getCurrentSession().load(Product.class, id);
+	public Product getByIdAndRevision(Long id, Integer revision) {
+		Product key = new Product();
+
+		ReflectionTestUtils.invokeSetterMethod(key, "setId", id);
+		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",revision);
+
+		return (Product) _sessionFactory.getCurrentSession().load(Product.class, key);
 	}
 }
 

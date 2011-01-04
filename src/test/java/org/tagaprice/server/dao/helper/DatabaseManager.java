@@ -43,16 +43,32 @@ public class DatabaseManager {
 		}
 		PrintStream out = System.out;
 		Scanner in = new Scanner(System.in);
-		out.print("hostname: ");
+
+		String defHostname = "pgtest.tagaprice.org";
+		String defPort = "25432";
+		String defDatabasename="tagaprice";
+		String defUsername="tagaprice_web";
+
+
+		out.print("hostname: (default: "+defHostname+")");
 		String hostname = in.nextLine();
-		out.print("port: ");
+		if(hostname.equals("")) hostname = defHostname;
+
+		out.print("port: (default: "+defPort+")");
 		String port = in.nextLine();
-		out.print("databasename: ");
+		if(port.equals("")) port = defPort;
+
+		out.print("databasename: (default: "+defDatabasename+")");
 		String databasename = in.nextLine();
-		out.print("username: ");
+		if(databasename.equals("")) databasename = defDatabasename;
+
+		out.print("username: (default: "+defUsername+")");
 		String username = in.nextLine();
+		if(username.equals("")) username = defUsername;
+
 		out.print("password: ");
 		String password = in.nextLine();
+
 		out.print("table: ");
 		String tablename = in.nextLine();
 
@@ -60,7 +76,7 @@ public class DatabaseManager {
 		DatabaseConnection dc;
 		QueryDataSet qds;
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":"+port+"/" + databasename,
+			c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":"+port+"/" + databasename+"?"+ "ssl=true&"+ "sslfactory=org.postgresql.ssl.NonValidatingFactory",
 					username, password);
 			dc = new DatabaseConnection(c);
 			qds = new QueryDataSet(dc);

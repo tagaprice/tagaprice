@@ -88,8 +88,14 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@Test
 	public void loadProduct_shouldReturnProductWithActualProductRevision() {
-		//TODO implement
+		//		Product key = new Product();
 
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setId", 1);
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",1);
+
+		Product actual = _productDao.getByIdAndRevision(new Long(1), 1);
+
+		System.out.println(actual.getTitle());
 	}
 
 }

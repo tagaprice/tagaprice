@@ -5,10 +5,5 @@
         <column>mail</column>
         <column>last_login</column>
         <column>locked</column>
-        <row>
-            <value>3</value>
-            <value>test@test.com</value>
-            <value>Black</value>
-        </row>
     </table>
 </dataset>

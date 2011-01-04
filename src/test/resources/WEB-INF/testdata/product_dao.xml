@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <table name="product">
+    <column>prod_id</column>
+    <row>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+    </row>
+  </table>
+</dataset>

@@ -6,6 +6,6 @@ public interface IProductDAO {
 
 	Product save(Product product);
 
-	Product getById(Long id);
+	Product getByIdAndRevision(Long id, Integer revision);
 
 }
