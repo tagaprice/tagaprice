@@ -37,7 +37,7 @@ public class TagAPrice implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		TagAPrice.logger.log("EntryPoint startet");
-		ClientFactory clientFactory = GWT.create(ClientFactory.class);
+		ClientFactory clientFactory = FactoryManager.getClientFactory();
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 

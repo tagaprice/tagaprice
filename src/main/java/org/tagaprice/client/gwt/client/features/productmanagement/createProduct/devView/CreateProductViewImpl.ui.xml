@@ -39,7 +39,7 @@
 							<g:Label ui:field="categoryI18N">Category</g:Label>
 						</td>
 						<td>
-							<my:CategorySelecter ui:field="category"></my:CategorySelecter>
+							<g:SimplePanel ui:field="category" />
 						</td>
 					</tr>
 					<tr>

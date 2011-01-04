@@ -1,5 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
+import org.tagaprice.client.gwt.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 
 import com.google.gwt.user.client.ui.Composite;

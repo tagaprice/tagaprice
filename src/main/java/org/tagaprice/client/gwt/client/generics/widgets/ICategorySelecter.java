@@ -2,12 +2,14 @@ package org.tagaprice.client.gwt.client.generics.widgets;
 
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 
+import com.google.gwt.user.client.ui.IsWidget;
+
 /**
  * This interface is defines the primary methods to select a {@link ICategory}. This interface must me implemented for
  * every screen.
  * 
  */
-public interface ICategorySelecter {
+public interface ICategorySelecter extends IsWidget {
 
 	/**
 	 * Set the current category

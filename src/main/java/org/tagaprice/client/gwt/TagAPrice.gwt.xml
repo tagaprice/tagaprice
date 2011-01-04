@@ -10,9 +10,14 @@
   <inherits name="com.google.gwt.i18n.I18N"/>
   <inherits name="com.google.gwt.junit.JUnit"/>
   
-- <replace-with class="org.tagaprice.client.gwt.client.ClientFactoryImpl">
+  <replace-with class="org.tagaprice.client.gwt.client.ClientFactoryImpl">
   <when-type-is class="org.tagaprice.client.gwt.client.ClientFactory" /> 
   </replace-with>
+  
+  <replace-with class="org.tagaprice.client.gwt.client.WidgetFactoryDev">
+  <when-type-is class="org.tagaprice.client.gwt.client.IWidgetFactory" /> 
+  </replace-with>
+  
   
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
