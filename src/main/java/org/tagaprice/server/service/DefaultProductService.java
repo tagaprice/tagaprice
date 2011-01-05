@@ -1,7 +1,7 @@
 package org.tagaprice.server.service;
 
 import org.tagaprice.core.api.IProductService;
-import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class DefaultProductService implements IProductService {
@@ -9,8 +9,9 @@ public class DefaultProductService implements IProductService {
 	private IProductDAO _productDao;
 
 	@Override
-	public Product save(Product product) {
-		return _productDao.save(product);
+	public ProductRevision save(ProductRevision product) {
+		//		TODO fix return _productDao.save(new Product());
+		return new ProductRevision();
 	}
 
 	public void setProductDAO(IProductDAO productDao) {

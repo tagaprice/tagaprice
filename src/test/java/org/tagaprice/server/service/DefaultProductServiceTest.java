@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 import static org.mockito.Mockito.*;
@@ -37,13 +37,13 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void saveNewProduct_shouldReturnProductWithActualProductRevision() {
-		Product productToSave = null; //new Product().setId(null).setTitle("productTitle");
-		Product expected = null; //new Product().setId((long) 1).setTitle("productTitle");
+		ProductRevision productToSave = null; //new Product().setId(null).setTitle("productTitle");
+		ProductRevision expected = null; //new Product().setId((long) 1).setTitle("productTitle");
 
-		when(_productDaoMock.save(productToSave)).thenReturn(expected);
+		//		TODO fix when(_productDaoMock.save(productToSave)).thenReturn(expected);
 
 
-		Product actual = _productManagement.save(productToSave);
+		ProductRevision actual = _productManagement.save(productToSave);
 
 		assertThat(actual, equalTo(expected));
 	}

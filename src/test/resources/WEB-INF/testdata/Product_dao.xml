@@ -107,7 +107,7 @@
   </table>
   
     <table name="product">
-    <column>prod_id</column>
+    <column>ent_id</column>
     <row>
       <value>1</value>
     </row>

@@ -8,7 +8,7 @@ public interface IProductDAO {
 
 	Product save(Product product);
 
-	Product getByIdAndRevision(Long id, Integer revision);
+	Product getById(Long id);
 
 	List<Product> getAll();
 

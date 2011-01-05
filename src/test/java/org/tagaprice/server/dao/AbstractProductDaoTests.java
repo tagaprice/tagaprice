@@ -5,11 +5,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.*;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.springframework.test.annotation.Rollback;
@@ -61,7 +64,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 
 	@Test
-	@Rollback(false)//rollback can be switch here
+	@Rollback(false)//rollback can be switched here
 	/** TODO adapt test to use EntityRevision */
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
 
@@ -70,7 +73,10 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		//		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
 		//		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
 
-		Product productToSave = new Product(new Long(4), "title", null, new Date(), 2, null, null, null, null);
+		Set<ProductRevision> revisions = new  HashSet<ProductRevision>();
+		revisions.add(new ProductRevision(new Long(4), "title", null, new Date(), 2, null, null, null, null));
+
+		Product productToSave = new Product(new Long(4), null, null, null, revisions);
 		System.out.println("toSave:   " + productToSave);
 
 
@@ -78,7 +84,11 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setId", 0);
 		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setFallback", localeExpected);
 
-		Product expected = new Product(new Long(4), "title", null, new Date(), 2, null, null, null, null);
+		revisions = new  HashSet<ProductRevision>();
+		revisions.add(new ProductRevision(new Long(4), "title", null, new Date(), 2, null, null, null, null));
+
+		Product expected = new Product(new Long(4), null, null, null, revisions);
+
 		System.out.println("expected: " + expected);
 
 		Product actual = _productDao.save(productToSave);
@@ -94,9 +104,9 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		//		ReflectionTestUtils.invokeSetterMethod(key, "setId", 1);
 		//		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",1);
 
-		Product actual = _productDao.getByIdAndRevision(new Long(1), 1);
+		Product actual = _productDao.getById(new Long(1));
 
-		System.out.println(actual.getTitle() + " "+ actual.getImageURL());
+		System.out.println(actual.getId());
 	}
 
 	@Test
@@ -108,7 +118,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		List<Product> products = _productDao.getAll();
 		for(Product p : products) {
-			System.out.println(p.getTitle() + p.getImageURL());
+			System.out.println(p.getId());
 		}
 	}
 

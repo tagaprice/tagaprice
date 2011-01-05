@@ -5,8 +5,8 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /** TODO proper setup through spring beans config */
@@ -27,24 +27,24 @@ public class HibernateProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public Product getByIdAndRevision(Long id, Integer revision) {
-		Product key = new Product();
-
-		ReflectionTestUtils.invokeSetterMethod(key, "setId", id);
-		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",revision);
+	public Product getById(Long id) {
+		//		ProductRevision key = new ProductRevision();
+		//
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setId", id);
+		//		ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",revision);
 
 		//		_sessionFactory.getCurrentSession().get
-		return (Product) _sessionFactory.getCurrentSession().load(Product.class, key);
+		return (Product) _sessionFactory.getCurrentSession().load(Product.class, id);
 	}
 
 	@Override
 	public List<Product> getAll() {
-		return _sessionFactory.getCurrentSession().createQuery("from Product").list();
+		return _sessionFactory.getCurrentSession().createQuery("from ProductRevision").list();
 	}
 
 	@Override
 	public int countAll() {
-		Criteria criteria = _sessionFactory.getCurrentSession().createCriteria(Product.class);
+		Criteria criteria = _sessionFactory.getCurrentSession().createCriteria(ProductRevision.class);
 		criteria.setProjection(Projections.rowCount());
 		return ((Long)criteria.list().get(0)).intValue();
 	}
