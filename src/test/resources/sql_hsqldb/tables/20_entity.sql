@@ -7,6 +7,6 @@ CREATE TABLE entity (
 	current_revision INTEGER,
 	
 	PRIMARY KEY (ent_id),
-	FOREIGN KEY (locale_id) REFERENCES locale(locale_id),
+--TODO fix	FOREIGN KEY (locale_id) REFERENCES locale(locale_id),
 --	CHECK (current_revision >= 1)
 );

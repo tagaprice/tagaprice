@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.equalTo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -14,7 +15,6 @@ import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Testcase to test the {@link IProductDAO} interface.
@@ -32,6 +32,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
+	private Logger log = Logger.getLogger(AbstractProductDaoTests.class);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -42,6 +43,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void setUp() throws Exception {
 		// TODO this should be in setUpBeforeClass
 
+		//		TODO comment in
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
 		_dbInitializer.dropAndRecreate();
@@ -53,6 +55,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@After
 	public void tearDown() throws Exception {
+		//		TODO comment in
 		_dbInitializer.resetTables();
 	}
 
@@ -62,30 +65,24 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	/** TODO adapt test to use EntityRevision */
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
 
-		Date localeDate = new Date();
 
 		//		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
 		//		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
 		//		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
 
-		Date savedDate = new Date();
-		Product productToSave = new Product(new Long(0), "title", null, null, 0, null, null, null, null);
+		Product productToSave = new Product(new Long(4), "title", null, new Date(), 2, null, null, null, null);
+		System.out.println("toSave:   " + productToSave);
 
 
 		//		Locale localeExpected = new Locale(null, "testTitle", "testLocalTitle", localeDate);
 		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setId", 0);
 		//		ReflectionTestUtils.invokeSetterMethod(localeExpected, "setFallback", localeExpected);
 
-		Product expected = new Product(new Long(0), "title", null, null, 0, null, null, null, null);
-		ReflectionTestUtils.invokeSetterMethod(expected, "setId", (long) 0);
-
-
+		Product expected = new Product(new Long(4), "title", null, new Date(), 2, null, null, null, null);
 		System.out.println("expected: " + expected);
-		System.out.println("toSave:   " + productToSave);
 
 		Product actual = _productDao.save(productToSave);
-
-		//System.out.println("actual:   " + actual);
+		System.out.println("actual:   " + actual);
 
 		assertThat(actual, equalTo(expected));
 	}
@@ -113,6 +110,16 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		for(Product p : products) {
 			System.out.println(p.getTitle());
 		}
+	}
+
+	//	@Test
+	//	public void test() {
+	//		_productDao.test();
+	//	}
+
+	@Test
+	public void countProducts() {
+		_productDao.countAll();
 	}
 
 

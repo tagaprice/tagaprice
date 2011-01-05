@@ -32,6 +32,7 @@
 				<value>/sql_hsqldb/tables/40_account.sql</value>
 			</list>
 		</property>
+		<!-- test data to load -->
 		<property name="dbUnitData" value="classpath:WEB-INF/testdata/Product_dao.xml" />
 	</bean>
 </beans>

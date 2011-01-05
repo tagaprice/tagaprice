@@ -8,14 +8,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="entityrevision")
-@SecondaryTables({
-	@SecondaryTable(name="productrevision", pkJoinColumns= {
-			@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
-			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
-	),
-	@SecondaryTable(name="product"),
-	@SecondaryTable(name="entity")
-})
+//TODO uncomment
+//@SecondaryTables({
+//	@SecondaryTable(name="productrevision", pkJoinColumns= {
+//			@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
+//			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
+//	),
+//	@SecondaryTable(name="product"),
+//	@SecondaryTable(name="entity")
+//})
 //TODO use RevisionableEntity as superclass and get it to work
 public class Product implements Serializable  {
 	private static final long serialVersionUID = 1L;
@@ -146,10 +147,8 @@ public class Product implements Serializable  {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
 		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
-		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
 		return result;
 	}
 
@@ -162,11 +161,6 @@ public class Product implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (_createdAt == null) {
-			if (other._createdAt != null)
-				return false;
-		} else if (!_createdAt.equals(other._createdAt))
-			return false;
 		if (_id == null) {
 			if (other._id != null)
 				return false;
@@ -177,16 +171,14 @@ public class Product implements Serializable  {
 				return false;
 		} else if (!_revisionNumber.equals(other._revisionNumber))
 			return false;
-		if (_title == null) {
-			if (other._title != null)
-				return false;
-		} else if (!_title.equals(other._title))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Product derived from " + super.toString();
+		return "Product [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title + "]";
 	}
+
+
+
 }

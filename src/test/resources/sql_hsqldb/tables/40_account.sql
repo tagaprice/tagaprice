@@ -9,7 +9,7 @@ CREATE TABLE account (
 	UNIQUE(mail)
 );
 
-ALTER TABLE entity ADD creator BIGINT NOT NULL;
-ALTER TABLE entityRevision ADD creator BIGINT NOT NULL;
+ALTER TABLE entity ADD creator BIGINT;
+ALTER TABLE entityRevision ADD creator BIGINT;
 
 
