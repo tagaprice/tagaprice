@@ -117,7 +117,7 @@
   </table>
   
     <table name="productRevision">
-    <column>prod_id</column>
+    <column>ent_id</column>
     <column>rev</column>
     <column>type_id</column>
     <column>brand_id</column>

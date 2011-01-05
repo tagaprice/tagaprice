@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.entities.Product;
-import org.tagaprice.core.entities.TestProduct;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /** TODO proper setup through spring beans config */
@@ -41,12 +40,6 @@ public class HibernateProductDAO implements IProductDAO {
 	@Override
 	public List<Product> getAll() {
 		return _sessionFactory.getCurrentSession().createQuery("from Product").list();
-	}
-
-	@Override
-	public void test() {
-		TestProduct testProduct = new TestProduct(new Long(5));
-		_sessionFactory.getCurrentSession().save(testProduct);
 	}
 
 	@Override

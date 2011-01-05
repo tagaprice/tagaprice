@@ -13,7 +13,4 @@ public interface IProductDAO {
 	List<Product> getAll();
 
 	int countAll();
-
-	void test();
-
 }

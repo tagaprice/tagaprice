@@ -7,17 +7,12 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="entityrevision")
-//TODO uncomment
-//@SecondaryTables({
-//	@SecondaryTable(name="productrevision", pkJoinColumns= {
-//			@PrimaryKeyJoinColumn(name="prod_id", referencedColumnName="ent_id"),
-//			@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
-//	),
-//	@SecondaryTable(name="product"),
-//	@SecondaryTable(name="entity")
-//})
-//TODO use RevisionableEntity as superclass and get it to work
+@Table(name="productrevision")
+@SecondaryTable(name="entityrevision"
+	//	, pkJoinColumns= {
+	//		@PrimaryKeyJoinColumn(name="ent_id", referencedColumnName="ent_id"),
+	//		@PrimaryKeyJoinColumn(name="rev", referencedColumnName="rev")}
+)
 public class Product implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	private Long _id = null;
@@ -29,6 +24,7 @@ public class Product implements Serializable  {
 	private Group _group;
 	private Category _category;
 	private Brand _brand;
+	private String _imageURL;
 
 
 	public Product() { }
@@ -56,7 +52,7 @@ public class Product implements Serializable  {
 		this._id = id;
 	}
 
-	@Column(name="title")
+	@Column(table="entityrevision",name="title")
 	public String getTitle() {
 		return _title;
 	}
@@ -76,7 +72,7 @@ public class Product implements Serializable  {
 		this._locale = locale;
 	}
 
-	@Column(name="created_at")
+	@Column(table="entityrevision",name="created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
@@ -142,6 +138,14 @@ public class Product implements Serializable  {
 		_brand = brand;
 	}
 
+	@Column(name="imageurl")
+	public String getImageURL() {
+		return _imageURL;
+	}
+	@SuppressWarnings("unused")
+	private void setImageURL(String imageURL) {
+		_imageURL = imageURL;
+	}
 
 	@Override
 	public int hashCode() {
@@ -178,6 +182,8 @@ public class Product implements Serializable  {
 	public String toString() {
 		return "Product [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title + "]";
 	}
+
+
 
 
 
