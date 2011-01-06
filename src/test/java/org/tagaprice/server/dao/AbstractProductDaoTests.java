@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.junit.*;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
@@ -38,6 +40,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
 	private Logger log = Logger.getLogger(AbstractProductDaoTests.class);
+	private IDataSet _currentDataSet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -52,7 +55,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
 		_dbInitializer.dropAndRecreate();
-		_dbInitializer.fillTables();
+		_currentDataSet = _dbInitializer.fillTables();
 
 		// TODO remove this and handle through xml ?
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
@@ -132,8 +135,14 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	// }
 
 	@Test
-	public void countProducts() {
-		_productDao.countAll();
+	public void countProducts() throws Exception {
+		ITable table = _currentDataSet.getTable("product");
+
+		int actual = _productDao.countAll();
+
+		int expected = table.getRowCount();
+
+		assertThat(actual, equalTo(expected));
 	}
 
 
