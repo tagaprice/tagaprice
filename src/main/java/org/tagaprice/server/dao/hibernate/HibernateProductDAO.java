@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Projections;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
@@ -22,7 +23,10 @@ public class HibernateProductDAO implements IProductDAO {
 	@Override
 	/** TODO remove @Transactional from this method! if removed, tests aren't working. find a way to setup tests correctly */
 	public Product save(Product product) {
-		_sessionFactory.getCurrentSession().save(product);
+		Session session = _sessionFactory.getCurrentSession();
+		//		session.beginTransaction();
+		session.save(product);
+		//		session.getTransaction().commit();
 		return product;
 	}
 
