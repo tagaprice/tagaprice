@@ -16,6 +16,7 @@ import org.junit.*;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.springframework.test.annotation.Rollback;
@@ -76,7 +77,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		Date localeDate = new Date();
 
-		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate );
+		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
 		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
 		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
 
@@ -117,15 +118,37 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	}
 
 	@Test
-	public void loadAllProducts() {
-		// Product key = new Product();
-
-		// ReflectionTestUtils.invokeSetterMethod(key, "setId", 1);
-		// ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",1);
+	public void loadAllProducts() throws Exception {
+		ITable productTable = _currentDataSet.getTable("product");
+		ITable entityTable = _currentDataSet.getTable("entity");
+		ITable localeTable = _currentDataSet.getTable("locale");
 
 		List<Product> products = _productDao.getAll();
-		for (Product p : products) {
-			System.out.println(p.getId());
+
+		for(int i = 0; i < products.size(); i++) {
+			long id = DbUnitDataSetHelper.getLong(productTable.getValue(i, "ent_id"));
+			Date createdAt = DbUnitDataSetHelper.getDate(entityTable.getValue(i, "created_at"));
+
+			// assumed all products have same Locale
+			// TODO move mapping from DataSet to objects to own helper class
+			int locale_id = DbUnitDataSetHelper.getInteger(entityTable.getValue(i, "locale_id"));
+			int locale_checkId = DbUnitDataSetHelper.getInteger(localeTable.getValue(0, "locale_id"));
+			assertThat("testsetup is bad, we assume only the first locale is used for all products", locale_id, equalTo(locale_checkId));
+
+			String locale_title = (String) localeTable.getValue(0, "title");
+			String locale_localTitle= (String) localeTable.getValue(0, "localtitle");
+			Date locale_createdAt = DbUnitDataSetHelper.getDate(localeTable.getValue(0, "created_at"));
+
+			Locale expectedLocale = new Locale(null, locale_title, locale_localTitle, locale_createdAt);
+			ReflectionTestUtils.invokeSetterMethod(expectedLocale, "setId", locale_id);
+			ReflectionTestUtils.invokeSetterMethod(expectedLocale, "setFallback", expectedLocale);
+
+
+			//Product expected = new Product(id, expectedLocale, createdAt, null, revisions);
+			Product actual = products.get(i);
+			assertThat(actual.getId(), equalTo(id));
+			assertThat(actual.getCreatedAt(), equalTo(createdAt));
+			assertThat(actual.getLocale(), equalTo(expectedLocale));
 		}
 	}
 

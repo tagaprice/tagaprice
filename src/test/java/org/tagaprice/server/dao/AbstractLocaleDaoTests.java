@@ -4,9 +4,7 @@ package org.tagaprice.server.dao;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.dbunit.dataset.DataSetException;
@@ -20,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.tagaprice.core.entities.Locale;
+import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 
@@ -70,7 +69,7 @@ public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringCon
 	@Rollback(false)
 	public void getLocaleById_shouldReturnLocale() throws DataSetException, ParseException {
 		ITable table = _currentDataSet.getTable("locale");
-		int idToGet = Integer.parseInt((String) table.getValue(0, "locale_id"));
+		int idToGet = DbUnitDataSetHelper.getInteger(table.getValue(0, "locale_id"));
 
 		Locale actual = _localeDao.getById(idToGet);
 
@@ -78,8 +77,7 @@ public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringCon
 		String title = (String) table.getValue(0, "title");
 		String localtitle = (String) table.getValue(0, "localtitle");
 
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
-		Date created_at = dateFormatter.parse((String) table.getValue(0, "created_at"));
+		Date created_at = DbUnitDataSetHelper.getDate(table.getValue(0, "created_at"));
 
 		Locale expected = new Locale(null, title, localtitle, created_at);
 		ReflectionTestUtils.invokeSetterMethod(expected, "setId", idToGet);
