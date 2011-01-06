@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Projections;
 import org.tagaprice.core.entities.Product;
-import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /** TODO proper setup through spring beans config */
@@ -43,12 +42,12 @@ public class HibernateProductDAO implements IProductDAO {
 
 	@Override
 	public List<Product> getAll() {
-		return _sessionFactory.getCurrentSession().createQuery("from ProductRevision").list();
+		return _sessionFactory.getCurrentSession().createQuery("from Product").list();
 	}
 
 	@Override
 	public int countAll() {
-		Criteria criteria = _sessionFactory.getCurrentSession().createCriteria(ProductRevision.class);
+		Criteria criteria = _sessionFactory.getCurrentSession().createCriteria(Product.class);
 		criteria.setProjection(Projections.rowCount());
 		return ((Long)criteria.list().get(0)).intValue();
 	}
