@@ -33,8 +33,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		categoryI18N.setText(I18N.I18N.category());
 
 
-		category.setWidget(new CategorySelecter());
-
 	}
 
 	private Presenter presenter;
@@ -55,7 +53,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	TextBox price;
 
 	@UiField
-	SimplePanel category;
+	CategorySelecter category;
 
 
 	@UiField
