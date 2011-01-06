@@ -76,7 +76,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Set<ProductRevision> revisions = new  HashSet<ProductRevision>();
 		revisions.add(new ProductRevision(new Long(4), "title", null, new Date(), 2, null, null, null, null));
 
-		Product productToSave = new Product(new Long(4), null, null, null, revisions);
+		Product productToSave = new Product(new Long(4), null, new Date(), null, revisions);
 		System.out.println("toSave:   " + productToSave);
 
 
@@ -87,7 +87,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		revisions = new  HashSet<ProductRevision>();
 		revisions.add(new ProductRevision(new Long(4), "title", null, new Date(), 2, null, null, null, null));
 
-		Product expected = new Product(new Long(4), null, null, null, revisions);
+		Product expected = new Product(new Long(4), null, new Date(), null, revisions);
 
 		System.out.println("expected: " + expected);
 
