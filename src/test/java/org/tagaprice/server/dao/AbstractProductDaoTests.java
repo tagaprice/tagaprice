@@ -107,6 +107,9 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Product actual = _productDao.getById(new Long(1));
 
 		System.out.println(actual.getId());
+
+		for(ProductRevision pr : actual.getRevisions())
+			System.out.println(pr.getId()+" "+pr.getRevisionNumber()+" "+pr.getTitle()+" "+pr.getImageURL());
 	}
 
 	@Test

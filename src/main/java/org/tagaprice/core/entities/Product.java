@@ -10,7 +10,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="product")
-@SecondaryTable(name="entity")
+@SecondaryTables({
+	@SecondaryTable(name="entity")
+})
 public class Product implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	private Long _id = null;
