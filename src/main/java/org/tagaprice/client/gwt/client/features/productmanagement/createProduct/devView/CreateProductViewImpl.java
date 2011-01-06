@@ -2,9 +2,9 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.FactoryManager;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
@@ -33,11 +33,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		categoryI18N.setText(I18N.I18N.category());
 
 
-		//TODO
-		//I'm not pretty sure why this is working.
-		if(FactoryManager.getWidgetFactory()!=null){
-			category.setWidget(FactoryManager.getWidgetFactory().getNewInstanceOfICategorySelecter());
-		}
+		category.setWidget(new CategorySelecter());
+
 	}
 
 	private Presenter presenter;
