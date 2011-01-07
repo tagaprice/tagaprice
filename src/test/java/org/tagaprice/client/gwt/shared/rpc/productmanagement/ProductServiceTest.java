@@ -16,7 +16,19 @@ public class ProductServiceTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {
+		//class under test... must be replaced by implementation
 		ProductServiceTest.productService = Mockito.mock(IProductService.class);
+
+		//these objects are mocked...
 		ProductServiceTest.initialProduct = Mockito.mock(IProduct.class);
 		//Add responses
 		Mockito.when(ProductServiceTest.initialRevisionId.getId()).thenReturn(0L);
@@ -26,15 +38,19 @@ public class ProductServiceTest {
 		//Add expectations
 		ProductServiceTest.updatedProduct = Mockito.mock(IProduct.class);
 		//Add responses
+
+		//We assume this!!!
+		Mockito.when(ProductServiceTest.updatedRevisionId.getId()).thenReturn(1L);
+		Mockito.when(ProductServiceTest.updatedRevisionId.getRevision()).thenReturn(1L);
+		Mockito.when(ProductServiceTest.updatedProduct.getRevisionId()).thenReturn(ProductServiceTest.updatedRevisionId);
+		Mockito.when(ProductServiceTest.updatedProduct.getTitle()).thenReturn("NewTestTitle");
 		//Add expectations
-	}
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+		ProductServiceTest.productService.saveProduct(ProductServiceTest.initialProduct);
+		ProductServiceTest.productService.saveProduct(ProductServiceTest.updatedProduct);
 
-	@Before
-	public void setUp() throws Exception {
+		//Now we have 1 product saved with 2 revisions
+
 	}
 
 	@After
@@ -48,14 +64,23 @@ public class ProductServiceTest {
 	 */
 	@Test
 	public void saveNewProduct_shouldReturnNewProduct() {
+		IProduct myTestProduct = Mockito.mock(IProduct.class);
+		IProduct mySavedProduct = ProductServiceTest.productService.saveProduct(myTestProduct);
+
+		Assert.assertTrue(2L == mySavedProduct.getRevisionId().getId());
+		Assert.assertTrue(2L == mySavedProduct.getRevisionId().getRevision());
 
 	}
 
 	/**
-	 * A product with
+	 * Updating an existing product saves the product and returns a new Revision for that product
 	 */
 	@Test
 	public void saveAndUpdateProduct_shouldReturnNewRevision() {
+		ProductServiceTest.updatedProduct.setTitle("TestProduct2");
+		ProductServiceTest.productService.saveProduct(ProductServiceTest.updatedProduct);
+
+		Assert.assertTrue(3L == ProductServiceTest.updatedProduct.getRevisionId().getRevision());
 
 	}
 
