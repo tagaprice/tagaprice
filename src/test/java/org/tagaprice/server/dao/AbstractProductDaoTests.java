@@ -19,7 +19,6 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -52,27 +51,21 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void setUp() throws Exception {
 		// TODO this should be in setUpBeforeClass
 
-		// TODO comment in
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
 		_dbInitializer.dropAndRecreate();
 		_currentDataSet = _dbInitializer.fillTables();
 
-		// TODO remove this and handle through xml ?
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// TODO comment in
 		_dbInitializer.resetTables();
 	}
 
-
 	@Test
-	@Rollback(false)
-	// rollback can be switched here
-	/** TODO adapt test to use EntityRevision */
+	//@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
 
 		Date localeDate = new Date();
@@ -103,16 +96,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@Test
 	public void loadProduct_shouldReturnProductWithActualProductRevision() throws Exception {
-		ITable entityTable = _currentDataSet.getTable("entity");
 		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
 
-		Locale expectedLocale = DbUnitDataSetHelper.getLocale(_currentDataSet.getTable("locale"), 0);
-
-
+		// TODO fix this test after Account is mapped
 		ProductRevision rev1 = new ProductRevision((long) 1, "product1", DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), 1, null, null, null, null, "www.urlToImage.com");
 		ProductRevision rev2 = new ProductRevision((long) 1, "product1",  DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), 2, null, null, null, null, "www.differentUrlToImage.com");
 
-		// TODO fix this test after Account is mapped
 		//		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		//		revisions.add(rev1);
 		//		revisions.add(rev2);
@@ -151,11 +140,6 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 			assertThat(actual.getLocale(), equalTo(expectedLocale));
 		}
 	}
-
-	// @Test
-	// public void test() {
-	// _productDao.test();
-	// }
 
 	@Test
 	public void countProducts() throws Exception {
