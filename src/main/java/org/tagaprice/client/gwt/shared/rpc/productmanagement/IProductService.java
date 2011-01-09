@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.rpc.productmanagement;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 
@@ -18,6 +20,13 @@ public interface IProductService extends RemoteService {
 	 * @return The {@link IProduct} corresponding to the {@link IRevisionId}
 	 */
 	public IProduct getProduct(IRevisionId revionsId);
+
+	/**
+	 * Depending on the search criterias returns the method a list with IProducts
+	 * @param searchCriteria
+	 * @return
+	 */
+	public ArrayList<IProduct> getProducts(IProduct searchCriteria);
 
 
 	/**
