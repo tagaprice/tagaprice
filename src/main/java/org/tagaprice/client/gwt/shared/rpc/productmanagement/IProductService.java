@@ -13,7 +13,7 @@ public interface IProductService extends RemoteService {
 	 * Get a unique product from the server
 	 * 
 	 * @param revionsId
-	 *            The ID (and Revision) of the {@link IProduct} you wanna find. The ID in {@link IRevisionId} must not
+	 *            The ID (and Revision) of the {@link IProduct} you want to find. The ID in {@link IRevisionId} must not
 	 *            be null.
 	 * @return The {@link IProduct} corresponding to the {@link IRevisionId}
 	 */
@@ -22,7 +22,9 @@ public interface IProductService extends RemoteService {
 
 	/**
 	 * CREATE or UPDATE a {@link IProduct} on the server.
-	 * @param product The {@link IProduct} you wanna UPDATE/CREATE
+	 * CREATE: A product with id=0 or RevisionID=null gets a new id and the initial revisionID 1.
+	 * UPDATE: the existing product gets a new revisionID incremented by one. Throws an exception, if the given revisionID is not the last one for this product.
+	 * @param product The {@link IProduct} you want to UPDATE/CREATE
 	 * @return the SAVED or UPDATED {@link IProduct}
 	 */
 	public IProduct saveProduct(IProduct product);
