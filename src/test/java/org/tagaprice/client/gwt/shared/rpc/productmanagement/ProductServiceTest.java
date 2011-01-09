@@ -58,7 +58,7 @@ public class ProductServiceTest {
 	}
 
 	/**
-	 * A product with id=0 get's a new id and a initial revisionId.
+	 * A product with id=0 gets a new id and a initial revisionId.
 	 * The first product will get id=1, and RevisionId=1.
 	 * Productname
 	 */
@@ -73,10 +73,12 @@ public class ProductServiceTest {
 	}
 
 	/**
-	 * Updating an existing product saves the product and returns a new Revision for that product
+	 * UPDATE: the existing product gets a new revisionId incremented by one.
 	 */
 	@Test
 	public void saveAndUpdateProduct_shouldReturnNewRevision() {
+
+		// the title of an existing product is changed, the same product gets a new revision and a new id
 		ProductServiceTest.updatedProduct.setTitle("TestProduct2");
 		ProductServiceTest.productService.saveProduct(ProductServiceTest.updatedProduct);
 
