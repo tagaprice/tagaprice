@@ -92,12 +92,6 @@ public class Locale {
 
 
 	@Override
-	public String toString() {
-		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle=" + _localTitle + ", _createdAt="
-		+ _createdAt + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -108,6 +102,9 @@ public class Locale {
 		return result;
 	}
 
+	/**
+	 * TODO write more sophisticated equals with respect to recursive fallback_locale
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,6 +132,12 @@ public class Locale {
 		} else if (!_title.equals(other._title))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle="
+		+ _localTitle + ", _createdAt=" + _createdAt + "]";
 	}
 
 }

@@ -13,7 +13,6 @@ import org.dbunit.dataset.ITable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -44,7 +43,7 @@ public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
-	@Rollback(false)
+	//	@Rollback(false)
 	public void saveLocale_shouldReturnLocaleWithActualLocaleId() {
 
 		Date localeDate = new Date();
@@ -62,11 +61,7 @@ public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringCon
 		assertThat(actual, equalTo(expected));
 	}
 
-	/**
-	 * TODO this test fails while asserting column "created_at" for unknown reason
-	 */
 	@Test
-	@Rollback(false)
 	public void getLocaleById_shouldReturnLocale() throws DataSetException, ParseException {
 		ITable table = _currentDataSet.getTable("locale");
 		int idToGet = DbUnitDataSetHelper.getInteger(table.getValue(0, "locale_id"));
@@ -81,8 +76,26 @@ public class AbstractLocaleDaoTests extends AbstractTransactionalJUnit4SpringCon
 
 		Locale expected = new Locale(null, title, localtitle, created_at);
 		ReflectionTestUtils.invokeSetterMethod(expected, "setId", idToGet);
+		ReflectionTestUtils.invokeSetterMethod(expected, "setFallback", expected);
 
-		assertThat(actual, equalTo(expected));
-		assertThat(actual.getFallback().getId(), equalTo(table.getValue(0, "fallback_id")));
+		assertLocaleEqual(actual, expected);
+	}
+
+	/**
+	 * asserts all getter methods of a locale except fallback, there only the id of the fallback is asserted if it's not null.
+	 * @param actual actual result
+	 * @param expected expected result to assert
+	 */
+	private void assertLocaleEqual(Locale actual, Locale expected) {
+		// this doesn't work, maybe because of hibernate/javassist (see object in debugger)
+		//assertThat(actual, equalTo(expected));
+
+		assertThat(actual.getId(), equalTo(expected.getId()));
+		assertThat(actual.getCreatedAt(), equalTo(expected.getCreatedAt()));
+		if(expected.getFallback() != null)
+			assertThat(actual.getFallback().getId(), equalTo(expected.getFallback().getId()));
+
+		assertThat(actual.getLocalTitle(), equalTo(expected.getLocalTitle()));
+		assertThat(actual.getTitle(), equalTo(expected.getTitle()));
 	}
 }
