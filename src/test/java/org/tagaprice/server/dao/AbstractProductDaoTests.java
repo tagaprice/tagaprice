@@ -2,7 +2,7 @@ package org.tagaprice.server.dao;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -82,39 +82,47 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
 
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null));
+		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null, "someImageUrl"));
 
 		Product productToSave = new Product(new Long(4), locale, new Date(), null, revisions);
-		System.out.println("toSave:   " + productToSave);
+		//		System.out.println("toSave:   " + productToSave);
 
 
 		revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null));
+		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null,  "someImageUrl"));
 
 		Product expected = new Product(new Long(4), locale, new Date(), null, revisions);
 
-		System.out.println("expected: " + expected);
+		//		System.out.println("expected: " + expected);
 
 		Product actual = _productDao.save(productToSave);
-		System.out.println("actual:   " + actual);
+		//		System.out.println("actual:   " + actual);
 
 		assertThat(actual, equalTo(expected));
 	}
 
 	@Test
-	public void loadProduct_shouldReturnProductWithActualProductRevision() {
-		// Product key = new Product();
+	public void loadProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+		ITable entityTable = _currentDataSet.getTable("entity");
+		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
 
-		// ReflectionTestUtils.invokeSetterMethod(key, "setId", 1);
-		// ReflectionTestUtils.invokeSetterMethod(key, "setRevisionNumber",1);
+		Locale expectedLocale = DbUnitDataSetHelper.getLocale(_currentDataSet.getTable("locale"), 0);
+
+
+		ProductRevision rev1 = new ProductRevision((long) 1, "product1", DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), 1, null, null, null, null, "www.urlToImage.com");
+		ProductRevision rev2 = new ProductRevision((long) 1, "product1",  DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), 2, null, null, null, null, "www.differentUrlToImage.com");
+
+		// TODO fix this test after Account is mapped
+		//		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		//		revisions.add(rev1);
+		//		revisions.add(rev2);
+		//		Product expected = new Product((long) 1, expectedLocale, DbUnitDataSetHelper.getDate(entityTable.getValue(0, "created_at")), null, revisions);
 
 		Product actual = _productDao.getById(new Long(1));
 
-		System.out.println(actual.getId());
-
-		for (ProductRevision pr : actual.getRevisions())
-			System.out
-			.println(pr.getId() + " " + pr.getRevisionNumber() + " " + pr.getTitle() + " " + pr.getImageURL());
+		//		assertThat(actual, equalTo(expected));
+		assertThat(actual.getRevisions(), hasItems(rev1, rev2));
+		assertThat(actual.getRevisions().size(), equalTo(2));
 	}
 
 	@Test
@@ -130,18 +138,10 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 			Date createdAt = DbUnitDataSetHelper.getDate(entityTable.getValue(i, "created_at"));
 
 			// assumed all products have same Locale
-			// TODO move mapping from DataSet to objects to own helper class
+			Locale expectedLocale = DbUnitDataSetHelper.getLocale(localeTable, 0);
+
 			int locale_id = DbUnitDataSetHelper.getInteger(entityTable.getValue(i, "locale_id"));
-			int locale_checkId = DbUnitDataSetHelper.getInteger(localeTable.getValue(0, "locale_id"));
-			assertThat("testsetup is bad, we assume only the first locale is used for all products", locale_id, equalTo(locale_checkId));
-
-			String locale_title = (String) localeTable.getValue(0, "title");
-			String locale_localTitle= (String) localeTable.getValue(0, "localtitle");
-			Date locale_createdAt = DbUnitDataSetHelper.getDate(localeTable.getValue(0, "created_at"));
-
-			Locale expectedLocale = new Locale(null, locale_title, locale_localTitle, locale_createdAt);
-			ReflectionTestUtils.invokeSetterMethod(expectedLocale, "setId", locale_id);
-			ReflectionTestUtils.invokeSetterMethod(expectedLocale, "setFallback", expectedLocale);
+			assertThat("testsetup is bad, we assume only the first locale is used for all products", locale_id, equalTo(expectedLocale.getId()));
 
 
 			//Product expected = new Product(id, expectedLocale, createdAt, null, revisions);

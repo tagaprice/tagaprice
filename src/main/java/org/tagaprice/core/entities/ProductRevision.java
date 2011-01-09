@@ -29,7 +29,7 @@ public class ProductRevision implements Serializable {
 	}
 
 	public ProductRevision(Long id, String title, Date createdAt, Integer revisionNumber, Account creator, Group group,
-			Category category, Brand brand) {
+			Category category, Brand brand, String imageURL) {
 		this._id = id;
 		this._title = title;
 		this._createdAt = createdAt;
@@ -38,6 +38,7 @@ public class ProductRevision implements Serializable {
 		this._group = group;
 		_category = category;
 		_brand = brand;
+		_imageURL = imageURL;
 	}
 
 	@Id
@@ -143,18 +144,10 @@ public class ProductRevision implements Serializable {
 		_imageURL = imageURL;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Product [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_brand == null) ? 0 : _brand.hashCode());
-		result = prime * result + ((_category == null) ? 0 : _category.hashCode());
 		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
 		result = prime * result + ((_imageURL == null) ? 0 : _imageURL.hashCode());
@@ -172,16 +165,6 @@ public class ProductRevision implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductRevision other = (ProductRevision) obj;
-		if (_brand == null) {
-			if (other._brand != null)
-				return false;
-		} else if (!_brand.equals(other._brand))
-			return false;
-		if (_category == null) {
-			if (other._category != null)
-				return false;
-		} else if (!_category.equals(other._category))
-			return false;
 		if (_createdAt == null) {
 			if (other._createdAt != null)
 				return false;
@@ -209,6 +192,15 @@ public class ProductRevision implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductRevision [_id=" + _id + ", _title=" + _title + ", _createdAt=" + _createdAt
+		+ ", _revisionNumber=" + _revisionNumber + ", _creator=" + _creator + ", _group=" + _group
+		+ ", _category=" + _category + ", _brand=" + _brand + ", _imageURL=" + _imageURL + "]";
+	}
+
+
 
 
 

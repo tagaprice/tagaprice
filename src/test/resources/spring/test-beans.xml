@@ -17,8 +17,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<!--<property name="url" value="jdbc:hsqldb:mem:test" /> --> <!-- database runs in memory -->
-		<property name="url" value="jdbc:hsqldb:hsql://localhost/xdb" /> <!-- standalone (as server) database in files, need to start server manual before running tests (java -cp hsqldb-2.0.0.jar org.hsqldb.server.Server \-\-database.0 file:mydb \-\-dbname.0 xdb) -->
+		<property name="url" value="jdbc:hsqldb:mem:test" /> <!-- database runs in memory -->
+		<!-- <property name="url" value="jdbc:hsqldb:hsql://localhost/xdb" /> --> <!-- standalone (as server) database in files, need to start server manual before running tests (java -cp hsqldb-2.0.0.jar org.hsqldb.server.Server \-\-database.0 file:mydb \-\-dbname.0 xdb) -->
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>

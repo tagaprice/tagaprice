@@ -92,11 +92,16 @@ public class Product implements Serializable {
 		_revisions = revisions;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + ((_locale == null) ? 0 : _locale.hashCode());
+		result = prime * result + ((_revisions == null) ? 0 : _revisions.hashCode());
 		return result;
 	}
 
@@ -109,17 +114,33 @@ public class Product implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
+		if (_createdAt == null) {
+			if (other._createdAt != null)
+				return false;
+		} else if (!_createdAt.equals(other._createdAt))
+			return false;
 		if (_id == null) {
 			if (other._id != null)
 				return false;
 		} else if (!_id.equals(other._id))
+			return false;
+		if (_locale == null) {
+			if (other._locale != null)
+				return false;
+		} else if (!_locale.equals(other._locale))
+			return false;
+		if (_revisions == null) {
+			if (other._revisions != null)
+				return false;
+		} else if (!_revisions.equals(other._revisions))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [_id=" + _id + "]";
+		return "Product [_id=" + _id + ", _locale=" + _locale + ", _revisions=" + _revisions + ", _createdAt="
+		+ _createdAt + ", _creator=" + _creator + "]";
 	}
 
 
