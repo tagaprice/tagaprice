@@ -1,5 +1,10 @@
 BEGIN;
 
+--
+-- this script is used for inserting testdata in a "real" db (such as the postgres test db) so that the DatabaseManager 
+-- (package org.tagaprice.server.dao.helper) can generate xml-testdata which is currently saved in WEB-INF/testdata.
+--
+
 INSERT INTO locale (locale_id, fallback_id, title, localtitle, created_at) VALUES 
 ('1','1','english','english',NOW());
 
