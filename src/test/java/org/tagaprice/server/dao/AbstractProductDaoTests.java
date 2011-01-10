@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.junit.*;
@@ -19,6 +18,8 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -39,7 +40,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
-	private Logger log = Logger.getLogger(AbstractProductDaoTests.class);
+	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
 	private IDataSet _currentDataSet;
 
 	@BeforeClass
@@ -49,6 +50,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@Before
 	public void setUp() throws Exception {
+		_log.info("Setting up tests.");
 		// TODO this should be in setUpBeforeClass
 
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
