@@ -7,8 +7,8 @@ CREATE TABLE productRevision (
 	imageUrl varchar(100) NULL,
 
 	PRIMARY KEY (ent_id, rev),
-	FOREIGN KEY (ent_id) REFERENCES product (ent_id),
-	FOREIGN KEY (ent_id, rev) REFERENCES entityRevision(ent_id, rev),
+--	FOREIGN KEY (ent_id) REFERENCES product (ent_id),
+--	FOREIGN KEY (ent_id, rev) REFERENCES entityRevision(ent_id, rev),
 --	FOREIGN KEY (type_id) REFERENCES productType (type_id),
 --	FOREIGN KEY (brand_id) REFERENCES brand (brand_id)
 );
