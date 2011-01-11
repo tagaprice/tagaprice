@@ -83,15 +83,16 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		//		System.out.println("toSave:   " + productToSave);
 
 
-		revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null,  "someImageUrl"));
-
-		Product expected = new Product(new Long(4), locale, new Date(), null, revisions);
 
 		//		System.out.println("expected: " + expected);
 
 		Product actual = _productDao.save(productToSave);
 		//		System.out.println("actual:   " + actual);
+
+		revisions = new HashSet<ProductRevision>();
+		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null,  "someImageUrl"));
+
+		Product expected = new Product(new Long(4), locale, new Date(), null, revisions);
 
 		assertThat(actual, equalTo(expected));
 	}
