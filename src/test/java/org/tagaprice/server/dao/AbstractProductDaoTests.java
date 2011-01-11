@@ -79,10 +79,10 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		revisions.add(newRev);
 
 		Product expected = new Product(id, getLocaleWithConstantDate(), new Date(), null, revisions);
-
+revisions = new HashSet<ProductRevision>();
 		Product actual = _productDao.save(productToSave);
 
-		assertThat(actual, equalTo(expected));
+		assertThat(actual, equalTo(expected));	
 		assertThat(actual.getRevisions(), hasItem(newRev));
 	}
 
@@ -93,6 +93,11 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Product productToSave = getProductToSaveWithOneRevision(id);
 
 		Product actual = _productDao.save(productToSave);
+
+		revisions = new HashSet<ProductRevision>();
+		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null,  "someImageUrl"));
+
+		Product expected = new Product(new Long(4), locale, new Date(), null, revisions);
 
 		ProductRevision newRev = new ProductRevision(id, "newRevTitle", new Date(), 2, null, null, null, null, "newRevImage.url");
 		actual.getRevisions().add(newRev);
