@@ -20,6 +20,7 @@ import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -63,38 +64,45 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@After
 	public void tearDown() throws Exception {
-		_dbInitializer.resetTables();
+		//		_dbInitializer.resetTables();
 	}
 
 	@Test
-	//@Rollback(false)
+	@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
+		long id = 4;
+		Product productToSave = getProductToSaveWithOneRevision(id);
 
-		Date localeDate = new Date();
-
-		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
+		ProductRevision newRev = new ProductRevision(id, "title", new Date(), 1, null, null, null, null,  "someImageUrl");
 
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null, "someImageUrl"));
+		revisions.add(newRev);
 
-		Product productToSave = new Product(new Long(4), locale, new Date(), null, revisions);
-		//		System.out.println("toSave:   " + productToSave);
-
-
-		revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(new Long(4), "title", new Date(), 2, null, null, null, null,  "someImageUrl"));
-
-		Product expected = new Product(new Long(4), locale, new Date(), null, revisions);
-
-		//		System.out.println("expected: " + expected);
+		Product expected = new Product(id, getLocaleWithConstantDate(), new Date(), null, revisions);
 
 		Product actual = _productDao.save(productToSave);
-		//		System.out.println("actual:   " + actual);
 
 		assertThat(actual, equalTo(expected));
+		assertThat(actual.getRevisions(), hasItem(newRev));
 	}
+
+	@Test
+	@Rollback(false)
+	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() {
+		long id = 4;
+		Product productToSave = getProductToSaveWithOneRevision(id);
+
+		Product actual = _productDao.save(productToSave);
+
+		ProductRevision newRev = new ProductRevision(id, "newRevTitle", new Date(), 2, null, null, null, null, "newRevImage.url");
+		actual.getRevisions().add(newRev);
+
+		Product updated = _productDao.save(actual);
+
+		assertThat(updated.getRevisions(), hasItem(newRev));
+		assertThat(updated.getId(), equalTo(id));
+	}
+
 
 	@Test
 	public void loadProduct_shouldReturnProductWithActualProductRevision() throws Exception {
@@ -127,6 +135,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		for(int i = 0; i < products.size(); i++) {
 			long id = DbUnitDataSetHelper.getLong(productTable.getValue(i, "ent_id"));
 			Date createdAt = DbUnitDataSetHelper.getDate(entityTable.getValue(i, "created_at"));
+			Integer currentRevision = DbUnitDataSetHelper.getInteger(entityTable.getValue(i, "current_revision"));
 
 			// assumed all products have same Locale
 			Locale expectedLocale = DbUnitDataSetHelper.getLocale(localeTable, 0);
@@ -155,4 +164,30 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	}
 
 
+
+	// **************************************************************
+	//
+	// helpers
+	//
+	// **************************************************************
+
+
+	private Product getProductToSaveWithOneRevision(long id) {
+		Locale locale = getLocaleWithConstantDate();
+
+		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		revisions.add(new ProductRevision(id, "title", new Date(), 1, null, null, null, null, "someImageUrl"));
+
+		Product productToSave = new Product(id, locale, new Date(), null, revisions);
+		return productToSave;
+	}
+
+	private Locale getLocaleWithConstantDate() {
+		Date localeDate = new Date(1000);
+
+		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
+		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
+		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
+		return locale;
+	}
 }
