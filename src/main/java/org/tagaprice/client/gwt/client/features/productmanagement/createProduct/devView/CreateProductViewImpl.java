@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
@@ -29,7 +30,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 		//Set I18N
 		nameI18N.setText(I18N.I18N.name());
-		priceI18N.setText(I18N.I18N.price());
+		quantityI18N.setText(I18N.I18N.quantity());
 		categoryI18N.setText(I18N.I18N.category());
 
 
@@ -41,7 +42,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@UiField
 	Label nameI18N;
 	@UiField
-	Label priceI18N;
+	Label quantityI18N;
 	@UiField
 	Label categoryI18N;
 
@@ -50,7 +51,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@UiField
 	TextBox name;
 	@UiField
-	TextBox price;
+	QuantitySelecter _quantity;
 
 	@UiField
 	CategorySelecter category;
@@ -60,8 +61,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	Button saveButton;
 
 	@Override
-	public void addQuantity(IQuantity quantity) {
-		// TODO Auto-generated method stub
+	public void setQuantity(IQuantity quantity) {
+		_quantity.setQuantity(quantity);
 
 	}
 
@@ -95,6 +96,10 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	}
 
+	@Override
+	public void setTitle(String title) {
+		name.setText(title);
+	}
 
 
 

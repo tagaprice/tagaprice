@@ -27,22 +27,22 @@ public interface IQuantity extends Serializable {
 	public double getQuantity();
 
 	/**
-	 * Sets the {@link IUnit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
+	 * Sets the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
 	 * have.
 	 * 
 	 * @param unit
-	 *            the {@link IUnit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
 	 *            can
 	 *            have.
 	 */
-	public void setUnit(IUnit unit);
+	public void setUnit(Unit unit);
 
 	/**
-	 * The {@link IUnit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * The {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
 	 * bought.
 	 * 
-	 * @return the {@link IUnit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * @return the {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
 	 * bought
 	 */
-	public IUnit getUnit();
+	public Unit getUnit();
 }

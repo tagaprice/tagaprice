@@ -16,7 +16,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	ICategorySelecter categorySelecter = GWT.create(ICategorySelecter.class);
 
 	public CategorySelecter() {
-		categorySelecter = GWT.create(ICategorySelecter.class);
+		//categorySelecter = GWT.create(ICategorySelecter.class);
 		initWidget(categorySelecter.asWidget());
 	}
 

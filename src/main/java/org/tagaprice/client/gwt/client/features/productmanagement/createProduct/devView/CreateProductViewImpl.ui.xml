@@ -28,10 +28,10 @@
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="priceI18N">Price</g:Label>
+							<g:Label ui:field="quantityI18N">Unit</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="price"></g:TextBox>
+							<my:QuantitySelecter ui:field="_quantity"></my:QuantitySelecter>
 						</td>
 					</tr>
 					<tr>

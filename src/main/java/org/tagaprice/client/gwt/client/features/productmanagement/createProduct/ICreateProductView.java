@@ -33,10 +33,10 @@ public interface ICreateProductView extends IsWidget {
 
 
 	/**
-	 * Add a {@link IQuantity} in which this {@link IProduct} can be bought.
+	 * Set a {@link IQuantity} in which this {@link IProduct} can be bought.
 	 * @param quantity the {@link IQuantity} in which this {@link IProduct} can be bought.
 	 */
-	public void addQuantity(IQuantity quantity);
+	public void setQuantity(IQuantity quantity);
 
 	/**
 	 * Add a list of {@link IQuantity} in which this {@link IProduct} can be bought.
