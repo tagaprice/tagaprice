@@ -213,6 +213,11 @@ public class ProductRevision implements Serializable {
 		return true;
 	}
 
-
+	@Override
+	public String toString() {
+		return "ProductRevision [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title
+		+ ", _createdAt=" + _createdAt + ", _creator=" + _creator + ", _unit=" + _unit + ", _amount=" + _amount
+		+ ", _category=" + _category + ", _imageURL=" + _imageURL + "]";
+	}
 
 }

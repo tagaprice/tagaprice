@@ -1,6 +1,8 @@
 package org.tagaprice.server.service;
 
 
+import java.util.HashSet;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,7 +11,9 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.tagaprice.core.api.IllegalRevisionException;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.EntityCreator;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
@@ -61,17 +65,57 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	}
 
 	@Test
-	public void saveProductWithNewRevision_shouldReturnProductWithAllRevisions() throws Exception {
+	public void saveAlreadyPersistedProductWithNewRevision_shouldReturnProductWithAllRevisions() throws Exception {
+		Long id = 1L;
+		ProductRevision productRevisionToSave = EntityCreator.createProductRevision(id, 3);
+		Product toSave = EntityCreator.createProductWithRevisions(id, productRevisionToSave);
 
+		Product alreadyPersistedProduct = EntityCreator.createProductWithRevisions(id, 2);
+		when(_productDaoMock.getById(id)).thenReturn(alreadyPersistedProduct);
+
+		Product totalProduct = EntityCreator.createProductWithRevisions(id, 3);
+		when(_productDaoMock.save((Product) any())).thenReturn(totalProduct);
+
+		Product actual = _productManagement.save(toSave);
+
+		Product expected = EntityCreator.createProductWithRevisions(id, 3);
+
+		assertThat(actual, equalTo(expected));
+		assertThat(actual.getRevisions().size(), equalTo(expected.getRevisions().size()));
+		for(ProductRevision expectedRevision : expected.getRevisions()) {
+			assertThat(actual.getRevisions(), hasItems(expectedRevision));
+		}
+	}
+
+	@Test(expected=IllegalRevisionException.class)
+	public void saveAlreadyPersistedProductWithOutdatedRevision_shouldThrowException() throws Exception {
+		Long id = 1L;
+		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
+		ProductRevision baseRevision = EntityCreator.createProductRevision(id, 1);
+		revisions.add(baseRevision);
+		ProductRevision newRevision = EntityCreator.createProductRevision(id, 2, "other title");
+		revisions.add(newRevision);
+		Product toSave = EntityCreator.createProductWithRevisions(id, revisions);
+
+		Product alreadyPersistedProduct = EntityCreator.createProductWithRevisions(id, 2);
+		when(_productDaoMock.getById(id)).thenReturn(alreadyPersistedProduct);
+
+		_productManagement.save(toSave);
 	}
 
 	@Test
-	public void saveProductWithOutdatedRevision_shouldThrowException() throws Exception {
+	public void saveAlreadyPersistedProductWithOutChanges_shouldReturnProductAsItIs() throws Exception {
+		Long id = 1L;
+		Product toSave = EntityCreator.createProductWithRevisions(id, 2);
 
-	}
+		Product alreadyPersistedProduct = EntityCreator.createProductWithRevisions(id, 2);
+		when(_productDaoMock.getById(id)).thenReturn(alreadyPersistedProduct);
+		when(_productDaoMock.save((Product) any())).thenReturn(alreadyPersistedProduct);
 
-	@Test
-	public void saveProductWithOutChanges_shouldReturnProductAsItIs() throws Exception {
+		Product expected = EntityCreator.createProductWithRevisions(id, 2);
 
+		Product actual = _productManagement.save(toSave);
+
+		assertThat(actual, equalTo(expected));
 	}
 }

@@ -13,11 +13,6 @@ public class DefaultProductService implements IProductService {
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 
-	/**
-	 * Attempts to save given product and returns the actually saved product with all its revisions.
-	 * Throws an IllegalRevisionException if given product's highest (i.e. newest) revision is older than the highest revision already saved.
-	 * @throws IllegalRevisionException
-	 */
 	@Override
 	public Product save(Product product) throws IllegalRevisionException {
 		Long id = product.getId();
@@ -39,7 +34,7 @@ public class DefaultProductService implements IProductService {
 					+ persistedRevisionNumber
 					+ ", highest revision number to be saved: "
 					+ detachedRevisionNumber;
-				_log.debug(message);
+				_log.info(message);
 				throw new IllegalRevisionException(message);
 			}
 			else if (persistedRevisionNumber == detachedRevisionNumber) //one revision has been saved meanwhile
@@ -50,13 +45,13 @@ public class DefaultProductService implements IProductService {
 						+ persistedRevisionNumber
 						+ ", highest revision number to be saved: "
 						+ detachedRevisionNumber;
-					_log.debug(message);
+					_log.info(message);
 					throw new IllegalRevisionException(message);
 				}
 			}
 		}
 
-		_productDao.save(product);
+		product = _productDao.save(product);
 		return product;
 	}
 
