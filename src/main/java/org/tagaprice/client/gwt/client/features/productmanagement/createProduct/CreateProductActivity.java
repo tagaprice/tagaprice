@@ -47,6 +47,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		CreateProductActivity._logger.log("activity startet");
 
+		ICreateProductView createProductView = _clientFactory.getCreateProductView();
+		createProductView.setPresenter(this);
+
 		if(_place.getRevisionId().getId()==null){
 			CreateProductActivity._logger.log("Create new Product");
 			panel.setWidget(_clientFactory.getCreateProductView());
@@ -57,7 +60,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		}else if(_place.getRevisionId().getId()!=null){
 			CreateProductActivity._logger.log("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision());
 			//panel.setWidget(new Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
-			ICreateProductView createProductView = _clientFactory.getCreateProductView();
+
 			panel.setWidget(createProductView);
 
 
@@ -82,6 +85,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	@Override
 	public void onSaveEvent(ClickEvent event) {
 		// TODO Auto-generated method stub
+		System.out.println("send async save request! and tell the user");
 
 	}
 

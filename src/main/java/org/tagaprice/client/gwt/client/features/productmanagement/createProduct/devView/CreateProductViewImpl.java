@@ -9,6 +9,8 @@ import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 /**
@@ -25,6 +27,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private static CreateProductViewImplUiBinder uiBinder = GWT
 	.create(CreateProductViewImplUiBinder.class);
 
+	private Presenter _presenter;
+
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
 
@@ -34,9 +38,17 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		categoryI18N.setText(I18N.I18N.category());
 
 
+		//Implement listener
+		saveButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onSaveEvent(arg0);
+			}
+		});
+
 	}
 
-	private Presenter presenter;
 
 
 	@UiField
@@ -92,8 +104,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
-
+		_presenter=presenter;
 	}
 
 	@Override
