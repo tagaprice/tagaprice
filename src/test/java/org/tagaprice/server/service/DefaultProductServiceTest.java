@@ -5,14 +5,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Product;
+import org.tagaprice.server.dao.helper.EntityCreator;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThat;
 
 
 
@@ -36,15 +39,39 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	public void tearDown() throws Exception {}
 
 	@Test
-	public void saveNewProduct_shouldReturnProductWithActualProductRevision() {
-		ProductRevision productToSave = null; //new Product().setId(null).setTitle("productTitle");
-		ProductRevision expected = null; //new Product().setId((long) 1).setTitle("productTitle");
+	public void saveNewProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+		Product toSave = EntityCreator.createProductWithRevisions(null, 1);
 
-		//		TODO fix when(_productDaoMock.save(productToSave)).thenReturn(expected);
+		//Mock returns whatever it gets
+		when(_productDaoMock.save((Product) any())).thenAnswer(new Answer<Product>() {
+			@Override
+			public Product answer(InvocationOnMock invocation) throws Throwable {
+				Object[] args = invocation.getArguments();
+				return (Product) args[0];
+			}
 
+		});
 
-		ProductRevision actual = _productManagement.save(productToSave);
+		Product actual = _productManagement.save(toSave);
+
+		Product expected = EntityCreator.createProductWithRevisions(1L, 1);
 
 		assertThat(actual, equalTo(expected));
+		assertThat(actual.getRevisions(), hasItems(expected.getCurrentRevision()));
+	}
+
+	@Test
+	public void saveProductWithNewRevision_shouldReturnProductWithAllRevisions() throws Exception {
+
+	}
+
+	@Test
+	public void saveProductWithOutdatedRevision_shouldThrowException() throws Exception {
+
+	}
+
+	@Test
+	public void saveProductWithOutChanges_shouldReturnProductAsItIs() throws Exception {
+
 	}
 }

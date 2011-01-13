@@ -1,8 +1,8 @@
 package org.tagaprice.core.api;
 
-import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Product;
 
 public interface IProductService {
 
-	ProductRevision save(ProductRevision input);
+	Product save(Product input) throws ServerException;
 }

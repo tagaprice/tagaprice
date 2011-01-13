@@ -46,7 +46,7 @@ public class ProductRevision implements Serializable {
 	public Long getId() {
 		return _id;
 	}
-	private void setId(Long id) {
+	public void setId(Long id) { //TODO this is public due to service having to set the id if not present, should not be public probably
 		this._id = id;
 	}
 
@@ -123,31 +123,15 @@ public class ProductRevision implements Serializable {
 		_imageURL = imageURL;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_amount == null) ? 0 : _amount.hashCode());
-		result = prime * result + ((_category == null) ? 0 : _category.hashCode());
-		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
-		result = prime * result + ((_creator == null) ? 0 : _creator.hashCode());
-		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
-		result = prime * result + ((_imageURL == null) ? 0 : _imageURL.hashCode());
-		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
-		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
-		result = prime * result + ((_unit == null) ? 0 : _unit.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	/**
+	 * Performs a fully comparison on given other, i.e. compares every field this class has.
+	 * If any field mismatches returns false, otherwise returns true.
+	 */
+	public boolean fullEquals(ProductRevision other) {
+		if (this == other)
 			return true;
-		if (obj == null)
+		if (other == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductRevision other = (ProductRevision) obj;
 		if (_amount == null) {
 			if (other._amount != null)
 				return false;
@@ -195,4 +179,40 @@ public class ProductRevision implements Serializable {
 			return false;
 		return true;
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductRevision other = (ProductRevision) obj;
+		if (_id == null) {
+			if (other._id != null)
+				return false;
+		} else if (!_id.equals(other._id))
+			return false;
+		if (_revisionNumber == null) {
+			if (other._revisionNumber != null)
+				return false;
+		} else if (!_revisionNumber.equals(other._revisionNumber))
+			return false;
+		return true;
+	}
+
+
+
 }

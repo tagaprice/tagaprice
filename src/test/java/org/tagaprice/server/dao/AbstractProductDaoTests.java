@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -23,10 +22,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
+import org.tagaprice.server.dao.helper.EntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
@@ -48,16 +47,15 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
 	private IDataSet _currentDataSet;
-	private static Date _standardDate;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		AbstractProductDaoTests._standardDate = new SimpleDateFormat("yyyy/MM/dd").parse("2010/12/24");
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		_log.info("Setting up tests.");
+
 		// TODO this should be in setUpBeforeClass
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
@@ -75,18 +73,15 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
-
-
-
 		long id = 4;
-		Product productToSave = createStandardProductWithStandardRevisions(id, 1);
+		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2);
 
 		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = createStandardProductRevision(id, 1);
+		ProductRevision expectedRev = EntityCreator.createProductRevision(id, 1);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, createStandardLocale(), expectedRevisions);
+		Product expected = new Product(id, EntityCreator.createLocale(2), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -96,7 +91,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Rollback(false)
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() {
 		long id = 4;
-		Product productToSave = createStandardProductWithStandardRevisions(id, 1);
+		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2);
 
 		Product saved = _productDao.save(productToSave);
 
@@ -155,32 +150,4 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		assertThat(actual, equalTo(expected));
 	}
-
-
-
-	// **************************************************************
-	//
-	// helpers
-	//
-	// **************************************************************
-
-
-	private Product createStandardProductWithStandardRevisions(long id, int numberRevisions) {
-		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-
-		for(int rev = 1; rev<=numberRevisions;rev++)
-			revisions.add(createStandardProductRevision(id, rev));
-
-		Product productToSave = new Product(id, createStandardLocale(), revisions);
-		return productToSave;
-	}
-
-	private ProductRevision createStandardProductRevision(long id, int rev) {
-		return new ProductRevision(id, rev, "title", AbstractProductDaoTests._standardDate, null, null, null, null, "someImageUrl");
-	}
-
-	private Locale createStandardLocale() {
-		return new Locale(2, "german", "deutsch");
-	}
-
 }
