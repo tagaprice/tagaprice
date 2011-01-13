@@ -10,4 +10,11 @@ public interface IProductService {
 	 * @throws IllegalRevisionException
 	 */
 	Product save(Product input) throws IllegalRevisionException;
+
+	/**
+	 * Returns the product
+	 * @param id
+	 * @return
+	 */
+	Product getById(Long id);
 }

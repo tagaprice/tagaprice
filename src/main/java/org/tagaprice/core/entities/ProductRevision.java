@@ -123,15 +123,38 @@ public class ProductRevision implements Serializable {
 		_imageURL = imageURL;
 	}
 
-	/**
-	 * Performs a fully comparison on given other, i.e. compares every field this class has.
-	 * If any field mismatches returns false, otherwise returns true.
-	 */
-	public boolean fullEquals(ProductRevision other) {
-		if (this == other)
+	@Override
+	public String toString() {
+		return "ProductRevision [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title
+		+ ", _createdAt=" + _createdAt + ", _creator=" + _creator + ", _unit=" + _unit + ", _amount=" + _amount
+		+ ", _category=" + _category + ", _imageURL=" + _imageURL + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_amount == null) ? 0 : _amount.hashCode());
+		result = prime * result + ((_category == null) ? 0 : _category.hashCode());
+		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
+		result = prime * result + ((_creator == null) ? 0 : _creator.hashCode());
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + ((_imageURL == null) ? 0 : _imageURL.hashCode());
+		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
+		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
+		result = prime * result + ((_unit == null) ? 0 : _unit.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		if (other == null)
+		if (obj == null)
 			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductRevision other = (ProductRevision) obj;
 		if (_amount == null) {
 			if (other._amount != null)
 				return false;
@@ -180,19 +203,11 @@ public class ProductRevision implements Serializable {
 		return true;
 	}
 
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
-		result = prime * result + ((_revisionNumber == null) ? 0 : _revisionNumber.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
+	/**
+	 * Compares this with given obj. Only fields valuable to business logic, e.g. identifiers are not valuable to business logic, are compared.
+	 * Returns false if any of the compared fields mismatch or true otherwise.
+	 */
+	public boolean businessEquals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -200,24 +215,47 @@ public class ProductRevision implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductRevision other = (ProductRevision) obj;
-		if (_id == null) {
-			if (other._id != null)
+		if (_amount == null) {
+			if (other._amount != null)
 				return false;
-		} else if (!_id.equals(other._id))
+		} else if (!_amount.equals(other._amount))
+			return false;
+		if (_category == null) {
+			if (other._category != null)
+				return false;
+		} else if (!_category.equals(other._category))
+			return false;
+		if (_createdAt == null) {
+			if (other._createdAt != null)
+				return false;
+		} else if (!_createdAt.equals(other._createdAt))
+			return false;
+		if (_creator == null) {
+			if (other._creator != null)
+				return false;
+		} else if (!_creator.equals(other._creator))
+			return false;
+		if (_imageURL == null) {
+			if (other._imageURL != null)
+				return false;
+		} else if (!_imageURL.equals(other._imageURL))
 			return false;
 		if (_revisionNumber == null) {
 			if (other._revisionNumber != null)
 				return false;
 		} else if (!_revisionNumber.equals(other._revisionNumber))
 			return false;
+		if (_title == null) {
+			if (other._title != null)
+				return false;
+		} else if (!_title.equals(other._title))
+			return false;
+		if (_unit == null) {
+			if (other._unit != null)
+				return false;
+		} else if (!_unit.equals(other._unit))
+			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductRevision [_id=" + _id + ", _revisionNumber=" + _revisionNumber + ", _title=" + _title
-		+ ", _createdAt=" + _createdAt + ", _creator=" + _creator + ", _unit=" + _unit + ", _amount=" + _amount
-		+ ", _category=" + _category + ", _imageURL=" + _imageURL + "]";
 	}
 
 }
