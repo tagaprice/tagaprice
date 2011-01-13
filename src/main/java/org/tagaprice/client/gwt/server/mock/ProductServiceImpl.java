@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.server.mock;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
@@ -22,6 +24,12 @@ IProductService {
 
 	@Override
 	public IProduct saveProduct(IProduct product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}
