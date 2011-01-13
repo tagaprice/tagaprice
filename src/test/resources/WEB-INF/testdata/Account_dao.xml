@@ -1,9 +1,0 @@
-<!DOCTYPE dataset SYSTEM "dataset.dtd">
-<dataset>
-    <table name="account">
-        <column>uid</column>
-        <column>mail</column>
-        <column>last_login</column>
-        <column>locked</column>
-    </table>
-</dataset>

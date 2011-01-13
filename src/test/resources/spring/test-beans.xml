@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- the basic application context configuration for testing. 
+Sets up a hsqldb datasource, hibernate session factory and a transaction manager. -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -13,7 +15,8 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<!-- hibernate spring test setup -->
+	<!-- datasource:
+		by default we are using an in-memory hsqldb, it's tables and testdata must be setup by the class specific application context -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
@@ -23,6 +26,8 @@
 		<property name="password" value="" />
 	</bean>
 
+	<!-- sessionfactory for hibernate:
+	this defines the main properties for hibernate or where to find them (configLocation). -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -35,30 +40,31 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<!-- this cannot be used because it's initialized before the recreation of the tables is executed
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
+				<!-- this cannot be used because it's initialized before the recreation of the tables is executed <prop key="hibernate.hbm2ddl.auto">validate</prop>-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
 		</property>
 	</bean>
 
-	<!-- Services
+	<!-- TODO delete this since not needed for general test setup 
+	Services
 	     Services are transactional based on annotations. Thus a
 	     TransactionManager transactionManager must be defined. 
 	     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative
-	  -->
+	  
 	<bean id="defaultProductManagement"
 	      class="org.tagaprice.server.service.DefaultProductService">
-	  <!--<property name="productDao" ref="defaultProductDao"/>-->
 	</bean>
 
 
-	<!-- enable the configuration of transactional behavior based on annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
+-->
 
-	<!-- a PlatformTransactionManager is still required
-	 TODO rename and check, where the reference to this transactionManager is needed-->
+
+	<!-- transactionManager: 
+	tests are usually running transactional either by using the @Transactional annotation or inheriting from AbstractTransactionalJUnit4SpringContextTests
+	so we must define this bean -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<!-- (this dependency is defined somewhere else) -->

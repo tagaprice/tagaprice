@@ -23,16 +23,16 @@
 		<!-- list of resources to sql-scripts that will be executed -->
 		<property name="scriptsToExecute">
 			<list>
-				<value>/sql_hsqldb/tables/10_country.sql</value>
-				<value>/sql_hsqldb/tables/10_locale.sql</value>
-				<value>/sql_hsqldb/tables/20_entity.sql</value>
-				<value>/sql_hsqldb/tables/30_entityRevision.sql</value>
-				<value>/sql_hsqldb/tables/30_product.sql</value>
-				<value>/sql_hsqldb/tables/40_productRevision.sql</value>
-				<value>/sql_hsqldb/tables/40_account.sql</value>
+				<value>/hsqldb/tables/10_country.sql</value>
+				<value>/hsqldb/tables/10_locale.sql</value>
+				<value>/hsqldb/tables/20_entity.sql</value>
+				<value>/hsqldb/tables/30_entityRevision.sql</value>
+				<value>/hsqldb/tables/30_product.sql</value>
+				<value>/hsqldb/tables/40_productRevision.sql</value>
+				<value>/hsqldb/tables/40_account.sql</value>
 			</list>
 		</property>
 		<!-- test data to load -->
-		<property name="dbUnitData" value="classpath:WEB-INF/testdata/Product_dao.xml" />
+		<property name="dbUnitData" value="classpath:hsqldb/testdata/AbstractProductDaoTests_testdata.xml" />
 	</bean>
 </beans>

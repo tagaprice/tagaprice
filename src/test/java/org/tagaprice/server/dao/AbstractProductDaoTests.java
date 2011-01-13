@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -46,10 +47,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
 	private IDataSet _currentDataSet;
+	private static Date _standardDate;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		// TODO initialize dbInitializer here
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		AbstractProductDaoTests._standardDate = formatter.parse("2010/12/24");
 	}
 
 	@Before
@@ -72,29 +75,32 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
+
+
+
 		long id = 4;
-		Product productToSave = getProductToSaveWithOneRevision(id);
+		Product productToSave = createStandardProductWithStandardRevisions(id, 1);
 
 		Product actual = _productDao.save(productToSave);
 
-		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		ProductRevision newRev = new ProductRevision(id, "title", new Date(), 1, null, null, null, null,  "someImageUrl");
-		revisions.add(newRev);
-		Product expected = new Product(id, revisions);
+		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
+		ProductRevision expectedRev = createStandardProductRevision(id, 1);
+		expectedRevisions.add(expectedRev);
+		Product expected = new Product(id, expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
-		assertThat(actual.getRevisions(), hasItem(newRev));
+		assertThat(actual.getRevisions(), hasItem(expectedRev));
 	}
 
 	@Test
 	@Rollback(false)
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() {
 		long id = 4;
-		Product productToSave = getProductToSaveWithOneRevision(id);
+		Product productToSave = createStandardProductWithStandardRevisions(id, 1);
 
 		Product saved = _productDao.save(productToSave);
 
-		ProductRevision newRev = new ProductRevision(id, "newRevTitle", new Date(), 2, null, null, null, null, "newRevImage.url");
+		ProductRevision newRev = new ProductRevision(id, 2, "newRevTitle", new Date(),  null, null, null, null, "newRevImage.url");
 		saved.getRevisions().add(newRev);
 
 		Product updated = _productDao.save(saved);
@@ -109,8 +115,8 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
 
 		// TODO fix this test after Account is mapped
-		ProductRevision rev1 = new ProductRevision((long) 1, "product1", DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), 1, null, null, null, null, "www.urlToImage.com");
-		ProductRevision rev2 = new ProductRevision((long) 1, "product1",  DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), 2, null, null, null, null, "www.differentUrlToImage.com");
+		ProductRevision rev1 = new ProductRevision((long) 1, 1, "product1", DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), null, null, null, null, "www.urlToImage.com");
+		ProductRevision rev2 = new ProductRevision((long) 1, 2, "product1",  DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), null, null, null, null, "www.differentUrlToImage.com");
 
 		//		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		//		revisions.add(rev1);
@@ -159,13 +165,17 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	// **************************************************************
 
 
-	private Product getProductToSaveWithOneRevision(long id) {
-		//		Locale locale = getLocaleWithConstantDate();
-
+	private Product createStandardProductWithStandardRevisions(long id, int numberRevisions) {
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(new ProductRevision(id, "title", new Date(), 1, null, null, null, null, "someImageUrl"));
+
+		for(int rev = 1; rev<=numberRevisions;rev++)
+			revisions.add(createStandardProductRevision(id, rev));
 
 		Product productToSave = new Product(id, revisions);
 		return productToSave;
+	}
+
+	private ProductRevision createStandardProductRevision(long id, int rev) {
+		return new ProductRevision(id, rev, "title", AbstractProductDaoTests._standardDate, null, null, null, null, "someImageUrl");
 	}
 }

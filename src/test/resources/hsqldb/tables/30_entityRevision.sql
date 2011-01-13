@@ -4,12 +4,11 @@ CREATE TABLE entityRevision (
 
 	title varchar(255) NOT NULL,
 	created_at TIMESTAMP DEFAULT NOW(), -- TODO fix this NOT NULL,
-	-- id of another entity (e.g. the english equivalent)
-	group_id BIGINT NULL,
-
+	creator_id BIGINT,
+	
 	PRIMARY KEY (ent_id, rev),
 --TODO fix	FOREIGN KEY (ent_id) REFERENCES entity(ent_id),
---	FOREIGN KEY (group_id) REFERENCES entity (ent_id),
+--TODO fix	FOREIGN KEY (creator_id) REFERENCES account (account_id),
 --	CHECK (rev >= 1)
 );
 
