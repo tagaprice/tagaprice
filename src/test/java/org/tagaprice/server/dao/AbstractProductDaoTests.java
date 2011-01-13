@@ -2,7 +2,9 @@ package org.tagaprice.server.dao;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,19 +13,20 @@ import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.junit.*;
-import org.tagaprice.core.entities.Locale;
-import org.tagaprice.core.entities.Product;
-import org.tagaprice.core.entities.ProductRevision;
-import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
-import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
+import org.tagaprice.server.dao.helper.IDbTestInitializer;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /**
  * Testcase to test the {@link IProductDAO} interface.
@@ -53,7 +56,6 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void setUp() throws Exception {
 		_log.info("Setting up tests.");
 		// TODO this should be in setUpBeforeClass
-
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
 
 		_dbInitializer.dropAndRecreate();
@@ -73,14 +75,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		long id = 4;
 		Product productToSave = getProductToSaveWithOneRevision(id);
 
-		ProductRevision newRev = new ProductRevision(id, "title", new Date(), 1, null, null, null, null,  "someImageUrl");
+		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		ProductRevision newRev = new ProductRevision(id, "title", new Date(), 1, null, null, null, null,  "someImageUrl");
 		revisions.add(newRev);
-
-		Product expected = new Product(id, getLocaleWithConstantDate(), new Date(), null, revisions);
-
-		Product actual = _productDao.save(productToSave);
+		Product expected = new Product(id, revisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(newRev));
@@ -92,12 +92,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		long id = 4;
 		Product productToSave = getProductToSaveWithOneRevision(id);
 
-		Product actual = _productDao.save(productToSave);
+		Product saved = _productDao.save(productToSave);
 
 		ProductRevision newRev = new ProductRevision(id, "newRevTitle", new Date(), 2, null, null, null, null, "newRevImage.url");
-		actual.getRevisions().add(newRev);
+		saved.getRevisions().add(newRev);
 
-		Product updated = _productDao.save(actual);
+		Product updated = _productDao.save(saved);
 
 		assertThat(updated.getRevisions(), hasItem(newRev));
 		assertThat(updated.getId(), equalTo(id));
@@ -127,27 +127,15 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	public void loadAllProducts() throws Exception {
 		ITable productTable = _currentDataSet.getTable("product");
-		ITable entityTable = _currentDataSet.getTable("entity");
-		ITable localeTable = _currentDataSet.getTable("locale");
 
 		List<Product> products = _productDao.getAll();
 
 		for(int i = 0; i < products.size(); i++) {
 			long id = DbUnitDataSetHelper.getLong(productTable.getValue(i, "ent_id"));
-			Date createdAt = DbUnitDataSetHelper.getDate(entityTable.getValue(i, "created_at"));
-
-			// assumed all products have same Locale
-			Locale expectedLocale = DbUnitDataSetHelper.getLocale(localeTable, 0);
-
-			int locale_id = DbUnitDataSetHelper.getInteger(entityTable.getValue(i, "locale_id"));
-			assertThat("testsetup is bad, we assume only the first locale is used for all products", locale_id, equalTo(expectedLocale.getId()));
-
 
 			//Product expected = new Product(id, expectedLocale, createdAt, null, revisions);
 			Product actual = products.get(i);
 			assertThat(actual.getId(), equalTo(id));
-			assertThat(actual.getCreatedAt(), equalTo(createdAt));
-			assertThat(actual.getLocale(), equalTo(expectedLocale));
 		}
 	}
 
@@ -172,21 +160,12 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 
 	private Product getProductToSaveWithOneRevision(long id) {
-		Locale locale = getLocaleWithConstantDate();
+		//		Locale locale = getLocaleWithConstantDate();
 
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(new ProductRevision(id, "title", new Date(), 1, null, null, null, null, "someImageUrl"));
 
-		Product productToSave = new Product(id, locale, new Date(), null, revisions);
+		Product productToSave = new Product(id, revisions);
 		return productToSave;
-	}
-
-	private Locale getLocaleWithConstantDate() {
-		Date localeDate = new Date(1000);
-
-		Locale locale = new Locale(null, "testTitle", "testLocalTitle", localeDate);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setId", 0);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
-		return locale;
 	}
 }
