@@ -1,8 +1,12 @@
 package org.tagaprice.core.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,6 +22,7 @@ public class Product implements Serializable {
 	private Long _id = null;
 	private Set<ProductRevision> _revisions = new HashSet<ProductRevision>();
 	private Locale _locale;
+	private static final Comparator<? super ProductRevision> _revisionComparator = new RevisionComparator();
 
 	protected Product() {
 	}
@@ -99,6 +104,8 @@ public class Product implements Serializable {
 	 */
 	@Transient
 	public ProductRevision getCurrentRevision() {
-		return _revisions.iterator().next();
+		List<ProductRevision> list = new ArrayList<ProductRevision>(_revisions);
+		Collections.sort(list, Product._revisionComparator);
+		return list.iterator().next();
 	}
 }

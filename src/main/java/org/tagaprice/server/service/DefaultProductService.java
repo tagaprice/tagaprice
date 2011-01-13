@@ -2,22 +2,19 @@ package org.tagaprice.server.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.api.IllegalRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
+@Transactional
 public class DefaultProductService implements IProductService {
 	//	private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 
-	/**
-	 * Attempts to save given product and returns the actually saved product with all its revisions.
-	 * Throws an IllegalRevisionException if given product's highest (i.e. newest) revision is older than the highest revision already saved.
-	 * @throws IllegalRevisionException
-	 */
 	@Override
 	public Product save(Product product) throws IllegalRevisionException {
 		Long id = product.getId();
@@ -39,25 +36,30 @@ public class DefaultProductService implements IProductService {
 					+ persistedRevisionNumber
 					+ ", highest revision number to be saved: "
 					+ detachedRevisionNumber;
-				_log.debug(message);
+				_log.info(message);
 				throw new IllegalRevisionException(message);
 			}
 			else if (persistedRevisionNumber == detachedRevisionNumber) //one revision has been saved meanwhile
 			{
-				if(!persistedHighestRevision.fullEquals(detachedHighestRevision))
+				if(!persistedHighestRevision.equals(detachedHighestRevision))
 				{
 					String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
 						+ persistedRevisionNumber
 						+ ", highest revision number to be saved: "
 						+ detachedRevisionNumber;
-					_log.debug(message);
+					_log.info(message);
 					throw new IllegalRevisionException(message);
 				}
 			}
 		}
 
-		_productDao.save(product);
+		product = _productDao.save(product);
 		return product;
+	}
+
+	@Override
+	public Product getById(Long id) {
+		return null;
 	}
 
 	public void setProductDAO(IProductDAO productDao) {
