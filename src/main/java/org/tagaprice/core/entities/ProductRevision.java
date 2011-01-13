@@ -79,7 +79,7 @@ public class ProductRevision implements Serializable {
 		this._createdAt = createdAt;
 	}
 
-	@ManyToOne() // TODO fix this with setup of: optional=false. otherwise this ref won't get saved?
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(table="entityrevision", name = "creator")
 	public Account getCreator() {
 		return _creator;

@@ -74,6 +74,8 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() {
+		_log.info("running test");
+
 		long id = 4;
 		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2);
 
@@ -91,6 +93,8 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	@Rollback(false)
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() {
+		_log.info("running test");
+
 		long id = 4;
 		long uid = 2;
 		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2);
@@ -138,6 +142,8 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@Test
 	public void loadAllProducts() throws Exception {
+		_log.info("running test");
+
 		ITable productTable = _currentDataSet.getTable("product");
 
 		List<Product> products = _productDao.getAll();
@@ -153,6 +159,8 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@Test
 	public void countProducts() throws Exception {
+		_log.info("running test");
+
 		ITable table = _currentDataSet.getTable("product");
 
 		int actual = _productDao.countAll();
