@@ -10,16 +10,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 @SecondaryTables({ @SecondaryTable(name = "entity") })
+@SuppressWarnings("unused")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long _id = null;
 	private Set<ProductRevision> _revisions = new HashSet<ProductRevision>();
+	private Locale _locale;
 
 	public Product() {
 	}
 
-	public Product(Long id, Collection<? extends ProductRevision> revisions) {
-		this._id = id;
+	public Product(Long id, Locale locale, Collection<? extends ProductRevision> revisions) {
+		_id = id;
+		_locale = locale;
 		_revisions.addAll(revisions);
 	}
 
@@ -28,10 +31,17 @@ public class Product implements Serializable {
 	public Long getId() {
 		return _id;
 	}
-
-	@SuppressWarnings("unused")
 	private void setId(Long id) {
 		this._id = id;
+	}
+
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinColumn(table = "entity", name = "locale_id", referencedColumnName = "locale_id")
+	public Locale getLocale() {
+		return _locale;
+	}
+	private void setLocale(Locale locale) {
+		this._locale = locale;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -39,8 +49,6 @@ public class Product implements Serializable {
 	public Set<ProductRevision> getRevisions() {
 		return _revisions;
 	}
-
-	@SuppressWarnings("unused")
 	private void setRevisions(Set<ProductRevision> revisions) {
 		_revisions = revisions;
 	}

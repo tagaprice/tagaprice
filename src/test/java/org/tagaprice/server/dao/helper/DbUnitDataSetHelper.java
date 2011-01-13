@@ -5,11 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.ITable;
-import org.springframework.test.util.ReflectionTestUtils;
-import org.tagaprice.core.entities.Locale;
-
 public class DbUnitDataSetHelper {
 
 	private static DateFormat s_dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
@@ -31,23 +26,23 @@ public class DbUnitDataSetHelper {
 	// object getter
 	//
 
-	/**
-	 * @return a {@link Locale} created from given table and row within the table
-	 */
-	public static Locale getLocale(ITable table, int row) throws DataSetException, ParseException {
-
-		int id = DbUnitDataSetHelper.getInteger(table.getValue(row, "locale_id"));
-		String title = (String) table.getValue(row, "title");
-		String localTitle = (String) table.getValue(row, "localtitle");
-		Date createdAt = DbUnitDataSetHelper.getDate(table.getValue(row, "created_at"));
-
-		Locale locale = new Locale(null, title, localTitle, createdAt);
-		ReflectionTestUtils.invokeSetterMethod(locale, "setId", id);
-
-		//TODO use real fallback id
-		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
-
-		return locale;
-	}
+	//	/**
+	//	 * @return a {@link Locale} created from given table and row within the table
+	//	 */
+	//	public static Locale getLocale(ITable table, int row) throws DataSetException, ParseException {
+	//
+	//		int id = DbUnitDataSetHelper.getInteger(table.getValue(row, "locale_id"));
+	//		String title = (String) table.getValue(row, "title");
+	//		String localTitle = (String) table.getValue(row, "localtitle");
+	//		Date createdAt = DbUnitDataSetHelper.getDate(table.getValue(row, "created_at"));
+	//
+	//		Locale locale = new Locale(null, title, localTitle, createdAt);
+	//		ReflectionTestUtils.invokeSetterMethod(locale, "setId", id);
+	//
+	//		//TODO use real fallback id
+	//		ReflectionTestUtils.invokeSetterMethod(locale, "setFallback", locale);
+	//
+	//		return locale;
+	//	}
 
 }

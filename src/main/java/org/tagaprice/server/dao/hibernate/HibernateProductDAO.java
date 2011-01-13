@@ -40,6 +40,7 @@ public class HibernateProductDAO implements IProductDAO {
 		return (Product) _sessionFactory.getCurrentSession().load(Product.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getAll() {
 		return _sessionFactory.getCurrentSession().createQuery("from Product").list();

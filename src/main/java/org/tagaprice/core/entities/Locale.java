@@ -5,9 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 
@@ -16,56 +15,35 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "locale")
+@SuppressWarnings("unused")
 public class Locale {
-	private int _id;
-	private Locale _fallback = null;
+	private Integer _id;
 	private String _title = null;
 	private String _localTitle = null;
-	private Date _createdAt = null;
 
 
-	/**
-	 * DONT USE THIS CONSTRUCTOR!
-	 * loading doesn't work if this constructor is set private.
-	 */
 	protected Locale() { }
 
-	public Locale(Locale fallback, String title, String localTitle, Date createdAt) {
-		_fallback = fallback;
+	public Locale(Integer id, String title, String localTitle) {
+		_id = id;
 		_title = title;
 		_localTitle = localTitle;
-		_createdAt = createdAt;
 	}
 
 
 	@Id
 	@Column(name = "locale_id")
-	public int getId() {
+	public Integer getId() {
 		return _id;
 	}
-
-	@SuppressWarnings("unused")
-	private void setId(int id) {
+	private void setId(Integer id) {
 		_id = id;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "fallback_Id")
-	public Locale getFallback() {
-		return _fallback;
-	}
-
-	@SuppressWarnings("unused")
-	private void setFallback(Locale fallback) {
-		_fallback = fallback;
 	}
 
 	@Column(name = "title")
 	public String getTitle() {
 		return _title;
 	}
-
-	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		_title = title;
 	}
@@ -74,37 +52,25 @@ public class Locale {
 	public String getLocalTitle() {
 		return _localTitle;
 	}
-
-	@SuppressWarnings("unused")
 	private void setLocalTitle(String localTitle) {
 		_localTitle = localTitle;
 	}
 
-	@Column(name = "created_at")
-	public Date getCreatedAt() {
-		return _createdAt;
+	@Override
+	public String toString() {
+		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle=" + _localTitle + "]";
 	}
-
-	@SuppressWarnings("unused")
-	private void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
-	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_createdAt == null) ? 0 : _createdAt.hashCode());
 		result = prime * result + _id;
 		result = prime * result + ((_localTitle == null) ? 0 : _localTitle.hashCode());
 		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
 		return result;
 	}
 
-	/**
-	 * TODO write more sophisticated equals with respect to recursive fallback_locale
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -114,11 +80,6 @@ public class Locale {
 		if (getClass() != obj.getClass())
 			return false;
 		Locale other = (Locale) obj;
-		if (_createdAt == null) {
-			if (other._createdAt != null)
-				return false;
-		} else if (!_createdAt.equals(other._createdAt))
-			return false;
 		if (_id != other._id)
 			return false;
 		if (_localTitle == null) {
@@ -133,11 +94,4 @@ public class Locale {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle="
-		+ _localTitle + ", _createdAt=" + _createdAt + "]";
-	}
-
 }

@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
@@ -51,8 +52,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-		AbstractProductDaoTests._standardDate = formatter.parse("2010/12/24");
+		AbstractProductDaoTests._standardDate = new SimpleDateFormat("yyyy/MM/dd").parse("2010/12/24");
 	}
 
 	@Before
@@ -86,7 +86,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
 		ProductRevision expectedRev = createStandardProductRevision(id, 1);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, expectedRevisions);
+		Product expected = new Product(id, createStandardLocale(), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -171,11 +171,16 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		for(int rev = 1; rev<=numberRevisions;rev++)
 			revisions.add(createStandardProductRevision(id, rev));
 
-		Product productToSave = new Product(id, revisions);
+		Product productToSave = new Product(id, createStandardLocale(), revisions);
 		return productToSave;
 	}
 
 	private ProductRevision createStandardProductRevision(long id, int rev) {
 		return new ProductRevision(id, rev, "title", AbstractProductDaoTests._standardDate, null, null, null, null, "someImageUrl");
 	}
+
+	private Locale createStandardLocale() {
+		return new Locale(2, "german", "deutsch");
+	}
+
 }

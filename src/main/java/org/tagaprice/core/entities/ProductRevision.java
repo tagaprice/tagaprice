@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "productrevision")
 @SecondaryTables({ @SecondaryTable(name = "entityrevision") })
+@SuppressWarnings("unused")
 public class ProductRevision implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long _id = null;
@@ -45,7 +46,6 @@ public class ProductRevision implements Serializable {
 	public Long getId() {
 		return _id;
 	}
-	@SuppressWarnings("unused")
 	private void setId(Long id) {
 		this._id = id;
 	}
@@ -55,7 +55,6 @@ public class ProductRevision implements Serializable {
 	public Integer getRevisionNumber() {
 		return _revisionNumber;
 	}
-	@SuppressWarnings("unused")
 	private void setRevisionNumber(Integer revisionNumber) {
 		this._revisionNumber = revisionNumber;
 	}
@@ -64,7 +63,6 @@ public class ProductRevision implements Serializable {
 	public String getTitle() {
 		return _title;
 	}
-	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		this._title = title;
 	}
@@ -73,7 +71,6 @@ public class ProductRevision implements Serializable {
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
-	@SuppressWarnings("unused")
 	private void setCreatedAt(Date createdAt) {
 		this._createdAt = createdAt;
 	}
@@ -84,7 +81,6 @@ public class ProductRevision implements Serializable {
 	public Account getCreator() {
 		return _creator;
 	}
-	@SuppressWarnings("unused")
 	private void setCreator(Account creator) {
 		this._creator = creator;
 	}
@@ -115,7 +111,6 @@ public class ProductRevision implements Serializable {
 	public Category getCategory() {
 		return _category;
 	}
-	@SuppressWarnings("unused")
 	private void setCategory(Category category) {
 		_category = category;
 	}
@@ -124,7 +119,6 @@ public class ProductRevision implements Serializable {
 	public String getImageURL() {
 		return _imageURL;
 	}
-	@SuppressWarnings("unused")
 	private void setImageURL(String imageURL) {
 		_imageURL = imageURL;
 	}
