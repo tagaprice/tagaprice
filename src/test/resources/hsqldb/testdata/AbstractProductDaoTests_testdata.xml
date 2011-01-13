@@ -33,7 +33,7 @@
     <column>rev</column>
     <column>title</column>
     <column>created_at</column>
-    <column>creator_id</column>
+    <column>creator</column>
     <row>
       <value>1</value>
       <value>1</value>
@@ -75,12 +75,10 @@
     <column>uid</column>
     <column>mail</column>
     <column>last_login</column>
-    <column>locked</column>
     <row>
       <value>3</value>
       <value>user@mail.com</value>
       <value><![CDATA[2011-01-03 18:42:40.864592]]></value>
-      <value>false</value>
     </row>
   </table>
   

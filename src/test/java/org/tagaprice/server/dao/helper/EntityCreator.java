@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 
 public class EntityCreator {
-	private static Date _standardDate = new Date(1293145200000L); //2010/12/24
+	private static final Date _standardDate = new Date(1293145200000L); //2010/12/24
+	private static final Date _standardAccountDate = new Date(100000);
+	private static final Account _standardAccount = new Account(0L, "standard@email.org", EntityCreator._standardAccountDate );
 
 
 	/**
@@ -38,16 +41,44 @@ public class EntityCreator {
 	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
 	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
 	 */
-	public static ProductRevision createProductRevision(Long id, Integer rev) {
+	public static ProductRevision createProductRevision(Long id, int rev) {
 		return createProductRevision(id, rev, "title");
 	}
 
+
 	public static ProductRevision createProductRevision(Long id, Integer rev, String title) {
-		return new ProductRevision(id, rev, title, EntityCreator._standardDate, null, null, null, null, "someImageUrl");
+		return createProductRevision(id, rev, title, EntityCreator._standardDate);
+	}
+
+	/**
+	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
+	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
+	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	 * @param title Title of the {@link ProductRevision}.
+	 * @param createdAt Date this ProductRevision was created.
+	 */
+	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt) {
+		return createProductRevision(id, rev, title, createdAt, EntityCreator._standardAccount);
+	}
+
+	/**
+	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
+	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
+	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	 * @param title Title of the {@link ProductRevision}.
+	 * @param createdAt Date this ProductRevision was created.
+	 * @param creator {@link Account} this {@link ProductRevision} was created by.
+	 */
+	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator) {
+		return new ProductRevision(id, rev, title, createdAt, creator, null, null, null, "someImageUrl");
 	}
 
 	public static Date getDefaultDate() {
 		return EntityCreator._standardDate;
+	}
+
+	public static Date getDefaultAccountDate() {
+		return EntityCreator._standardAccountDate;
 	}
 
 	/**

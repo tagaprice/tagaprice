@@ -3,9 +3,13 @@ package org.tagaprice.core.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
@@ -75,9 +79,8 @@ public class ProductRevision implements Serializable {
 		this._createdAt = createdAt;
 	}
 
-	// @ManyToOne
-	// @JoinColumn(table="entity", name = "creator")
-	@Transient
+	@ManyToOne() // TODO fix this with setup of: optional=false. otherwise this ref won't get saved?
+	@JoinColumn(table="entityrevision", name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}

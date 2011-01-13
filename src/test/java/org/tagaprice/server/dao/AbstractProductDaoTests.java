@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
@@ -67,7 +68,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 	@After
 	public void tearDown() throws Exception {
-		//		_dbInitializer.resetTables();
+		// _dbInitializer.resetTables();
 	}
 
 	@Test
@@ -91,11 +92,13 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	@Rollback(false)
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() {
 		long id = 4;
+		long uid = 2;
 		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2);
 
 		Product saved = _productDao.save(productToSave);
 
-		ProductRevision newRev = new ProductRevision(id, 2, "newRevTitle", new Date(),  null, null, null, null, "newRevImage.url");
+		ProductRevision newRev = new ProductRevision(id, 2, "newRevTitle", new Date(), new Account(uid,
+				"test@email.com", new Date(1000000)), null, null, null, "newRevImage.url");
 		saved.getRevisions().add(newRev);
 
 		Product updated = _productDao.save(saved);
@@ -106,21 +109,29 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 
 	@Test
+	@Rollback(false)
 	public void loadProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+		_log.info("running test");
+
 		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
+		ITable accountTable = _currentDataSet.getTable("account");
+		Account creator = new Account(3L, "user@mail.com", DbUnitDataSetHelper.getDate(accountTable.getValue(0,
+		"last_login")));
 
-		// TODO fix this test after Account is mapped
-		ProductRevision rev1 = new ProductRevision((long) 1, 1, "product1", DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), null, null, null, null, "www.urlToImage.com");
-		ProductRevision rev2 = new ProductRevision((long) 1, 2, "product1",  DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), null, null, null, null, "www.differentUrlToImage.com");
+		ProductRevision rev1 = new ProductRevision(1L, 1, (String) entityRevTable.getValue(0, "title"),
+				DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), creator, null, null, null, "www.urlToImage.com");
+		ProductRevision rev2 = new ProductRevision(1L, 2, (String) entityRevTable.getValue(1, "title"),
+				DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), creator, null, null, null, "www.differentUrlToImage.com");
 
-		//		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		//		revisions.add(rev1);
-		//		revisions.add(rev2);
-		//		Product expected = new Product((long) 1, expectedLocale, DbUnitDataSetHelper.getDate(entityTable.getValue(0, "created_at")), null, revisions);
+		// Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		// revisions.add(rev1);
+		// revisions.add(rev2);
+		// Product expected = new Product((long) 1, expectedLocale, DbUnitDataSetHelper.getDate(entityTable.getValue(0,
+		// "created_at")), null, revisions);
 
-		Product actual = _productDao.getById(new Long(1));
+		Product actual = _productDao.getById(1L);
 
-		//		assertThat(actual, equalTo(expected));
+		// assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItems(rev1, rev2));
 		assertThat(actual.getRevisions().size(), equalTo(2));
 	}
@@ -131,10 +142,10 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 
 		List<Product> products = _productDao.getAll();
 
-		for(int i = 0; i < products.size(); i++) {
+		for (int i = 0; i < products.size(); i++) {
 			long id = DbUnitDataSetHelper.getLong(productTable.getValue(i, "ent_id"));
 
-			//Product expected = new Product(id, expectedLocale, createdAt, null, revisions);
+			// Product expected = new Product(id, expectedLocale, createdAt, null, revisions);
 			Product actual = products.get(i);
 			assertThat(actual.getId(), equalTo(id));
 		}
