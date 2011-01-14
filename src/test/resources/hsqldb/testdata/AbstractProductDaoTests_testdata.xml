@@ -104,7 +104,7 @@
       <value>1</value>
       <null/>
       <null/>
-      <null/>
+      <value>0</value>
       <value>www.urlToImage.com</value>
     </row>
     <row>
@@ -112,7 +112,7 @@
       <value>2</value>
       <null/>
       <null/>
-      <null/>
+      <value>1</value>
       <value>www.differentUrlToImage.com</value>
     </row>
     <row>
@@ -120,7 +120,7 @@
       <value>1</value>
       <null/>
       <null/>
-      <null/>
+      <value>0</value>
       <value>www.image.com</value> 
     </row>
     <row>
@@ -128,7 +128,7 @@
       <value>2</value>
       <null/>
       <null/>
-      <null/>
+      <value>2</value>
       <value>www.image.org</value>
     </row>
   </table>
@@ -138,7 +138,7 @@
     <column>parent_id</column>
     <column>title</column>
     <column>created_at</column>
-    <column>creator_id</column>
+    <column>creator</column>
     <row>
       <value>0</value>
       <null/>

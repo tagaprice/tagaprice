@@ -110,7 +110,8 @@ public class ProductRevision implements Serializable {
 		_amount = amount;
 	}
 
-	@Transient
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
 	public Category getCategory() {
 		return _category;
 	}

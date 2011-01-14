@@ -5,7 +5,7 @@ CREATE TABLE category (
 
     title varchar(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(), --TODO fix NOT NULL,
-    creator_id BIGINT,
+    creator BIGINT NOT NULL,
 
 	PRIMARY KEY (category_id),
 	FOREIGN KEY (parent_id) REFERENCES category (category_id)

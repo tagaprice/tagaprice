@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.tagaprice.core.entities.Account;
+import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
@@ -23,12 +24,13 @@ public class EntityCreator {
 	 * @param id Id of Product to create. Can be null, if not must be greater than 0.
 	 * @param numberRevisions Number of ProductRevisions to be added to Product. Must not be null and must be greater than 0.
 	 * @param localeId Id of Locale for product. Must not be null and must be greater than 0.
+	 * @param category {@link Category} of the new {@link ProductRevision}s. Can be null.
 	 */
-	public static Product createProductWithRevisions(Long id, Integer numberRevisions, Integer localeId) {
+	public static Product createProductWithRevisions(Long id, Integer numberRevisions, Integer localeId, Category category) {
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 
 		for(int rev = 1; rev<=numberRevisions;rev++)
-			revisions.add(createProductRevision(id, rev));
+			revisions.add(createProductRevision(id, rev, category));
 
 		return createProductWithRevisions(id, revisions, localeId);
 	}
@@ -43,6 +45,19 @@ public class EntityCreator {
 	 */
 	public static ProductRevision createProductRevision(Long id, int rev) {
 		return createProductRevision(id, rev, "title");
+	}
+
+	/**
+	 * <ul>
+	 * <li>Creates a ProductRevision with given id, revision and category.</li>
+	 * <li>All created objects will be initialized with reasonable default values.</li>
+	 * </ul>
+	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
+	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	 * @param category {@link Category} of the new {@link ProductRevision}.
+	 */
+	public static ProductRevision createProductRevision(Long id, int rev, Category category) {
+		return createProductRevision(id, rev, "title", EntityCreator._standardDate, category);
 	}
 
 
@@ -67,10 +82,35 @@ public class EntityCreator {
 	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
 	 * @param title Title of the {@link ProductRevision}.
 	 * @param createdAt Date this ProductRevision was created.
+	 * @param category {@link Category} of the new {@link ProductRevision}
+	 */
+	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Category category) {
+		return createProductRevision(id, rev, title, createdAt, EntityCreator._standardAccount, category);
+	}
+
+	/**
+	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
+	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
+	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	 * @param title Title of the {@link ProductRevision}.
+	 * @param createdAt Date this ProductRevision was created.
 	 * @param creator {@link Account} this {@link ProductRevision} was created by.
 	 */
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator) {
 		return new ProductRevision(id, rev, title, createdAt, creator, null, null, null, "someImageUrl");
+	}
+
+	/**
+	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
+	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
+	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	 * @param title Title of the {@link ProductRevision}.
+	 * @param createdAt Date this ProductRevision was created.
+	 * @param creator {@link Account} this {@link ProductRevision} was created by.
+	 * @param category {@link Category} of the new {@link ProductRevision}.
+	 */
+	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Category category) {
+		return new ProductRevision(id, rev, title, createdAt, creator, null, null, category, "someImageUrl");
 	}
 
 	public static Date getDefaultDate() {
@@ -79,6 +119,10 @@ public class EntityCreator {
 
 	public static Date getDefaultAccountDate() {
 		return EntityCreator._standardAccountDate;
+	}
+
+	public static Account getDefaultAccount() {
+		return EntityCreator._standardAccount;
 	}
 
 	/**
@@ -102,7 +146,7 @@ public class EntityCreator {
 	 * @param numberRevisions Number of ProductRevisions to be added to Product. Must not be null and must be greater than 0.
 	 */
 	public static Product createProductWithRevisions(Long id, Integer numberRevisions) {
-		return createProductWithRevisions(id, numberRevisions, 1);
+		return createProductWithRevisions(id, numberRevisions, 1, null);
 	}
 
 	/**
