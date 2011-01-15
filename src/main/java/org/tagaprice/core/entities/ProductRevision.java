@@ -15,13 +15,44 @@ import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
+/**
+ * <p>
+ * This class represents a specific revision of a product. For every new revision of a product, such a
+ * {@link ProductRevision} is added to the set of ProductRevisions of the {@link Product}.
+ * </p>
+ * 
+ * <p>
+ * A {@link ProductRevision} has the following properties:
+ * <ul>
+ * <li>Id: primary identifier in the database of the associated {@link Product} and part of the identifier in the
+ * database for this {@link ProductRevision}</li>
+ * <li>revisionNumber: revision number and part of the identifier in the database</li>
+ * <li>title: name of the product</li>
+ * <li>createdAt: Date this revision was created</li>
+ * <li>creator: {@link Account} who created this revision</li>
+ * <li>unit: {@link Unit} in which this product is measured</li>
+ * <li>amount: amount in which this product is sold</li>
+ * <li>category: a {@link Category} this product is associated with</li>
+ * <li>imageURL: the location of a picture of this product, as it is (normally) sold</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * TODO This class may should be immutable.
+ * </p>
+ * 
+ * @author haja
+ * @author forste
+ * 
+ */
 @Entity
 @Table(name = "productrevision")
 @SecondaryTables({ @SecondaryTable(name = "entityrevision") })
 @SuppressWarnings("unused")
 public class ProductRevision implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	private Long _id = null;
 	private Integer _revisionNumber = null;
 	private String _title;
@@ -32,9 +63,38 @@ public class ProductRevision implements Serializable {
 	private Category _category;
 	private String _imageURL;
 
-	protected ProductRevision() { }
+	/**
+	 * this constructor is need for hibernate.
+	 */
+	protected ProductRevision() {
+	}
 
-	public ProductRevision(Long id, Integer revisionNumber, String title, Date createdAt, Account creator, Unit unit, Double amount, Category category, String imageURL) {
+	/**
+	 * Initialize a new {@link ProductRevision}.
+	 * 
+	 * @param id
+	 *            Id of the associated product. Can be null if the associated {@link Product}s id is null. TODO check
+	 *            this condition, maybe this can always be null?
+	 * @param revisionNumber
+	 *            Revision number of this product. To create a new revision of a product, this must be set to (&lt;value
+	 *            of old revision of product&gt; + 1). If this product is new, this must be set to 1.
+	 * @param title
+	 *            Name of the product.
+	 * @param createdAt
+	 *            Date this revision was created.
+	 * @param creator
+	 *            {@link Account} who created this revision.
+	 * @param unit
+	 *            {@link Unit} in which this product is measured.
+	 * @param amount
+	 *            Amount in which this product is sold.
+	 * @param category
+	 *            {@link Category} this product is associated with. May be null if no category is assigned.
+	 * @param imageURL
+	 *            The location of a picture of this product, as it is (normally) sold. TODO can this be null?
+	 */
+	public ProductRevision(Long id, Integer revisionNumber, String title, Date createdAt, Account creator, Unit unit,
+			Double amount, Category category, String imageURL) {
 		_id = id;
 		_title = title;
 		_createdAt = createdAt;
@@ -49,47 +109,62 @@ public class ProductRevision implements Serializable {
 	public Long getId() {
 		return _id;
 	}
-	public void setId(Long id) { //TODO this is public due to service having to set the id if not present, should not be public probably
+
+	/**
+	 * TODO this is public due to service having to set the id if not present, should not be public probably
+	 * This violates immutability of this class.
+	 */
+	public void setId(Long id) {
 		this._id = id;
 	}
+
 
 	@Id
 	@Column(name = "rev")
 	public Integer getRevisionNumber() {
 		return _revisionNumber;
 	}
+
 	private void setRevisionNumber(Integer revisionNumber) {
 		this._revisionNumber = revisionNumber;
 	}
+
 
 	@Column(table = "entityrevision", name = "title")
 	public String getTitle() {
 		return _title;
 	}
+
 	private void setTitle(String title) {
 		this._title = title;
 	}
+
 
 	@Column(table = "entityrevision", name = "created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
+
 	private void setCreatedAt(Date createdAt) {
 		this._createdAt = createdAt;
 	}
 
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(table="entityrevision", name = "creator")
+	@JoinColumn(table = "entityrevision", name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}
+
 	private void setCreator(Account creator) {
 		this._creator = creator;
 	}
 
+
 	//
 	// product specific
 	//
+
 
 	// @ManyToOne
 	// @JoinColumn(name = "type_id")
@@ -97,34 +172,50 @@ public class ProductRevision implements Serializable {
 	public Unit getUnit() {
 		return _unit;
 	}
+
+	/**
+	 * TODO this is public due to service having to set the id if not present, should not be public probably
+	 * This violates immutability of this class.
+	 */
 	public void setUnit(Unit unit) {
 		_unit = unit;
 	}
+
 
 	@Transient
 	public Double getAmount() {
 		return _amount;
 	}
+
+	/**
+	 * TODO this is public due to service having to set the id if not present, should not be public probably
+	 * This violates immutability of this class.
+	 */
 	public void setAmount(double amount) {
 		_amount = amount;
 	}
+
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	public Category getCategory() {
 		return _category;
 	}
+
 	private void setCategory(Category category) {
 		_category = category;
 	}
+
 
 	@Column(name = "imageurl")
 	public String getImageURL() {
 		return _imageURL;
 	}
+
 	private void setImageURL(String imageURL) {
 		_imageURL = imageURL;
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,8 +297,10 @@ public class ProductRevision implements Serializable {
 		return true;
 	}
 
+
 	/**
-	 * Compares this with given obj. Only fields valuable to business logic, e.g. identifiers are not valuable to business logic, are compared.
+	 * Compares this with given obj. Only fields valuable to business logic, e.g. identifiers are not valuable to
+	 * business logic, are compared.
 	 * Returns false if any of the compared fields mismatch or true otherwise.
 	 */
 	public boolean businessEquals(Object obj) {

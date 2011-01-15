@@ -59,8 +59,8 @@ public class Product implements Serializable {
 	 * Initialize a new {@link Product}.
 	 * 
 	 * @param id
-	 *            Id of Product to create. Can be null, then this product and all its revisions are treated as new
-	 *            concerning the database and a fresh id will be created and assigned. If id is not null it not must be
+	 *            Id of Product to create. Can be null, in which case this product and all its revisions are treated as
+	 *            new concerning the database and a fresh id will be created and assigned. If id is not null it must be
 	 *            greater than 0.
 	 * @param locale
 	 *            indicates the language and location of this product.
