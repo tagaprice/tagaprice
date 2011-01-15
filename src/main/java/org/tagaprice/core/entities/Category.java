@@ -1,14 +1,45 @@
 package org.tagaprice.core.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
-
+/**
+ * <p>
+ * This class represents a category, used to categorize for example {@link Product}s. But this class is not limited to
+ * {@link Product}s only, in fact it can be used to categorize any entity.
+ * </p>
+ * 
+ * <p>
+ * Every {@link Category} object has a parent, which may be null. A {@link Category} is a node in a simple tree where
+ * the root-node has null as its parent.
+ * </p>
+ * 
+ * <p>
+ * A {@link Category} has the following properties:
+ * <ul>
+ * <li>Id: primary identifier in the database</li>
+ * <li>parent: parent category</li>
+ * <li>title: short text to represent this category</li>
+ * <li>createdAt: date this category was created</li>
+ * <li>creator: {@link Account} who created this category</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * This class is immutable. Properties once set, cannot be changed.
+ * </p>
+ * 
+ * @author haja
+ * 
+ */
 @Entity
-@Table(name="category")
+@Table(name = "category")
 @SuppressWarnings("unused")
-public class Category {
+public class Category implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Long _id;
 	private Category _parent;
@@ -16,8 +47,27 @@ public class Category {
 	private Date _createdAt;
 	private Account _creator;
 
-	protected Category() { }
+	/**
+	 * this constructor is need for hibernate.
+	 */
+	protected Category() {
+	}
 
+	/**
+	 * Initialize a new {@link Category}.
+	 * 
+	 * @param id
+	 *            Id of the category to create. Can be null, then this category is treated as new concerning the
+	 *            database and a fresh id will be created and assigned. If id is not null it not must be greater than 0.
+	 * @param title
+	 *            Short text to represent this category.
+	 * @param parent
+	 *            Parent category node. may be null to create a root node.
+	 * @param createdAt
+	 *            {@link Date} this category was created.
+	 * @param creator
+	 *            {@link Account} who created this category.
+	 */
 	public Category(Long id, String title, Category parent, Date createdAt, Account creator) {
 		_id = id;
 		_title = title;
@@ -27,46 +77,56 @@ public class Category {
 	}
 
 	@Id
-	@Column(name="category_id")
+	@Column(name = "category_id")
 	public Long getId() {
 		return _id;
 	}
+
 	private void setId(Long id) {
 		_id = id;
 	}
 
+
 	public String getTitle() {
 		return _title;
 	}
+
 	private void setTitle(String title) {
 		_title = title;
 	}
+
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_id")
 	public Category getParent() {
 		return _parent;
 	}
+
 	private void setParent(Category parent) {
 		_parent = parent;
 	}
 
-	@Column(name="created_at")
+
+	@Column(name = "created_at")
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
+
 	private void setCreatedAt(Date createdAt) {
 		_createdAt = createdAt;
 	}
+
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}
+
 	private void setCreator(Account creator) {
 		_creator = creator;
 	}
+
 
 	@Override
 	public int hashCode() {
