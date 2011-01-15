@@ -58,7 +58,7 @@ public class Category implements Serializable {
 	 * 
 	 * @param id
 	 *            Id of the category to create. Can be null, then this category is treated as new concerning the
-	 *            database and a fresh id will be created and assigned. If id is not null it not must be greater than 0.
+	 *            database and a fresh id will be created and assigned. If id is not null it must be greater than 0.
 	 * @param title
 	 *            Short text to represent this category.
 	 * @param parent
