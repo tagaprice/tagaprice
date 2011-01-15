@@ -13,25 +13,60 @@ import javax.persistence.*;
 
 import org.hamcrest.Matcher;
 
+/**
+ * <p>
+ * This class represents a product. Most of the properties of a product are represented by a set of
+ * {@link ProductRevision}s. Every such {@link ProductRevision} represents a version of this product.
+ * </p>
+ * 
+ * <p>
+ * A {@link Product} has the following properties:
+ * <ul>
+ * <li>Id: primary identifier in the database</li>
+ * <li>locale: {@link Locale} which indicates language and location of this product</li>
+ * <li>revisions: a set of {@link ProductRevision}s, each representing one version of this product</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * TODO This class may should be immutable.
+ * </p>
+ * 
+ * @author haja
+ * @author forste
+ * 
+ */
 @Entity
 @Table(name = "product")
 @SecondaryTables({ @SecondaryTable(name = "entity") })
 @SuppressWarnings("unused")
 public class Product implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	private Long _id = null;
 	private Set<ProductRevision> _revisions = new HashSet<ProductRevision>();
 	private Locale _locale;
 	private static final Comparator<? super ProductRevision> _revisionComparator = new RevisionComparator();
 
+	/**
+	 * this constructor is need for hibernate.
+	 */
 	protected Product() {
 	}
 
 	/**
+	 * Initialize a new {@link Product}.
 	 * 
-	 * @param id Id of Product to create. Can be null, then this product and all its revisions are treated as new concerning the database and a fresh id will be created and assigned. If id is not null it not must be greater than 0.
-	 * @param locale indicates the language and location of this product.
-	 * @param revisions A non-empty set of ProductRevisions. The Set must also have consecutive revisions numbers without gaps. E.g. the set with revisions: 2,3,4 is valid whereas the set with revisions: 2,4,5 is invalid.
+	 * @param id
+	 *            Id of Product to create. Can be null, then this product and all its revisions are treated as new
+	 *            concerning the database and a fresh id will be created and assigned. If id is not null it not must be
+	 *            greater than 0.
+	 * @param locale
+	 *            indicates the language and location of this product.
+	 * @param revisions
+	 *            A non-empty set of ProductRevisions. The Set must also have consecutive revisions numbers without
+	 *            gaps. E.g. the set with revisions: 2,3,4 is valid whereas the set with revisions: 2,4,5 is invalid.
 	 */
 	public Product(Long id, Locale locale, Set<ProductRevision> revisions) {
 		_id = id;
@@ -44,30 +79,44 @@ public class Product implements Serializable {
 	public Long getId() {
 		return _id;
 	}
-	public void setId(Long id) { //TODO this is public due to service having to set the id if not present, should not be public probably
+
+	/**
+	 * TODO this is public due to service having to set the id if not present, should not be public probably
+	 * This violates immutability of this class.
+	 */
+	public void setId(Long id) {
 		this._id = id;
-		for(ProductRevision rev : _revisions) {
+		for (ProductRevision rev : _revisions) {
 			rev.setId(id);
 		}
 	}
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(table = "entity", name = "locale_id", referencedColumnName = "locale_id")
 	public Locale getLocale() {
 		return _locale;
 	}
+
 	private void setLocale(Locale locale) {
 		this._locale = locale;
 	}
 
+
+	/**
+	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
+	 * Allthoug, this might be desireable...
+	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ent_id")
 	public Set<ProductRevision> getRevisions() {
 		return _revisions;
 	}
+
 	private void setRevisions(Set<ProductRevision> revisions) {
 		_revisions = revisions;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -98,6 +147,7 @@ public class Product implements Serializable {
 	public String toString() {
 		return "Product [_id=" + _id + "]";
 	}
+
 
 	/**
 	 * Returns the current, i.e. highest, revision of this product.
