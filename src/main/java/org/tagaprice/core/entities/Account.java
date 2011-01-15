@@ -10,19 +10,56 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
+/**
+ * <p>
+ * This class represents an user-account of some type. For instance this type can be local (saved in our database) or
+ * OAuth or similar. Different user-account types should subclass this class.
+ * </p>
+ * 
+ * <p>
+ * An {@link Account} has the following properties:
+ * <ul>
+ * <li>Uid: primary identifier in the database</li>
+ * <li>email: email-address of the user who owns this account. This must be unique since it represents this user</li>
+ * <li>lastLogin: date of the last login of this user</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * This class is immutable. Properties once set, cannot be changed.
+ * </p>
+ * 
+ * TODO this class may should be abstract.
+ * 
+ * @author haja
+ * 
+ */
 @Entity
-@Table(name="account")
+@Table(name = "account")
 @SuppressWarnings("unused")
 public class Account {
+
 	private Long _uid = null;
 	private String _email;
 	private Date _lastLogin;
 
+	/**
+	 * this constructor is need for hibernate.
+	 */
+	protected Account() {
+	}
 
-	protected Account() { }
-
-
+	/**
+	 * Initialize a new {@link Account}.
+	 * 
+	 * @param uid
+	 *            Uid of this account. Can be null, in which case this account is treated as new concerning the database
+	 *            and a fresh id will be created and assigend. If uid is not null it must not be greater than 0.
+	 * @param email
+	 *            email-address of the user who owns this account. This must be unique since it represents this user
+	 * @param lastLogin
+	 *            date of the last login of this user
+	 */
 	public Account(Long uid, String email, Date lastLogin) {
 		_uid = uid;
 		_email = email;
@@ -33,22 +70,27 @@ public class Account {
 	public Long getUid() {
 		return _uid;
 	}
+
 	private void setUid(Long uid) {
 		_uid = uid;
 	}
 
-	@Column(name="mail")
+
+	@Column(name = "mail")
 	public String getEmail() {
 		return _email;
 	}
+
 	private void setEmail(String email) {
 		_email = email;
 	}
 
-	@Column(name="last_login")
+
+	@Column(name = "last_login")
 	public Date getLastLogin() {
 		return _lastLogin;
 	}
+
 	private void setLastLogin(Date lastLogin) {
 		_lastLogin = lastLogin;
 	}
