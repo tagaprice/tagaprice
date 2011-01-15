@@ -53,6 +53,8 @@ public class DefaultProductService implements IProductService {
 			}
 		}
 
+		// TODO this doesn't load the current product. it just saves and returns it. fix here or in dao?
+		// TODO check if product has at least one ProductRevision. check here or in dao and throw?
 		product = _productDao.save(product);
 		return product;
 	}
