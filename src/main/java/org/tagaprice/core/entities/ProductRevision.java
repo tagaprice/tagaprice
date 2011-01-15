@@ -32,8 +32,7 @@ public class ProductRevision implements Serializable {
 	private Category _category;
 	private String _imageURL;
 
-	public ProductRevision() {
-	}
+	protected ProductRevision() { }
 
 	public ProductRevision(Long id, Integer revisionNumber, String title, Date createdAt, Account creator, Unit unit, Double amount, Category category, String imageURL) {
 		_id = id;

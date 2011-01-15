@@ -20,7 +20,7 @@ public class Account {
 	private Date _lastLogin;
 
 
-	public Account() { }
+	protected Account() { }
 
 
 	public Account(Long uid, String email, Date lastLogin) {
