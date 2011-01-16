@@ -22,4 +22,8 @@ public class SessionService {
 		_accountsLoggedIn.put(account, session);
 		return session;
 	}
+
+	public Account getAccount(Session session) {
+		return null;
+	}
 }
