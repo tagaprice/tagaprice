@@ -2,7 +2,7 @@
 <dataset>
     <table name="account">
     <column>uid</column>
-    <column>mail</column>
+    <column>email</column>
     <column>last_login</column>
     <column>password</column>
     <row>

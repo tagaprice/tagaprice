@@ -1,6 +1,8 @@
 package org.tagaprice.server.dao.interfaces;
 
 import org.dbunit.dataset.IDataSet;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -10,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
+import org.tagaprice.core.entities.Account;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 
 @ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractAccountDaoTest-context.xml" })
@@ -47,6 +51,18 @@ public class AbstractAccountDaoTest extends AbstractTransactionalJUnit4SpringCon
 		String password = "12345";
 
 		_accountDao.getByEmailAndPassword(email, password);
+	}
+
+	@Test
+	public void getByEmailAndPassword_shouldReturnAccount() throws WrongEmailOrPasswordException {
+		String email = "user1@mail.com";
+		String password = "12345";
+
+		Account actual = _accountDao.getByEmailAndPassword(email, password);
+
+		Account expected = HibernateSaveEntityCreator.createAccount(1L, email, password);
+
+		assertThat(actual, is(expected));
 	}
 
 

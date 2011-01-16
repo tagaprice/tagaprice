@@ -78,7 +78,7 @@ public class Account {
 	}
 
 
-	@Column(name = "mail")
+	@Column(name = "email")
 	public String getEmail() {
 		return _email;
 	}

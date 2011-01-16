@@ -23,7 +23,7 @@ import org.tagaprice.core.entities.Unit;
  *
  */
 public class HibernateSaveEntityCreator {
-	private static final Date _standardDate = new Date(1295892000216L); //2010/12/24, 19:00:00000
+	private static final Date _standardDate = new Date(1293213600000L); //2010/12/24, 19:00:00000, DO NOT CHANGE THIS (testdata is set to this date also)
 
 	/*
 	 * 
