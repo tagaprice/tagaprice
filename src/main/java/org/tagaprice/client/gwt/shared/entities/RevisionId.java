@@ -101,4 +101,9 @@ public class RevisionId implements IRevisionId {
 		return this._id + "_" + this._rev;
 	}
 
+	@Override
+	public IRevisionId copy() {
+		return new RevisionId(this._id, this._rev);
+	}
+
 }

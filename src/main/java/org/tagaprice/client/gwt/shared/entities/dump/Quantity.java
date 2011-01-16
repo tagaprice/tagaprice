@@ -11,6 +11,11 @@ public class Quantity implements IQuantity {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Quantity(double quantity, Unit unit) {
+		this._quantity = quantity;
+		this._unit = unit;
+	}
+
 	@Override
 	public void setQuantity(double quantity) {
 
@@ -36,6 +41,11 @@ public class Quantity implements IQuantity {
 	public Unit getUnit() {
 
 		return this._unit;
+	}
+
+	@Override
+	public IQuantity copy() {
+		return new Quantity(this._quantity, this._unit);
 	}
 
 }

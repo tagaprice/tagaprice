@@ -9,7 +9,7 @@ package org.tagaprice.client.gwt.shared.entities;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class AEntity implements IEntity {
+public abstract class AEntity<T> implements IEntity<T> {
 
 
 	private static final long serialVersionUID = 1L;
@@ -69,7 +69,8 @@ public abstract class AEntity implements IEntity {
 	 * Set the RevisionId of the {@link AEntity}.
 	 * @param revisionID set the RevisionID.
 	 */
-	private void setRevisionId(IRevisionId revisionID){
+	@Override
+	public void setRevisionId(IRevisionId revisionID){
 		_revId=revisionID;
 	}
 

@@ -9,7 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
  * Defines all methods needed to buy a {@link Product}
  * 
  */
-public interface IProduct extends IEntity {
+public interface IProduct extends IEntity<IProduct> {
 
 
 	/**
@@ -48,5 +48,6 @@ public interface IProduct extends IEntity {
 	 * @return the {@link IQuantity} with which this {@link IProduct} must be bought.
 	 */
 	public IQuantity getQuantity();
+
 
 }

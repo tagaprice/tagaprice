@@ -45,4 +45,6 @@ public interface IQuantity extends Serializable {
 	 * bought
 	 */
 	public Unit getUnit();
+
+	public IQuantity copy();
 }

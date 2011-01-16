@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.shared.entities;
 
 import java.io.Serializable;
 
-public interface IEntity extends Serializable  {
+public interface IEntity<T> extends Serializable  {
 
 
 	/**
@@ -10,6 +10,8 @@ public interface IEntity extends Serializable  {
 	 * @return Returns the RevisionId of the {@link AEntity or null, if IRevisionId is not set.
 	 */
 	public IRevisionId getRevisionId() ;
+
+	public void setRevisionId(IRevisionId revisionId);
 
 	/**
 	 * Returns the Title of the {@link AEntity}, if Title is NULL you get NULL back
@@ -22,4 +24,11 @@ public interface IEntity extends Serializable  {
 	 * @param title Sets the entity title
 	 */
 	public void setTitle(String title);
+
+	/**
+	 * Copies an entity
+	 * @return a copy of the object OR null if copy is not supported.
+	 */
+	public T copy();
+
 }

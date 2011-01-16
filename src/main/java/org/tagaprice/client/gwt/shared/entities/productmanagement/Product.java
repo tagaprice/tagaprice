@@ -9,12 +9,20 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
  * as model. (Read MVP pattern on <a href="http://code.google.com/webtoolkit/articles/mvp-architecture.html#model" />)
  * 
  */
-public class Product extends AEntity implements IProduct {
+public class Product extends AEntity<IProduct> implements IProduct {
 
 
 	private static final long serialVersionUID = 4858431133448109402L;
 	private ICategory _category;
 	private IQuantity _quantity;
+
+	public Product() {}
+
+	public Product(String title, ICategory category, IQuantity quantity) {
+		super(title);
+		this._category = category;
+		this._quantity = quantity;
+	}
 
 	@Override
 	public void setCategory(ICategory category) {
@@ -36,6 +44,11 @@ public class Product extends AEntity implements IProduct {
 	@Override
 	public IQuantity getQuantity() {
 		return _quantity;
+	}
+
+	@Override
+	public IProduct copy() {
+		return new Product(this.getTitle(), this._category.copy(), this._quantity.copy());
 	}
 
 }

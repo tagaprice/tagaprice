@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.IEntity;
 
-public interface ICategory extends IEntity {
+public interface ICategory extends IEntity<ICategory> {
 
 	/**
 	 * Returns the parent category.

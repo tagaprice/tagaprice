@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.*;
 
 
-public class Category extends AEntity implements ICategory  {
+public class Category extends AEntity<ICategory> implements ICategory  {
 
 	/**
 	 * 
@@ -50,6 +50,11 @@ public class Category extends AEntity implements ICategory  {
 	@Override
 	public void setParentCategory(ICategory category) {
 		this.parentCategory = category;
+	}
+
+	@Override
+	public ICategory copy() {
+		return null;
 	}
 
 

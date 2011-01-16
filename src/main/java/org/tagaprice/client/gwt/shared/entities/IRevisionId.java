@@ -72,6 +72,8 @@ public interface IRevisionId extends Serializable {
 	 */
 	public Date getDate();
 
+	public IRevisionId copy();
+
 
 
 }
