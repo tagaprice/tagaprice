@@ -8,13 +8,13 @@
     <row>
       <value>1</value>
       <value>user1@mail.com</value>
-      <value><![CDATA[2010-12-24 19:00:00]]></value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>12345</value>
     </row>
     <row>
       <value>2</value>
       <value>user2@mail.com</value>
-      <value><![CDATA[2010-12-24 18:00:00]]></value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>54321</value>
     </row>
   </table>

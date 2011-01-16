@@ -10,22 +10,30 @@ import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Session;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 
+/**
+ * This class is used for testing purposes only.
+ * 
+ * Entities can freshly created, i.e. new objects will be created with each call, by calling the various create methods.
+ * This class is not hibernate session save, so two calls may create the same object with the same identifier, which leads - running it in a hibernate session - to a hibernate exceptions.
+ * Use HibernateSaveEntityCreator instead to have hibernate save objects.
+ * @author "forste"
+ *
+ */
 public class EntityCreator {
-	private static final Date _standardDate = new Date(1293145200000L); //2010/12/24
-	private static final Date _standardAccountDate = new Date(100000);
-
-
-	/**
-	 * <ul>
-	 * <li>Creates a Product with given id, an associated locale with given id and as many revisions (starting with revision id) as given numberRevisions indicates.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @param id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param numberRevisions Number of ProductRevisions to be added to Product. Must not be null and must be greater than 0.
-	 * @param localeId Id of Locale for product. Must not be null and must be greater than 0.
-	 * @param category {@link Category} of the new {@link ProductRevision}s. Can be null.
+	private static final Date _standardDate = HibernateSaveEntityCreator.getDefaultDate();
+	/*
+	 * 
+	 * 
+	 * Product with revisions
+	 * 
+	 * 
 	 */
+	public static Product createProductWithRevisions(Long id, Integer numberRevisions) {
+		return createProductWithRevisions(id, numberRevisions, 1, null);
+	}
+
 	public static Product createProductWithRevisions(Long id, Integer numberRevisions, Integer localeId, Category category) {
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 
@@ -35,27 +43,36 @@ public class EntityCreator {
 		return createProductWithRevisions(id, revisions, localeId);
 	}
 
-	/**
-	 * <ul>
-	 * <li>Creates a ProductRevision with given id and revision.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
+	public static Product createProductWithRevisions(Long id, ProductRevision productRevision) {
+		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
+		revisions.add(productRevision);
+		return createProductWithRevisions(id, revisions, 1);
+	}
+
+	public static Product createProductWithRevisions(Long id, Set<ProductRevision> revisions, Integer localeId) {
+		return HibernateSaveEntityCreator.createProduct(id, EntityCreator.createLocale(localeId), revisions);
+	}
+
+	public static Product createProductWithRevisions(Long id, Set<ProductRevision> revisions) {
+		return createProductWithRevisions(id, revisions, 1);
+	}
+
+	/*
+	 * 
+	 * 
+	 * 
+	 * ProductRevision
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
+
 	public static ProductRevision createProductRevision(Long id, int rev) {
 		return createProductRevision(id, rev, "title");
 	}
 
-	/**
-	 * <ul>
-	 * <li>Creates a ProductRevision with given id, revision and category.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
-	 * @param category {@link Category} of the new {@link ProductRevision}.
-	 */
 	public static ProductRevision createProductRevision(Long id, int rev, Category category) {
 		return createProductRevision(id, rev, "title", EntityCreator._standardDate, category);
 	}
@@ -65,129 +82,66 @@ public class EntityCreator {
 		return createProductRevision(id, rev, title, EntityCreator._standardDate);
 	}
 
-	/**
-	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
-	 * @param title Title of the {@link ProductRevision}.
-	 * @param createdAt Date this ProductRevision was created.
-	 */
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt) {
 		return createProductRevision(id, rev, title, createdAt, EntityCreator.createAccount());
 	}
 
-	/**
-	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
-	 * @param title Title of the {@link ProductRevision}.
-	 * @param createdAt Date this ProductRevision was created.
-	 * @param category {@link Category} of the new {@link ProductRevision}
-	 */
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Category category) {
 		return createProductRevision(id, rev, title, createdAt, EntityCreator.createAccount(), category);
 	}
 
-	/**
-	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
-	 * @param title Title of the {@link ProductRevision}.
-	 * @param createdAt Date this ProductRevision was created.
-	 * @param creator {@link Account} this {@link ProductRevision} was created by.
-	 */
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator) {
-		return new ProductRevision(id, rev, title, createdAt, creator, null, null, null, "someImageUrl");
+		return createProductRevision(id, rev, title, createdAt, creator, null);
 	}
 
-	/**
-	 * Creates a ProductRevision with given id, revision and date and reasonable default values.
-	 * @param id id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param rev RevisionNumber of this revision. Must not be null and must be greater than 0.
-	 * @param title Title of the {@link ProductRevision}.
-	 * @param createdAt Date this ProductRevision was created.
-	 * @param creator {@link Account} this {@link ProductRevision} was created by.
-	 * @param category {@link Category} of the new {@link ProductRevision}.
-	 */
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Category category) {
-		return new ProductRevision(id, rev, title, createdAt, creator, null, null, category, "someImageUrl");
+		return HibernateSaveEntityCreator.createProductRevision(id, rev, title, createdAt, creator, null, category);
 	}
 
+	/*
+	 * 
+	 * Date
+	 * 
+	 * 
+	 */
 	public static Date getDefaultDate() {
 		return EntityCreator._standardDate;
 	}
 
-	public static Date getDefaultAccountDate() {
-		return EntityCreator._standardAccountDate;
-	}
+	/*
+	 * 
+	 * 
+	 * Account
+	 * 
+	 * 
+	 */
 
 	public static Account createAccount() {
 		return createAccount("user@mail.com");
 	}
 
-	/**
-	 * Creates a Locale with given id and reasonable default values.
-	 * <ul>
-	 * <li>Creates a Locale with given id.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @return
+	public static Account createAccount(String email) {
+		return HibernateSaveEntityCreator.createAccount(1L, email, "12345");
+	}
+
+	/*
+	 * 
+	 * Locale
+	 * 
+	 * 
 	 */
 	public static Locale createLocale(Integer id) {
-		return new Locale(id, "german", "deutsch");
+		return HibernateSaveEntityCreator.createLocale(id);
 	}
 
-	/**
-	 * <ul>
-	 * <li>Creates a Product with given id, an associated locale with a default id and as many revisions (starting with revision id) as given numberRevisions indicates.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @param id Id of Product to create. Can be null, if not must be greater than 0.
-	 * @param numberRevisions Number of ProductRevisions to be added to Product. Must not be null and must be greater than 0.
+	/*
+	 * 
+	 * 
+	 * Sessions
+	 * 
+	 * 
 	 */
-	public static Product createProductWithRevisions(Long id, Integer numberRevisions) {
-		return createProductWithRevisions(id, numberRevisions, 1, null);
-	}
-
-	/**
-	 * <ul>
-	 * <li>Creates a Product with given id, an associated locale with a default id and a given productRevision.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 */
-	public static Product createProductWithRevisions(Long id, ProductRevision productRevision) {
-		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(productRevision);
-		return createProductWithRevisions(id, revisions, 1);
-	}
-
-	/**
-	 * <ul>
-	 * <li>Creates a Product with given id, an associated locale with given id and given revisions.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 */
-	public static Product createProductWithRevisions(Long id, Set<ProductRevision> revisions, Integer localeId) {
-		Product productToSave = new Product(id, EntityCreator.createLocale(localeId), revisions);
-		return productToSave;
-	}
-
-	/**
-	 * <ul>
-	 * <li>Creates a Product with given id, an associated locale with a default id and given revisions.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 */
-	public static Product createProductWithRevisions(Long id, Set<ProductRevision> revisions) {
-		Product productToSave = new Product(id, EntityCreator.createLocale(1), revisions);
-		return productToSave;
-	}
-
-	public static Account createAccount(String email) {
-		return new Account(1L, email, "12345", EntityCreator._standardDate);
-	}
-
 	public static Session createSession() {
-		return new Session("sessionId".getBytes());
+		return HibernateSaveEntityCreator.createSession();
 	}
 }

@@ -17,6 +17,7 @@ public class AbstractAccountDaoTest extends AbstractTransactionalJUnit4SpringCon
 	protected IAccountDAO _accountDao;
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
+	@SuppressWarnings("unused")
 	private IDataSet _currentDataSet;
 
 	@BeforeClass

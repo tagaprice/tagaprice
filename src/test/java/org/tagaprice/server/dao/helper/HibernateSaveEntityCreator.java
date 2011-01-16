@@ -12,10 +12,18 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Unit;
 
+/**
+ * This class is used for testing purposes only.
+ * 
+ * Entities can freshly created, i.e. new objects will be created with each call, by calling the various create methods.
+ * This class is hibernate session save by only providing methods where you have to specify the identifier yourself.
+ * So if you create two objects with the same identifier it's your own mistake.
+ * 
+ * @author "forste"
+ *
+ */
 public class HibernateSaveEntityCreator {
-	private static final Date _standardDate = new Date(1293145200000L); //2010/12/24
-	private static Account _cachedAccount;
-
+	private static final Date _standardDate = new Date(1295892000216L); //2010/12/24, 19:00:00000
 
 	/*
 	 * 
@@ -66,14 +74,6 @@ public class HibernateSaveEntityCreator {
 		return HibernateSaveEntityCreator._standardDate;
 	}
 
-	/**
-	 * Creates a Locale with given id and reasonable default values.
-	 * <ul>
-	 * <li>Creates a Locale with given id.</li>
-	 * <li>All created objects will be initialized with reasonable default values.</li>
-	 * </ul>
-	 * @return
-	 */
 	public static Locale createLocale(Integer id) {
 		return new Locale(id, "german", "deutsch");
 	}
