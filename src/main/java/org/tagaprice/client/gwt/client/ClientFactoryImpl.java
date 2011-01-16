@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.client;
 
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.CreateProductViewImpl;
@@ -30,6 +32,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
 
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
+
+	private static final ILoginView loginView = new LoginViewImpl();
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -62,7 +66,12 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public ICreateProductView getCreateProductView() {
-		return new CreateProductViewImpl();
+		return ClientFactoryImpl.editProductView;
+	}
+
+	@Override
+	public ILoginView getLoginView() {
+		return ClientFactoryImpl.loginView;
 	}
 
 }

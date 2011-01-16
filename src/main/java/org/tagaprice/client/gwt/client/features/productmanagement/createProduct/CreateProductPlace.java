@@ -37,7 +37,8 @@ public class CreateProductPlace extends Place {
 		public CreateProductPlace getPlace(String token) {
 			CreateProductPlace.logger.log("Tokenizer token " + token);
 
-			TokenCreator.Exploder e = new TokenCreator().getExploder(token);
+
+			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 
 
 			if(e.getRoot()!=null){
@@ -60,12 +61,14 @@ public class CreateProductPlace extends Place {
 		public String getToken(CreateProductPlace place) {
 			if(place.getRevisionId().getId()==null){
 				CreateProductPlace.logger.log("Tokenizer create product");
-				TokenCreator.Imploder t = new TokenCreator().getImploder();
+
+				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				return t.getToken();
 			}else if(place.getRevisionId().getId()!=null){
 				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
-				TokenCreator.Imploder t = new TokenCreator().getImploder();
+
+				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getRevisionId().getId());
 

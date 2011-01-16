@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.client;
 
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
@@ -43,7 +44,7 @@ public interface ClientFactory {
 
 	/**
 	 * Returns the CreateProductView for the selected screen
-	 * @return
+	 * @return the CreateProductView for the selected screen
 	 */
 	ICreateProductView getCreateProductView();
 
@@ -53,6 +54,13 @@ public interface ClientFactory {
 	 * @return
 	 */
 	ICreateProductView getEditProductView();
+
+
+	/**
+	 * Returns the LoginView
+	 * @return the LoginView
+	 */
+	ILoginView getLoginView();
 
 	/****************** WIDGETS ***********************/
 }
