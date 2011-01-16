@@ -13,23 +13,29 @@ public class Quantity implements IQuantity {
 
 	@Override
 	public void setQuantity(double quantity) {
-		_quantity=quantity;
+
+		this._quantity = quantity;
+
 	}
 
 	@Override
 	public double getQuantity() {
-		return _quantity;
+
+		return this._quantity;
+
 	}
 
 	@Override
 	public void setUnit(Unit unit) {
-		_unit=unit;
+
+		this._unit = unit;
 
 	}
 
 	@Override
 	public Unit getUnit() {
-		return _unit;
+
+		return this._unit;
 	}
 
 }

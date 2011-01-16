@@ -1,39 +1,56 @@
 package org.tagaprice.client.gwt.shared.entities.dump;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import java.util.ArrayList;
+
+import org.tagaprice.client.gwt.shared.entities.*;
 
 
-public class Category implements ICategory {
+public class Category extends AEntity implements ICategory  {
 
-	public Category() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.IEntity#getRevisionId()
+	/**
+	 * 
 	 */
-	@Override
-	public IRevisionId getRevisionId() {
-		// TODO Auto-generated method stub
-		return null;
+	private static final long serialVersionUID = 7814196347951588949L;
+	private ICategory parentCategory;
+	private ArrayList<ICategory> childCategories = new ArrayList<ICategory>();
+
+	public Category(){}
+
+	public Category(String title) {
+		super(title);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.IEntity#getTitle()
-	 */
 	@Override
-	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+	public ICategory getParentCategory() {
+		return this.parentCategory;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.IEntity#setTitle(java.lang.String)
-	 */
 	@Override
-	public void setTitle(String title) {
-		// TODO Auto-generated method stub
-
+	public ArrayList<ICategory> getChildCategories() {
+		return this.childCategories;
 	}
+
+	@Override
+	public void addChildCategory(ICategory category) {
+		this.childCategories.add(category);
+		category.setParentCategory(this);
+	}
+
+	@Override
+	public String toString() {
+		String text = this.getTitle();
+		ICategory parent = this.parentCategory;
+		while(parent != null) {
+			text = parent.getTitle() + "->" + text;
+			parent = parent.getParentCategory();
+		}
+		return text;
+	}
+
+	@Override
+	public void setParentCategory(ICategory category) {
+		this.parentCategory = category;
+	}
+
 
 }

@@ -15,7 +15,7 @@
 							<g:Label >id</g:Label>
 						</td>
 						<td>
-							<g:Label ui:field="id"></g:Label>
+							<g:Label ui:field="id">id</g:Label>
 						</td>
 					</tr>
 					<tr>
