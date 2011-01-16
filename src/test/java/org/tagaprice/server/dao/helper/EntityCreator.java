@@ -185,6 +185,6 @@ public class EntityCreator {
 	}
 
 	public static LocalAccount createLocalAccount(String email) {
-		return new LocalAccount(1L, email, new Date());
+		return new LocalAccount(1L, email, EntityCreator._standardDate);
 	}
 }
