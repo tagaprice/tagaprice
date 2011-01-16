@@ -34,18 +34,23 @@ public interface ICreateProductView extends IsWidget {
 
 	/**
 	 * Set a {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * @param quantity the {@link IQuantity} in which this {@link IProduct} can be bought.
+	 * 
+	 * @param quantity
+	 *            the {@link IQuantity} in which this {@link IProduct} can be bought.
 	 */
 	public void setQuantity(IQuantity quantity);
 
 	/**
 	 * Add a list of {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * @param quantities a list of {@link IQuantity} in which this {@link IProduct} can be bought.
+	 * 
+	 * @param quantities
+	 *            a list of {@link IQuantity} in which this {@link IProduct} can be bought.
 	 */
 	public void addQuantities(ArrayList<IQuantity> quantities);
 
 	/**
 	 * Returns a list of {@link IQuantity}s corresponding to this {@link IProduct}.
+	 * 
 	 * @return a list of {@link IQuantity}s corresponding to this {@link IProduct}.
 	 */
 	public ArrayList<IQuantity> getQuantities();
@@ -82,14 +87,21 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public interface Presenter {
 		/**
-		 * Is by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the browser window.
-		 * @param place The {@link Place} which should be displayed next.
+		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * browser window.
+		 * 
+		 * @param place
+		 *            The {@link Place} which should be displayed next.
 		 */
 		public void goTo(Place place);
 
 		/**
-		 * This event is called when the user has CHANGED/CREATED a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
-		 * @param event is called when the user has CHANGED/CREATED a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
+		 * This event is called when the user has CHANGED/CREATED a
+		 * {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
+		 * 
+		 * @param event
+		 *            is called when the user has CHANGED/CREATED a
+		 *            {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
 		 */
 		public void onSaveEvent(ClickEvent event);
 
