@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.tagaprice.core.api.LocalAccount;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
@@ -181,5 +182,9 @@ public class EntityCreator {
 	public static Product createProductWithRevisions(Long id, Set<ProductRevision> revisions) {
 		Product productToSave = new Product(id, EntityCreator.createLocale(1), revisions);
 		return productToSave;
+	}
+
+	public static LocalAccount createLocalAccount(String email) {
+		return new LocalAccount(1L, email, new Date());
 	}
 }
