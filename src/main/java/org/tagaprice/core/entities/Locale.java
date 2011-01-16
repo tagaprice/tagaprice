@@ -2,118 +2,72 @@ package org.tagaprice.core.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
- * TODO regenerate equals and hashcode after implementatioin
+ * 
  * @author haja
- *
+ * 
  */
+@Entity
+@Table(name = "locale")
+@SuppressWarnings("unused")
 public class Locale {
-	private int _id;
-	private Locale _fallback = null;
+	private Integer _id;
 	private String _title = null;
 	private String _localTitle = null;
-	private Date _createdAt = null;
 
 
-	@SuppressWarnings("unused")
-	private Locale() { }
+	protected Locale() { }
 
-
-	public Locale(Locale fallback, String title, String localTitle, Date createdAt) {
-		_fallback = fallback;
+	public Locale(Integer id, String title, String localTitle) {
+		_id = id;
 		_title = title;
 		_localTitle = localTitle;
-		_createdAt = createdAt;
 	}
 
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
+	@Id
+	@Column(name = "locale_id")
+	public Integer getId() {
 		return _id;
 	}
-
-	/**
-	 * @param id the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(int id) {
+	private void setId(Integer id) {
 		_id = id;
 	}
 
-	/**
-	 * @return the fallback
-	 */
-	public Locale getFallback() {
-		return _fallback;
-	}
-
-	/**
-	 * @param fallback the fallback to set
-	 */
-	@SuppressWarnings("unused")
-	private void setFallback(Locale fallback) {
-		_fallback = fallback;
-	}
-
-	/**
-	 * @return the title
-	 */
+	@Column(name = "title")
 	public String getTitle() {
 		return _title;
 	}
-
-	/**
-	 * @param title the title to set
-	 */
-	@SuppressWarnings("unused")
 	private void setTitle(String title) {
 		_title = title;
 	}
 
-	/**
-	 * @return the localTitle
-	 */
+	@Column(name = "localtitle")
 	public String getLocalTitle() {
 		return _localTitle;
 	}
-
-	/**
-	 * @param localTitle the localTitle to set
-	 */
-	public void setLocalTitle(String localTitle) {
+	private void setLocalTitle(String localTitle) {
 		_localTitle = localTitle;
 	}
 
-	/**
-	 * @return the createdAt
-	 */
-	public Date getCreatedAt() {
-		return _createdAt;
-	}
-
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	@SuppressWarnings("unused")
-	private void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
-	}
-
-
 	@Override
 	public String toString() {
-		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle="
-		+ _localTitle + ", _createdAt=" + _createdAt + "]";
+		return "Locale [_id=" + _id + ", _title=" + _title + ", _localTitle=" + _localTitle + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + _id;
+		result = prime * result + ((_localTitle == null) ? 0 : _localTitle.hashCode());
+		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
 		return result;
 	}
 
@@ -127,6 +81,16 @@ public class Locale {
 			return false;
 		Locale other = (Locale) obj;
 		if (_id != other._id)
+			return false;
+		if (_localTitle == null) {
+			if (other._localTitle != null)
+				return false;
+		} else if (!_localTitle.equals(other._localTitle))
+			return false;
+		if (_title == null) {
+			if (other._title != null)
+				return false;
+		} else if (!_title.equals(other._title))
 			return false;
 		return true;
 	}

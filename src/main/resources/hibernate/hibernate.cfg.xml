@@ -1,0 +1,15 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+ "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="org.tagaprice.core.entities.RevisionableEntity" />
+		<mapping class="org.tagaprice.core.entities.Locale" />
+		<mapping class="org.tagaprice.core.entities.Account" />
+		<mapping class="org.tagaprice.core.entities.Product" />
+		<mapping class="org.tagaprice.core.entities.ProductRevision" />
+		<mapping class="org.tagaprice.core.entities.Brand" />
+		<mapping class="org.tagaprice.core.entities.Category" />
+	</session-factory>
+</hibernate-configuration>

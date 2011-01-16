@@ -9,11 +9,13 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -49,6 +51,8 @@ public class DbTestInitializer implements IDbTestInitializer {
 		_jdbcTemplate = new SimpleJdbcTemplate(dataSource);
 		try {
 			_connection = new DatabaseConnection(dataSource.getConnection());
+			DatabaseConfig config = _connection.getConfig();
+			config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqldbDataTypeFactory());
 		} catch (DatabaseUnitException e) {
 			DbTestInitializer._log.error(e);
 		} catch (SQLException e) {

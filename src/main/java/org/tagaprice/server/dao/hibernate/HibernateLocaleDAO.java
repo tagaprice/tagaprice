@@ -20,4 +20,9 @@ public class HibernateLocaleDAO implements ILocaleDAO {
 		return locale;
 	}
 
+	@Override
+	public Locale getById(int id) {
+		return (Locale) _sessionFactory.getCurrentSession().load(Locale.class, id);
+	}
+
 }

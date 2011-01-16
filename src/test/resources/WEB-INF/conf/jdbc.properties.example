@@ -1,7 +1,0 @@
-host=db_host
-port=5432
-db=tagaprice_db
-user=tagaprice_user
-pwd=verysecretpassword
-ssl=true
-sslFactory=org.postgresql.ssl.NonValidatingFactory

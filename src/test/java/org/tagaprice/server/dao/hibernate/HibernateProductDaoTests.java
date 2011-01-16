@@ -1,8 +1,8 @@
 package org.tagaprice.server.dao.hibernate;
 
 import org.springframework.test.context.ContextConfiguration;
-import org.tagaprice.server.dao.AbstractProductDaoTests;
 import org.tagaprice.server.dao.hibernate.HibernateProductDAO;
+import org.tagaprice.server.dao.interfaces.AbstractProductDaoTests;
 
 /**
  * Unit tests for the {@link HibernateProductDAO}.
