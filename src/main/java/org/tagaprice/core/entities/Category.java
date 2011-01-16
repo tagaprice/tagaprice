@@ -48,7 +48,7 @@ public class Category implements Serializable {
 	private Account _creator;
 
 	/**
-	 * this constructor is need for hibernate.
+	 * this constructor is needed for hibernate.
 	 */
 	protected Category() {
 	}

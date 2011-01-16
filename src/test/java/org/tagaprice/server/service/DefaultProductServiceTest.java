@@ -11,7 +11,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.tagaprice.core.api.IllegalRevisionException;
+import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -87,7 +87,7 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 		}
 	}
 
-	@Test(expected=IllegalRevisionException.class)
+	@Test(expected=OutdatedRevisionException.class)
 	public void saveAlreadyPersistedProductWithOutdatedRevision_shouldThrowException() throws Exception {
 		Long id = 1L;
 		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();

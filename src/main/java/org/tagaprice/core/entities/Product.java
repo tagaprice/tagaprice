@@ -105,6 +105,7 @@ public class Product implements Serializable {
 
 	/**
 	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
+	 * TODO this should be a sortedset to verify that revisions are always ordered
 	 * Allthoug, this might be desireable...
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -151,6 +152,7 @@ public class Product implements Serializable {
 
 	/**
 	 * Returns the current, i.e. highest, revision of this product.
+	 * <p>TODO this allows changing the {@link ProductRevision} of this product. this violates immutability of this class.</p>
 	 */
 	@Transient
 	public ProductRevision getCurrentRevision() {

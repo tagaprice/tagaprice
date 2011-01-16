@@ -172,12 +172,7 @@ public class ProductRevision implements Serializable {
 	public Unit getUnit() {
 		return _unit;
 	}
-
-	/**
-	 * TODO this is public due to service having to set the id if not present, should not be public probably
-	 * This violates immutability of this class.
-	 */
-	public void setUnit(Unit unit) {
+	private void setUnit(Unit unit) {
 		_unit = unit;
 	}
 
@@ -186,12 +181,7 @@ public class ProductRevision implements Serializable {
 	public Double getAmount() {
 		return _amount;
 	}
-
-	/**
-	 * TODO this is public due to service having to set the id if not present, should not be public probably
-	 * This violates immutability of this class.
-	 */
-	public void setAmount(double amount) {
+	private void setAmount(double amount) {
 		_amount = amount;
 	}
 
@@ -201,7 +191,6 @@ public class ProductRevision implements Serializable {
 	public Category getCategory() {
 		return _category;
 	}
-
 	private void setCategory(Category category) {
 		_category = category;
 	}
@@ -211,7 +200,6 @@ public class ProductRevision implements Serializable {
 	public String getImageURL() {
 		return _imageURL;
 	}
-
 	private void setImageURL(String imageURL) {
 		_imageURL = imageURL;
 	}

@@ -2,6 +2,11 @@ package org.tagaprice.core.entities;
 
 import java.util.Arrays;
 
+/**
+ * Represents a session token. Clients need to authenticate themselves, hereby obtaining a Session object which is used to make further requests.
+ * @author "forste"
+ *
+ */
 public class Session {
 
 	private byte[] _sessionId;
@@ -35,7 +40,4 @@ public class Session {
 			return false;
 		return true;
 	}
-
-
-
 }

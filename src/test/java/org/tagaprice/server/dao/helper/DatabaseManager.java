@@ -41,10 +41,6 @@ public class DatabaseManager {
 			System.err.println("Couldn't find driver class:");
 			cnfe.printStackTrace();
 		}
-		Calendar cal = Calendar.getInstance();
-		cal.set(2010, 12, 24, 19, 0, 0);
-
-		System.out.println(cal.getTime().getTime());
 
 		PrintStream out = System.out;
 		Scanner in = new Scanner(System.in);

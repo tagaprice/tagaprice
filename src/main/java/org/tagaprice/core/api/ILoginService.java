@@ -3,12 +3,14 @@ package org.tagaprice.core.api;
 import org.tagaprice.core.entities.Session;
 
 public interface ILoginService {
-	//TODO add exception
 	/**
-	 * Attempts to create a session object for user identified by given mail and password.
-	 * If no such user exists, i.e. email does not exist or password does not match, an exception will be thrown.
-	 * @return
-	 * @throws ServerException
+	 * Logs in user identified by given mail and password, and returns {@link Session} object.
+	 * @param email E-mail to identify the user.
+	 * @param password Password associated to user in plain.
+	 * @return A {@link Session} object.
+	 * @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
+	 * @throws WrongEmailOrPasswordException Thrown to indicate that given email does not exist or given password does not match.
+	 * @throws UserAlreadyLoggedInException Thrown to indicate that user is already logged in. Multiple sessions for the same user are not supported.
 	 */
-	Session login(String email, String password) throws ServerException;
+	Session login(String email, String password) throws ServerException, WrongEmailOrPasswordException, UserAlreadyLoggedInException;
 }

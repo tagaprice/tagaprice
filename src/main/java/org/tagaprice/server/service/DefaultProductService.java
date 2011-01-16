@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
-import org.tagaprice.core.api.IllegalRevisionException;
+import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -16,7 +16,10 @@ public class DefaultProductService implements IProductService {
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 
 	@Override
-	public Product save(Product product) throws IllegalRevisionException {
+	public Product save(Product product) throws OutdatedRevisionException {
+		if(product==null)
+			throw new IllegalArgumentException("product must not be null");
+
 		Long id = product.getId();
 
 		if(id == null) { //new product
@@ -37,7 +40,7 @@ public class DefaultProductService implements IProductService {
 					+ ", highest revision number to be saved: "
 					+ detachedRevisionNumber;
 				_log.info(message);
-				throw new IllegalRevisionException(message);
+				throw new OutdatedRevisionException(message);
 			}
 			else if (persistedRevisionNumber == detachedRevisionNumber) //one revision has been saved meanwhile
 			{
@@ -48,7 +51,7 @@ public class DefaultProductService implements IProductService {
 						+ ", highest revision number to be saved: "
 						+ detachedRevisionNumber;
 					_log.info(message);
-					throw new IllegalRevisionException(message);
+					throw new OutdatedRevisionException(message);
 				}
 			}
 		}
@@ -57,11 +60,6 @@ public class DefaultProductService implements IProductService {
 		// TODO check if product has at least one ProductRevision. check here or in dao and throw?
 		product = _productDao.save(product);
 		return product;
-	}
-
-	@Override
-	public Product getById(Long id) {
-		return null;
 	}
 
 	public void setProductDAO(IProductDAO productDao) {

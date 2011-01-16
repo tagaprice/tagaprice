@@ -12,6 +12,11 @@ public class DefaultLoginService implements ILoginService {
 
 	@Override
 	public Session login(String email, String password) throws ServerException {
+		if(email == null)
+			throw new IllegalArgumentException("email is null");
+		if(password == null)
+			throw new IllegalArgumentException("password is null");
+
 		Account account = _accountDAO.getByEmailAndPassword(email, password);
 
 		return _sessionFactory.createSession(account);

@@ -29,7 +29,6 @@ import javax.persistence.Transient;
  * This class is immutable. Properties once set, cannot be changed.
  * </p>
  * 
- * TODO this class may should be abstract.
  * 
  * @author haja
  * 

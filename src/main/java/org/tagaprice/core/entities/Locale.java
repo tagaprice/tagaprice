@@ -9,7 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * 
+ * Used for language localization to provide translations for other languages. An entity has a local providing information about the language of the entity.
+ * @author forste
  * @author haja
  * 
  */
@@ -40,6 +41,9 @@ public class Locale {
 		_id = id;
 	}
 
+	/**
+	 * Returns the name of the language of the associated entity in English.
+	 */
 	@Column(name = "title")
 	public String getTitle() {
 		return _title;
@@ -48,6 +52,10 @@ public class Locale {
 		_title = title;
 	}
 
+	/**
+	 * Returns name of the language of the associated entity in that language.
+	 * @return
+	 */
 	@Column(name = "localtitle")
 	public String getLocalTitle() {
 		return _localTitle;
