@@ -12,7 +12,7 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Unit;
 
-public class EntityCreator {
+public class HibernateSaveEntityCreator {
 	private static final Date _standardDate = new Date(1293145200000L); //2010/12/24
 	private static Account _cachedAccount;
 
@@ -46,7 +46,7 @@ public class EntityCreator {
 	}
 
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Account creator, Unit unit, Category category) {
-		return createProductRevision(id, rev, "title", EntityCreator._standardDate, creator, unit, category);
+		return createProductRevision(id, rev, "title", HibernateSaveEntityCreator._standardDate, creator, unit, category);
 	}
 
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Unit unit, Category category) {
@@ -63,7 +63,7 @@ public class EntityCreator {
 	 * 
 	 */
 	public static Date getDefaultDate() {
-		return EntityCreator._standardDate;
+		return HibernateSaveEntityCreator._standardDate;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class EntityCreator {
 	}
 
 	public static Account createAccount(Long id, String email, String password) {
-		return new Account(id, email, password, EntityCreator._standardDate);
+		return new Account(id, email, password, HibernateSaveEntityCreator._standardDate);
 	}
 
 
@@ -127,7 +127,7 @@ public class EntityCreator {
 	 * Category
 	 */
 	public static Category createCategory(Long id, Account creator) {
-		return new Category(4L, "newRootCategory", null, EntityCreator._standardDate, creator);
+		return new Category(4L, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
 
 	}
 }

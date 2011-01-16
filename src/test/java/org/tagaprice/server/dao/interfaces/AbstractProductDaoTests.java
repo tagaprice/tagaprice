@@ -26,7 +26,7 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
-import org.tagaprice.server.dao.helper.EntityCreator;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
@@ -76,14 +76,14 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = EntityCreator.createAccount(1L);
-		Category category = EntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
-		Product productToSave = EntityCreator.createProduct(id,
-				EntityCreator.createLocale(1),
-				EntityCreator.createProductRevisions(id,
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+				HibernateSaveEntityCreator.createLocale(1),
+				HibernateSaveEntityCreator.createProductRevisions(id,
 						numberRevisions,
 						creator,
 						null,
@@ -92,9 +92,9 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = EntityCreator.createProductRevision(id, 1, creator, null, category);
+		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, null, category);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, EntityCreator.createLocale(2), expectedRevisions);
+		Product expected = new Product(id, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -105,14 +105,14 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = EntityCreator.createAccount(1L);
-		Category category = EntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
-		Product productToSave = EntityCreator.createProduct(id,
-				EntityCreator.createLocale(1),
-				EntityCreator.createProductRevisions(id,
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+				HibernateSaveEntityCreator.createLocale(1),
+				HibernateSaveEntityCreator.createProductRevisions(id,
 						numberRevisions,
 						creator,
 						null,
@@ -121,7 +121,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		Product saved = _productDao.save(productToSave);
 
 		int revisionNumber = 3;
-		ProductRevision newRev = EntityCreator.createProductRevision(id, revisionNumber, creator, null, category);
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, null, category);
 
 		saved.getRevisions().add(newRev);
 
