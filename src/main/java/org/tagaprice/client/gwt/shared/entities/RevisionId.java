@@ -13,12 +13,12 @@ public class RevisionId implements IRevisionId {
 
 
 	private static final long serialVersionUID = 2011503142739304476L;
-	private Long _id;
-	private Long _rev;
+	private long _id;
+	private long _rev;
 	private IUser _user;
 	private Date _date;
 
-	public RevisionId(){
+	public RevisionId() {
 		this._id = 0L;
 		this._rev = 0L;
 	}
@@ -27,16 +27,14 @@ public class RevisionId implements IRevisionId {
 		setId(id);
 	}
 
-	public RevisionId(long id, long revision){
+	public RevisionId(long id, long revision) {
 		this(id);
 		setRevision(revision);
 	}
 
-
-
 	@Override
 	public void setId(long id) {
-		_id=id;
+		_id = id;
 	}
 
 	@Override
@@ -46,7 +44,7 @@ public class RevisionId implements IRevisionId {
 
 	@Override
 	public void setRevision(long rev) {
-		_rev=rev;
+		_rev = rev;
 	}
 
 	@Override
@@ -56,7 +54,7 @@ public class RevisionId implements IRevisionId {
 
 	@Override
 	public void setUser(IUser user) {
-		_user=user;
+		_user = user;
 	}
 
 	@Override
@@ -66,7 +64,7 @@ public class RevisionId implements IRevisionId {
 
 	@Override
 	public void setDate(Date date) {
-		_date=date;
+		_date = date;
 	}
 
 	@Override
@@ -76,8 +74,31 @@ public class RevisionId implements IRevisionId {
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		// http://www.javapractices.com/topic/TopicAction.do?Id=28
+		int prime = 37;
+		// Calculate with ID and REV
+		int hash = ((int) (this._id ^ (this._id >>> 32))) * prime + (int) (this._rev ^ (this._rev >>> 32));
+
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof IRevisionId) {
+			return this.equals((IRevisionId) o);
+		} else {
+			return false;
+		}
+	}
+
+	public boolean equals(IRevisionId other) {
+		System.out.println(this.toString() + " " + other.toString());
+		return this._id == other.getId() && this._rev == other.getRevision();
+	}
+
+	@Override
+	public String toString() {
+		return this._id + "_" + this._rev;
 	}
 
 }
