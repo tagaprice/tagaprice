@@ -19,7 +19,8 @@ public class RevisionId implements IRevisionId {
 	private Date _date;
 
 	public RevisionId(){
-
+		this._id = 0L;
+		this._rev = 0L;
 	}
 
 	public RevisionId(long id) {

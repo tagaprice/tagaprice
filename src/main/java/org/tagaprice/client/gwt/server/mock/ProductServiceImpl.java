@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.server.mock;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
@@ -10,6 +10,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ProductServiceImpl extends RemoteServiceServlet implements
 IProductService {
+
+	int productIdCounter = 0;
+	HashMap<Integer, IProduct> products = new HashMap<Integer, IProduct>();
 
 	/**
 	 * 
@@ -24,7 +27,13 @@ IProductService {
 
 	@Override
 	public IProduct saveProduct(IProduct product) {
-		// TODO Auto-generated method stub
+		//Check productId and revisionId
+		//if productId == 0 -> save as new product
+
+		//else
+		//get product
+		//get latest revision
+		//compare revisionIds
 		return null;
 	}
 
