@@ -42,6 +42,7 @@ public class Account {
 	private Long _uid = null;
 	private String _email;
 	private Date _lastLogin;
+	private String _password;
 
 	/**
 	 * this constructor is need for hibernate.
@@ -60,9 +61,10 @@ public class Account {
 	 * @param lastLogin
 	 *            date of the last login of this user
 	 */
-	public Account(Long uid, String email, Date lastLogin) {
+	public Account(Long uid, String email, String password, Date lastLogin) {
 		_uid = uid;
 		_email = email;
+		_password = password;
 		_lastLogin = lastLogin;
 	}
 
@@ -85,12 +87,19 @@ public class Account {
 		_email = email;
 	}
 
+	@Column(name = "password")
+	private String getPassword() {
+		return _password;
+	}
+	public void setPassword(String password) {
+		_password = password;
+	}
+
 
 	@Column(name = "last_login")
 	public Date getLastLogin() {
 		return _lastLogin;
 	}
-
 	private void setLastLogin(Date lastLogin) {
 		_lastLogin = lastLogin;
 	}

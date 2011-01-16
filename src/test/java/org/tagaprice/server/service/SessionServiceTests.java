@@ -1,13 +1,12 @@
 package org.tagaprice.server.service;
 
-import java.util.Date;
-
 import org.junit.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.UserAlreadyLoggedInException;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Session;
+import org.tagaprice.server.dao.helper.EntityCreator;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -25,7 +24,7 @@ public class SessionServiceTests  extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void createSession_shouldCreateSession() throws Exception {
-		Account account = new Account(1L, "test@mail.coom", new Date());
+		Account account = EntityCreator.createAccount(1L);
 
 		Session actual = _service.createSession(account);
 
@@ -34,7 +33,7 @@ public class SessionServiceTests  extends AbstractJUnit4SpringContextTests {
 
 	@Test(expected = UserAlreadyLoggedInException.class)
 	public void createSessionTwice_shouldThrowException() throws Exception {
-		Account account = new Account(1L, "test@mail.coom", new Date());
+		Account account = EntityCreator.createAccount(1L);
 
 		_service.createSession(account);
 		_service.createSession(account);

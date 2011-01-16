@@ -74,11 +74,12 @@
     <table name="account">
     <column>uid</column>
     <column>mail</column>
-    <column>last_login</column>
+    <column>password</column>
     <row>
       <value>3</value>
       <value>user@mail.com</value>
-      <value><![CDATA[2011-01-03 18:42:40.864592]]></value>
+      <value><![CDATA[2010-12-24 19:00:00]]></value>
+      <value>12345</value>
     </row>
   </table>
   

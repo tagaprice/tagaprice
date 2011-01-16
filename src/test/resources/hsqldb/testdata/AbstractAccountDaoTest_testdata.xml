@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="account">
+    <column>uid</column>
+    <column>mail</column>
+    <column>last_login</column>
+    <column>password</column>
+    <row>
+      <value>1</value>
+      <value>user1@mail.com</value>
+      <value><![CDATA[2010-12-24 19:00:00]]></value>
+      <value>12345</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>user2@mail.com</value>
+      <value><![CDATA[2010-12-24 18:00:00]]></value>
+      <value>54321</value>
+    </row>
+  </table>
+</dataset>
