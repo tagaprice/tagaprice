@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.IllegalRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
-import org.tagaprice.server.dao.helper.EntityCreator;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.tagaprice.server.service.helper.EntityCreator;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;

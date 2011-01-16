@@ -11,8 +11,9 @@ import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.api.UserAlreadyLoggedInException;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 import org.tagaprice.core.entities.Session;
-import org.tagaprice.server.dao.helper.EntityCreator;
 import org.tagaprice.server.dao.interfaces.IAccountDAO;
+import org.tagaprice.server.service.helper.EntityCreator;
+
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
