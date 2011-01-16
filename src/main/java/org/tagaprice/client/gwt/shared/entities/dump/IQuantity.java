@@ -35,7 +35,7 @@ public interface IQuantity extends Serializable {
 	 *            can
 	 *            have.
 	 */
-	public void setUnit(IUnit unit);
+	public void setUnit(Unit unit);
 
 	/**
 	 * The {@link IUnit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
@@ -44,5 +44,5 @@ public interface IQuantity extends Serializable {
 	 * @return the {@link IUnit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
 	 * bought
 	 */
-	public IUnit getUnit();
+	public Unit getUnit();
 }
