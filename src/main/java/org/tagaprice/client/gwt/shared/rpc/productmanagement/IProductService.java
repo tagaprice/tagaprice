@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.shared.rpc.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -37,4 +38,7 @@ public interface IProductService extends RemoteService {
 	 * @return the SAVED or UPDATED {@link IProduct}
 	 */
 	public IProduct saveProduct(IProduct product);
+
+	public ArrayList<ICategory> getCategories();
+
 }

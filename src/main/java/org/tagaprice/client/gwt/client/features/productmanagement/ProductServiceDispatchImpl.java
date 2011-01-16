@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.*;
 import com.google.gwt.core.client.GWT;
@@ -38,6 +39,12 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 
 	@Override
 	public void getProducts(IProduct searchCriteria, AsyncCallback<ArrayList<IProduct>> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void getCategories(AsyncCallback<ArrayList<ICategory>> callback) {
 		// TODO Auto-generated method stub
 
 	}
