@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.interfaces;
 
 
 import java.text.ParseException;

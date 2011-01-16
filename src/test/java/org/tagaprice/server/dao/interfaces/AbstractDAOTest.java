@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao;
+package org.tagaprice.server.dao.interfaces;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
