@@ -14,6 +14,8 @@ public class Category extends AEntity implements ICategory  {
 	private ICategory parentCategory;
 	private ArrayList<ICategory> childCategories = new ArrayList<ICategory>();
 
+	public Category(){}
+
 	public Category(String title) {
 		super(title);
 	}

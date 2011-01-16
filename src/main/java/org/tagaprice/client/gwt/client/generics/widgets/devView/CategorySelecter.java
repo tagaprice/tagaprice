@@ -16,6 +16,8 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	public CategorySelecter() {
 		initWidget(categories);
+		categories.addItem("root->food");
+		categories.addItem("root->beverages");
 	}
 
 	@Override
