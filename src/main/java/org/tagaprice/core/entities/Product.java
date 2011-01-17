@@ -8,10 +8,14 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.*;
 
 import org.hamcrest.Matcher;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 /**
  * <p>
@@ -45,7 +49,7 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long _id = null;
-	private Set<ProductRevision> _revisions = new HashSet<ProductRevision>();
+	private SortedSet<ProductRevision> _revisions;
 	private Locale _locale;
 	private static final Comparator<? super ProductRevision> _revisionComparator = new RevisionComparator();
 
@@ -105,16 +109,18 @@ public class Product implements Serializable {
 
 	/**
 	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
-	 * TODO this should be a sortedset to verify that revisions are always ordered
 	 * Allthoug, this might be desireable...
+	 * 
+	 * TODO this should be a sortedset to verify that revisions are always ordered
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ent_id")
-	public Set<ProductRevision> getRevisions() {
+	@Sort(type = SortType.COMPARATOR, comparator = RevisionComparator.class)
+	public SortedSet<ProductRevision> getRevisions() {
 		return _revisions;
 	}
 
-	private void setRevisions(Set<ProductRevision> revisions) {
+	private void setRevisions(SortedSet<ProductRevision> revisions) {
 		_revisions = revisions;
 	}
 
