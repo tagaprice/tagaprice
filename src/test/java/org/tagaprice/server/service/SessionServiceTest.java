@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 
 @ContextConfiguration
-public class SessionServiceTests  extends AbstractJUnit4SpringContextTests {
+public class SessionServiceTest  extends AbstractJUnit4SpringContextTests {
 
 	private SessionService _service;
 
@@ -42,13 +42,14 @@ public class SessionServiceTests  extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void getAccount_shouldGetAccount() throws Exception {
-		Account account = new Account(1L, "test@mail.coom", new Date());
-
-		Session session = _service.createSession(account);
-
-		Account actual = _service.getAccount(session);
-
-		assertThat(actual, equalTo(account));
+		//		Account account = new Account(1L, "test@mail.coom", new Date());
+		//
+		//		Session session = _service.createSession(account);
+		//
+		//		Account actual = _service.getAccount(session);
+		//
+		//		assertThat(actual, equalTo(account));
+		fail();
 	}
 
 	@Test(expected = UserNotLoggedInException.class)

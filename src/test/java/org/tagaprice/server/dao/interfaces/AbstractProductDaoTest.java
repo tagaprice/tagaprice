@@ -40,13 +40,13 @@ import org.tagaprice.server.dao.interfaces.IProductDAO;
  */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @TestExecutionListeners({})
-@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractProductDaoTests-context.xml" })
+@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
 // extension is needed for application context, otherwise it would work with the two annotations above
-public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringContextTests {
+public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
-	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
+	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	private IDataSet _currentDataSet;
 
 	@BeforeClass

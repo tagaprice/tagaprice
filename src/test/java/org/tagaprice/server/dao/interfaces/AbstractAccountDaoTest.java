@@ -20,7 +20,7 @@ import org.tagaprice.server.dao.helper.IDbTestInitializer;
 public class AbstractAccountDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 	protected IAccountDAO _accountDao;
 	protected IDbTestInitializer _dbInitializer;
-	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
+	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	@SuppressWarnings("unused")
 	private IDataSet _currentDataSet;
 
