@@ -49,9 +49,8 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long _id = null;
-	private SortedSet<ProductRevision> _revisions;
+	private SortedSet<ProductRevision> _revisions = new TreeSet<ProductRevision>(new RevisionComparator());
 	private Locale _locale;
-	private static final Comparator<? super ProductRevision> _revisionComparator = new RevisionComparator();
 
 	/**
 	 * this constructor is need for hibernate.
@@ -162,8 +161,6 @@ public class Product implements Serializable {
 	 */
 	@Transient
 	public ProductRevision getCurrentRevision() {
-		List<ProductRevision> list = new ArrayList<ProductRevision>(_revisions);
-		Collections.sort(list, Product._revisionComparator);
-		return list.iterator().next();
+		return _revisions.first();
 	}
 }
