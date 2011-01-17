@@ -28,7 +28,7 @@ import org.hibernate.annotations.SortType;
  * <ul>
  * <li>Id: primary identifier in the database</li>
  * <li>locale: {@link Locale} which indicates language and location of this product</li>
- * <li>revisions: a set of {@link ProductRevision}s, each representing one version of this product</li>
+ * <li>revisions: a {@link SortedSet} of {@link ProductRevision}s, each representing one version of this product. Sorted by revision number, highest first.</li>
  * </ul>
  * </p>
  * 
@@ -84,6 +84,8 @@ public class Product implements Serializable {
 	}
 
 	/**
+	 * This sets the id of this product. It also updates the id of each {@link ProductRevision} to match the new id.
+	 * 
 	 * TODO this is public due to service having to set the id if not present, should not be public probably
 	 * This violates immutability of this class.
 	 */
@@ -108,9 +110,9 @@ public class Product implements Serializable {
 
 	/**
 	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
-	 * Allthoug, this might be desireable...
+	 * Although, this might be desirable...
 	 * 
-	 * TODO this should be a sortedset to verify that revisions are always ordered
+	 * @return all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ent_id")
