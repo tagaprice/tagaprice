@@ -27,7 +27,7 @@ public interface IEntity<T> extends Serializable  {
 
 	/**
 	 * Copies an entity
-	 * @return a copy of the object OR null if copy is not supported.
+	 * @return a copy of the object OR itself (this) if copy is not supported (e.g. object is a singleton or immutable).
 	 */
 	public T copy();
 

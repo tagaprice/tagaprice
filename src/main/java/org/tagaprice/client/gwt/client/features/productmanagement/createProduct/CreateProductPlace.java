@@ -36,11 +36,7 @@ public class CreateProductPlace extends Place {
 		@Override
 		public CreateProductPlace getPlace(String token) {
 			CreateProductPlace.logger.log("Tokenizer token " + token);
-
-
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
-
-
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
@@ -53,7 +49,6 @@ public class CreateProductPlace extends Place {
 					return new CreateProductPlace();
 				}
 			}
-
 			return null;
 		}
 

@@ -54,8 +54,7 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 
 	@Override
 	public ICategory copy() {
-		return null;
+		return this;
 	}
-
 
 }

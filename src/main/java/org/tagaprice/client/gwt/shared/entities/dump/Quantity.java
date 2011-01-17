@@ -48,4 +48,22 @@ public class Quantity implements IQuantity {
 		return new Quantity(this._quantity, this._unit);
 	}
 
+	@Override
+	public String toString() {
+		return String.valueOf(this._quantity) + this._unit.name();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if(other instanceof Quantity) {
+			return this.equals((Quantity) other);
+		} else {
+			return false;
+		}
+	}
+
+	public boolean equals(Quantity other) {
+		return this._unit.equals(other._unit) && this._quantity == other._quantity;
+	}
+
 }

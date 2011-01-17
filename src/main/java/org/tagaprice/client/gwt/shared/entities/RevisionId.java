@@ -23,8 +23,13 @@ public class RevisionId implements IRevisionId {
 		this._rev = 0L;
 	}
 
+	/**
+	 * Initializes Revision id with given productId and Revision 0L.
+	 * @param id
+	 */
 	public RevisionId(long id) {
 		setId(id);
+		setRevision(0L);
 	}
 
 	public RevisionId(long id, long revision) {
