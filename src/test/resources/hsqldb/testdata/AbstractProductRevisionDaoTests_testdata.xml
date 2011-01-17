@@ -1,33 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <table name="locale">
-    <column>locale_id</column>
-    <column>title</column>
-    <column>localTitle</column>
-    <row>
-      <value>1</value>
-      <value>english</value>
-      <value>english</value>
-    </row>
-  </table>
-  
-   <table name="entity">
-    <column>ent_id</column>
-    <column>locale_id</column>
-    <row>
-      <value>1</value>
-      <value>1</value>
-    </row>
-    <row>
-      <value>2</value>
-      <value>1</value>
-    </row>
-    <row>
-      <value>3</value>
-      <value>1</value>
-    </row>
-  </table>
-  
   <table name="entityRevision">
     <column>ent_id</column>
     <column>rev</column>
@@ -84,19 +56,10 @@
     </row>
   </table>
   
-  <table name="product">
-    <column>ent_id</column>
-    <row>
-      <value>1</value>
-    </row>
-    <row>
-      <value>2</value>
-    </row>
-  </table>
-  
   <table name="productRevision">
     <column>ent_id</column>
     <column>rev</column>
+    <column>title</column>
     <column>unit_id</column>
     <column>amount</column>
     <column>category_id</column>
@@ -104,6 +67,7 @@
     <row>
       <value>1</value>
       <value>1</value>
+      <value>coke</value>
       <null/>
       <null/>
       <value>0</value>
@@ -112,6 +76,7 @@
     <row>
       <value>1</value>
       <value>2</value>
+      <value>other coke</value>
       <null/>
       <null/>
       <value>1</value>
@@ -120,6 +85,7 @@
     <row>
       <value>2</value>
       <value>1</value>
+      <value>cake</value>
       <null/>
       <null/>
       <value>0</value>
@@ -128,6 +94,7 @@
     <row>
       <value>2</value>
       <value>2</value>
+      <value>other cake</value>
       <null/>
       <null/>
       <value>2</value>

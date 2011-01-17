@@ -11,30 +11,16 @@
 		<!-- list of tables to drop -->
 		<property name="tablesToDrop">
 			<list>
-				<value>country</value>
-				<value>locale</value>
-				<value>entity</value>
-				<value>entityrevision</value>
-				<value>product</value>
-				<value>productrevision</value>
 				<value>account</value>
-				<value>category</value>
 			</list>
 		</property>
 		<!-- list of resources to sql-scripts that will be executed -->
 		<property name="scriptsToExecute">
 			<list>
-				<value>/hsqldb/tables/10_country.sql</value>
-				<value>/hsqldb/tables/10_locale.sql</value>
-				<value>/hsqldb/tables/20_entity.sql</value>
-				<value>/hsqldb/tables/30_entityRevision.sql</value>
-				<value>/hsqldb/tables/30_product.sql</value>
-				<value>/hsqldb/tables/40_productRevision.sql</value>
 				<value>/hsqldb/tables/40_account.sql</value>
-				<value>/hsqldb/tables/40_category.sql</value>
 			</list>
 		</property>
 		<!-- test data to load -->
-		<property name="dbUnitData" value="classpath:hsqldb/testdata/AbstractProductDaoTests_testdata.xml" />
+		<property name="dbUnitData" value="classpath:hsqldb/testdata/AbstractAccountDaoTest_testdata.xml" />
 	</bean>
 </beans>

@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +26,7 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
-import org.tagaprice.server.dao.helper.EntityCreator;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
@@ -41,13 +40,13 @@ import org.tagaprice.server.dao.interfaces.IProductDAO;
  */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @TestExecutionListeners({})
-@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractProductDaoTests-context.xml" })
+@ContextConfiguration //(locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
 // extension is needed for application context, otherwise it would work with the two annotations above
-public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringContextTests {
+public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected IProductDAO _productDao;
 	protected IDbTestInitializer _dbInitializer;
-	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTests.class);
+	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	private IDataSet _currentDataSet;
 
 	@BeforeClass
@@ -77,20 +76,25 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		ITable categoryTable = _currentDataSet.getTable("category");
-
-		Category cat = new Category(4L, "newRootCategory", null, DbUnitDataSetHelper.getDate(categoryTable.getValue(0,
-		"created_at")), EntityCreator.getDefaultAccount());
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
-		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2, cat);
+		int numberRevisions = 2;
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+				HibernateSaveEntityCreator.createLocale(1),
+				HibernateSaveEntityCreator.createProductRevisions(id,
+						numberRevisions,
+						creator,
+						null,
+						category));
 
 		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = EntityCreator.createProductRevision(id, 1, cat);
+		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, null, category);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, EntityCreator.createLocale(2), expectedRevisions);
+		Product expected = new Product(id, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -101,19 +105,24 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		ITable categoryTable = _currentDataSet.getTable("category");
-
-		Category cat = new Category(4L, "newRootCategory", null, DbUnitDataSetHelper.getDate(categoryTable.getValue(0,
-		"created_at")), EntityCreator.getDefaultAccount());
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
-		long uid = 2;
-		Product productToSave = EntityCreator.createProductWithRevisions(id, 1, 2, cat);
+		int numberRevisions = 2;
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+				HibernateSaveEntityCreator.createLocale(1),
+				HibernateSaveEntityCreator.createProductRevisions(id,
+						numberRevisions,
+						creator,
+						null,
+						category));
 
 		Product saved = _productDao.save(productToSave);
 
-		ProductRevision newRev = new ProductRevision(id, 2, "newRevTitle", new Date(), new Account(uid,
-				"test@email.com", new Date(1000000)), null, null, cat, "newRevImage.url");
+		int revisionNumber = 3;
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, null, category);
+
 		saved.getRevisions().add(newRev);
 
 		Product updated = _productDao.save(saved);
@@ -131,7 +140,7 @@ public class AbstractProductDaoTests extends AbstractTransactionalJUnit4SpringCo
 		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
 		ITable accountTable = _currentDataSet.getTable("account");
 		ITable categoryTable = _currentDataSet.getTable("category");
-		Account creator = new Account(3L, "user@mail.com", DbUnitDataSetHelper.getDate(accountTable.getValue(0,
+		Account creator = new Account(3L, "user@mail.com", "12345", DbUnitDataSetHelper.getDate(accountTable.getValue(0,
 		"last_login")));
 
 		Category cat0 = new Category(0L, "rootCategory", null, DbUnitDataSetHelper.getDate(categoryTable.getValue(0,

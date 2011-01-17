@@ -4,7 +4,6 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<mapping class="org.tagaprice.core.entities.RevisionableEntity" />
 		<mapping class="org.tagaprice.core.entities.Locale" />
 		<mapping class="org.tagaprice.core.entities.Account" />
 		<mapping class="org.tagaprice.core.entities.Product" />

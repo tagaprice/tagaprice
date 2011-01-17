@@ -1,22 +1,32 @@
 package org.tagaprice.server.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
-import org.tagaprice.core.api.IllegalRevisionException;
+import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 
 @Transactional
 public class DefaultProductService implements IProductService {
 	//	private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
+	private IProductRevisionDAO _productRevisionDao;
 
 	@Override
-	public Product save(Product product) throws IllegalRevisionException {
+	public Product save(Product product) throws OutdatedRevisionException {
+		if(product==null)
+			throw new IllegalArgumentException("product must not be null");
+
 		Long id = product.getId();
 
 		if(id == null) { //new product
@@ -37,7 +47,7 @@ public class DefaultProductService implements IProductService {
 					+ ", highest revision number to be saved: "
 					+ detachedRevisionNumber;
 				_log.info(message);
-				throw new IllegalRevisionException(message);
+				throw new OutdatedRevisionException(message);
 			}
 			else if (persistedRevisionNumber == detachedRevisionNumber) //one revision has been saved meanwhile
 			{
@@ -48,7 +58,7 @@ public class DefaultProductService implements IProductService {
 						+ ", highest revision number to be saved: "
 						+ detachedRevisionNumber;
 					_log.info(message);
-					throw new IllegalRevisionException(message);
+					throw new OutdatedRevisionException(message);
 				}
 			}
 		}
@@ -60,11 +70,37 @@ public class DefaultProductService implements IProductService {
 	}
 
 	@Override
-	public Product getById(Long id) {
-		return null;
+	public List<Product> getByTitle(String title) {
+		if(title == null)
+			throw new IllegalArgumentException("title must not be null");
+
+		List<ProductRevision> revisions = _productRevisionDao.getByTitle(title);
+
+		HashSet<Long> ids = new HashSet<Long>();
+		for(ProductRevision revision : revisions) {
+			ids.add(revision.getId());
+		}
+
+		List<Product> products = new ArrayList<Product>();
+
+		for(Long id : ids) {
+			products.add(_productDao.getById(id));
+		}
+
+		return products;
 	}
 
 	public void setProductDAO(IProductDAO productDao) {
 		_productDao = productDao;
 	}
+
+	public void setProductRevisionDAO(IProductRevisionDAO productRevisionDao) {
+		_productRevisionDao = productRevisionDao;
+	}
+
+	static void filter(Collection<ProductRevision> c) {
+	}
+
+
+
 }

@@ -8,10 +8,14 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.*;
 
 import org.hamcrest.Matcher;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 /**
  * <p>
@@ -24,7 +28,7 @@ import org.hamcrest.Matcher;
  * <ul>
  * <li>Id: primary identifier in the database</li>
  * <li>locale: {@link Locale} which indicates language and location of this product</li>
- * <li>revisions: a set of {@link ProductRevision}s, each representing one version of this product</li>
+ * <li>revisions: a {@link SortedSet} of {@link ProductRevision}s, each representing one version of this product. Sorted by revision number, highest first.</li>
  * </ul>
  * </p>
  * 
@@ -45,9 +49,8 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long _id = null;
-	private Set<ProductRevision> _revisions = new HashSet<ProductRevision>();
+	private SortedSet<ProductRevision> _revisions = new TreeSet<ProductRevision>(new RevisionComparator());
 	private Locale _locale;
-	private static final Comparator<? super ProductRevision> _revisionComparator = new RevisionComparator();
 
 	/**
 	 * this constructor is need for hibernate.
@@ -81,6 +84,8 @@ public class Product implements Serializable {
 	}
 
 	/**
+	 * This sets the id of this product. It also updates the id of each {@link ProductRevision} to match the new id.
+	 * 
 	 * TODO this is public due to service having to set the id if not present, should not be public probably
 	 * This violates immutability of this class.
 	 */
@@ -105,15 +110,18 @@ public class Product implements Serializable {
 
 	/**
 	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
-	 * Allthoug, this might be desireable...
+	 * Although, this might be desirable...
+	 * 
+	 * @return all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ent_id")
-	public Set<ProductRevision> getRevisions() {
+	@Sort(type = SortType.COMPARATOR, comparator = RevisionComparator.class)
+	public SortedSet<ProductRevision> getRevisions() {
 		return _revisions;
 	}
 
-	private void setRevisions(Set<ProductRevision> revisions) {
+	private void setRevisions(SortedSet<ProductRevision> revisions) {
 		_revisions = revisions;
 	}
 
@@ -151,11 +159,10 @@ public class Product implements Serializable {
 
 	/**
 	 * Returns the current, i.e. highest, revision of this product.
+	 * <p>TODO this allows changing the {@link ProductRevision} of this product. this violates immutability of this class.</p>
 	 */
 	@Transient
 	public ProductRevision getCurrentRevision() {
-		List<ProductRevision> list = new ArrayList<ProductRevision>(_revisions);
-		Collections.sort(list, Product._revisionComparator);
-		return list.iterator().next();
+		return _revisions.first();
 	}
 }

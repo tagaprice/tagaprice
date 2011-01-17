@@ -41,6 +41,7 @@ public class DatabaseManager {
 			System.err.println("Couldn't find driver class:");
 			cnfe.printStackTrace();
 		}
+
 		PrintStream out = System.out;
 		Scanner in = new Scanner(System.in);
 
@@ -81,7 +82,7 @@ public class DatabaseManager {
 			dc = new DatabaseConnection(c);
 			qds = new QueryDataSet(dc);
 			qds.addTable(tablename, "SELECT * FROM " + tablename);
-			File xmlFile = new File("./src/test/resources/WEB-INF/testdata/" + tablename + "_dao.xml");
+			File xmlFile = new File("./src/test/resources/hsqldb/tables/generated/" + tablename + "_dao.xml");
 			FileOutputStream fos = new FileOutputStream(xmlFile);
 			XmlDataSet.write(qds, fos);
 		} catch (SQLException e) {

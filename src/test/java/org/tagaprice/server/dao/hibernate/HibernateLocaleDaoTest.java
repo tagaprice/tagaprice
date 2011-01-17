@@ -1,7 +1,7 @@
 package org.tagaprice.server.dao.hibernate;
 
 import org.springframework.test.context.ContextConfiguration;
-import org.tagaprice.server.dao.interfaces.AbstractLocaleDaoTests;
+import org.tagaprice.server.dao.interfaces.AbstractLocaleDaoTest;
 
 /**
  * Unit tests for the {@link HibernateLocaleDAO}.
@@ -12,4 +12,4 @@ import org.tagaprice.server.dao.interfaces.AbstractLocaleDaoTests;
  * 
  */
 @ContextConfiguration
-public class HibernateLocaleDaoTests extends AbstractLocaleDaoTests { }
+public class HibernateLocaleDaoTest extends AbstractLocaleDaoTest { }
