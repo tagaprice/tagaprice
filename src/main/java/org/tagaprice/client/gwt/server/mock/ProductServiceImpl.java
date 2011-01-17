@@ -15,6 +15,7 @@ IProductService {
 	int productIdCounter = 1;
 	HashMap<IRevisionId, IProduct> productsAllRevisions = new HashMap<IRevisionId, IProduct>();
 	HashMap<Long, IProduct> productsLatest = new HashMap<Long, IProduct>();
+	ArrayList<ICategory> categories = new ArrayList<ICategory>();
 
 	/**
 	 * 
@@ -26,11 +27,18 @@ IProductService {
 	 */
 	public ProductServiceImpl() {
 		ICategory root = new Category("root");
+		this.categories.add(root);
 		ICategory food = new Category("food");
+		this.categories.add(food);
 		ICategory vegetables = new Category("vegetables");
+		this.categories.add(vegetables);
 		ICategory beverages = new Category("beverages");
+		this.categories.add(beverages);
 		ICategory alcoholics = new Category("alcohol");
+		this.categories.add(alcoholics);
 		ICategory nonalcoholics = new Category("nonalcoholics");
+		this.categories.add(nonalcoholics);
+
 		root.addChildCategory(food);
 		root.addChildCategory(beverages);
 		food.addChildCategory(vegetables);
@@ -50,9 +58,19 @@ IProductService {
 	public IProduct getProduct(IRevisionId revionsId) {
 		if(revionsId != null) {
 			if(revionsId.getRevision() == 0L) {
-				return this.productsLatest.get(revionsId.getId());
+				IProduct product = this.productsLatest.get(revionsId.getId());
+				if(product != null) {
+					return product.copy();
+				} else {
+					return null;
+				}
 			} else {
-				return this.productsAllRevisions.get(revionsId);
+				IProduct product = this.productsAllRevisions.get(revionsId);
+				if(product != null) {
+					return product.copy();
+				} else {
+					return null;
+				}
 			}
 		} else {
 			return null;
@@ -88,6 +106,7 @@ IProductService {
 				updateProduct = product.copy();
 				updateProduct.getRevisionId().setRevision(updateProduct.getRevisionId().getRevision() + 1);
 				this.productsAllRevisions.put(updateProduct.getRevisionId(), updateProduct);
+				this.productsLatest.put(updateProduct.getRevisionId().getId(), updateProduct);
 				return updateProduct;
 			}
 		}
@@ -95,15 +114,15 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<IProduct> products = new ArrayList<IProduct>();
+		for (IProduct p: this.productsLatest.values()) {
+			products.add(p.copy());
+		}
+		return products;
 	}
 
 	@Override
 	public ArrayList<ICategory> getCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.categories;
 	}
-
-
 }

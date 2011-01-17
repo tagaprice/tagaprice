@@ -2,7 +2,6 @@ package org.tagaprice.client.gwt.server.mock;
 
 
 import org.junit.*;
-import org.mockito.Mockito;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
@@ -36,19 +35,14 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void testGetProductByIdShoulReturnProduct() {
-		IRevisionId rev = Mockito.mock(IRevisionId.class);
-		//Product with id = 1
-		Mockito.when(rev.getId()).thenReturn(1L);
-		//Rev 0 -> latest revision
-		Mockito.when(rev.getRevision()).thenReturn(0L);
-		rev = new RevisionId(1L);
+		IRevisionId rev = new RevisionId(1L);
 		IProduct product = this.service.getProduct(rev);
 		Assert.assertNotNull(product);
 		Assert.assertEquals(1L, product.getRevisionId().getId().longValue());
 	}
 
 	@Test
-	public void saveNewProductShouldReturnCopyOfProduct() {
+	public void testSaveNewProductShouldReturnCopyOfProduct() {
 		String productname = "testproduct";
 		ICategory productcategory = new Category("testcat");
 		IQuantity productquantity = new Quantity(1.2, Unit.kg);
@@ -58,6 +52,31 @@ public class ProductServiceImplTest {
 		Assert.assertEquals(productname, savedProduct.getTitle());
 		Assert.assertEquals(productcategory, savedProduct.getCategory());
 		Assert.assertEquals(productquantity, savedProduct.getQuantity());
+	}
+
+	@Test
+	public void testGetProductAndUpdate() {
+		IRevisionId rev = new RevisionId(1L);
+		//This should return two different objects
+		IProduct originalProduct = this.service.getProduct(rev);
+		IProduct changedProduct = this.service.getProduct(rev);
+		Assert.assertTrue(originalProduct != changedProduct);
+		Assert.assertEquals("The 2 Objects should be equal, maybe You equals is not implemented correctly?", originalProduct, changedProduct);
+		changedProduct.setTitle("newTitle");
+
+		//save changed product and check
+		IProduct savedProduct = this.service.saveProduct(changedProduct);
+		Assert.assertEquals(2L, savedProduct.getRevisionId().getRevision().longValue());
+
+		//Check, if saving operation succeded
+		//Get latest revision
+		IProduct shouldBeSavedProduct = this.service.getProduct(rev);
+		IProduct shouldBeSavedProductWithRevision = this.service.getProduct(new RevisionId(1L, 2L));
+		IProduct shouldBeOriginalProduct = this.service.getProduct(new RevisionId(1L, 1L));
+
+		Assert.assertEquals(savedProduct, shouldBeSavedProduct);
+		Assert.assertEquals(savedProduct, shouldBeSavedProductWithRevision);
+		Assert.assertEquals(originalProduct, shouldBeOriginalProduct);
 	}
 
 }

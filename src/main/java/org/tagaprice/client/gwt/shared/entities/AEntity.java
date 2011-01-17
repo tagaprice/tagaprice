@@ -74,6 +74,17 @@ public abstract class AEntity<T> implements IEntity<T> {
 		_revId=revisionID;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof AEntity<?>) {
+			return this.equals((AEntity<?>) o);
+		} else {
+			return false;
+		}
 
+	}
 
+	public boolean equals(AEntity<?> o) {
+		return this._title.equals(o._title) && this._revId.equals(o._revId);
+	}
 }

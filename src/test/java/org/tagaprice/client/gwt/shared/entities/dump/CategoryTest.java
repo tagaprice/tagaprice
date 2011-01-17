@@ -38,7 +38,4 @@ public class CategoryTest {
 		Assert.assertEquals("root->food", food.toString());
 		Assert.assertEquals("root->food->vegetables", vegetables.toString());
 	}
-
-
-
 }

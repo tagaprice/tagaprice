@@ -57,4 +57,10 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		//TODO Implement this correct
+		return (o.toString().equals(this.toString()));
+	}
+
 }
