@@ -110,6 +110,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	private void updateView(IProduct product) {
+		if(product == null)
+			return;
 		ICreateProductView view = this._clientFactory.getEditProductView();
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());

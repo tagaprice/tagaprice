@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.NotificationMole;
  */
 
 public class ProductServiceDispatchImpl implements ProductServiceDispatch {
+	MyLogger logger = LoggerFactory.getLogger(ProductServiceDispatchImpl.class);
 	private static IProductServiceAsync productServiceAsync = GWT.create(IProductService.class);
 
 	private NotificationMole mole;
@@ -27,8 +29,8 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 
 	@Override
 	public void getProduct(IRevisionId revisionId, AsyncCallback<IProduct> callback) {
-		// TODO Auto-generated method stub
-
+		logger.log("get Product");
+		ProductServiceDispatchImpl.productServiceAsync.getProduct(revisionId, callback);
 	}
 
 	@Override

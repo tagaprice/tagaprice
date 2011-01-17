@@ -5,12 +5,15 @@ import java.util.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
+import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ProductServiceImpl extends RemoteServiceServlet implements
 IProductService {
+
+	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
 	HashMap<IRevisionId, IProduct> productsAllRevisions = new HashMap<IRevisionId, IProduct>();
@@ -26,6 +29,7 @@ IProductService {
 	 * Initialization with some products and Categories.
 	 */
 	public ProductServiceImpl() {
+		logger.log("Load servlet...");
 		ICategory root = new Category("root");
 		this.categories.add(root);
 		ICategory food = new Category("food");

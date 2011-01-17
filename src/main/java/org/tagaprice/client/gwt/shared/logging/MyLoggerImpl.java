@@ -6,6 +6,7 @@ public class MyLoggerImpl implements MyLogger {
 
 	public MyLoggerImpl(@SuppressWarnings("rawtypes") Class theClass) {
 		this.theClass = theClass;
+		log("Logger started");
 	}
 
 	@Override

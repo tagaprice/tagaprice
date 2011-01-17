@@ -92,7 +92,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	@Override
 	public void setCategory(ICategory category) {
-		// TODO Auto-generated method stub
+		this.category.setCategory(category);
 
 	}
 

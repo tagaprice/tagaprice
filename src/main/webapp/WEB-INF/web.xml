@@ -19,23 +19,16 @@
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
-		<servlet-name>productserviceOld</servlet-name>
+		<servlet-name>productservice</servlet-name>
 		<servlet-class>org.tagaprice.client.gwt.server.mock.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>productserviceOld</servlet-name>
-		<url-pattern>/TagAPrice/productserviceOld</url-pattern>
+		<servlet-name>productservice</servlet-name>
+		<url-pattern>/TagAPrice/productservice</url-pattern>
 	</servlet-mapping>	
 	
 	<!-- END: RPC-->
-	<!--
-	<servlet-mapping>
-		<servlet-name>jUnitHostImpl</servlet-name>
-		<url-pattern>/tagapriceui/junithost</url-pattern>
-	</servlet-mapping>
-	-->
-	
 	
 
 	<!-- Default page to serve -->
