@@ -13,7 +13,8 @@
 
 
 	<bean id="sessionService"
-	      class="org.tagaprice.server.service.SessionService">
+	      class="org.tagaprice.server.service.SessionService"
+	      scope="prototype">
 	</bean>
 	
 </beans>
