@@ -16,8 +16,8 @@ import org.tagaprice.core.entities.Unit;
  * This class is used for testing purposes only.
  * 
  * Entities can freshly created, i.e. new objects will be created with each call, by calling the various create methods.
- * This class is hibernate session save by only providing methods where you have to specify the identifier yourself.
- * So if you create two objects with the same identifier it's your own mistake.
+ * This class is "hibernate session save" by only providing methods where you have to specify the identifier yourself.
+ * So if you create two objects with the same identifier it's your own fault.
  * 
  * @author "forste"
  *

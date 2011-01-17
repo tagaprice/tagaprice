@@ -15,7 +15,7 @@ import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 
-@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractLocaleDaoTest-context.xml" })
+@ContextConfiguration //(locations = { "/spring/test-beans.xml", "AbstractLocaleDaoTest-context.xml" })
 public class AbstractLocaleDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected ILocaleDAO _localeDao;

@@ -16,7 +16,7 @@ import org.tagaprice.core.entities.Account;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 
-@ContextConfiguration(locations = { "/spring/test-beans.xml", "AbstractAccountDaoTest-context.xml" })
+@ContextConfiguration
 public class AbstractAccountDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 	protected IAccountDAO _accountDao;
 	protected IDbTestInitializer _dbInitializer;

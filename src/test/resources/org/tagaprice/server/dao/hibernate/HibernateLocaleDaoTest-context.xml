@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<!-- imports -->
-	<import resource="classpath:/spring/test-beans.xml" />
+	<!-- import db and hibernate setup -->
+	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
 
 	<!-- DAO setup -->
 	<bean id="localeDao" class="org.tagaprice.server.dao.hibernate.HibernateLocaleDAO">
