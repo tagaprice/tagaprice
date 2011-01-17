@@ -43,6 +43,13 @@ public class EntityCreator {
 		return createProductWithRevisions(id, revisions, localeId);
 	}
 
+	public static Product createProductWithRevisions(Long id, ProductRevision productRevision1, ProductRevision productRevision2) {
+		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
+		revisions.add(productRevision1);
+		revisions.add(productRevision2);
+		return createProductWithRevisions(id, revisions, 1);
+	}
+
 	public static Product createProductWithRevisions(Long id, ProductRevision productRevision) {
 		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(productRevision);
@@ -68,6 +75,7 @@ public class EntityCreator {
 	 * 
 	 * 
 	 */
+
 
 	public static ProductRevision createProductRevision(Long id, int rev) {
 		return createProductRevision(id, rev, "title");
@@ -144,4 +152,5 @@ public class EntityCreator {
 	public static Session createSession() {
 		return HibernateSaveEntityCreator.createSession();
 	}
+
 }

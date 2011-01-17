@@ -1,8 +1,10 @@
 package org.tagaprice.server.service;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.Iterator;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,6 +17,7 @@ import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 import org.tagaprice.server.service.helper.EntityCreator;
 
 import static org.mockito.Mockito.*;
@@ -27,6 +30,7 @@ import static org.junit.Assert.assertThat;
 public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests {
 	private DefaultProductService _productManagement;
 	private IProductDAO _productDaoMock;
+	private IProductRevisionDAO _productRevisionDaoMock;
 
 	@BeforeClass
 	public static void setUpBefore() throws Exception {
@@ -36,7 +40,9 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	public void setUp() throws Exception {
 		_productManagement = applicationContext.getBean("defaultProductManagement", DefaultProductService.class); //maybe replace this with autowire
 		_productDaoMock = mock(IProductDAO.class);
+		_productRevisionDaoMock = mock(IProductRevisionDAO.class);
 		_productManagement.setProductDAO(_productDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
+		_productManagement.setProductRevisionDAO(_productRevisionDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
 	}
 
 	@After
@@ -117,5 +123,74 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 		Product actual = _productManagement.save(toSave);
 
 		assertThat(actual, equalTo(expected));
+	}
+
+	@Test
+	public void getByTitle_shouldReturn2ProductsWithAtLeastOneRevisionHavingTitleCoke() throws Exception {
+		String title = "coke";
+		long id_1 = 1L;
+		long id_2 = 2L;
+
+		ProductRevision productRevision_1_1 = EntityCreator.createProductRevision(id_1, 1, "other "+title);
+		ProductRevision productRevision_1_2 = EntityCreator.createProductRevision(id_1, 2, "new "+title);
+		ProductRevision productRevision_2_1 = EntityCreator.createProductRevision(id_2, 1, title);
+
+		ArrayList<ProductRevision> revisionsContainingTitle = new ArrayList<ProductRevision>();
+		revisionsContainingTitle.add(productRevision_1_1);
+		revisionsContainingTitle.add(productRevision_1_2);
+		revisionsContainingTitle.add(productRevision_2_1);
+
+		when(_productRevisionDaoMock.getByTitle(title)).thenReturn(revisionsContainingTitle);
+
+		Product productContainingTitle_1 = EntityCreator.createProductWithRevisions(id_1, productRevision_1_1, productRevision_1_2);
+		ProductRevision productRevision_2_2_NotContainingTitle = EntityCreator.createProductRevision(id_2, 2, "nope");
+		Product productContainingTitle_2 = EntityCreator.createProductWithRevisions(id_2, productRevision_2_2_NotContainingTitle, productRevision_2_1);
+
+		when(_productDaoMock.getById(id_1)).thenReturn(productContainingTitle_1);
+		when(_productDaoMock.getById(id_2)).thenReturn(productContainingTitle_2);
+
+		List<Product> actual = _productManagement.getByTitle(title);
+
+		ProductRevision expected_revision_1_1 = EntityCreator.createProductRevision(id_1, 1, "other "+title);
+		ProductRevision expected_revision_1_2 = EntityCreator.createProductRevision(id_1, 2, "new "+title);
+		ProductRevision expected_revision_2_1 = EntityCreator.createProductRevision(id_2, 1, title);
+		ProductRevision expected_revision_2_2 = EntityCreator.createProductRevision(id_2, 2, "nope");
+
+		Product expected_product_1 = EntityCreator.createProductWithRevisions(id_1, expected_revision_1_1, expected_revision_1_2);
+		Product expected_product_2 = EntityCreator.createProductWithRevisions(id_2, expected_revision_2_1, expected_revision_2_2);
+
+		List<Product> expected = new ArrayList<Product>();
+		expected.add(expected_product_1);
+		expected.add(expected_product_2);
+
+
+		compare(actual, expected);
+	}
+
+	private static void compare(List<Product> actual, List<Product> expected) {
+		assertThat(actual, is(expected));
+
+		Iterator<Product> itActual = actual.iterator();
+		Iterator<Product> itExpected = expected.iterator();
+		while(itActual.hasNext()) {
+			Product curActual = itActual.next();
+			Product curExpected = itExpected.next();
+
+			assertThat(curActual.getRevisions(), is(curExpected.getRevisions()));
+		}
+	}
+
+	@Test
+	public void getByTitle_shouldReturnEmptyList() throws Exception {
+		String title = "no title";
+
+		ArrayList<ProductRevision> revisionsContainingTitle = new ArrayList<ProductRevision>();
+		when(_productRevisionDaoMock.getByTitle(title)).thenReturn(revisionsContainingTitle);
+
+		List<Product> actual = _productManagement.getByTitle(title);
+
+		List<Product> expected = new ArrayList<Product>();
+
+		assertThat(actual, is(expected));
 	}
 }
