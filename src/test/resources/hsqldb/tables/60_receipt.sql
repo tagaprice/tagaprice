@@ -1,9 +1,11 @@
 CREATE TABLE receipt (
-	rid BIGINT NOT NULL,
-	sid BIGINT,
-	draft BOOLEAN NOT NULL DEFAULT true,
+	receipt_id BIGINT NOT NULL,
+	shop_id BIGINT,
+--draft BOOLEAN NOT NULL DEFAULT true,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	creator BIGINT NOT NULL,
 	
-	PRIMARY KEY (rid),
-	FOREIGN KEY (rid) REFERENCES entity (ent_id) 
+	PRIMARY KEY (receipt_id),
+--  FOREIGN KEY (receipt_id) REFERENCES entity (ent_id) --NOT VERSIONED
+	FOREIGN KEY (creator) REFERENCES account (uid)
 );
