@@ -25,6 +25,7 @@ import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -40,7 +41,8 @@ import org.tagaprice.server.dao.interfaces.IProductDAO;
  */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @TestExecutionListeners({})
-@ContextConfiguration //(locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
+@ContextConfiguration
+// (locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
 // extension is needed for application context, otherwise it would work with the two annotations above
 public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
@@ -83,16 +85,13 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		int numberRevisions = 2;
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevisions(id,
-						numberRevisions,
-						creator,
-						null,
-						category));
+				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
 
 		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, null, category);
+		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, Unit.ml,
+				category);
 		expectedRevisions.add(expectedRev);
 		Product expected = new Product(id, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
 
@@ -112,16 +111,13 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		int numberRevisions = 2;
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevisions(id,
-						numberRevisions,
-						creator,
-						null,
-						category));
+				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
 
 		Product saved = _productDao.save(productToSave);
 
 		int revisionNumber = 3;
-		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, null, category);
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
+				category);
 
 		saved.getRevisions().add(newRev);
 
@@ -140,18 +136,20 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
 		ITable accountTable = _currentDataSet.getTable("account");
 		ITable categoryTable = _currentDataSet.getTable("category");
-		Account creator = new Account(3L, "user@mail.com", "12345", DbUnitDataSetHelper.getDate(accountTable.getValue(0,
-		"last_login")));
+		Account creator = new Account(3L, "user@mail.com", "12345", DbUnitDataSetHelper.getDate(accountTable.getValue(
+				0, "last_login")));
 
 		Category cat0 = new Category(0L, "rootCategory", null, DbUnitDataSetHelper.getDate(categoryTable.getValue(0,
 		"created_at")), creator);
 		Category cat1 = new Category(1L, "category1", cat0, DbUnitDataSetHelper.getDate(categoryTable.getValue(1,
 		"created_at")), creator);
 		ProductRevision rev1 = new ProductRevision(1L, 1, (String) entityRevTable.getValue(0, "title"),
-				DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), creator, null, null, cat0,
+				DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), creator,
+				HibernateSaveEntityCreator.getDefaultUnit(), HibernateSaveEntityCreator.getDefaultAmount(), cat0,
 		"www.urlToImage.com");
 		ProductRevision rev2 = new ProductRevision(1L, 2, (String) entityRevTable.getValue(1, "title"),
-				DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), creator, null, null, cat1,
+				DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), creator,
+				HibernateSaveEntityCreator.getDefaultUnit(), HibernateSaveEntityCreator.getDefaultAmount(), cat1,
 		"www.differentUrlToImage.com");
 
 		// Set<ProductRevision> revisions = new HashSet<ProductRevision>();

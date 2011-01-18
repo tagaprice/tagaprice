@@ -2,8 +2,8 @@ CREATE TABLE productRevision (
 	ent_id BIGINT NOT NULL,
 	rev INTEGER NOT NULL,
 
-	unit_id BIGINT NULL,
-	amount INTEGER, -- integer or double precision ?
+	unit VARCHAR(20) NOT NULL,
+	amount DOUBLE NOT NULL, -- integer or double precision ?
 	category_id BIGINT NULL,
 	imageUrl varchar(100) NULL,
 

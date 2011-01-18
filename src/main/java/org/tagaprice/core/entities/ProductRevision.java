@@ -103,6 +103,8 @@ public class ProductRevision implements Serializable {
 		_revisionNumber = revisionNumber;
 		_creator = creator;
 		_category = category;
+		_unit = unit;
+		_amount = amount;
 		_imageURL = imageURL;
 	}
 
@@ -177,7 +179,6 @@ public class ProductRevision implements Serializable {
 	}
 
 
-	@Transient
 	public Double getAmount() {
 		return _amount;
 	}
