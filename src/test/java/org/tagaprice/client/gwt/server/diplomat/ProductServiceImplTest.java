@@ -1,9 +1,15 @@
 package org.tagaprice.client.gwt.server.diplomat;
 
 
+import java.util.Date;
+
 import org.junit.*;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.core.entities.*;
+import org.tagaprice.server.service.helper.EntityCreator;
 
 public class ProductServiceImplTest {
+	ProductServiceImpl productService = new ProductServiceImpl();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -28,7 +34,19 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void testConvertProductToGWT() throws Exception {
-		Assert.fail("not implemented");
+
+		Product productCore = EntityCreator.createProductWithRevisions(3L, 2, 1, new Category(1L, "TestCat", null, new Date(), null));
+
+		IProduct productGWT = productService.convertProductToGWT(productCore, 0);
+
+		Assert.assertEquals(productCore.getCurrentRevision().getTitle(), productGWT.getTitle());
+		Assert.assertEquals(productCore.getId(), productGWT.getRevisionId().getId());
+		Assert.assertEquals(productCore.getCurrentRevision().getRevisionNumber().intValue(), productGWT.getRevisionId().getRevision().intValue());
+		Assert.assertEquals(productCore.getCurrentRevision().getCategory().getTitle(), productGWT.getCategory().getTitle());
+		//Will not work until Unit and amount are implemented on server side
+		//When implemented, fix the convert method and add another Assertion (UNIT)
+		Assert.assertEquals("INSPECT COMMENTS ON THIS TEST", productCore.getCurrentRevision().getAmount().doubleValue(), productGWT.getQuantity().getQuantity());
+
 	}
 
 }

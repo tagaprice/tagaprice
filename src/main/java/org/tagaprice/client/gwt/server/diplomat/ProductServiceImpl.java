@@ -4,9 +4,11 @@ import java.util.*;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.client.gwt.shared.entities.dump.Unit;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
@@ -38,8 +40,19 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			list = coreService.getByTitle(searchCriteria.getTitle());
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<IProduct> returnList = new ArrayList<IProduct>();
+
+		for(Product p: list) {
+			returnList.add(convertProductToGWT(p, 0));
+		}
+		return returnList;
 	}
 
 	@Override
@@ -54,7 +67,7 @@ IProductService {
 		return null;
 	}
 
-	private org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
+	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
 		//Default values for new product...
 		Long productId = 0L;
 		Integer revisionNumber = 1;
@@ -76,19 +89,20 @@ IProductService {
 	 * @param revision when 0, then the latest revision is returned.
 	 * @return
 	 */
-	private IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
+	public IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
 		//these are allways existing products!!!
+		ProductRevision pr = productCore.getCurrentRevision();
+
+
 		//get the data from the latest revision
-		long id = 0;
-		long revision = 0;
-		String title = "";
-		ICategory category = null;
-		IQuantity quantity = null;
+		long id = productCore.getId();
+		long revision = pr.getRevisionNumber();
+		String title = pr.getTitle();
+		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
+		IQuantity quantity = new Quantity(1L, Unit.piece);
 
 		IRevisionId revisionId = new RevisionId(id, revision);
-		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(title, category, quantity);
-
-
+		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title, category, quantity);
 		return productGWT;
 	}
 
