@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.entities.dump;
 
+import org.tagaprice.core.entities.Unit;
+
 public class Quantity implements IQuantity {
 
 	private static final long serialVersionUID = -8569323869233802603L;

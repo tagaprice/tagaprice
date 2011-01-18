@@ -7,6 +7,7 @@ import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

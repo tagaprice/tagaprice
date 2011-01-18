@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -166,9 +168,7 @@ public class ProductRevision implements Serializable {
 	//
 
 
-	// @ManyToOne
-	// @JoinColumn(name = "type_id")
-	@Transient
+	@Enumerated(EnumType.STRING)
 	public Unit getUnit() {
 		return _unit;
 	}
