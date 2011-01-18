@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IQuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.client.ui.*;
 

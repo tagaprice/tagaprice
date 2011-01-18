@@ -5,6 +5,7 @@ import org.junit.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
+import org.tagaprice.core.entities.Unit;
 
 /**
  * This class tests the mocked (without persistence) ProductService.

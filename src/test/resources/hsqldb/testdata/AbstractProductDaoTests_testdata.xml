@@ -97,39 +97,39 @@
   <table name="productRevision">
     <column>ent_id</column>
     <column>rev</column>
-    <column>unit_id</column>
+    <column>unit</column>
     <column>amount</column>
     <column>category_id</column>
     <column>imageurl</column>
     <row>
       <value>1</value>
       <value>1</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>0</value>
       <value>www.urlToImage.com</value>
     </row>
     <row>
       <value>1</value>
       <value>2</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>1</value>
       <value>www.differentUrlToImage.com</value>
     </row>
     <row>
       <value>2</value>
       <value>1</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>0</value>
       <value>www.image.com</value> 
     </row>
     <row>
       <value>2</value>
       <value>2</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>2</value>
       <value>www.image.org</value>
     </row>

@@ -24,6 +24,8 @@ import org.tagaprice.core.entities.Unit;
  */
 public class HibernateSaveEntityCreator {
 	private static final Date _standardDate = new Date(1293213600000L); //2010/12/24, 19:00:00000, DO NOT CHANGE THIS (testdata is set to this date also)
+	private static final Double _standardAmount = 100d; // DO NOT CHANGE THIS (testdata is set to this date also)
+	private static final Unit _standardUnit = Unit.g;
 
 	/*
 	 * 
@@ -58,14 +60,14 @@ public class HibernateSaveEntityCreator {
 	}
 
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Unit unit, Category category) {
-		return new ProductRevision(id, rev, title, createdAt, creator, unit, null, category, "someImageUrl");
+		return new ProductRevision(id, rev, title, createdAt, creator, unit, HibernateSaveEntityCreator._standardAmount , category, "someImageUrl");
 	}
 
 	/*
 	 * 
 	 * 
 	 * 
-	 * Default Date
+	 * Default value getters
 	 * 
 	 * 
 	 * 
@@ -74,9 +76,19 @@ public class HibernateSaveEntityCreator {
 		return HibernateSaveEntityCreator._standardDate;
 	}
 
+	public static Unit getDefaultUnit() {
+		return HibernateSaveEntityCreator._standardUnit;
+	}
+
+	public static Double getDefaultAmount() {
+		return HibernateSaveEntityCreator._standardAmount;
+	}
+
+
 	public static Locale createLocale(Integer id) {
 		return new Locale(id, "german", "deutsch");
 	}
+
 
 	/*
 	 * 

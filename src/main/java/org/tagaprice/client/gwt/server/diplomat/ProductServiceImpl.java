@@ -11,7 +11,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
-import org.tagaprice.client.gwt.shared.entities.dump.Unit;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.core.api.ServerException;
