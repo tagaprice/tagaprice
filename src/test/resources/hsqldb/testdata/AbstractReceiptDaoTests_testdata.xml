@@ -164,4 +164,26 @@
     </row>
   </table>
   
+  <table name="receiptentry">
+    <column>receipt_id</column>
+    <column>product_id</column>
+    <column>product_revision</column>
+    <column>product_count</column>
+    <column>price</column>
+    <row>
+      <value>0</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>10</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>1</value>
+      <value>1</value>
+      <value>4</value>
+      <value>50</value>
+    </row>
+  </table>
+  
 </dataset>

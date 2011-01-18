@@ -66,17 +66,17 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		int rev = 1;
 		SortedSet<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId , rev );
 
-		// TODO adjust values here
 		long receipt_id = 0;
-		ProductRevision productRevision1 = null;
+		ProductRevision productRevision = null;
 		int count = 1;
-		long price = 1;
-		ProductRevision productRevision2 = null;
-		int count2 = 1;
-		long price2 = 1;
+		long price = 10;
 
-		ReceiptEntry entry1 = new ReceiptEntry(receipt_id, productRevision1, count, price);
-		ReceiptEntry entry2 = new ReceiptEntry(receipt_id, productRevision2, count2, price2);
+		long receipt_id2 = 3;
+		int count2 = 4;
+		long price2 = 50;
+
+		ReceiptEntry entry1 = new ReceiptEntry(receipt_id, productRevision, count, price);
+		ReceiptEntry entry2 = new ReceiptEntry(receipt_id2, productRevision, count2, price2);
 
 		assertThat(entries, hasItems(entry1, entry2));
 	}
