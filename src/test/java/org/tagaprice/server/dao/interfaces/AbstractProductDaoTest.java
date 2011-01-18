@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -56,19 +57,16 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	@Before
 	public void setUp() throws Exception {
 		_log.info("Setting up tests.");
-
-		// TODO this should be in setUpBeforeClass
 		_dbInitializer = applicationContext.getBean("dbTestInitializer", IDbTestInitializer.class);
-
 		_dbInitializer.dropAndRecreate();
-		_currentDataSet = _dbInitializer.fillTables();
-
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
+		
+		_currentDataSet = _dbInitializer.fillTables();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// _dbInitializer.resetTables();
+		_dbInitializer.resetTables();
 	}
 
 	@Test
@@ -130,7 +128,6 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		assertThat(updated.getRevisions(), hasItem(newRev));
 		assertThat(updated.getId(), equalTo(id));
 	}
-
 
 	@Test
 	@Rollback(false)
