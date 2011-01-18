@@ -38,7 +38,7 @@ IProductService {
 	private static final long serialVersionUID = 1733780607553359495L;
 	Logger _log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-	public ProductServiceImpl() throws Exception {
+	public ProductServiceImpl() {
 		_log.debug("Starting GWT-ProductService");
 		
 		_log.debug("Attempting to load product service from core.api");
@@ -55,7 +55,6 @@ IProductService {
 			coreService = (org.tagaprice.core.api.IProductService) ctx.getBean("defaultProductService");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());
-			throw e;
 		} finally {
 			_log.debug("Loaded product service successfully.");
 		}
