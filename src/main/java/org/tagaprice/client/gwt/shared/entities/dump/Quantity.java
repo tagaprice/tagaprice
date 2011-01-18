@@ -1,6 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities.dump;
 
-import org.tagaprice.core.entities.Unit;
 
 public class Quantity implements IQuantity {
 

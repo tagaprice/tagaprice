@@ -2,7 +2,6 @@ package org.tagaprice.client.gwt.shared.entities.dump;
 
 import java.io.Serializable;
 
-import org.tagaprice.core.entities.Unit;
 
 /**
  * A {@link IQuantity} defines in which way a user can buy a

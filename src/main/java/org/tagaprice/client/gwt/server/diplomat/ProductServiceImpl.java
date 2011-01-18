@@ -2,15 +2,12 @@ package org.tagaprice.client.gwt.server.diplomat;
 
 import java.util.*;
 
-import javax.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.client.gwt.shared.entities.dump.Unit;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.core.api.ServerException;
@@ -39,11 +36,11 @@ IProductService {
 
 	public ProductServiceImpl() {
 		_log.debug("Starting GWT-ProductService");
-		
+
 		_log.debug("Attempting to load product service from core.api");
 		try {
 			/*
-			 * TODO to avoid static mapping by providing name of context, try something like this. 
+			 * TODO to avoid static mapping by providing name of context, try something like this.
 			 * Does not work since this servlet apparently does not have the root application context associated with it.
 			 * 
 			 * WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
@@ -58,17 +55,17 @@ IProductService {
 			_log.debug("Loaded product service successfully.");
 		}
 	}
-	
+
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: "+revionsId);
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
 		_log.debug("get products for search criteria");
-		
+
 		List<Product> list = new ArrayList<Product>();
 		try {
 			list = coreService.getByTitle(searchCriteria.getTitle());
@@ -136,7 +133,7 @@ IProductService {
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title, category, quantity);
 		return productGWT;
 	}
-	
+
 	public void setProductService(org.tagaprice.core.api.IProductService productService) {
 		coreService = productService;
 	}
