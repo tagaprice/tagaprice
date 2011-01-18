@@ -4,7 +4,7 @@ package org.tagaprice.server.dao.interfaces;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import java.util.SortedSet;
+import java.util.List;
 
 import org.dbunit.dataset.IDataSet;
 import org.hamcrest.Matcher;
@@ -19,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 
 /**
@@ -64,10 +65,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		long productId = 1L;
 		int rev = 1;
-		SortedSet<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId , rev );
+		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId , rev );
 
 		long receipt_id = 0;
-		ProductRevision productRevision = null;
+		ProductRevision productRevision = HibernateSaveEntityCreator.createProductRevision(productId, rev, null, null, null);
 		int count = 1;
 		long price = 10;
 
