@@ -12,9 +12,9 @@ import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,10 +51,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	private IDataSet _currentDataSet;
+	private SessionFactory _sessionFactory;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -67,6 +65,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_currentDataSet = _dbInitializer.fillTables();
 
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
+
+		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
 
 		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
 	}
@@ -101,7 +101,9 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
 
-		// TODO this doesn't work. i think because hibernate write to db at transaction commit, so this is still in before the actual write
+		// for more information why this is done, see
+		// http://static.springsource.org/spring/docs/3.0.x/reference/testing.html#testcontext-tx
+		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(productToSave);
 	}
 
