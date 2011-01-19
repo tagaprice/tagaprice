@@ -17,14 +17,27 @@ public class ProductCoreColumnDefinitions {
 
 			@Override
 			public Widget render(IProduct t) {
-				// TODO Auto-generated method stub
-				return null;
+				return new HTML(t.getTitle());
 			}
 
 			@Override
 			public String getColumnName() {
 				// TODO Auto-generated method stub
-				return null;
+				return "name";
+			}
+		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
+
+			@Override
+			public Widget render(IProduct t) {
+				// TODO Auto-generated method stub
+				return new Anchor("Open");
+			}
+
+			@Override
+			public String getColumnName() {
+				// TODO Auto-generated method stub
+				return "Action";
 			}
 		});
 

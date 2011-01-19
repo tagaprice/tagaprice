@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
+import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 /**
@@ -87,6 +90,24 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 		listProductsView.setPresenter(this);
 
+		this.productServiceAsync.getProducts(null, new AsyncCallback<ArrayList<IProduct>>() {
+
+			@Override
+			public void onSuccess(ArrayList<IProduct> result) {
+				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
+				products = result;
+				listProductsView.setData(result);
+				panel.setWidget(listProductsView.asWidget());
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+
 	}
 
 	/**
@@ -103,5 +124,29 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void onAddProduct() {
 		//this.goTo(new EditProductPlace());
+	}
+
+	@Override
+	public void onSearch(String searchtext) {
+		ListProductsActivity.logger.log("search for " + searchtext);
+		IProduct product = new Product(searchtext, new Category(""), null);
+		this.productServiceAsync.getProducts(product, new AsyncCallback<ArrayList<IProduct>>() {
+
+			@Override
+			public void onSuccess(ArrayList<IProduct> result) {
+
+				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
+				products = result;
+				listProductsView.setData(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 	}
 }

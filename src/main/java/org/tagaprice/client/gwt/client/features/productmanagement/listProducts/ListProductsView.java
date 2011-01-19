@@ -24,6 +24,8 @@ public interface ListProductsView<T> extends IsWidget {
 		 * @param index the item in the ArrayList<T> data at position index
 		 */
 		public void onEditProduct(int index);
+
+		public void onSearch(String searchtext);
 	}
 
 	public void setPresenter(Presenter presenter);

@@ -41,7 +41,8 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 
 	@Override
 	public void getProducts(IProduct searchCriteria, AsyncCallback<ArrayList<IProduct>> callback) {
-		// TODO Auto-generated method stub
+		logger.log("get products");
+		ProductServiceDispatchImpl.productServiceAsync.getProducts(searchCriteria, callback);
 
 	}
 
