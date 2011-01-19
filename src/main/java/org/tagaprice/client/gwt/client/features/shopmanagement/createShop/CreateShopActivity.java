@@ -61,6 +61,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onSaveEvent(ClickEvent event) {
+		System.out.println("save Shop send RPC");
 		// TODO Auto-generated method stub
 
 	}
