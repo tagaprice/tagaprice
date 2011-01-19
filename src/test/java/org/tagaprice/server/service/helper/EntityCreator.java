@@ -1,7 +1,9 @@
 package org.tagaprice.server.service.helper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.tagaprice.core.entities.Account;
@@ -10,6 +12,7 @@ import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Session;
+import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 
 /**
@@ -151,6 +154,23 @@ public class EntityCreator {
 	 */
 	public static Session createSession() {
 		return HibernateSaveEntityCreator.createSession();
+	}
+
+	public static Shop createShop(Long id) {
+		return createShop(id, "walmart");
+	}
+
+	public static Shop createShop(Long id, String string) {
+		return new Shop(id, "walmart");
+	}
+
+	public static List<Shop> createShops(String title1, String title2) {
+		Shop shop1 = EntityCreator.createShop(1L, title1);
+		Shop shop2 = EntityCreator.createShop(2L, title2);
+		ArrayList<Shop> shops = new ArrayList<Shop>();
+		shops.add(shop1);
+		shops.add(shop2);
+		return shops;
 	}
 
 }

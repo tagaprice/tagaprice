@@ -2,8 +2,9 @@ package org.tagaprice.client.gwt.server.diplomat;
 
 import java.util.*;
 
-import org.slf4j.*;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
@@ -22,8 +23,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ProductServiceImpl extends RemoteServiceServlet implements
 IProductService {
 
-	private Logger _log = LoggerFactory.getLogger(ProductServiceImpl.class);
-
 	private org.tagaprice.core.api.IProductService coreService;
 	private static Locale defaultLocale = new Locale(1, "de", "de");
 	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
@@ -33,22 +32,41 @@ IProductService {
 	 */
 	private static final long serialVersionUID = 1733780607553359495L;
 
+	Logger _log = LoggerFactory.getLogger(ProductServiceImpl.class);
+
+
 	public ProductServiceImpl() {
-		_log.warn("PSI starts");
-		System.out.println("Server started");
+		_log.debug("Starting GWT-ProductService");
+
+		_log.debug("Attempting to load product service from core.api");
+		try {
+			/*
+			 * TODO to avoid static mapping by providing name of context, try something like this.
+			 * Does not work since this servlet apparently does not have the root application context associated with it.
+			 * 
+			 * WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+			 * applicationContext.getBean("defaultProductService", org.tagaprice.core.api.IProductService.class)
+			 * 
+			 */
+			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/beans.xml");
+			coreService = (org.tagaprice.core.api.IProductService) ctx.getBean("defaultProductService");
+		} catch(Exception e) {
+			_log.debug(e.getClass()+": "+e.getMessage());
+		} finally {
+			_log.debug("Loaded product service successfully.");
+		}
 	}
 
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
-		_log.info("getProduct called");
-		System.out.println("getProduct called via System.out");
+		_log.debug("revisionsId: "+revionsId);
 		return null;
 	}
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
 		_log.debug("getProducts for name " + searchCriteria.getTitle());
-		System.out.println("getProducts");
+
 		List<Product> list = new ArrayList<Product>();
 		try {
 			list = coreService.getByTitle(searchCriteria.getTitle());
@@ -66,12 +84,14 @@ IProductService {
 
 	@Override
 	public IProduct saveProduct(IProduct product) {
+		_log.debug("product :"+product);
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<ICategory> getCategories() {
+		_log.debug("attempting to get available categories");
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -114,6 +134,10 @@ IProductService {
 		IRevisionId revisionId = new RevisionId(id, revision);
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title, category, quantity);
 		return productGWT;
+	}
+
+	public void setProductService(org.tagaprice.core.api.IProductService productService) {
+		coreService = productService;
 	}
 
 }
