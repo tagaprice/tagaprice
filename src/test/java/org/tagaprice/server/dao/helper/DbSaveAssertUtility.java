@@ -14,6 +14,7 @@ import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.core.entities.Shop;
 
 
 /**
@@ -31,6 +32,24 @@ import org.tagaprice.core.entities.ReceiptEntry;
  */
 public class DbSaveAssertUtility {
 
+	private static class ShopAsserter implements ResultSetExtractor<Shop> {
+		private Shop _shop;
+
+		public ShopAsserter(Shop shop) {
+			_shop = shop;
+		}
+
+		@Override
+		public Shop extractData(ResultSet rs) throws SQLException, DataAccessException {
+			assertThat("resultSet empty", rs.next(), is(true));
+			assertThat(rs.getLong("shop_id"), is(_shop.getId()));
+			assertThat(rs.getString("title"), is(_shop.getTitle()));
+			assertThat("more than one row in resultSet", rs.next(), is(false));
+			return null;
+		}
+	}
+
+
 	private static class ReceiptEntryAsserter implements ResultSetExtractor<ReceiptEntry> {
 		private ReceiptEntry _receiptEnt;
 
@@ -40,13 +59,13 @@ public class DbSaveAssertUtility {
 
 		@Override
 		public ReceiptEntry extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat(rs.next(), is(true));
+			assertThat("resultSet empty", rs.next(), is(true));
 			assertThat(rs.getLong("receipt_id"), is(_receiptEnt.getReceiptId()));
 			assertThat(rs.getLong("product_id"), is(_receiptEnt.getProductId()));
 			assertThat(rs.getInt("product_revision"), is(_receiptEnt.getProductRevisionNumber()));
 			assertThat(rs.getInt("product_count"), is(_receiptEnt.getCount()));
 			assertThat(rs.getLong("price"), is(_receiptEnt.getPrice()));
-			assertThat(rs.next(), is(false));
+			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
@@ -61,12 +80,12 @@ public class DbSaveAssertUtility {
 
 		@Override
 		public Receipt extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat(rs.next(), is(true));
+			assertThat("resultSet empty", rs.next(), is(true));
 			assertThat(rs.getLong("receipt_id"), is(_receipt.getId()));
 			assertThat(rs.getLong("shop_id"), is(_receipt.getShopId()));
 			assertThat(rs.getTimestamp("created_at"), is(_receipt.getCreatedAt()));
 			assertThat(rs.getLong("creator"), is(_receipt.getCreator().getUid()));
-			assertThat(rs.next(), is(false));
+			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
@@ -81,9 +100,9 @@ public class DbSaveAssertUtility {
 
 		@Override
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat(rs.next(), is(true));
+			assertThat("resultSet empty", rs.next(), is(true));
 			assertThat(rs.getLong("ent_id"), is(_product.getId()));
-			assertThat(rs.next(), is(false));
+			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
@@ -146,6 +165,17 @@ public class DbSaveAssertUtility {
 		// TODO use prepared statement here
 		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ReceiptEntryAsserter(receiptEntry));
 
+	}
+
+	/**
+	 * Asserts that the shop was saved.
+	 */
+	public static void assertEntitySaved(Shop shop) {
+		DbSaveAssertUtility._log.info("asserting shop: " + shop.getId());
+
+		String getEntityStatment = "SELECT shop_id, title FROM shop WHERE shop_id = " + shop.getId();
+		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ShopAsserter(shop)); // TODO use prepared
+		// statement here
 	}
 
 

@@ -1,5 +1,6 @@
 package org.tagaprice.server.dao.hibernate;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
@@ -22,6 +23,13 @@ public class HibernateShopDAO implements IShopDAO {
 	@Override
 	public Shop getShopById(long id) {
 		return (Shop) _sessionFactory.getCurrentSession().load(Shop.class, id);
+	}
+
+	@Override
+	public Shop saveShop(Shop shop) {
+		Session session = _sessionFactory.getCurrentSession();
+		session.save(shop);
+		return shop;
 	}
 }
 

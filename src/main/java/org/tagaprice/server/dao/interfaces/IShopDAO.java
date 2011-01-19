@@ -7,4 +7,6 @@ public interface IShopDAO {
 
 	Shop getShopById(long id);
 
+	Shop saveShop(Shop shop);
+
 }

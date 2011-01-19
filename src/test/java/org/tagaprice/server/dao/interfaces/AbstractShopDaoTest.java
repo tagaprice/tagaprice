@@ -3,6 +3,7 @@ package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+
 import org.dbunit.dataset.IDataSet;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -71,5 +72,25 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		//assertThat(actual, equalTo(expected)); this doesn't work, because of javassist dynamic subtyping
 		assertThat(actual.getId(), is(expected.getId()));
 		assertThat(actual.getTitle(), is(expected.getTitle()));
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void saveShop_shouldPersist() throws Exception {
+		_log.info("running test");
+
+		long id = 5L;
+		String title = "newTestShop";
+		Shop shopToSave = new Shop(id, title);
+
+		Shop actual = _dao.saveShop(shopToSave);
+
+		Shop expected = new Shop(id, title);
+
+		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(shopToSave);
 	}
 }
