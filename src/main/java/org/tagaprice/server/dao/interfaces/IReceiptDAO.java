@@ -11,7 +11,7 @@ public interface IReceiptDAO {
 	 * 
 	 * @param productId id of the product to get the {@link ReceiptEntry}s for.
 	 * @param productRevision revision number of the product.
-	 * @return all {@link ReceiptEntry}s sorted by date
+	 * @return all {@link ReceiptEntry}s for the specified product revision.
 	 */
 	List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(long productId, int productRevision);
 
