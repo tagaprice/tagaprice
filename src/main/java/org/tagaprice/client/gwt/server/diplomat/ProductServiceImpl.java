@@ -2,17 +2,17 @@ package org.tagaprice.client.gwt.server.diplomat;
 
 import java.util.*;
 
+import org.slf4j.*;
+import org.slf4j.LoggerFactory;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
-import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
  * This is the Servlet that relies on the server-service
@@ -22,6 +22,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ProductServiceImpl extends RemoteServiceServlet implements
 IProductService {
 
+	private Logger _log = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 	private org.tagaprice.core.api.IProductService coreService;
 	private static Locale defaultLocale = new Locale(1, "de", "de");
 	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
@@ -30,15 +32,23 @@ IProductService {
 	 * 
 	 */
 	private static final long serialVersionUID = 1733780607553359495L;
-	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
+	public ProductServiceImpl() {
+		_log.warn("PSI starts");
+		System.out.println("Server started");
+	}
 
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
+		_log.info("getProduct called");
+		System.out.println("getProduct called via System.out");
 		return null;
 	}
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
+		_log.debug("getProducts for name " + searchCriteria.getTitle());
+		System.out.println("getProducts");
 		List<Product> list = new ArrayList<Product>();
 		try {
 			list = coreService.getByTitle(searchCriteria.getTitle());
@@ -89,6 +99,7 @@ IProductService {
 	 * @return
 	 */
 	public IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
+		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
 		//these are allways existing products!!!
 		ProductRevision pr = productCore.getCurrentRevision();
 
@@ -98,7 +109,7 @@ IProductService {
 		long revision = pr.getRevisionNumber();
 		String title = pr.getTitle();
 		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
-		IQuantity quantity = new Quantity(1L, Unit.piece);
+		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());
 
 		IRevisionId revisionId = new RevisionId(id, revision);
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title, category, quantity);
