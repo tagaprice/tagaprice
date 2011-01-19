@@ -28,17 +28,19 @@ public class ReceiptEntry implements Serializable {
 	private int _count;
 	private long _price;
 	private Integer _productRevNumber;
+	private BasicReceipt _basicReceipt;
 
 
 	protected ReceiptEntry() {
 	}
 
-	public ReceiptEntry(long receiptId, long productId, int productRevision, int count, long price) {
+	public ReceiptEntry(long receiptId, long productId, int productRevisionNumber, int count, long price, BasicReceipt basicReceipt) {
 		_receiptId = receiptId;
 		_productId = productId;
-		_productRevNumber = productRevision;
+		_productRevNumber = productRevisionNumber;
 		_count = count;
 		_price = price;
+		_basicReceipt = basicReceipt;
 	}
 
 	@Id
@@ -53,7 +55,7 @@ public class ReceiptEntry implements Serializable {
 
 
 	@Id
-	@Column(name = "product_id", insertable = false, updatable = false)
+	@Column(name = "product_id")
 	public Long getProductId() {
 		return _productId;
 	}
@@ -61,6 +63,17 @@ public class ReceiptEntry implements Serializable {
 	private void setProductId(Long productId) {
 		_productId = productId;
 	}
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "receipt_id", insertable = false, updatable = false)
+	public BasicReceipt getBasicReceipt() {
+		return _basicReceipt;
+	}
+	private void setBasicReceipt(BasicReceipt basicReceipt) {
+		_basicReceipt = basicReceipt;
+	}
+
 
 
 	@Column(name = "product_revision")
@@ -104,9 +117,16 @@ public class ReceiptEntry implements Serializable {
 
 
 	@Override
+	public String toString() {
+		return "ReceiptEntry [_receiptId=" + _receiptId + ", _productId=" + _productId + ", _count=" + _count
+		+ ", _price=" + _price + ", _productRevNumber=" + _productRevNumber + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((_basicReceipt == null) ? 0 : _basicReceipt.hashCode());
 		result = prime * result + _count;
 		result = prime * result + (int) (_price ^ (_price >>> 32));
 		result = prime * result + ((_productId == null) ? 0 : _productId.hashCode());
@@ -124,6 +144,11 @@ public class ReceiptEntry implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ReceiptEntry other = (ReceiptEntry) obj;
+		if (_basicReceipt == null) {
+			if (other._basicReceipt != null)
+				return false;
+		} else if (!_basicReceipt.equals(other._basicReceipt))
+			return false;
 		if (_count != other._count)
 			return false;
 		if (_price != other._price)
@@ -144,12 +169,6 @@ public class ReceiptEntry implements Serializable {
 		} else if (!_receiptId.equals(other._receiptId))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ReceiptEntry [_receiptId=" + _receiptId + ", _productId=" + _productId + ", _count=" + _count
-		+ ", _price=" + _price + ", _productRevNumber=" + _productRevNumber + "]";
 	}
 
 }

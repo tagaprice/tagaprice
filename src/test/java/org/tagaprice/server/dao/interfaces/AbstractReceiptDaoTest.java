@@ -22,6 +22,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.Account;
+import org.tagaprice.core.entities.BasicReceipt;
+import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
@@ -76,18 +78,26 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		long productId = 1L;
 		int rev = 1;
-		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId , rev );
+		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, rev);
 
-		long receipt_id = 0;
+		long receiptId = 0;
 		int count = 1;
 		long price = 10;
 
-		long receipt_id2 = 3;
+		long receiptId2 = 3;
 		int count2 = 4;
 		long price2 = 50;
 
-		ReceiptEntry entry1 = new ReceiptEntry(receipt_id, productId, rev, count, price);
-		ReceiptEntry entry2 = new ReceiptEntry(receipt_id2, productId, rev, count2, price2);
+		long shopId = 0;
+		String shopTitle = "testShop";
+
+		BasicShop basicShop = new BasicShop(shopId, shopTitle);
+
+		BasicReceipt basicReceipt = new BasicReceipt(receiptId, basicShop);
+		BasicReceipt basicReceipt2 = new BasicReceipt(receiptId2, basicShop);
+
+		ReceiptEntry entry1 = new ReceiptEntry(receiptId, productId, rev, count, price, basicReceipt);
+		ReceiptEntry entry2 = new ReceiptEntry(receiptId2, productId, rev, count2, price2, basicReceipt2);
 
 		assertThat(entries, hasItems(entry1, entry2));
 	}
@@ -136,10 +146,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
 		long prod1Id = 1;
 		int prod1RevNr = 1;
-		receiptEntries.add(new ReceiptEntry(id, prod1Id , prod1RevNr , 1, 200));
+		receiptEntries.add(new ReceiptEntry(id, prod1Id , prod1RevNr , 1, 200, null));
 		long prod2Id = 2;
 		int prod2RevNr = 2;
-		receiptEntries.add(new ReceiptEntry(id, prod2Id, prod2RevNr, 5, 1000));
+		receiptEntries.add(new ReceiptEntry(id, prod2Id, prod2RevNr, 5, 1000, null));
 
 		Receipt receiptToSave = new Receipt(id, shopId, createdAt, creator, receiptEntries);
 

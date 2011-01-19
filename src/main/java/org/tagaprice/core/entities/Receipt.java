@@ -18,6 +18,9 @@ public class Receipt implements Serializable {
 	private Account _creator;
 	private Set<ReceiptEntry> _receiptEntries;
 
+	protected Receipt() {
+	}
+
 
 	public Receipt(long id, long shopId, Date createdAt, Account creator, Set<ReceiptEntry> receiptEntries) {
 		_id = id;

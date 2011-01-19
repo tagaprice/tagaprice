@@ -84,6 +84,19 @@
     </row>
   </table>
   
+    <table name="shop">
+    <column>shop_id</column>
+    <column>title</column>
+    <row>
+      <value>0</value>
+      <value>testShop</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>otherTestShop</value>
+    </row>
+  </table>
+  
   <table name="product">
     <column>ent_id</column>
     <row>
@@ -183,6 +196,25 @@
       <value>1</value>
       <value>4</value>
       <value>50</value>
+    </row>
+  </table>
+  
+  <table name="receipt">
+    <column>receipt_id</column>
+    <column>shop_id</column>
+    <column>created_at</column>
+    <column>creator</column>
+    <row>
+      <value>0</value>
+      <value>0</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>0</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
     </row>
   </table>
   

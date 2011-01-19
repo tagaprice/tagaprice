@@ -12,5 +12,7 @@
 		<mapping class="org.tagaprice.core.entities.Category" />
 		<mapping class="org.tagaprice.core.entities.ReceiptEntry" />
 		<mapping class="org.tagaprice.core.entities.Receipt" />
+		<mapping class="org.tagaprice.core.entities.BasicReceipt" />
+		<mapping class="org.tagaprice.core.entities.BasicShop" />
 	</session-factory>
 </hibernate-configuration>
