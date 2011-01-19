@@ -50,16 +50,25 @@ IProductService {
 			 */
 			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/beans.xml");
 			coreService = (org.tagaprice.core.api.IProductService) ctx.getBean("defaultProductService");
+			_log.debug("Loaded product service successfully.");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());
 		} finally {
-			_log.debug("Loaded product service successfully.");
 		}
 	}
 
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: "+revionsId);
+
+		_log.debug("load dummy product");
+
+		ArrayList<IProduct> list = getProducts(new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("a", null, null));
+		_log.debug("found products: " + list.size());
+
+		if(list.size() > 0) {
+			return list.get(0);
+		}
 		return null;
 	}
 
@@ -71,7 +80,10 @@ IProductService {
 		try {
 			list = coreService.getByTitle(searchCriteria.getTitle());
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
+			_log.error("Exception thrown: " + e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
 		}
 		ArrayList<IProduct> returnList = new ArrayList<IProduct>();
