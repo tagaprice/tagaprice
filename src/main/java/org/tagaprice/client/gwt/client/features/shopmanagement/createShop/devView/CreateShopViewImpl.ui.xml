@@ -15,70 +15,70 @@
 							<g:Label >id</g:Label>
 						</td>
 						<td>
-							<g:Label ui:field="id">id</g:Label>
+							<g:Label ui:field="_id">id</g:Label>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="nameI18N">Name</g:Label>
+							<g:Label ui:field="_nameI18N">Name</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="name"></g:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<g:Label ui:field="streetI18N">Street</g:Label>
-						</td>
-						<td>
-							<g:TextBox ui:field="street"></g:TextBox>
+							<g:TextBox ui:field="_name"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="zipI18N">zip</g:Label>
+							<g:Label ui:field="_streetI18N">Street</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="zip"></g:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<g:Label ui:field="cityI18N">city</g:Label>
-						</td>
-						<td>
-							<g:TextBox ui:field="city"></g:TextBox>
+							<g:TextBox ui:field="_street"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="countryI18N">country</g:Label>
+							<g:Label ui:field="_zipI18N">zip</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="country"></g:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<g:Label ui:field="latI18N">lat</g:Label>
-						</td>
-						<td>
-							<g:TextBox ui:field="lat"></g:TextBox>
+							<g:TextBox ui:field="_zip"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="lngI18N">lng</g:Label>
+							<g:Label ui:field="_cityI18N">city</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="lng"></g:TextBox>
+							<g:TextBox ui:field="_city"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_countryI18N">country</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_country"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_latI18N">lat</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_lat"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_lngI18N">lng</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_lng"></g:TextBox>
 						</td>
 					</tr>
 				
 					<tr>
 						<td colspan="2">
-							<g:Button ui:field="cancelButton">cancel</g:Button>
-							<g:Button ui:field="saveButton">save shop</g:Button>
+							<g:Button ui:field="_cancelButton">cancel</g:Button>
+							<g:Button ui:field="_saveButton">save shop</g:Button>
 						</td>
 					</tr>
 				</table>

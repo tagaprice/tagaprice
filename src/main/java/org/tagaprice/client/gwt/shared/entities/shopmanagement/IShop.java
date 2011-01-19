@@ -1,8 +1,9 @@
 package org.tagaprice.client.gwt.shared.entities.shopmanagement;
 
+import org.tagaprice.client.gwt.shared.entities.IEntity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
-public interface IShop {
+public interface IShop extends IEntity<IShop> {
 
 	public void setStreet(String street);
 
