@@ -61,7 +61,7 @@ public class Receipt implements Serializable {
 
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JoinColumn(name = "creator")
+	@JoinColumn(name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}
