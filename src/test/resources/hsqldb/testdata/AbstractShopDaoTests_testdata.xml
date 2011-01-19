@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  
+  <table name="shop">
+    <column>shop_id</column>
+    <column>title</column>
+    <row>
+      <value>0</value>
+      <value>testShop</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>otherTestShop</value>
+    </row>
+  </table>
+
+  <table name="locale">
+    <column>locale_id</column>
+    <column>title</column>
+    <column>localTitle</column>
+    <row>
+      <value>1</value>
+      <value>english</value>
+      <value>english</value>
+    </row>
+  </table>
+  
+   <table name="entity">
+    <column>ent_id</column>
+    <column>locale_id</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>1</value>
+    </row>
+  </table>
+  
+  <table name="entityRevision">
+    <column>ent_id</column>
+    <column>rev</column>
+    <column>title</column>
+    <column>created_at</column>
+    <column>creator</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>product1</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>2</value>
+      <value>product1</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+      <value>product2</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>2</value>
+      <value>product2</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>1</value>
+      <value>account1</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+  </table>	
+  
+  <table name="account">
+    <column>uid</column>
+    <column>email</column>
+    <column>last_login</column>
+    <column>password</column>
+    <row>
+      <value>3</value>
+      <value>user@mail.com</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>12345</value>
+    </row>
+  </table>
+  
+  <table name="product">
+    <column>ent_id</column>
+    <row>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+    </row>
+  </table>
+  
+  <table name="productRevision">
+    <column>ent_id</column>
+    <column>rev</column>
+    <column>unit</column>
+    <column>amount</column>
+    <column>category_id</column>
+    <column>imageurl</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>g</value>
+      <value>100</value>
+      <value>0</value>
+      <value>www.urlToImage.com</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>2</value>
+      <value>g</value>
+      <value>100</value>
+      <value>1</value>
+      <value>www.differentUrlToImage.com</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+      <value>g</value>
+      <value>100</value>
+      <value>0</value>
+      <value>www.image.com</value> 
+    </row>
+    <row>
+      <value>2</value>
+      <value>2</value>
+      <value>g</value>
+      <value>100</value>
+      <value>2</value>
+      <value>www.image.org</value>
+    </row>
+  </table>
+  
+  <table name="category">
+    <column>category_id</column>
+    <column>parent_id</column>
+    <column>title</column>
+    <column>created_at</column>
+    <column>creator</column>
+    <row>
+      <value>0</value>
+      <null/>
+      <value>rootCategory</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>0</value>
+      <value>category1</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>0</value>
+      <value>category2</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+  </table>
+  
+</dataset>
