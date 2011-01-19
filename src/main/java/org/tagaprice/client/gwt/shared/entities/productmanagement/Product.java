@@ -77,7 +77,13 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 	@Override
 	public String toString() {
-		return "Product: " + this.getTitle() + ", " + this.getRevisionId().toString();
+		String temp;
+		if(this.getRevisionId()!= null){
+			temp = this.getRevisionId().toString();
+		}else{
+			temp = "Revision is null";
+		}
+		return "Product: " + this.getTitle() + ", " + temp ;
 	}
 
 }
