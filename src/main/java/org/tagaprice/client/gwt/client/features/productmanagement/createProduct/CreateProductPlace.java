@@ -54,20 +54,20 @@ public class CreateProductPlace extends Place {
 
 		@Override
 		public String getToken(CreateProductPlace place) {
-			if(place.getRevisionId().getId()==null){
+			if(place.getRevisionId().getId()==0L){
 				CreateProductPlace.logger.log("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				return t.getToken();
-			}else if(place.getRevisionId().getId()!=null){
+			}else if(place.getRevisionId().getId()!=0L){
 				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getRevisionId().getId());
 
-				if(place.getRevisionId().getRevision()!=null){
+				if(place.getRevisionId().getRevision()!=0L){
 					t.addNode("rev", ""+place.getRevisionId().getRevision());
 				}
 
