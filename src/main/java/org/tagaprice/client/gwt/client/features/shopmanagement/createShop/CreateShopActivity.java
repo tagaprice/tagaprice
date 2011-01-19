@@ -53,16 +53,18 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
+		if(_place.getRevisionId().getId()!=0L){
 
-		//Add test data to view
-		_shopData = new Shop("shopt", "Flossgasse1a", "1020", "Wien", Country.at, 15.00155, 42.1515);
-		_createShopView.setTitle(_shopData.getTitle());
-		_createShopView.setStreet(_shopData.getStreet());
-		_createShopView.setZip(_shopData.getZip());
-		_createShopView.setCity(_shopData.getCity());
-		_createShopView.setCountry(_shopData.getCountry());
-		_createShopView.setLat(_shopData.getLat());
-		_createShopView.setLng(_shopData.getLng());
+			//Add test data to view
+			_shopData = new Shop("shopt", "Flossgasse1a", "1020", "Wien", Country.at, 15.00155, 42.1515);
+			_createShopView.setTitle(_shopData.getTitle());
+			_createShopView.setStreet(_shopData.getStreet());
+			_createShopView.setZip(_shopData.getZip());
+			_createShopView.setCity(_shopData.getCity());
+			_createShopView.setCountry(_shopData.getCountry());
+			_createShopView.setLat(_shopData.getLat());
+			_createShopView.setLng(_shopData.getLng());
+		}
 
 		panel.setWidget(_createShopView);
 
