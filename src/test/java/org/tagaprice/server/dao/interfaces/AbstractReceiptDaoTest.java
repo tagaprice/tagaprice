@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,6 +24,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.service.helper.EntityCreator;
@@ -40,6 +42,7 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractReceiptDaoTest.class);
 	private IDataSet _currentDataSet;
+	private SessionFactory _sessionFactory;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -55,6 +58,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_currentDataSet = _dbInitializer.fillTables();
 
 		_receiptDao = applicationContext.getBean("receiptDao", IReceiptDAO.class);
+
+		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+
+		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
 	}
 
 	@After
@@ -95,13 +102,14 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		Receipt receiptToSave = new Receipt(id, shopId, createdAt, creator, new HashSet<ReceiptEntry>());
 
-
 		Receipt actual = _receiptDao.save(receiptToSave);
-
 
 		Receipt expected = new Receipt(id, shopId, createdAt, creator, new HashSet<ReceiptEntry>());
 
 		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
 	}
 
 	@Test
@@ -142,6 +150,11 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Receipt expected = new Receipt(id, shopId, createdAt, creator, receiptEntries);
 
 		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
+		for(ReceiptEntry re : receiptEntries)
+			DbSaveAssertUtility.assertEntitySaved(re);
 	}
 
 	//TODO Implement
