@@ -20,6 +20,8 @@
 				<value>productrevision</value>
 				<value>account</value>
 				<value>category</value>
+				<value>receipt</value>
+				<value>receiptentry</value>
 			</list>
 		</property>
 		<!-- list of resources to sql-scripts that will be executed -->
@@ -35,6 +37,8 @@
 				<value>/hsqldb/tables/40_account.sql</value>
 				<value>/hsqldb/tables/40_account_add.sql</value>
 				<value>/hsqldb/tables/40_category.sql</value>
+				<value>/hsqldb/tables/60_receipt.sql</value>
+				<value>/hsqldb/tables/60_receiptEntry.sql</value>
 			</list>
 		</property>
 		<!-- test data to load -->

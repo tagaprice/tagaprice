@@ -1,8 +1,11 @@
 package org.tagaprice.core.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import org.tagaprice.server.dao.interfaces.IReceiptDAO;
 
 @Entity
 @SuppressWarnings("unused")
@@ -12,13 +15,16 @@ public class Shop implements Serializable {
 
 	private long _id;
 	private String _title;
+	private Set<Receipt> _receipts;
+
 
 	protected Shop() {
 	}
 
-	public Shop(long id, String title) {
+	public Shop(long id, String title, Set<Receipt> receipts) {
 		_id = id;
 		_title = title;
+		_receipts = receipts;
 	}
 
 
@@ -40,6 +46,21 @@ public class Shop implements Serializable {
 	private void setTitle(String title) {
 		_title = title;
 	}
+
+
+	/**
+	 * This Receipts won't get saved or updated. Save them using {@link IReceiptDAO}.
+	 */
+	@OneToMany(fetch = FetchType.LAZY) // TODO check error why when set to eager
+	@JoinColumn(name = "receipt_id", updatable = false, insertable = false)
+	public Set<Receipt> getReceipts() {
+		return _receipts;
+	}
+
+	private void setReceipts(Set<Receipt> receipts) {
+		_receipts = receipts;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -73,4 +94,5 @@ public class Shop implements Serializable {
 	public String toString() {
 		return "Shop [_id=" + _id + ", _title=" + _title + "]";
 	}
+
 }

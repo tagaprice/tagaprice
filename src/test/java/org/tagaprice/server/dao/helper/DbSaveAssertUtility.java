@@ -171,7 +171,7 @@ public class DbSaveAssertUtility {
 	 * Asserts that the shop was saved.
 	 */
 	public static void assertEntitySaved(Shop shop) {
-		DbSaveAssertUtility._log.info("asserting shop: " + shop.getId());
+		DbSaveAssertUtility._log.info("asserting shop: " + shop);
 
 		String getEntityStatment = "SELECT shop_id, title FROM shop WHERE shop_id = " + shop.getId();
 		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ShopAsserter(shop)); // TODO use prepared

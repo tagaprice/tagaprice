@@ -126,7 +126,6 @@ public class ReceiptEntry implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_basicReceipt == null) ? 0 : _basicReceipt.hashCode());
 		result = prime * result + _count;
 		result = prime * result + (int) (_price ^ (_price >>> 32));
 		result = prime * result + ((_productId == null) ? 0 : _productId.hashCode());
@@ -144,11 +143,6 @@ public class ReceiptEntry implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ReceiptEntry other = (ReceiptEntry) obj;
-		if (_basicReceipt == null) {
-			if (other._basicReceipt != null)
-				return false;
-		} else if (!_basicReceipt.equals(other._basicReceipt))
-			return false;
 		if (_count != other._count)
 			return false;
 		if (_price != other._price)
@@ -170,5 +164,4 @@ public class ReceiptEntry implements Serializable {
 			return false;
 		return true;
 	}
-
 }
