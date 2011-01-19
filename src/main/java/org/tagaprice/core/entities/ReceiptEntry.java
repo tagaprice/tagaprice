@@ -12,6 +12,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+/**
+ * @author haja
+ *
+ */
 @Entity
 @SuppressWarnings("unused")
 public class ReceiptEntry implements Serializable {
@@ -20,7 +24,7 @@ public class ReceiptEntry implements Serializable {
 
 	private Long _receiptId;
 	private Long _productId;
-	private ProductRevision _productRevision;
+	//	private ProductRevision _productRevision;
 	private int _count;
 	private long _price;
 	private Integer _productRevNumber;
@@ -29,11 +33,10 @@ public class ReceiptEntry implements Serializable {
 	protected ReceiptEntry() {
 	}
 
-	public ReceiptEntry(long receiptId, ProductRevision productRevision, int count, long price) {
+	public ReceiptEntry(long receiptId, long productId, int productRevision, int count, long price) {
 		_receiptId = receiptId;
-		_productId = productRevision.getId();
-		_productRevNumber = productRevision.getRevisionNumber();
-		_productRevision = productRevision;
+		_productId = productId;
+		_productRevNumber = productRevision;
 		_count = count;
 		_price = price;
 	}
@@ -60,7 +63,6 @@ public class ReceiptEntry implements Serializable {
 	}
 
 
-	// TODO replace this by ProductRevision mapping
 	@Column(name = "product_revision")
 	public Integer getProductRevisionNumber() {
 		return _productRevNumber;
@@ -100,13 +102,6 @@ public class ReceiptEntry implements Serializable {
 		_price = price;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "ReceiptEntry [_receiptId=" + _receiptId + ", _productRevision=" + _productRevision + ", _count="
-		+ _count + ", _price=" + _price + "]";
-	}
 
 	@Override
 	public int hashCode() {
@@ -149,6 +144,12 @@ public class ReceiptEntry implements Serializable {
 		} else if (!_receiptId.equals(other._receiptId))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ReceiptEntry [_receiptId=" + _receiptId + ", _productId=" + _productId + ", _count=" + _count
+		+ ", _price=" + _price + ", _productRevNumber=" + _productRevNumber + "]";
 	}
 
 }

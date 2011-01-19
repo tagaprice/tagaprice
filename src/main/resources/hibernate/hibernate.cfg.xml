@@ -11,5 +11,6 @@
 		<mapping class="org.tagaprice.core.entities.Brand" />
 		<mapping class="org.tagaprice.core.entities.Category" />
 		<mapping class="org.tagaprice.core.entities.ReceiptEntry" />
+		<mapping class="org.tagaprice.core.entities.Receipt" />
 	</session-factory>
 </hibernate-configuration>
