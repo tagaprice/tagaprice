@@ -86,13 +86,50 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
-	public void saveReceipt_shouldSaveReceipt() throws Exception {
+	public void saveEmptyReceipt_shouldSaveReceipt() throws Exception {
 		long id = 1L; // TODO check this settings with db setup
 		long shopId = 1L;
 		Date createdAt = EntityCreator.getDefaultDate();
 		Account creator = HibernateSaveEntityCreator.createAccount(5L);
 
+		Receipt receiptToSave = new Receipt(id, shopId, createdAt, creator, new HashSet<ReceiptEntry>());
+
+
+		Receipt actual = _receiptDao.save(receiptToSave);
+
+
+		Receipt expected = new Receipt(id, shopId, createdAt, creator, new HashSet<ReceiptEntry>());
+
+		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void saveReceiptWithReceiptEntries_shouldSaveReceipt() throws Exception {
+		long id = 1L; // TODO check this settings with db setup
+		long shopId = 1L;
+		Date createdAt = EntityCreator.getDefaultDate();
+		Account creator = HibernateSaveEntityCreator.createAccount(5L);
+
+
+		//	Not needed with current entityReceipt impl
+		//		long prod1Id = 10L;
+		//		Set<ProductRevision> prod1Revs = new HashSet<ProductRevision>();
+		//		prod1Revs.add(HibernateSaveEntityCreator.createProductRevision(prod1Id, 1, creator, HibernateSaveEntityCreator.getDefaultUnit(), null));
+		//		Product prod1 = HibernateSaveEntityCreator.createProduct(prod1Id, EntityCreator.createLocale(1), prod1Revs);
+		//
+		//		long prod2Id = 11L;
+		//		Set<ProductRevision> prod2Revs = new HashSet<ProductRevision>();
+		//		prod2Revs.add(HibernateSaveEntityCreator.createProductRevision(prod2Id, 1, creator, HibernateSaveEntityCreator.getDefaultUnit(), null));
+		//		Product prod2 = HibernateSaveEntityCreator.createProduct(prod2Id, EntityCreator.createLocale(1), prod2Revs);
+
+
 		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
+		long prod1Id = 1;
+		int prod1RevNr = 1;
+		receiptEntries.add(new ReceiptEntry(id, prod1Id , prod1RevNr , 1, 200));
+		long prod2Id = 2;
+		int prod2RevNr = 2;
+		receiptEntries.add(new ReceiptEntry(id, prod2Id, prod2RevNr, 5, 1000));
 
 		Receipt receiptToSave = new Receipt(id, shopId, createdAt, creator, receiptEntries);
 
