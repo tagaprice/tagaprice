@@ -26,6 +26,7 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Unit;
+import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -66,6 +67,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_currentDataSet = _dbInitializer.fillTables();
 
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
+
+		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
 	}
 
 	@After
@@ -97,6 +100,9 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
+
+		// TODO this doesn't work. i think because hibernate write to db at transaction commit, so this is still in before the actual write
+		DbSaveAssertUtility.assertEntitySaved(productToSave);
 	}
 
 	@Test
