@@ -86,6 +86,7 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
+	@Rollback(false)
 	public void saveEmptyReceipt_shouldSaveReceipt() throws Exception {
 		long id = 1L; // TODO check this settings with db setup
 		long shopId = 1L;
@@ -104,11 +105,12 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
+	@Rollback(false)
 	public void saveReceiptWithReceiptEntries_shouldSaveReceipt() throws Exception {
-		long id = 1L; // TODO check this settings with db setup
+		long id = 1L;
 		long shopId = 1L;
 		Date createdAt = EntityCreator.getDefaultDate();
-		Account creator = HibernateSaveEntityCreator.createAccount(5L);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
 
 
 		//	Not needed with current entityReceipt impl
