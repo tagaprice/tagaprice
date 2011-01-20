@@ -3,12 +3,15 @@ package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
+import org.hamcrest.Matcher;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
@@ -95,6 +99,32 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		assertThat(actual.getReceipts(), hasItem(receipt));
 	}
 
+	@Test
+	@Rollback(false)
+	public void getBasicShopByTitle_shouldGetBasicShop() throws Exception {
+		_log.info("running test");
+
+		String titleToGet = "testShop";
+		List<BasicShop> actual = _dao.getByTitle(titleToGet);
+
+		BasicShop shopMatch1 = new BasicShop(0, "testShop");
+		assertThat(actual, hasItem(shopMatch1));
+		assertThat("result size", actual.size(), is(1));
+	}
+
+	@Test
+	@Rollback(false)
+	public void getByTitleFuzzy_shouldGetBasicShops() throws Exception {
+		_log.info("running test");
+
+		String titleToGet = "testShop";
+		List<BasicShop> actual = _dao.getByTitleFuzzy(titleToGet);
+
+		BasicShop shopMatch1 = new BasicShop(0, "testShop");
+		BasicShop shopMatch2 = new BasicShop(1, "otherTestShopX");
+		assertThat(actual, hasItems(shopMatch1, shopMatch2));
+		assertThat("result size", actual.size(), is(2));
+	}
 
 	@Test
 	@Rollback(false)

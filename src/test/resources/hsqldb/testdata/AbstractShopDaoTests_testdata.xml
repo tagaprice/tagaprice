@@ -10,7 +10,11 @@
     </row>
     <row>
       <value>1</value>
-      <value>otherTestShop</value>
+      <value>otherTestShopX</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>myShop</value>
     </row>
   </table>
 
