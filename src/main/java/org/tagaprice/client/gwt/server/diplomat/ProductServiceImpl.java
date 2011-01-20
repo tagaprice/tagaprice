@@ -78,7 +78,14 @@ IProductService {
 
 		List<Product> list = new ArrayList<Product>();
 		try {
-			list = coreService.getByTitle(searchCriteria.getTitle());
+
+			if(searchCriteria != null){
+				list = coreService.getByTitle(searchCriteria.getTitle());
+			}else if (searchCriteria == null){
+				list = coreService.getByTitle("");
+			}
+
+
 		} catch (ServerException e) {
 			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
@@ -89,6 +96,7 @@ IProductService {
 		ArrayList<IProduct> returnList = new ArrayList<IProduct>();
 
 		for(Product p: list) {
+
 			returnList.add(convertProductToGWT(p, 0));
 		}
 		return returnList;
