@@ -17,7 +17,12 @@
     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative-->
   <bean id="defaultProductService"
     class="org.tagaprice.server.service.DefaultProductService">
-  <property name="productDao" ref="defaultProductDao"/>
+  	<property name="productDao" ref="defaultProductDao"/>
+  </bean>
+  
+  <bean id="defaultShopServvice"
+    class="org.tagaprice.server.service.DefaultShopService">
+  	<property name="shopDao" ref="defaultShopDao"/>
   </bean>
 
   <!-- enable the configuration of transactional behavior based on annotations-->

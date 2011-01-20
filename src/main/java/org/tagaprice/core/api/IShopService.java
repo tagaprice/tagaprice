@@ -1,18 +1,21 @@
-package org.tagaprice.server.dao.interfaces;
+package org.tagaprice.core.api;
 
 import java.util.List;
 
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 
+public interface IShopService {
 
-public interface IShopDAO {
-
+	/**
+	 * Gets the shop with matching id.
+	 */
 	Shop getById(long id);
 
 	/**
-	 * TODO while shops aren't versioned...
-	 * saves given shop and returns a shop with set id.
+	 * Saves given shop.
+	 * @param shop {@link Shop} to save. Must not be null.
+	 * @return saved Shop with the id set.
 	 */
 	Shop save(Shop shop);
 

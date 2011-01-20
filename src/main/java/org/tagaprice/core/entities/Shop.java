@@ -13,7 +13,7 @@ public class Shop implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long _id;
+	private Long _id;
 	private String _title;
 	private Set<Receipt> _receipts;
 
@@ -21,7 +21,7 @@ public class Shop implements Serializable {
 	protected Shop() {
 	}
 
-	public Shop(long id, String title, Set<Receipt> receipts) {
+	public Shop(Long id, String title, Set<Receipt> receipts) {
 		_id = id;
 		_title = title;
 		_receipts = receipts;
@@ -34,7 +34,7 @@ public class Shop implements Serializable {
 		return _id;
 	}
 
-	private void setId(long id) {
+	private void setId(Long id) {
 		_id = id;
 	}
 
@@ -66,7 +66,8 @@ public class Shop implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (_id ^ (_id >>> 32));
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		result = prime * result + ((_receipts == null) ? 0 : _receipts.hashCode());
 		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
 		return result;
 	}
@@ -80,7 +81,15 @@ public class Shop implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Shop other = (Shop) obj;
-		if (_id != other._id)
+		if (_id == null) {
+			if (other._id != null)
+				return false;
+		} else if (!_id.equals(other._id))
+			return false;
+		if (_receipts == null) {
+			if (other._receipts != null)
+				return false;
+		} else if (!_receipts.equals(other._receipts))
 			return false;
 		if (_title == null) {
 			if (other._title != null)
@@ -94,5 +103,4 @@ public class Shop implements Serializable {
 	public String toString() {
 		return "Shop [_id=" + _id + ", _title=" + _title + "]";
 	}
-
 }

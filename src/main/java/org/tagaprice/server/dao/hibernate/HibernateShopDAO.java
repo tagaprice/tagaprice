@@ -29,7 +29,7 @@ public class HibernateShopDAO implements IShopDAO {
 	//	}
 
 	@Override
-	public Shop getShopById(long id) {
+	public Shop getById(long id) {
 		return (Shop) _sessionFactory.getCurrentSession().load(Shop.class, id);
 	}
 
@@ -52,7 +52,7 @@ public class HibernateShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public Shop saveShop(Shop shop) {
+	public Shop save(Shop shop) {
 		Session session = _sessionFactory.getCurrentSession();
 		session.save(shop);
 		return shop;

@@ -9,7 +9,9 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.Session;
+import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 
 /**
@@ -151,6 +153,18 @@ public class EntityCreator {
 	 */
 	public static Session createSession() {
 		return HibernateSaveEntityCreator.createSession();
+	}
+
+	/*
+	 * 
+	 * 
+	 * Shops
+	 * 
+	 * 
+	 */
+
+	public static Shop createShop(Long id) {
+		return new Shop(id, "defaultShopTitle", new HashSet<Receipt>());
 	}
 
 }

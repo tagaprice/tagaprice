@@ -78,7 +78,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		long id = 0;
 		String title = "testShop";
 
-		Shop actual = _dao.getShopById(id);
+		Shop actual = _dao.getById(id);
 
 
 		long receiptId = 0;
@@ -135,7 +135,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String title = "newTestShop";
 		Shop shopToSave = new Shop(id, title, new HashSet<Receipt>());
 
-		Shop actual = _dao.saveShop(shopToSave);
+		Shop actual = _dao.save(shopToSave);
 
 		Shop expected = new Shop(id, title, new HashSet<Receipt>());
 
