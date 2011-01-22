@@ -154,7 +154,7 @@ public class HibernateSaveEntityCreator {
 	 * Category
 	 */
 	public static Category createCategory(Long id, Account creator) {
-		return new Category(4L, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
+		return new Category(id, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
 
 	}
 
@@ -184,7 +184,7 @@ public class HibernateSaveEntityCreator {
 	public static Shop createShop(Long id, String title, double latitude, double longitude, HashSet<ReceiptEntry> receiptEntries) {
 		return new Shop(id, title, latitude, longitude, receiptEntries);
 	}
-	
+
 	/*
 	 * 
 	 * 
@@ -192,16 +192,20 @@ public class HibernateSaveEntityCreator {
 	 * 
 	 * 
 	 */
+	public static BasicReceipt createBasicReceipt(Long receiptId, long shopId) {
+		return createBasicReceipt(receiptId, createBasicShop(shopId));
+	}
+
 
 	public static BasicReceipt createBasicReceipt(long receiptId, BasicShop shop) {
-		return createBasicReceipt(receiptId, shop, _standardDate);
+		return createBasicReceipt(receiptId, shop, HibernateSaveEntityCreator._standardDate);
 	}
 
 	private static BasicReceipt createBasicReceipt(long receiptId,
 			BasicShop shop, Date date) {
 		return new BasicReceipt(receiptId, shop, date);
 	}
-	
+
 	/*
 	 * 
 	 * 
@@ -217,5 +221,9 @@ public class HibernateSaveEntityCreator {
 
 	public static BasicShop createBasicShop(long id, String title) {
 		return new BasicShop(id, title);
+	}
+
+	private static BasicShop createBasicShop(long id) {
+		return createBasicShop(id, "defaultBasicShopTitle");
 	}
 }

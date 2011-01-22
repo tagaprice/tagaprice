@@ -15,13 +15,13 @@ public class ProductTest {
 	@Test
 	public void getRevisions_shouldBeOrdered() throws Exception {
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(EntityCreator.createProductRevision(0L, 1));
-		revisions.add(EntityCreator.createProductRevision(0L, 2));
-		revisions.add(EntityCreator.createProductRevision(0L, 3));
+		revisions.add(EntityCreator.createProductRevision(1L, 1));
+		revisions.add(EntityCreator.createProductRevision(1L, 2));
+		revisions.add(EntityCreator.createProductRevision(1L, 3));
 
-		Product product = EntityCreator.createProductWithRevisions(0L, revisions);
+		Product product = EntityCreator.createProductWithRevisions(1L, revisions);
 
-		assertThat(product.getRevisions().first(), equalTo(EntityCreator.createProductRevision(0L, 3)));
-		assertThat(product.getRevisions().last(), equalTo(EntityCreator.createProductRevision(0L, 1)));
+		assertThat(product.getRevisions().first(), equalTo(EntityCreator.createProductRevision(1L, 3)));
+		assertThat(product.getRevisions().last(), equalTo(EntityCreator.createProductRevision(1L, 1)));
 	}
 }

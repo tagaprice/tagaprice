@@ -8,6 +8,7 @@ import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
+import org.tagaprice.server.helper.ArgumentUtitlity;
 
 @Transactional
 public class DefaultShopService implements IShopService {
@@ -22,19 +23,19 @@ public class DefaultShopService implements IShopService {
 
 	@Override
 	public Shop save(Shop shop) throws ServerException {
-		// TODO replace this by ArgumentUtility
-		if(shop == null)
-			throw new IllegalArgumentException("shop is null");
+		ArgumentUtitlity.checkNull("shop", shop);
 		return _shopDao.save(shop);
 	}
 
 	@Override
 	public List<BasicShop> getByTitle(String title) throws ServerException {
+		ArgumentUtitlity.checkNull("title", title);
 		return _shopDao.getByTitle(title);
 	}
 
 	@Override
 	public List<BasicShop> getByTitleFuzzy(String title) throws ServerException {
+		ArgumentUtitlity.checkNull("title", title);
 		return _shopDao.getByTitleFuzzy(title);
 	}
 
