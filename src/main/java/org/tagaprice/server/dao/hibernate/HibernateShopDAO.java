@@ -6,8 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.tagaprice.core.entities.BasicShop;
-import org.tagaprice.core.entities.Shop;
+import org.tagaprice.core.entities.*;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 
 @SuppressWarnings("unchecked")
@@ -47,6 +46,11 @@ public class HibernateShopDAO implements IShopDAO {
 		crit.setMaxResults(10);
 
 		return crit.list();
+	}
+
+	@Override
+	public List<BasicShop> getAll() {
+		return _sessionFactory.getCurrentSession().createQuery("from BasicShop").list();
 	}
 
 	@Override
