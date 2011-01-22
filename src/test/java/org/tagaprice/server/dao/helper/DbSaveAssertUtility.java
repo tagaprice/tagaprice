@@ -82,7 +82,7 @@ public class DbSaveAssertUtility {
 		public Receipt extractData(ResultSet rs) throws SQLException, DataAccessException {
 			assertThat("resultSet empty", rs.next(), is(true));
 			assertThat(rs.getLong("receipt_id"), is(_receipt.getId()));
-			assertThat(rs.getLong("shop_id"), is(_receipt.getShopId()));
+			assertThat(rs.getLong("shop_id"), is(_receipt.getShop().getShopId()));
 			assertThat(rs.getTimestamp("created_at"), is(_receipt.getCreatedAt()));
 			assertThat(rs.getLong("creator"), is(_receipt.getCreator().getUid()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));

@@ -13,7 +13,7 @@ public class Receipt implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private long _id;
-	private long _shopId;
+	private BasicShop _shop;
 	private Date _createdAt;
 	private Account _creator;
 	private Set<ReceiptEntry> _receiptEntries;
@@ -22,9 +22,9 @@ public class Receipt implements Serializable {
 	}
 
 
-	public Receipt(long id, long shopId, Date createdAt, Account creator, Set<ReceiptEntry> receiptEntries) {
+	public Receipt(long id, BasicShop basicShop, Date createdAt, Account creator, Set<ReceiptEntry> receiptEntries) {
 		_id = id;
-		_shopId = shopId;
+		_shop = basicShop;
 		_createdAt = createdAt;
 		_creator = creator;
 		_receiptEntries = receiptEntries;
@@ -42,14 +42,25 @@ public class Receipt implements Serializable {
 	}
 
 
-	// TODO map to shop / basicShop or leave it like that?
 	@Column(name = "shop_id")
 	public long getShopId() {
-		return _shopId;
+		return _shop.getShopId();
 	}
 
 	private void setShopId(long shopId) {
-		_shopId = shopId;
+		// when setting, hibernate should set up a reference to BasicShop instead
+		return; // TODO check if this works as expected
+	}
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "shop_id", insertable = false, updatable = false)
+	public BasicShop getShop() {
+		return _shop;
+	}
+
+	private void setShop(BasicShop shop) {
+		_shop = shop;
 	}
 
 
@@ -87,6 +98,16 @@ public class Receipt implements Serializable {
 
 
 	@Override
+	public String toString() {
+		return "Receipt [_id=" + _id + ", _shop=" + _shop + ", _createdAt=" + _createdAt + ", _creator=" + _creator
+		+ ", _receiptEntries=" + _receiptEntries + "]";
+	}
+
+	/**
+	 * check this method before simple regeneration, only shopId of shop is used (since other properties are not
+	 * significant for a {@link Receipt}).
+	 */
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -94,10 +115,15 @@ public class Receipt implements Serializable {
 		result = prime * result + ((_creator == null) ? 0 : _creator.hashCode());
 		result = prime * result + (int) (_id ^ (_id >>> 32));
 		result = prime * result + ((_receiptEntries == null) ? 0 : _receiptEntries.hashCode());
-		result = prime * result + (int) (_shopId ^ (_shopId >>> 32));
+		result = prime * result
+		+ ((_shop == null) ? 0 : (_shop.getShopId() == null) ? 0 : _shop.getShopId().hashCode());
 		return result;
 	}
 
+	/**
+	 * check this method before simple regeneration, shop is only compared by the id (since other properties are not
+	 * significant for a {@link Receipt}).
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -124,15 +150,15 @@ public class Receipt implements Serializable {
 				return false;
 		} else if (!_receiptEntries.equals(other._receiptEntries))
 			return false;
-		if (_shopId != other._shopId)
+		if (_shop == null) {
+			if (other._shop != null)
+				return false;
+			// changed implementation here!
+		} else if (_shop.getShopId() == null) {
+			if (other._shop.getShopId() != null)
+				return false;
+		} else if (!_shop.getShopId().equals(other._shop.getShopId()))
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Receipt [_id=" + _id + ", _shopId=" + _shopId + ", _createdAt=" + _createdAt + ", _creator=" + _creator
-		+ ", _receiptEntries=" + _receiptEntries + "]";
-	}
-
 }
