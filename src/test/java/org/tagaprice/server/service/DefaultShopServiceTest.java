@@ -8,10 +8,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.mockito.Matchers;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
@@ -63,7 +66,13 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void saveNullShop_shouldThrow() throws Exception {
-		_shopService.save(null);
+		try {
+			_shopService.save(null);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		} finally {
+			verify(_shopDaoMock, never()).save(Matchers.any(Shop.class));
+		}
 	}
 
 	@Test
@@ -83,6 +92,7 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 
 		assertThat(actual, is(expected));
 	}
+
 
 	@Test
 	public void getShopByTitle_daoReturnsEmptyList_shoudGetEmptyList() throws Exception {
@@ -109,7 +119,7 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 		when(_shopDaoMock.getByTitle(anyString())).thenAnswer(new Answer<List<BasicShop>>() {
 			@Override
 			public List<BasicShop> answer(InvocationOnMock invocation) throws Throwable {
-				if(((String) invocation.getArguments()[0]).equals("test"))
+				if (((String) invocation.getArguments()[0]).equals("test"))
 					return list;
 				return new LinkedList<BasicShop>();
 			}
@@ -117,10 +127,22 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 
 		List<BasicShop> actual = _shopService.getByTitle("test");
 
-		for(BasicShop s : list)
+		for (BasicShop s : list)
 			assertThat(actual, hasItem(s));
 		assertThat(actual.size(), is(list.size()));
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getShopByTitle_titleNull_shouldThrow() throws Exception {
+		try {
+			_shopService.getByTitle(null);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		} finally {
+			verify(_shopDaoMock, never()).getByTitle(anyString());
+		}
+	}
+
 
 	@Test
 	public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
@@ -133,7 +155,7 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 		when(_shopDaoMock.getByTitleFuzzy(anyString())).thenAnswer(new Answer<List<BasicShop>>() {
 			@Override
 			public List<BasicShop> answer(InvocationOnMock invocation) throws Throwable {
-				if(((String) invocation.getArguments()[0]).equals("test"))
+				if (((String) invocation.getArguments()[0]).equals("test"))
 					return list;
 				return new LinkedList<BasicShop>();
 			}
@@ -141,11 +163,23 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 
 		List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
 
-		for(BasicShop s : list)
+		for (BasicShop s : list)
 			assertThat(actual, hasItem(s));
 		assertThat(actual.size(), is(list.size()));
-
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getShopByTitleFuzzy_titleNull_shouldThrow() throws Exception {
+		try {
+			_shopService.getByTitleFuzzy(null);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		} finally {
+			verify(_shopDaoMock, never()).getByTitleFuzzy(anyString());
+		}
+	}
+
+
 
 	@Test
 	public void getAll_shouldReturnBasicShops() throws Exception {
