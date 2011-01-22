@@ -32,83 +32,79 @@ import org.tagaprice.core.entities.Shop;
  */
 public class DbSaveAssertUtility {
 
-	private static class ShopAsserter implements ResultSetExtractor<Shop> {
-		private Shop _shop;
+	// private asserter classes
 
-		public ShopAsserter(Shop shop) {
-			_shop = shop;
+	private static abstract class EntityAsserter<T> implements ResultSetExtractor<T> {
+		protected T _entity;
+
+		public EntityAsserter<T> setEntity(T entity) {
+			_entity = entity;
+			return this;
 		}
+	}
 
+	private static class ShopAsserter extends EntityAsserter<Shop> {
 		@Override
 		public Shop extractData(ResultSet rs) throws SQLException, DataAccessException {
 			assertThat("resultSet empty", rs.next(), is(true));
-			assertThat(rs.getLong("shop_id"), is(_shop.getId()));
-			assertThat(rs.getString("title"), is(_shop.getTitle()));
+			assertThat(rs.getLong("shop_id"), is(_entity.getId()));
+			assertThat(rs.getString("title"), is(_entity.getTitle()));
+			assertThat(rs.getDouble("latitude"), is(_entity.getLatitude()));
+			assertThat(rs.getDouble("longitude"), is(_entity.getLongitude()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
 
-
-	private static class ReceiptEntryAsserter implements ResultSetExtractor<ReceiptEntry> {
-		private ReceiptEntry _receiptEnt;
-
-		public ReceiptEntryAsserter(ReceiptEntry receiptEntry) {
-			_receiptEnt = receiptEntry;
-		}
-
+	private static class ReceiptEntryAsserter extends EntityAsserter<ReceiptEntry> {
 		@Override
 		public ReceiptEntry extractData(ResultSet rs) throws SQLException, DataAccessException {
 			assertThat("resultSet empty", rs.next(), is(true));
-			assertThat(rs.getLong("receipt_id"), is(_receiptEnt.getReceiptId()));
-			assertThat(rs.getLong("product_id"), is(_receiptEnt.getProductId()));
-			assertThat(rs.getInt("product_revision"), is(_receiptEnt.getProductRevisionNumber()));
-			assertThat(rs.getInt("product_count"), is(_receiptEnt.getCount()));
-			assertThat(rs.getLong("price"), is(_receiptEnt.getPricePerItem()));
+			assertThat(rs.getLong("receipt_id"), is(_entity.getReceiptId()));
+			assertThat(rs.getLong("product_id"), is(_entity.getProductId()));
+			assertThat(rs.getInt("product_revision"), is(_entity.getProductRevisionNumber()));
+			assertThat(rs.getInt("product_count"), is(_entity.getCount()));
+			assertThat(rs.getLong("price"), is(_entity.getPricePerItem()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
 
-
-	private static class ReceiptAsserter implements ResultSetExtractor<Receipt> {
-		private Receipt _receipt;
-
-		public ReceiptAsserter(Receipt receipt) {
-			_receipt = receipt;
-		}
-
+	private static class ReceiptAsserter extends EntityAsserter<Receipt> {
 		@Override
 		public Receipt extractData(ResultSet rs) throws SQLException, DataAccessException {
 			assertThat("resultSet empty", rs.next(), is(true));
-			assertThat(rs.getLong("receipt_id"), is(_receipt.getId()));
-			assertThat(rs.getLong("shop_id"), is(_receipt.getShop().getShopId()));
-			assertThat(rs.getTimestamp("created_at"), is(_receipt.getCreatedAt()));
-			assertThat(rs.getLong("creator"), is(_receipt.getCreator().getUid()));
+			assertThat(rs.getLong("receipt_id"), is(_entity.getId()));
+			assertThat(rs.getLong("shop_id"), is(_entity.getShop().getShopId()));
+			assertThat(rs.getTimestamp("created_at"), is(_entity.getCreatedAt()));
+			assertThat(rs.getLong("creator"), is(_entity.getCreator().getUid()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
 
-
-	private static class ProductAsserter implements ResultSetExtractor<Product> {
-		private Product _product = null;
-
-		public ProductAsserter(Product product) {
-			_product = product;
-		}
-
+	private static class ProductAsserter extends EntityAsserter<Product> {
 		@Override
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 			assertThat("resultSet empty", rs.next(), is(true));
-			assertThat(rs.getLong("ent_id"), is(_product.getId()));
+			assertThat(rs.getLong("ent_id"), is(_entity.getId()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}
 	}
 
+	//
+	// fields
+	//
+
 	private static final Logger _log = Logger.getLogger(DbSaveAssertUtility.class);
 	private static JdbcOperations _jdbcOperations;
+
+	// asserters cached for performance
+	private static final ProductAsserter _productAsserter = new ProductAsserter();
+	private static final ReceiptAsserter _receiptAsserter = new ReceiptAsserter();
+	private static final ReceiptEntryAsserter _receiptEntryAsserter = new ReceiptEntryAsserter();
+	private static final ShopAsserter _shopAsserter = new ShopAsserter();
 
 
 	/**
@@ -128,7 +124,7 @@ public class DbSaveAssertUtility {
 		DbSaveAssertUtility._log.info("asserting product: " + product.getId());
 
 		String getEntityStatment = "SELECT ent_id FROM product WHERE ent_id = " + product.getId();
-		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ProductAsserter(product)); // TODO use prepared
+		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, DbSaveAssertUtility._productAsserter.setEntity(product)); // TODO use prepared
 		// statement here
 	}
 
@@ -149,7 +145,7 @@ public class DbSaveAssertUtility {
 
 		String getEntityStatment = "SELECT receipt_id, shop_id, created_at, creator FROM receipt WHERE receipt_id = "
 			+ receipt.getId();
-		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ReceiptAsserter(receipt)); // TODO use prepared
+		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, DbSaveAssertUtility._receiptAsserter.setEntity(receipt)); // TODO use prepared
 		// statement here
 	}
 
@@ -163,7 +159,7 @@ public class DbSaveAssertUtility {
 			+ " receipt_id = " + receiptEntry.getReceiptId() + " AND product_id = " + receiptEntry.getProductId();
 
 		// TODO use prepared statement here
-		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ReceiptEntryAsserter(receiptEntry));
+		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, DbSaveAssertUtility._receiptEntryAsserter.setEntity(receiptEntry));
 
 	}
 
@@ -173,8 +169,9 @@ public class DbSaveAssertUtility {
 	public static void assertEntitySaved(Shop shop) {
 		DbSaveAssertUtility._log.info("asserting shop: " + shop);
 
-		String getEntityStatment = "SELECT shop_id, title FROM shop WHERE shop_id = " + shop.getId();
-		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, new ShopAsserter(shop)); // TODO use prepared
+		String getEntityStatment = "SELECT shop_id, title, latitude, longitude FROM shop WHERE shop_id = "
+			+ shop.getId();
+		DbSaveAssertUtility._jdbcOperations.query(getEntityStatment, DbSaveAssertUtility._shopAsserter.setEntity(shop)); // TODO use prepared
 		// statement here
 	}
 
