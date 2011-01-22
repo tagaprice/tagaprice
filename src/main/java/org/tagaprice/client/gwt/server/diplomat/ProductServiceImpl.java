@@ -14,6 +14,8 @@ import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.server.boot.Boot;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
  * This is the Servlet that relies on the server-service
@@ -40,16 +42,7 @@ IProductService {
 
 		_log.debug("Attempting to load product service from core.api");
 		try {
-			/*
-			 * TODO to avoid static mapping by providing name of context, try something like this.
-			 * Does not work since this servlet apparently does not have the root application context associated with it.
-			 * 
-			 * WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-			 * applicationContext.getBean("defaultProductService", org.tagaprice.core.api.IProductService.class)
-			 * 
-			 */
-			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/beans.xml");
-			coreService = (org.tagaprice.core.api.IProductService) ctx.getBean("defaultProductService");
+			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
 			_log.debug("Loaded product service successfully.");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());

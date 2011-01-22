@@ -113,6 +113,16 @@
 		</property>
 		<property name="scriptsToExecute">
 			<list>
+				<value>/dbunit/10_locale.sql</value>
+				<value>/dbunit/20_entity.sql</value>
+				<value>/dbunit/30_entityRevision.sql</value>
+				<value>/dbunit/30_product.sql</value>
+				<value>/dbunit/30_shop.sql</value>
+				<value>/dbunit/30_unit.sql</value>
+				<value>/dbunit/40_account_add.sql</value>
+				<value>/dbunit/40_account.sql</value>
+				<value>/dbunit/40_category.sql</value>
+				<value>/dbunit/40_productRevision.sql</value>
 			</list>
 		</property>
 		<property name="dbUnitData" value="classpath:dbunit/dbunit_testdata.xml" />

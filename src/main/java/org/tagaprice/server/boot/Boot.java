@@ -13,8 +13,12 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  *
  */
 public class Boot extends RemoteServiceServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7885348370837161125L;
 	Logger _log = LoggerFactory.getLogger(Boot.class);
-	private ClassPathXmlApplicationContext applicationContext;
+	private static ClassPathXmlApplicationContext applicationContext;
 	
 	
 	public Boot() throws Exception {
@@ -45,7 +49,7 @@ public class Boot extends RemoteServiceServlet {
 	}
 
 
-	public ClassPathXmlApplicationContext getApplicationContext() {
+	public static ClassPathXmlApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
 }
