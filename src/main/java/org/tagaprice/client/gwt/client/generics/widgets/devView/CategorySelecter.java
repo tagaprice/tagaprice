@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.ListBox;
 
 /**
  * The class will manage the Category selection, and will also communicate with the server.
- *
+ * 
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
 	MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
@@ -24,13 +24,15 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public void setCategory(ICategory category){
-		logger.log("set category " + category.toString());
-		for(int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
-			logger.log("investigate " + this._listBoxCategories.getValue(i));
-			if(this._listBoxCategories.getItemText(i).equals(category.toString())) {
-				this._listBoxCategories.setSelectedIndex(i);
-				return;
+	public void setCategory(ICategory category) {
+		logger.log("set category " + category);
+		if (category != null) {
+			for (int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
+				logger.log("investigate " + this._listBoxCategories.getValue(i));
+				if (this._listBoxCategories.getItemText(i).equals(category.toString())) {
+					this._listBoxCategories.setSelectedIndex(i);
+					return;
+				}
 			}
 		}
 	}
@@ -44,7 +46,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	public void setAvailableCategories(ArrayList<ICategory> categories) {
 		this._availableCategories = categories;
 		this._listBoxCategories.clear();
-		for(ICategory c: this._availableCategories) {
+		for (ICategory c : this._availableCategories) {
 			this._listBoxCategories.addItem(c.toString(), c.getTitle());
 		}
 	}
