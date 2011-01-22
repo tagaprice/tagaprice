@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IShopService;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.entities.ArgumentUtitlity;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
-import org.tagaprice.server.helper.ArgumentUtitlity;
 
 @Transactional
 public class DefaultShopService implements IShopService {
