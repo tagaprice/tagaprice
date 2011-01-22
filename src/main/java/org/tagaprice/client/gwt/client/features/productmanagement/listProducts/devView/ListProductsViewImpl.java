@@ -8,8 +8,6 @@ import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -38,15 +36,7 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 	@Override
 	public void setPresenter(final Presenter presenter) {
 		this.presenter = presenter;
-		this.textbox.addKeyUpHandler(new KeyUpHandler() {
 
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				presenter.onSearch(textbox.getText());
-
-			}
-		});
 	}
 
 	/**
@@ -64,6 +54,9 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 	Button addProduct;
 
 	@UiField
+	Button search;
+
+	@UiField
 	TextBox textbox;
 
 	public FlexTable getTable() {
@@ -74,6 +67,12 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 	public void onAddProductButtonClicked(ClickEvent event) {
 		ListProductsViewImpl.logger.log("Button addProduct clicked");
 		this.presenter.onAddProduct();
+	}
+
+	@UiHandler("search")
+	public void onSearchButtonClicked(ClickEvent event){
+		ListProductsViewImpl.logger.log("Button search clicked");
+		this.presenter.onSearch(this.textbox.getText());
 	}
 
 	@UiHandler("table")
