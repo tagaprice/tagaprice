@@ -59,6 +59,7 @@ public class Shop implements Serializable {
 	}
 
 	public void setReceiptEntries(Collection<ReceiptEntry> receipts) {
+		_receiptEntries.clear();
 		_receiptEntries.addAll(receipts);
 	}
 

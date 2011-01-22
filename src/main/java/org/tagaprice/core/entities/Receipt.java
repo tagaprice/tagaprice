@@ -44,7 +44,9 @@ public class Receipt implements Serializable {
 
 	@Column(name = "shop_id")
 	public long getShopId() {
-		return _shop.getShopId();
+		// this method call is necessary because of hibernate lazy init
+		// TODO check if this works. especially, if hibernate queries are used on this property...
+		return getShop().getShopId();
 	}
 
 	private void setShopId(long shopId) {

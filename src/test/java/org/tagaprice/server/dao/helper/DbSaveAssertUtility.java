@@ -64,7 +64,7 @@ public class DbSaveAssertUtility {
 			assertThat(rs.getLong("product_id"), is(_receiptEnt.getProductId()));
 			assertThat(rs.getInt("product_revision"), is(_receiptEnt.getProductRevisionNumber()));
 			assertThat(rs.getInt("product_count"), is(_receiptEnt.getCount()));
-			assertThat(rs.getLong("price"), is(_receiptEnt.getPrice()));
+			assertThat(rs.getLong("price"), is(_receiptEnt.getPricePerItem()));
 			assertThat("more than one row in resultSet", rs.next(), is(false));
 			return null;
 		}

@@ -99,8 +99,8 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		ProductRevision rev = new ProductRevision(productId, revNumber, null, null, null, null, null, null, null);
 
-		ReceiptEntry entry1 = new ReceiptEntry(receiptId, count, price, rev, basicReceipt);
-		ReceiptEntry entry2 = new ReceiptEntry(receiptId2, count2, price2, rev, basicReceipt2);
+		ReceiptEntry entry1 = new ReceiptEntry(basicReceipt, rev, count, price);
+		ReceiptEntry entry2 = new ReceiptEntry(basicReceipt2, rev, count2, price2);
 
 		assertThat(entries, hasItems(entry1, entry2));
 	}
@@ -149,10 +149,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
 		long prod1Id = 1;
 		int prod1RevNr = 1;
-		receiptEntries.add(new ReceiptEntry(id, 1, 200, new ProductRevision(prod1Id, prod1RevNr, null, null, null, null, null, null, null), null));
+		receiptEntries.add(new ReceiptEntry(new BasicReceipt(id, null), new ProductRevision(prod1Id, prod1RevNr, null, null, null, null, null, null, null), 1, 200));
 		long prod2Id = 2;
 		int prod2RevNr = 2;
-		receiptEntries.add(new ReceiptEntry(id, 5, 1000, new ProductRevision(prod2Id, prod2RevNr, null, null, null, null, null, null, null), null));
+		receiptEntries.add(new ReceiptEntry(new BasicReceipt(id, null), new ProductRevision(prod2Id, prod2RevNr, null, null, null, null, null, null, null), 5, 1000));
 
 		Receipt receiptToSave = new Receipt(id, new BasicShop(shopId, null), createdAt, creator, receiptEntries);
 

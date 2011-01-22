@@ -26,7 +26,7 @@ public class HibernateShopDAO implements IShopDAO {
 				.getCurrentSession()
 				.createQuery(
 						"select entry from ReceiptEntry entry, Receipt receipt where entry.receiptId = receipt.id and receipt.shop.shopId = "
-						+ shop.getId()).list());
+						+ id).list());
 		return shop;
 	}
 

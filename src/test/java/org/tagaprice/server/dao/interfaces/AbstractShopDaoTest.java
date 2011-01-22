@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.tagaprice.core.entities.BasicReceipt;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
@@ -74,9 +75,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		long receiptId = 0;
 		ProductRevision rev1 = new ProductRevision(1L, 1, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry1 = new ReceiptEntry(receiptId, 1, 10, rev1 , null);
+		ReceiptEntry receiptEntry1 = new ReceiptEntry(new BasicReceipt(receiptId, null), rev1, 1, 10);
 		ProductRevision rev2 = new ProductRevision(2L, 2, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry2 = new ReceiptEntry(receiptId, 5, 100, rev2 , null);
+		ReceiptEntry receiptEntry2 = new ReceiptEntry(new BasicReceipt(receiptId, null), rev2, 5, 100);
 
 		Shop expected = new Shop(id, title, null);
 
