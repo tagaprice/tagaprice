@@ -215,15 +215,15 @@ public class HibernateSaveEntityCreator {
 	 */
 
 	public static ReceiptEntry createReceiptEntry(
-			BasicReceipt createBasicReceipt, ProductRevision rev1, int count, int pricePerItemInCent) {
-		return new ReceiptEntry(createBasicReceipt, rev1, count, pricePerItemInCent);
+			BasicReceipt basicReceipt, ProductRevision rev1, int count, long pricePerItemInCent) {
+		return new ReceiptEntry(basicReceipt, rev1, count, pricePerItemInCent);
 	}
 
 	public static BasicShop createBasicShop(long id, String title) {
 		return new BasicShop(id, title);
 	}
 
-	private static BasicShop createBasicShop(long id) {
+	public static BasicShop createBasicShop(long id) {
 		return createBasicShop(id, "defaultBasicShopTitle");
 	}
 }
