@@ -74,7 +74,7 @@ public class BasicReceipt implements Serializable {
 	public Date getCreatedAt() {
 		return _createdAt;
 	}
-	private void setDate(Date date) {
+	private void setCreatedAt(Date date) {
 		_createdAt = date;
 	}
 
