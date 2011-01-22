@@ -32,15 +32,6 @@ public class DefaultReceiptService implements IReceiptService {
 		return entries;
 	}
 
-	private static <T> void removeDuplicate(List<T> arlList)
-	{
-		Set<T> h = new HashSet<T>(arlList);
-		arlList.clear();
-		arlList.addAll(h);
-	}
-
-
-
 	public void setReceiptDAO(IReceiptDAO receiptDao) {
 		_receiptDao = receiptDao;
 	}

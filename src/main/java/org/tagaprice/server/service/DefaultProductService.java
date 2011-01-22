@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.swing.plaf.ListUI;
+
+import org.mockito.internal.util.ListUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
+import org.tagaprice.server.utilities.ListUtility;
 
 @Transactional
 public class DefaultProductService implements IProductService {
@@ -79,19 +83,27 @@ public class DefaultProductService implements IProductService {
 	public List<Product> getByTitle(String title) {
 		if(title == null)
 			throw new IllegalArgumentException("title must not be null");
+		_log.debug("title "+title);
 
 		List<ProductRevision> revisions = _productRevisionDao.getByTitle(title);
+		_log.debug("number of revisions found:" + revisions.size());
 
+		
 		HashSet<Long> ids = new HashSet<Long>();
 		for(ProductRevision revision : revisions) {
 			ids.add(revision.getId());
 		}
+		
+		_log.debug("number of different product ids found:" + ids.size());
+		
 
 		List<Product> products = new ArrayList<Product>();
 
 		for(Long id : ids) {
 			products.add(_productDao.getById(id));
 		}
+		
+		_log.debug("number of product found:" + ids.size());
 
 		return products;
 	}
