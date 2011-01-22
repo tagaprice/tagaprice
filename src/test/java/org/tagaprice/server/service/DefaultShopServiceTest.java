@@ -40,7 +40,7 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 			public Shop answer(InvocationOnMock invocation) throws Throwable {
 				Object[] args = invocation.getArguments();
 				Shop shop = (Shop) args[0];
-				return new Shop(1L, shop.getTitle(), shop.getReceipts());
+				return new Shop(1L, shop.getTitle(), shop.getReceiptEntries());
 			}
 		});
 

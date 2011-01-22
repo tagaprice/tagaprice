@@ -3,15 +3,9 @@ package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.dbunit.dataset.IDataSet;
-import org.hamcrest.Matcher;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -22,14 +16,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.BasicShop;
-import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
-import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
-import org.tagaprice.server.service.helper.EntityCreator;
 
 /**
  * Testcase to test the {@link IProductDAO} interface.
@@ -82,21 +73,18 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 
 		long receiptId = 0;
-		HashSet<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
 		long prodId = 1;
 		int prodRev = 1;
 		int count = 1;
 		long price = 10;
-		receiptEntries.add(new ReceiptEntry(receiptId, prodId, prodRev, count, price, null));
-		Receipt receipt = new Receipt(receiptId, id, EntityCreator.getDefaultDate(),
-				HibernateSaveEntityCreator.createAccount(3L, "user@mail.com"), receiptEntries);
+		ReceiptEntry receiptEntry = new ReceiptEntry(receiptId, prodId, prodRev, count, price, null);
 
 		Shop expected = new Shop(id, title, null);
 
 		// assertThat(actual, equalTo(expected)); this doesn't work, because of javassist dynamic subtyping
 		assertThat(actual.getId(), is(expected.getId()));
 		assertThat(actual.getTitle(), is(expected.getTitle()));
-		assertThat(actual.getReceipts(), hasItem(receipt));
+		assertThat(actual.getReceiptEntries(), hasItem(receiptEntry));
 	}
 
 	@Test
@@ -133,11 +121,11 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		long id = 5L;
 		String title = "newTestShop";
-		Shop shopToSave = new Shop(id, title, new HashSet<Receipt>());
+		Shop shopToSave = new Shop(id, title, new HashSet<ReceiptEntry>());
 
 		Shop actual = _dao.save(shopToSave);
 
-		Shop expected = new Shop(id, title, new HashSet<Receipt>());
+		Shop expected = new Shop(id, title, new HashSet<ReceiptEntry>());
 
 		assertThat(actual, is(expected));
 

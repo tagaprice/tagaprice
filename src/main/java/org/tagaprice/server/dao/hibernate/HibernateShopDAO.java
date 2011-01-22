@@ -1,18 +1,16 @@
 package org.tagaprice.server.dao.hibernate;
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.tagaprice.core.entities.BasicShop;
-import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 
+@SuppressWarnings("unchecked")
 public class HibernateShopDAO implements IShopDAO {
 
 	private SessionFactory _sessionFactory;
@@ -21,16 +19,15 @@ public class HibernateShopDAO implements IShopDAO {
 		_sessionFactory = sessionFactory;
 	}
 
-	//	@Override
-	//	public Product save(Product product) {
-	//		Session session = _sessionFactory.getCurrentSession();
-	//		session.save(product);
-	//		return product;
-	//	}
-
 	@Override
 	public Shop getById(long id) {
-		return (Shop) _sessionFactory.getCurrentSession().load(Shop.class, id);
+		Shop shop = (Shop) _sessionFactory.getCurrentSession().load(Shop.class, id);
+		shop.setReceiptEntries(_sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select entry from ReceiptEntry entry, Receipt receipt where entry.receiptId = receipt.id and receipt.shopId = "
+						+ shop.getId()).list());
+		return shop;
 	}
 
 	@Override
@@ -58,5 +55,3 @@ public class HibernateShopDAO implements IShopDAO {
 		return shop;
 	}
 }
-
-
