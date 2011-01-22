@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.createProduct;
+package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.gwt.client.generics.TokenCreator;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
@@ -9,59 +9,61 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class CreateProductPlace extends Place {
-	private static final MyLogger logger = LoggerFactory.getLogger(CreateProductPlace.class);
+public class CreateShopPlace extends Place {
+	private static final MyLogger logger = LoggerFactory.getLogger(CreateShopPlace.class);
 
 	private RevisionId _revisonId;
 
-	public CreateProductPlace() {
+	public CreateShopPlace() {
 		_revisonId=new RevisionId();
 	}
 
-	public CreateProductPlace(long id){
+	public CreateShopPlace(long id) {
 		_revisonId=new RevisionId(id);
 	}
 
-	public CreateProductPlace(long id, long revision){
-		_revisonId=new RevisionId(id, revision);
+	public CreateShopPlace(long id, long revision) {
+		_revisonId=new RevisionId(id,revision);
 	}
 
 	public RevisionId getRevisionId(){
 		return _revisonId;
 	}
 
-	@Prefix("CreateProduct")
-	public static class Tokenizer implements PlaceTokenizer<CreateProductPlace>{
+	@Prefix("CreateShop")
+	public static class Tokenizer implements PlaceTokenizer<CreateShopPlace>{
+
 
 		@Override
-		public CreateProductPlace getPlace(String token) {
-			CreateProductPlace.logger.log("Tokenizer token " + token);
+		public CreateShopPlace getPlace(String token) {
+			CreateShopPlace.logger.log("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
-						return new CreateProductPlace(Long.parseLong(e.getNode("id")), Long.parseLong(e.getNode("rev")));
+						return new CreateShopPlace(Long.parseLong(e.getNode("id")), Long.parseLong(e.getNode("rev")));
 					}else if(e.getNode("id")!=null){
-						return new CreateProductPlace(Long.parseLong(e.getNode("id")));
+						return new CreateShopPlace(Long.parseLong(e.getNode("id")));
 					}
 					return null;
 				}else if(e.getRoot().equals("create")){
-					return new CreateProductPlace();
+					return new CreateShopPlace();
 				}
 			}
+
 			return null;
 		}
 
 		@Override
-		public String getToken(CreateProductPlace place) {
+		public String getToken(CreateShopPlace place) {
 			if(place.getRevisionId().getId()==0L){
-				CreateProductPlace.logger.log("Tokenizer create product");
+				CreateShopPlace.logger.log("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				return t.getToken();
 			}else if(place.getRevisionId().getId()!=0L){
-				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
+				CreateShopPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");

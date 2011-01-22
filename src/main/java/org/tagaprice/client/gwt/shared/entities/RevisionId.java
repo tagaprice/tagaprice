@@ -43,7 +43,7 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return _id;
 	}
 
@@ -53,7 +53,7 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public Long getRevision() {
+	public long getRevision() {
 		return _rev;
 	}
 

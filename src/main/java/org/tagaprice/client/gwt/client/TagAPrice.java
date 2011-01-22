@@ -55,6 +55,9 @@ public class TagAPrice implements EntryPoint {
 		clientFactory.getProductServiceDispatch().setMole(this.mole);
 
 		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
+
+		/******************** Product Links *****************/
+		this.leftPanel.add(new HTML("<hr />"));
 		Label createProduct = new Label("Create Product");
 		createProduct.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
@@ -79,6 +82,44 @@ public class TagAPrice implements EntryPoint {
 		this.leftPanel.add(getProduct);
 		this.leftPanel.add(getProductById);
 		this.leftPanel.add(getProductByIdAndRev);
+
+		/******************** Login Links *****************/
+		this.leftPanel.add(new HTML("<hr />"));
+		Label login = new Label("Login");
+		login.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("LogInOut:/login");}});
+		this.leftPanel.add(login);
+
+		/******************** Shop Links ******************/
+		this.leftPanel.add(new HTML("<hr />"));
+
+		Label createShop = new Label("Create Shop");
+		createShop.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateShop:/create");}});
+
+		Label getShop = new Label("getShop");
+		getShop.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateShop:/show");}});
+
+		Label getShopById = new Label("getShopById");
+		getShopById.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateShop:/show/id/1");}});
+
+		Label getShopByIdAndRev = new Label("getShopByIdAndRev");
+		getShopByIdAndRev.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("CreateShop:/show/id/1/rev/3");}});
+
+		this.leftPanel.add(createShop);
+		this.leftPanel.add(getShop);
+		this.leftPanel.add(getShopById);
+		this.leftPanel.add(getShopByIdAndRev);
+
+
 
 		this.mainPanel.addStyleName("mainPanel");
 

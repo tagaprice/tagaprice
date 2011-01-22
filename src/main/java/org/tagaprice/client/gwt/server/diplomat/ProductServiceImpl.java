@@ -74,11 +74,10 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
-		_log.debug("getProducts for name " + searchCriteria.getTitle());
+		_log.debug("getProducts for name " + searchCriteria);
 
 		List<Product> list = new ArrayList<Product>();
 		try {
-
 			if(searchCriteria != null){
 				list = coreService.getByTitle(searchCriteria.getTitle());
 			}else if (searchCriteria == null){
@@ -124,7 +123,7 @@ IProductService {
 		Date date = new Date();
 		Category category = new Category(null, productGWT.getCategory().getTitle(), null, new Date(), ProductServiceImpl.defaultAccount);
 		//If product allready exists...
-		if(productGWT.getRevisionId() != null && productGWT.getRevisionId().getId() != null && productGWT.getRevisionId().getId() != 0L) {
+		if(productGWT.getRevisionId() != null && productGWT.getRevisionId().getId() != 0L && productGWT.getRevisionId().getId() != 0L) {
 			//productId =
 		}
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date, ProductServiceImpl.defaultAccount, null, null, category, "");

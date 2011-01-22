@@ -1,0 +1,89 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:my="urn:import:org.tagaprice.client.gwt.client.generics.widgets" 
+	>
+	<g:VerticalPanel>
+		<g:HTML>
+			<h1>Edit / Add shop</h1>
+		</g:HTML>
+		<g:DecoratorPanel>
+			<g:HTMLPanel>
+				<table>
+					<tr>
+						<td>
+							<g:Label >id</g:Label>
+						</td>
+						<td>
+							<g:Label ui:field="_id">id</g:Label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_nameI18N">Name</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_name"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_streetI18N">Street</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_street"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_zipI18N">zip</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_zip"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_cityI18N">city</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_city"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_countryI18N">country</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_country"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_latI18N">lat</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_lat"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_lngI18N">lng</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_lng"></g:TextBox>
+						</td>
+					</tr>
+				
+					<tr>
+						<td colspan="2">
+							<g:Button ui:field="_cancelButton">cancel</g:Button>
+							<g:Button ui:field="_saveButton">save shop</g:Button>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+
+		</g:DecoratorPanel>
+	</g:VerticalPanel>
+</ui:UiBinder>

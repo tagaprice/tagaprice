@@ -39,7 +39,7 @@ public class ProductServiceImplTest {
 		IRevisionId rev = new RevisionId(1L);
 		IProduct product = this.service.getProduct(rev);
 		Assert.assertNotNull(product);
-		Assert.assertEquals(1L, product.getRevisionId().getId().longValue());
+		Assert.assertEquals(1L, product.getRevisionId().getId());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class ProductServiceImplTest {
 		IQuantity productquantity = new Quantity(1.2, Unit.kg);
 		Product product = new Product(productname, productcategory, productquantity);
 		IProduct savedProduct = this.service.saveProduct(product);
-		Assert.assertEquals(1L, savedProduct.getRevisionId().getRevision().longValue());
+		Assert.assertEquals(1L, savedProduct.getRevisionId().getRevision());
 		Assert.assertEquals(productname, savedProduct.getTitle());
 		Assert.assertEquals(productcategory, savedProduct.getCategory());
 		Assert.assertEquals(productquantity, savedProduct.getQuantity());
@@ -67,7 +67,7 @@ public class ProductServiceImplTest {
 
 		//save changed product and check
 		IProduct savedProduct = this.service.saveProduct(changedProduct);
-		Assert.assertEquals(2L, savedProduct.getRevisionId().getRevision().longValue());
+		Assert.assertEquals(2L, savedProduct.getRevisionId().getRevision());
 
 		//Check, if saving operation succeded
 		//Get latest revision
