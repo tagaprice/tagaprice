@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.swing.plaf.ListUI;
-
-import org.mockito.internal.util.ListUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +14,6 @@ import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
-import org.tagaprice.server.utilities.ListUtility;
 
 @Transactional
 public class DefaultProductService implements IProductService {
