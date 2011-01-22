@@ -25,6 +25,7 @@ public interface IReceiptService {
 	 * 
 	 * @throws ServerException
 	 *             Thrown to indicate that the Server has failed handling the latest request.
+	 * @throws IllegalRevisionException 
 	 */
-	List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(long productId, int productRevision);
+	List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer productRevision) throws ServerException, IllegalRevisionException;
 }

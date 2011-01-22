@@ -12,6 +12,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import org.tagaprice.server.helper.ArgumentUtitlity;
+
 /**
  * <p>
  * This represents a single entry of a {@link Receipt}.
@@ -66,9 +68,12 @@ public class ReceiptEntry implements Serializable {
 	 *            Price per item in cent. Must be > 0.
 	 */
 	public ReceiptEntry(BasicReceipt basicReceipt, ProductRevision productRevision, int count, long pricePerItem) {
-		// TODO replace this by argumentUtility
-		if (basicReceipt == null || productRevision == null)
-			throw new IllegalArgumentException("basicReceipt or productRevision are null!");
+		ArgumentUtitlity.checkNull("basicReceipt", basicReceipt);
+		ArgumentUtitlity.checkNull("productRevision", productRevision);
+		if(count <= 0)
+			throw new IllegalArgumentException("count must be greater than 0");
+		if(pricePerItem <= 0)
+			throw new IllegalArgumentException("pricePerItem must be greater than 0");
 		_basicReceipt = basicReceipt;
 		_productRevision = productRevision;
 		_count = count;

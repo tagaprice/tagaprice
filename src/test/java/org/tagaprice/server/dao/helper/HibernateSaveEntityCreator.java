@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.tagaprice.core.entities.Account;
+import org.tagaprice.core.entities.BasicReceipt;
+import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
@@ -162,5 +164,39 @@ public class HibernateSaveEntityCreator {
 
 	private static Shop createShop(Long id, String title, double latitude, double longitude, HashSet<ReceiptEntry> receiptEntries) {
 		return new Shop(id, title, latitude, longitude, receiptEntries);
+	}
+	
+	/*
+	 * 
+	 * 
+	 * BasicReceipts
+	 * 
+	 * 
+	 */
+
+	public static BasicReceipt createBasicReceipt(long receiptId, BasicShop shop) {
+		return createBasicReceipt(receiptId, shop, _standardDate);
+	}
+
+	private static BasicReceipt createBasicReceipt(long receiptId,
+			BasicShop shop, Date date) {
+		return new BasicReceipt(receiptId, shop, date);
+	}
+	
+	/*
+	 * 
+	 * 
+	 * ReceiptEntries
+	 * 
+	 * 
+	 */
+
+	public static ReceiptEntry createReceiptEntry(
+			BasicReceipt createBasicReceipt, ProductRevision rev1, int count, int pricePerItemInCent) {
+		return new ReceiptEntry(createBasicReceipt, rev1, count, pricePerItemInCent);
+	}
+
+	public static BasicShop createBasicShop(long id, String title) {
+		return new BasicShop(id, title);
 	}
 }

@@ -13,7 +13,7 @@ public interface IReceiptDAO {
 	 * @param productRevision revision number of the product.
 	 * @return all {@link ReceiptEntry}s for the specified product revision.
 	 */
-	List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(long productId, int productRevision);
+	List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer productRevision);
 
 	/**
 	 * Save a {@link Receipt} and all its {@link ReceiptEntry}s.

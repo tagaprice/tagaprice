@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.tagaprice.server.helper.ArgumentUtitlity;
+
 /**
  * <p>
  * Don't attempt to save this entity! Use {@link Shop} instead!
@@ -22,13 +24,16 @@ public class BasicShop implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long _shopId;
+	private Long _shopId;
 	private String _title;
 
 	protected BasicShop() {
 	}
 
-	public BasicShop(long shopId, String shopTitle) {
+	public BasicShop(Long shopId, String shopTitle) {
+		ArgumentUtitlity.checkNull("shopTitle", shopTitle);
+		ArgumentUtitlity.checkNull("shopId", shopId);
+		
 		_shopId = shopId;
 		_title = shopTitle;
 	}

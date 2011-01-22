@@ -2,8 +2,9 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -71,6 +72,28 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void tearDown() throws Exception {
 		// _dbInitializer.resetTables();
 	}
+	
+	@Test
+	public void getReceiptEntriesByProductIdAndRev_passRevisionNotStored_shouldReturnEmptyList() throws Exception {
+		_log.info("running test");
+
+		long productId = 1L;
+		int revNumber = 2;
+		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, revNumber);
+		
+		assertThat(entries.isEmpty(), is(true));
+	}
+	
+	@Test
+	public void getReceiptEntriesByProductIdAndRev_passIdNotStored_shouldReturnEmptyList() throws Exception {
+		_log.info("running test");
+
+		long productId = 2L;
+		int revNumber = 1;
+		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, revNumber);
+		
+		assertThat(entries.isEmpty(), is(true));
+	}
 
 	@Test
 	@Rollback(false)
@@ -94,8 +117,8 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		BasicShop basicShop = new BasicShop(shopId, shopTitle);
 
-		BasicReceipt basicReceipt = new BasicReceipt(receiptId, basicShop);
-		BasicReceipt basicReceipt2 = new BasicReceipt(receiptId2, basicShop);
+		BasicReceipt basicReceipt = HibernateSaveEntityCreator.createBasicReceipt(receiptId, basicShop);
+		BasicReceipt basicReceipt2 = HibernateSaveEntityCreator.createBasicReceipt(receiptId2, basicShop);
 
 		ProductRevision rev = new ProductRevision(productId, revNumber, null, null, null, null, null, null, null);
 
@@ -149,10 +172,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
 		long prod1Id = 1;
 		int prod1RevNr = 1;
-		receiptEntries.add(new ReceiptEntry(new BasicReceipt(id, null), new ProductRevision(prod1Id, prod1RevNr, null, null, null, null, null, null, null), 1, 200));
+		receiptEntries.add(new ReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(id, null), new ProductRevision(prod1Id, prod1RevNr, null, null, null, null, null, null, null), 1, 200));
 		long prod2Id = 2;
 		int prod2RevNr = 2;
-		receiptEntries.add(new ReceiptEntry(new BasicReceipt(id, null), new ProductRevision(prod2Id, prod2RevNr, null, null, null, null, null, null, null), 5, 1000));
+		receiptEntries.add(new ReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(id, null), new ProductRevision(prod2Id, prod2RevNr, null, null, null, null, null, null, null), 5, 1000));
 
 		Receipt receiptToSave = new Receipt(id, new BasicShop(shopId, null), createdAt, creator, receiptEntries);
 

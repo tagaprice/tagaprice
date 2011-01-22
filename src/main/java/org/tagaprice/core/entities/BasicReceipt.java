@@ -1,6 +1,7 @@
 package org.tagaprice.core.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.tagaprice.server.helper.ArgumentUtitlity;
 
 /**
  * <p>
@@ -30,13 +33,19 @@ public class BasicReceipt implements Serializable {
 
 	private Long _receiptId;
 	private BasicShop _basicShop;
+	private Date _createdAt;
 
 	protected BasicReceipt() {
 	}
 
-	public BasicReceipt(long receiptId, BasicShop basicShop) {
+	public BasicReceipt(Long receiptId, BasicShop basicShop, Date createdAt) {
+		ArgumentUtitlity.checkNull("receiptId", receiptId);
+		ArgumentUtitlity.checkNull("basicShop", basicShop);
+		ArgumentUtitlity.checkNull("createdAt", createdAt);
+		
 		_receiptId = receiptId;
 		_basicShop = basicShop;
+		_createdAt = createdAt;
 	}
 
 
@@ -60,42 +69,19 @@ public class BasicReceipt implements Serializable {
 	private void setBasicShop(BasicShop basicShop) {
 		_basicShop = basicShop;
 	}
-
-
+	
+	@Column(name = "created_at")
+	public Date getCreatedAt() {
+		return _createdAt;
+	}
+	private void setDate(Date date) {
+		_createdAt = date;
+	}
 
 	@Override
 	public String toString() {
 		return "BasicReceipt [_receiptId=" + _receiptId + ", _basicShop=" + _basicShop + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_basicShop == null) ? 0 : _basicShop.hashCode());
-		result = prime * result + ((_receiptId == null) ? 0 : _receiptId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BasicReceipt other = (BasicReceipt) obj;
-		if (_basicShop == null) {
-			if (other._basicShop != null)
-				return false;
-		} else if (!_basicShop.equals(other._basicShop))
-			return false;
-		if (_receiptId == null) {
-			if (other._receiptId != null)
-				return false;
-		} else if (!_receiptId.equals(other._receiptId))
-			return false;
-		return true;
-	}
+	
 }

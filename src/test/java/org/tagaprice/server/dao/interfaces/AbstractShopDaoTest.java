@@ -78,9 +78,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		long receiptId = 0;
 		ProductRevision rev1 = new ProductRevision(1L, 1, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry1 = new ReceiptEntry(new BasicReceipt(receiptId, null), rev1, 1, 10);
+		ReceiptEntry receiptEntry1 = HibernateSaveEntityCreator.createReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(receiptId, null), rev1, 1, 10); //new ReceiptEntry(new BasicReceipt(receiptId, null), rev1, 1, 10);
 		ProductRevision rev2 = new ProductRevision(2L, 2, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry2 = new ReceiptEntry(new BasicReceipt(receiptId, null), rev2, 5, 100);
+		ReceiptEntry receiptEntry2 = HibernateSaveEntityCreator.createReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(receiptId, null), rev2, 5, 100);  //new ReceiptEntry(new BasicReceipt(receiptId, null), rev2, 5, 100);
 
 		Shop expected = HibernateSaveEntityCreator.createShop(id);
 

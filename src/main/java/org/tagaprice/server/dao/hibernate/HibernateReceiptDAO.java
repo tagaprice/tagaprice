@@ -20,7 +20,7 @@ public class HibernateReceiptDAO implements IReceiptDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(long productId, int rev) {
+	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer rev) {
 		Query q = _sessionFactory
 		.getCurrentSession()
 		.createQuery( /* TODO fix this query */

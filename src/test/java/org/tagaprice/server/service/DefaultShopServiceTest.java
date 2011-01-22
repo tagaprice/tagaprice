@@ -64,18 +64,18 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void getAll_sholdReturnBasicShops() throws Exception {
 		List<BasicShop> shopList = new LinkedList<BasicShop>();
-		shopList.add(EntityCreator.creatBasicShop(1L, "test1"));
-		shopList.add(EntityCreator.creatBasicShop(2L, "test2"));
-		shopList.add(EntityCreator.creatBasicShop(3L, "test3"));
+		shopList.add(EntityCreator.createBasicShop(1L, "test1"));
+		shopList.add(EntityCreator.createBasicShop(2L, "test2"));
+		shopList.add(EntityCreator.createBasicShop(3L, "test3"));
 
 		when(_shopDaoMock.getAll()).thenReturn(shopList);
 
 
 		List<BasicShop> actual = _shopService.getAll();
 
-		BasicShop shop1 = EntityCreator.creatBasicShop(1L, "test1");
-		BasicShop shop2 = EntityCreator.creatBasicShop(2L, "test2");
-		BasicShop shop3 = EntityCreator.creatBasicShop(3L, "test3");
+		BasicShop shop1 = EntityCreator.createBasicShop(1L, "test1");
+		BasicShop shop2 = EntityCreator.createBasicShop(2L, "test2");
+		BasicShop shop3 = EntityCreator.createBasicShop(3L, "test3");
 
 		assertThat(actual, hasItems(shop1, shop2, shop3));
 		assertThat(actual.size(), is(3));

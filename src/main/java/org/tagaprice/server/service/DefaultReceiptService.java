@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IReceiptService;
+import org.tagaprice.core.api.IllegalRevisionException;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
@@ -11,8 +12,8 @@ import org.tagaprice.server.dao.interfaces.IReceiptDAO;
 
 @Transactional
 public class DefaultReceiptService implements IReceiptService {
-	IReceiptDAO _receiptDao;
-	SessionService _sessionFactory;
+	private IReceiptDAO _receiptDao;
+	private SessionService _sessionFactory;
 
 
 	@Override
@@ -24,7 +25,7 @@ public class DefaultReceiptService implements IReceiptService {
 	}
 
 	@Override
-	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(long productId, int productRevision) {
+	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer productRevision) throws ServerException, IllegalRevisionException {
 		return _receiptDao.getReceiptEntriesByProductIdAndRev(productId, productRevision);
 	}
 
