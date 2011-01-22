@@ -1,12 +1,15 @@
 package org.tagaprice.client.gwt.client.features.productmanagement.createProduct;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -49,10 +52,25 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		ICreateProductView createProductView = _clientFactory.getCreateProductView();
 		createProductView.setPresenter(this);
 
+		this._clientFactory.getProductServiceDispatch().getCategories(new AsyncCallback<ArrayList<ICategory>>() {
+
+			@Override
+			public void onSuccess(ArrayList<ICategory> result) {
+				CreateProductActivity._logger.log("Received " + result.size() + " categories");
+				_clientFactory.getCreateProductView().setAvailableCategories(result);
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				CreateProductActivity._logger.log("ERROR receiving list of categories");
+
+			}
+		});
+
 		if (_place.getRevisionId().getId() == 0L) {
 			CreateProductActivity._logger.log("Create new Product");
 			panel.setWidget(createProductView);
-			updateView(new Product());
+			updateView(new Product("", new Category("newProduct"), new Quantity(1L, Unit.piece)));
 			// panel.setWidget(new Label("Create new Product"));
 		} else {
 			CreateProductActivity._logger.log("Get Product: id=" + _place.getRevisionId().getId() + ", rev: "
@@ -61,6 +79,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			// Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
 
 			panel.setWidget(createProductView);
+			CreateProductActivity._logger.log("Load Categories...");
+
 
 			this._clientFactory.getProductServiceDispatch().getProduct(_place.getRevisionId(), new AsyncCallback<IProduct>() {
 
@@ -87,7 +107,26 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	@Override
-	public void onSaveEvent(ClickEvent event) {
+	public void onSaveEvent() {
+		CreateProductActivity._logger.log("Save Product");
+		IProduct product = this.getProduct();
+		//	product = new Product("default Title", new Category("default Category"), new Quantity(999L, Unit.ml));
+		CreateProductActivity._logger.log(product.toString());
+
+		this._clientFactory.getProductServiceDispatch().saveProduct(product, new AsyncCallback<IProduct>() {
+
+			@Override
+			public void onSuccess(IProduct result) {
+				updateView(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				updateView(new Product("Fehler beim Speichern", new Category("bla"), new Quantity()));
+
+			}
+		});
 
 	}
 
@@ -116,6 +155,16 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
 		view.setQuantity(product.getQuantity());
+	}
+
+	private IProduct getProduct() {
+		IProduct product = new Product();
+		ICreateProductView view = this._clientFactory.getEditProductView();
+		product.setTitle(view.getProductTitle());
+		product.setCategory(view.getCategory());
+		product.setQuantity(view.getQuantity());
+		return product;
+
 	}
 
 }
