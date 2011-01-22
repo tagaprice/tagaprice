@@ -25,8 +25,8 @@ public class HibernateReceiptDAO implements IReceiptDAO {
 		.getCurrentSession()
 		.createQuery( /* TODO fix this query */
 		"from ReceiptEntry as entry where entry.productId = :prodId and entry.productRevisionNumber  = :prodRev");
-		q.setString("prodId", String.valueOf(productId));
-		q.setString("prodRev", String.valueOf(rev));
+		q.setLong("prodId", productId);
+		q.setInteger("prodRev", rev);
 
 		return q.list();
 	}

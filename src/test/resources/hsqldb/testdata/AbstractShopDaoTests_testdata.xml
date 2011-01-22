@@ -7,19 +7,19 @@
     <column>latitude</column>
     <column>longitude</column>
     <row>
-      <value>0</value>
+      <value>1</value>
       <value>testShop</value>
       <value>10.555</value>
       <value>20.111</value>
     </row>
     <row>
-      <value>1</value>
+      <value>2</value>
       <value>otherTestShopX</value>
       <value>0.0005</value>
       <value>0.0505</value>
     </row>
     <row>
-      <value>2</value>
+      <value>3</value>
       <value>myShop</value>
       <value>48.208889</value>
       <value>16.3725</value>
@@ -132,7 +132,7 @@
       <value>1</value>
       <value>g</value>
       <value>100</value>
-      <value>0</value>
+      <value>1</value>
       <value>www.urlToImage.com</value>
     </row>
     <row>
@@ -140,7 +140,7 @@
       <value>2</value>
       <value>g</value>
       <value>100</value>
-      <value>1</value>
+      <value>2</value>
       <value>www.differentUrlToImage.com</value>
     </row>
     <row>
@@ -148,7 +148,7 @@
       <value>1</value>
       <value>g</value>
       <value>100</value>
-      <value>0</value>
+      <value>1</value>
       <value>www.image.com</value> 
     </row>
     <row>
@@ -156,7 +156,7 @@
       <value>2</value>
       <value>g</value>
       <value>100</value>
-      <value>2</value>
+      <value>3</value>
       <value>www.image.org</value>
     </row>
   </table>
@@ -168,22 +168,22 @@
     <column>created_at</column>
     <column>creator</column>
     <row>
-      <value>0</value>
+      <value>1</value>
       <null/>
       <value>rootCategory</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
     <row>
+      <value>2</value>
       <value>1</value>
-      <value>0</value>
       <value>category1</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
     <row>
-      <value>2</value>
-      <value>0</value>
+      <value>3</value>
+      <value>1</value>
       <value>category2</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
@@ -198,14 +198,14 @@
     <column>product_count</column>
     <column>price</column>
     <row>
-      <value>0</value>
+      <value>1</value>
       <value>1</value>
       <value>1</value>
       <value>1</value>
       <value>10</value>
     </row>
     <row>
-      <value>0</value>
+      <value>1</value>
       <value>2</value>
       <value>2</value>
       <value>5</value>
@@ -219,8 +219,8 @@
     <column>created_at</column>
     <column>creator</column>
     <row>
-      <value>0</value>
-      <value>0</value>
+      <value>1</value>
+      <value>1</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>

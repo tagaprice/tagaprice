@@ -69,16 +69,16 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 	public void getShopById_shouldGetShopWithReceipts() throws Exception {
 		_log.info("running test");
 
-		long id = 0;
+		long id = 1;
 
 		Shop actual = _dao.getById(id);
 
-		long receiptId = 0;
+		long receiptId = 1;
 		ReceiptEntry receiptEntry1 = HibernateSaveEntityCreator.createReceiptEntry(
-				HibernateSaveEntityCreator.createBasicReceipt(receiptId, null),
+				HibernateSaveEntityCreator.createBasicReceipt(receiptId, 1L),
 				HibernateSaveEntityCreator.createProductRevisionWithNullValues(1L, 1), 1, 10);
 		ReceiptEntry receiptEntry2 = HibernateSaveEntityCreator.createReceiptEntry(
-				HibernateSaveEntityCreator.createBasicReceipt(receiptId, null),
+				HibernateSaveEntityCreator.createBasicReceipt(receiptId, 1L),
 				HibernateSaveEntityCreator.createProductRevisionWithNullValues(2L, 2), 5, 100);
 
 		Shop expected = HibernateSaveEntityCreator.createShop(id, "testShop");
@@ -98,7 +98,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitle(titleToGet);
 
-		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
+		BasicShop match1 = EntityCreator.createBasicShop(1L, "testShop");
 		assertThat(actual, hasItem(match1));
 		assertThat("result size", actual.size(), is(1));
 	}
@@ -111,8 +111,8 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitleFuzzy(titleToGet);
 
-		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
-		BasicShop match2 = EntityCreator.createBasicShop(1L, "otherTestShopX");
+		BasicShop match1 = EntityCreator.createBasicShop(1L, "testShop");
+		BasicShop match2 = EntityCreator.createBasicShop(2L, "otherTestShopX");
 		assertThat(actual, hasItems(match1, match2));
 		assertThat("result size", actual.size(), is(2));
 	}
@@ -123,9 +123,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		List<BasicShop> actual = _dao.getAll();
 
-		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
-		BasicShop match2 = EntityCreator.createBasicShop(1L, "otherTestShopX");
-		BasicShop match3 = EntityCreator.createBasicShop(2L, "myShop");
+		BasicShop match1 = EntityCreator.createBasicShop(1L, "testShop");
+		BasicShop match2 = EntityCreator.createBasicShop(2L, "otherTestShopX");
+		BasicShop match3 = EntityCreator.createBasicShop(3L, "myShop");
 
 		assertThat(actual, hasItems(match1, match2, match3));
 		assertThat(actual.size(), is(3));
@@ -141,7 +141,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		Shop actual = _dao.save(shopToSave);
 
-		long nextEmptyId = 3L;
+		long nextEmptyId = 4L;
 		Shop expected = HibernateSaveEntityCreator.createShop(nextEmptyId, title);
 
 		assertThat(actual, is(expected));
@@ -156,7 +156,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 	public void updateExistingShop_shouldUpdate() throws Exception {
 		_log.info("running test");
 
-		long idToUpdate = 0; // this id must exist in testdata
+		long idToUpdate = 1; // this id must exist in testdata
 		String title = "updatedTestShop";
 		double latitude = 10.000;
 		double longitude = 20.202;
