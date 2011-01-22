@@ -1,6 +1,7 @@
 package org.tagaprice.server.service;
 
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,12 +19,13 @@ import org.tagaprice.server.service.helper.EntityCreator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import static org.mockito.Mockito.*;
 
 
 @ContextConfiguration
-public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
+public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 	private DefaultShopService _shopService;
 	private IShopDAO _shopDaoMock;
 
@@ -32,14 +34,17 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	public void setUp() throws Exception {
 		_shopService = applicationContext.getBean("defaultShopService", DefaultShopService.class);
 		_shopDaoMock = mock(IShopDAO.class);
-		_shopService.setShopDAO(_shopDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
+		_shopService.setShopDAO(_shopDaoMock); // TODO replace this by dependency injection via autowire, how to inject
+		// mock ? see
+		// http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean
+		// for help
 	}
 
 	@Test
 	public void saveNewShop_shouldReturnShopWithIdSet() throws Exception {
 		Shop toSave = EntityCreator.createShop(null);
 
-		//Mock sets id and returns whatever it gets
+		// Mock sets id and returns whatever it gets
 		when(_shopDaoMock.save((Shop) any())).thenAnswer(new Answer<Shop>() {
 			@Override
 			public Shop answer(InvocationOnMock invocation) throws Throwable {
@@ -62,7 +67,63 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void getAll_sholdReturnBasicShops() throws Exception {
+	public void getShopById_shouldGetShop() throws Exception {
+		// mock returns a new shop with argument id
+		when(_shopDaoMock.getById(anyLong())).thenAnswer(new Answer<Shop>() {
+			@Override
+			public Shop answer(InvocationOnMock invocation) throws Throwable {
+				Long id = (Long) invocation.getArguments()[0];
+				return EntityCreator.createShop(id);
+			}
+		});
+
+		Shop actual = _shopService.getById(1L);
+
+		Shop expected = EntityCreator.createShop(1L);
+
+		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void getShopByTitle_daoReturnsEmptyList_shoudGetEmptyList() throws Exception {
+		// mock returns empty list
+		when(_shopDaoMock.getByTitle(anyString())).thenAnswer(new Answer<List<BasicShop>>() {
+			@Override
+			public List<BasicShop> answer(InvocationOnMock invocation) throws Throwable {
+				return new LinkedList<BasicShop>();
+			}
+		});
+
+		List<BasicShop> actual = _shopService.getByTitle("someTitle");
+
+		assertThat(actual.isEmpty(), is(true));
+	}
+
+	@Test
+	public void getShopByTitle_shoudGetBasicShops() throws Exception {
+		final List<BasicShop> list = new LinkedList<BasicShop>();
+		list.add(EntityCreator.creatBasicShop(1L, "test"));
+		list.add(EntityCreator.creatBasicShop(5L, "test"));
+
+		// mock returns new basicShops if argument is "test"
+		when(_shopDaoMock.getByTitle(anyString())).thenAnswer(new Answer<List<BasicShop>>() {
+			@Override
+			public List<BasicShop> answer(InvocationOnMock invocation) throws Throwable {
+				if(((String) invocation.getArguments()[0]).equals("test"))
+					return list;
+				return new LinkedList<BasicShop>();
+			}
+		});
+
+		List<BasicShop> actual = _shopService.getByTitle("test");
+
+		for(BasicShop s : list)
+			assertThat(actual, hasItem(s));
+		assertThat(actual.size(), is(list.size()));
+	}
+
+	@Test
+	public void getAll_shouldReturnBasicShops() throws Exception {
 		List<BasicShop> shopList = new LinkedList<BasicShop>();
 		shopList.add(EntityCreator.creatBasicShop(1L, "test1"));
 		shopList.add(EntityCreator.creatBasicShop(2L, "test2"));

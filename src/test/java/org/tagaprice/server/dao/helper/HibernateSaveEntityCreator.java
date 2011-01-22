@@ -154,7 +154,7 @@ public class HibernateSaveEntityCreator {
 	 * Category
 	 */
 	public static Category createCategory(Long id, Account creator) {
-		return new Category(4L, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
+		return new Category(id, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
 
 	}
 
