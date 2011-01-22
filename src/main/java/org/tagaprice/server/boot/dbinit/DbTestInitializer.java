@@ -55,9 +55,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 			DatabaseConfig config = _connection.getConfig();
 			config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqldbDataTypeFactory());
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 
@@ -98,9 +98,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			DatabaseOperation.CLEAN_INSERT.execute(_connection, _dbUnitDataSet);
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 		return _dbUnitDataSet;
 	}
@@ -111,9 +111,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			DatabaseOperation.DELETE.execute(_connection, _dbUnitDataSet);
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 
@@ -140,9 +140,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			_dbUnitDataSet = new XmlDataSet(fillData.getInputStream());
 		} catch (DataSetException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (IOException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 }
