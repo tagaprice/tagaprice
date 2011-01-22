@@ -36,6 +36,6 @@
 			</list>
 		</property>
 		<!-- test data to load -->
-		<property name="dbUnitData" value="classpath:hsqldb/testdata/AbstractProductDaoTests_testdata.xml" />
+		<property name="dbUnitData" value="classpath:hsqldb/testdata/AbstractProductRevisionDaoTest_testdata.xml" />
 	</bean>
 </beans>

@@ -10,7 +10,6 @@ import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 /**
@@ -57,17 +56,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		nameI18N.setText(I18N.I18N.name());
 		quantityI18N.setText(I18N.I18N.quantity());
 		categoryI18N.setText(I18N.I18N.category());
+	}
 
-
-		//Implement listener
-		saveButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.onSaveEvent(arg0);
-			}
-		});
-
+	@UiHandler("saveButton")
+	public void onSaveButtonClicked(ClickEvent event) {
+		_presenter.onSaveEvent();
 	}
 
 
@@ -81,15 +74,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void addQuantities(ArrayList<IQuantity> quantities) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public ArrayList<IQuantity> getQuantities() {
-		// TODO Auto-generated method stub
-		return null;
+	public IQuantity getQuantity() {
+		return _quantity.getQuantity();
 	}
 
 	@Override
@@ -99,7 +85,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	@Override
 	public ICategory getCategory() {
-		return null;
+		return this.category.getCategory();
 	}
 
 	@Override
@@ -110,6 +96,16 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setTitle(String title) {
 		name.setText(title);
+	}
+
+	@Override
+	public void setAvailableCategories(ArrayList<ICategory> categories) {
+		this.category.setAvailableCategories(categories);
+	}
+
+	@Override
+	public String getProductTitle() {
+		return this.name.getText();
 	}
 
 

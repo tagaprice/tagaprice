@@ -21,8 +21,8 @@ public class DefaultProductService implements IProductService {
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 	private IProductRevisionDAO _productRevisionDao;
-	
-	
+
+
 
 	public DefaultProductService() {
 		_log.debug("Creating defaultproductservice");
@@ -79,19 +79,34 @@ public class DefaultProductService implements IProductService {
 	public List<Product> getByTitle(String title) {
 		if(title == null)
 			throw new IllegalArgumentException("title must not be null");
+		_log.debug("title "+title);
 
 		List<ProductRevision> revisions = _productRevisionDao.getByTitle(title);
+		_log.debug("number of revisions found:" + revisions.size());
+
 
 		HashSet<Long> ids = new HashSet<Long>();
 		for(ProductRevision revision : revisions) {
 			ids.add(revision.getId());
 		}
 
+		_log.debug("number of different product ids found:" + ids.size());
+
+
 		List<Product> products = new ArrayList<Product>();
 
 		for(Long id : ids) {
 			products.add(_productDao.getById(id));
 		}
+
+		// WORKAROUND for hibernate being lazy
+		for(Product p : products) {
+			p.getRevisions();
+			p.getCurrentRevision();
+			p.getId();
+		}
+
+		_log.debug("number of product found:" + ids.size());
 
 		return products;
 	}
