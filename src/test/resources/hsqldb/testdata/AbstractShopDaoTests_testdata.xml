@@ -4,17 +4,25 @@
   <table name="shop">
     <column>shop_id</column>
     <column>title</column>
+    <column>latitude</column>
+    <column>longitude</column>
     <row>
       <value>0</value>
       <value>testShop</value>
+      <value>10.555</value>
+      <value>20.111</value>
     </row>
     <row>
       <value>1</value>
       <value>otherTestShopX</value>
+      <value>0.0005</value>
+      <value>0.0505</value>
     </row>
     <row>
       <value>2</value>
       <value>myShop</value>
+      <value>48.208889</value>
+      <value>16.3725</value>
     </row>
   </table>
 

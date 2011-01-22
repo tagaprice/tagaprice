@@ -25,6 +25,9 @@ import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
  */
 public class EntityCreator {
 	private static final Date _standardDate = HibernateSaveEntityCreator.getDefaultDate();
+	// Coordinates of Vienna
+	private static double _defaultLatitude = 48.208889;
+	private static double _defaultLongitude = 16.3725;
 	/*
 	 * 
 	 * 
@@ -164,7 +167,7 @@ public class EntityCreator {
 	 */
 
 	public static Shop createShop(Long id) {
-		return new Shop(id, "defaultShopTitle", new HashSet<ReceiptEntry>());
+		return new Shop(id, "defaultShopTitle", EntityCreator._defaultLatitude , EntityCreator._defaultLongitude , new HashSet<ReceiptEntry>());
 	}
 
 }

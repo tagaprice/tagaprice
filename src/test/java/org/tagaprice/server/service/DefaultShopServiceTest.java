@@ -34,13 +34,13 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	public void saveNewProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		Shop toSave = EntityCreator.createShop(null);
 
-		//Mock returns whatever it gets
+		//Mock sets id and returns whatever it gets
 		when(_shopDaoMock.save((Shop) any())).thenAnswer(new Answer<Shop>() {
 			@Override
 			public Shop answer(InvocationOnMock invocation) throws Throwable {
 				Object[] args = invocation.getArguments();
 				Shop shop = (Shop) args[0];
-				return new Shop(1L, shop.getTitle(), shop.getReceiptEntries());
+				return new Shop(1L, shop.getTitle(), shop.getLatitude(), shop.getLongitude(), shop.getReceiptEntries());
 			}
 		});
 

@@ -33,7 +33,10 @@ public class Shop implements Serializable {
 
 	private Long _id;
 	private String _title;
+	private double _latitude;
+	private double _longitude;
 	private Set<ReceiptEntry> _receiptEntries = new HashSet<ReceiptEntry>();
+
 
 
 	protected Shop() {
@@ -50,9 +53,11 @@ public class Shop implements Serializable {
 	 * @param receiptEntries
 	 *            {@link ReceiptEntry}s holding price-information about each product available at this shop.
 	 */
-	public Shop(Long id, String title, Set<ReceiptEntry> receiptEntries) {
+	public Shop(Long id, String title, double latitude, double longitude, Set<ReceiptEntry> receiptEntries) {
 		_id = id;
 		_title = title;
+		_latitude = latitude;
+		_longitude = longitude;
 		_receiptEntries = receiptEntries;
 	}
 
@@ -77,6 +82,24 @@ public class Shop implements Serializable {
 	}
 
 
+	public double getLatitude() {
+		return _latitude;
+	}
+
+	private void setLatitude(double latitude) {
+		_latitude = latitude;
+	}
+
+
+	public double getLongitude() {
+		return _longitude;
+	}
+
+	private void setLongitude(double longitude) {
+		_longitude = longitude;
+	}
+
+
 	/**
 	 * This {@link ReceiptEntry}s won't get saved or updated. Save them using {@link IReceiptDAO}.
 	 */
@@ -90,12 +113,16 @@ public class Shop implements Serializable {
 		_receiptEntries.addAll(receipts);
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(_latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(_longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((_receiptEntries == null) ? 0 : _receiptEntries.hashCode());
 		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
 		return result;
@@ -115,6 +142,10 @@ public class Shop implements Serializable {
 				return false;
 		} else if (!_id.equals(other._id))
 			return false;
+		if (Double.doubleToLongBits(_latitude) != Double.doubleToLongBits(other._latitude))
+			return false;
+		if (Double.doubleToLongBits(_longitude) != Double.doubleToLongBits(other._longitude))
+			return false;
 		if (_receiptEntries == null) {
 			if (other._receiptEntries != null)
 				return false;
@@ -130,6 +161,7 @@ public class Shop implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Shop [_id=" + _id + ", _title=" + _title + "]";
+		return "Shop [_id=" + _id + ", _title=" + _title + ", _latitude=" + _latitude + ", _longitude=" + _longitude
+		+ ", _receiptEntries=" + _receiptEntries + "]";
 	}
 }

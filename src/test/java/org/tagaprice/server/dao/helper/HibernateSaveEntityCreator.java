@@ -9,7 +9,9 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Session;
+import org.tagaprice.core.entities.Shop;
 import org.tagaprice.core.entities.Unit;
 
 /**
@@ -141,5 +143,24 @@ public class HibernateSaveEntityCreator {
 	public static Category createCategory(Long id, Account creator) {
 		return new Category(4L, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
 
+	}
+
+	/*
+	 * 
+	 * 
+	 * Shops
+	 * 
+	 * 
+	 */
+
+	/**
+	 * create a default shop with given id
+	 */
+	public static Shop createShop(Long id) {
+		return createShop(id, "testShop", 10.555, 20.111, new HashSet<ReceiptEntry>());
+	}
+
+	private static Shop createShop(Long id, String title, double latitude, double longitude, HashSet<ReceiptEntry> receiptEntries) {
+		return new Shop(id, title, latitude, longitude, receiptEntries);
 	}
 }

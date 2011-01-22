@@ -20,6 +20,7 @@ import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
@@ -79,7 +80,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		ProductRevision rev2 = new ProductRevision(2L, 2, null, null, null, null, null, null, null);
 		ReceiptEntry receiptEntry2 = new ReceiptEntry(new BasicReceipt(receiptId, null), rev2, 5, 100);
 
-		Shop expected = new Shop(id, title, null);
+		Shop expected = HibernateSaveEntityCreator.createShop(id);
 
 		// assertThat(actual, equalTo(expected)); this doesn't work, because of javassist dynamic subtyping
 		assertThat(actual.getId(), is(expected.getId()));
@@ -90,7 +91,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 	@Test
 	@Rollback(false)
-	public void getBasicShopByTitle_shouldGetBasicShop() throws Exception {
+	public void getByTitle_shouldGetBasicShops() throws Exception {
 		_log.info("running test");
 
 		String titleToGet = "testShop";
@@ -122,11 +123,12 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		long id = 5L;
 		String title = "newTestShop";
-		Shop shopToSave = new Shop(id, title, new HashSet<ReceiptEntry>());
+		// TODO test with id not set
+		Shop shopToSave = new Shop(id, title, 48.20, 16.37, new HashSet<ReceiptEntry>());
 
 		Shop actual = _dao.save(shopToSave);
 
-		Shop expected = new Shop(id, title, new HashSet<ReceiptEntry>());
+		Shop expected = new Shop(id, title, 48.20, 16.37, new HashSet<ReceiptEntry>());
 
 		assertThat(actual, is(expected));
 
