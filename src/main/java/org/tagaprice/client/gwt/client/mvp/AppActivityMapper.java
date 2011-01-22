@@ -33,9 +33,6 @@ public class AppActivityMapper implements ActivityMapper {
 			logger.log("return new ListProductsActivity");
 			return new ListProductsActivity((ListProductsPlace) place, this.clientFactory);
 		} else if (place instanceof CreateProductPlace) {
-			logger.log("return new EditProductsActivity");
-			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
-		} else if (place instanceof CreateProductPlace) {
 			logger.log("return new CreateProductActivity");
 			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
 		}else if(place instanceof LoginPlace){

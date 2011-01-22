@@ -43,10 +43,8 @@ public class ProductServiceImplTest {
 		Assert.assertEquals(productCore.getId(), productGWT.getRevisionId().getId());
 		Assert.assertEquals(productCore.getCurrentRevision().getRevisionNumber().intValue(), productGWT.getRevisionId().getRevision().intValue());
 		Assert.assertEquals(productCore.getCurrentRevision().getCategory().getTitle(), productGWT.getCategory().getTitle());
-		//Will not work until Unit and amount are implemented on server side
-		//When implemented, fix the convert method and add another Assertion (UNIT)
-		Assert.assertEquals("INSPECT COMMENTS ON THIS TEST", productCore.getCurrentRevision().getAmount().doubleValue(), productGWT.getQuantity().getQuantity());
-
+		Assert.assertEquals(productCore.getCurrentRevision().getAmount().doubleValue(), productGWT.getQuantity().getQuantity(), 0.01);
+		Assert.assertEquals(productCore.getCurrentRevision().getUnit(), productGWT.getQuantity().getUnit());
 	}
 
 }
