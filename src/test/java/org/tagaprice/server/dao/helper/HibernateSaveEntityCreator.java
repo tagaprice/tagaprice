@@ -30,6 +30,9 @@ public class HibernateSaveEntityCreator {
 	private static final Date _standardDate = new Date(1293213600000L); //2010/12/24, 19:00:00000, DO NOT CHANGE THIS (testdata is set to this date also)
 	private static final Double _standardAmount = 100d; // DO NOT CHANGE THIS (testdata is set to this date also)
 	private static final Unit _standardUnit = Unit.g;
+	// Coordinates of Vienna
+	private static double _defaultLatitude = 48.208889;
+	private static double _defaultLongitude = 16.3725;
 
 	/*
 	 * 
@@ -55,16 +58,24 @@ public class HibernateSaveEntityCreator {
 	 * 
 	 */
 
-	public static ProductRevision createProductRevision(Long id, int rev, Account creator, Unit unit, Category category) {
+	public static ProductRevision createProductRevision(Long id, Integer rev, Account creator, Unit unit, Category category) {
 		return createProductRevision(id, rev, "title", creator, unit, category);
 	}
 
-	public static ProductRevision createProductRevision(Long id, int rev, String title, Account creator, Unit unit, Category category) {
+	public static ProductRevision createProductRevision(Long id, Integer rev, String title, Account creator, Unit unit, Category category) {
 		return createProductRevision(id, rev, "title", HibernateSaveEntityCreator._standardDate, creator, unit, category);
 	}
 
-	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Unit unit, Category category) {
-		return new ProductRevision(id, rev, title, createdAt, creator, unit, HibernateSaveEntityCreator._standardAmount , category, "someImageUrl");
+	public static ProductRevision createProductRevision(Long id, Integer rev, String title, Date createdAt, Account creator, Unit unit, Category category) {
+		return createProductRevision(id, rev, title, createdAt, creator, unit, HibernateSaveEntityCreator._standardAmount, category, "someImageUrl");
+	}
+
+	public static ProductRevision createProductRevisionWithNullValues(Long id, Integer rev) {
+		return createProductRevision(id, rev, null, null, null, null, null, null, null);
+	}
+
+	public static ProductRevision createProductRevision(Long id, Integer rev, String title, Date createdAt, Account creator, Unit unit, Double amount, Category category, String imageUrl) {
+		return new ProductRevision(id, rev, title, createdAt, creator, unit, amount, category, imageUrl);
 	}
 
 	/*
@@ -159,10 +170,18 @@ public class HibernateSaveEntityCreator {
 	 * create a default shop with given id
 	 */
 	public static Shop createShop(Long id) {
-		return createShop(id, "testShop", 10.555, 20.111, new HashSet<ReceiptEntry>());
+		return createShop(id, "defaultShopTitle");
 	}
 
-	private static Shop createShop(Long id, String title, double latitude, double longitude, HashSet<ReceiptEntry> receiptEntries) {
+	public static Shop createShop(Long id, String title) {
+		return createShop(id, title, HibernateSaveEntityCreator._defaultLatitude, HibernateSaveEntityCreator._defaultLongitude);
+	}
+
+	public static Shop createShop(Long id, String title, Double latitude, Double longitude) {
+		return createShop(id, title, latitude, longitude, new HashSet<ReceiptEntry>());
+	}
+
+	public static Shop createShop(Long id, String title, double latitude, double longitude, HashSet<ReceiptEntry> receiptEntries) {
 		return new Shop(id, title, latitude, longitude, receiptEntries);
 	}
 	

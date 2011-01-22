@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IShopService;
+import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
@@ -14,13 +15,13 @@ public class DefaultShopService implements IShopService {
 	SessionService _sessionFactory;
 
 	@Override
-	public Shop getById(long id) {
+	public Shop getById(long id) throws ServerException {
 		// TODO what happens if id doesn't exist?
 		return _shopDao.getById(id);
 	}
 
 	@Override
-	public Shop save(Shop shop) {
+	public Shop save(Shop shop) throws ServerException {
 		// TODO replace this by ArgumentUtility
 		if(shop == null)
 			throw new IllegalArgumentException("shop is null");
@@ -28,17 +29,17 @@ public class DefaultShopService implements IShopService {
 	}
 
 	@Override
-	public List<BasicShop> getByTitle(String title) {
+	public List<BasicShop> getByTitle(String title) throws ServerException {
 		return _shopDao.getByTitle(title);
 	}
 
 	@Override
-	public List<BasicShop> getByTitleFuzzy(String title) {
+	public List<BasicShop> getByTitleFuzzy(String title) throws ServerException {
 		return _shopDao.getByTitleFuzzy(title);
 	}
 
 	@Override
-	public List<BasicShop> getAll() {
+	public List<BasicShop> getAll() throws ServerException {
 		return _shopDao.getAll();
 	}
 
@@ -46,7 +47,7 @@ public class DefaultShopService implements IShopService {
 	// bean helper methods
 	//
 
-	public void setShopDAO(IShopDAO shopDao) {
+	public void setShopDAO(IShopDAO shopDao) throws ServerException {
 		_shopDao = shopDao;
 	}
 

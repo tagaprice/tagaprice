@@ -3,9 +3,7 @@ package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
-import java.util.HashSet;
 import java.util.List;
 import org.dbunit.dataset.IDataSet;
 import org.hibernate.SessionFactory;
@@ -17,18 +15,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.tagaprice.core.entities.BasicReceipt;
+import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
-import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
+import org.tagaprice.server.service.helper.EntityCreator;
 
 /**
- * Testcase to test the {@link IProductDAO} interface.
+ * Testcase to test the {@link IShopDAO} interface.
  * Extend this class for each concrete ORM technology.
  * 
  * TODO create AbstractDaoTest class
@@ -72,17 +70,18 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		_log.info("running test");
 
 		long id = 0;
-		String title = "testShop";
 
 		Shop actual = _dao.getById(id);
 
 		long receiptId = 0;
-		ProductRevision rev1 = new ProductRevision(1L, 1, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry1 = HibernateSaveEntityCreator.createReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(receiptId, null), rev1, 1, 10); //new ReceiptEntry(new BasicReceipt(receiptId, null), rev1, 1, 10);
-		ProductRevision rev2 = new ProductRevision(2L, 2, null, null, null, null, null, null, null);
-		ReceiptEntry receiptEntry2 = HibernateSaveEntityCreator.createReceiptEntry(HibernateSaveEntityCreator.createBasicReceipt(receiptId, null), rev2, 5, 100);  //new ReceiptEntry(new BasicReceipt(receiptId, null), rev2, 5, 100);
+		ReceiptEntry receiptEntry1 = HibernateSaveEntityCreator.createReceiptEntry(
+				HibernateSaveEntityCreator.createBasicReceipt(receiptId, null),
+				HibernateSaveEntityCreator.createProductRevisionWithNullValues(1L, 1), 1, 10);
+		ReceiptEntry receiptEntry2 = HibernateSaveEntityCreator.createReceiptEntry(
+				HibernateSaveEntityCreator.createBasicReceipt(receiptId, null),
+				HibernateSaveEntityCreator.createProductRevisionWithNullValues(2L, 2), 5, 100);
 
-		Shop expected = HibernateSaveEntityCreator.createShop(id);
+		Shop expected = HibernateSaveEntityCreator.createShop(id, "testShop");
 
 		// assertThat(actual, equalTo(expected)); this doesn't work, because of javassist dynamic subtyping
 		assertThat(actual.getId(), is(expected.getId()));
@@ -99,8 +98,8 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitle(titleToGet);
 
-		BasicShop shopMatch1 = new BasicShop(0, "testShop");
-		assertThat(actual, hasItem(shopMatch1));
+		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
+		assertThat(actual, hasItem(match1));
 		assertThat("result size", actual.size(), is(1));
 	}
 
@@ -112,9 +111,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitleFuzzy(titleToGet);
 
-		BasicShop shopMatch1 = new BasicShop(0, "testShop");
-		BasicShop shopMatch2 = new BasicShop(1, "otherTestShopX");
-		assertThat(actual, hasItems(shopMatch1, shopMatch2));
+		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
+		BasicShop match2 = EntityCreator.creatBasicShop(1L, "otherTestShopX");
+		assertThat(actual, hasItems(match1, match2));
 		assertThat("result size", actual.size(), is(2));
 	}
 
@@ -124,9 +123,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		List<BasicShop> actual = _dao.getAll();
 
-		BasicShop match1 = new BasicShop(0, "testShop");
-		BasicShop match2 = new BasicShop(1, "otherTestShopX");
-		BasicShop match3 = new BasicShop(2, "myShop");
+		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
+		BasicShop match2 = EntityCreator.creatBasicShop(1L, "otherTestShopX");
+		BasicShop match3 = EntityCreator.creatBasicShop(2L, "myShop");
 
 		assertThat(actual, hasItems(match1, match2, match3));
 		assertThat(actual.size(), is(3));
@@ -137,18 +136,50 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 	public void saveShop_shouldPersist() throws Exception {
 		_log.info("running test");
 
-		long id = 5L;
 		String title = "newTestShop";
-		// TODO test with id not set
-		Shop shopToSave = new Shop(id, title, 48.20, 16.37, new HashSet<ReceiptEntry>());
+		Shop shopToSave = HibernateSaveEntityCreator.createShop(null, title);
 
 		Shop actual = _dao.save(shopToSave);
 
-		Shop expected = new Shop(id, title, 48.20, 16.37, new HashSet<ReceiptEntry>());
+		long nextEmptyId = 3L;
+		Shop expected = HibernateSaveEntityCreator.createShop(nextEmptyId, title);
 
 		assertThat(actual, is(expected));
 
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(shopToSave);
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void updateExistingShop_shouldUpdate() throws Exception {
+		_log.info("running test");
+
+		long idToUpdate = 0; // this id must exist in testdata
+		String title = "updatedTestShop";
+		double latitude = 10.000;
+		double longitude = 20.202;
+
+		Shop shopToUpdate = HibernateSaveEntityCreator.createShop(idToUpdate, title, latitude, longitude);
+
+		Shop actual = _dao.save(shopToUpdate);
+
+		Shop expected = HibernateSaveEntityCreator.createShop(idToUpdate, title, latitude, longitude);
+
+		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(shopToUpdate);
+	}
+
+
+	@Test(expected = ServerException.class)
+	@Rollback(false)
+	public void saveShopWithNullTitle_shouldThrow() throws Exception {
+		_log.info("running test");
+
+		Shop shopToSave = HibernateSaveEntityCreator.createShop(null, null);
+		_dao.save(shopToSave);
 	}
 }
