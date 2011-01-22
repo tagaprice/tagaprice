@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.tagaprice.core.entities.Account;
+import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
@@ -169,5 +170,9 @@ public class EntityCreator {
 	 */
 	public static Shop createShop(Long id) {
 		return new Shop(id, "defaultShopTitle", EntityCreator._defaultLatitude , EntityCreator._defaultLongitude , new HashSet<ReceiptEntry>());
+	}
+
+	public static BasicShop creatBasicShop(Long id, String title) {
+		return new BasicShop(id, title);
 	}
 }

@@ -3,6 +3,8 @@ package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.List;
 import org.dbunit.dataset.IDataSet;
@@ -114,6 +116,20 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		BasicShop shopMatch2 = new BasicShop(1, "otherTestShopX");
 		assertThat(actual, hasItems(shopMatch1, shopMatch2));
 		assertThat("result size", actual.size(), is(2));
+	}
+
+	@Test
+	public void getAll_shouldListBasicShops() throws Exception {
+		_log.info("running test");
+
+		List<BasicShop> actual = _dao.getAll();
+
+		BasicShop match1 = new BasicShop(0, "testShop");
+		BasicShop match2 = new BasicShop(1, "otherTestShopX");
+		BasicShop match3 = new BasicShop(2, "myShop");
+
+		assertThat(actual, hasItems(match1, match2, match3));
+		assertThat(actual.size(), is(3));
 	}
 
 	@Test

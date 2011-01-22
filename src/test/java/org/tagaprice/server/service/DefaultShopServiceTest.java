@@ -1,20 +1,25 @@
 package org.tagaprice.server.service;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.service.helper.EntityCreator;
 
-import static org.mockito.Mockito.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
+import static org.mockito.Mockito.*;
 
 
 @ContextConfiguration
@@ -31,7 +36,7 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void saveNewProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+	public void saveNewShop_shouldReturnShopWithIdSet() throws Exception {
 		Shop toSave = EntityCreator.createShop(null);
 
 		//Mock sets id and returns whatever it gets
@@ -54,6 +59,27 @@ public class DefaultShopServiceTest  extends AbstractJUnit4SpringContextTests {
 	@Test(expected = IllegalArgumentException.class)
 	public void saveNullShop_shouldThrow() throws Exception {
 		_shopService.save(null);
+	}
+
+	@Test
+	public void getAll_sholdReturnBasicShops() throws Exception {
+		List<BasicShop> shopList = new LinkedList<BasicShop>();
+		shopList.add(EntityCreator.creatBasicShop(1L, "test1"));
+		shopList.add(EntityCreator.creatBasicShop(2L, "test2"));
+		shopList.add(EntityCreator.creatBasicShop(3L, "test3"));
+
+		when(_shopDaoMock.getAll()).thenReturn(shopList);
+
+
+		List<BasicShop> actual = _shopService.getAll();
+
+		BasicShop shop1 = EntityCreator.creatBasicShop(1L, "test1");
+		BasicShop shop2 = EntityCreator.creatBasicShop(2L, "test2");
+		BasicShop shop3 = EntityCreator.creatBasicShop(3L, "test3");
+
+		assertThat(actual, hasItems(shop1, shop2, shop3));
+		assertThat(actual.size(), is(3));
+
 	}
 
 }

@@ -37,6 +37,10 @@ public class DefaultShopService implements IShopService {
 		return _shopDao.getByTitleFuzzy(title);
 	}
 
+	@Override
+	public List<BasicShop> getAll() {
+		return _shopDao.getAll();
+	}
 
 	//
 	// bean helper methods
@@ -49,4 +53,5 @@ public class DefaultShopService implements IShopService {
 	public void setSessionFactory(SessionService sessionFactory) {
 		_sessionFactory = sessionFactory;
 	}
+
 }

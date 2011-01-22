@@ -26,4 +26,9 @@ public interface IShopDAO {
 	 */
 	List<BasicShop> getByTitleFuzzy(String title);
 
+	/**
+	 * Returns all shops as {@link BasicShop}s
+	 */
+	List<BasicShop> getAll();
+
 }
