@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
-import org.tagaprice.server.helper.ArgumentUtitlity;
 
 @SuppressWarnings("unchecked")
 public class HibernateShopDAO implements IShopDAO {

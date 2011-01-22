@@ -1,4 +1,4 @@
-package org.tagaprice.server.helper;
+package org.tagaprice.core.entities;
 
 public class ArgumentUtitlity {
 	public static void checkNull(String name, Object obj) {

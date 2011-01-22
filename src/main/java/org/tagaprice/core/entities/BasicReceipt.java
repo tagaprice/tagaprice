@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.tagaprice.server.helper.ArgumentUtitlity;
 
 /**
  * <p>

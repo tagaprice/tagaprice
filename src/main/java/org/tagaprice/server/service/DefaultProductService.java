@@ -75,7 +75,6 @@ public class DefaultProductService implements IProductService {
 		return product;
 	}
 
-	@Transactional
 	@Override
 	public List<Product> getByTitle(String title) {
 		if(title == null)

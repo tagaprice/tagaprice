@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import org.tagaprice.server.helper.ArgumentUtitlity;
 
 /**
  * <p>
