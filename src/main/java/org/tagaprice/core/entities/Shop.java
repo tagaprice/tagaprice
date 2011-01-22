@@ -14,12 +14,12 @@ import org.tagaprice.server.dao.interfaces.IReceiptDAO;
  * This represents a shop.
  * </p>
  * <p>
- * A shop has a title. TODO add more properties / make revisionable.
+ * A shop has a title and coordinates associated. TODO add more properties / make revisionable.
  * </p>
  * 
  * 
  * <p>
- * TODO add coordinates / address TODO This class should be immutable. control collections access.
+ * TODO This class should be immutable. control collections access.
  * </p>
  * 
  * @author haja
