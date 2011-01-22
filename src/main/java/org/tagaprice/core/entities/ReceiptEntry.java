@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 /**
  * @author haja
- *
+ * 
  */
 @Entity
 @SuppressWarnings("unused")
@@ -24,7 +24,7 @@ public class ReceiptEntry implements Serializable {
 
 	private Long _receiptId;
 	private Long _productId;
-	//	private ProductRevision _productRevision;
+	private ProductRevision _productRevision;
 	private int _count;
 	private long _price;
 	private Integer _productRevNumber;
@@ -34,10 +34,12 @@ public class ReceiptEntry implements Serializable {
 	protected ReceiptEntry() {
 	}
 
-	public ReceiptEntry(long receiptId, long productId, int productRevisionNumber, int count, long price, BasicReceipt basicReceipt) {
+	public ReceiptEntry(long receiptId, int count, long price, ProductRevision productRevision,
+			BasicReceipt basicReceipt) {
 		_receiptId = receiptId;
-		_productId = productId;
-		_productRevNumber = productRevisionNumber;
+		_productId = productRevision.getId();
+		_productRevNumber = productRevision.getRevisionNumber();
+		_productRevision = productRevision;
 		_count = count;
 		_price = price;
 		_basicReceipt = basicReceipt;
@@ -65,17 +67,6 @@ public class ReceiptEntry implements Serializable {
 	}
 
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "receipt_id", insertable = false, updatable = false)
-	public BasicReceipt getBasicReceipt() {
-		return _basicReceipt;
-	}
-	private void setBasicReceipt(BasicReceipt basicReceipt) {
-		_basicReceipt = basicReceipt;
-	}
-
-
-
 	@Column(name = "product_revision")
 	public Integer getProductRevisionNumber() {
 		return _productRevNumber;
@@ -85,17 +76,6 @@ public class ReceiptEntry implements Serializable {
 		_productRevNumber = productRevision;
 	}
 
-
-	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JoinColumns({ @JoinColumn(name = "product_id"), @JoinColumn(name = "product_revision") })
-	//	@Transient
-	//	public ProductRevision getProductRevision() {
-	//		return _productRevision;
-	//	}
-	//
-	//	private void setProductRevision(ProductRevision productRevision) {
-	//		_productRevision = productRevision;
-	//	}
 
 	@Column(name = "product_count")
 	public int getCount() {
@@ -113,6 +93,33 @@ public class ReceiptEntry implements Serializable {
 
 	private void setPrice(long price) {
 		_price = price;
+	}
+
+	//
+	// not persisted mappings
+	//
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "product_id", insertable = false, updatable = false),
+		@JoinColumn(name = "product_revision", insertable = false, updatable = false) })
+		public ProductRevision getProductRevision() {
+		return _productRevision;
+	}
+
+	private void setProductRevision(ProductRevision productRevision) {
+		_productRevision = productRevision;
+	}
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "receipt_id", insertable = false, updatable = false)
+	public BasicReceipt getBasicReceipt() {
+		return _basicReceipt;
+	}
+
+	private void setBasicReceipt(BasicReceipt basicReceipt) {
+		_basicReceipt = basicReceipt;
 	}
 
 

@@ -16,6 +16,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.BasicShop;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -71,20 +72,19 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		Shop actual = _dao.getById(id);
 
-
 		long receiptId = 0;
-		long prodId = 1;
-		int prodRev = 1;
-		int count = 1;
-		long price = 10;
-		ReceiptEntry receiptEntry = new ReceiptEntry(receiptId, prodId, prodRev, count, price, null);
+		ProductRevision rev1 = new ProductRevision(1L, 1, null, null, null, null, null, null, null);
+		ReceiptEntry receiptEntry1 = new ReceiptEntry(receiptId, 1, 10, rev1 , null);
+		ProductRevision rev2 = new ProductRevision(2L, 2, null, null, null, null, null, null, null);
+		ReceiptEntry receiptEntry2 = new ReceiptEntry(receiptId, 5, 100, rev2 , null);
 
 		Shop expected = new Shop(id, title, null);
 
 		// assertThat(actual, equalTo(expected)); this doesn't work, because of javassist dynamic subtyping
 		assertThat(actual.getId(), is(expected.getId()));
 		assertThat(actual.getTitle(), is(expected.getTitle()));
-		assertThat(actual.getReceiptEntries(), hasItem(receiptEntry));
+		assertThat(actual.getReceiptEntries(), hasItems(receiptEntry1, receiptEntry2));
+		assertThat(actual.getReceiptEntries().size(), is(2));
 	}
 
 	@Test
