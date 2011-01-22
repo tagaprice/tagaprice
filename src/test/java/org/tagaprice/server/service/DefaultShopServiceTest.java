@@ -123,6 +123,31 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
+	public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
+		final List<BasicShop> list = new LinkedList<BasicShop>();
+		list.add(EntityCreator.createBasicShop(1L, "test1"));
+		list.add(EntityCreator.createBasicShop(2L, "test2"));
+		list.add(EntityCreator.createBasicShop(3L, "3test"));
+
+		// mock returns new basicShops if argument contains "test"
+		when(_shopDaoMock.getByTitleFuzzy(anyString())).thenAnswer(new Answer<List<BasicShop>>() {
+			@Override
+			public List<BasicShop> answer(InvocationOnMock invocation) throws Throwable {
+				if(((String) invocation.getArguments()[0]).equals("test"))
+					return list;
+				return new LinkedList<BasicShop>();
+			}
+		});
+
+		List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
+
+		for(BasicShop s : list)
+			assertThat(actual, hasItem(s));
+		assertThat(actual.size(), is(list.size()));
+
+	}
+
+	@Test
 	public void getAll_shouldReturnBasicShops() throws Exception {
 		List<BasicShop> shopList = new LinkedList<BasicShop>();
 		shopList.add(EntityCreator.createBasicShop(1L, "test1"));
@@ -140,7 +165,6 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 
 		assertThat(actual, hasItems(shop1, shop2, shop3));
 		assertThat(actual.size(), is(3));
-
 	}
 
 }
