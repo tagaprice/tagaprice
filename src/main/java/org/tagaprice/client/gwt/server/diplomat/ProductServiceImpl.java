@@ -15,6 +15,9 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.boot.Boot;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
+import org.tagaprice.server.service.DefaultProductService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
@@ -43,6 +46,11 @@ IProductService {
 		_log.debug("Attempting to load product service from core.api");
 		try {
 			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
+			
+			
+//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO")); 
+//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
 			_log.debug("Loaded product service successfully.");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());

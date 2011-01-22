@@ -21,6 +21,12 @@ public class DefaultProductService implements IProductService {
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 	private IProductRevisionDAO _productRevisionDao;
+	
+	
+
+	public DefaultProductService() {
+		_log.debug("Creating defaultproductservice");
+	}
 
 	@Override
 	public Product save(Product product) throws OutdatedRevisionException {
@@ -69,6 +75,7 @@ public class DefaultProductService implements IProductService {
 		return product;
 	}
 
+	@Transactional
 	@Override
 	public List<Product> getByTitle(String title) {
 		if(title == null)
@@ -91,6 +98,7 @@ public class DefaultProductService implements IProductService {
 	}
 
 	public void setProductDAO(IProductDAO productDao) {
+		_log.debug("productDao set to "+productDao);
 		_productDao = productDao;
 	}
 
