@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -17,6 +16,8 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -32,7 +33,7 @@ import org.springframework.test.jdbc.SimpleJdbcTestUtils;
  */
 public class DbTestInitializer implements IDbTestInitializer {
 
-	private static final Logger _log = Logger.getLogger(DbTestInitializer.class);
+	private static final Logger _log = LoggerFactory.getLogger(DbTestInitializer.class);
 
 	private SimpleJdbcTemplate _jdbcTemplate;
 	private IDatabaseConnection _connection;
