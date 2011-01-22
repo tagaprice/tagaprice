@@ -13,8 +13,10 @@
 					<!-- <h2>Filter by Category (doesn't work right now)</h2> -->
 					<h2>Search</h2>
 				</g:HTML>
-				
+			 <g:HorizontalPanel>
 				<g:TextBox ui:field="textbox"></g:TextBox>
+				<g:Button ui:field="search">search Product</g:Button>
+			</g:HorizontalPanel>
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
 		<g:DecoratorPanel addStyleNames="withMargin">
@@ -22,7 +24,7 @@
 				<g:HTML>
 					<h2>List of products</h2>
 				</g:HTML>
-				<g:HTML>Click on product to edit</g:HTML>
+				<!-- <g:HTML>Click on product to edit</g:HTML> -->
 
 				<g:FlexTable ui:field="table">
 				</g:FlexTable>
