@@ -17,22 +17,22 @@
     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative-->
   <bean id="defaultProductService"
     class="org.tagaprice.server.service.DefaultProductService">
-  	<property name="productDao" ref="defaultProductDao"/>
+  	<!--<property name="productDao" ref="defaultProductDao"/>-->
   </bean>
   
   <bean id="defaultShopServvice"
     class="org.tagaprice.server.service.DefaultShopService">
-  	<property name="shopDao" ref="defaultShopDao"/>
+  	<!--<property name="shopDao" ref="defaultShopDao"/>-->
   </bean>
 
   <!-- enable the configuration of transactional behavior based on annotations-->
-  <tx:annotation-driven transaction-manager="transactionManager"/>
+  <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
   
   <!-- The PlatformTransactionManager used in Services for transactions. This bean dependens on defined dataSource bean. -->
-  <bean id="transactionManager"
+  <!--<bean id="transactionManager"
 	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   <property name="dataSource" ref="dataSource"/>
-  </bean>
+  </bean>-->
 
 </beans>
