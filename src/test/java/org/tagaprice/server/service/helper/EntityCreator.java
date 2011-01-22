@@ -185,6 +185,7 @@ public class EntityCreator {
 		return EntityCreator.createBasicShop(1L, "billa");
 	}
 	
+
 	public static BasicShop createBasicShop(Long id, String title) {
 		return HibernateSaveEntityCreator.createBasicShop(id, title);
 	}
@@ -227,7 +228,4 @@ public class EntityCreator {
 		return HibernateSaveEntityCreator.createReceiptEntry(basicReceipt, productRevision, count, pricePerItemInCent);
 		
 	}
-
-
-
 }

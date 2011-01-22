@@ -1,6 +1,8 @@
 package org.tagaprice.server.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IReceiptService;
@@ -26,8 +28,17 @@ public class DefaultReceiptService implements IReceiptService {
 
 	@Override
 	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer productRevision) throws ServerException, IllegalRevisionException {
-		return _receiptDao.getReceiptEntriesByProductIdAndRev(productId, productRevision);
+		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, productRevision);
+		return entries;
 	}
+
+	private static <T> void removeDuplicate(List<T> arlList)
+	{
+		Set<T> h = new HashSet<T>(arlList);
+		arlList.clear();
+		arlList.addAll(h);
+	}
+
 
 
 	public void setReceiptDAO(IReceiptDAO receiptDao) {

@@ -98,7 +98,7 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitle(titleToGet);
 
-		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
+		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
 		assertThat(actual, hasItem(match1));
 		assertThat("result size", actual.size(), is(1));
 	}
@@ -111,8 +111,8 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 		String titleToGet = "testShop";
 		List<BasicShop> actual = _dao.getByTitleFuzzy(titleToGet);
 
-		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
-		BasicShop match2 = EntityCreator.creatBasicShop(1L, "otherTestShopX");
+		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
+		BasicShop match2 = EntityCreator.createBasicShop(1L, "otherTestShopX");
 		assertThat(actual, hasItems(match1, match2));
 		assertThat("result size", actual.size(), is(2));
 	}
@@ -123,9 +123,9 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 
 		List<BasicShop> actual = _dao.getAll();
 
-		BasicShop match1 = EntityCreator.creatBasicShop(0L, "testShop");
-		BasicShop match2 = EntityCreator.creatBasicShop(1L, "otherTestShopX");
-		BasicShop match3 = EntityCreator.creatBasicShop(2L, "myShop");
+		BasicShop match1 = EntityCreator.createBasicShop(0L, "testShop");
+		BasicShop match2 = EntityCreator.createBasicShop(1L, "otherTestShopX");
+		BasicShop match3 = EntityCreator.createBasicShop(2L, "myShop");
 
 		assertThat(actual, hasItems(match1, match2, match3));
 		assertThat(actual.size(), is(3));
