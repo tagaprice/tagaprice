@@ -35,7 +35,8 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 
 	@Override
 	public void saveProduct(IProduct product, AsyncCallback<IProduct> callback) {
-		// TODO Auto-generated method stub
+		logger.log("save Product");
+		ProductServiceDispatchImpl.productServiceAsync.saveProduct(product, callback);
 
 	}
 
@@ -48,8 +49,7 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 
 	@Override
 	public void getCategories(AsyncCallback<ArrayList<ICategory>> callback) {
-		// TODO Auto-generated method stub
-
+		logger.log("get Categories");
+		ProductServiceDispatchImpl.productServiceAsync.getCategories(callback);
 	}
-
 }
