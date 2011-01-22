@@ -83,8 +83,6 @@ IProductService {
 			}else if (searchCriteria == null){
 				list = coreService.getByTitle("");
 			}
-
-
 		} catch (ServerException e) {
 			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
