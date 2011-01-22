@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
@@ -22,7 +23,7 @@ public class HibernateProductRevisionDAO implements IProductRevisionDAO {
 	public List<ProductRevision> getByTitle(String title) {
 		Criteria crit = _sessionFactory.getCurrentSession().createCriteria(ProductRevision.class);
 
-		crit.add( Restrictions.like( "title", title));
+		crit.add( Restrictions.like( "title", title, MatchMode.ANYWHERE));
 
 		crit.setMaxResults(10);
 
