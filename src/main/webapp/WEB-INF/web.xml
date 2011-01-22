@@ -16,6 +16,14 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	 -->
+	 
+	<!-- Boot Servlet -->
+	<servlet>
+		<servlet-name>BootServlet</servlet-name>
+		<servlet-class>org.tagaprice.server.boot.Boot</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	
 	<!-- BEGIN: RPC -->
 	<servlet>

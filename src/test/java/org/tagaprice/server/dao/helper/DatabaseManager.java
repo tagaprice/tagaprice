@@ -12,7 +12,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.slf4j.*;
 import org.tagaprice.server.DBConnection;
 /**
- *TODO THIS CLASS NEEDS HEAV REFACTORING!!!
  * A ConnectinoManager that uses {@link DBConnection} for convenience Testing with DBUnit.
  * Easy method for simple adding data with {@link XmlDataSet}.
  * The tables are deleted and created with every testrun.
