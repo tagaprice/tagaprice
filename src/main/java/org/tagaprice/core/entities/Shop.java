@@ -9,6 +9,22 @@ import javax.persistence.*;
 
 import org.tagaprice.server.dao.interfaces.IReceiptDAO;
 
+/**
+ * <p>
+ * This represents a shop.
+ * </p>
+ * <p>
+ * A shop has a title. TODO add more properties / make revisionable.
+ * </p>
+ * 
+ * 
+ * <p>
+ * TODO add coordinates / address TODO This class should be immutable. control collections access.
+ * </p>
+ * 
+ * @author haja
+ * 
+ */
 @Entity
 @SuppressWarnings("unused")
 public class Shop implements Serializable {
@@ -23,6 +39,17 @@ public class Shop implements Serializable {
 	protected Shop() {
 	}
 
+	/**
+	 * Initializes a new {@link Shop}.
+	 * 
+	 * @param id
+	 *            Id of this shop. If this is null, this entity is regarded to be new to the database. If set, must
+	 *            be > 0.
+	 * @param title
+	 *            short text describing this shop.
+	 * @param receiptEntries
+	 *            {@link ReceiptEntry}s holding price-information about each product available at this shop.
+	 */
 	public Shop(Long id, String title, Set<ReceiptEntry> receiptEntries) {
 		_id = id;
 		_title = title;
