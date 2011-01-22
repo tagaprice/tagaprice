@@ -6,8 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
+import org.tagaprice.server.helper.ArgumentUtitlity;
 
 @SuppressWarnings("unchecked")
 public class HibernateShopDAO implements IShopDAO {
@@ -54,9 +56,12 @@ public class HibernateShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public Shop save(Shop shop) {
+	public Shop save(Shop shop) throws ServerException {
+		if(shop.getTitle() == null)
+			throw new ServerException("title is null");
+
 		Session session = _sessionFactory.getCurrentSession();
-		session.save(shop);
+		session.saveOrUpdate(shop);
 		return shop;
 	}
 }

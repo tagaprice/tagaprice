@@ -63,8 +63,9 @@ public class Shop implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "shop_id")
-	public long getId() {
+	public Long getId() {
 		return _id;
 	}
 
