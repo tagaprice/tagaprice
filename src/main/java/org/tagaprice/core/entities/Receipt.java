@@ -6,13 +6,32 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+/**
+ * <p>
+ * Represents a single receipt.
+ * </p>
+ * <p>
+ * Holds information about the creator (see {@link Account}), the date when this receipt was created, a reference to
+ * basic shop information of this receipt and all {@link ReceiptEntry}s of this receipt.
+ * <p>
+ * 
+ * <p>
+ * TODO This class should be immutable. control collections-access.
+ * </p>
+ * 
+ * @see ReceiptEntry
+ * @see BasicShop
+ * 
+ * @author haja
+ * 
+ */
 @Entity
 @SuppressWarnings("unused")
 public class Receipt implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long _id;
+	private Long _id;
 	private BasicShop _shop;
 	private Date _createdAt;
 	private Account _creator;
@@ -21,8 +40,23 @@ public class Receipt implements Serializable {
 	protected Receipt() {
 	}
 
-
-	public Receipt(long id, BasicShop basicShop, Date createdAt, Account creator, Set<ReceiptEntry> receiptEntries) {
+	/**
+	 * Initializes a new {@link Receipt}.
+	 * 
+	 * @param id
+	 *            Id of this receipt. If this is null, this entity is regarded to be new to the database. If set, must
+	 *            be > 0.
+	 * @param basicShop
+	 *            {@link BasicShop} where this Receipt is from. At least, the id must be set. This {@link BasicShop}
+	 *            won't get persisted when this object is persisted. It must be already persisted.
+	 * @param createdAt
+	 *            {@link Date} this receipt was created at.
+	 * @param creator
+	 *            {@link Account} who created this receipt.
+	 * @param receiptEntries
+	 *            {@link ReceiptEntry}s to be persisted with this receipt.
+	 */
+	public Receipt(Long id, BasicShop basicShop, Date createdAt, Account creator, Set<ReceiptEntry> receiptEntries) {
 		_id = id;
 		_shop = basicShop;
 		_createdAt = createdAt;
@@ -33,11 +67,11 @@ public class Receipt implements Serializable {
 
 	@Id
 	@Column(name = "receipt_id")
-	public long getId() {
+	public Long getId() {
 		return _id;
 	}
 
-	private void setId(long id) {
+	private void setId(Long id) {
 		_id = id;
 	}
 
