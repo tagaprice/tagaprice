@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -16,4 +18,8 @@ public interface ICategorySelecter extends IsWidget {
 	 * @param category the current category
 	 */
 	public void setCategory(ICategory category);
+
+	public ICategory getCategory();
+
+	void setAvailableCategories(ArrayList<ICategory> categories);
 }
