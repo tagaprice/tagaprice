@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -28,7 +27,7 @@ public interface ICreateProductView extends IsWidget {
 	 * 
 	 * @return the currently displayed title
 	 */
-	public String getTitle();
+	public String getProductTitle();
 
 
 
@@ -41,19 +40,11 @@ public interface ICreateProductView extends IsWidget {
 	public void setQuantity(IQuantity quantity);
 
 	/**
-	 * Add a list of {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * 
-	 * @param quantities
-	 *            a list of {@link IQuantity} in which this {@link IProduct} can be bought.
-	 */
-	public void addQuantities(ArrayList<IQuantity> quantities);
-
-	/**
 	 * Returns a list of {@link IQuantity}s corresponding to this {@link IProduct}.
 	 * 
 	 * @return a list of {@link IQuantity}s corresponding to this {@link IProduct}.
 	 */
-	public ArrayList<IQuantity> getQuantities();
+	public IQuantity getQuantity();
 
 	/**
 	 * Sets the depending {@link ICategory} for a
@@ -81,6 +72,8 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public void setPresenter(Presenter presenter);
 
+	public void setAvailableCategories(ArrayList<ICategory> categories);
+
 	/**
 	 * 
 	 *
@@ -98,12 +91,8 @@ public interface ICreateProductView extends IsWidget {
 		/**
 		 * This event is called when the user has CHANGED/CREATED a
 		 * {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
-		 * 
-		 * @param event
-		 *            is called when the user has CHANGED/CREATED a
-		 *            {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
 		 */
-		public void onSaveEvent(ClickEvent event);
+		public void onSaveEvent();
 
 		/**
 		 * This event is called when the user has CHANCED the title

@@ -30,13 +30,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	@Override
 	public ICategory getCategory() {
 		return categorySelecter.getCategory();
-
 	}
 
 	@Override
 	public void setAvailableCategories(ArrayList<ICategory> categories) {
 		categorySelecter.setAvailableCategories(categories);
-
 	}
 
 }

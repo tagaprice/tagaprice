@@ -15,7 +15,6 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 	private HorizontalPanel _vp = new HorizontalPanel();
 	private TextBox _quantity = new TextBox();
 	private ListBox _units = new ListBox();
-	private IQuantity _curQuantity;
 
 	public QuantitySelecter() {
 		initWidget(_vp);
@@ -27,21 +26,24 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 		for(Unit u: Unit.values()) {
 			_units.addItem(u.name());
 		}
-
-
-		//TODO set standard Quantity
-
 	}
 
 	@Override
 	public void setQuantity(IQuantity quantity) {
-		_curQuantity=quantity;
 		_quantity.setText(""+quantity.getQuantity());
+		int pos = 0;
+
+		for(int i= 0; i < Unit.values().length; i++ ) {
+			if(Unit.values()[i].equals(quantity.getUnit())) {
+				pos=i;
+			}
+		}
+		_units.setSelectedIndex(pos);
 	}
 
 	@Override
 	public IQuantity getQuantity() {
-		return _curQuantity;
+		return new Quantity(new Double(_quantity.getText()), Unit.valueOf(_units.getItemText(_units.getSelectedIndex())));
 	}
 
 }

@@ -25,8 +25,7 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 
 	@Override
 	public IQuantity getQuantity() {
-		quantitySelecter.getQuantity();
-		return null;
+		return quantitySelecter.getQuantity();
 	}
 
 }

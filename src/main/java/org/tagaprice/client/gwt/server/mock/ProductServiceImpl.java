@@ -84,9 +84,11 @@ IProductService {
 
 	@Override
 	public IProduct saveProduct(final IProduct product) {
+		logger.log("save product " + product);
 		//Check productId and revisionId
 		//if productId == 0 -> save as new product
 		if(product.getRevisionId() == null || product.getRevisionId().getId() == 0L) {
+			logger.log("new product");
 			//SAVE
 			//make a copy ... to get sure
 			IProduct newProduct = product.copy();
@@ -98,6 +100,7 @@ IProductService {
 
 			return newProduct;
 		} else {
+			logger.log("update product");
 			//UPDATE
 			IProduct updateProduct = this.productsAllRevisions.get(product.getRevisionId());
 			if(updateProduct == null) {
@@ -133,6 +136,7 @@ IProductService {
 
 	@Override
 	public ArrayList<ICategory> getCategories() {
+		logger.log("return categories");
 		return this.categories;
 	}
 }
