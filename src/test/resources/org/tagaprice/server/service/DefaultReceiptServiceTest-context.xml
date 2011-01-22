@@ -19,8 +19,8 @@
 	     TransactionManager transactionManager must be defined. 
 	     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative
 	  -->
-	<bean id="defaultShopService"
-	      class="org.tagaprice.server.service.DefaultShopService">
+	<bean id="defaultReceiptService"
+	      class="org.tagaprice.server.service.DefaultReceiptService">
 	</bean>
 
 </beans>

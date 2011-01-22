@@ -20,8 +20,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
-import org.omg.CORBA._PolicyStub;
-import org.tagaprice.server.helper.ArgumentUtitlity;
 
 /**
  * <p>
@@ -77,12 +75,11 @@ public class Product implements Serializable {
 	 *            gaps. E.g. the set with revisions: 2,3,4 is valid whereas the set with revisions: 2,4,5 is invalid.
 	 */
 	public Product(Long id, Locale locale, Set<ProductRevision> revisions) {
-		ArgumentUtitlity.checkNull("id", id);
 		ArgumentUtitlity.checkNull("locale", locale);
 		ArgumentUtitlity.checkNull("revisions", revisions);
 		if(revisions.isEmpty())
 			throw new IllegalArgumentException("revisions must not be empty");
-		if(id <= 0L)
+		if(id != null && id <= 0L)
 			throw new IllegalArgumentException("id must not be greater than 0 or null");
 		
 		_id = id;

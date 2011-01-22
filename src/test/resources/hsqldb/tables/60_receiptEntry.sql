@@ -1,9 +1,12 @@
 CREATE TABLE receiptEntry (
-	pkey bigserial NOT NULL, 
-	rid BIGINT NOT NULL,
-	pid BIGINT NOT NULL,
+	receipt_id BIGINT NOT NULL,
+	product_id BIGINT NOT NULL,
+	product_revision BIGINT NOT NULL,
+	product_count INTEGER NOT NULL, -- DEFAULT 1
 	price BIGINT NOT NULL,
 
-	PRIMARY KEY (pkey),
-	FOREIGN KEY (rid) REFERENCES entity (ent_id)
+	PRIMARY KEY (receipt_id, product_id),
+--	FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id),
+	FOREIGN KEY (product_id) REFERENCES product (ent_id),
+	FOREIGN KEY (product_id, product_revision) REFERENCES productRevision (ent_id, rev)
 );

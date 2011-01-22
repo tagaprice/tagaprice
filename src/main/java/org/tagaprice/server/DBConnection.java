@@ -28,6 +28,7 @@ import org.tagaprice.server.utilities.PropertiesFileLoader;
  * Wrapper around a database connection.
  * This class cares about setting up the connection using the jdbc.properties file and pools it, once created.
  * TODO refactor/check transaction-management in this class
+ * TODO move this class out of src - not needed here,  move to where DatabaseManager (only using class) is
  */
 public class DBConnection {
 	// shared connection pool
