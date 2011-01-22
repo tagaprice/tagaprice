@@ -27,6 +27,7 @@ public class HibernateShopDAO implements IShopDAO {
 				.createQuery(
 						"select entry from ReceiptEntry entry, Receipt receipt where entry.receiptId = receipt.id and receipt.shop.shopId = "
 						+ id).list());
+		// TODO only add newest receiptEntry for each product
 		return shop;
 	}
 
