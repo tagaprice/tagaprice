@@ -77,8 +77,21 @@ public class ProductCoreColumnDefinitions {
 				return "Delete";
 			}
 		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
 
+			@Override
+			public Widget render(IProduct t) {
+				if(t.getRevisionId() != null)
+					return new HTML(t.getRevisionId().toString());
+				else
+					return new HTML("Revision is null");
+			}
 
+			@Override
+			public String getColumnName() {
+				return "Delete";
+			}
+		});
 	}
 
 	public ArrayList<ColumnDefinition<IProduct>> getColumnDefinitions() {
