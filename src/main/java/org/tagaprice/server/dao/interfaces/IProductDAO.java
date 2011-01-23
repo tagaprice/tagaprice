@@ -15,7 +15,7 @@ public interface IProductDAO {
 	/**
 	 * Retrieves the {@link Product} with given id.
 	 * @param id id of the {@link Product} to retrieve.
-	 * @return the retrieved {@link Product}.
+	 * @return the retrieved {@link Product}, or null if the product does not exist in the database.
 	 */
 	Product getById(Long id);
 

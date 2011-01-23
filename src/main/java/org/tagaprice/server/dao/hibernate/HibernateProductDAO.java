@@ -26,7 +26,7 @@ public class HibernateProductDAO implements IProductDAO {
 
 	@Override
 	public Product getById(Long id) {
-		return (Product) _sessionFactory.getCurrentSession().load(Product.class, id);
+		return (Product) _sessionFactory.getCurrentSession().get(Product.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
