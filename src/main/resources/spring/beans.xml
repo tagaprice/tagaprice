@@ -31,6 +31,11 @@
   	<property name="shopDao" ref="defaultShopDao"/>
   </bean>-->
   
+  <bean id="defaultCategoryService"
+    class="org.tagaprice.server.service.DefaultCategoryService">
+  	<property name="categoryDAO" ref="defaultCategoryDAO"/>
+  </bean>
+  
   <!-- enable the configuration of transactional behavior based on annotations-->
   <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -49,6 +54,11 @@
   
   <bean id="defaultProductRevisionDAO"
     class="org.tagaprice.server.dao.hibernate.HibernateProductRevisionDAO">
+  	<property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+  
+  <bean id="defaultCategoryDAO"
+    class="org.tagaprice.server.dao.hibernate.HibernateCategoryDAO">
   	<property name="sessionFactory" ref="sessionFactory"/>
   </bean>
 

@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.core.api.ICategoryService;
 import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
@@ -25,7 +26,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
 
-	private org.tagaprice.core.api.IProductService coreService;
+	private ICategoryService _coreCategoryService;
+	private org.tagaprice.core.api.IProductService _coreProductService;
+	
 	// dummy values
 	private static Locale defaultLocale = new Locale(1, "de", "de");
 	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
@@ -42,16 +45,23 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public ProductServiceImpl() {
 		_log.debug("Starting GWT-ProductService");
 
-		_log.debug("Attempting to load product service from core.api");
 		try {
-			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+			String service = "defaultProductService";
+			_log.debug("Attempting to load "+service+" from core.api");
+			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean(service);
+			_log.debug("Loaded "+service+" successfully.");
+			
+			service = "defaultCategoryService";
+			_log.debug("Attempting to load "+service+" from core.api");
+			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
+			_log.debug("Loaded "+service+" successfully.");
+			
 			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
 
 
 			//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO"));
 			//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
 
-			_log.debug("Loaded product service successfully.");
 		} catch (Exception e) {
 			_log.debug(e.getClass() + ": " + e.getMessage());
 		} finally {
@@ -62,7 +72,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: " + revionsId);
 
-		Product product = coreService.getById(revionsId.getId());
+		Product product = _coreProductService.getById(revionsId.getId());
 		_log.debug("found product: " + product);
 
 		return convertProductToGWT(product, 0);
@@ -75,9 +85,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		List<Product> list = new ArrayList<Product>();
 		try {
 			if (searchCriteria != null) {
-				list = coreService.getByTitle(searchCriteria.getTitle());
+				list = _coreProductService.getByTitle(searchCriteria.getTitle());
 			} else {
-				list = coreService.getAll();
+				list = _coreProductService.getAll();
 			}
 		} catch (ServerException e) {
 			_log.error("Exception thrown: " + e.getMessage());
@@ -97,7 +107,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("product :"+product);
 
 		try {
-			Product productCore = coreService.save(convertProductToCore(product));
+			Product productCore = _coreProductService.save(convertProductToCore(product));
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block
@@ -186,7 +196,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	public void setProductService(org.tagaprice.core.api.IProductService productService) {
-		coreService = productService;
+		_coreProductService = productService;
 	}
 
 }
