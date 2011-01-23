@@ -113,7 +113,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public ArrayList<ICategory> getCategories() {
 		_log.debug("attempting to get available categories");
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<ICategory>();
 	}
 
 	/**
