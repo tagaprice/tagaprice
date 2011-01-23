@@ -13,7 +13,7 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	private static final long serialVersionUID = 7814196347951588949L;
 	private ICategory _parentCategory;
 	private ArrayList<ICategory> _childCategories = new ArrayList<ICategory>();
-	private int _id;
+	private long _id;
 
 	public Category(){}
 
@@ -65,12 +65,12 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(long id) {
 		this._id = id;
 	}
 
 	@Override
-	public int getId() {
+	public long getId() {
 		return this._id;
 	}
 

@@ -9,12 +9,11 @@ import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.server.dao.interfaces.IReceiptDAO;
 
-@Transactional
 public class DefaultReceiptService implements IReceiptService {
 	private IReceiptDAO _receiptDao;
 	private SessionService _sessionFactory;
 
-
+	@Transactional
 	@Override
 	public Receipt save(Receipt receipt) throws ServerException {
 		// TODO replace this by ArgumentUtility
@@ -23,6 +22,7 @@ public class DefaultReceiptService implements IReceiptService {
 		return _receiptDao.save(receipt);
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public List<ReceiptEntry> getReceiptEntriesByProductIdAndRev(Long productId, Integer productRevision) throws ServerException {
 		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, productRevision);

@@ -4,33 +4,37 @@ import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+
+import org.tagaprice.core.api.ICategoryService;
+import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
+
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.boot.Boot;
-import org.tagaprice.server.dao.interfaces.IProductDAO;
-import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
-import org.tagaprice.server.service.DefaultProductService;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 /**
  * This is the Servlet that relies on the server-service
+ * 
  * @author Martin
- *
+ * 
  */
-public class ProductServiceImpl extends RemoteServiceServlet implements
-IProductService {
+public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
 
-	private org.tagaprice.core.api.IProductService coreService;
+	private ICategoryService _coreCategoryService;
+	private org.tagaprice.core.api.IProductService _coreProductService;
+
+	// dummy values
 	private static Locale defaultLocale = new Locale(1, "de", "de");
 	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
+	private static Category defaultCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultAccount);
 
 	/**
 	 * 
@@ -43,34 +47,41 @@ IProductService {
 	public ProductServiceImpl() {
 		_log.debug("Starting GWT-ProductService");
 
-		_log.debug("Attempting to load product service from core.api");
 		try {
-			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+			String service = "defaultProductService";
+			_log.debug("Attempting to load "+service+" from core.api");
+			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean(service);
+			_log.debug("Loaded "+service+" successfully.");
+
+			service = "defaultCategoryService";
+			_log.debug("Attempting to load "+service+" from core.api");
+			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
+			_log.debug("Loaded "+service+" successfully.");
+
+			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+
 			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
-			
-			
-//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO")); 
-//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
-			_log.debug("Loaded product service successfully.");
-		} catch(Exception e) {
-			_log.debug(e.getClass()+": "+e.getMessage());
+
+
+			//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO"));
+			//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
+
+		} catch (Exception e) {
+			_log.debug(e.getClass() + ": " + e.getMessage());
 		} finally {
 		}
 	}
 
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
-		_log.debug("revisionsId: "+revionsId);
+		_log.debug("revisionsId: " + revionsId);
 
-		_log.debug("load dummy product");
 
-		ArrayList<IProduct> list = getProducts(new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("a", null, null));
-		_log.debug("found products: " + list.size());
+		Product product = _coreProductService.getById(revionsId.getId());
 
-		if(list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		_log.debug("found product: " + product);
+
+		return convertProductToGWT(product, 0);
 	}
 
 	@Override
@@ -79,15 +90,12 @@ IProductService {
 
 		List<Product> list = new ArrayList<Product>();
 		try {
-			if(searchCriteria != null){
-				list = coreService.getByTitle(searchCriteria.getTitle());
-			}else if (searchCriteria == null){
-				list = coreService.getByTitle("");
+			if (searchCriteria != null) {
+				list = _coreProductService.getByTitle(searchCriteria.getTitle());
+			} else {
+				list = _coreProductService.getAll();
 			}
 		} catch (ServerException e) {
-			_log.error("Exception thrown: " + e.getMessage());
-			e.printStackTrace();
-		} catch (Exception e) {
 			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -103,46 +111,100 @@ IProductService {
 	@Override
 	public IProduct saveProduct(IProduct product) {
 		_log.debug("product :"+product);
-		// TODO Auto-generated method stub
+
+		try {
+
+			Product productCore = _coreProductService.save(convertProductToCore(product));
+
+			return convertProductToGWT(productCore, 0);
+		} catch (OutdatedRevisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public ArrayList<ICategory> getCategories() {
 		_log.debug("attempting to get available categories");
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList<ICategory> gwtCategories = new ArrayList<ICategory>();
+
+		try {
+			ArrayList<Category> coreCategories = new ArrayList<Category>(_coreCategoryService.getAll());
+			_log.debug("received " + coreCategories.size() + " from CoreCategoriesService");
+			CategoryConverter categoryConverter = CategoryConverter.getInstance();
+
+			for(Category cc: coreCategories) {
+				gwtCategories.add(categoryConverter.convertCoreCategoryToGWT(cc));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return gwtCategories;
+
 	}
 
+	/**
+	 * 
+	 * @param productGWT
+	 * @return
+	 */
+
 	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
-		//Default values for new product...
+		_log.debug("Convert GWT -> core, id: " + productGWT.getRevisionId());
+		// Default values for new product...
 		Long productId = 0L;
-		Integer revisionNumber = 1;
+		Integer revisionNumber = 0;
+
+		if (productGWT.getRevisionId() != null) {
+			productId = productGWT.getRevisionId().getId();
+			revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
+		}
 		String title = productGWT.getTitle();
 		Date date = new Date();
-		Category category = new Category(null, productGWT.getCategory().getTitle(), null, new Date(), ProductServiceImpl.defaultAccount);
-		//If product allready exists...
-		if(productGWT.getRevisionId() != null && productGWT.getRevisionId().getId() != 0L && productGWT.getRevisionId().getId() != 0L) {
-			//productId =
+		// TODO Category must never be null!
+		Category category;
+		if (productGWT.getCategory() != null) {
+			category = new Category(new Long(productGWT.getCategory().getId()), productGWT.getCategory().getTitle(),
+					null, new Date(), ProductServiceImpl.defaultAccount);
+		} else {
+			category = ProductServiceImpl.defaultCategory;
 		}
-		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date, ProductServiceImpl.defaultAccount, null, null, category, "");
-		Product productCore = new Product(productGWT.getRevisionId().getId(), ProductServiceImpl.defaultLocale, null);
-		return null;
+
+		Double amount = productGWT.getQuantity().getQuantity();
+		Unit unit = productGWT.getQuantity().getUnit();
+
+		// ProductRevision quantity = new ProductRevision(productId, revisionNumber, title, date,
+		// ProductServiceImpl.defaultAccount, unit, amount , category, "");
+		// If product already exists...
+		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
+				ProductServiceImpl.defaultAccount, unit, amount, category, "");
+		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		revisions.add(revision);
+
+		Product productCore = new Product(productGWT.getRevisionId().getId(), ProductServiceImpl.defaultLocale,
+				revisions);
+		return productCore;
 	}
 
 	/**
 	 * 
 	 * @param productCore
-	 * @param revision when 0, then the latest revision is returned.
+	 * @param revision
+	 *            when 0, then the latest revision is returned.
 	 * @return
 	 */
 	public IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
 		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
-		//these are allways existing products!!!
+		// these are always existing products!!!
 		ProductRevision pr = productCore.getCurrentRevision();
 
 
-		//get the data from the latest revision
+		// get the data from the latest revision
 		long id = productCore.getId();
 		long revision = pr.getRevisionNumber();
 		String title = pr.getTitle();
@@ -150,12 +212,15 @@ IProductService {
 		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());
 
 		IRevisionId revisionId = new RevisionId(id, revision);
-		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title, category, quantity);
+		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title,
+				category, quantity);
 		return productGWT;
 	}
 
 	public void setProductService(org.tagaprice.core.api.IProductService productService) {
-		coreService = productService;
+
+		_coreProductService = productService;
+
 	}
 
 }

@@ -30,8 +30,33 @@ public class ProductCoreColumnDefinitions {
 
 			@Override
 			public Widget render(IProduct t) {
-				// TODO Auto-generated method stub
-				return new Anchor("Open");
+				return new HTML(t.getCategory().toString());
+			}
+
+			@Override
+			public String getColumnName() {
+				return "Category";
+			}
+		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
+
+			@Override
+			public Widget render(IProduct t) {
+				return new HTML(t.getQuantity().toString());
+			}
+
+			@Override
+			public String getColumnName() {
+				return "Selling Unit";
+			}
+		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
+
+			@Override
+			public Widget render(IProduct t) {
+
+				return new Anchor("Open/Edit", "#CreateProduct:/show/id/" + t.getRevisionId().getId());
+
 			}
 
 			@Override
@@ -40,7 +65,33 @@ public class ProductCoreColumnDefinitions {
 				return "Action";
 			}
 		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
 
+			@Override
+			public Widget render(IProduct t) {
+				return new Anchor("Delete");
+			}
+
+			@Override
+			public String getColumnName() {
+				return "Delete";
+			}
+		});
+		this.columns.add(new ColumnDefinition<IProduct>() {
+
+			@Override
+			public Widget render(IProduct t) {
+				if(t.getRevisionId() != null)
+					return new HTML(t.getRevisionId().toString());
+				else
+					return new HTML("Revision is null");
+			}
+
+			@Override
+			public String getColumnName() {
+				return "Delete";
+			}
+		});
 	}
 
 	public ArrayList<ColumnDefinition<IProduct>> getColumnDefinitions() {
