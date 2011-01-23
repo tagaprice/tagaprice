@@ -111,6 +111,12 @@ public class DefaultProductService implements IProductService {
 		return products;
 	}
 
+	@Override
+	public List<Product> getAll() {
+		return _productDao.getAll();
+	}
+
+
 	public void setProductDAO(IProductDAO productDao) {
 		_log.debug("productDao set to "+productDao);
 		_productDao = productDao;
@@ -122,7 +128,4 @@ public class DefaultProductService implements IProductService {
 
 	static void filter(Collection<ProductRevision> c) {
 	}
-
-
-
 }

@@ -4,6 +4,7 @@ package org.tagaprice.server.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +23,7 @@ import org.tagaprice.server.service.helper.EntityCreator;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 
 
@@ -192,5 +193,20 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 		List<Product> expected = new ArrayList<Product>();
 
 		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void getAll_shouldGetProductList() throws Exception {
+
+		List<Product> products = new LinkedList<Product>();
+		products.add(EntityCreator.createProductWithRevisions(1L, 2));
+		products.add(EntityCreator.createProductWithRevisions(2L, 4));
+		products.add(EntityCreator.createProductWithRevisions(5L, 1));
+
+		when(_productDaoMock.getAll()).thenReturn(products );
+
+		List<Product> actual = _productManagement.getAll();
+
+		assertThat(actual, is(products));
 	}
 }

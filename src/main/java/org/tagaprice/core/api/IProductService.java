@@ -22,4 +22,9 @@ public interface IProductService {
 	 *  @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
 	 */
 	List<Product> getByTitle(String title) throws ServerException;
+
+	/**
+	 * Returns a list of all products in the database.
+	 */
+	List<Product> getAll();
 }
