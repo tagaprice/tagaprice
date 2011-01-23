@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
@@ -158,9 +159,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			return;
 		ICreateProductView view = this._clientFactory.getEditProductView();
 		if(product.getRevisionId() != null) {
-			view.setId(product.getRevisionId().getId());
+			view.setRevisionId(product.getRevisionId());
 		} else {
-			view.setId(0);
+			view.setRevisionId(new RevisionId());
 		}
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());

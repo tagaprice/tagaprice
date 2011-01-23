@@ -12,7 +12,7 @@
 				<table>
 					<tr>
 						<td>
-							<g:Label >id</g:Label>
+							<g:Label>id_revision</g:Label>
 						</td>
 						<td>
 							<g:Label ui:field="id">id</g:Label>
