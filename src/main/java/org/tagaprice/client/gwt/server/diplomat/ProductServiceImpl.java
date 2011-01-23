@@ -24,6 +24,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * This is the Servlet that relies on the server-service
  * 
  * @author Martin
+ * @author Helga
  * 
  */
 public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
@@ -32,9 +33,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	private org.tagaprice.core.api.IProductService _coreProductService;
 
 	// dummy values
-	private static Locale defaultLocale = new Locale(1, "de", "de");
-	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
-	private static Category defaultCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultAccount);
+	public static final Locale defaultCoreLocale = new Locale(1, "de", "de");
+	public static final Account defaultCoreAccount = new Account(1L, "love@you.org", "super", new Date());
+	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultCoreAccount);
 
 	/**
 	 * 
@@ -113,8 +114,20 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("product :"+product);
 
 		try {
+			Product productCore;
+			String newProductTitle = "newProduct";
+			Unit newProductUnit = Unit.kg;
+			Double newProductAmount = 2.3;
+			String newProductImageURL = "";
+			Category category = new Category(null, "testcat", null, new Date(), ProductServiceImpl.defaultCoreAccount);
 
-			Product productCore = _coreProductService.save(convertProductToCore(product));
+			ProductRevision newProductRevision = new ProductRevision(null, 1, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount, category , newProductImageURL);
+			java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
+			revisions.add(newProductRevision);
+
+			productCore = new Product(null, ProductServiceImpl.defaultCoreLocale, revisions);
+
+			this._coreProductService.save(productCore);
 
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
@@ -122,6 +135,8 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			e.printStackTrace();
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -157,37 +172,40 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
 		_log.debug("Convert GWT -> core, id: " + productGWT.getRevisionId());
 		// Default values for new product...
-		Long productId = 0L;
+		Long productId = null;
 		Integer revisionNumber = 0;
 
 		if (productGWT.getRevisionId() != null) {
 			productId = productGWT.getRevisionId().getId();
 			revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
+
+
 		}
 		String title = productGWT.getTitle();
 		Date date = new Date();
+		String  imageUrl = "";
+
 		// TODO Category must never be null!
 		Category category;
 		if (productGWT.getCategory() != null) {
 			category = new Category(new Long(productGWT.getCategory().getId()), productGWT.getCategory().getTitle(),
-					null, new Date(), ProductServiceImpl.defaultAccount);
+					null, new Date(), ProductServiceImpl.defaultCoreAccount);
 		} else {
-			category = ProductServiceImpl.defaultCategory;
+			category = ProductServiceImpl.defaultCoreCategory;
 		}
 
 		Double amount = productGWT.getQuantity().getQuantity();
 		Unit unit = productGWT.getQuantity().getUnit();
 
-		// ProductRevision quantity = new ProductRevision(productId, revisionNumber, title, date,
-		// ProductServiceImpl.defaultAccount, unit, amount , category, "");
 		// If product already exists...
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
-				ProductServiceImpl.defaultAccount, unit, amount, category, "");
+				ProductServiceImpl.defaultCoreAccount, unit, amount, category, "");
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(revision);
 
-		Product productCore = new Product(productGWT.getRevisionId().getId(), ProductServiceImpl.defaultLocale,
-				revisions);
+		// ids must be the same value. if they are null the product must be created as new.
+
+		Product productCore = new Product(productId, ProductServiceImpl.defaultCoreLocale, revisions);
 		return productCore;
 	}
 

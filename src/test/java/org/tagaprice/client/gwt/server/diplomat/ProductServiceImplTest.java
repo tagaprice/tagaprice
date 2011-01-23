@@ -12,6 +12,18 @@ import org.tagaprice.server.service.helper.EntityCreator;
 
 public class ProductServiceImplTest {
 	ProductServiceImpl productService = new ProductServiceImpl();
+	Product newProductCore;
+	IProduct newProductGWT;
+	Product changedProductCore;
+	IProduct changedProductGWT;
+
+	CategoryConverterTest categories = new CategoryConverterTest();
+
+	String newProductTitle = "newProduct";
+	Unit newProductUnit = Unit.kg;
+	Double newProductAmount = 2.3;
+	String newProductImageURL = "";
+
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -23,6 +35,12 @@ public class ProductServiceImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+		categories.setUp();
+		//Setup new Products
+		ProductRevision newProductRevision = new ProductRevision(null, null, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount,categories.coreCategoryChild , newProductImageURL);
+		java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
+		revisions.add(newProductRevision);
+		this.newProductCore = new Product(null, ProductServiceImpl.defaultCoreLocale, revisions);
 	}
 
 	@After
@@ -30,9 +48,22 @@ public class ProductServiceImplTest {
 	}
 
 	@Test
-	public void testConvertProductToCore() throws Exception {
+	public void testConvertNewProductToCore() throws Exception {
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("Testprodukt", new org.tagaprice.client.gwt.shared.entities.dump.Category("Testcategory"), new Quantity(3.4,Unit.kg));
 		productGWT.setRevisionId(new RevisionId(3L, 2L));
+
+		Product productCore = productService.convertProductToCore(productGWT);
+		Assert.assertEquals(productGWT.getRevisionId().getId(), productCore.getId().longValue());
+		Assert.assertEquals(productGWT.getRevisionId().getRevision(), productCore.getCurrentRevision().getRevisionNumber().intValue());
+		Assert.assertEquals(productGWT.getTitle(), productCore.getCurrentRevision().getTitle());
+		Assert.assertEquals(productGWT.getCategory().getTitle(), productCore.getCurrentRevision().getCategory().getTitle());
+		Assert.assertEquals(productGWT.getQuantity().getQuantity(), productCore.getCurrentRevision().getAmount().doubleValue(), 0.01);
+		Assert.assertEquals(productGWT.getQuantity().getUnit(), productCore.getCurrentRevision().getUnit());
+	}
+	@Test
+	public void testConvertExistingProductToCore() throws Exception {
+		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("Testprodukt", new org.tagaprice.client.gwt.shared.entities.dump.Category("Testcategory"), new Quantity(3.4,Unit.kg));
+		productGWT.setRevisionId(new RevisionId(3L, 3L));
 
 		Product productCore = productService.convertProductToCore(productGWT);
 		Assert.assertEquals(productGWT.getRevisionId().getId(), productCore.getId().longValue());
