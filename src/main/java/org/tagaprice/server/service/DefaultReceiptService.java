@@ -1,8 +1,6 @@
 package org.tagaprice.server.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IReceiptService;
