@@ -1,1 +1,0 @@
-ALTER TABLE entityRevision ADD creator BIGINT;
