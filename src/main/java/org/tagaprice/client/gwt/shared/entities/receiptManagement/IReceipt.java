@@ -11,10 +11,6 @@ import org.tagaprice.core.entities.ReceiptEntry;
 
 public interface IReceipt {
 
-	public abstract Long getId();
-
-	public abstract void setId(Long id);
-
 	public abstract Date getDate();
 
 	public abstract void setDate(Date date);

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Set;
 
 import org.tagaprice.client.gwt.shared.entities.AEntity;
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.User;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
 import org.tagaprice.core.entities.ReceiptEntry;
@@ -20,12 +21,9 @@ import org.tagaprice.core.entities.ReceiptEntry;
 public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1411130663050015079L;
 
-	private Long _id;
 	private Date _date;
 	private Shop _shop;
 	private User _user;
@@ -48,7 +46,6 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 	public Receipt(Long id, Date date, Shop shop, User user, Set<ReceiptEntry> receiptEntries) {
 		super();
-		_id = id;
 		_date = date;
 		_shop = shop;
 		_user = user;
@@ -56,71 +53,48 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 
-
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#getId()
-	 */
-	public Long getId() {
-		return _id;
-	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#setId(java.lang.Long)
-	 */
-	public void setId(Long id) {
-		_id = id;
-	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#getDate()
-	 */
 	public Date getDate() {
 		return _date;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#setDate(java.sql.Date)
-	 */
+
 	public void setDate(Date date) {
 		_date = date;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#getShop()
-	 */
+
 	public Shop getShop() {
 		return _shop;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#setShop(org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop)
-	 */
+
 	public void setShop(Shop shop) {
 		_shop = shop;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#getUser()
-	 */
+	public IRevisionId getShopId(){
+		return getShop().getRevisionId();
+	}
+
+	public void setShopId(IRevisionId shopId){
+		// TODO
+	}
+
 	public User getUser() {
 		return _user;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#setUser(org.tagaprice.client.gwt.shared.entities.dump.User)
-	 */
+
 	public void setUser(User user) {
 		_user = user;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#getReceiptEntries()
-	 */
+
 	public Set<ReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt#setReceiptEntries(java.util.Set)
-	 */
+
 	public void setReceiptEntries(Set<ReceiptEntry> receiptEntries) {
 		_receiptEntries = receiptEntries;
 	}
 
 	@Override
 	public String toString() {
-		return "Receipt [_id=" + _id + ", _date=" + _date + ", _shop=" + _shop  + ", _user=" + _user
+		return "Receipt [_date=" + _date + ", _shop=" + _shop  + ", _user=" + _user
 		+ ", _receiptEntries=" + _receiptEntries + "]";
 	}
 
@@ -136,6 +110,10 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		return null;
 	}
 
+	//TODO
+	public int HashCode(){
+		return 0;
+	}
 
 
 }
