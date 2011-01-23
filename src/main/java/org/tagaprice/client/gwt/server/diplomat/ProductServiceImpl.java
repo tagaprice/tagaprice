@@ -8,9 +8,11 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+
 import org.tagaprice.core.api.ICategoryService;
 import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
+
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
@@ -28,7 +30,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	private ICategoryService _coreCategoryService;
 	private org.tagaprice.core.api.IProductService _coreProductService;
-	
+
 	// dummy values
 	private static Locale defaultLocale = new Locale(1, "de", "de");
 	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
@@ -50,12 +52,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			_log.debug("Attempting to load "+service+" from core.api");
 			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean(service);
 			_log.debug("Loaded "+service+" successfully.");
-			
+
 			service = "defaultCategoryService";
 			_log.debug("Attempting to load "+service+" from core.api");
 			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
 			_log.debug("Loaded "+service+" successfully.");
-			
+
+			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+
 			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
 
 
@@ -72,7 +76,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: " + revionsId);
 
+
 		Product product = _coreProductService.getById(revionsId.getId());
+
 		_log.debug("found product: " + product);
 
 		return convertProductToGWT(product, 0);
@@ -107,7 +113,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("product :"+product);
 
 		try {
+
 			Product productCore = _coreProductService.save(convertProductToCore(product));
+
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block
@@ -122,8 +130,22 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	@Override
 	public ArrayList<ICategory> getCategories() {
 		_log.debug("attempting to get available categories");
-		// TODO Auto-generated method stub
-		return new ArrayList<ICategory>();
+
+		ArrayList<ICategory> gwtCategories = new ArrayList<ICategory>();
+
+		try {
+			ArrayList<Category> coreCategories = new ArrayList<Category>(_coreCategoryService.getAll());
+			_log.debug("received " + coreCategories.size() + " from CoreCategoriesService");
+			CategoryConverter categoryConverter = CategoryConverter.getInstance();
+
+			for(Category cc: coreCategories) {
+				gwtCategories.add(categoryConverter.convertCoreCategoryToGWT(cc));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return gwtCategories;
+
 	}
 
 	/**
@@ -196,7 +218,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	public void setProductService(org.tagaprice.core.api.IProductService productService) {
+
 		_coreProductService = productService;
+
 	}
 
 }
