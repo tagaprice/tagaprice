@@ -17,7 +17,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	ListBox _listBoxCategories = new ListBox();
-	ArrayList<ICategory> _availableCategories;
+	ArrayList<ICategory> _availableCategories = new ArrayList<ICategory>();
 
 	public CategorySelecter() {
 		initWidget(_listBoxCategories);
@@ -39,7 +39,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	@Override
 	public ICategory getCategory() {
-		return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
+		if(this._availableCategories != null && this._availableCategories.size() > 0) {
+			return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
+		} else {
+			return null;
+		}
 	}
 
 	@Override
