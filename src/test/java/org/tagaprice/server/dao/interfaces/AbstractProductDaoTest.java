@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,6 +26,7 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Unit;
+import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -49,6 +51,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	private IDataSet _currentDataSet;
+	private SessionFactory _sessionFactory;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -65,6 +68,9 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_currentDataSet = _dbInitializer.fillTables();
 
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
+
+		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
 	}
 
 	@After
@@ -96,6 +102,11 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(actual);
+		for(ProductRevision rev : expectedRevisions)
+			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
 	@Test
@@ -124,6 +135,12 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		assertThat(updated.getRevisions(), hasItem(newRev));
 		assertThat(updated.getId(), equalTo(id));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(saved);
+		DbSaveAssertUtility.assertEntitySaved(updated);
+		for(ProductRevision rev : updated.getRevisions())
+			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
 
