@@ -27,4 +27,9 @@ public interface IProductService {
 	 * Returns a list of all products in the database.
 	 */
 	List<Product> getAll();
+
+	/**
+	 * Return a {@link Product} and all its revisions with the specified id.
+	 */
+	Product getById(Long id);
 }

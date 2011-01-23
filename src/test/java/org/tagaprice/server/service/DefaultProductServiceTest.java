@@ -209,4 +209,36 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 		assertThat(actual, is(products));
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getById_idNull_shouldThrow() throws Exception {
+		try {
+			_productManagement.getById(null);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		} finally {
+			verify(_productDaoMock, never()).getById(anyLong());
+		}
+	}
+
+	@Test
+	public void getById_shouldGetProduct() throws Exception {
+		when(_productDaoMock.getById(1L)).thenReturn(EntityCreator.createProductWithRevisions(1L, 1));
+
+		Product actual = _productManagement.getById(1L);
+
+		Product expected = EntityCreator.createProductWithRevisions(1L, 1);
+
+		assertThat(actual, is(expected));
+	}
+
+
+	@Test
+	public void getById_unknownId_shouldReturnNull() throws Exception {
+		when(_productDaoMock.getById(1L)).thenReturn(null);
+
+		Product actual = _productManagement.getById(1L);
+
+		assertThat(actual, equalTo(null));
+	}
 }
