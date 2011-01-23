@@ -1,8 +1,9 @@
 package org.tagaprice.server.dao.interfaces;
 
-import org.dbunit.dataset.IDataSet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+
+import org.dbunit.dataset.IDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,8 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 import org.tagaprice.core.entities.Account;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
 
 @ContextConfiguration
 public class AbstractAccountDaoTest extends AbstractTransactionalJUnit4SpringContextTests {

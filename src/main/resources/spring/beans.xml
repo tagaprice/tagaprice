@@ -13,6 +13,18 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
+			   
+			  
+  <!-- 
+  	-
+  	-	Defines a dbTestInitializer which can be used to insert testdata
+  	-	
+  	-	WARNING: Be aware that calling this dbTestInitalizer might wipe out your defined datasource.
+  	-
+  	-
+    -->
+  <import resource="classpath:dbunit/setup.xml" />
+
 
   <!-- 
   	-	SERVICES
@@ -116,4 +128,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	
+	
 </beans>

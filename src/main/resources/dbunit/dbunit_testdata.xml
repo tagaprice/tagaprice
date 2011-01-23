@@ -186,7 +186,7 @@
     <row>
       <value>3</value>
       <value>1</value>
-      <value>mg</value>
+      <value>kg</value>
       <value>100</value>
       <value>3</value>
       <value>www.image.org</value>
@@ -285,6 +285,13 @@
       <value>2</value>
       <value>5</value>
       <value>100</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+      <value>1</value>
+      <value>3</value>
+      <value>8</value>
     </row>
   </table>
   

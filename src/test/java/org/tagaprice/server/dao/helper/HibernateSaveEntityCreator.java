@@ -75,11 +75,25 @@ public class HibernateSaveEntityCreator {
 	public static ProductRevision createProductRevisionWithNullValues(Long id, Integer rev) {
 		return createProductRevision(id, rev, null, null, null, null, null, null, null);
 	}
+	
 
+	public static ProductRevision createProductRevision(Long productId, int i,
+			String string, Account creator, Category cat, String string2) {
+		return createProductRevision(productId, i, string, creator, _standardUnit, _standardAmount, cat, string2);
+	}
+
+	public static ProductRevision createProductRevision(Long productId, int i,
+			String string, Account creator, Unit defaultUnit,
+			Double defaultAmount, Category cat1, String string2) {
+		return createProductRevision(productId, i, string, _standardDate, creator, defaultUnit, defaultAmount, cat1, string2);
+	}
+	
 	public static ProductRevision createProductRevision(Long id, Integer rev, String title, Date createdAt,
 			Account creator, Unit unit, Double amount, Category category, String imageUrl) {
 		return new ProductRevision(id, rev, title, createdAt, creator, unit, amount, category, imageUrl);
 	}
+	
+
 
 	/*
 	 * 
@@ -123,7 +137,7 @@ public class HibernateSaveEntityCreator {
 	 * Account
 	 */
 	public static Account createAccount(Long id) {
-		return createAccount(id, "standard@email.org");
+		return createAccount(id, "user1@mail.com");
 	}
 
 	public static Account createAccount(Long id, String email) {

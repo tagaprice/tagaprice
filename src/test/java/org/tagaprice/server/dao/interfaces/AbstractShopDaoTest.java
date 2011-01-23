@@ -2,9 +2,12 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 
 import java.util.List;
+
 import org.dbunit.dataset.IDataSet;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -19,10 +22,9 @@ import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
-import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
-import org.tagaprice.server.dao.interfaces.IShopDAO;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.service.helper.EntityCreator;
 
 /**

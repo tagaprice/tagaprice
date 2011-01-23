@@ -2,7 +2,11 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,11 +29,10 @@ import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Unit;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
-import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 /**
  * Testcase to test the {@link IProductDAO} interface.
@@ -82,7 +85,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
 		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
@@ -113,7 +116,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
 		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 
 		long id = 4;
@@ -148,7 +151,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
 		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
 		Locale locale = HibernateSaveEntityCreator.createLocale(1);
 
@@ -195,34 +198,37 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void loadProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		ITable entityRevTable = _currentDataSet.getTable("entityRevision");
-		ITable accountTable = _currentDataSet.getTable("account");
-		ITable categoryTable = _currentDataSet.getTable("category");
-		Account creator = new Account(3L, "user@mail.com", "12345", DbUnitDataSetHelper.getDate(accountTable.getValue(
-				0, "last_login")));
+		Long productId = 1L;
+		Product actual = _productDao.getById(productId);
+		
+		Account creator = HibernateSaveEntityCreator.createAccount(productId); 
+		Category cat1 = HibernateSaveEntityCreator.createCategory(
+				1L, 
+				null, 
+				"rootCategory", 
+				creator);
+		Category cat2 = HibernateSaveEntityCreator.createCategory(
+				2L, 
+				cat1, 
+				"category1", 
+				creator);
+		
+		ProductRevision rev1 = HibernateSaveEntityCreator.createProductRevision(
+				productId, 
+				1, 
+				"coke",
+				creator,
+				cat2,
+				"www.urlToImage.com");
+		
+		ProductRevision rev2 = HibernateSaveEntityCreator.createProductRevision(
+				productId, 
+				2, 
+				"original coke",
+				creator,
+				cat2,
+				"www.differentUrlToImage.com");
 
-		Category cat0 = new Category(0L, "rootCategory", null, DbUnitDataSetHelper.getDate(categoryTable.getValue(0,
-		"created_at")), creator);
-		Category cat1 = new Category(1L, "category1", cat0, DbUnitDataSetHelper.getDate(categoryTable.getValue(1,
-		"created_at")), creator);
-		ProductRevision rev1 = new ProductRevision(1L, 1, (String) entityRevTable.getValue(0, "title"),
-				DbUnitDataSetHelper.getDate(entityRevTable.getValue(0, "created_at")), creator,
-				HibernateSaveEntityCreator.getDefaultUnit(), HibernateSaveEntityCreator.getDefaultAmount(), cat0,
-		"www.urlToImage.com");
-		ProductRevision rev2 = new ProductRevision(1L, 2, (String) entityRevTable.getValue(1, "title"),
-				DbUnitDataSetHelper.getDate(entityRevTable.getValue(1, "created_at")), creator,
-				HibernateSaveEntityCreator.getDefaultUnit(), HibernateSaveEntityCreator.getDefaultAmount(), cat1,
-		"www.differentUrlToImage.com");
-
-		// Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		// revisions.add(rev1);
-		// revisions.add(rev2);
-		// Product expected = new Product((long) 1, expectedLocale, DbUnitDataSetHelper.getDate(entityTable.getValue(0,
-		// "created_at")), null, revisions);
-
-		Product actual = _productDao.getById(1L);
-
-		// assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItems(rev1, rev2));
 		assertThat(actual.getRevisions().size(), equalTo(2));
 	}

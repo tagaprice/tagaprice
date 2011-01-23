@@ -18,7 +18,7 @@ public class HibernateCategoryDAO implements ICategoryDAO {
 	@Override
 	public Category save(Category category) {
 		Session session = _sessionFactory.getCurrentSession();
-		session.save(category);
+		session.saveOrUpdate(category);
 		return category;
 	}
 

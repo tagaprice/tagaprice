@@ -1,7 +1,11 @@
 package org.tagaprice.server.dao.interfaces;
 
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
 import java.util.List;
+
 import org.dbunit.dataset.IDataSet;
 import org.junit.After;
 import org.junit.Before;
@@ -12,10 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.ProductRevision;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 
 /**
  * @author haja
