@@ -115,6 +115,11 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 		try {
 			Product productCore = _coreProductService.save(convertProductToCore(product));
+
+			ProductServiceImplTest test = new ProductServiceImplTest();
+			test.setUp();
+
+			productCore = test.newProductCore;
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block
