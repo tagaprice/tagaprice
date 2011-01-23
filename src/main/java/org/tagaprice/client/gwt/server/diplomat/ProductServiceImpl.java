@@ -121,7 +121,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			String newProductImageURL = "";
 			Category category = new Category(null, "testcat", null, new Date(), ProductServiceImpl.defaultCoreAccount);
 
-			ProductRevision newProductRevision = new ProductRevision(null, null, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount, category , newProductImageURL);
+			ProductRevision newProductRevision = new ProductRevision(null, 1, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount, category , newProductImageURL);
 			java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
 			revisions.add(newProductRevision);
 
