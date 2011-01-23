@@ -228,4 +228,16 @@ public class EntityCreator {
 		return HibernateSaveEntityCreator.createReceiptEntry(basicReceipt, productRevision, count, pricePerItemInCent);
 		
 	}
+	
+	/*
+	 * 
+	 * Categories
+	 * 
+	 * 
+	 */
+
+	public static Category createCategory(Long categoryId, Long accountId) {
+		return HibernateSaveEntityCreator.createCategory(categoryId, accountId);
+		
+	}
 }

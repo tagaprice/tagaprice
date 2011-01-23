@@ -1,8 +1,10 @@
 package org.tagaprice.server.dao.interfaces;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.dbunit.dataset.IDataSet;
 import org.junit.After;
@@ -23,6 +25,7 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 
 	protected ICategoryDAO _categoryDao;
 	protected IDbTestInitializer _dbInitializer;
+	@SuppressWarnings("unused")
 	private IDataSet _currentDataSet;
 
 	private Logger _log = LoggerFactory.getLogger(AbstractCategoryDaoTest.class);
@@ -50,32 +53,32 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 	public void saveCategory_shouldSave() throws Exception {
 		_log.info("running test");
 
+		Long accountId = 1L;
 		Long id = 4L;
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category categoryToSave = new Category(id, "newRootCategory", null, HibernateSaveEntityCreator.getDefaultDate(), creator);
+		Category categoryToSave = HibernateSaveEntityCreator.createCategory(id, HibernateSaveEntityCreator.createAccount(accountId));
 
 		Category actual = _categoryDao.save(categoryToSave);
 
-		Category expected = new Category(id, "newRootCategory", null, HibernateSaveEntityCreator.getDefaultDate(), creator);
+		Category expected = HibernateSaveEntityCreator.createCategory(id, HibernateSaveEntityCreator.createAccount(accountId));
 
 		assertThat(actual, is(expected));
 	}
 
 	@Test
-	@Rollback(false)
-	public void loadAllCategory_shouldLoadAllCategories() throws Exception {
-		_log.info("running test");
-
-		Long id = 4L;
-
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category categoryToSave = new Category(id, "newRootCategory", null, HibernateSaveEntityCreator.getDefaultDate(), creator);
-
-		Category actual = _categoryDao.save(categoryToSave);
-
-		Category expected = new Category(id, "newRootCategory", null, HibernateSaveEntityCreator.getDefaultDate(), creator);
-
+	public void getAll_shouldReturnAllCategories() {
+		_log.info("Running test");
+		
+		List<Category> actual = _categoryDao.getAll();
+		
+		
+		List<Category> expected = new ArrayList<Category>();
+		Account creator = HibernateSaveEntityCreator.createAccount(3L, "user@mail.com");
+		Category root = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator);
+		expected.add(root);
+		expected.add(HibernateSaveEntityCreator.createCategory(2L, root, "category1", creator));
+		expected.add(HibernateSaveEntityCreator.createCategory(3L, root, "category2", creator));
+		
 		assertThat(actual, is(expected));
 	}
 }
