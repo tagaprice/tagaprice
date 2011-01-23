@@ -1,5 +1,6 @@
 package org.tagaprice.server.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.ILoginService;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.Account;
@@ -10,6 +11,7 @@ public class DefaultLoginService implements ILoginService {
 	IAccountDAO _accountDAO;
 	SessionService _sessionFactory;
 
+	@Transactional(readOnly=true)
 	@Override
 	public Session login(String email, String password) throws ServerException {
 		if(email == null)

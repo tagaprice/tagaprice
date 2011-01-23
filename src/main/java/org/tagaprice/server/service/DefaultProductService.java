@@ -16,19 +16,13 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 
-@Transactional
 public class DefaultProductService implements IProductService {
-	// private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 	private IProductRevisionDAO _productRevisionDao;
 
 
-
-	public DefaultProductService() {
-		_log.debug("Creating defaultproductservice");
-	}
-
+	@Transactional
 	@Override
 	public Product save(Product product) throws OutdatedRevisionException {
 		if (product == null)
@@ -72,6 +66,7 @@ public class DefaultProductService implements IProductService {
 		return product;
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public List<Product> getByTitle(String title) {
 		if (title == null)
@@ -108,17 +103,18 @@ public class DefaultProductService implements IProductService {
 		return products;
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public List<Product> getAll() {
 		return _productDao.getAll();
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public Product getById(Long id) {
 		ArgumentUtitlity.checkNull("id", id);
 		return _productDao.getById(id);
 	}
-
 
 	public void setProductDAO(IProductDAO productDao) {
 		_log.debug("productDao set to " + productDao);
@@ -127,8 +123,5 @@ public class DefaultProductService implements IProductService {
 
 	public void setProductRevisionDAO(IProductRevisionDAO productRevisionDao) {
 		_productRevisionDao = productRevisionDao;
-	}
-
-	static void filter(Collection<ProductRevision> c) {
 	}
 }
