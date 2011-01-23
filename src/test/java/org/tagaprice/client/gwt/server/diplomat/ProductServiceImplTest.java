@@ -12,6 +12,10 @@ import org.tagaprice.server.service.helper.EntityCreator;
 
 public class ProductServiceImplTest {
 	ProductServiceImpl productService = new ProductServiceImpl();
+	Product newProductCore;
+	IProduct newProductGWT;
+	Product changedProductCore;
+	IProduct changedProductGWT;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -23,6 +27,8 @@ public class ProductServiceImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+		//Setup new Products
+		//this.newProductCore = new Product(id, locale, revisions)
 	}
 
 	@After
