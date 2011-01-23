@@ -51,7 +51,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		this._availableCategories = categories;
 		this._listBoxCategories.clear();
 		for (ICategory c : this._availableCategories) {
-			this._listBoxCategories.addItem(c.toString(), c.getTitle());
+			this._listBoxCategories.addItem(c.getTitle(), c.toString());
 		}
 	}
 }
