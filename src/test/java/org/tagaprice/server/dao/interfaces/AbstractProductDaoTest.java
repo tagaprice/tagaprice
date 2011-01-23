@@ -2,9 +2,7 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
+import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Unit;
@@ -105,7 +104,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
-		for(ProductRevision rev : expectedRevisions)
+		for (ProductRevision rev : expectedRevisions)
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
@@ -139,7 +138,54 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(saved);
 		DbSaveAssertUtility.assertEntitySaved(updated);
-		for(ProductRevision rev : updated.getRevisions())
+		for (ProductRevision rev : updated.getRevisions())
+			DbSaveAssertUtility.assertEntitySaved(rev);
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
+		_log.info("running test");
+
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Locale locale = HibernateSaveEntityCreator.createLocale(1);
+
+		long id = 4;
+		int numberRevisions = 2;
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id, locale,
+				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
+
+		Product saved = _productDao.save(productToSave);
+
+		// copy original revs
+		Set<ProductRevision> originalRevs = new HashSet<ProductRevision>();
+		originalRevs.addAll(saved.getRevisions());
+		assertThat(originalRevs.size(), is(2));
+
+		int revisionNumber = 3;
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
+				category);
+
+		Product productWithJustNewRev = saved;
+		saved.getRevisions().clear();
+		saved.getRevisions().add(newRev);
+		assertThat(saved.getRevisions().size(), is(1));
+
+
+		Product updated = _productDao.save(productWithJustNewRev);
+
+		assertThat(updated.getRevisions(), hasItem(newRev));
+		assertThat(updated.getId(), equalTo(id));
+
+		_sessionFactory.getCurrentSession().flush();
+		// assert updates
+		DbSaveAssertUtility.assertEntitySaved(updated);
+		DbSaveAssertUtility.assertEntitySaved(newRev);
+
+		// assert original revisions
+		for (ProductRevision rev : originalRevs)
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
