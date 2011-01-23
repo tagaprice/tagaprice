@@ -32,9 +32,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	private org.tagaprice.core.api.IProductService _coreProductService;
 
 	// dummy values
-	private static Locale defaultLocale = new Locale(1, "de", "de");
-	private static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
-	private static Category defaultCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultAccount);
+	public static final Locale defaultCoreLocale = new Locale(1, "de", "de");
+	public static final Account defaultCoreAccount = new Account(1L, "love@you.org", "super", new Date());
+	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultCoreAccount);
 
 	/**
 	 * 
@@ -123,6 +123,8 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -157,7 +159,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
 		_log.debug("Convert GWT -> core, id: " + productGWT.getRevisionId());
 		// Default values for new product...
-		Long productId = 0L;
+		Long productId = null;
 		Integer revisionNumber = 0;
 
 		if (productGWT.getRevisionId() != null) {
@@ -170,9 +172,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		Category category;
 		if (productGWT.getCategory() != null) {
 			category = new Category(new Long(productGWT.getCategory().getId()), productGWT.getCategory().getTitle(),
-					null, new Date(), ProductServiceImpl.defaultAccount);
+					null, new Date(), ProductServiceImpl.defaultCoreAccount);
 		} else {
-			category = ProductServiceImpl.defaultCategory;
+			category = ProductServiceImpl.defaultCoreCategory;
 		}
 
 		Double amount = productGWT.getQuantity().getQuantity();
@@ -182,11 +184,11 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		// ProductServiceImpl.defaultAccount, unit, amount , category, "");
 		// If product already exists...
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
-				ProductServiceImpl.defaultAccount, unit, amount, category, "");
+				ProductServiceImpl.defaultCoreAccount, unit, amount, category, "");
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(revision);
 
-		Product productCore = new Product(productGWT.getRevisionId().getId(), ProductServiceImpl.defaultLocale,
+		Product productCore = new Product(productId, ProductServiceImpl.defaultCoreLocale,
 				revisions);
 		return productCore;
 	}
