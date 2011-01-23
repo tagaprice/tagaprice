@@ -70,7 +70,7 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 	@After
 	public void tearDown() throws Exception {
-		_dbInitializer.resetTables();
+		//_dbInitializer.resetTables(); //this causes an infinite loop
 	}
 
 	@Test
@@ -115,7 +115,7 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		long shopId1 = 1;
 		String shopTitle1 = "testShop";
 		BasicReceipt basicReceipt = HibernateSaveEntityCreator.createBasicReceipt(receiptId, HibernateSaveEntityCreator.createBasicShop(shopId1, shopTitle1));
-		
+
 		long shopId2 = 2;
 		String shopTitle2 = "otherTestShopX";
 		BasicReceipt basicReceipt2 = HibernateSaveEntityCreator.createBasicReceipt(receiptId2, HibernateSaveEntityCreator.createBasicShop(shopId2, shopTitle2));
@@ -131,57 +131,55 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	@Test
 	@Rollback(false)
 	public void saveEmptyReceipt_shouldSaveReceipt() throws Exception {
-		fail();
-//		long receiptId = 3L;
-//		long shopId = 4L;
-//		Date createdAt = EntityCreator.getDefaultDate();
-//		Account creator = HibernateSaveEntityCreator.createAccount(5L);
-//
-//		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
-//
-//		Receipt actual = _receiptDao.save(receiptToSave);
-//
-//		Receipt expected = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
-//
-//		assertThat(actual, is(expected));
-//
-//		_sessionFactory.getCurrentSession().flush();
-//		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
+		long receiptId = 3L;
+		long shopId = 1L;
+		Date createdAt = EntityCreator.getDefaultDate();
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+
+		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
+
+		Receipt actual = _receiptDao.save(receiptToSave);
+
+		Receipt expected = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
+
+		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
 	}
 
 	@Test
 	@Rollback(false)
 	public void saveReceiptWithReceiptEntries_shouldSaveReceipt() throws Exception {
-		fail();
-//		long receiptId = 3L;
-//		long shopId = 1L;
-//		Date createdAt = EntityCreator.getDefaultDate();
-//		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-//
-//
-//		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
-//		long prod1Id = 1;
-//		int prod1RevNr = 1;
-//		receiptEntries.add(HibernateSaveEntityCreator.createReceiptEntry(receiptId, shopId, prod1Id, prod1RevNr, 1, 200));
-//
-//		long prod2Id = 2;
-//		int prod2RevNr = 2;
-//		receiptEntries.add(HibernateSaveEntityCreator.createReceiptEntry(receiptId, shopId, prod2Id, prod2RevNr, 5, 1000));
-//
-//
-//		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator, receiptEntries);
-//
-//		Receipt actual = _receiptDao.save(receiptToSave);
-//
-//
-//		Receipt expected = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator, receiptEntries);
-//
-//		assertThat(actual, is(expected));
-//
-//		_sessionFactory.getCurrentSession().flush();
-//		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
-//		for (ReceiptEntry re : receiptEntries)
-//			DbSaveAssertUtility.assertEntitySaved(re);
+		long receiptId = 3L;
+		long shopId = 1L;
+		Date createdAt = EntityCreator.getDefaultDate();
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+
+
+		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
+		long prod1Id = 1;
+		int prod1RevNr = 1;
+		receiptEntries.add(HibernateSaveEntityCreator.createReceiptEntry(receiptId, shopId, prod1Id, prod1RevNr, 1, 200));
+
+		long prod2Id = 2;
+		int prod2RevNr = 2;
+		receiptEntries.add(HibernateSaveEntityCreator.createReceiptEntry(receiptId, shopId, prod2Id, prod2RevNr, 5, 1000));
+
+
+		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator, receiptEntries);
+
+		Receipt actual = _receiptDao.save(receiptToSave);
+
+
+		Receipt expected = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator, receiptEntries);
+
+		assertThat(actual, is(expected));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(receiptToSave);
+		for (ReceiptEntry re : receiptEntries)
+			DbSaveAssertUtility.assertEntitySaved(re);
 	}
 
 	// TODO Implement

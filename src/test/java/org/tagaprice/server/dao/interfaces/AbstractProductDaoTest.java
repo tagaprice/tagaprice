@@ -85,8 +85,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(3L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -116,8 +116,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(3L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -151,8 +151,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(3L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 		Locale locale = HibernateSaveEntityCreator.createLocale(1);
 
 		long id = 4;
@@ -199,35 +199,36 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_log.info("running test");
 
 		Long productId = 1L;
+		Long creatorId = 1L;
 		Product actual = _productDao.getById(productId);
-		
-		Account creator = HibernateSaveEntityCreator.createAccount(productId); 
+
+		Account creator = HibernateSaveEntityCreator.createAccount(creatorId);
 		Category cat1 = HibernateSaveEntityCreator.createCategory(
-				1L, 
-				null, 
-				"rootCategory", 
+				1L,
+				null,
+				"rootCategory",
 				creator);
 		Category cat2 = HibernateSaveEntityCreator.createCategory(
-				2L, 
-				cat1, 
-				"category1", 
+				2L,
+				cat1,
+				"category1",
 				creator);
-		
+
 		ProductRevision rev1 = HibernateSaveEntityCreator.createProductRevision(
-				productId, 
-				1, 
+				productId,
+				1,
 				"coke",
 				creator,
-				cat2,
-				"www.urlToImage.com");
-		
+				cat1,
+		"www.urlToImage.com");
+
 		ProductRevision rev2 = HibernateSaveEntityCreator.createProductRevision(
-				productId, 
-				2, 
+				productId,
+				2,
 				"original coke",
 				creator,
 				cat2,
-				"www.differentUrlToImage.com");
+		"www.differentUrlToImage.com");
 
 		assertThat(actual.getRevisions(), hasItems(rev1, rev2));
 		assertThat(actual.getRevisions().size(), equalTo(2));

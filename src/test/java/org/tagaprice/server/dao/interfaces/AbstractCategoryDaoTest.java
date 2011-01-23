@@ -53,7 +53,7 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 	public void saveNewCategory_shouldSave() throws Exception {
 		_log.info("running test");
 
-		Long accountId = 3L;
+		Long accountId = 1L;
 		Long id = null;
 		Long nextFreeId = 4L;
 
@@ -74,7 +74,7 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 
 
 		List<Category> expected = new ArrayList<Category>();
-		Account creator = HibernateSaveEntityCreator.createAccount(3L, "user@mail.com");
+		Account creator = HibernateSaveEntityCreator.createAccount(1L, "user1@mail.com");
 		Category root = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator);
 		expected.add(root);
 		expected.add(HibernateSaveEntityCreator.createCategory(2L, root, "category1", creator));
