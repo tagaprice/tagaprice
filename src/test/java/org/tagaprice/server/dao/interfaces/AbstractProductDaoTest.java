@@ -82,8 +82,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -113,8 +113,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -148,8 +148,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 		Locale locale = HibernateSaveEntityCreator.createLocale(1);
 
 		long id = 4;
