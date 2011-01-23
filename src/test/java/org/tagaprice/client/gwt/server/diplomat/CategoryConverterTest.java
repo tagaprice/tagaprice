@@ -10,15 +10,15 @@ import org.tagaprice.core.entities.Category;
 public class CategoryConverterTest {
 	private CategoryConverter converter = CategoryConverter.getInstance();
 
-	private Category coreCategoryRoot;
-	private Category coreCategoryChild;
-	private ICategory gwtCategoryRoot;
-	private ICategory gwtCategoryChild;
+	public Category coreCategoryRoot;
+	public Category coreCategoryChild;
+	public ICategory gwtCategoryRoot;
+	public ICategory gwtCategoryChild;
 
-	private String rootTitle = "root";
-	private long rootId = 2L;
-	private String childTitle = "child";
-	private long childId = 3L;
+	public String rootTitle = "root";
+	public long rootId = 2L;
+	public String childTitle = "child";
+	public long childId = 3L;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
