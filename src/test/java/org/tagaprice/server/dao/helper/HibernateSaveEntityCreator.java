@@ -145,14 +145,6 @@ public class HibernateSaveEntityCreator {
 	}
 
 	/*
-	 * Category
-	 */
-	public static Category createCategory(Long id, Account creator) {
-		return new Category(id, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
-
-	}
-
-	/*
 	 * 
 	 * 
 	 * Shops
@@ -235,5 +227,25 @@ public class HibernateSaveEntityCreator {
 
 	public static BasicShop createBasicShop(long id) {
 		return createBasicShop(id, "defaultBasicShopTitle");
+	}
+
+	/*
+	 * 
+	 * 
+	 * Categories
+	 * 
+	 */
+	public static Category createCategory(Long categoryId, Long acccountId) {
+		return createCategory(categoryId, HibernateSaveEntityCreator.createAccount(acccountId));
+	}
+	public static Category createCategory(Long id, Account creator) {
+		return new Category(id, "newRootCategory", null, HibernateSaveEntityCreator._standardDate, creator);
+
+	}
+
+	public static Category createCategory(Long id, Category parent, String title,
+			Account creator) {
+		return new Category(id, title, parent, _standardDate, creator);
+		
 	}
 }

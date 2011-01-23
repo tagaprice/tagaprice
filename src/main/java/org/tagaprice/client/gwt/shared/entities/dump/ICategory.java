@@ -30,8 +30,8 @@ public interface ICategory extends IEntity<ICategory> {
 	 */
 	public void setParentCategory(ICategory category);
 
-	public void setId(int id);
+	public void setId(long id);
 
-	public int getId();
+	public long getId();
 
 }
