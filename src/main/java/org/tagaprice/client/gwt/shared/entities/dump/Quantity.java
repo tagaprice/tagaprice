@@ -53,7 +53,7 @@ public class Quantity implements IQuantity {
 
 	@Override
 	public String toString() {
-		return String.valueOf(this._quantity) + this._unit.name();
+		return String.valueOf(this._quantity) + " " + this._unit.name();
 	}
 
 	@Override
