@@ -4,21 +4,17 @@ import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.boot.Boot;
-import org.tagaprice.server.dao.interfaces.IProductDAO;
-import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
-import org.tagaprice.server.service.DefaultProductService;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
  * This is the Servlet that relies on the server-service
@@ -47,10 +43,10 @@ IProductService {
 		try {
 			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
 			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
-			
-			
-//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO")); 
-//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
+
+
+			//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO"));
+			//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
 			_log.debug("Loaded product service successfully.");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());
@@ -62,15 +58,10 @@ IProductService {
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: "+revionsId);
 
-		_log.debug("load dummy product");
+		Product product = coreService.getById(revionsId.getId());
+		_log.debug("found product: " + product);
 
-		ArrayList<IProduct> list = getProducts(new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("a", null, null));
-		_log.debug("found products: " + list.size());
-
-		if(list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		return convertProductToGWT(product, 0);
 	}
 
 	@Override
@@ -81,20 +72,16 @@ IProductService {
 		try {
 			if(searchCriteria != null){
 				list = coreService.getByTitle(searchCriteria.getTitle());
-			}else if (searchCriteria == null){
-				list = coreService.getByTitle("");
+			} else {
+				list = coreService.getAll();
 			}
 		} catch (ServerException e) {
-			_log.error("Exception thrown: " + e.getMessage());
-			e.printStackTrace();
-		} catch (Exception e) {
 			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
 		}
 		ArrayList<IProduct> returnList = new ArrayList<IProduct>();
 
 		for(Product p: list) {
-
 			returnList.add(convertProductToGWT(p, 0));
 		}
 		return returnList;
@@ -103,7 +90,17 @@ IProductService {
 	@Override
 	public IProduct saveProduct(IProduct product) {
 		_log.debug("product :"+product);
-		// TODO Auto-generated method stub
+
+		try {
+			Product productCore = coreService.save(convertProductToCore(product));
+			return convertProductToGWT(productCore, 0);
+		} catch (OutdatedRevisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

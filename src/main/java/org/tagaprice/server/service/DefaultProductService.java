@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.api.OutdatedRevisionException;
+import org.tagaprice.core.entities.ArgumentUtitlity;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -17,7 +18,7 @@ import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 
 @Transactional
 public class DefaultProductService implements IProductService {
-	//	private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
+	// private static BeanFactory factory = new XmlBeanFactory(new FileInputStream("hello.xml"));
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 	private IProductRevisionDAO _productRevisionDao;
@@ -30,12 +31,12 @@ public class DefaultProductService implements IProductService {
 
 	@Override
 	public Product save(Product product) throws OutdatedRevisionException {
-		if(product==null)
+		if (product == null)
 			throw new IllegalArgumentException("product must not be null");
 
 		Long id = product.getId();
 
-		if(id == null) { //new product
+		if (id == null) { // new product
 			Long newId = IdCounter.getNewId();
 			product.setId(newId);
 		} else {
@@ -46,19 +47,15 @@ public class DefaultProductService implements IProductService {
 			ProductRevision detachedHighestRevision = product.getCurrentRevision();
 			Integer detachedRevisionNumber = detachedHighestRevision.getRevisionNumber();
 
-			if(persistedRevisionNumber > detachedRevisionNumber) //more than one revision has been saved meanwhile
+			if (persistedRevisionNumber > detachedRevisionNumber) // more than one revision has been saved meanwhile
 			{
 				String message = "attempted to save outdated revision. highest persisted revision number: "
-					+ persistedRevisionNumber
-					+ ", highest revision number to be saved: "
-					+ detachedRevisionNumber;
+					+ persistedRevisionNumber + ", highest revision number to be saved: " + detachedRevisionNumber;
 				_log.info(message);
 				throw new OutdatedRevisionException(message);
-			}
-			else if (persistedRevisionNumber == detachedRevisionNumber) //one revision has been saved meanwhile
+			} else if (persistedRevisionNumber == detachedRevisionNumber) // one revision has been saved meanwhile
 			{
-				if(!persistedHighestRevision.equals(detachedHighestRevision))
-				{
+				if (!persistedHighestRevision.equals(detachedHighestRevision)) {
 					String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
 						+ persistedRevisionNumber
 						+ ", highest revision number to be saved: "
@@ -77,16 +74,16 @@ public class DefaultProductService implements IProductService {
 
 	@Override
 	public List<Product> getByTitle(String title) {
-		if(title == null)
+		if (title == null)
 			throw new IllegalArgumentException("title must not be null");
-		_log.debug("title "+title);
+		_log.debug("title " + title);
 
 		List<ProductRevision> revisions = _productRevisionDao.getByTitle(title);
 		_log.debug("number of revisions found:" + revisions.size());
 
 
 		HashSet<Long> ids = new HashSet<Long>();
-		for(ProductRevision revision : revisions) {
+		for (ProductRevision revision : revisions) {
 			ids.add(revision.getId());
 		}
 
@@ -95,12 +92,12 @@ public class DefaultProductService implements IProductService {
 
 		List<Product> products = new ArrayList<Product>();
 
-		for(Long id : ids) {
+		for (Long id : ids) {
 			products.add(_productDao.getById(id));
 		}
 
 		// WORKAROUND for hibernate being lazy
-		for(Product p : products) {
+		for (Product p : products) {
 			p.getRevisions();
 			p.getCurrentRevision();
 			p.getId();
@@ -111,8 +108,20 @@ public class DefaultProductService implements IProductService {
 		return products;
 	}
 
+	@Override
+	public List<Product> getAll() {
+		return _productDao.getAll();
+	}
+
+	@Override
+	public Product getById(Long id) {
+		ArgumentUtitlity.checkNull("id", id);
+		return _productDao.getById(id);
+	}
+
+
 	public void setProductDAO(IProductDAO productDao) {
-		_log.debug("productDao set to "+productDao);
+		_log.debug("productDao set to " + productDao);
 		_productDao = productDao;
 	}
 
@@ -122,7 +131,4 @@ public class DefaultProductService implements IProductService {
 
 	static void filter(Collection<ProductRevision> c) {
 	}
-
-
-
 }
