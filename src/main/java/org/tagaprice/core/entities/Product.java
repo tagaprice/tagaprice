@@ -1,21 +1,27 @@
 package org.tagaprice.core.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.hamcrest.Matcher;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
+import org.omg.CORBA._PolicyStub;
+import org.tagaprice.server.helper.ArgumentUtitlity;
 
 /**
  * <p>
@@ -27,8 +33,7 @@ import org.hibernate.annotations.SortType;
  * A {@link Product} has the following properties:
  * <ul>
  * <li>Id: primary identifier in the database</li>
- * <li>locale: {@link Locale} which indicates language and location of this product</li>
- * <li>revisions: a {@link SortedSet} of {@link ProductRevision}s, each representing one version of this product. Sorted by revision number, highest first.</li>
+ * <li>revisions: a {@link SortedSet} of , each representing one version of this product. Sorted by revision number, highest first.</li>
  * </ul>
  * </p>
  * 
@@ -62,16 +67,23 @@ public class Product implements Serializable {
 	 * Initialize a new {@link Product}.
 	 * 
 	 * @param id
-	 *            Id of Product to create. Can be null, in which case this product and all its revisions are treated as
+	 *            Identifier of Product to create. Can be null, in which case this product and all its revisions are treated as
 	 *            new concerning the database and a fresh id will be created and assigned. If id is not null it must be
 	 *            greater than 0.
 	 * @param locale
-	 *            indicates the language and location of this product.
+	 *            indicates the language and location of this product, must not be null.
 	 * @param revisions
-	 *            A non-empty set of ProductRevisions. The Set must also have consecutive revisions numbers without
+	 *            A non-empty set of {@link ProductRevision}s. The {@link Set} must have {@link ProductRevision}s with consecutive revisions numbers without
 	 *            gaps. E.g. the set with revisions: 2,3,4 is valid whereas the set with revisions: 2,4,5 is invalid.
 	 */
 	public Product(Long id, Locale locale, Set<ProductRevision> revisions) {
+		ArgumentUtitlity.checkNull("locale", locale);
+		ArgumentUtitlity.checkNull("revisions", revisions);
+		if(revisions.isEmpty())
+			throw new IllegalArgumentException("revisions must not be empty");
+		if(id != null && id <= 0L)
+			throw new IllegalArgumentException("id must not be greater than 0 or null");
+		
 		_id = id;
 		_locale = locale;
 		_revisions.addAll(revisions);
@@ -109,10 +121,7 @@ public class Product implements Serializable {
 
 
 	/**
-	 * TODO this allows changing the {@link ProductRevision}s of this product. this violates immutability of this class.
-	 * Although, this might be desirable...
-	 * 
-	 * @return all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
+	 * Returns a copy of all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ent_id")
@@ -158,8 +167,7 @@ public class Product implements Serializable {
 
 
 	/**
-	 * Returns the current, i.e. highest, revision of this product.
-	 * <p>TODO this allows changing the {@link ProductRevision} of this product. this violates immutability of this class.</p>
+	 * Returns the current, i.e. with the highest revision number, revision of this product.
 	 */
 	@Transient
 	public ProductRevision getCurrentRevision() {

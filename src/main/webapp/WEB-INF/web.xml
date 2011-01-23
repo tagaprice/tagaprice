@@ -16,6 +16,14 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	 -->
+	 
+	<!-- Boot Servlet -->
+	<servlet>
+		<servlet-name>BootServlet</servlet-name>
+		<servlet-class>org.tagaprice.server.boot.Boot</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
@@ -29,6 +37,27 @@
 	</servlet-mapping>	
 	
 	<!-- END: RPC-->
+	
+	
+	<!--
+		- Location of the XML file that defines the root application context.
+		- Applied by ContextLoaderServlet.
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>spring/beans.xml</param-value>
+	</context-param>
+	
+	<!--
+		- Loads the root application context of this web app at startup,
+		-
+		- The root context is the parent of all servlet-specific contexts.
+		- This means that its beans are automatically available in these child contexts,
+		- both for getBean(name) calls and (external) bean references.
+	-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
 
 	<!-- Default page to serve -->

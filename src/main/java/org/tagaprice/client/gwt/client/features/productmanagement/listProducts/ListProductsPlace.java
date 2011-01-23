@@ -8,13 +8,13 @@ import com.google.gwt.place.shared.*;
 
 public class ListProductsPlace extends Place {
 	private static final MyLogger logger = LoggerFactory
-			.getLogger(ListProductsPlace.class);
+	.getLogger(ListProductsPlace.class);
 
 	private HashMap<String, String> parameters = new HashMap<String, String>();
 	private String categoryfilter;
 
 	public ListProductsPlace(String categoryfilter) {
-		logger.log("Empty ListProductPlace created");
+		ListProductsPlace.logger.log("Empty ListProductPlace created");
 		this.categoryfilter = categoryfilter;
 	}
 
@@ -26,6 +26,7 @@ public class ListProductsPlace extends Place {
 		return this.categoryfilter;
 	}
 
+	@Prefix("listProducts")
 	public static class Tokenizer implements PlaceTokenizer<ListProductsPlace> {
 
 		@Override

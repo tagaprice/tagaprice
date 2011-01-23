@@ -119,9 +119,14 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
+		logger.log("getProducts... searchCriteria: "+ searchCriteria);
 		ArrayList<IProduct> products = new ArrayList<IProduct>();
 		for (IProduct p: this.productsLatest.values()) {
-			products.add(p.copy());
+			if(searchCriteria != null && p.getTitle().toLowerCase().contains((searchCriteria.getTitle().toLowerCase()))) {
+				products.add(p.copy());
+			} else if(searchCriteria == null) {
+				products.add(p.copy());
+			}
 		}
 		return products;
 	}

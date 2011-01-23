@@ -10,9 +10,11 @@
 		<g:DecoratorPanel addStyleNames="withMargin">
 			<g:VerticalPanel>
 				<g:HTML>
-					<h2>Filter by Category (doesn't work right now)</h2>
+					<!-- <h2>Filter by Category (doesn't work right now)</h2> -->
+					<h2>Search</h2>
 				</g:HTML>
-				<g:TextBox></g:TextBox>
+				
+				<g:TextBox ui:field="textbox"></g:TextBox>
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
 		<g:DecoratorPanel addStyleNames="withMargin">

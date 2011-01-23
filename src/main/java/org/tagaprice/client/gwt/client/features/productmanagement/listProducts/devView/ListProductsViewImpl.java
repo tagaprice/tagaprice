@@ -3,12 +3,13 @@ package org.tagaprice.client.gwt.client.features.productmanagement.listProducts.
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
-import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -35,8 +36,17 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 	}
 
 	@Override
-	public void setPresenter(Presenter presenter) {
+	public void setPresenter(final Presenter presenter) {
 		this.presenter = presenter;
+		this.textbox.addKeyUpHandler(new KeyUpHandler() {
+
+
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+				presenter.onSearch(textbox.getText());
+
+			}
+		});
 	}
 
 	/**
@@ -52,6 +62,9 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 
 	@UiField
 	Button addProduct;
+
+	@UiField
+	TextBox textbox;
 
 	public FlexTable getTable() {
 		return this.table;
@@ -87,6 +100,7 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 
 	@Override
 	public void setData(ArrayList<T> data) {
+		this.table.removeAllRows();
 		for (int i = 0; i < data.size(); i++) {
 			T elem = data.get(i);
 			for (int j = 0; j < this.columnDefinitions.size(); j++) {
