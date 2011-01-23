@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 
 import com.google.gwt.core.client.GWT;
@@ -23,6 +25,18 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	@Override
 	public void setCategory(ICategory category) {
 		categorySelecter.setCategory(category);
+	}
+
+	@Override
+	public ICategory getCategory() {
+		return categorySelecter.getCategory();
+
+	}
+
+	@Override
+	public void setAvailableCategories(ArrayList<ICategory> categories) {
+		categorySelecter.setAvailableCategories(categories);
+
 	}
 
 }

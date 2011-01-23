@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * @author haja
  */
-@ContextConfiguration //(locations = { "/spring/test-beans.xml", "AbstractProductDaoTest-context.xml" })
+@ContextConfiguration
 public class AbstractProductRevisionDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected IProductRevisionDAO _productRevisionDao;
@@ -55,12 +55,13 @@ public class AbstractProductRevisionDaoTest extends AbstractTransactionalJUnit4S
 	public void getByTitle_shouldReturnAllProductsRevisionsWithCokeInTitle() {
 		String title = "coke";
 		List<ProductRevision> actual = _productRevisionDao.getByTitle(title);
-
+		_log.debug("number of productrevision "+actual.size());
 		int count=0;
 		for(ProductRevision p : actual) {
 			p.getTitle().contains(title);
+			_log.debug(p.getTitle());
 			count++;
 		}
-		assertThat(count, is(count));
+		assertThat(count, is(3));
 	}
 }

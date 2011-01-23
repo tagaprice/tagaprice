@@ -1,5 +1,33 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+  <table name="locale">
+    <column>locale_id</column>
+    <column>title</column>
+    <column>localTitle</column>
+    <row>
+      <value>1</value>
+      <value>english</value>
+      <value>english</value>
+    </row>
+  </table>
+  
+   <table name="entity">
+    <column>ent_id</column>
+    <column>locale_id</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>1</value>
+    </row>
+  </table>
+  
   <table name="entityRevision">
     <column>ent_id</column>
     <column>rev</column>
@@ -9,21 +37,21 @@
     <row>
       <value>1</value>
       <value>1</value>
-      <value>product1</value>
+      <value>coke</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
     <row>
       <value>1</value>
       <value>2</value>
-      <value>product1</value>
+      <value>other coke</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
     <row>
       <value>2</value>
       <value>1</value>
-      <value>product2</value>
+      <value>no coke</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
@@ -38,6 +66,13 @@
       <value>3</value>
       <value>1</value>
       <value>account1</value>
+      <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>4</value>
+      <value>1</value>
+      <value>product3</value>
       <value><![CDATA[2010-12-24 19:00:00.000000]]></value>
       <value>3</value>
     </row>
@@ -56,47 +91,52 @@
     </row>
   </table>
   
+  <table name="product">
+    <column>ent_id</column>
+    <row>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+    </row>
+  </table>
+  
   <table name="productRevision">
     <column>ent_id</column>
     <column>rev</column>
-    <column>title</column>
-    <column>unit_id</column>
+    <column>unit</column>
     <column>amount</column>
     <column>category_id</column>
     <column>imageurl</column>
     <row>
       <value>1</value>
       <value>1</value>
-      <value>coke</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>0</value>
       <value>www.urlToImage.com</value>
     </row>
     <row>
       <value>1</value>
       <value>2</value>
-      <value>other coke</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>1</value>
       <value>www.differentUrlToImage.com</value>
     </row>
     <row>
       <value>2</value>
       <value>1</value>
-      <value>cake</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>0</value>
       <value>www.image.com</value> 
     </row>
     <row>
       <value>2</value>
       <value>2</value>
-      <value>other cake</value>
-      <null/>
-      <null/>
+      <value>g</value>
+      <value>100</value>
       <value>2</value>
       <value>www.image.org</value>
     </row>
@@ -130,5 +170,4 @@
       <value>3</value>
     </row>
   </table>
-  
 </dataset>

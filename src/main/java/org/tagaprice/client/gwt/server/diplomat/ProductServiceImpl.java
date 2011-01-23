@@ -15,6 +15,9 @@ import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.boot.Boot;
+import org.tagaprice.server.dao.interfaces.IProductDAO;
+import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
+import org.tagaprice.server.service.DefaultProductService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
@@ -43,6 +46,11 @@ IProductService {
 		_log.debug("Attempting to load product service from core.api");
 		try {
 			coreService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
+			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
+			
+			
+//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO")); 
+//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
 			_log.debug("Loaded product service successfully.");
 		} catch(Exception e) {
 			_log.debug(e.getClass()+": "+e.getMessage());
@@ -67,18 +75,15 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
-		_log.debug("getProducts for name " + searchCriteria.getTitle());
+		_log.debug("getProducts for name " + searchCriteria);
 
 		List<Product> list = new ArrayList<Product>();
 		try {
-
 			if(searchCriteria != null){
 				list = coreService.getByTitle(searchCriteria.getTitle());
 			}else if (searchCriteria == null){
 				list = coreService.getByTitle("");
 			}
-
-
 		} catch (ServerException e) {
 			_log.error("Exception thrown: " + e.getMessage());
 			e.printStackTrace();
@@ -117,7 +122,7 @@ IProductService {
 		Date date = new Date();
 		Category category = new Category(null, productGWT.getCategory().getTitle(), null, new Date(), ProductServiceImpl.defaultAccount);
 		//If product allready exists...
-		if(productGWT.getRevisionId() != null && productGWT.getRevisionId().getId() != null && productGWT.getRevisionId().getId() != 0L) {
+		if(productGWT.getRevisionId() != null && productGWT.getRevisionId().getId() != 0L && productGWT.getRevisionId().getId() != 0L) {
 			//productId =
 		}
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date, ProductServiceImpl.defaultAccount, null, null, category, "");

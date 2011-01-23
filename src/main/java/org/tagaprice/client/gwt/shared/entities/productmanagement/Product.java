@@ -18,12 +18,25 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 	public Product() {}
 
+	/**
+	 * Constructor to update a {@link Product}
+	 * @param revisionId
+	 * @param title
+	 * @param category
+	 * @param quantity
+	 */
 	public Product(IRevisionId revisionId, String title, ICategory category, IQuantity quantity) {
 		super(revisionId, title);
 		this._category = category;
 		this._quantity = quantity;
 	}
 
+	/**
+	 * Constructor to create a new {@link Product}
+	 * @param title
+	 * @param category
+	 * @param quantity
+	 */
 	public Product(String title, ICategory category, IQuantity quantity) {
 		super(title);
 		this._category = category;

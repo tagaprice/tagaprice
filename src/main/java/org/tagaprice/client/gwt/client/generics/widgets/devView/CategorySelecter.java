@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.logging.*;
@@ -14,25 +16,36 @@ import com.google.gwt.user.client.ui.ListBox;
 public class CategorySelecter extends Composite implements ICategorySelecter {
 	MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
-	ListBox categories = new ListBox();
+	ListBox _listBoxCategories = new ListBox();
+	ArrayList<ICategory> _availableCategories;
 
 	public CategorySelecter() {
-		initWidget(categories);
-		categories.addItem("root->food");
-		categories.addItem("root->beverages");
-		categories.addItem("root->beverages->nonalcoholics");
-		categories.addItem("root->beverages->alcoholics");
+		initWidget(_listBoxCategories);
 	}
 
 	@Override
 	public void setCategory(ICategory category){
 		logger.log("set category " + category.toString());
-		for(int i = 0; i < this.categories.getItemCount(); i++) {
-			logger.log("investigate " + this.categories.getItemText(i));
-			if(this.categories.getItemText(i).equals(category.toString())) {
-				this.categories.setSelectedIndex(i);
+		for(int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
+			logger.log("investigate " + this._listBoxCategories.getValue(i));
+			if(this._listBoxCategories.getItemText(i).equals(category.toString())) {
+				this._listBoxCategories.setSelectedIndex(i);
 				return;
 			}
+		}
+	}
+
+	@Override
+	public ICategory getCategory() {
+		return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
+	}
+
+	@Override
+	public void setAvailableCategories(ArrayList<ICategory> categories) {
+		this._availableCategories = categories;
+		this._listBoxCategories.clear();
+		for(ICategory c: this._availableCategories) {
+			this._listBoxCategories.addItem(c.toString(), c.getTitle());
 		}
 	}
 }

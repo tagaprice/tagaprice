@@ -11,8 +11,9 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	 * 
 	 */
 	private static final long serialVersionUID = 7814196347951588949L;
-	private ICategory parentCategory;
-	private ArrayList<ICategory> childCategories = new ArrayList<ICategory>();
+	private ICategory _parentCategory;
+	private ArrayList<ICategory> _childCategories = new ArrayList<ICategory>();
+	private int _id;
 
 	public Category(){}
 
@@ -22,24 +23,24 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 
 	@Override
 	public ICategory getParentCategory() {
-		return this.parentCategory;
+		return this._parentCategory;
 	}
 
 	@Override
 	public ArrayList<ICategory> getChildCategories() {
-		return this.childCategories;
+		return this._childCategories;
 	}
 
 	@Override
 	public void addChildCategory(ICategory category) {
-		this.childCategories.add(category);
+		this._childCategories.add(category);
 		category.setParentCategory(this);
 	}
 
 	@Override
 	public String toString() {
 		String text = this.getTitle();
-		ICategory parent = this.parentCategory;
+		ICategory parent = this._parentCategory;
 		while(parent != null) {
 			text = parent.getTitle() + "->" + text;
 			parent = parent.getParentCategory();
@@ -49,7 +50,7 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 
 	@Override
 	public void setParentCategory(ICategory category) {
-		this.parentCategory = category;
+		this._parentCategory = category;
 	}
 
 	@Override
@@ -61,6 +62,16 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	public boolean equals(Object o) {
 		//TODO Implement this correct
 		return (o.toString().equals(this.toString()));
+	}
+
+	@Override
+	public void setId(int id) {
+		this._id = id;
+	}
+
+	@Override
+	public int getId() {
+		return this._id;
 	}
 
 }

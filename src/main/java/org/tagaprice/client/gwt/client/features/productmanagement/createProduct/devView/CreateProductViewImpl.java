@@ -29,6 +29,27 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	private Presenter _presenter;
 
+	@UiField
+	Label nameI18N;
+	@UiField
+	Label quantityI18N;
+	@UiField
+	Label categoryI18N;
+
+	@UiField
+	Label id;
+	@UiField
+	TextBox name;
+	@UiField
+	QuantitySelecter _quantity;
+
+	@UiField
+	CategorySelecter category;
+
+
+	@UiField
+	Button saveButton;
+
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
 
@@ -51,26 +72,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 
 
-	@UiField
-	Label nameI18N;
-	@UiField
-	Label quantityI18N;
-	@UiField
-	Label categoryI18N;
 
-	@UiField
-	Label id;
-	@UiField
-	TextBox name;
-	@UiField
-	QuantitySelecter _quantity;
-
-	@UiField
-	CategorySelecter category;
-
-
-	@UiField
-	Button saveButton;
 
 	@Override
 	public void setQuantity(IQuantity quantity) {

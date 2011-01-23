@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -17,6 +16,8 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -32,7 +33,7 @@ import org.springframework.test.jdbc.SimpleJdbcTestUtils;
  */
 public class DbTestInitializer implements IDbTestInitializer {
 
-	private static final Logger _log = Logger.getLogger(DbTestInitializer.class);
+	private static final Logger _log = LoggerFactory.getLogger(DbTestInitializer.class);
 
 	private SimpleJdbcTemplate _jdbcTemplate;
 	private IDatabaseConnection _connection;
@@ -54,9 +55,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 			DatabaseConfig config = _connection.getConfig();
 			config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqldbDataTypeFactory());
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 
@@ -97,9 +98,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			DatabaseOperation.CLEAN_INSERT.execute(_connection, _dbUnitDataSet);
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 		return _dbUnitDataSet;
 	}
@@ -110,9 +111,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			DatabaseOperation.DELETE.execute(_connection, _dbUnitDataSet);
 		} catch (DatabaseUnitException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (SQLException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 
@@ -139,9 +140,9 @@ public class DbTestInitializer implements IDbTestInitializer {
 		try {
 			_dbUnitDataSet = new XmlDataSet(fillData.getInputStream());
 		} catch (DataSetException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		} catch (IOException e) {
-			DbTestInitializer._log.error(e);
+			DbTestInitializer._log.error(e.getMessage());
 		}
 	}
 }

@@ -40,8 +40,8 @@ public class ProductServiceImplTest {
 		IProduct productGWT = productService.convertProductToGWT(productCore, 0);
 
 		Assert.assertEquals(productCore.getCurrentRevision().getTitle(), productGWT.getTitle());
-		Assert.assertEquals(productCore.getId(), productGWT.getRevisionId().getId());
-		Assert.assertEquals(productCore.getCurrentRevision().getRevisionNumber().intValue(), productGWT.getRevisionId().getRevision().intValue());
+		Assert.assertEquals(productCore.getId().longValue(), productGWT.getRevisionId().getId());
+		Assert.assertEquals(productCore.getCurrentRevision().getRevisionNumber().intValue(), new Long(productGWT.getRevisionId().getRevision()).intValue());
 		Assert.assertEquals(productCore.getCurrentRevision().getCategory().getTitle(), productGWT.getCategory().getTitle());
 		Assert.assertEquals(productCore.getCurrentRevision().getAmount().doubleValue(), productGWT.getQuantity().getQuantity(), 0.01);
 		Assert.assertEquals(productCore.getCurrentRevision().getUnit(), productGWT.getQuantity().getUnit());

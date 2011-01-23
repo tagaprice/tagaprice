@@ -6,6 +6,8 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.LoginPla
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.CreateProductActivity;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
+import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopActivity;
+import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
@@ -38,7 +40,11 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof LoginPlace){
 			logger.log("return new LoginActivity");
 			return new LoginActivity((LoginPlace)place, this.clientFactory);
+		}else if (place instanceof CreateShopPlace){
+			logger.log("return new CreateShopActivity");
+			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);
 		}else {
+
 			// THIS ELSE IS IMPORTANT TO AVOID FAILURES
 			// IF THE PROGRAMER FORGOTT TO RETURN A VALUE
 			return null;
