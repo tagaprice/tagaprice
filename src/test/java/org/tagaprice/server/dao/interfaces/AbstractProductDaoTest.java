@@ -2,15 +2,14 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,9 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
+import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Unit;
+import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.IDbTestInitializer;
@@ -49,6 +50,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	protected IDbTestInitializer _dbInitializer;
 	private Logger _log = LoggerFactory.getLogger(AbstractProductDaoTest.class);
 	private IDataSet _currentDataSet;
+	private SessionFactory _sessionFactory;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -65,6 +67,9 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		_currentDataSet = _dbInitializer.fillTables();
 
 		_productDao = applicationContext.getBean("productDao", IProductDAO.class);
+
+		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
 	}
 
 	@After
@@ -77,8 +82,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -96,6 +101,11 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(actual);
+		for (ProductRevision rev : expectedRevisions)
+			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
 	@Test
@@ -103,8 +113,8 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(4L, creator);
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
 		long id = 4;
 		int numberRevisions = 2;
@@ -124,6 +134,59 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		assertThat(updated.getRevisions(), hasItem(newRev));
 		assertThat(updated.getId(), equalTo(id));
+
+		_sessionFactory.getCurrentSession().flush();
+		DbSaveAssertUtility.assertEntitySaved(saved);
+		DbSaveAssertUtility.assertEntitySaved(updated);
+		for (ProductRevision rev : updated.getRevisions())
+			DbSaveAssertUtility.assertEntitySaved(rev);
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
+		_log.info("running test");
+
+		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
+		Locale locale = HibernateSaveEntityCreator.createLocale(1);
+
+		long id = 4;
+		int numberRevisions = 2;
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id, locale,
+				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
+
+		Product saved = _productDao.save(productToSave);
+
+		// copy original revs
+		Set<ProductRevision> originalRevs = new HashSet<ProductRevision>();
+		originalRevs.addAll(saved.getRevisions());
+		assertThat(originalRevs.size(), is(2));
+
+		int revisionNumber = 3;
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
+				category);
+
+		Product productWithJustNewRev = saved;
+		saved.getRevisions().clear();
+		saved.getRevisions().add(newRev);
+		assertThat(saved.getRevisions().size(), is(1));
+
+
+		Product updated = _productDao.save(productWithJustNewRev);
+
+		assertThat(updated.getRevisions(), hasItem(newRev));
+		assertThat(updated.getId(), equalTo(id));
+
+		_sessionFactory.getCurrentSession().flush();
+		// assert updates
+		DbSaveAssertUtility.assertEntitySaved(updated);
+		DbSaveAssertUtility.assertEntitySaved(newRev);
+
+		// assert original revisions
+		for (ProductRevision rev : originalRevs)
+			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
 

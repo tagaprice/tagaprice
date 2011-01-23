@@ -18,6 +18,7 @@ import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -81,7 +82,7 @@ public class Product implements Serializable {
 			throw new IllegalArgumentException("revisions must not be empty");
 		if(id != null && id <= 0L)
 			throw new IllegalArgumentException("id must not be greater than 0 or null");
-		
+
 		_id = id;
 		_locale = locale;
 		_revisions.addAll(revisions);
@@ -121,7 +122,8 @@ public class Product implements Serializable {
 	/**
 	 * Returns a copy of all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
 	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE } )
 	@JoinColumn(name = "ent_id")
 	@Sort(type = SortType.COMPARATOR, comparator = RevisionComparator.class)
 	public SortedSet<ProductRevision> getRevisions() {
