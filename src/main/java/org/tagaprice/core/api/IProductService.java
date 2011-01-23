@@ -29,7 +29,9 @@ public interface IProductService {
 	List<Product> getAll();
 
 	/**
-	 * Return a {@link Product} and all its revisions with the specified id.
+	 * Get a {@link Product} and all its revisions with the specified id.
+	 * @param id Id of the {@link Product} to get.
+	 * @return The {@link Product} with specified id, or null if no product with specified id exists.
 	 */
 	Product getById(Long id);
 }

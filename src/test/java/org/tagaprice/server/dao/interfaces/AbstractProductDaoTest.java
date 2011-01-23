@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -164,6 +163,17 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		assertThat(actual.getRevisions(), hasItems(rev1, rev2));
 		assertThat(actual.getRevisions().size(), equalTo(2));
 	}
+
+	@Test
+	public void getById_unknownId_shouldReturnNull() throws Exception {
+		_log.info("running test");
+
+		Long unkownId = 100L; // this id should not be in the dataset
+		Product actual = _productDao.getById(unkownId);
+
+		assertThat(actual, equalTo(null));
+	}
+
 
 	@Test
 	public void loadAllProducts() throws Exception {
