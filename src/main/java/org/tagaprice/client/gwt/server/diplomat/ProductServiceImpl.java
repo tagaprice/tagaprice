@@ -24,6 +24,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * This is the Servlet that relies on the server-service
  * 
  * @author Martin
+ * @author Helga
  * 
  */
 public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
@@ -113,9 +114,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("product :"+product);
 
 		try {
-
 			Product productCore = _coreProductService.save(convertProductToCore(product));
-
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block
@@ -165,9 +164,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		if (productGWT.getRevisionId() != null) {
 			productId = productGWT.getRevisionId().getId();
 			revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
+
+
 		}
 		String title = productGWT.getTitle();
 		Date date = new Date();
+		String  imageUrl = "";
+
 		// TODO Category must never be null!
 		Category category;
 		if (productGWT.getCategory() != null) {
@@ -180,16 +183,15 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		Double amount = productGWT.getQuantity().getQuantity();
 		Unit unit = productGWT.getQuantity().getUnit();
 
-		// ProductRevision quantity = new ProductRevision(productId, revisionNumber, title, date,
-		// ProductServiceImpl.defaultAccount, unit, amount , category, "");
 		// If product already exists...
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
 				ProductServiceImpl.defaultCoreAccount, unit, amount, category, "");
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(revision);
 
-		Product productCore = new Product(productId, ProductServiceImpl.defaultCoreLocale,
-				revisions);
+		// ids must be the same value. if they are null the product must be created as new.
+
+		Product productCore = new Product(productId, ProductServiceImpl.defaultCoreLocale, revisions);
 		return productCore;
 	}
 
