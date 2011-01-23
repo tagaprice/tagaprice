@@ -56,7 +56,11 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 			@Override
 			public void onSuccess(ArrayList<ICategory> result) {
-				CreateProductActivity._logger.log("Received " + result.size() + " categories");
+				int resultsize = 0;
+				if(result != null) {
+					resultsize = result.size();
+				}
+				CreateProductActivity._logger.log("Received " + resultsize + " categories");
 				_clientFactory.getCreateProductView().setAvailableCategories(result);
 			}
 
@@ -124,6 +128,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			@Override
 			public void onFailure(Throwable caught) {
 				updateView(new Product("Fehler beim Speichern", new Category("bla"), new Quantity()));
+				CreateProductActivity._logger.log(caught.getLocalizedMessage());
 
 			}
 		});
