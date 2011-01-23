@@ -108,6 +108,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		return this.name.getText();
 	}
 
+	@Override
+	public void setId(long id) {
+		this.id.setText(String.valueOf(id));
+	}
+
 
 
 }
