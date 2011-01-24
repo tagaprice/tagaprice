@@ -13,4 +13,9 @@ public interface ILoginService {
 	 * @throws UserAlreadyLoggedInException Thrown to indicate that user is already logged in. Multiple sessions for the same user are not supported.
 	 */
 	Session login(String email, String password) throws ServerException, WrongEmailOrPasswordException, UserAlreadyLoggedInException;
+
+	/**
+	 * Logs out user for given sessionToken if user has been logged in. Does not indicate if user has been logged in.
+	 */
+	void logout(Session sessionToken);
 }

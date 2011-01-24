@@ -14,23 +14,21 @@
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
 			   
-  <bean id="defaultProductService"
-    class="org.tagaprice.server.service.DefaultProductService">
-  	<property name="productDAO" ref="defaultProductDAO"/>
-  	<property name="productRevisionDAO" ref="defaultProductRevisionDAO"/>
-  </bean>
-  
-  <bean id="defaultProductDAO"
-    class="org.tagaprice.server.dao.hibernate.HibernateProductDAO">
-  	<property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
-  
-  <bean id="defaultProductRevisionDAO"
-    class="org.tagaprice.server.dao.hibernate.HibernateProductRevisionDAO">
-  	<property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
+	<bean id="defaultLoginService"
+	      class="org.tagaprice.server.service.DefaultLoginService">
+	      <property name="localAccountDAO" ref="defaultAccountDao"/>
+	      <property name="sessionFactory" ref="defaultSessionFactory"/>
+	</bean>
 	
-		<!-- enable the configuration of transactional behavior based on annotations-->
+	<bean id="defaultSessionFactory"
+	      class="org.tagaprice.server.service.SessionService">
+	</bean>
+	
+	<bean id="defaultAccountDao" class="org.tagaprice.server.dao.hibernate.HibernateAccountDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- enable the configuration of transactional behavior based on annotations-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 </beans>

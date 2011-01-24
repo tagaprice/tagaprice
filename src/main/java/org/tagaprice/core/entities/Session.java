@@ -40,4 +40,9 @@ public class Session {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Session [_sessionId=" + Arrays.toString(_sessionId) + "]";
+	}
 }

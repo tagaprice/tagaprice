@@ -1,29 +1,22 @@
 package org.tagaprice.server.integration;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.dbunit.dataset.IDataSet;
+import javax.sql.DataSource;
+
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
@@ -32,13 +25,13 @@ import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.service.DefaultProductService;
 
 @ContextConfiguration
-public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTests { 
-	private static Logger _log = LoggerFactory.getLogger(SaveProductTest.class);
+public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
+	private static Logger _log = LoggerFactory.getLogger(ProductManagementTest.class);
 	private IDbTestInitializer _dbInitializer;
-	private DefaultProductService _productService;
+	private IProductService _productService;
+	@SuppressWarnings("unused")
 	private SessionFactory _sessionFactory;
 	
 	@Before
@@ -50,16 +43,15 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 		_dbInitializer.dropAndRecreate();
 		_dbInitializer.fillTables();
 
-		_productService = applicationContext.getBean("defaultProductService", DefaultProductService.class);
+		_productService = applicationContext.getBean("defaultProductService", IProductService.class);
 		
 		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
-		DbSaveAssertUtility.setSimpleJdbcTemplate(super.simpleJdbcTemplate);
+		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
 	}
 	
 	@After
 	public void tearDown() throws Exception {}
 	
-	@Rollback(false)
 	@Test
 	public void saveNewProduct_shouldPersistProduct_shouldReturnProductWithNewIdSet() throws Exception {
 		_log.info("running test");
@@ -83,13 +75,11 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 
 		compareProductsAndRevisions(actual, expected);
 		
-		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 	
-	@Rollback(false)
 	@Test
 	public void saveExistingProduct_shouldPersistProductWithOutDeletingOldRevisions_shouldReturnProductWithAllRevisions() throws Exception {
 		_log.info("running test");
@@ -118,7 +108,6 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 
 		compareProductsAndRevisions(actual, expected);
 		
-		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);

@@ -37,6 +37,7 @@
   	-->
 	<import resource="classpath:spring/productManagement-beans.xml" />
 	<import resource="classpath:spring/categoryManagement-beans.xml" />
+	<import resource="classpath:spring/login-beans.xml" />
  
 		<!-- 
   	-	enable the configuration of transactional behavior based on annotations. for this a bean transactionManager must be defined TODO try to refactor this to service
