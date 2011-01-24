@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.shared.entities.receiptManagement;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import org.tagaprice.client.gwt.shared.entities.AEntity;
@@ -45,7 +45,6 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 */
 
 	public Receipt(Long id, Date date, Shop shop, User user, Set<ReceiptEntry> receiptEntries) {
-		super();
 		_date = date;
 		_shop = shop;
 		_user = user;
@@ -98,11 +97,6 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		+ ", _receiptEntries=" + _receiptEntries + "]";
 	}
 
-	//TODO
-	public boolean equals(){
-		return false;
-
-	}
 
 	@Override
 	public IReceipt copy() {
@@ -110,10 +104,51 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		return null;
 	}
 
-	//TODO
-	public int HashCode(){
-		return 0;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_date == null) ? 0 : _date.hashCode());
+		result = prime * result + ((_receiptEntries == null) ? 0 : _receiptEntries.hashCode());
+		result = prime * result + ((_shop == null) ? 0 : _shop.hashCode());
+		result = prime * result + ((_user == null) ? 0 : _user.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Receipt other = (Receipt) obj;
+		if (_date == null) {
+			if (other._date != null)
+				return false;
+		} else if (!_date.equals(other._date))
+			return false;
+		if (_receiptEntries == null) {
+			if (other._receiptEntries != null)
+				return false;
+		} else if (!_receiptEntries.equals(other._receiptEntries))
+			return false;
+		if (_shop == null) {
+			if (other._shop != null)
+				return false;
+		} else if (!_shop.equals(other._shop))
+			return false;
+		if (_user == null) {
+			if (other._user != null)
+				return false;
+		} else if (!_user.equals(other._user))
+			return false;
+		return true;
+	}
+
+
+
 
 
 }
