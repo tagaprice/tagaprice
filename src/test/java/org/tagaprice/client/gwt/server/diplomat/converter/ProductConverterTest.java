@@ -42,24 +42,31 @@ public class ProductConverterTest {
 		java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
 		revisions.add(newProductRevision);
 		this.newProductCore = new Product(null, ProductConverter.defaultCoreLocale, revisions);
+
+		this.newProductGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(newProductTitle, categories.gwtCategoryChild, new Quantity(newProductAmount, newProductUnit));
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * Tests, if a new Product in GWT is corrctly converted to a Product in core.
+	 * A new Product in core has id = null and revision = 1, in gwt it can be zero or null also.
+	 * @throws Exception
+	 */
 	@Test
 	public void testConvertNewProductToCore() throws Exception {
-		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("Testprodukt", new org.tagaprice.client.gwt.shared.entities.dump.Category("Testcategory"), new Quantity(3.4,Unit.kg));
-		productGWT.setRevisionId(new RevisionId(3L, 2L));
+		Product productCore = productConverter.convertProductToCore(this.newProductGWT);
+		ProductRevision revisionCore = productCore.getCurrentRevision();
 
-		Product productCore = productConverter.convertProductToCore(productGWT);
-		Assert.assertEquals(productGWT.getRevisionId().getId(), productCore.getId().longValue());
-		Assert.assertEquals(productGWT.getRevisionId().getRevision(), productCore.getCurrentRevision().getRevisionNumber().intValue());
-		Assert.assertEquals(productGWT.getTitle(), productCore.getCurrentRevision().getTitle());
-		Assert.assertEquals(productGWT.getCategory().getTitle(), productCore.getCurrentRevision().getCategory().getTitle());
-		Assert.assertEquals(productGWT.getQuantity().getQuantity(), productCore.getCurrentRevision().getAmount().doubleValue(), 0.01);
-		Assert.assertEquals(productGWT.getQuantity().getUnit(), productCore.getCurrentRevision().getUnit());
+		Assert.assertEquals(null, revisionCore.getId());
+		Assert.assertEquals(null, productCore.getId());
+		Assert.assertEquals(1, revisionCore.getRevisionNumber().intValue());
+		Assert.assertEquals(this.newProductTitle, revisionCore.getTitle());
+		Assert.assertEquals(this.newProductAmount.doubleValue(), revisionCore.getAmount().doubleValue(), 0.001);
+		Assert.assertEquals(this.newProductUnit, revisionCore.getUnit());
+		Assert.assertEquals(this.categories.coreCategoryChild, revisionCore.getCategory());
 	}
 	@Test
 	public void testConvertExistingProductToCore() throws Exception {

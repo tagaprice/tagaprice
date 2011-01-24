@@ -33,11 +33,12 @@ public class CategoryConverterTest {
 	public void setUp() throws Exception {
 		this.coreCategoryRoot = new Category(rootId, rootTitle, null, new Date(), CategoryConverter.defaultAccount);
 		this.coreCategoryChild = new Category(childId, childTitle, coreCategoryRoot, new Date(), CategoryConverter.defaultAccount);
+
 		this.gwtCategoryRoot = new org.tagaprice.client.gwt.shared.entities.dump.Category(rootTitle);
 		this.gwtCategoryRoot.setId(rootId);
 		this.gwtCategoryChild = new org.tagaprice.client.gwt.shared.entities.dump.Category(childTitle);
 		this.gwtCategoryChild.setId(childId);
-		this.gwtCategoryRoot.addChildCategory(gwtCategoryChild);
+		this.gwtCategoryChild.setParentCategory(gwtCategoryRoot);
 	}
 
 	@After
@@ -49,6 +50,7 @@ public class CategoryConverterTest {
 		ICategory convertedCategory = this.converter.convertCoreCategoryToGWT(coreCategoryRoot);
 		Assert.assertEquals(rootId, convertedCategory.getId());
 		Assert.assertEquals(rootTitle, convertedCategory.getTitle());
+		Assert.assertEquals(this.gwtCategoryRoot, convertedCategory);
 	}
 
 	@Test
@@ -58,6 +60,25 @@ public class CategoryConverterTest {
 		Assert.assertEquals(childTitle, convertedCategory.getTitle());
 		Assert.assertEquals(rootId, convertedCategory.getParentCategory().getId());
 		Assert.assertEquals(rootTitle, convertedCategory.getParentCategory().getTitle());
+		Assert.assertEquals(this.gwtCategoryChild, convertedCategory);
+		Assert.assertEquals(this.gwtCategoryRoot, convertedCategory.getParentCategory());
+
+	}
+
+	@Test
+	public void convertFromGWTToCoreOnlyRootTest() {
+		Category convertedCoreCategory = this.converter.convertGWTCategoryToCore(gwtCategoryRoot);
+		Assert.assertEquals(rootId, convertedCoreCategory.getId().longValue());
+		Assert.assertEquals(rootTitle, convertedCoreCategory.getTitle());
+	}
+
+	@Test
+	public void convertFromGWTToCoreWithChildTest() {
+		Category convertedCoreCategory = this.converter.convertGWTCategoryToCore(gwtCategoryChild);
+		Assert.assertEquals(childId, convertedCoreCategory.getId().longValue());
+		Assert.assertEquals(childTitle, convertedCoreCategory.getTitle());
+		Assert.assertEquals(rootId, convertedCoreCategory.getParent().getId().longValue());
+		Assert.assertEquals(rootTitle, convertedCoreCategory.getParent().getTitle());
 	}
 
 }

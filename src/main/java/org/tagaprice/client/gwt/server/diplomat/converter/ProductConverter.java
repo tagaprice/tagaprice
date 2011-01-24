@@ -20,7 +20,8 @@ public class ProductConverter {
 	// dummy values
 	public static final Locale defaultCoreLocale = new Locale(1, "de", "de");
 	public static final Account defaultCoreAccount = new Account(1L, "love@you.org", "super", new Date());
-	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(), ProductConverter.defaultCoreAccount);
+	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(),
+			ProductConverter.defaultCoreAccount);
 
 	public static ProductConverter getInstance() {
 		return ProductConverter.instance;
@@ -28,33 +29,34 @@ public class ProductConverter {
 
 	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
 		_log.debug("Convert GWT -> core, id: " + productGWT.getRevisionId());
-		// Default values for new product...
+		CategoryConverter categoryConverter = CategoryConverter.getInstance();
+
+		/*
+		 * Default values for new CoreProduct:
+		 */
 		Long productId = null;
 		Integer revisionNumber = 0;
 
+		/*
+		 * Check, if product allready existed
+		 */
 		if (productGWT.getRevisionId() != null) {
-			productId = productGWT.getRevisionId().getId();
-			revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
-
-
+			if (productGWT.getRevisionId().getId() != 0L) {
+				productId = productGWT.getRevisionId().getId();
+				//If product allready existed we increment the revision by 1
+				revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue() + 1;
+			}
 		}
 		String title = productGWT.getTitle();
 		Date date = new Date();
-		String  imageUrl = "";
+		String imageUrl = "";
 
 		// TODO Category must never be null!
-		Category category;
-		if (productGWT.getCategory() != null) {
-			category = new Category(new Long(productGWT.getCategory().getId()), productGWT.getCategory().getTitle(),
-					null, new Date(), ProductConverter.defaultCoreAccount);
-		} else {
-			category = ProductConverter.defaultCoreCategory;
-		}
+		Category category = categoryConverter.convertGWTCategoryToCore(productGWT.getCategory());
 
 		Double amount = productGWT.getQuantity().getQuantity();
 		Unit unit = productGWT.getQuantity().getUnit();
 
-		// If product already exists...
 		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
 				ProductConverter.defaultCoreAccount, unit, amount, category, "");
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
@@ -91,7 +93,6 @@ public class ProductConverter {
 				category, quantity);
 		return productGWT;
 	}
-
 
 
 

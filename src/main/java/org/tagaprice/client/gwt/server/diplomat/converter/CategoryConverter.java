@@ -27,22 +27,40 @@ public class CategoryConverter {
 	public static CategoryConverter getInstance() {
 		return CategoryConverter.instance;
 	}
-
 	public ICategory convertCoreCategoryToGWT(Category coreCategory) {
-		ICategory gwtCategory = new org.tagaprice.client.gwt.shared.entities.dump.Category();
+		return this.convertCoreCategoryToGWT(coreCategory, true);
+	}
+
+	public ICategory convertCoreCategoryToGWT(Category coreCategory, boolean reset) {
+		if(reset)
+			this.gwtCategories.clear();
+		ICategory gwtCategory = this.gwtCategories.get(coreCategory.getId());
+		if(gwtCategory != null) {
+			return gwtCategory;
+		}
+		/*
+		 * The gwtCategory is not cached now...
+		 */
+		gwtCategory = new org.tagaprice.client.gwt.shared.entities.dump.Category();
 		gwtCategory.setId(coreCategory.getId());
 		gwtCategory.setTitle(coreCategory.getTitle());
 		ICategory parentGWTCategory;
-		if(coreCategory.getParent() != null) {
-			parentGWTCategory = this.gwtCategories.get(coreCategory.getParent().getId());
-			if(parentGWTCategory != null) {
-				gwtCategory.setParentCategory(parentGWTCategory);
-			} else {
-				gwtCategory.setParentCategory(this.convertCoreCategoryToGWT(coreCategory.getParent()));
+		Category parentCoreCategory;
+		if((parentCoreCategory = coreCategory.getParent()) != null) {
+			parentGWTCategory = this.gwtCategories.get(parentCoreCategory.getId());
+			if(parentGWTCategory == null) {
+
+				/*
+				 * Parent Category is not converted now.
+				 * Convert it recursivley.
+				 */
+				parentGWTCategory = this.convertCoreCategoryToGWT(parentCoreCategory, false);
 			}
+			gwtCategory.setParentCategory(parentGWTCategory);
 		} else {
 			//Nothing, is local root
 		}
+		this.gwtCategories.put(coreCategory.getId(), gwtCategory);
 		return gwtCategory;
 	}
 
