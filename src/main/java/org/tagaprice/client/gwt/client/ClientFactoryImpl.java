@@ -1,7 +1,9 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LoginViewImpl;
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LogoutViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.CreateProductViewImpl;
@@ -39,6 +41,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
+	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
+
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -87,6 +91,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ILoginServiceAsync getLoginService() {
 		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
+	}
+
+	@Override
+	public ILogoutView getLogoutView() {
+		return ClientFactoryImpl.LOGOUT_VIEW;
 	}
 
 }

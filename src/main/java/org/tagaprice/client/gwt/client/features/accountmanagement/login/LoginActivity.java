@@ -7,13 +7,15 @@ import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
-public class LoginActivity implements ILoginView.Presenter, Activity {
+public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(LoginActivity.class);
 
 	private ILoginView loginView;
+	private ILogoutView logoutView;
 	private LoginPlace _place;
 	private ClientFactory _clientFactory;
 
@@ -47,17 +49,33 @@ public class LoginActivity implements ILoginView.Presenter, Activity {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		LoginActivity._logger.log("activity startet");
 
-		loginView = _clientFactory.getLoginView();
-		loginView.setPresenter(this);
+		System.out.println("showCooky: "+Cookies.getCookie("TAP_SID"));
 
-		panel.setWidget(loginView);
+
+
+		if(Cookies.getCookie("TAP_SID")==null || Cookies.getCookie("TAP_SID").isEmpty()){
+			System.out.println("showLogIN");
+			loginView = _clientFactory.getLoginView();
+			loginView.setPresenter(this);
+
+			panel.setWidget(loginView);
+		}else{
+			System.out.println("showLogou");
+			logoutView = _clientFactory.getLogoutView();
+			logoutView.setPresenter(this);
+
+			panel.setWidget(logoutView);
+		}
+
+
+
+
+
 	}
 
 	@Override
 	public void goTo(Place place) {
-		// TODO Auto-generated method stub
-
-
+		this._clientFactory.getPlaceController().goTo(place);
 	}
 
 	@Override
@@ -74,6 +92,8 @@ public class LoginActivity implements ILoginView.Presenter, Activity {
 					@Override
 					public void onSuccess(String sessionId) {
 						LoginActivity._logger.log("Login OK. SessionId: "+sessionId);
+						Cookies.setCookie("TAP_SID", sessionId);
+						goTo(new LoginPlace(sessionId));
 					}
 
 					@Override
@@ -84,6 +104,13 @@ public class LoginActivity implements ILoginView.Presenter, Activity {
 				});
 			}
 		}
+	}
+
+	@Override
+	public void onLogOutEvent() {
+		LoginActivity._logger.log("LogOut Button clicked");
+		Cookies.removeCookie("TAP_SID");
+		goTo(new LoginPlace());
 	}
 
 }
