@@ -31,7 +31,10 @@ public class CategoryConverter {
 		return this.convertCoreCategoryToGWT(coreCategory, true);
 	}
 
-	public ICategory convertCoreCategoryToGWT(Category coreCategory, boolean reset) {
+	private ICategory convertCoreCategoryToGWT(Category coreCategory, boolean reset) {
+		if(coreCategory == null) {
+			return null;
+		}
 		if(reset)
 			this.gwtCategories.clear();
 		ICategory gwtCategory = this.gwtCategories.get(coreCategory.getId());
@@ -65,7 +68,33 @@ public class CategoryConverter {
 	}
 
 	public Category convertGWTCategoryToCore(ICategory gwtCategory) {
-		return null;
+		return this.convertGWTCategoryToCore(gwtCategory, true);
 	}
+
+	private Category convertGWTCategoryToCore(ICategory gwtCategory, boolean reset) {
+		if(gwtCategory == null) {
+			return null;
+		}
+		if(reset) {
+			this.coreCategories.clear();
+		}
+		Category coreCategory = this.coreCategories.get(gwtCategory.getId());
+		if(coreCategory != null) {
+			return coreCategory;
+		}
+		/*
+		 * The coreCategory is not cached now...
+		 */
+		long id = gwtCategory.getId();
+		String title = gwtCategory.getTitle();
+		Category parentCoreCategory = this.convertGWTCategoryToCore(gwtCategory.getParentCategory(), false);
+
+		coreCategory = new Category(id, title, parentCoreCategory, new Date(), CategoryConverter.defaultAccount);
+		this.coreCategories.put(id, coreCategory);
+
+		return coreCategory;
+	}
+
+
 
 }

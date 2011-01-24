@@ -70,6 +70,7 @@ public class CategoryConverterTest {
 		Category convertedCoreCategory = this.converter.convertGWTCategoryToCore(gwtCategoryRoot);
 		Assert.assertEquals(rootId, convertedCoreCategory.getId().longValue());
 		Assert.assertEquals(rootTitle, convertedCoreCategory.getTitle());
+		Assert.assertEquals(this.coreCategoryRoot, convertedCoreCategory);
 	}
 
 	@Test
@@ -79,6 +80,8 @@ public class CategoryConverterTest {
 		Assert.assertEquals(childTitle, convertedCoreCategory.getTitle());
 		Assert.assertEquals(rootId, convertedCoreCategory.getParent().getId().longValue());
 		Assert.assertEquals(rootTitle, convertedCoreCategory.getParent().getTitle());
+		Assert.assertEquals(this.coreCategoryChild, convertedCoreCategory);
+		Assert.assertEquals(this.coreCategoryRoot, convertedCoreCategory.getParent());
 	}
 
 }
