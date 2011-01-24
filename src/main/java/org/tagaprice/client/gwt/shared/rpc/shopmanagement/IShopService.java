@@ -8,7 +8,7 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("productservice")
+@RemoteServiceRelativePath("shopservice")
 public interface IShopService extends RemoteService {
 
 	public ArrayList<IShop> getShops(IShop searchCriteria);
