@@ -1,8 +1,6 @@
 package org.tagaprice.client.gwt.server.diplomat.converter;
 
 
-import java.util.Date;
-
 import org.junit.*;
 import org.tagaprice.client.gwt.server.diplomat.converter.CategoryConverter;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
@@ -31,8 +29,8 @@ public class CategoryConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.coreCategoryRoot = new Category(rootId, rootTitle, null, new Date(), CategoryConverter.defaultAccount);
-		this.coreCategoryChild = new Category(childId, childTitle, coreCategoryRoot, new Date(), CategoryConverter.defaultAccount);
+		this.coreCategoryRoot = new Category(rootId, rootTitle, null, DefaultValues.defaultDate, DefaultValues.defaultCoreAccount);
+		this.coreCategoryChild = new Category(childId, childTitle, coreCategoryRoot, DefaultValues.defaultDate, DefaultValues.defaultCoreAccount);
 
 		this.gwtCategoryRoot = new org.tagaprice.client.gwt.shared.entities.dump.Category(rootTitle);
 		this.gwtCategoryRoot.setId(rootId);
