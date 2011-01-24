@@ -1,7 +1,6 @@
 package org.tagaprice.server.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -27,6 +26,10 @@ public class DefaultProductService implements IProductService {
 	public Product save(Product product) throws OutdatedRevisionException {
 		if (product == null)
 			throw new IllegalArgumentException("product must not be null");
+		if(product.getCurrentRevision().getRevisionNumber() == null) {
+			_log.warn("revisionNumber of productRevision is NULL");
+			throw new OutdatedRevisionException("revisionNumber must not be null");
+		}
 
 		Long id = product.getId();
 
