@@ -9,7 +9,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.dbunit.dataset.IDataSet;
 import org.hibernate.SessionFactory;
@@ -33,8 +35,8 @@ import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.service.DefaultProductService;
 
 @ContextConfiguration
-public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTests { //TODO this class should not need to be transactional - service is already
-	private Logger _log = LoggerFactory.getLogger(SaveProductTest.class);
+public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTests { 
+	private static Logger _log = LoggerFactory.getLogger(SaveProductTest.class);
 	private IDbTestInitializer _dbInitializer;
 	private DefaultProductService _productService;
 	private SessionFactory _sessionFactory;
@@ -55,9 +57,7 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 	}
 	
 	@After
-	public void tearDown() throws Exception {
-//		_dbInitializer.resetTables();
-	}
+	public void tearDown() throws Exception {}
 	
 	@Rollback(false)
 	@Test
@@ -79,11 +79,9 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 		int expectedNumberRevisions = 2;
 		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevisions(expectedId, expectedNumberRevisions, expectedCreator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
+				HibernateSaveEntityCreator.createProductRevisions(expectedId, expectedNumberRevisions, expectedCreator, Unit.ml, HibernateSaveEntityCreator.createCategory(4L, creator)));
 
-		compareProducts(actual, expected);
-//		assertEquals(actual.getRevisions(), is(expected.getRevisions()));
-		
+		compareProductsAndRevisions(actual, expected);
 		
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
@@ -93,7 +91,7 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 	
 	@Rollback(false)
 	@Test
-	public void saveProduct_shouldPersistProductWithOutDeletingOldRevisions_shouldReturnProductWithAllRevisions() throws Exception {
+	public void saveExistingProduct_shouldPersistProductWithOutDeletingOldRevisions_shouldReturnProductWithAllRevisions() throws Exception {
 		_log.info("running test");
 		Long id = 1L;
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
@@ -113,13 +111,12 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, category1, "www.urlToImage.com"));
 		Category category2 = HibernateSaveEntityCreator.createCategory(1L, category1, "category1", expectedCreator);
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
 		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
 
-		compareProducts(actual, expected);
-//		assertEquals(actual.getRevisions(), is(expected.getRevisions()));
-		
+		compareProductsAndRevisions(actual, expected);
 		
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
@@ -127,16 +124,15 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 	
-	private static void compareProducts(Product actual, Product expected) {
-//		if (actual == expected)
-//			return;
-//		if (expected == null) {
-//			if(actual != null)
-//				fail();
-//		} 
-//		assertEquals(actual.getId(), equalTo(expected.getId()));
-//		
-//		assertEquals(actual.getRevisions(), is(expected.getRevisions()));
+	private static void compareProductsAndRevisions(Product actual, Product expected) {
+		assertEquals(actual, expected);
+		
+		compareProductRevisions(actual.getRevisions(), expected.getRevisions());
 	}
 
+	private static void compareProductRevisions(
+			SortedSet<ProductRevision> actual,
+			SortedSet<ProductRevision> expected) {
+		assertEquals(actual, expected);
+	}
 }

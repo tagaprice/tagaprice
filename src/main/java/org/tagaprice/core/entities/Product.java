@@ -173,4 +173,12 @@ public class Product implements Serializable {
 	public ProductRevision getCurrentRevision() {
 		return _revisions.first();
 	}
+
+	/**
+	 * Adds a new revision to this product. 
+	 */
+	public void addRevision(ProductRevision newRevision) {
+		_revisions.add(newRevision);
+		
+	}
 }

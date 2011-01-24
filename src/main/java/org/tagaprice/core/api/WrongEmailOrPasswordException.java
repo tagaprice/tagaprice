@@ -12,6 +12,10 @@ public class WrongEmailOrPasswordException extends ServerException {
 	 */
 	private static final long serialVersionUID = 3709660632429808829L;
 
+	public WrongEmailOrPasswordException() {
+		super("WrongEmailOrPasswordException");
+	}
+
 	public WrongEmailOrPasswordException(String message) {
 		super(message);
 	}

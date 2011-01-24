@@ -1,15 +1,20 @@
 package org.tagaprice.server.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.api.OutdatedRevisionException;
+import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.ArgumentUtitlity;
+import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -23,51 +28,78 @@ public class DefaultProductService implements IProductService {
 
 	@Transactional
 	@Override
-	public Product save(Product product) throws OutdatedRevisionException {
-		if (product == null)
+	public Product save(Product newProduct) throws OutdatedRevisionException {
+		if (newProduct == null)
 			throw new IllegalArgumentException("product must not be null");
-		if(product.getCurrentRevision().getRevisionNumber() == null) {
+		if(newProduct.getCurrentRevision().getRevisionNumber() == null) {
 			_log.warn("revisionNumber of productRevision is NULL");
 			throw new OutdatedRevisionException("revisionNumber must not be null");
 		}
 
-		Long id = product.getId();
+		Long id = newProduct.getId();
 
 		if (id == null) { // new product
 			Long newId = IdCounter.getNewId();
-			product.setId(newId);
+			newProduct.setId(newId);
 		} else {
 			Product persistedProduct = _productDao.getById(id);
 			ProductRevision persistedHighestRevision = persistedProduct.getCurrentRevision();
-			Integer persistedRevisionNumber = persistedHighestRevision.getRevisionNumber();
+			Integer persistedHighestRevisionNumber = persistedHighestRevision.getRevisionNumber();
 
-			ProductRevision detachedHighestRevision = product.getCurrentRevision();
-			Integer detachedRevisionNumber = detachedHighestRevision.getRevisionNumber();
+			ProductRevision newHighestRevision = newProduct.getCurrentRevision();
+			Integer newHighestRevisionNumber = newHighestRevision.getRevisionNumber();
+			
+			int numberNewRevisions = newHighestRevisionNumber - persistedHighestRevisionNumber;
 
-			if (persistedRevisionNumber > detachedRevisionNumber) // more than one revision has been saved meanwhile
-			{
+			if (numberNewRevisions < 0) {// more than one revision has been saved meanwhile
 				String message = "attempted to save outdated revision. highest persisted revision number: "
-					+ persistedRevisionNumber + ", highest revision number to be saved: " + detachedRevisionNumber;
+					+ persistedHighestRevisionNumber + ", highest revision number to be saved: " + newHighestRevisionNumber;
 				_log.info(message);
 				throw new OutdatedRevisionException(message);
-			} else if (persistedRevisionNumber == detachedRevisionNumber) // one revision has been saved meanwhile
-			{
-				if (!persistedHighestRevision.equals(detachedHighestRevision)) {
-					String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
-						+ persistedRevisionNumber
-						+ ", highest revision number to be saved: "
-						+ detachedRevisionNumber;
-					_log.info(message);
-					throw new OutdatedRevisionException(message);
-				}
+			} 
+			
+			if (numberNewRevisions == 0 && !persistedHighestRevision.equals(newHighestRevision)) { // one different revision has been saved meanwhile
+				String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
+					+ persistedHighestRevisionNumber
+					+ ", highest revision number to be saved: "
+					+ newHighestRevisionNumber;
+				_log.info(message);
+				throw new OutdatedRevisionException(message);
 			}
+			
+			//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part1
+			HashMap<Long, Account> creators = new HashMap<Long, Account>();
+			HashMap<Long, Category> categories = new HashMap<Long, Category>();
+			for(ProductRevision revision : persistedProduct.getRevisions()) {
+				creators.put(revision.getCreator().getUid(), revision.getCreator());
+				categories.put(revision.getCategory().getId(), revision.getCategory());
+			}
+
+			
+			Iterator<ProductRevision> it = newProduct.getRevisions().iterator();
+			for(;numberNewRevisions>0; numberNewRevisions--) {
+				ProductRevision next = it.next();
+				
+				//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part2
+				if(creators.containsKey(next.getCreator().getUid()))
+					next.setCreator(creators.get(next.getCreator().getUid()));
+				if(categories.containsKey(next.getCategory().getId()))
+					next.setCategory(categories.get(next.getCategory().getId()));
+				if(creators.containsKey(next.getCategory().getCreator().getUid()))
+					next.getCategory().setCreator(creators.get(next.getCategory().getCreator().getUid()));
+				
+				
+				persistedProduct.addRevision(next);
+			}
+			
+			newProduct = persistedProduct;
 		}
 
 		// TODO this doesn't load the current product. it just saves and returns it. fix here or in dao?
 		// TODO check if product has at least one ProductRevision. check here or in dao and throw?
-		_log.debug("id of the product to save: " + product.getId());
-		product = _productDao.save(product);
-		return product;
+		_log.debug("id of the product to save: " + newProduct.getId());
+		newProduct = _productDao.save(newProduct);
+		return newProduct;
 	}
 
 	@Transactional(readOnly=true)

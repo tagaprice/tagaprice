@@ -13,7 +13,7 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
-			   
+
 	<!-- 
 		-	import datasource, hibernate (sessionfactory+transactionmanager)
 	-->
@@ -28,6 +28,6 @@
 	<!--
 		-	Import Feature
 	-->
-	<import resource="classpath:spring/productManagement-beans.xml" />
-	
+	<import resource="classpath:spring/receiptManagement-beans.xml" />
+
 </beans>

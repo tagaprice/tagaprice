@@ -3,6 +3,9 @@ package org.tagaprice.server.dao.helper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -101,10 +104,20 @@ public class DbSaveAssertUtility {
 
 
 	/**
-	 * Set the {@link SimpleJdbcTemplate}.
+	 * Set the {@link SimpleJdbcTemplate}. This or {@link DbSaveAssertUtility#setDataSource(DataSource)} must be called
+	 * prior to calling any assertEntitySaved method.
 	 */
 	public static void setSimpleJdbcTemplate(SimpleJdbcTemplate template) {
 		DbSaveAssertUtility._jdbcOperations = template.getJdbcOperations();
+	}
+
+	/**
+	 * Set the {@link DataSource} to generate a {@link SimpleJdbcTemplate}. This or
+	 * {@link DbSaveAssertUtility#setSimpleJdbcTemplate(SimpleJdbcTemplate)} must be called prior to calling any
+	 * assertEntitySaved method.
+	 */
+	public static void setDataSource(DataSource dataSource) {
+		setSimpleJdbcTemplate(new SimpleJdbcTemplate(dataSource));
 	}
 
 	//

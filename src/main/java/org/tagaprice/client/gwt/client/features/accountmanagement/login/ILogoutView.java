@@ -3,29 +3,17 @@ package org.tagaprice.client.gwt.client.features.accountmanagement.login;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ILoginView extends IsWidget {
-
+public interface ILogoutView extends IsWidget {
 
 	/**
-	 * Sets the {@link Presenter} which implements the {@link ILoginView} to control this view. It is also necessary
-	 * for the {@link ILoginView} to communicate with the {@link Presenter}
+	 * Sets the {@link Presenter} which implements the {@link ILogoutView} to control this view. It is also necessary
+	 * for the {@link ILogoutView} to communicate with the {@link Presenter}
 	 * 
 	 * @param presenter
-	 *            Sets the {@link Presenter} which implements the {@link ILoginView} to control this view.
+	 *            Sets the {@link Presenter} which implements the {@link ILogoutView} to control this view.
 	 */
 	public void setPresenter(Presenter presenter);
 
-	/**
-	 * Returns the email address in the textbox
-	 * @return email address in textbox
-	 */
-	public String getEmail();
-
-	/**
-	 * Returns the password in the passwordTextBox
-	 * @return password in the passwordTextBox
-	 */
-	public String getPassword();
 
 	public interface Presenter {
 		/**
@@ -41,7 +29,8 @@ public interface ILoginView extends IsWidget {
 		/**
 		 * This methods signals that the user has clicked the login button
 		 */
-		public void onLoginEvent();
+		public void onLogOutEvent();
 
 	}
 }
+
