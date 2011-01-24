@@ -14,14 +14,11 @@
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
 			   
-	<!-- 
-		-	import datasource, hibernate (sessionfactory+transactionmanager), dbtestinitializer (dbunit)
-	-->
-	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
+	<bean id="defaultCategoryService" class="org.tagaprice.server.service.DefaultCategoryService">
+		<property name="categoryDAO" ref="defaultCategoryDAO"/>
+	</bean>
 	
-	<!--
-		-	Import Feature
-	-->
-	<import resource="classpath:spring/productManagement-beans.xml" />
-	
+	<bean id="defaultCategoryDAO" class="org.tagaprice.server.dao.hibernate.HibernateCategoryDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

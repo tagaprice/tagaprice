@@ -16,119 +16,31 @@
 			   
 			  
   <!-- 
-  	-
+		-	TESTDATA SETUP
   	-	Defines a dbTestInitializer which can be used to insert testdata
-  	-	
   	-	WARNING: Be aware that calling this dbTestInitalizer might wipe out your defined datasource.
-  	-
-  	-
     -->
-  <import resource="classpath:dbunit/setup.xml" />
+	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
 
-
-  <!-- 
-  	-	SERVICES
-  	
-    -	Services are transactional based on annotations. A TransactionManager transactionManager must be defined.
-    -	See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative-->
-    
-  <bean id="defaultProductService"
-    class="org.tagaprice.server.service.DefaultProductService">
-  	<property name="productDAO" ref="defaultProductDAO"/>
-  	<property name="productRevisionDAO" ref="defaultProductRevisionDAO"/>
-  </bean>
-  
-  <!--<bean id="defaultShopServvice"
-    class="org.tagaprice.server.service.DefaultShopService">
-  	<property name="shopDao" ref="defaultShopDao"/>
-  </bean>-->
-  
-  <bean id="defaultCategoryService"
-    class="org.tagaprice.server.service.DefaultCategoryService">
-  	<property name="categoryDAO" ref="defaultCategoryDAO"/>
-  </bean>
-  
-  <!-- enable the configuration of transactional behavior based on annotations-->
-  <tx:annotation-driven transaction-manager="transactionManager"/>
-
-
-  <!--
-  	-	PERSISTENCE LAYER	-	DAOS 
-  	-
-  	-	sessionfactory: needed by hibernate to manage its sessions
-  	-
-  -->
-  
-  <bean id="defaultProductDAO"
-    class="org.tagaprice.server.dao.hibernate.HibernateProductDAO">
-  	<property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
-  
-  <bean id="defaultProductRevisionDAO"
-    class="org.tagaprice.server.dao.hibernate.HibernateProductRevisionDAO">
-  	<property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
-  
-  <bean id="defaultCategoryDAO"
-    class="org.tagaprice.server.dao.hibernate.HibernateCategoryDAO">
-  	<property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
-
-
-
-  <!--
-  	-	PERSISTENCE LAYER	-	FRAMEWORK: HIBERNATE 
-  	-
-  	-	datasource:	specifies the database to use
-  	-	sessionfactory: needed by hibernate to manage its sessions
-  	-	transactionmanager: needed for transaction mgmt starting from service classes 
-  	-
-  -->
-
-  
- 	<!-- datasource
- 		-	url:	url for database. using hsqldb use either "jdbc:hsqldb:mem:test" for an in-memory db or "jdbc:hsqldb:hsql://localhost/xdb" for a standalone file-based database 
- 					(standalone db must have been started already - how to start: java -cp hsqldb-2.0.0.jar org.hsqldb.server.Server \-\-database.0 file:mydb \-\-dbname.0 xdb)
- 					
-					for production use change this to use a persistent database
+		<!--
+  	-	DATASOURCE
+  	-->
+	<import resource="classpath:spring/testDataSource-beans.xml" />
+	
+	<!--
+  	-	HIBERNATE
+  	-->
+	<import resource="classpath:spring/hibernate-beans.xml" />
+	
+		<!--
+  	-	Features
+  	-->
+	<import resource="classpath:spring/productManagement-beans.xml" />
+	<import resource="classpath:spring/categoryManagement-beans.xml" />
+ 
+		<!-- 
+  	-	enable the configuration of transactional behavior based on annotations. for this a bean transactionManager must be defined TODO try to refactor this to service
 		-->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<property name="url" value="jdbc:hsqldb:mem:test" />
-		<property name="username" value="sa" />
-		<property name="password" value="" />
-	</bean>
-
-	<!-- sessionfactory for hibernate:
-	this defines the main properties for hibernate or where to find them (configLocation). -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation">
-			<value>classpath:hibernate/hibernate.cfg.xml</value>
-		</property>
-		<property  name="configurationClass">
-			<value>org.hibernate.cfg.AnnotationConfiguration</value>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<!-- this cannot be used because it's initialized before the recreation of the tables is executed <prop key="hibernate.hbm2ddl.auto">validate</prop>-->
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.connection.autocommit">true</prop>
-			</props>
-		</property>
-	</bean>
-
-	<!-- transactionManager: 
-	transaction are started by service classes using this transactionManager bean -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	
-	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+  
 </beans>
