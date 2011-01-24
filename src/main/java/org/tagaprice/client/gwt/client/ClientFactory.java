@@ -6,6 +6,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
@@ -40,6 +41,10 @@ public interface ClientFactory {
 	 * @return
 	 */
 	ProductServiceDispatch getProductServiceDispatch();
+
+
+	ILoginServiceAsync getLoginService();
+
 
 	/****************** VIEWS ***********************/
 

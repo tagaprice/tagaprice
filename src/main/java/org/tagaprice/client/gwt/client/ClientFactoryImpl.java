@@ -11,7 +11,10 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreat
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
+import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.*;
 import com.google.gwt.place.shared.PlaceController;
 /**
@@ -34,7 +37,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
 	private static final ICreateShopView createShopview = new CreateShopViewImpl();
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
-
+	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
 
 	public ClientFactoryImpl() {
@@ -79,6 +82,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ICreateShopView getCreateShopView() {
 		return ClientFactoryImpl.createShopview;
+	}
+
+	@Override
+	public ILoginServiceAsync getLoginService() {
+		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
 	}
 
 }
