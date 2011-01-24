@@ -56,6 +56,7 @@ public class ProductConverter {
 		// ids must be the same value. if they are null the product must be created as new.
 
 		Product productCore = new Product(productId, DefaultValues.defaultCoreLocale, revisions);
+		_log.debug("Converted: " + productGWT + " into " + revision.getTitle() + ", " + revision.getId() + ", " + revision.getRevisionNumber());
 		return productCore;
 	}
 
@@ -82,6 +83,7 @@ public class ProductConverter {
 		IRevisionId revisionId = new RevisionId(id, revision);
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title,
 				category, quantity);
+		_log.debug("Converted: " + pr.getTitle() + ", " + pr.getId() + ", " + pr.getRevisionNumber() + " into " + productGWT);
 		return productGWT;
 	}
 
