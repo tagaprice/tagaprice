@@ -16,6 +16,7 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
+import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 
 /**
@@ -40,7 +41,7 @@ public class EntityCreator {
 	 * 
 	 */
 	public static Product createProductWithRevisions(Long id, Integer numberRevisions) {
-		return createProductWithRevisions(id, numberRevisions, 1, null);
+		return createProductWithRevisions(id, numberRevisions, 1, EntityCreator.createCategory(1L, 2L));
 	}
 
 	public static Product createProductWithRevisions(Long id, Integer numberRevisions, Integer localeId, Category category) {
@@ -108,11 +109,11 @@ public class EntityCreator {
 	}
 
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator) {
-		return createProductRevision(id, rev, title, createdAt, creator, null);
+		return createProductRevision(id, rev, title, createdAt, creator, EntityCreator.createCategory(1L, creator.getUid()));
 	}
 
 	public static ProductRevision createProductRevision(Long id, int rev, String title, Date createdAt, Account creator, Category category) {
-		return HibernateSaveEntityCreator.createProductRevision(id, rev, title, createdAt, creator, null, category);
+		return HibernateSaveEntityCreator.createProductRevision(id, rev, title, createdAt, creator, Unit.g, category);
 	}
 
 	/*

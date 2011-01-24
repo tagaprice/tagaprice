@@ -1,6 +1,7 @@
 package org.tagaprice.server.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.api.OutdatedRevisionException;
+import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.ArgumentUtitlity;
+import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
@@ -64,14 +67,28 @@ public class DefaultProductService implements IProductService {
 				throw new OutdatedRevisionException(message);
 			}
 			
-//			List<Account> creators = 
-//			List<Category> categories = 
+			//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part1
+			HashMap<Long, Account> creators = new HashMap<Long, Account>();
+			HashMap<Long, Category> categories = new HashMap<Long, Category>();
+			for(ProductRevision revision : persistedProduct.getRevisions()) {
+				creators.put(revision.getCreator().getUid(), revision.getCreator());
+				categories.put(revision.getCategory().getId(), revision.getCategory());
+			}
+
 			
 			Iterator<ProductRevision> it = newProduct.getRevisions().iterator();
 			for(;numberNewRevisions>0; numberNewRevisions--) {
 				ProductRevision next = it.next();
-				next.setCreator(persistedHighestRevision.getCreator()); //TODO WORKAROUND
-				next.setCategory(persistedHighestRevision.getCategory()); //TODO WORKAROUND 
+				
+				//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part2
+				if(creators.containsKey(next.getCreator().getUid()))
+					next.setCreator(creators.get(next.getCreator().getUid()));
+				if(categories.containsKey(next.getCategory().getId()))
+					next.setCategory(categories.get(next.getCategory().getId()));
+				if(creators.containsKey(next.getCategory().getCreator().getUid()))
+					next.getCategory().setCreator(creators.get(next.getCategory().getCreator().getUid()));
+				
+				
 				persistedProduct.addRevision(next);
 			}
 			

@@ -111,6 +111,7 @@ public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTes
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, category1, "www.urlToImage.com"));
 		Category category2 = HibernateSaveEntityCreator.createCategory(1L, category1, "category1", expectedCreator);
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
 		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
