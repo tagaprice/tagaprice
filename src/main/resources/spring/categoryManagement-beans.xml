@@ -14,20 +14,11 @@
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
 			   
-	<!-- 
-		-	import datasource, hibernate (sessionfactory+transactionmanager)
-	-->
-	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
+	<bean id="defaultCategoryService" class="org.tagaprice.server.service.DefaultCategoryService">
+		<property name="categoryDAO" ref="defaultCategoryDAO"/>
+	</bean>
 	
-	<!-- 
-	-	TESTDATA SETUP
-	-	Defines a dbTestInitializer which can be used to insert testdata
-	-->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
-	
-	<!--
-		-	Import Feature
-	-->
-	<import resource="classpath:spring/productManagement-beans.xml" />
-	
+	<bean id="defaultCategoryDAO" class="org.tagaprice.server.dao.hibernate.HibernateCategoryDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

@@ -154,13 +154,13 @@ public class ProductRevision implements Serializable {
 	}
 
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(table = "entityrevision", name = "creator")
 	public Account getCreator() {
 		return _creator;
 	}
 
-	private void setCreator(Account creator) {
+	public void setCreator(Account creator) {
 		this._creator = creator;
 	}
 
@@ -192,7 +192,7 @@ public class ProductRevision implements Serializable {
 	public Category getCategory() {
 		return _category;
 	}
-	private void setCategory(Category category) {
+	public void setCategory(Category category) {
 		_category = category;
 	}
 

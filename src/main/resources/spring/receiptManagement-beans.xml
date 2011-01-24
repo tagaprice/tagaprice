@@ -13,34 +13,28 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
-			   
-			  
-  <!-- 
-		-	TESTDATA SETUP
-  	-	Defines a dbTestInitializer which can be used to insert testdata
-  	-	WARNING: Be aware that calling this dbTestInitalizer might wipe out your defined datasource.
-    -->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
+	<!-- 
+		-
+		-	Services
+		-	
+	-->
+	<bean id="defaultReceiptService"
+    class="org.tagaprice.server.service.DefaultReceiptService">
+		<property name="receiptDAO" ref="defaultReceiptDAO"/>
+	</bean>
 
-		<!--
-  	-	DATASOURCE
-  	-->
-	<import resource="classpath:spring/testDataSource-beans.xml" />
+
+	<!-- 
+		-
+		-	DAOs
+		-	
+	-->
+	<bean id="defaultReceiptDAO"
+    	class="org.tagaprice.server.dao.hibernate.HibernateReceiptDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 	
-	<!--
-  	-	HIBERNATE
-  	-->
-	<import resource="classpath:spring/hibernate-beans.xml" />
-	
-		<!--
-  	-	Features
-  	-->
-	<import resource="classpath:spring/productManagement-beans.xml" />
-	<import resource="classpath:spring/categoryManagement-beans.xml" />
- 
-		<!-- 
-  	-	enable the configuration of transactional behavior based on annotations. for this a bean transactionManager must be defined TODO try to refactor this to service
-		-->
+	<!-- enable the configuration of transactional behavior based on annotations-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-  
+  	
 </beans>

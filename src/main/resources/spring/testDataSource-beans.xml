@@ -13,21 +13,20 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
-			   
-	<!-- 
-		-	import datasource, hibernate (sessionfactory+transactionmanager)
+
+	<!-- DATASOURCE - specifies the database to use
+ 	
+ 		-	url:	url for database. using hsqldb use either "jdbc:hsqldb:mem:test" for an in-memory db or "jdbc:hsqldb:hsql://localhost/xdb" for a standalone file-based database 
+ 					(standalone db must have been started already - how to start: java -cp hsqldb-2.0.0.jar org.hsqldb.server.Server \-\-database.0 file:mydb \-\-dbname.0 xdb)
+ 					
+					for production use change this to use a persistent database
 	-->
-	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
-	
-	<!-- 
-	-	TESTDATA SETUP
-	-	Defines a dbTestInitializer which can be used to insert testdata
-	-->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
-	
-	<!--
-		-	Import Feature
-	-->
-	<import resource="classpath:spring/productManagement-beans.xml" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:test" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
 	
 </beans>

@@ -127,7 +127,7 @@ public class Category implements Serializable {
 		return _creator;
 	}
 
-	private void setCreator(Account creator) {
+	public void setCreator(Account creator) {
 		_creator = creator;
 	}
 

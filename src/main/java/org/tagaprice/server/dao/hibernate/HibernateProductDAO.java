@@ -20,7 +20,7 @@ public class HibernateProductDAO implements IProductDAO {
 	@Override
 	public Product save(Product product) {
 		Session session = _sessionFactory.getCurrentSession();
-		session.save(product);
+		session.saveOrUpdate(product);
 		return product;
 	}
 
