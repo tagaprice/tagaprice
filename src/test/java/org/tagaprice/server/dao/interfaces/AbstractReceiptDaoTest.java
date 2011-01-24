@@ -28,9 +28,9 @@ import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
 import org.tagaprice.server.service.helper.EntityCreator;
 
 /**
@@ -70,7 +70,7 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 	@After
 	public void tearDown() throws Exception {
-		// _dbInitializer.resetTables();
+		//_dbInitializer.resetTables(); //this causes an infinite loop
 	}
 
 	@Test
@@ -104,21 +104,21 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 		int revNumber = 1;
 		List<ReceiptEntry> entries = _receiptDao.getReceiptEntriesByProductIdAndRev(productId, revNumber);
 
-		long receiptId = 0;
+		long receiptId = 1;
 		int count = 1;
 		long price = 10;
 
-		long receiptId2 = 3;
-		int count2 = 4;
-		long price2 = 50;
+		long receiptId2 = 2;
+		int count2 = 3;
+		long price2 = 8;
 
-		long shopId = 0;
-		String shopTitle = "testShop";
+		long shopId1 = 1;
+		String shopTitle1 = "testShop";
+		BasicReceipt basicReceipt = HibernateSaveEntityCreator.createBasicReceipt(receiptId, HibernateSaveEntityCreator.createBasicShop(shopId1, shopTitle1));
 
-		BasicShop basicShop = HibernateSaveEntityCreator.createBasicShop(shopId, shopTitle);
-
-		BasicReceipt basicReceipt = HibernateSaveEntityCreator.createBasicReceipt(receiptId, basicShop);
-		BasicReceipt basicReceipt2 = HibernateSaveEntityCreator.createBasicReceipt(receiptId2, basicShop);
+		long shopId2 = 2;
+		String shopTitle2 = "otherTestShopX";
+		BasicReceipt basicReceipt2 = HibernateSaveEntityCreator.createBasicReceipt(receiptId2, HibernateSaveEntityCreator.createBasicShop(shopId2, shopTitle2));
 
 		ProductRevision rev = HibernateSaveEntityCreator.createProductRevisionWithNullValues(productId, revNumber);
 
@@ -131,16 +131,16 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	@Test
 	@Rollback(false)
 	public void saveEmptyReceipt_shouldSaveReceipt() throws Exception {
-		long id = 1L;
+		long receiptId = 3L;
 		long shopId = 1L;
 		Date createdAt = EntityCreator.getDefaultDate();
-		Account creator = HibernateSaveEntityCreator.createAccount(5L);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 
-		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(id, shopId, createdAt, creator);
+		Receipt receiptToSave = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
 
 		Receipt actual = _receiptDao.save(receiptToSave);
 
-		Receipt expected = HibernateSaveEntityCreator.createReceipt(id, shopId, createdAt, creator);
+		Receipt expected = HibernateSaveEntityCreator.createReceipt(receiptId, shopId, createdAt, creator);
 
 		assertThat(actual, is(expected));
 
@@ -151,10 +151,10 @@ public class AbstractReceiptDaoTest extends AbstractTransactionalJUnit4SpringCon
 	@Test
 	@Rollback(false)
 	public void saveReceiptWithReceiptEntries_shouldSaveReceipt() throws Exception {
-		long receiptId = 1L;
+		long receiptId = 3L;
 		long shopId = 1L;
 		Date createdAt = EntityCreator.getDefaultDate();
-		Account creator = HibernateSaveEntityCreator.createAccount(3L);
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 
 
 		Set<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();

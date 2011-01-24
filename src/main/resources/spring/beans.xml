@@ -13,6 +13,18 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
+			   
+			  
+  <!-- 
+  	-
+  	-	Defines a dbTestInitializer which can be used to insert testdata
+  	-	
+  	-	WARNING: Be aware that calling this dbTestInitalizer might wipe out your defined datasource.
+  	-
+  	-
+    -->
+  <import resource="classpath:dbunit/setup.xml" />
+
 
   <!-- 
   	-	SERVICES
@@ -117,35 +129,6 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<!--
-  	-	TESTDATA SETUP 
-  	-
-  	-	tablesToDrop:		tables to drop on startup (take care if you have the datasource directing to an existing database, if you are unsure specifiy an empty list)
-  	-	scriptsToExecute:	any sql scripts specified will be executed 
-  	-	dbUnitData:			specfiy an xml to load testdata 
-  	-
-  	-->
-	<bean id="dbTestInitializer" class="org.tagaprice.server.boot.dbinit.DbTestInitializer">
-		<constructor-arg index="0" ref="dataSource" />
-		<property name="tablesToDrop">
-			<list>
-			</list>
-		</property>
-		<property name="scriptsToExecute">
-			<list>
-				<value>/dbunit/10_locale.sql</value>
-				<value>/dbunit/20_entity.sql</value>
-				<value>/dbunit/30_entityRevision.sql</value>
-				<value>/dbunit/30_product.sql</value>
-				<value>/dbunit/30_shop.sql</value>
-				<value>/dbunit/30_unit.sql</value>
-				<value>/dbunit/40_account_add.sql</value>
-				<value>/dbunit/40_account.sql</value>
-				<value>/dbunit/40_category.sql</value>
-				<value>/dbunit/40_productRevision.sql</value>
-			</list>
-		</property>
-		<property name="dbUnitData" value="classpath:dbunit/dbunit_testdata.xml" />
-	</bean>
-
+	
+	
 </beans>

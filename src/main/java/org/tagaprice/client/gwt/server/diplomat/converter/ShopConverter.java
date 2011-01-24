@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.server.diplomat;
+package org.tagaprice.client.gwt.server.diplomat.converter;
 
 public class ShopConverter {
 

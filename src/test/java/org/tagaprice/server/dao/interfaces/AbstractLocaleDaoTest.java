@@ -2,6 +2,7 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import java.text.ParseException;
+
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -11,9 +12,8 @@ import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.Locale;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
-import org.tagaprice.server.dao.interfaces.ILocaleDAO;
 
 @ContextConfiguration //(locations = { "/spring/test-beans.xml", "AbstractLocaleDaoTest-context.xml" })
 public class AbstractLocaleDaoTest extends AbstractTransactionalJUnit4SpringContextTests {

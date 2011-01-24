@@ -69,6 +69,8 @@ public class Category implements Serializable {
 	 *            {@link Account} who created this category.
 	 */
 	public Category(Long id, String title, Category parent, Date createdAt, Account creator) {
+		ArgumentUtitlity.checkNull("creator", creator);
+		ArgumentUtitlity.checkNull("creator.id", creator.getUid());
 		_id = id;
 		_title = title;
 		_parent = parent;
@@ -76,7 +78,9 @@ public class Category implements Serializable {
 		_creator = creator;
 	}
 
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "category_id")
 	public Long getId() {
 		return _id;
