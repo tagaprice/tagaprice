@@ -38,7 +38,7 @@
 	
 	<servlet>
 		<servlet-name>loginservice</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.mock.LoginServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.diplomat.LoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
