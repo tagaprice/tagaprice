@@ -29,5 +29,8 @@
     class="org.tagaprice.server.dao.hibernate.HibernateProductRevisionDAO">
   	<property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-			   
+	
+		<!-- enable the configuration of transactional behavior based on annotations-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 </beans>

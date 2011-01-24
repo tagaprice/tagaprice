@@ -22,7 +22,7 @@ Sets up a hsqldb datasource, hibernate session factory and a transaction manager
 	
 	<!--
 		-	HIBERNATE
-  -->
+ 	 -->
 	<import resource="classpath:spring/hibernate-beans.xml" />
 	
 </beans>
