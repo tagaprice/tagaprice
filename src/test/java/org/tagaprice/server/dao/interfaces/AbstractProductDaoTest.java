@@ -107,7 +107,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
-		for (ProductRevision rev : expectedRevisions)
+		for (ProductRevision rev : expectedRevisions) //TODO why does this that _expectedRevisions_ are saved => not actual revisions (wont make a difference probably...)
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 
