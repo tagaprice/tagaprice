@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.tagaprice.client.gwt.server.diplomat.converter.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;

@@ -4,6 +4,7 @@ package org.tagaprice.client.gwt.server.diplomat;
 import java.util.Date;
 
 import org.junit.*;
+import org.tagaprice.client.gwt.server.diplomat.converter.CategoryConverter;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.core.entities.Category;
 
