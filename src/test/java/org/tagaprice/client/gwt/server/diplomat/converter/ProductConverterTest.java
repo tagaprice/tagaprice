@@ -1,17 +1,18 @@
-package org.tagaprice.client.gwt.server.diplomat;
+package org.tagaprice.client.gwt.server.diplomat.converter;
 
 
 import java.util.Date;
 
 import org.junit.*;
+import org.tagaprice.client.gwt.server.diplomat.converter.ProductConverter;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.server.service.helper.EntityCreator;
 
-public class ProductServiceImplTest {
-	ProductServiceImpl productService = new ProductServiceImpl();
+public class ProductConverterTest {
+	ProductConverter productConverter = new ProductConverter();
 	Product newProductCore;
 	IProduct newProductGWT;
 	Product changedProductCore;
@@ -37,10 +38,10 @@ public class ProductServiceImplTest {
 	public void setUp() throws Exception {
 		categories.setUp();
 		//Setup new Products
-		ProductRevision newProductRevision = new ProductRevision(null, null, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount,categories.coreCategoryChild , newProductImageURL);
+		ProductRevision newProductRevision = new ProductRevision(null, null, newProductTitle, new Date(), ProductConverter.defaultCoreAccount, newProductUnit, newProductAmount,categories.coreCategoryChild , newProductImageURL);
 		java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
 		revisions.add(newProductRevision);
-		this.newProductCore = new Product(null, ProductServiceImpl.defaultCoreLocale, revisions);
+		this.newProductCore = new Product(null, ProductConverter.defaultCoreLocale, revisions);
 	}
 
 	@After
@@ -52,7 +53,7 @@ public class ProductServiceImplTest {
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("Testprodukt", new org.tagaprice.client.gwt.shared.entities.dump.Category("Testcategory"), new Quantity(3.4,Unit.kg));
 		productGWT.setRevisionId(new RevisionId(3L, 2L));
 
-		Product productCore = productService.convertProductToCore(productGWT);
+		Product productCore = productConverter.convertProductToCore(productGWT);
 		Assert.assertEquals(productGWT.getRevisionId().getId(), productCore.getId().longValue());
 		Assert.assertEquals(productGWT.getRevisionId().getRevision(), productCore.getCurrentRevision().getRevisionNumber().intValue());
 		Assert.assertEquals(productGWT.getTitle(), productCore.getCurrentRevision().getTitle());
@@ -65,7 +66,7 @@ public class ProductServiceImplTest {
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product("Testprodukt", new org.tagaprice.client.gwt.shared.entities.dump.Category("Testcategory"), new Quantity(3.4,Unit.kg));
 		productGWT.setRevisionId(new RevisionId(3L, 3L));
 
-		Product productCore = productService.convertProductToCore(productGWT);
+		Product productCore = productConverter.convertProductToCore(productGWT);
 		Assert.assertEquals(productGWT.getRevisionId().getId(), productCore.getId().longValue());
 		Assert.assertEquals(productGWT.getRevisionId().getRevision(), productCore.getCurrentRevision().getRevisionNumber().intValue());
 		Assert.assertEquals(productGWT.getTitle(), productCore.getCurrentRevision().getTitle());
@@ -79,7 +80,7 @@ public class ProductServiceImplTest {
 
 		Product productCore = EntityCreator.createProductWithRevisions(3L, 2, 1, new Category(1L, "TestCat", null, new Date(), null));
 
-		IProduct productGWT = productService.convertProductToGWT(productCore, 0);
+		IProduct productGWT = productConverter.convertProductToGWT(productCore, 0);
 
 		Assert.assertEquals(productCore.getCurrentRevision().getTitle(), productGWT.getTitle());
 		Assert.assertEquals(productCore.getId().longValue(), productGWT.getRevisionId().getId());
