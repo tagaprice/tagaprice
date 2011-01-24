@@ -149,6 +149,62 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_city == null) ? 0 : _city.hashCode());
+		result = prime * result + ((_country == null) ? 0 : _country.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(_lat);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(_lng);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((_street == null) ? 0 : _street.hashCode());
+		result = prime * result + ((_zip == null) ? 0 : _zip.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Shop other = (Shop) obj;
+		if (_city == null) {
+			if (other._city != null)
+				return false;
+		} else if (!_city.equals(other._city))
+			return false;
+		if (_country == null) {
+			if (other._country != null)
+				return false;
+		} else if (!_country.equals(other._country))
+			return false;
+		if (Double.doubleToLongBits(_lat) != Double.doubleToLongBits(other._lat))
+			return false;
+		if (Double.doubleToLongBits(_lng) != Double.doubleToLongBits(other._lng))
+			return false;
+		if (_street == null) {
+			if (other._street != null)
+				return false;
+		} else if (!_street.equals(other._street))
+			return false;
+		if (_zip == null) {
+			if (other._zip != null)
+				return false;
+		} else if (!_zip.equals(other._zip))
+			return false;
+		return true;
+	}
+
+
+
 
 
 
