@@ -1,10 +1,14 @@
 package org.tagaprice.client.gwt.server.mock;
 
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
+import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements ILoginService {
+
+	String sessionId=null; // is working for just one user ;-)
+
 
 	/**
 	 * 
@@ -12,23 +16,32 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public String setLogin(String email, String password) {
-		String sessionId = "0123456789";
+	public String setLogin(String email, String password) throws WrongEmailOrPasswordException {
+
+		if(email.isEmpty() || password.isEmpty())
+			throw new WrongEmailOrPasswordException("Please controll user and password");
+
+		if(email.equals("test")) throw new WrongEmailOrPasswordException("Please controll user and password");
+
+		sessionId = ""+Math.random();
 		// TODO Auto-generated method stub
 		return sessionId;
 	}
 
 	@Override
 	public boolean setLogout() {
-		// TODO Auto-generated method stub
+
+
+		if(sessionId!=null){
+			sessionId=null;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public String isLoggedIn() {
-		String sessionId = "9876543210";
-		// TODO Auto-generated method stub
-		return null;
+		return sessionId;
 	}
 
 }

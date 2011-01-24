@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.accountmanagement.login;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -87,21 +88,25 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 
 			if(!loginView.getEmail().isEmpty() && !loginView.getPassword().isEmpty()){
 
-				_clientFactory.getLoginService().setLogin(loginView.getEmail(), loginView.getPassword(), new AsyncCallback<String>() {
+				try {
+					_clientFactory.getLoginService().setLogin(loginView.getEmail(), loginView.getPassword(), new AsyncCallback<String>() {
 
-					@Override
-					public void onSuccess(String sessionId) {
-						LoginActivity._logger.log("Login OK. SessionId: "+sessionId);
-						Cookies.setCookie("TAP_SID", sessionId);
-						goTo(new LoginPlace(sessionId));
-					}
+						@Override
+						public void onSuccess(String sessionId) {
+							LoginActivity._logger.log("Login OK. SessionId: "+sessionId);
+							Cookies.setCookie("TAP_SID", sessionId);
+							goTo(new LoginPlace(sessionId));
+						}
 
-					@Override
-					public void onFailure(Throwable e) {
-						LoginActivity._logger.log("Login exception: "+e);
+						@Override
+						public void onFailure(Throwable e) {
+							LoginActivity._logger.log("Login failur: "+e);
 
-					}
-				});
+						}
+					});
+				} catch (WrongEmailOrPasswordException e) {
+					LoginActivity._logger.log("Login exception: "+e);
+				}
 			}
 		}
 	}
@@ -111,6 +116,21 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 		LoginActivity._logger.log("LogOut Button clicked");
 		Cookies.removeCookie("TAP_SID");
 		goTo(new LoginPlace());
+
+		_clientFactory.getLoginService().setLogout(new AsyncCallback<Boolean>() {
+
+			@Override
+			public void onSuccess(Boolean value) {
+				LoginActivity._logger.log("Logout was ok: "+value);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				LoginActivity._logger.log("Logout exception: "+e);
+
+			}
+		});
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.rpc.accountmanagement;
 
+import org.tagaprice.core.api.WrongEmailOrPasswordException;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -15,8 +17,8 @@ public interface ILoginService extends RemoteService {
 	 *            password (plane)
 	 * @return Unique SessionId (Must be saved on in browser as session)
 	 */
-	// TODO implement wrong login exception
-	public String setLogin(String email, String password);
+
+	public String setLogin(String email, String password) throws WrongEmailOrPasswordException;
 
 
 	/**
