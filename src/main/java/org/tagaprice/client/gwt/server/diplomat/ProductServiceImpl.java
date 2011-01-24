@@ -114,7 +114,21 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("product :"+product);
 
 		try {
-			Product productCore = _coreProductService.save(convertProductToCore(product));
+			Product productCore;
+			String newProductTitle = "newProduct";
+			Unit newProductUnit = Unit.kg;
+			Double newProductAmount = 2.3;
+			String newProductImageURL = "";
+			Category category = new Category(null, "testcat", null, new Date(), ProductServiceImpl.defaultCoreAccount);
+
+			ProductRevision newProductRevision = new ProductRevision(null, 1, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount, category , newProductImageURL);
+			java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
+			revisions.add(newProductRevision);
+
+			productCore = new Product(null, ProductServiceImpl.defaultCoreLocale, revisions);
+
+			this._coreProductService.save(productCore);
+
 			return convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block

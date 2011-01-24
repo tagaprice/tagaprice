@@ -17,8 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
+import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
-import org.tagaprice.server.dao.helper.IDbTestInitializer;
 
 @ContextConfiguration
 public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
@@ -45,22 +45,23 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 
 	@After
 	public void tearDown() throws Exception {
-		_dbInitializer.resetTables();
+		//		_dbInitializer.resetTables(); 		// this line produces some infinite-loop
 	}
 
 	@Test
 	@Rollback(false)
-	public void saveCategory_shouldSave() throws Exception {
+	public void saveNewCategory_shouldSave() throws Exception {
 		_log.info("running test");
 
 		Long accountId = 1L;
-		Long id = 4L;
+		Long id = null;
+		Long nextFreeId = 4L;
 
 		Category categoryToSave = HibernateSaveEntityCreator.createCategory(id, HibernateSaveEntityCreator.createAccount(accountId));
 
 		Category actual = _categoryDao.save(categoryToSave);
 
-		Category expected = HibernateSaveEntityCreator.createCategory(id, HibernateSaveEntityCreator.createAccount(accountId));
+		Category expected = HibernateSaveEntityCreator.createCategory(nextFreeId , HibernateSaveEntityCreator.createAccount(accountId));
 
 		assertThat(actual, is(expected));
 	}
@@ -68,17 +69,17 @@ public class AbstractCategoryDaoTest extends AbstractTransactionalJUnit4SpringCo
 	@Test
 	public void getAll_shouldReturnAllCategories() {
 		_log.info("Running test");
-		
+
 		List<Category> actual = _categoryDao.getAll();
-		
-		
+
+
 		List<Category> expected = new ArrayList<Category>();
-		Account creator = HibernateSaveEntityCreator.createAccount(3L, "user@mail.com");
+		Account creator = HibernateSaveEntityCreator.createAccount(1L, "user1@mail.com");
 		Category root = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator);
 		expected.add(root);
 		expected.add(HibernateSaveEntityCreator.createCategory(2L, root, "category1", creator));
 		expected.add(HibernateSaveEntityCreator.createCategory(3L, root, "category2", creator));
-		
+
 		assertThat(actual, is(expected));
 	}
 }

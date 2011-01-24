@@ -1,7 +1,6 @@
 package org.tagaprice.server.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -27,6 +26,10 @@ public class DefaultProductService implements IProductService {
 	public Product save(Product product) throws OutdatedRevisionException {
 		if (product == null)
 			throw new IllegalArgumentException("product must not be null");
+		if(product.getCurrentRevision().getRevisionNumber() == null) {
+			_log.warn("revisionNumber of productRevision is NULL");
+			throw new OutdatedRevisionException("revisionNumber must not be null");
+		}
 
 		Long id = product.getId();
 
@@ -62,6 +65,7 @@ public class DefaultProductService implements IProductService {
 
 		// TODO this doesn't load the current product. it just saves and returns it. fix here or in dao?
 		// TODO check if product has at least one ProductRevision. check here or in dao and throw?
+		_log.debug("id of the product to save: " + product.getId());
 		product = _productDao.save(product);
 		return product;
 	}

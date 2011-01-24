@@ -65,7 +65,7 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 		Product actual = _productManagement.save(toSave);
 
-		Product expected = EntityCreator.createProductWithRevisions(1L, 1);
+		Product expected = EntityCreator.createProductWithRevisions(4L, 1);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItems(expected.getCurrentRevision()));
