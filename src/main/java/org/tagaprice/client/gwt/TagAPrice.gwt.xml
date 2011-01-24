@@ -44,4 +44,8 @@
   <source path="client" />
   <source path="shared" />
   <source path="shared" />
+  <inherits name="org.tagaprice.core.core"/>
+  <inherits name="org.tagaprice.core.core"/>
+  <inherits name="org.tagaprice.core.core"/>
+  <inherits name="org.tagaprice.core.core"/>
 </module>

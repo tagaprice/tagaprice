@@ -1,11 +1,13 @@
 package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
@@ -41,6 +43,10 @@ public interface ClientFactory {
 	 */
 	ProductServiceDispatch getProductServiceDispatch();
 
+
+	ILoginServiceAsync getLoginService();
+
+
 	/****************** VIEWS ***********************/
 
 	/**
@@ -62,6 +68,13 @@ public interface ClientFactory {
 	 * @return the LoginView
 	 */
 	ILoginView getLoginView();
+
+
+	/**
+	 * This view displays a logout button
+	 * @return ILogoutView
+	 */
+	ILogoutView getLogoutView();
 
 
 	/**
