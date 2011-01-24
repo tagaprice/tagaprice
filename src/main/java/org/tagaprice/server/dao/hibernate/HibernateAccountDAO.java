@@ -1,6 +1,7 @@
 package org.tagaprice.server.dao.hibernate;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.server.dao.interfaces.IAccountDAO;
@@ -26,6 +27,13 @@ public class HibernateAccountDAO implements IAccountDAO {
 		.uniqueResult();
 		if(account == null)
 			throw new WrongEmailOrPasswordException("email "+email+" does not exist or password is wrong");
+		return account;
+	}
+
+	@Override
+	public Account save(Account account) {
+		Session session = _sessionFactory.getCurrentSession();
+		session.saveOrUpdate(account);
 		return account;
 	}
 }
