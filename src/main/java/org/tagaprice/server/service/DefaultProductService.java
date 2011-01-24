@@ -2,7 +2,9 @@ package org.tagaprice.server.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,51 +25,64 @@ public class DefaultProductService implements IProductService {
 
 	@Transactional
 	@Override
-	public Product save(Product product) throws OutdatedRevisionException {
-		if (product == null)
+	public Product save(Product newProduct) throws OutdatedRevisionException {
+		if (newProduct == null)
 			throw new IllegalArgumentException("product must not be null");
-		if(product.getCurrentRevision().getRevisionNumber() == null) {
+		if(newProduct.getCurrentRevision().getRevisionNumber() == null) {
 			_log.warn("revisionNumber of productRevision is NULL");
 			throw new OutdatedRevisionException("revisionNumber must not be null");
 		}
 
-		Long id = product.getId();
+		Long id = newProduct.getId();
 
 		if (id == null) { // new product
 			Long newId = IdCounter.getNewId();
-			product.setId(newId);
+			newProduct.setId(newId);
 		} else {
 			Product persistedProduct = _productDao.getById(id);
 			ProductRevision persistedHighestRevision = persistedProduct.getCurrentRevision();
-			Integer persistedRevisionNumber = persistedHighestRevision.getRevisionNumber();
+			Integer persistedHighestRevisionNumber = persistedHighestRevision.getRevisionNumber();
 
-			ProductRevision detachedHighestRevision = product.getCurrentRevision();
-			Integer detachedRevisionNumber = detachedHighestRevision.getRevisionNumber();
+			ProductRevision newHighestRevision = newProduct.getCurrentRevision();
+			Integer newHighestRevisionNumber = newHighestRevision.getRevisionNumber();
+			
+			int numberNewRevisions = newHighestRevisionNumber - persistedHighestRevisionNumber;
 
-			if (persistedRevisionNumber > detachedRevisionNumber) // more than one revision has been saved meanwhile
-			{
+			if (numberNewRevisions < 0) {// more than one revision has been saved meanwhile
 				String message = "attempted to save outdated revision. highest persisted revision number: "
-					+ persistedRevisionNumber + ", highest revision number to be saved: " + detachedRevisionNumber;
+					+ persistedHighestRevisionNumber + ", highest revision number to be saved: " + newHighestRevisionNumber;
 				_log.info(message);
 				throw new OutdatedRevisionException(message);
-			} else if (persistedRevisionNumber == detachedRevisionNumber) // one revision has been saved meanwhile
-			{
-				if (!persistedHighestRevision.equals(detachedHighestRevision)) {
-					String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
-						+ persistedRevisionNumber
-						+ ", highest revision number to be saved: "
-						+ detachedRevisionNumber;
-					_log.info(message);
-					throw new OutdatedRevisionException(message);
-				}
+			} 
+			
+			if (numberNewRevisions == 0 && !persistedHighestRevision.equals(newHighestRevision)) { // one different revision has been saved meanwhile
+				String message = "attempted to save outdated revision (revisions are not equal). highest persisted revision number: "
+					+ persistedHighestRevisionNumber
+					+ ", highest revision number to be saved: "
+					+ newHighestRevisionNumber;
+				_log.info(message);
+				throw new OutdatedRevisionException(message);
 			}
+			
+//			List<Account> creators = 
+//			List<Category> categories = 
+			
+			Iterator<ProductRevision> it = newProduct.getRevisions().iterator();
+			for(;numberNewRevisions>0; numberNewRevisions--) {
+				ProductRevision next = it.next();
+				next.setCreator(persistedHighestRevision.getCreator()); //TODO WORKAROUND
+				next.setCategory(persistedHighestRevision.getCategory()); //TODO WORKAROUND 
+				persistedProduct.addRevision(next);
+			}
+			
+			newProduct = persistedProduct;
 		}
 
 		// TODO this doesn't load the current product. it just saves and returns it. fix here or in dao?
 		// TODO check if product has at least one ProductRevision. check here or in dao and throw?
-		_log.debug("id of the product to save: " + product.getId());
-		product = _productDao.save(product);
-		return product;
+		_log.debug("id of the product to save: " + newProduct.getId());
+		newProduct = _productDao.save(newProduct);
+		return newProduct;
 	}
 
 	@Transactional(readOnly=true)
