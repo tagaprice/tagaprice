@@ -28,8 +28,8 @@ import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.service.DefaultProductService;
 
 @ContextConfiguration
-public class SaveProductTest extends AbstractTransactionalJUnit4SpringContextTests{ //TODO should not need to be transactional
-	private static Logger _log = LoggerFactory.getLogger(SaveProductTest.class);
+public class ProductManagementTest extends AbstractTransactionalJUnit4SpringContextTests{ //TODO should not need to be transactional
+	private static Logger _log = LoggerFactory.getLogger(ProductManagementTest.class);
 	private IDbTestInitializer _dbInitializer;
 	private IProductService _productService;
 	private SessionFactory _sessionFactory;
