@@ -12,4 +12,10 @@ public interface IAccountDAO {
 	 * Return
 	 */
 	public Account getByEmailAndPassword(String email, String password) throws WrongEmailOrPasswordException;
+
+	/**
+	 * Save a new or update an already existing account.
+	 * @return an {@link Account} with the id set.
+	 */
+	public Account save(Account account);
 }
