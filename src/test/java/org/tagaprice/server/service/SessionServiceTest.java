@@ -56,4 +56,9 @@ public class SessionServiceTest extends AbstractJUnit4SpringContextTests {
 		Session session = new Session("12345".getBytes());
 		_service.getAccount(session);
 	}
+	
+	@Test
+	public void deleteSession_shouldDeleteSession() {
+		fail(); //TODO not implemented
+	}
 }
