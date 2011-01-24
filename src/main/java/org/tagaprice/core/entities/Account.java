@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +15,7 @@ import javax.persistence.Transient;
 /**
  * <p>
  * This class represents an user-account of some type. For instance this type can be local (saved in our database) or
- * OAuth or similar. Different user-account types should subclass this class.
+ * OAuth or similar. TODO Different user-account types should subclass this class. this now represents a localAccount.
  * </p>
  * 
  * <p>
@@ -68,6 +70,7 @@ public class Account {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getUid() {
 		return _uid;
 	}
@@ -90,6 +93,7 @@ public class Account {
 	private String getPassword() {
 		return _password;
 	}
+
 	public void setPassword(String password) {
 		_password = password;
 	}
@@ -99,6 +103,7 @@ public class Account {
 	public Date getLastLogin() {
 		return _lastLogin;
 	}
+
 	private void setLastLogin(Date lastLogin) {
 		_lastLogin = lastLogin;
 	}

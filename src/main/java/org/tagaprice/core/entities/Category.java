@@ -69,6 +69,8 @@ public class Category implements Serializable {
 	 *            {@link Account} who created this category.
 	 */
 	public Category(Long id, String title, Category parent, Date createdAt, Account creator) {
+		ArgumentUtitlity.checkNull("creator", creator);
+		ArgumentUtitlity.checkNull("creator.id", creator.getUid());
 		_id = id;
 		_title = title;
 		_parent = parent;
