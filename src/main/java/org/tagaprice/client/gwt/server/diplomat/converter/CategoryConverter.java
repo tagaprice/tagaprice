@@ -4,20 +4,12 @@ import java.util.*;
 
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.core.entities.*;
-import org.tagaprice.core.entities.Locale;
 
 public class CategoryConverter {
 	/**
 	 * the singleton
 	 */
 	private static CategoryConverter instance = new CategoryConverter();
-	/*
-	 * default Values
-	 */
-	public static Locale defaultLocale = new Locale(1, "de", "de");
-	public static Account defaultAccount = new Account(1L, "love@you.org", "super", new Date());
-	public static Category defaultCategory = new Category(1L, "X", null, new Date(), CategoryConverter.defaultAccount);
-
 	/*
 	 * Caching
 	 */
@@ -89,7 +81,7 @@ public class CategoryConverter {
 		String title = gwtCategory.getTitle();
 		Category parentCoreCategory = this.convertGWTCategoryToCore(gwtCategory.getParentCategory(), false);
 
-		coreCategory = new Category(id, title, parentCoreCategory, new Date(), CategoryConverter.defaultAccount);
+		coreCategory = new Category(id, title, parentCoreCategory, DefaultValues.defaultDate, DefaultValues.defaultCoreAccount);
 		this.coreCategories.put(id, coreCategory);
 
 		return coreCategory;

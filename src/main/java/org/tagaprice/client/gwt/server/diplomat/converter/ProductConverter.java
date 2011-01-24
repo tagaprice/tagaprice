@@ -8,20 +8,12 @@ import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
-import org.tagaprice.core.entities.Locale;
 
 public class ProductConverter {
-
 
 	Logger _log = LoggerFactory.getLogger(ProductConverter.class);
 
 	private static final ProductConverter instance = new ProductConverter();
-
-	// dummy values
-	public static final Locale defaultCoreLocale = new Locale(1, "de", "de");
-	public static final Account defaultCoreAccount = new Account(1L, "love@you.org", "super", new Date());
-	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(),
-			ProductConverter.defaultCoreAccount);
 
 	public static ProductConverter getInstance() {
 		return ProductConverter.instance;
@@ -44,11 +36,10 @@ public class ProductConverter {
 			if (productGWT.getRevisionId().getId() != 0L) {
 				productId = productGWT.getRevisionId().getId();
 				//If product allready existed we increment the revision by 1
-				revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue() + 1;
+				revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
 			}
 		}
 		String title = productGWT.getTitle();
-		Date date = new Date();
 		String imageUrl = "";
 
 		// TODO Category must never be null!
@@ -57,14 +48,14 @@ public class ProductConverter {
 		Double amount = productGWT.getQuantity().getQuantity();
 		Unit unit = productGWT.getQuantity().getUnit();
 
-		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
-				ProductConverter.defaultCoreAccount, unit, amount, category, "");
+		ProductRevision revision = new ProductRevision(productId, revisionNumber + 1, title, DefaultValues.defaultDate,
+				DefaultValues.defaultCoreAccount, unit, amount, category, "");
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(revision);
 
 		// ids must be the same value. if they are null the product must be created as new.
 
-		Product productCore = new Product(productId, ProductConverter.defaultCoreLocale, revisions);
+		Product productCore = new Product(productId, DefaultValues.defaultCoreLocale, revisions);
 		return productCore;
 	}
 
