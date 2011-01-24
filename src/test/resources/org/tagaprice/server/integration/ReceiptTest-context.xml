@@ -14,45 +14,19 @@
 			   ">
 
 	<!-- 
-  		-
-  		-	Defines a dbTestInitializer which can be used to insert testdata
-  		-
-  	-->
-	<import resource="classpath:dbunit/setup.xml" />
-	
-	
-	<!-- 
-  		-
-  		-	import db and hibernate setup
-  		-
-  	-->
+		-	import datasource, hibernate (sessionfactory+transactionmanager)
+	-->
 	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
 	
+	<!-- 
+	-	TESTDATA SETUP
+	-	Defines a dbTestInitializer which can be used to insert testdata
+	-->
+	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
 	
-	<!-- 
-		-
-		-	Services
-		-	
+	<!--
+		-	Import Feature
 	-->
-	<bean id="defaultReceiptService"
-    class="org.tagaprice.server.service.DefaultReceiptService">
-  		<property name="receiptDAO" ref="defaultReceiptDAO"/>
-  	</bean>
-
-
-
-	<!-- 
-		-
-		-	DAOs
-		-	
-	-->
-	<bean id="defaultReceiptDAO"
-    	class="org.tagaprice.server.dao.hibernate.HibernateReceiptDAO">
-  		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>
-  	
-  	<!-- enable the configuration of transactional behavior based on annotations-->
-  	<tx:annotation-driven transaction-manager="transactionManager"/>
-  	
+	<import resource="classpath:spring/receiptManagement-beans.xml" />
 
 </beans>

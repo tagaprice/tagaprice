@@ -15,9 +15,15 @@
 			   ">
 			   
 	<!-- 
-		-	import datasource, hibernate (sessionfactory+transactionmanager), dbtestinitializer (dbunit)
+		-	import datasource, hibernate (sessionfactory+transactionmanager)
 	-->
 	<import resource="classpath:org/tagaprice/server/dao/hibernate/setup.xml" />
+	
+	<!-- 
+	-	TESTDATA SETUP
+	-	Defines a dbTestInitializer which can be used to insert testdata
+	-->
+	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
 	
 	<!--
 		-	Import Feature

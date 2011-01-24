@@ -5,10 +5,28 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+	<!-- 
+		-
+		-	Services
+		-	
+	-->
+	<bean id="defaultReceiptService"
+    class="org.tagaprice.server.service.DefaultReceiptService">
+		<property name="receiptDAO" ref="defaultReceiptDAO"/>
+	</bean>
+
 
 	<!-- 
-	-	TESTDATA SETUP
-	-	Defines a dbTestInitializer which can be used to insert testdata
+		-
+		-	DAOs
+		-	
 	-->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
+	<bean id="defaultReceiptDAO"
+    	class="org.tagaprice.server.dao.hibernate.HibernateReceiptDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- enable the configuration of transactional behavior based on annotations-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+  	
 </beans>

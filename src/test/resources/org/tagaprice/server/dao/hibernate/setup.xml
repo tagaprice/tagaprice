@@ -15,12 +15,6 @@ Sets up a hsqldb datasource, hibernate session factory and a transaction manager
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-		<!-- 
-		-	TESTDATA SETUP
-		-	Defines a dbTestInitializer which can be used to insert testdata
-		-->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
-
 	<!--
 		-	DATASOURCE
 	-->
