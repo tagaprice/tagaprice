@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.shared.rpc.accountmanagement;
 
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -22,11 +23,9 @@ public interface ILoginService extends RemoteService {
 
 
 	/**
-	 * clear sessionId on server and return true is ok.
-	 * 
-	 * @return true if logout was successful
+	 * clear sessionId on server
 	 */
-	public boolean setLogout();
+	public void setLogout() throws UserNotLoggedInException;
 
 
 	/**

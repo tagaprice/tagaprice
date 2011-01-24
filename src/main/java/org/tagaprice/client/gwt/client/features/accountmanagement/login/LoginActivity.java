@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.accountmanagement.login;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.activity.shared.Activity;
@@ -100,7 +101,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 
 						@Override
 						public void onFailure(Throwable e) {
-							LoginActivity._logger.log("Login failur: "+e);
+							LoginActivity._logger.log("Login problem: "+e);
 
 						}
 					});
@@ -117,20 +118,27 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 		Cookies.removeCookie("TAP_SID");
 		goTo(new LoginPlace());
 
-		_clientFactory.getLoginService().setLogout(new AsyncCallback<Boolean>() {
 
-			@Override
-			public void onSuccess(Boolean value) {
-				LoginActivity._logger.log("Logout was ok: "+value);
+		try {
+			_clientFactory.getLoginService().setLogout(new AsyncCallback<Void>() {
 
-			}
+				@Override
+				public void onSuccess(Void value) {
+					LoginActivity._logger.log("Logout was ok: "+value);
 
-			@Override
-			public void onFailure(Throwable e) {
-				LoginActivity._logger.log("Logout exception: "+e);
+				}
 
-			}
-		});
+				@Override
+				public void onFailure(Throwable e) {
+					LoginActivity._logger.log("Logout problem: "+e);
+
+				}
+			});
+		} catch (UserNotLoggedInException e) {
+			LoginActivity._logger.log("Logout exception: "+e);
+		}
+
+
 	}
 
 }

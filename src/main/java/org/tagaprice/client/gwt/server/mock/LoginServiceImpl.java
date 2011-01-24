@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.server.mock;
 
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -29,14 +30,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public boolean setLogout() {
+	public void setLogout() throws UserNotLoggedInException {
 
+		if(sessionId==null) throw new UserNotLoggedInException("User is not logged in.");
 
-		if(sessionId!=null){
-			sessionId=null;
-			return true;
-		}
-		return false;
 	}
 
 	@Override
