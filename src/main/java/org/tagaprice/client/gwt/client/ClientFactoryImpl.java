@@ -6,12 +6,11 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LogoutViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
-import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.CreateProductViewImpl;
+import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.ListProductsViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
-import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
