@@ -65,7 +65,9 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 			@Override
 			public Product answer(InvocationOnMock invocation) throws Throwable {
 				Object[] args = invocation.getArguments();
-				return (Product) args[0];
+				Product product = (Product) args[0];
+				product.setId(4L);
+				return product; 
 			}
 
 		});
