@@ -106,7 +106,7 @@ public class Category implements Serializable {
 		return _parent;
 	}
 
-	private void setParent(Category parent) {
+	public void setParent(Category parent) {
 		_parent = parent;
 	}
 

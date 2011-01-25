@@ -12,6 +12,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.OutdatedRevisionException;
@@ -29,6 +31,9 @@ import static org.junit.Assert.*;
 
 @ContextConfiguration
 public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests {
+
+	private static Logger _log = LoggerFactory.getLogger(DefaultProductServiceTest.class);
+
 	private DefaultProductService _productManagement;
 	private IProductDAO _productDaoMock;
 	private IProductRevisionDAO _productRevisionDaoMock;
@@ -51,6 +56,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void saveNewProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		Product toSave = EntityCreator.createProductWithRevisions(null, 1);
 
 		//Mock returns whatever it gets
@@ -73,6 +80,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void saveAlreadyPersistedProductWithNewRevision_shouldReturnProductWithAllRevisions() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		Long id = 1L;
 		ProductRevision productRevisionToSave = EntityCreator.createProductRevision(id, 3);
 		Product toSave = EntityCreator.createProductWithRevisions(id, productRevisionToSave);
@@ -96,6 +105,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test(expected=OutdatedRevisionException.class)
 	public void saveAlreadyPersistedProductWithOutdatedRevision_shouldThrowException() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		Long id = 1L;
 		HashSet<ProductRevision> revisions = new HashSet<ProductRevision>();
 		ProductRevision baseRevision = EntityCreator.createProductRevision(id, 1);
@@ -112,6 +123,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void saveAlreadyPersistedProductWithOutChanges_shouldReturnProductAsItIs() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		Long id = 1L;
 		Product toSave = EntityCreator.createProductWithRevisions(id, 2);
 
@@ -128,6 +141,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void getByTitle_shouldReturn2ProductsWithAtLeastOneRevisionHavingTitleCoke() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		String title = "coke";
 		long id_1 = 1L;
 		long id_2 = 2L;
@@ -169,6 +184,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	}
 
 	private static void compare(List<Product> actual, List<Product> expected) {
+		DefaultProductServiceTest._log.info("running test");
+
 		assertThat(actual, is(expected));
 
 		Iterator<Product> itActual = actual.iterator();
@@ -183,6 +200,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void getByTitle_shouldReturnEmptyList() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		String title = "no title";
 
 		ArrayList<ProductRevision> revisionsContainingTitle = new ArrayList<ProductRevision>();
@@ -197,6 +216,7 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void getAll_shouldGetProductList() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
 
 		List<Product> products = new LinkedList<Product>();
 		products.add(EntityCreator.createProductWithRevisions(1L, 2));
@@ -212,6 +232,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void getById_idNull_shouldThrow() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		try {
 			_productManagement.getById(null);
 		} catch (IllegalArgumentException e) {
@@ -223,6 +245,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void getById_shouldGetProduct() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		when(_productDaoMock.getById(1L)).thenReturn(EntityCreator.createProductWithRevisions(1L, 1));
 
 		Product actual = _productManagement.getById(1L);
@@ -235,6 +259,8 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 	@Test
 	public void getById_unknownId_shouldReturnNull() throws Exception {
+		DefaultProductServiceTest._log.info("running test");
+
 		when(_productDaoMock.getById(1L)).thenReturn(null);
 
 		Product actual = _productManagement.getById(1L);

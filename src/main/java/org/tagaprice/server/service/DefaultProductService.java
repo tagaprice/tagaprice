@@ -67,26 +67,58 @@ public class DefaultProductService implements IProductService {
 				throw new OutdatedRevisionException(message);
 			}
 			
-			//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part1
+			//TODO START WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part1
 			HashMap<Long, Account> creators = new HashMap<Long, Account>();
 			HashMap<Long, Category> categories = new HashMap<Long, Category>();
 			for(ProductRevision revision : persistedProduct.getRevisions()) {
 				creators.put(revision.getCreator().getUid(), revision.getCreator());
 				categories.put(revision.getCategory().getId(), revision.getCategory());
+				
+				Category curCategory = revision.getCategory().getParent();
+				while(curCategory != null) {
+					categories.put(curCategory.getId(), curCategory);
+					creators.put(curCategory.getCreator().getUid(), curCategory.getCreator());
+					
+					curCategory = curCategory.getParent();
+				}
 			}
+			
+			//END WORKAROUND : part1
 
 			
 			Iterator<ProductRevision> it = newProduct.getRevisions().iterator();
 			for(;numberNewRevisions>0; numberNewRevisions--) {
 				ProductRevision next = it.next();
 				
-				//TODO WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part2
+				//TODO START WORKAROUND hibernate will throw exception if trying to save with already fetched category/account id : part2
 				if(creators.containsKey(next.getCreator().getUid()))
 					next.setCreator(creators.get(next.getCreator().getUid()));
-				if(categories.containsKey(next.getCategory().getId()))
-					next.setCategory(categories.get(next.getCategory().getId()));
-				if(creators.containsKey(next.getCategory().getCreator().getUid()))
-					next.getCategory().setCreator(creators.get(next.getCategory().getCreator().getUid()));
+				
+				
+				
+				Category curCategory = next.getCategory();
+				if(categories.containsKey(curCategory.getId()))
+					next.setCategory(categories.get(curCategory.getId()));
+				if(creators.containsKey(curCategory.getCreator().getUid()))
+					curCategory.setCreator(creators.get(curCategory.getCreator().getUid()));
+				
+				
+				Category childCategory = curCategory;
+				Category rootCategory = curCategory.getParent();
+				while(rootCategory != null) {
+					if(categories.containsKey(rootCategory.getId())) {
+						childCategory.setParent(categories.get(rootCategory.getId()));
+						rootCategory = null;
+					} else if(creators.containsKey(rootCategory.getCreator().getUid())) {
+						rootCategory.setCreator(creators.get(rootCategory.getCreator().getUid()));
+						
+						childCategory = rootCategory;
+						rootCategory = childCategory.getParent();
+					}
+					
+				}
+				
+				//END WORKAROUND : part2
 				
 				
 				persistedProduct.addRevision(next);
