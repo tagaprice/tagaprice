@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopService;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.Boot;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -54,9 +55,21 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop save(IShop shop) {
+	public IShop save(IShop shop)  {
 		_logger.debug("saveShop with Shop " + shop);
-		shop.setRevisionId(new RevisionId(shop.getRevisionId().getId(), shop.getRevisionId().getRevision() + 1));
+
+		ShopConverter shopConverter =ShopConverter.getInstance();
+
+		try {
+			Shop shopCore = shopConverter.convertGWTShoptoCore(shop);
+			shopCore = this._coreShopService.save(shopCore);
+			return shopConverter.convertCoreShopToGWT(shopCore);
+
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//shop.setRevisionId(new RevisionId(shop.getRevisionId().getId(), shop.getRevisionId().getRevision() + 1));
 
 		_logger.debug("send Shop back: " + shop);
 		return shop;

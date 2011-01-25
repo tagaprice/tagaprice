@@ -48,7 +48,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 	 */
 	@Override
 	public String toString() {
-		return "Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
+		return super.toString() + " Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
 		+ ", _lat=" + _lat + ", _lng=" + _lng + "]";
 	}
 

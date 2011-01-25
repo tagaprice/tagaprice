@@ -4,6 +4,7 @@ package org.tagaprice.client.gwt.server.diplomat.converter;
 import java.util.Set;
 import org.slf4j.*;
 
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.core.entities.ReceiptEntry;
@@ -28,16 +29,21 @@ public class ShopConverter {
 
 	public IShop convertCoreShopToGWT(final Shop coreShop){
 
-		long id = coreShop.getId();
+		Long id = 0L;
+		if(coreShop.getId() != null){
+			id = coreShop.getId();
+		}
+
+
 		String title = coreShop.getTitle();
 		double latitude = coreShop.getLatitude();
 		double longitude = coreShop.getLongitude();
 		String street = "";
 		String zip = "";
 		String city = "";
-		Country country = null;
+		Country country = Country.at;
 
-		IShop shopGWT = new org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop(title, street,zip,city,country,latitude,longitude);
+		IShop shopGWT = new org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop(new RevisionId(id),title, street,zip,city,country,latitude,longitude);
 
 		return shopGWT;
 
