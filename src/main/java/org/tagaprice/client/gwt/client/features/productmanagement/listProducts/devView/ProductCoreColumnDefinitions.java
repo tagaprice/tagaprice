@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView;
+package org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView;
 
 import java.util.ArrayList;
 
