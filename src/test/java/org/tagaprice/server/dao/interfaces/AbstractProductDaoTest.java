@@ -116,10 +116,12 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
+		Object nextFreeId = 4L;
+
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
-		long id = 4;
+		Long id = null;
 		int numberRevisions = 2;
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
@@ -136,7 +138,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Product updated = _productDao.save(saved);
 
 		assertThat(updated.getRevisions(), hasItem(newRev));
-		assertThat(updated.getId(), equalTo(id));
+		assertThat(updated.getId(), equalTo(nextFreeId));
 
 		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(saved);

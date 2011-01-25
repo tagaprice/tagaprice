@@ -111,7 +111,6 @@ public class ProductRevision implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ent_id")
 	public Long getId() {
 		return _id;
