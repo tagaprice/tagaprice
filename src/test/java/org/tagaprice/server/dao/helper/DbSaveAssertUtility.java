@@ -47,6 +47,21 @@ public class DbSaveAssertUtility {
 			_entity = entity;
 			return this;
 		}
+
+		/**
+		 * This must be called prior to asserting the resultSet.
+		 */
+		protected void resultSetNotEmptyCheck(ResultSet rs) throws SQLException {
+			assertThat("Entity not found in the database. Did you forget to flush/commit? ResultSet was empty.", rs.next(), is(true));
+		}
+
+		/**
+		 * This should be called after asserting the resultSet. This asserts that the resultSet has no more columns.
+		 */
+		protected void resultSetNoMoreRowsCheck(ResultSet rs) throws SQLException {
+			assertThat("More than one row in resultSet. Maybe there are buggy SQL-statement in "
+					+ DbSaveAssertUtility.class.getName(), rs.next(), is(false));
+		}
 	}
 
 	//
@@ -144,13 +159,15 @@ public class DbSaveAssertUtility {
 	private static class ProductAsserter extends EntityAsserter<Product> {
 		@Override
 		public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
+
 			// assert product table
 			assertThat(rs.getLong("p_ent_id"), is(_entity.getId()));
 			// assert entity table
 			assertThat(rs.getLong("ent_ent_id"), is(_entity.getId()));
 			assertThat(rs.getInt("ent_locale_id"), is(_entity.getLocale().getId()));
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
@@ -184,12 +201,12 @@ public class DbSaveAssertUtility {
 	private static class ProductRevisionAsserter extends EntityAsserter<ProductRevision> {
 		@Override
 		public ProductRevision extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
 
 			// assert productRevision table
 			assertThat(rs.getLong("r_ent_id"), is(_entity.getId()));
 			assertThat(rs.getInt("r_rev"), is(_entity.getRevisionNumber()));
-			assertThat(rs.getString("r_unit"), is(_entity.getUnit().name())); // TODO check if this works
+			assertThat(rs.getString("r_unit"), is(_entity.getUnit().name()));
 			assertThat(rs.getDouble("r_amount"), is(_entity.getAmount()));
 			if (_entity.getCategory() != null)
 				assertThat(rs.getLong("r_category_id"), is(_entity.getCategory().getId())); // TODO assert null in db if
@@ -202,7 +219,7 @@ public class DbSaveAssertUtility {
 			assertThat(rs.getTimestamp("er_created_at"), is(_entity.getCreatedAt()));
 			assertThat(rs.getLong("er_creator"), is(_entity.getCreator().getUid()));
 
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
@@ -230,12 +247,14 @@ public class DbSaveAssertUtility {
 	private static class ReceiptAsserter extends EntityAsserter<Receipt> {
 		@Override
 		public Receipt extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
+
 			assertThat(rs.getLong("receipt_id"), is(_entity.getId()));
 			assertThat(rs.getLong("shop_id"), is(_entity.getShop().getShopId()));
 			assertThat(rs.getTimestamp("created_at"), is(_entity.getCreatedAt()));
 			assertThat(rs.getLong("creator"), is(_entity.getCreator().getUid()));
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
@@ -262,13 +281,15 @@ public class DbSaveAssertUtility {
 	private static class ReceiptEntryAsserter extends EntityAsserter<ReceiptEntry> {
 		@Override
 		public ReceiptEntry extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
+
 			assertThat(rs.getLong("receipt_id"), is(_entity.getReceiptId()));
 			assertThat(rs.getLong("product_id"), is(_entity.getProductId()));
 			assertThat(rs.getInt("product_revision"), is(_entity.getProductRevisionNumber()));
 			assertThat(rs.getInt("product_count"), is(_entity.getCount()));
 			assertThat(rs.getLong("price"), is(_entity.getPricePerItem()));
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
@@ -294,12 +315,14 @@ public class DbSaveAssertUtility {
 	private static class ShopAsserter extends EntityAsserter<Shop> {
 		@Override
 		public Shop extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
+
 			assertThat(rs.getLong("shop_id"), is(_entity.getId()));
 			assertThat(rs.getString("title"), is(_entity.getTitle()));
 			assertThat(rs.getDouble("latitude"), is(_entity.getLatitude()));
 			assertThat(rs.getDouble("longitude"), is(_entity.getLongitude()));
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
@@ -325,12 +348,14 @@ public class DbSaveAssertUtility {
 	private static class AccountAsserter extends EntityAsserter<Account> {
 		@Override
 		public Account extractData(ResultSet rs) throws SQLException, DataAccessException {
-			assertThat("resultSet empty", rs.next(), is(true));
+			resultSetNotEmptyCheck(rs);
+
 			assertThat(rs.getLong("uid"), is(_entity.getUid()));
 			assertThat(rs.getString("email"), is(_entity.getEmail()));
 			assertThat(rs.getTimestamp("last_login"), is(_entity.getLastLogin()));
 			assertThat(rs.getString("password"), is(not(nullValue())));
-			assertThat("more than one row in resultSet", rs.next(), is(false));
+
+			resultSetNoMoreRowsCheck(rs);
 			return null;
 		}
 	}
