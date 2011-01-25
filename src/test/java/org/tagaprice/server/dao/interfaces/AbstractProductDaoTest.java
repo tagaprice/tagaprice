@@ -115,29 +115,45 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 	@Test
 	@Rollback(false)
-	public void saveExistingProduct_shouldPersistProductWithOutDeletingOldRevisions_shouldReturnProductAsGiven() throws Exception {
+	public void saveExistingProduct_shouldPersistProduct_shouldReturnProductAsGiven() throws Exception {
+		//TODO fix this test 
+		//this test fails due to hibernate executing sql code: "set ent_id=null where ent_id=?" - no idea why, corresponding integration test runs
+		
 		_log.info("running test");
 
 		
-
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Long id = 1L;
 		Integer revId = 3;
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		Category category1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", creator, Unit.g, 100.0, category1, "www.urlToImage.com"));
+		Category category2 = HibernateSaveEntityCreator.createCategory(2L, category1, "category1", creator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", creator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, category2));
+		
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
+				revisions);
 
-		
 		Product actual = _productDao.save(productToSave);
 
+		Long expectedId = 1L;
 		Account expectedCreator = HibernateSaveEntityCreator.createAccount(1L);
-		Product expected = HibernateSaveEntityCreator.createProduct(id,
+		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
+		Category expectedCategory1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", expectedCreator);
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, expectedCategory1, "www.urlToImage.com"));
+		Category expectedCategory2 = HibernateSaveEntityCreator.createCategory(1L, expectedCategory1, "category1", expectedCreator);
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, expectedCategory2, "www.differentUrlToImage.com"));
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
+		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevision(id, revId,	expectedCreator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, expectedCreator)));
+				expectedRevisions);
 
 
 		ProductComparator.compareProductsAndRevisions(actual, expected);
 
+		_sessionFactory.getCurrentSession().flush();
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);
