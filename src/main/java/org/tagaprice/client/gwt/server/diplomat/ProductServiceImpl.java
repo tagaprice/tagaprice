@@ -117,7 +117,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		try {
 			Product productCore = converter.convertProductToCore(product);
 
-			productCore = this._coreProductService.save(productCore, (Session) getThreadLocalRequest().getSession().getAttribute("session"));
+//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
+			Session session = Session.getRootToken(); //TODO replace this call by the one above
+			productCore = this._coreProductService.save(productCore, session);
 
 			return converter.convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {

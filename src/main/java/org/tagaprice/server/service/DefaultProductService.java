@@ -39,7 +39,8 @@ public class DefaultProductService implements IProductService {
 		@SuppressWarnings("unused")
 		Account creator; //TODO use this creator to compare new productrevisions
 		if((creator = _sessionFactory.getAccount(session)) == null) {
-			throw new UserNotLoggedInException("You need to login to create a new product.");
+			if(!Session.getRootToken().equals(session))
+				throw new UserNotLoggedInException("You need to login to create a new product.");
 		}
 			
 		
