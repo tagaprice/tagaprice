@@ -45,11 +45,4 @@ public class RevisionIdTest {
 		Assert.assertEquals("539_432", this.equalRevision.toString());
 	}
 
-	@Test
-	public void testHashCode() {
-		Assert.assertEquals(20375, this.underTest.hashCode());
-		Assert.assertEquals(20375, this.equalRevision.hashCode());
-		Assert.assertEquals(4872, this.differentRevision.hashCode());
-	}
-
 }
