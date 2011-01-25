@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 /**
  * <p>
  * This class represents a category, used to categorize for example {@link Product}s. But this class is not limited to
@@ -100,7 +102,8 @@ public class Category implements Serializable {
 	}
 
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DETACH } )
 	@JoinColumn(name = "parent_id")
 	public Category getParent() {
 		return _parent;
@@ -121,7 +124,8 @@ public class Category implements Serializable {
 	}
 
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.DETACH } )
 	@JoinColumn(name = "creator")
 	public Account getCreator() {
 		return _creator;

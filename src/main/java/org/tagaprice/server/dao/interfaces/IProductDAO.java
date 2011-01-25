@@ -28,4 +28,9 @@ public interface IProductDAO {
 	 * Count all {@link Product}s.
 	 */
 	int countAll();
+
+
+	Product update(Product product);
+
+	void evict(Product persistedProduct);
 }

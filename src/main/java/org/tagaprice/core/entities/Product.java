@@ -123,7 +123,7 @@ public class Product implements Serializable {
 	 * Returns a copy of all {@link ProductRevision}s of this product as a {@link SortedSet} sorted by revision number, highest revision first.
 	 */
 	@OneToMany(fetch = FetchType.EAGER)
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE } )
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.DETACH } )
 	@JoinColumn(name = "ent_id")
 	@Sort(type = SortType.COMPARATOR, comparator = RevisionComparator.class)
 	public SortedSet<ProductRevision> getRevisions() {
@@ -175,10 +175,10 @@ public class Product implements Serializable {
 	}
 
 	/**
-	 * Adds a new revision to this product. 
+	 * Adds a new revision to this product.
 	 */
 	public void addRevision(ProductRevision newRevision) {
 		_revisions.add(newRevision);
-		
+
 	}
 }
