@@ -1,6 +1,5 @@
 package org.tagaprice.server.dao.helper;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +35,14 @@ public class HibernateSaveEntityCreator {
 	// Coordinates of Vienna
 	private static double _defaultLatitude = 48.208889;
 	private static double _defaultLongitude = 16.3725;
+
+	// free ids as in testdata (DO NOT CHANGE UNLESS THIS IS CHANGED IN TESTDATA)
+	public static final long nextFreeShopId = 4L;
+	public static final long nextFreeProductId = 4L;
+	public static final long nextFreeAccountId = 3L;
+	public static final long nextFreeCategoryId = 4L;
+	public static final long nextFreeReceiptId = 3L;
+	public static final int nextFreeLocaleId = 2;
 
 	/*
 	 * 
@@ -76,22 +83,22 @@ public class HibernateSaveEntityCreator {
 	public static ProductRevision createProductRevisionWithNullValues(Long id, Integer rev) {
 		return createProductRevision(id, rev, null, null, null, null, null, null, null);
 	}
-	
+
 
 	public static ProductRevision createProductRevision(Long productId, int i,
 			String string, Account creator, Category cat, String string2) {
-		return createProductRevision(productId, i, string, creator, _standardUnit, _standardAmount, cat, string2);
+		return createProductRevision(productId, i, string, creator, HibernateSaveEntityCreator._standardUnit, HibernateSaveEntityCreator._standardAmount, cat, string2);
 	}
 
 	public static ProductRevision createProductRevision(Long productId, int i, String string, Account creator, Unit defaultUnit, Double defaultAmount, Category cat1, String string2) {
-		return createProductRevision(productId, i, string, _standardDate, creator, defaultUnit, defaultAmount, cat1, string2);
+		return createProductRevision(productId, i, string, HibernateSaveEntityCreator._standardDate, creator, defaultUnit, defaultAmount, cat1, string2);
 	}
-	
+
 	public static ProductRevision createProductRevision(Long id, Integer rev, String title, Date createdAt,
 			Account creator, Unit unit, Double amount, Category category, String imageUrl) {
 		return new ProductRevision(id, rev, title, createdAt, creator, unit, amount, category, imageUrl);
 	}
-	
+
 
 
 	/*
@@ -123,7 +130,7 @@ public class HibernateSaveEntityCreator {
 	 * 
 	 * Product
 	 */
-	
+
 	public static Product createProduct(Long id, Locale locale, ProductRevision revision) {
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		revisions.add(revision);
@@ -263,7 +270,7 @@ public class HibernateSaveEntityCreator {
 	}
 
 	public static Category createCategory(Long id, Category parent, String title, Account creator) {
-		return new Category(id, title, parent, _standardDate, creator);
-		
+		return new Category(id, title, parent, HibernateSaveEntityCreator._standardDate, creator);
+
 	}
 }
