@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.tagaprice.client.gwt.server.diplomat.converter.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
@@ -13,9 +14,7 @@ import org.tagaprice.core.api.ICategoryService;
 import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
 
-import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
-import org.tagaprice.core.entities.Locale;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.server.boot.Boot;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -32,10 +31,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	private ICategoryService _coreCategoryService;
 	private org.tagaprice.core.api.IProductService _coreProductService;
 
-	// dummy values
-	public static final Locale defaultCoreLocale = new Locale(1, "de", "de");
-	public static final Account defaultCoreAccount = new Account(1L, "love@you.org", "super", new Date());
-	public static final Category defaultCoreCategory = new Category(1L, "X", null, new Date(), ProductServiceImpl.defaultCoreAccount);
 
 	/**
 	 * 
@@ -77,17 +72,21 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public IProduct getProduct(IRevisionId revionsId) {
 		_log.debug("revisionsId: " + revionsId);
 
+		ProductConverter converter = ProductConverter.getInstance();
+
 
 		Product product = _coreProductService.getById(revionsId.getId());
 
 		_log.debug("found product: " + product);
 
-		return convertProductToGWT(product, 0);
+		return converter.convertProductToGWT(product, 0);
 	}
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
 		_log.debug("getProducts for name " + searchCriteria);
+
+		ProductConverter converter = ProductConverter.getInstance();
 
 		List<Product> list = new ArrayList<Product>();
 		try {
@@ -104,7 +103,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 		for(Product p: list) {
 
-			returnList.add(convertProductToGWT(p, 0));
+			returnList.add(converter.convertProductToGWT(p, 0));
 		}
 		return returnList;
 	}
@@ -113,23 +112,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public IProduct saveProduct(IProduct product) {
 		_log.debug("product :"+product);
 
+		ProductConverter converter = ProductConverter.getInstance();
+
 		try {
-			Product productCore;
-			String newProductTitle = "newProduct";
-			Unit newProductUnit = Unit.kg;
-			Double newProductAmount = 2.3;
-			String newProductImageURL = "";
-			Category category = new Category(null, "testcat", null, new Date(), ProductServiceImpl.defaultCoreAccount);
+			Product productCore = converter.convertProductToCore(product);
 
-			ProductRevision newProductRevision = new ProductRevision(null, 1, newProductTitle, new Date(), ProductServiceImpl.defaultCoreAccount, newProductUnit, newProductAmount, category , newProductImageURL);
-			java.util.HashSet<ProductRevision> revisions = new java.util.HashSet<ProductRevision>();
-			revisions.add(newProductRevision);
+			productCore = this._coreProductService.save(productCore);
 
-			productCore = new Product(null, ProductServiceImpl.defaultCoreLocale, revisions);
-
-			this._coreProductService.save(productCore);
-
-			return convertProductToGWT(productCore, 0);
+			return converter.convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,78 +151,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		}
 		return gwtCategories;
 
-	}
-
-	/**
-	 * 
-	 * @param productGWT
-	 * @return
-	 */
-
-	public org.tagaprice.core.entities.Product convertProductToCore(final IProduct productGWT) {
-		_log.debug("Convert GWT -> core, id: " + productGWT.getRevisionId());
-		// Default values for new product...
-		Long productId = null;
-		Integer revisionNumber = 0;
-
-		if (productGWT.getRevisionId() != null) {
-			productId = productGWT.getRevisionId().getId();
-			revisionNumber = new Long(productGWT.getRevisionId().getRevision()).intValue();
-
-
-		}
-		String title = productGWT.getTitle();
-		Date date = new Date();
-		String  imageUrl = "";
-
-		// TODO Category must never be null!
-		Category category;
-		if (productGWT.getCategory() != null) {
-			category = new Category(new Long(productGWT.getCategory().getId()), productGWT.getCategory().getTitle(),
-					null, new Date(), ProductServiceImpl.defaultCoreAccount);
-		} else {
-			category = ProductServiceImpl.defaultCoreCategory;
-		}
-
-		Double amount = productGWT.getQuantity().getQuantity();
-		Unit unit = productGWT.getQuantity().getUnit();
-
-		// If product already exists...
-		ProductRevision revision = new ProductRevision(productId, revisionNumber, title, date,
-				ProductServiceImpl.defaultCoreAccount, unit, amount, category, "");
-		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
-		revisions.add(revision);
-
-		// ids must be the same value. if they are null the product must be created as new.
-
-		Product productCore = new Product(productId, ProductServiceImpl.defaultCoreLocale, revisions);
-		return productCore;
-	}
-
-	/**
-	 * 
-	 * @param productCore
-	 * @param revision
-	 *            when 0, then the latest revision is returned.
-	 * @return
-	 */
-	public IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
-		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
-		// these are always existing products!!!
-		ProductRevision pr = productCore.getCurrentRevision();
-
-
-		// get the data from the latest revision
-		long id = productCore.getId();
-		long revision = pr.getRevisionNumber();
-		String title = pr.getTitle();
-		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
-		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());
-
-		IRevisionId revisionId = new RevisionId(id, revision);
-		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title,
-				category, quantity);
-		return productGWT;
 	}
 
 	public void setProductService(org.tagaprice.core.api.IProductService productService) {

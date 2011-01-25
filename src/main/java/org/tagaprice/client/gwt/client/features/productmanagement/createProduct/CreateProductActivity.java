@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
@@ -20,6 +21,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	private CreateProductPlace _place;
 	private ClientFactory _clientFactory;
+	private IProduct _product;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
 		CreateProductActivity._logger.log("CreateProductActivity created");
@@ -47,6 +49,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+		_product = null;
 		CreateProductActivity._logger.log("activity startet");
 
 		ICreateProductView createProductView = _clientFactory.getCreateProductView();
@@ -122,7 +125,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			@Override
 			public void onSuccess(IProduct result) {
 				updateView(result);
-
 			}
 
 			@Override
@@ -154,13 +156,14 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	private void updateView(IProduct product) {
+		_product = product;
 		if(product == null)
 			return;
 		ICreateProductView view = this._clientFactory.getEditProductView();
 		if(product.getRevisionId() != null) {
-			view.setId(product.getRevisionId().getId());
+			view.setRevisionId(product.getRevisionId());
 		} else {
-			view.setId(0);
+			view.setRevisionId(new RevisionId());
 		}
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
@@ -168,7 +171,12 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	private IProduct getProduct() {
-		IProduct product = new Product();
+		IProduct product;
+		if(_product == null) {
+			product = new Product();
+		} else {
+			product = _product;
+		}
 		ICreateProductView view = this._clientFactory.getEditProductView();
 		product.setTitle(view.getProductTitle());
 		product.setCategory(view.getCategory());

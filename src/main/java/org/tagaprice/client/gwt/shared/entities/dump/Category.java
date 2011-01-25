@@ -1,7 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities.dump;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.shared.entities.*;
 
 
@@ -12,7 +10,6 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	 */
 	private static final long serialVersionUID = 7814196347951588949L;
 	private ICategory _parentCategory;
-	private ArrayList<ICategory> _childCategories = new ArrayList<ICategory>();
 	private long _id;
 
 	public Category(){}
@@ -26,16 +23,6 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 		return this._parentCategory;
 	}
 
-	@Override
-	public ArrayList<ICategory> getChildCategories() {
-		return this._childCategories;
-	}
-
-	@Override
-	public void addChildCategory(ICategory category) {
-		this._childCategories.add(category);
-		category.setParentCategory(this);
-	}
 
 	@Override
 	public String toString() {
@@ -59,12 +46,6 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		//TODO Implement this correct
-		return (o.toString().equals(this.toString()));
-	}
-
-	@Override
 	public void setId(long id) {
 		this._id = id;
 	}
@@ -73,5 +54,34 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 	public long getId() {
 		return this._id;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (int) (_id ^ (_id >>> 32));
+		result = prime * result + ((_parentCategory == null) ? 0 : _parentCategory.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (_id != other._id)
+			return false;
+		if (_parentCategory == null) {
+			if (other._parentCategory != null)
+				return false;
+		} else if (!_parentCategory.equals(other._parentCategory))
+			return false;
+		return true;
+	}
+
 
 }

@@ -21,11 +21,11 @@ public class CategoryTest {
 
 	@Before
 	public void setUp() throws Exception {
-		root.addChildCategory(food);
-		root.addChildCategory(beverages);
-		food.addChildCategory(vegetables);
-		beverages.addChildCategory(alcoholics);
-		beverages.addChildCategory(nonalcoholics);
+		nonalcoholics.setParentCategory(beverages);
+		alcoholics.setParentCategory(beverages);
+		vegetables.setParentCategory(food);
+		beverages.setParentCategory(root);
+		food.setParentCategory(root);
 	}
 
 	@After
@@ -37,5 +37,10 @@ public class CategoryTest {
 		Assert.assertEquals("root", root.toString());
 		Assert.assertEquals("root->food", food.toString());
 		Assert.assertEquals("root->food->vegetables", vegetables.toString());
+	}
+
+	@Test
+	public void testEquals() {
+
 	}
 }
