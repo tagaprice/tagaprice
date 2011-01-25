@@ -53,4 +53,12 @@ public class SessionService {
 		_sessionsToAccounts.remove(session);
 		_accountsToSessions.remove(account);
 	}
+	
+	/**
+	 * This deletes all sessions, all logged in users will be logged out.
+	 */
+	public synchronized void clear() {
+		_sessionsToAccounts.clear();
+		_accountsToSessions.clear();
+	}
 }

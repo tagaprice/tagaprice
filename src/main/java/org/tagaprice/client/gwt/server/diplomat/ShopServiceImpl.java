@@ -89,7 +89,11 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 		try {
 			Shop shopCore = shopConverter.convertGWTShopToCoreShop(shop);
-			shopCore = this._coreShopService.save(shopCore);
+			
+//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
+			Session session = Session.getRootToken(); //TODO replace this call by the one above
+			
+			shopCore = this._coreShopService.save(shopCore, session);
 			return shopConverter.convertCoreShopToGWTShop(shopCore);
 
 		} catch (ServerException e) {

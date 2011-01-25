@@ -15,9 +15,17 @@ public interface IReceiptEntry  extends IEntity<IReceiptEntry>{
 
 	public abstract void setQuantity(int quantity);
 
-	public abstract double getPrice();
+	/**
+	 * returns the price per unit in cent
+	 * @return
+	 */
+	public abstract int getPrice();
 
-	public abstract void setPrice(double price);
+	/**
+	 * sets the price per unit in cent
+	 * @param price
+	 */
+	public abstract void setPrice(int price);
 
 	public abstract Product getProduct();
 

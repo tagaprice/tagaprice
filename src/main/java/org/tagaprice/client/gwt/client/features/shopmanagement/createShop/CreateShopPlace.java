@@ -22,7 +22,7 @@ public class CreateShopPlace extends Place {
 		_revisonId=new RevisionId(id);
 	}
 
-	public CreateShopPlace(long id, long revision) {
+	public CreateShopPlace(long id, int revision) {
 		_revisonId=new RevisionId(id,revision);
 	}
 
@@ -41,7 +41,7 @@ public class CreateShopPlace extends Place {
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
-						return new CreateShopPlace(Long.parseLong(e.getNode("id")), Long.parseLong(e.getNode("rev")));
+						return new CreateShopPlace(Long.parseLong(e.getNode("id")), Integer.parseInt(e.getNode("rev")));
 					}else if(e.getNode("id")!=null){
 						return new CreateShopPlace(Long.parseLong(e.getNode("id")));
 					}

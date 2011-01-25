@@ -50,6 +50,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		_productService = applicationContext.getBean("defaultProductService", IProductService.class);
 		
 		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+		
 		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
 		
 		_sessionService = applicationContext.getBean("defaultSessionFactory", SessionService.class);
@@ -72,6 +73,8 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		Session session = _sessionService.createSession(creator);
 		
 		Product actual = _productService.save(productToSave, session);
+		
+		_sessionService.clear();
 		
 		
 		Long expectedId = 4L;
@@ -102,6 +105,8 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		Session session = _sessionService.createSession(creator);
 		
 		Product actual = _productService.save(productToSave, session);
+		
+		_sessionService.clear();
 		
 		
 		Long expectedId = 1L;

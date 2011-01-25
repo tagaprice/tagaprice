@@ -63,7 +63,7 @@
 							<g:Label ui:field="_latI18N">lat</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="_lat"></g:TextBox>
+							<g:Label ui:field="_lat"></g:Label>
 						</td>
 					</tr>
 					<tr>
@@ -71,7 +71,7 @@
 							<g:Label ui:field="_lngI18N">lng</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="_lng"></g:TextBox>
+							<g:Label ui:field="_lng"></g:Label>
 						</td>
 					</tr>
 				
@@ -85,5 +85,6 @@
 			</g:HTMLPanel>
 
 		</g:DecoratorPanel>
+		<g:SimplePanel ui:field="_mapContainer"></g:SimplePanel>
 	</g:VerticalPanel>
 </ui:UiBinder>
