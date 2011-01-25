@@ -84,11 +84,12 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	@Rollback(false)
 	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
+		Long nextFreeId = 4L;
 
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
-		long id = 4;
+		Long id = null;
 		int numberRevisions = 2;
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
@@ -97,10 +98,10 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Product actual = _productDao.save(productToSave);
 
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, Unit.ml,
+		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(nextFreeId, 1, creator, Unit.ml,
 				category);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
+		Product expected = new Product(nextFreeId, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -116,7 +117,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
 		_log.info("running test");
 
-		Object nextFreeId = 4L;
+		Long nextFreeId = 4L;
 
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
