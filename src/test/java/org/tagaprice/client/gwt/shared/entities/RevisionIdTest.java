@@ -18,9 +18,9 @@ public class RevisionIdTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.underTest = new RevisionId(539L, 432L);
-		this.equalRevision = new RevisionId(539L, 432L);
-		this.differentRevision = new RevisionId(123L, 321L);
+		this.underTest = new RevisionId(539L, 432);
+		this.equalRevision = new RevisionId(539L, 432);
+		this.differentRevision = new RevisionId(123L, 321);
 	}
 
 	@After
@@ -43,13 +43,6 @@ public class RevisionIdTest {
 	public void testToString() {
 		Assert.assertEquals("539_432", this.underTest.toString());
 		Assert.assertEquals("539_432", this.equalRevision.toString());
-	}
-
-	@Test
-	public void testHashCode() {
-		Assert.assertEquals(20375, this.underTest.hashCode());
-		Assert.assertEquals(20375, this.equalRevision.hashCode());
-		Assert.assertEquals(4872, this.differentRevision.hashCode());
 	}
 
 }

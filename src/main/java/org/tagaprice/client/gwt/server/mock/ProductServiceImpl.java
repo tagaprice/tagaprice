@@ -93,7 +93,7 @@ IProductService {
 			//make a copy ... to get sure
 			IProduct newProduct = product.copy();
 			//set a productID and Revision 1
-			newProduct.setRevisionId(new RevisionId(this.productIdCounter++, 1L));
+			newProduct.setRevisionId(new RevisionId(this.productIdCounter++, 1));
 			//Save it into the hashmaps
 			this.productsAllRevisions.put(newProduct.getRevisionId(), newProduct);
 			this.productsLatest.put(newProduct.getRevisionId().getId(), newProduct);

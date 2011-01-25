@@ -71,11 +71,21 @@ public class ProductConverter {
 		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
 		// these are always existing products!!!
 		ProductRevision pr = productCore.getCurrentRevision();
+		if(revisionToGet == 0) {
+			productCore.getCurrentRevision();
+		} else {
+			for(ProductRevision pr_temp: productCore.getRevisions()){
+				if(pr_temp.getRevisionNumber() == revisionToGet) {
+					pr = pr_temp;
+					break;
+				}
+			}
+		}
 
 
 		// get the data from the latest revision
 		long id = productCore.getId();
-		long revision = pr.getRevisionNumber();
+		int revision = pr.getRevisionNumber();
 		String title = pr.getTitle();
 		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
 		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());

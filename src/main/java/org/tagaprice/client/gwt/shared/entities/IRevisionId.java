@@ -33,7 +33,7 @@ public interface IRevisionId extends Serializable {
 	 * @param rev
 	 *            Set the revision id for a {@link AEntity}. Only the server is allowed to set the RevisonId.
 	 */
-	public void setRevision(long rev);
+	public void setRevision(int rev);
 
 
 	/**
@@ -41,7 +41,7 @@ public interface IRevisionId extends Serializable {
 	 * 
 	 * @return Returns the RevisionId for a {@link AEntity}
 	 */
-	public long getRevision();
+	public int getRevision();
 
 	/**
 	 * Set the user who created this {@link IRevision}
