@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Projections;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class HibernateProductDAO implements IProductDAO {
@@ -19,6 +20,11 @@ public class HibernateProductDAO implements IProductDAO {
 
 	@Override
 	public Product save(Product product) {
+		// set all ids in ProductRevisions to the same id as Product
+		for(ProductRevision rev : product.getRevisions()) {
+			rev.setId(product.getId());
+		}
+
 		Session session = _sessionFactory.getCurrentSession();
 		session.saveOrUpdate(product);
 		return product;

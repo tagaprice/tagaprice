@@ -122,23 +122,26 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
-		Long id = null;
+		Long idToSaveIsNull = null;
 		int numberRevisions = 2;
-		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+		Product productToSave = HibernateSaveEntityCreator.createProduct(idToSaveIsNull,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
+				HibernateSaveEntityCreator.createProductRevisions(idToSaveIsNull, numberRevisions, creator, Unit.ml, category));
 
 		Product saved = _productDao.save(productToSave);
 
 		int revisionNumber = 3;
-		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(idToSaveIsNull, revisionNumber, creator, Unit.ml,
 				category);
 
 		saved.getRevisions().add(newRev);
 
 		Product updated = _productDao.save(saved);
 
-		assertThat(updated.getRevisions(), hasItem(newRev));
+		ProductRevision newRevAfterSave = HibernateSaveEntityCreator.createProductRevision(nextFreeId, revisionNumber, creator, Unit.ml,
+				category);
+
+		assertThat(updated.getRevisions(), hasItem(newRevAfterSave));
 		assertThat(updated.getId(), equalTo(nextFreeId));
 
 		_sessionFactory.getCurrentSession().flush();
@@ -154,14 +157,16 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
 		_log.info("running test");
 
+		Long nextFreeId = 4L;
+
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 		Locale locale = HibernateSaveEntityCreator.createLocale(1);
 
-		long id = 4;
+		Long idToSaveIsNull = null;
 		int numberRevisions = 2;
-		Product productToSave = HibernateSaveEntityCreator.createProduct(id, locale,
-				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
+		Product productToSave = HibernateSaveEntityCreator.createProduct(idToSaveIsNull, locale,
+				HibernateSaveEntityCreator.createProductRevisions(idToSaveIsNull, numberRevisions, creator, Unit.ml, category));
 
 		Product saved = _productDao.save(productToSave);
 
@@ -171,7 +176,7 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 		assertThat(originalRevs.size(), is(2));
 
 		int revisionNumber = 3;
-		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
+		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(idToSaveIsNull, revisionNumber, creator, Unit.ml,
 				category);
 
 		Product productWithJustNewRev = saved;
@@ -182,8 +187,11 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		Product updated = _productDao.save(productWithJustNewRev);
 
-		assertThat(updated.getRevisions(), hasItem(newRev));
-		assertThat(updated.getId(), equalTo(id));
+		ProductRevision newRevAfterSave = HibernateSaveEntityCreator.createProductRevision(nextFreeId, revisionNumber, creator, Unit.ml,
+				category);
+
+		assertThat(updated.getRevisions(), hasItem(newRevAfterSave));
+		assertThat(updated.getId(), equalTo(nextFreeId));
 
 		_sessionFactory.getCurrentSession().flush();
 		// assert updates
