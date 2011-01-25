@@ -1,10 +1,10 @@
 package org.tagaprice.server.integration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -96,51 +96,54 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 		assertThat(actual.isEmpty(), is(true));
 	}
 
-	// @Test
-	// public void getShopByTitle_shoudGetBasicShops() throws Exception {
-	//
-	// List<BasicShop> actual = _shopService.getByTitle("test");
-	//
-	// for (BasicShop s : list)
-	// assertThat(actual, hasItem(s));
-	// assertThat(actual.size(), is(list.size()));
-	// }
-	//
-	// @Test(expected = IllegalArgumentException.class)
-	// public void getShopByTitle_titleNull_shouldThrow() throws Exception {
-	// _shopService.getByTitle(null);
-	// }
-	//
-	//
-	// @Test
-	// public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
-	//
-	// List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
-	//
-	// for (BasicShop s : list)
-	// assertThat(actual, hasItem(s));
-	// assertThat(actual.size(), is(list.size()));
-	// }
-	//
-	// @Test(expected = IllegalArgumentException.class)
-	// public void getShopByTitleFuzzy_titleNull_shouldThrow() throws Exception {
-	// _shopService.getByTitleFuzzy(null);
-	// }
-	//
-	//
-	//
-	// @Test
-	// public void getAll_shouldReturnBasicShops() throws Exception {
-	//
-	// List<BasicShop> actual = _shopService.getAll();
-	//
-	// BasicShop shop1 = EntityCreator.createBasicShop(1L, "test1");
-	// BasicShop shop2 = EntityCreator.createBasicShop(2L, "test2");
-	// BasicShop shop3 = EntityCreator.createBasicShop(3L, "test3");
-	//
-	// assertThat(actual, hasItems(shop1, shop2, shop3));
-	// assertThat(actual.size(), is(3));
-	// }
+	@Test
+	public void getShopByTitle_shoudGetBasicShops() throws Exception {
+		List<BasicShop> actual = _shopService.getByTitle("testShop");
+
+		BasicShop expectedShop = HibernateSaveEntityCreator.createBasicShop(1L, "testShop");
+
+		assertThat(actual.size(), is(1));
+		assertThat(actual.get(0), is(expectedShop));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getShopByTitle_titleNull_shouldThrow() throws Exception {
+		_shopService.getByTitle(null);
+	}
+
+
+	@Test
+	public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
+		List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
+
+		List<BasicShop> expected = new LinkedList<BasicShop>();
+		expected.add(HibernateSaveEntityCreator.createBasicShop(1L, "testShop"));
+		expected.add(HibernateSaveEntityCreator.createBasicShop(2L, "otherTestShopX"));
+
+		assertThat(actual.size(), is(expected.size()));
+		for (BasicShop s : expected)
+			assertThat(actual, hasItem(s));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getShopByTitleFuzzy_titleNull_shouldThrow() throws Exception {
+		_shopService.getByTitleFuzzy(null);
+	}
+
+
+
+	@Test
+	public void getAll_shouldReturnBasicShops() throws Exception {
+
+		List<BasicShop> actual = _shopService.getAll();
+
+		BasicShop shop1 = EntityCreator.createBasicShop(1L, "testShop");
+		BasicShop shop2 = EntityCreator.createBasicShop(2L, "otherTestShopX");
+		BasicShop shop3 = EntityCreator.createBasicShop(3L, "myShop");
+
+		assertThat(actual, hasItems(shop1, shop2, shop3));
+		assertThat(actual.size(), is(3));
+	}
 
 	//
 	// helpers
