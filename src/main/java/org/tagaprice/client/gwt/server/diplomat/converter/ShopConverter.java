@@ -28,7 +28,7 @@ public class ShopConverter {
 	 * @return
 	 */
 
-	public IShop convertCoreShopToGWT(final Shop coreShop){
+	public IShop convertCoreShopToGWTShop(final Shop coreShop){
 
 		Long id = 0L;
 		if(coreShop.getId() != null){
@@ -56,7 +56,7 @@ public class ShopConverter {
 	 * @return
 	 */
 
-	public Shop convertGWTShoptoCore(final IShop shopGWT){
+	public Shop convertGWTShopToCoreShop(final IShop shopGWT){
 		_log.debug("Convert gwtShop to coreShop,id:"+ shopGWT.getRevisionId());
 
 		Long shopId = null;

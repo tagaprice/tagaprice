@@ -61,7 +61,7 @@ public class ShopConverterTest {
 	 */
 	@Test
 	public void testConvertNewGWTShopToCore() throws Exception{
-		Shop shopCore = shopConverter.convertGWTShoptoCore(this.newShopGWT);
+		Shop shopCore = shopConverter.convertGWTShopToCoreShop(this.newShopGWT);
 
 		Assert.assertEquals(null, shopCore.getId());
 		Assert.assertEquals(this.title, shopCore.getTitle());
@@ -79,7 +79,7 @@ public class ShopConverterTest {
 
 	@Test
 	public void testConvertNewCoreShopToGWT() throws Exception{
-		IShop shopGWT = shopConverter.convertCoreShopToGWT(this.newShopCore);
+		IShop shopGWT = shopConverter.convertCoreShopToGWTShop(this.newShopCore);
 
 		Assert.assertEquals(shopGWT.getRevisionId().getId(), 0L );
 		Assert.assertEquals(shopGWT.getTitle(),this.title );

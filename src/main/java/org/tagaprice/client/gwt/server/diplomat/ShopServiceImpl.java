@@ -47,7 +47,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		}
 
 		_logger.debug("got CoreShop: " + coreShop);
-		IShop shop =converter.convertCoreShopToGWT(coreShop);
+		IShop shop =converter.convertCoreShopToGWTShop(coreShop);
 
 		_logger.debug("converted GWTShop: " + shop);
 
@@ -61,9 +61,9 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		ShopConverter shopConverter =ShopConverter.getInstance();
 
 		try {
-			Shop shopCore = shopConverter.convertGWTShoptoCore(shop);
+			Shop shopCore = shopConverter.convertGWTShopToCoreShop(shop);
 			shopCore = this._coreShopService.save(shopCore);
-			return shopConverter.convertCoreShopToGWT(shopCore);
+			return shopConverter.convertCoreShopToGWTShop(shopCore);
 
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
