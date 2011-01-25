@@ -73,13 +73,12 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		_log.debug("revisionsId: " + revionsId);
 
 		ProductConverter converter = ProductConverter.getInstance();
-
-
 		Product product = _coreProductService.getById(revionsId.getId());
-
 		_log.debug("found product: " + product);
 
-		return converter.convertProductToGWT(product, 0);
+		IProduct gwtProduct;
+		gwtProduct = converter.convertProductToGWT(product, revionsId.getRevision());
+		return gwtProduct;
 	}
 
 	@Override
