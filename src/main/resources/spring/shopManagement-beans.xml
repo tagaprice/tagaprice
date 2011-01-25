@@ -13,29 +13,12 @@
 			   http://www.springframework.org/schema/tx
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
-	<!-- enable the configuration of transactional behavior based on annotations-->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
-	<!-- 
-		-
-		-	Services
-		-	
-	-->
-	<bean id="defaultReceiptService"
-    class="org.tagaprice.server.service.DefaultReceiptService">
-		<property name="receiptDAO" ref="defaultReceiptDAO"/>
-	</bean>
-
-
-	<!-- 
-		-
-		-	DAOs
-		-	
-	-->
-	<bean id="defaultReceiptDAO"
-    	class="org.tagaprice.server.dao.hibernate.HibernateReceiptDAO">
-		<property name="sessionFactory" ref="sessionFactory"/>
+			   
+	<bean id="defaultShopService" class="org.tagaprice.server.service.DefaultShopService">
+		<property name="shopDAO" ref="defaultShopDAO"/>
 	</bean>
 	
-  	
+	<bean id="defaultShopDAO" class="org.tagaprice.server.dao.hibernate.HibernateShopDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>
