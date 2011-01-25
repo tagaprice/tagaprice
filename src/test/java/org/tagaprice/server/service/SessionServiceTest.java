@@ -57,8 +57,29 @@ public class SessionServiceTest extends AbstractJUnit4SpringContextTests {
 		_service.getAccount(session);
 	}
 	
+	@Test(expected=UserNotLoggedInException.class)
+	public void deleteSession_shouldDeleteSession_shouldThrowUserNotLoggedInException() throws UserAlreadyLoggedInException, UserNotLoggedInException {
+		Account account = EntityCreator.createAccount();
+		
+		Session session = _service.createSession(account);
+		
+		_service.deleteSession(session);
+		
+		_service.getAccount(session);
+	}
+	
 	@Test
-	public void deleteSession_shouldDeleteSession() {
-		fail(); //TODO not implemented
+	public void deleteSessionAndReCreateSession_shouldGetAccount() throws UserAlreadyLoggedInException, UserNotLoggedInException {
+		Account account = EntityCreator.createAccount();
+		
+		Session session = _service.createSession(account);
+		
+		_service.deleteSession(session);
+		
+		session = _service.createSession(account);
+		
+		Account actual = _service.getAccount(session);
+
+		assertThat(actual, equalTo(EntityCreator.createAccount()));
 	}
 }
