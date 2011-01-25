@@ -4,6 +4,7 @@ CREATE TABLE entityRevision (
 
 	title varchar(255) NOT NULL,
 	created_at TIMESTAMP DEFAULT NOW(), -- TODO fix this NOT NULL,
+	creator BIGINT,
 	
 	PRIMARY KEY (ent_id, rev),
 --TODO fix	FOREIGN KEY (ent_id) REFERENCES entity(ent_id),
