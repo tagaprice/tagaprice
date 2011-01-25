@@ -71,6 +71,16 @@ public class ProductConverter {
 		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
 		// these are always existing products!!!
 		ProductRevision pr = productCore.getCurrentRevision();
+		if(revisionToGet == 0) {
+			productCore.getCurrentRevision();
+		} else {
+			for(ProductRevision pr_temp: productCore.getRevisions()){
+				if(pr_temp.getRevisionNumber() == revisionToGet) {
+					pr = pr_temp;
+					break;
+				}
+			}
+		}
 
 
 		// get the data from the latest revision
