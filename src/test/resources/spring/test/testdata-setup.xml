@@ -7,8 +7,7 @@
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 
 	<!-- 
-	-	TESTDATA SETUP
-	-	Defines a dbTestInitializer which can be used to insert testdata
+	- TESTDATA SETUP - Defines a dbTestInitializer which can be used to insert testdata 
 	-->
-	<import resource="classpath:spring/test/testdata-setup.xml" />
+	<import resource="classpath:spring/test/dbTestInitializer-beans.xml" />
 </beans>
