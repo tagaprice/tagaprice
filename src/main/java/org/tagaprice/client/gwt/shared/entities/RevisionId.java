@@ -14,13 +14,13 @@ public class RevisionId implements IRevisionId {
 
 	private static final long serialVersionUID = 2011503142739304476L;
 	private long _id;
-	private long _rev;
+	private int _rev;
 	private IUser _user;
 	private Date _date;
 
 	public RevisionId() {
 		this._id = 0L;
-		this._rev = 0L;
+		this._rev = 0;
 	}
 
 	/**
@@ -29,10 +29,10 @@ public class RevisionId implements IRevisionId {
 	 */
 	public RevisionId(long id) {
 		setId(id);
-		setRevision(0L);
+		setRevision(0);
 	}
 
-	public RevisionId(long id, long revision) {
+	public RevisionId(long id, int revision) {
 		this(id);
 		setRevision(revision);
 	}
@@ -48,12 +48,12 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public void setRevision(long rev) {
+	public void setRevision(int rev) {
 		_rev = rev;
 	}
 
 	@Override
-	public long getRevision() {
+	public int getRevision() {
 		return _rev;
 	}
 
@@ -82,7 +82,7 @@ public class RevisionId implements IRevisionId {
 		// http://www.javapractices.com/topic/TopicAction.do?Id=28
 		int prime = 37;
 		// Calculate with ID and REV
-		int hash = ((int) (this._id ^ (this._id >>> 32))) * prime + (int) (this._rev ^ (this._rev >>> 32));
+		int hash = ((int) (this._id ^ (this._id >>> 32))) * prime + (this._rev ^ (this._rev >>> 32));
 
 		return hash;
 	}

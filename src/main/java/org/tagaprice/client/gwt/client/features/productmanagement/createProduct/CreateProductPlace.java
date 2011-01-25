@@ -22,7 +22,7 @@ public class CreateProductPlace extends Place {
 		_revisonId=new RevisionId(id);
 	}
 
-	public CreateProductPlace(long id, long revision){
+	public CreateProductPlace(long id, int revision){
 		_revisonId=new RevisionId(id, revision);
 	}
 
@@ -42,7 +42,7 @@ public class CreateProductPlace extends Place {
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
 						CreateProductPlace.logger.log("return ProductPlace with it and Revision");
-						return new CreateProductPlace(Long.parseLong(e.getNode("id")), Long.parseLong(e.getNode("rev")));
+						return new CreateProductPlace(Long.parseLong(e.getNode("id")), Integer.parseInt(e.getNode("rev")));
 					}else if(e.getNode("id")!=null){
 						CreateProductPlace.logger.log("return ProductPlace only with id");
 						return new CreateProductPlace(Long.parseLong(e.getNode("id")));

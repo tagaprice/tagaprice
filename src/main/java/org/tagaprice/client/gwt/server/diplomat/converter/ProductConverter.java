@@ -75,7 +75,7 @@ public class ProductConverter {
 
 		// get the data from the latest revision
 		long id = productCore.getId();
-		long revision = pr.getRevisionNumber();
+		int revision = pr.getRevisionNumber();
 		String title = pr.getTitle();
 		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
 		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());
