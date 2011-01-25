@@ -75,16 +75,35 @@ public abstract class AEntity<T> implements IEntity<T> {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if(o instanceof AEntity<?>) {
-			return this.equals((AEntity<?>) o);
-		} else {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_revId == null) ? 0 : _revId.hashCode());
+		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-
+		if (getClass() != obj.getClass())
+			return false;
+		AEntity other = (AEntity) obj;
+		if (_revId == null) {
+			if (other._revId != null)
+				return false;
+		} else if (!_revId.equals(other._revId))
+			return false;
+		if (_title == null) {
+			if (other._title != null)
+				return false;
+		} else if (!_title.equals(other._title))
+			return false;
+		return true;
 	}
 
-	public boolean equals(AEntity<?> o) {
-		return this._title.equals(o._title) && this._revId.equals(o._revId);
-	}
+
 }

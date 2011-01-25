@@ -97,7 +97,6 @@ public class RevisionId implements IRevisionId {
 	}
 
 	public boolean equals(IRevisionId other) {
-		System.out.println(this.toString() + " " + other.toString());
 		return this._id == other.getId() && this._rev == other.getRevision();
 	}
 

@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 import com.google.gwt.place.shared.Place;
@@ -13,8 +14,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface ICreateProductView extends IsWidget {
 
-	public void setId(long id);
-
+	public void setRevisionId(IRevisionId revisionId);
 
 	/**
 	 * Sets the displayed title

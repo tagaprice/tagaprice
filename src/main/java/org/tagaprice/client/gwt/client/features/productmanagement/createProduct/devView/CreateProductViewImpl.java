@@ -6,6 +6,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 
 import com.google.gwt.core.client.GWT;
@@ -108,9 +109,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		return this.name.getText();
 	}
 
+
 	@Override
-	public void setId(long id) {
-		this.id.setText(String.valueOf(id));
+	public void setRevisionId(IRevisionId revisionId) {
+		this.id.setText(revisionId.toString());
+
 	}
 
 

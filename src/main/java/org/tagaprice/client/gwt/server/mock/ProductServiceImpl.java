@@ -44,11 +44,11 @@ IProductService {
 		ICategory nonalcoholics = new Category("nonalcoholics");
 		this.categories.add(nonalcoholics);
 
-		root.addChildCategory(food);
-		root.addChildCategory(beverages);
-		food.addChildCategory(vegetables);
-		beverages.addChildCategory(alcoholics);
-		beverages.addChildCategory(nonalcoholics);
+		nonalcoholics.setParentCategory(beverages);
+		alcoholics.setParentCategory(beverages);
+		vegetables.setParentCategory(food);
+		beverages.setParentCategory(root);
+		food.setParentCategory(root);
 
 		this.saveProduct(new Product("Bergkäse", food, new Quantity(100, Unit.g)));
 		this.saveProduct(new Product("Extrawurst von der Theke", food, new Quantity(0, Unit.g)));
