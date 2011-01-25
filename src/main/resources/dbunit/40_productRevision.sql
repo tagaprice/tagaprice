@@ -1,5 +1,5 @@
 CREATE TABLE productRevision (
-	ent_id BIGINT NOT NULL,
+	ent_id BIGINT,
 	rev INTEGER NOT NULL,
 
 	unit VARCHAR(20) NOT NULL,

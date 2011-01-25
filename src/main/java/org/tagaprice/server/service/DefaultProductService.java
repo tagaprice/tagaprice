@@ -38,10 +38,7 @@ public class DefaultProductService implements IProductService {
 
 		Long id = newProduct.getId();
 
-		if (id == null) { // new product
-			Long newId = IdCounter.getNewId();
-			newProduct.setId(newId);
-		} else {
+		if (id != null) { //product already persisted
 			Product persistedProduct = _productDao.getById(id);
 			ProductRevision persistedHighestRevision = persistedProduct.getCurrentRevision();
 			Integer persistedHighestRevisionNumber = persistedHighestRevision.getRevisionNumber();
