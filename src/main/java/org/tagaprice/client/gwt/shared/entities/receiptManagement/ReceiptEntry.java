@@ -10,7 +10,7 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 	private static final long serialVersionUID = -7990234621338289392L;
 
 	private int _quantity;
-	private double _price;
+	private int _price;
 	private Product _product;
 	private Receipt _receipt;
 	private IRevisionId _productId;
@@ -28,7 +28,7 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 	 * @param productId
 	 * @param receiptId
 	 */
-	public ReceiptEntry(int quantity, double price, Product product, Receipt receipt, IRevisionId productId,
+	public ReceiptEntry(int quantity, int price, Product product, Receipt receipt, IRevisionId productId,
 			IRevisionId receiptId) {
 		super();
 		_quantity = quantity;
