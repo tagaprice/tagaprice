@@ -21,7 +21,10 @@ public class HibernateShopDAO implements IShopDAO {
 
 	@Override
 	public Shop getById(long id) {
-		Shop shop = (Shop) _sessionFactory.getCurrentSession().load(Shop.class, id);
+		Shop shop = (Shop) _sessionFactory.getCurrentSession().get(Shop.class, id);
+		if(shop == null)
+			return null;
+
 		shop.setReceiptEntries(_sessionFactory
 				.getCurrentSession()
 				.createQuery(

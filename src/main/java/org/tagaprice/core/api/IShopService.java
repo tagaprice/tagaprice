@@ -9,7 +9,9 @@ public interface IShopService {
 
 	/**
 	 * Gets the shop with matching id.
-	 * @throws ServerException @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
+	 * @return matching {@link Shop}, or null, if no match was found.
+	 * 
+	 * @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
 	 */
 	Shop getById(long id) throws ServerException;
 
