@@ -54,17 +54,23 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 	@Test(expected = IllegalArgumentException.class)
 	public void saveNullShop_shouldThrow() throws Exception {
 		_shopService.save(null);
-
 	}
 
 	@Test
 	public void getShopById_shouldGetShop() throws Exception {
-
 		Shop actual = _shopService.getById(1L);
 
 		Shop expected = EntityCreator.createShop(1L);
 
 		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void getShopById_shopNotFound_shouldReturnNull() throws Exception {
+		long shopIdNotInDb = 100L;
+		Shop actual = _shopService.getById(shopIdNotInDb);
+
+		assertThat(actual, equalTo(null));
 	}
 
 
@@ -75,49 +81,49 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 		assertThat(actual.isEmpty(), is(true));
 	}
 
-	//	@Test
-	//	public void getShopByTitle_shoudGetBasicShops() throws Exception {
+	// @Test
+	// public void getShopByTitle_shoudGetBasicShops() throws Exception {
 	//
-	//		List<BasicShop> actual = _shopService.getByTitle("test");
+	// List<BasicShop> actual = _shopService.getByTitle("test");
 	//
-	//		for (BasicShop s : list)
-	//			assertThat(actual, hasItem(s));
-	//		assertThat(actual.size(), is(list.size()));
-	//	}
+	// for (BasicShop s : list)
+	// assertThat(actual, hasItem(s));
+	// assertThat(actual.size(), is(list.size()));
+	// }
 	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void getShopByTitle_titleNull_shouldThrow() throws Exception {
-	//		_shopService.getByTitle(null);
-	//	}
-	//
-	//
-	//	@Test
-	//	public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
-	//
-	//		List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
-	//
-	//		for (BasicShop s : list)
-	//			assertThat(actual, hasItem(s));
-	//		assertThat(actual.size(), is(list.size()));
-	//	}
-	//
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void getShopByTitleFuzzy_titleNull_shouldThrow() throws Exception {
-	//		_shopService.getByTitleFuzzy(null);
-	//	}
+	// @Test(expected = IllegalArgumentException.class)
+	// public void getShopByTitle_titleNull_shouldThrow() throws Exception {
+	// _shopService.getByTitle(null);
+	// }
 	//
 	//
+	// @Test
+	// public void getShopByTitleFuzzy_shouldReturnBasicShops() throws Exception {
 	//
-	//	@Test
-	//	public void getAll_shouldReturnBasicShops() throws Exception {
+	// List<BasicShop> actual = _shopService.getByTitleFuzzy("test");
 	//
-	//		List<BasicShop> actual = _shopService.getAll();
+	// for (BasicShop s : list)
+	// assertThat(actual, hasItem(s));
+	// assertThat(actual.size(), is(list.size()));
+	// }
 	//
-	//		BasicShop shop1 = EntityCreator.createBasicShop(1L, "test1");
-	//		BasicShop shop2 = EntityCreator.createBasicShop(2L, "test2");
-	//		BasicShop shop3 = EntityCreator.createBasicShop(3L, "test3");
+	// @Test(expected = IllegalArgumentException.class)
+	// public void getShopByTitleFuzzy_titleNull_shouldThrow() throws Exception {
+	// _shopService.getByTitleFuzzy(null);
+	// }
 	//
-	//		assertThat(actual, hasItems(shop1, shop2, shop3));
-	//		assertThat(actual.size(), is(3));
-	//	}
+	//
+	//
+	// @Test
+	// public void getAll_shouldReturnBasicShops() throws Exception {
+	//
+	// List<BasicShop> actual = _shopService.getAll();
+	//
+	// BasicShop shop1 = EntityCreator.createBasicShop(1L, "test1");
+	// BasicShop shop2 = EntityCreator.createBasicShop(2L, "test2");
+	// BasicShop shop3 = EntityCreator.createBasicShop(3L, "test3");
+	//
+	// assertThat(actual, hasItems(shop1, shop2, shop3));
+	// assertThat(actual.size(), is(3));
+	// }
 }
