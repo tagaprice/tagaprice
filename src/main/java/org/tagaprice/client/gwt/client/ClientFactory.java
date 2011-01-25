@@ -6,8 +6,11 @@ import org.tagaprice.client.gwt.client.features.productmanagement.ProductService
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
+import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopServiceAsync;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
@@ -46,6 +49,8 @@ public interface ClientFactory {
 
 	ILoginServiceAsync getLoginService();
 
+	IShopServiceAsync getShopService();
+
 
 	/****************** VIEWS ***********************/
 
@@ -82,6 +87,8 @@ public interface ClientFactory {
 	 * @return the CreateShopView
 	 */
 	ICreateShopView getCreateShopView();
+
+	ListShopsView<IShop> getListShopsView();
 
 	/****************** WIDGETS ***********************/
 }

@@ -1,12 +1,12 @@
 package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateShopView extends IsWidget, IShop {
+public interface ICreateShopView extends IsWidget {
 
 
 
@@ -43,6 +43,36 @@ public interface ICreateShopView extends IsWidget, IShop {
 		 *            is called when the user has CHANGED/CREATED a
 		 *            shop.
 		 */
-		public void onSaveEvent(ClickEvent event);
+		public void onSaveEvent();
 	}
+
+	void setStreet(String street);
+
+	void setZip(String zip);
+
+	void setCity(String city);
+
+	void setCountry(Country country);
+
+	double getLng();
+
+	double getLat();
+
+	Country getCountry();
+
+	String getCity();
+
+	String getZip();
+
+	String getStreet();
+
+	String getShopTitle();
+
+	void setLng(double lng);
+
+	void setLat(double lat);
+
+	void setShopTitle(String title);
+
+	void setRevisionId(IRevisionId revisionId);
 }

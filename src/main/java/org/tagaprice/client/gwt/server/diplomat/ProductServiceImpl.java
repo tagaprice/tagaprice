@@ -41,7 +41,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	public ProductServiceImpl() {
-		_log.debug("Starting GWT-ProductService");
+		_log.debug("Starting Core-ProductService");
 
 		try {
 			String service = "defaultProductService";
@@ -53,8 +53,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			_log.debug("Attempting to load "+service+" from core.api");
 			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
 			_log.debug("Loaded "+service+" successfully.");
-
-			_coreProductService = (org.tagaprice.core.api.IProductService) Boot.getApplicationContext().getBean("defaultProductService");
 
 			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
 
