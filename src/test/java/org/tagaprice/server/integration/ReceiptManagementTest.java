@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.springframework.test.context.ContextConfiguration;
 import org.tagaprice.core.api.IReceiptService;
@@ -13,14 +12,12 @@ import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
-import org.tagaprice.server.service.DefaultReceiptService;
 import org.tagaprice.server.service.templates.ReceiptServiceTestTemplate;
 
 @ContextConfiguration
 public class ReceiptManagementTest extends ReceiptServiceTestTemplate {
 
 	private IDbTestInitializer _dbInitializer;
-	private SessionFactory _sessionFactory;
 
 	@Before
 	public void setUp() throws Exception {
@@ -31,7 +28,6 @@ public class ReceiptManagementTest extends ReceiptServiceTestTemplate {
 		_dbInitializer.dropAndRecreate();
 		_dbInitializer.fillTables();
 
-		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
 		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
 	}
 
