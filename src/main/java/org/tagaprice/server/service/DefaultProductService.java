@@ -12,11 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tagaprice.core.api.IProductService;
 import org.tagaprice.core.api.OutdatedRevisionException;
+import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.ArgumentUtitlity;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 
@@ -24,13 +27,22 @@ public class DefaultProductService implements IProductService {
 	private IProductDAO _productDao;
 	private Logger _log = LoggerFactory.getLogger(DefaultProductService.class);
 	private IProductRevisionDAO _productRevisionDao;
+	private SessionService _sessionFactory;
 
 
 	@Transactional
 	@Override
-	public Product save(Product newProduct) throws OutdatedRevisionException {
-		if (newProduct == null)
-			throw new IllegalArgumentException("product must not be null");
+	public Product save(Product newProduct, Session session) throws UserNotLoggedInException, OutdatedRevisionException {
+		ArgumentUtitlity.checkNull("session", session);
+		ArgumentUtitlity.checkNull("newProduct", newProduct);
+		
+		@SuppressWarnings("unused")
+		Account creator; //TODO use this creator to compare new productrevisions
+		if((creator = _sessionFactory.getAccount(session)) == null) {
+			throw new UserNotLoggedInException("You need to login to create a new product.");
+		}
+			
+		
 		if(newProduct.getCurrentRevision().getRevisionNumber() == null) {
 			_log.warn("revisionNumber of productRevision is NULL");
 			throw new OutdatedRevisionException("revisionNumber must not be null");
@@ -188,5 +200,9 @@ public class DefaultProductService implements IProductService {
 
 	public void setProductRevisionDAO(IProductRevisionDAO productRevisionDao) {
 		_productRevisionDao = productRevisionDao;
+	}
+	
+	public void setSessionFactory(SessionService sessionFactory) {
+		_sessionFactory = sessionFactory;
 	}
 }

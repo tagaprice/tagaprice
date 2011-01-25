@@ -21,11 +21,13 @@ import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.dao.helper.ProductComparator;
+import org.tagaprice.server.service.SessionService;
 
 @ContextConfiguration
 public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
@@ -34,6 +36,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 	private IProductService _productService;
 	@SuppressWarnings("unused")
 	private SessionFactory _sessionFactory;
+	private SessionService _sessionService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -48,6 +51,8 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		
 		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
 		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
+		
+		_sessionService = applicationContext.getBean("defaultSessionFactory", SessionService.class);
 	}
 	
 	@After
@@ -62,9 +67,11 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
 				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
-
 		
-		Product actual = _productService.save(productToSave);
+		
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
 		
 		
 		Long expectedId = 4L;
@@ -92,7 +99,9 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
 
 		
-		Product actual = _productService.save(productToSave);
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
 		
 		
 		Long expectedId = 1L;
@@ -127,7 +136,9 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 						HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator), "category2", creator)));
 
 		
-		Product actual = _productService.save(productToSave);
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
 		
 		
 		Long expectedId = 1L;

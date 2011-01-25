@@ -35,6 +35,7 @@
 		<!--
   	-	Features
   	-->
+  	<import resource="classpath:spring/sessionFactory-beans.xml" />
 	<import resource="classpath:spring/productManagement-beans.xml" />
 	<import resource="classpath:spring/categoryManagement-beans.xml" />
 	<import resource="classpath:spring/login-beans.xml" />

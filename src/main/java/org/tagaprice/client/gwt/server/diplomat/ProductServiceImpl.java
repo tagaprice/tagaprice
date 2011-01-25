@@ -13,9 +13,11 @@ import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.core.api.ICategoryService;
 import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.server.boot.Boot;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -115,10 +117,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		try {
 			Product productCore = converter.convertProductToCore(product);
 
-			productCore = this._coreProductService.save(productCore);
+			productCore = this._coreProductService.save(productCore, (Session) getThreadLocalRequest().getSession().getAttribute("session"));
 
 			return converter.convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UserNotLoggedInException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ServerException e) {

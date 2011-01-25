@@ -14,11 +14,6 @@
 			   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 
-	<!-- Services
-	     Services are transactional based on annotations. Thus a
-	     TransactionManager transactionManager must be defined. 
-	     See http://static.springsource.org/spring/docs/3.0.5.RELEASE/spring-framework-reference/html/transaction.html#transaction-declarative
-	  -->
 	<bean id="defaultShopService"
 	      class="org.tagaprice.server.service.DefaultShopService">
 	</bean>

@@ -3,6 +3,7 @@ package org.tagaprice.core.api;
 import java.util.List;
 
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.Session;
 
 public interface IProductService {
 
@@ -13,7 +14,7 @@ public interface IProductService {
 	 * @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
 	 * @throws OutdatedRevisionException Thrown to indicate that at least one of the revisions of the given product is outdated, i.e. another revision of the product has been saved already.
 	 */
-	Product save(Product product) throws ServerException, OutdatedRevisionException;
+	Product save(Product product, Session session) throws ServerException, UserNotLoggedInException, OutdatedRevisionException;
 
 	/**
 	 * Returns all products, which have at least one revision with the title containing given title.
