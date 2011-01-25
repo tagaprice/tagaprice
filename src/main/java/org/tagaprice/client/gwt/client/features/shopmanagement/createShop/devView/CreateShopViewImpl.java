@@ -179,7 +179,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public double getLat() {
 		// TODO Auto-generated method stub
-		return Double.parseDouble(_lat.getText());
+		double lat = 0.0;
+		try {
+			lat = Double.parseDouble(_lat.getText());
+		} catch (Exception e) {
+			//Wrong value entered...
+		}
+		return lat;
 	}
 
 	/* (non-Javadoc)
@@ -187,7 +193,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	 */
 	@Override
 	public double getLng() {
-		return Double.parseDouble(_lng.getText());
+		double lng = 0.0;
+		try {
+			lng = Double.parseDouble(_lng.getText());
+		} catch (Exception e) {
+			// Wrong value entered
+		}
+		return lng;
 	}
 
 	@Override
