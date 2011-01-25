@@ -26,12 +26,13 @@ public class ListProductsPlace extends Place {
 		return this.categoryfilter;
 	}
 
-	@Prefix("listProducts")
+	@Prefix("ListProducts")
 	public static class Tokenizer implements PlaceTokenizer<ListProductsPlace> {
 
 		@Override
 		public ListProductsPlace getPlace(String token) {
 			if (token.equals("")) {
+				ListProductsPlace.logger.log("return ListProductsPlace");
 				return new ListProductsPlace(new HashMap<String, String>());
 			} else {
 				String separator = "&";
@@ -43,7 +44,7 @@ public class ListProductsPlace extends Place {
 					String[] pair = value.split(sign);
 					parameters.put(pair[0], pair[1]);
 				}
-
+				ListProductsPlace.logger.log("return other ListProductsPlace");
 				return new ListProductsPlace(token);
 			}
 		}
