@@ -63,17 +63,17 @@ public class TagAPrice implements EntryPoint {
 			public void onClick(ClickEvent arg0) {
 			History.newItem("CreateProduct:/create");}});
 
-		Label getProduct = new Label("getProduct");
+		Label getProduct = new Label("List Products");
 		getProduct.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateProduct:/show");}});
+			History.newItem("ListProducts");}});
 
-		Label getProductById = new Label("getProductById");
+		Label getProductById = new Label("get Product id=1");
 		getProductById.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("CreateProduct:/show/id/1");}});
 
-		Label getProductByIdAndRev = new Label("getProductByIdAndRev");
+		Label getProductByIdAndRev = new Label("get Product id=1, rev=3");
 		getProductByIdAndRev.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("CreateProduct:/show/id/1/rev/3");}});
@@ -99,25 +99,32 @@ public class TagAPrice implements EntryPoint {
 			public void onClick(ClickEvent arg0) {
 			History.newItem("CreateShop:/create");}});
 
-		Label getShop = new Label("getShop");
+		Label getShop = new Label("list Shops");
 		getShop.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateShop:/show");}});
+			History.newItem("ListShops:/show");}});
 
-		Label getShopById = new Label("getShopById");
+		Label getShopById = new Label("get Shop id=1");
 		getShopById.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("CreateShop:/show/id/1");}});
 
-		Label getShopByIdAndRev = new Label("getShopByIdAndRev");
-		getShopByIdAndRev.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateShop:/show/id/1/rev/3");}});
-
 		this.leftPanel.add(createShop);
 		this.leftPanel.add(getShop);
 		this.leftPanel.add(getShopById);
-		this.leftPanel.add(getShopByIdAndRev);
+
+		/******************** Shop Links ******************/
+		this.leftPanel.add(new HTML("<hr />"));
+
+		Label createReceipt = new Label("Create Receipt");
+		createReceipt.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("CreateReceipt");
+
+			}
+		});
 
 
 

@@ -37,11 +37,14 @@ public class CreateProductPlace extends Place {
 		public CreateProductPlace getPlace(String token) {
 			CreateProductPlace.logger.log("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
+
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
+						CreateProductPlace.logger.log("return ProductPlace with it and Revision");
 						return new CreateProductPlace(Long.parseLong(e.getNode("id")), Long.parseLong(e.getNode("rev")));
 					}else if(e.getNode("id")!=null){
+						CreateProductPlace.logger.log("return ProductPlace only with id");
 						return new CreateProductPlace(Long.parseLong(e.getNode("id")));
 					}
 					return null;
@@ -49,6 +52,7 @@ public class CreateProductPlace extends Place {
 					return new CreateProductPlace();
 				}
 			}
+			CreateProductPlace.logger.log("return null");
 			return null;
 		}
 

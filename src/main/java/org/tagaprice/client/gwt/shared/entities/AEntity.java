@@ -23,6 +23,11 @@ public abstract class AEntity<T> implements IEntity<T> {
 	public AEntity() {
 	}
 
+	@Override
+	public String toString() {
+		return "AEntity [_revId=" + _revId + ", _title=" + _title + "]";
+	}
+
 	/**
 	 * <b>SERVER USE ONLY</b>
 	 * This constructor is used by the server to fetch a {@link AEntity} after SAVING or FINDING a {@link AEntity}.

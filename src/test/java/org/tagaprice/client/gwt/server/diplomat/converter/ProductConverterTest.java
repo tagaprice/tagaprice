@@ -47,7 +47,7 @@ public class ProductConverterTest {
 	}
 
 	/**
-	 * Tests, if a new Product in GWT is corrctly converted to a Product in core.
+	 * Tests, if a new Product in GWT is correctly converted to a Product in core.
 	 * A new Product in core has id = null and revision = 1, in gwt it can be zero or null also.
 	 * @throws Exception
 	 */

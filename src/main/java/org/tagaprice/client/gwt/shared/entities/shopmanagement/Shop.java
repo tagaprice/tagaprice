@@ -48,7 +48,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 	 */
 	@Override
 	public String toString() {
-		return "Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
+		return super.toString() + " Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
 		+ ", _lat=" + _lat + ", _lng=" + _lng + "]";
 	}
 
@@ -155,11 +155,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 		int result = 1;
 		result = prime * result + ((_city == null) ? 0 : _city.hashCode());
 		result = prime * result + ((_country == null) ? 0 : _country.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(_lat);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(_lng);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		//Removed calculation of long+lat
 		result = prime * result + ((_street == null) ? 0 : _street.hashCode());
 		result = prime * result + ((_zip == null) ? 0 : _zip.hashCode());
 		return result;
@@ -185,10 +181,6 @@ public class Shop extends AEntity<IShop> implements IShop {
 			if (other._country != null)
 				return false;
 		} else if (!_country.equals(other._country))
-			return false;
-		if (Double.doubleToLongBits(_lat) != Double.doubleToLongBits(other._lat))
-			return false;
-		if (Double.doubleToLongBits(_lng) != Double.doubleToLongBits(other._lng))
 			return false;
 		if (_street == null) {
 			if (other._street != null)
