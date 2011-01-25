@@ -5,6 +5,11 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MarkerDragEndHandler;
+import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -37,18 +42,50 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	TextBox _country;
 
 	@UiField
-	TextBox _lat;
+	Label _lat;
 
 	@UiField
-	TextBox _lng;
+	Label _lng;
+
+	@UiField
+	SimplePanel _mapContainer;
 
 	@UiField
 	Button _saveButton;
 
 
+	MapWidget _map = new MapWidget(LatLng.newInstance(48.20963, 16.37083),13);
+	MarkerOptions _mOptions = MarkerOptions.newInstance();
+	Marker _positionMarker;
+
 
 	public CreateShopViewImpl() {
 		initWidget(CreateShopViewImpl.uiBinder.createAndBindUi(this));
+
+
+		//Implement GoogleMaps
+		_map.setSize("200px", "200px");
+		_mapContainer.add(_map);
+
+
+
+		_mOptions.setDraggable(true);
+		_positionMarker = new Marker(_map.getCenter(),_mOptions);
+		_positionMarker.setDraggingEnabled(true);
+
+
+		_map.addOverlay(_positionMarker);
+
+
+		//DragHandler
+		_positionMarker.addMarkerDragEndHandler(new MarkerDragEndHandler() {
+
+			@Override
+			public void onDragEnd(MarkerDragEndEvent event) {
+				_lat.setText(""+_positionMarker.getLatLng().getLatitude());
+				_lng.setText(""+_positionMarker.getLatLng().getLongitude());
+			}
+		});
 	}
 
 	/* (non-Javadoc)
@@ -111,21 +148,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_country.setText(country != null ? country.name() : "");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#setLat(double)
-	 */
-	@Override
-	public void setLat(double lat) {
-		_lat.setText(""+lat);
-	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#setLng(double)
-	 */
-	@Override
-	public void setLng(double lng) {
-		_lng.setText(""+lng);
-	}
 
 	/* (non-Javadoc)
 	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#getTitle()
@@ -173,34 +196,6 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		return Country.at;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#getLat()
-	 */
-	@Override
-	public double getLat() {
-		// TODO Auto-generated method stub
-		double lat = 0.0;
-		try {
-			lat = Double.parseDouble(_lat.getText());
-		} catch (Exception e) {
-			//Wrong value entered...
-		}
-		return lat;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#getLng()
-	 */
-	@Override
-	public double getLng() {
-		double lng = 0.0;
-		try {
-			lng = Double.parseDouble(_lng.getText());
-		} catch (Exception e) {
-			// Wrong value entered
-		}
-		return lng;
-	}
 
 	@Override
 	public void setRevisionId(IRevisionId revisionId) {
@@ -209,6 +204,21 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		}else {
 			this._id.setText("");
 		}
+	}
+
+	@Override
+	public LatLng getLatLng() {
+
+		return LatLng.newInstance(_positionMarker.getLatLng().getLatitude(), _positionMarker.getLatLng().getLongitude());
+	}
+
+	@Override
+	public void setLatLng(LatLng latLng) {
+		_positionMarker.setLatLng(LatLng.newInstance(latLng.getLatitude(), latLng.getLongitude()));
+		_lat.setText(""+_positionMarker.getLatLng().getLatitude());
+		_lng.setText(""+_positionMarker.getLatLng().getLongitude());
+		_map.setCenter(_positionMarker.getLatLng());
+
 	}
 
 
