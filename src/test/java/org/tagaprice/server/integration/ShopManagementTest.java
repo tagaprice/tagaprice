@@ -3,6 +3,8 @@ package org.tagaprice.server.integration;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+
+import java.util.HashSet;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,9 +15,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.IShopService;
 import org.tagaprice.core.entities.BasicShop;
+import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
+import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 import org.tagaprice.server.service.helper.EntityCreator;
 
 
@@ -38,7 +42,7 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void saveNewShop_shouldReturnShopWithIdSet() throws Exception {
-		long nextFreeId = 4L;
+		long nextFreeId = HibernateSaveEntityCreator.nextFreeShopId;
 
 		Shop toSave = EntityCreator.createShop(null);
 
@@ -58,12 +62,23 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void getShopById_shouldGetShop() throws Exception {
-		Shop actual = _shopService.getById(1L);
+		Long id = 1L;
 
-		Shop expected = EntityCreator.createShop(1L);
+		Shop actual = _shopService.getById(id);
 
-		assertThat(actual, is(expected));
+		Long receiptId = 1L;
+		ReceiptEntry entry1 = HibernateSaveEntityCreator.createReceiptEntry(receiptId , id, 1, 1, 1, 10);
+		ReceiptEntry entry2 = HibernateSaveEntityCreator.createReceiptEntry(receiptId , id, 2, 2, 5, 100);;
+
+		HashSet<ReceiptEntry> expectedRecieptEntries = new HashSet<ReceiptEntry>();
+		expectedRecieptEntries.add(entry1);
+		expectedRecieptEntries.add(entry2);
+
+		Shop expected = HibernateSaveEntityCreator.createShop(id, "testShop", 10.555, 20.111, expectedRecieptEntries );
+
+		assertShop(actual, expected);
 	}
+
 
 	@Test
 	public void getShopById_shopNotFound_shouldReturnNull() throws Exception {
@@ -126,4 +141,20 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 	// assertThat(actual, hasItems(shop1, shop2, shop3));
 	// assertThat(actual.size(), is(3));
 	// }
+
+	//
+	// helpers
+	//
+
+	/**
+	 * this is a WORKAROUND for assertThat(actual, is(expected)) because of javassistLazyHandler
+	 */
+	private void assertShop(Shop actual, Shop expected) {
+		assertThat(actual.getId(), is(expected.getId()));
+		assertThat(actual.getTitle(), is(expected.getTitle()));
+		assertThat(actual.getLatitude(), is(expected.getLatitude()));
+		assertThat(actual.getLongitude(), is(expected.getLongitude()));
+		assertThat(actual.getReceiptEntries(), is(expected.getReceiptEntries()));
+
+	}
 }
