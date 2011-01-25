@@ -15,6 +15,7 @@ import org.tagaprice.client.gwt.client.generics.ProductCoreColumnDefinitions;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.*;
@@ -37,11 +38,15 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
-	private static final ICreateShopView createShopview = new CreateShopViewImpl();
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
+
+	private static final IShopServiceAsync shopService = GWT.create(IShopService.class);
+	private static final ICreateShopView createShopview = new CreateShopViewImpl();
+
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
+
 
 
 	public ClientFactoryImpl() {
@@ -96,6 +101,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ILogoutView getLogoutView() {
 		return ClientFactoryImpl.LOGOUT_VIEW;
+	}
+
+	@Override
+	public IShopServiceAsync getShopService() {
+		return ClientFactoryImpl.shopService;
 	}
 
 }

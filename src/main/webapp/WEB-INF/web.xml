@@ -44,7 +44,17 @@
 	<servlet-mapping>
 		<servlet-name>loginservice</servlet-name>
 		<url-pattern>/TagAPrice/loginservice</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>shopservice</servlet-name>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.ShopServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>shopservice</servlet-name>
+		<url-pattern>/TagAPrice/shopservice</url-pattern>
+	</servlet-mapping>
 	
 	
 	<!-- END: RPC-->
