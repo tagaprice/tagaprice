@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopPlace;
+import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 
 import com.google.gwt.activity.shared.*;
@@ -43,6 +44,9 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if (place instanceof CreateShopPlace){
 			logger.log("return new CreateShopActivity");
 			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);
+		} else if(place instanceof ListShopsPlace) {
+			logger.log("return new ListShopsActivity");
+			return new ListShopsActivity((ListShopsPlace) place, this.clientFactory);
 		}else {
 
 			// THIS ELSE IS IMPORTANT TO AVOID FAILURES
