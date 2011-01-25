@@ -148,6 +148,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(Product product) {
 		DbSaveAssertUtility._log.info("asserting product: " + product.getId());
+		checkTemplateSet();
 
 		String statment = "SELECT p.ent_id AS p_ent_id, " + "ent.ent_id AS ent_ent_id, "
 		+ "ent.locale_id AS ent_locale_id "
@@ -186,6 +187,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(ProductRevision productRevision) {
 		DbSaveAssertUtility._log.info("asserting productRevision: " + productRevision);
+		checkTemplateSet();
 
 		String statment = "SELECT rev.ent_id AS r_ent_id, " + "rev.rev AS r_rev, " + "rev.unit AS r_unit, "
 		+ "rev.amount AS r_amount, " + "rev.category_id AS r_category_id, " + "rev.imageUrl AS r_imageUrl, "
@@ -237,6 +239,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(Receipt receipt) {
 		DbSaveAssertUtility._log.info("asserting receipt: " + receipt);
+		checkTemplateSet();
 
 		String statement = "SELECT receipt_id, shop_id, created_at, creator FROM receipt WHERE receipt_id = ?";
 
@@ -270,6 +273,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(ReceiptEntry receiptEntry) {
 		DbSaveAssertUtility._log.info("asserting receiptEntry: " + receiptEntry);
+		checkTemplateSet();
 
 		String statment = "SELECT receipt_id, product_id, product_revision, product_count, price FROM receiptEntry WHERE receipt_id = ? AND product_id = ?";
 
@@ -305,6 +309,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(Shop shop) {
 		DbSaveAssertUtility._log.info("asserting shop: " + shop);
+		checkTemplateSet();
 
 		String statement = "SELECT shop_id, title, latitude, longitude FROM shop WHERE shop_id = ?";
 
@@ -338,6 +343,7 @@ public class DbSaveAssertUtility {
 	 */
 	public static void assertEntitySaved(Account account) {
 		DbSaveAssertUtility._log.info("asserting account: " + account);
+		checkTemplateSet();
 
 		String statement = "SELECT uid, email, last_login, password FROM account WHERE uid = ?";
 
@@ -361,4 +367,17 @@ public class DbSaveAssertUtility {
 	}
 
 
+	//
+	//
+	// helper methods
+	//
+	//
+
+	/**
+	 * asserts that the {@link SimpleJdbcTemplate} was set.
+	 */
+	private static void checkTemplateSet() {
+		if(DbSaveAssertUtility._jdbcOperations == null)
+			throw new IllegalArgumentException("You have to set the dataSource or the SimpleJdbcTemplate prior to asserting.");
+	}
 }
