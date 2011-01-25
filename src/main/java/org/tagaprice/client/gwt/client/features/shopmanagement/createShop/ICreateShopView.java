@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -54,9 +55,8 @@ public interface ICreateShopView extends IsWidget {
 
 	void setCountry(Country country);
 
-	double getLng();
+	LatLng getLatLng();
 
-	double getLat();
 
 	Country getCountry();
 
@@ -68,9 +68,7 @@ public interface ICreateShopView extends IsWidget {
 
 	String getShopTitle();
 
-	void setLng(double lng);
-
-	void setLat(double lat);
+	void setLatLng(LatLng latLng);
 
 	void setShopTitle(String title);
 

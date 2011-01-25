@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -113,8 +114,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setCity(shop.getCity());
 		_createShopView.setZip(shop.getZip());
 		_createShopView.setStreet(shop.getStreet());
-		_createShopView.setLat(shop.getLat());
-		_createShopView.setLng(shop.getLng());
+		_createShopView.setLatLng(LatLng.newInstance(shop.getLat(), shop.getLng()));
 	}
 
 	private IShop getShop() {
@@ -129,8 +129,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		shop.setCity(_createShopView.getCity());
 		shop.setZip(_createShopView.getZip());
 		shop.setStreet(_createShopView.getStreet());
-		shop.setLat((_createShopView.getLat()));
-		shop.setLng((_createShopView.getLng()));
+		shop.setLat((_createShopView.getLatLng().getLatitude()));
+		shop.setLng((_createShopView.getLatLng().getLongitude()));
 		return shop;
 	}
 

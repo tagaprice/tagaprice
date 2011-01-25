@@ -72,8 +72,8 @@ public class ProductServiceImplTest {
 		//Check, if saving operation succeded
 		//Get latest revision
 		IProduct shouldBeSavedProduct = this.service.getProduct(rev);
-		IProduct shouldBeSavedProductWithRevision = this.service.getProduct(new RevisionId(1L, 2L));
-		IProduct shouldBeOriginalProduct = this.service.getProduct(new RevisionId(1L, 1L));
+		IProduct shouldBeSavedProductWithRevision = this.service.getProduct(new RevisionId(1L, 2));
+		IProduct shouldBeOriginalProduct = this.service.getProduct(new RevisionId(1L, 1));
 
 		Assert.assertEquals(savedProduct, shouldBeSavedProduct);
 		Assert.assertEquals(savedProduct, shouldBeSavedProductWithRevision);
