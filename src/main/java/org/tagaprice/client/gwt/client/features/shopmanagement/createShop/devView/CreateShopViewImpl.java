@@ -108,7 +108,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	 */
 	@Override
 	public void setCountry(Country country) {
-		_country.setText(country.name());
+		_country.setText(country != null ? country.name() : "");
 	}
 
 	/* (non-Javadoc)

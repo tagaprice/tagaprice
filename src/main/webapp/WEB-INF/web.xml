@@ -48,7 +48,7 @@
 	
 	<servlet>
 		<servlet-name>shopservice</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.mock.ShopServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.diplomat.ShopServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
