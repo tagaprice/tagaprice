@@ -1,18 +1,17 @@
 package org.tagaprice.client.gwt.shared.entities.receiptManagement;
 
-import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 
-public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntry{
+public class ReceiptEntry implements IReceiptEntry{
 
 
 	private static final long serialVersionUID = -7990234621338289392L;
 
 	private int _quantity;
-	private int _price;
-	private Product _product;
-	private Receipt _receipt;
+	private long _price;
+	private IProduct _product;
+	private IReceipt _receipt;
 	private IRevisionId _productId;
 	private IRevisionId _receiptId;
 
@@ -40,11 +39,11 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 	}
 
 	@Override
-	public int getPrice() {
+	public long getPrice() {
 		return _price;
 	}
 	@Override
-	public Product getProduct() {
+	public IProduct getProduct() {
 		return _product;
 	}
 	@Override
@@ -52,16 +51,16 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 		return _quantity;
 	}
 	@Override
-	public Receipt getReceipt() {
+	public IReceipt getReceipt() {
 		return _receipt;
 	}
 	@Override
-	public void setPrice(int price) {
+	public void setPrice(long price) {
 		_price = price;
 
 	}
 	@Override
-	public void setProduct(Product product) {
+	public void setProduct(IProduct product) {
 		_product = product;
 
 	}
@@ -71,7 +70,7 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 
 	}
 	@Override
-	public void setReceipt(Receipt receipt) {
+	public void setReceipt(IReceipt receipt) {
 		_receipt = receipt;
 
 	}
@@ -92,12 +91,6 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 	public void setReceiptId(IRevisionId receiptId) {
 		_receiptId = receiptId;
 
-	}
-
-	@Override
-	public IReceiptEntry copy() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

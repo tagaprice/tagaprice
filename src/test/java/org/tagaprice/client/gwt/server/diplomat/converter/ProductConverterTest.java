@@ -70,9 +70,4 @@ public class ProductConverterTest {
 		Assert.fail("not yet implemented");
 	}
 
-	@Test
-	public void testConvertProductToGWT() throws Exception {
-		Assert.fail("not yet implemented");
-	}
-
 }

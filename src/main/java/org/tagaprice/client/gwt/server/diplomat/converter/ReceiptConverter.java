@@ -1,7 +1,7 @@
 package org.tagaprice.client.gwt.server.diplomat.converter;
 
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
-import org.tagaprice.core.entities.Receipt;
+import org.tagaprice.core.entities.*;
 
 public class ReceiptConverter {
 
@@ -17,6 +17,16 @@ public class ReceiptConverter {
 
 	public Receipt convertGWTReceiptToCoreReceipt(IReceipt gwtReceipt) {
 		return null;
+	}
+
+	public IReceipt convertBasicReceiptToGWTReceipt(BasicReceipt coreBasicReceipt) {
+		IReceipt receipt = new org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt();
+
+
+
+
+
+		return receipt;
 	}
 
 }

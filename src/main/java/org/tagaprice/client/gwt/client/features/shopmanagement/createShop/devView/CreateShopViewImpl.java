@@ -1,6 +1,9 @@
 package org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
+import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import com.google.gwt.core.client.GWT;
@@ -13,7 +16,7 @@ import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
-public class CreateShopViewImpl extends Composite implements ICreateShopView {
+public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<T> {
 	interface CreateShopViewImpleUiBinder extends
 	UiBinder<Widget, CreateShopViewImpl> {
 	}
@@ -53,6 +56,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@UiField
 	Button _saveButton;
 
+	@UiField
+	FlexTable _receiptEntriesTable;
 
 	MapWidget _map = new MapWidget(LatLng.newInstance(48.20963, 16.37083),13);
 	MarkerOptions _mOptions = MarkerOptions.newInstance();
@@ -61,6 +66,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	public CreateShopViewImpl() {
 		initWidget(CreateShopViewImpl.uiBinder.createAndBindUi(this));
+		_map.setSize("200", "200");
 
 
 		//Implement GoogleMaps
@@ -221,6 +227,26 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	}
 
+	ArrayList<ColumnDefinition<T>> _columnDefinitions;
 
+	public void setColumnDefinitions(ArrayList<ColumnDefinition<T>> columnDefinitions) {
+		this._columnDefinitions = columnDefinitions;
+	}
 
+	@Override
+	public void setReceiptEntries(ArrayList<T> receiptEntries) {
+		this._receiptEntriesTable.removeAllRows();
+		this._receiptEntriesTable.insertRow(0);
+		this._receiptEntriesTable.getRowFormatter().addStyleName(0,"FlexTable-Header");
+		for(int i = 0; i < this._columnDefinitions.size(); i++) {
+			this._receiptEntriesTable.setHTML(0, i, this._columnDefinitions.get(i).getColumnName());
+		}
+		for (int i = 0; i < receiptEntries.size(); i++) {
+			T elem = receiptEntries.get(i);
+			for (int j = 0; j < this._columnDefinitions.size(); j++) {
+				ColumnDefinition<T> actualColumnDefinition = this._columnDefinitions.get(j);
+				this._receiptEntriesTable.setWidget(i+1, j, actualColumnDefinition.render(elem));
+			}
+		}
+	}
 }

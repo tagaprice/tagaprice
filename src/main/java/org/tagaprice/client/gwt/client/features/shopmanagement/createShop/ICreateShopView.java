@@ -1,13 +1,14 @@
 package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateShopView extends IsWidget {
+public interface ICreateShopView<T> extends IsWidget {
 
 
 
@@ -73,4 +74,6 @@ public interface ICreateShopView extends IsWidget {
 	void setShopTitle(String title);
 
 	void setRevisionId(IRevisionId revisionId);
+
+	void setReceiptEntries(ArrayList<T> receiptEntries);
 }

@@ -6,7 +6,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopService;
+import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -24,13 +24,13 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop getShop(IRevisionId revisionId) {
+	public ShopDTO getShop(IRevisionId revisionId) {
 		_logger.log("getShop with RevId " + revisionId);
 		IShop shop = new Shop(new RevisionId(1L), "shop", "street", "1120", "Vienna", Country.at, 0.32, 23.42);
 
 		_logger.log("send Shop: " + shop);
 
-		return shop;
+		return new ShopDTO(shop, null);
 	}
 
 	@Override

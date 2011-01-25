@@ -13,7 +13,7 @@ public interface IShopService extends RemoteService {
 
 	public ArrayList<IShop> getShops(IShop searchCriteria);
 
-	public IShop getShop(IRevisionId revisionId);
+	public ShopDTO getShop(IRevisionId revisionId);
 
 	public IShop save(IShop shop);
 
