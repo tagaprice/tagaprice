@@ -21,9 +21,9 @@ public class HibernateProductDAO implements IProductDAO {
 	@Override
 	public Product save(Product product) {
 		// set all ids in ProductRevisions to the same id as Product
-		for(ProductRevision rev : product.getRevisions()) {
-			rev.setId(product.getId());
-		}
+//		for(ProductRevision rev : product.getRevisions()) {
+//			rev.setId(product.getId());
+//		}
 
 		Session session = _sessionFactory.getCurrentSession();
 		session.saveOrUpdate(product);
