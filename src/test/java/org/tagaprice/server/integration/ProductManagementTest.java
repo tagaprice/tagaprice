@@ -25,6 +25,7 @@ import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
+import org.tagaprice.server.dao.helper.ProductComparator;
 
 @ContextConfiguration
 public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
@@ -73,7 +74,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createLocale(1),
 				HibernateSaveEntityCreator.createProductRevisions(expectedId, expectedNumberRevisions, expectedCreator, Unit.ml, HibernateSaveEntityCreator.createCategory(4L, creator)));
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
@@ -106,7 +107,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
@@ -144,22 +145,10 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);
-	}
-	
-	private static void compareProductsAndRevisions(Product actual, Product expected) {
-		assertEquals(actual, expected);
-		
-		compareProductRevisions(actual.getRevisions(), expected.getRevisions());
-	}
-
-	private static void compareProductRevisions(
-			SortedSet<ProductRevision> actual,
-			SortedSet<ProductRevision> expected) {
-		assertEquals(actual, expected);
 	}
 }

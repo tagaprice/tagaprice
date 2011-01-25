@@ -1,5 +1,5 @@
 CREATE TABLE entityRevision (
-	ent_id BIGINT NOT NULL,
+	ent_id BIGINT,
 	rev INTEGER NOT NULL,
 
 	title varchar(255) NOT NULL,
