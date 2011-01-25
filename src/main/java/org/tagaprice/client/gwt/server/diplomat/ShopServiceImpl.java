@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.server.diplomat;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopService;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.Boot;
 
@@ -16,6 +17,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7276616784431789501L;
 	Logger _logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 	org.tagaprice.core.api.IShopService _coreShopService;
 
@@ -28,8 +33,30 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 	@Override
 	public ArrayList<IShop> getShops(IShop searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+		_logger.debug("getShops with searchCriteria: " + searchCriteria);
+		ShopConverter converter = ShopConverter.getInstance();
+		ArrayList<IShop> gwtShops = new ArrayList<IShop>();
+		List<BasicShop> coreShops = null;
+		try {
+			if(searchCriteria != null) {
+				coreShops = _coreShopService.getByTitleFuzzy(searchCriteria.getTitle());
+			} else {
+				coreShops = _coreShopService.getByTitleFuzzy("");
+			}
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(coreShops != null) {
+			for(BasicShop bs: coreShops) {
+				gwtShops.add(converter.convertCoreBasicShopToGWTShop(bs));
+			}
+		}
+
+
+		return gwtShops;
 	}
 
 	@Override

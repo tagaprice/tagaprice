@@ -26,26 +26,13 @@ public class ListShopsPlace extends Place {
 		return this.categoryfilter;
 	}
 
-	@Prefix("listShops")
+	@Prefix("ListShops")
 	public static class Tokenizer implements PlaceTokenizer<ListShopsPlace> {
 
 		@Override
 		public ListShopsPlace getPlace(String token) {
-			if (token.equals("")) {
-				return new ListShopsPlace(new HashMap<String, String>());
-			} else {
-				String separator = "&";
-				String sign = "=";
-				String[] values = token.split(separator);
-				HashMap<String, String> parameters = new HashMap<String, String>();
-				// TODO make it save...
-				for (String value : values) {
-					String[] pair = value.split(sign);
-					parameters.put(pair[0], pair[1]);
-				}
-
-				return new ListShopsPlace(token);
-			}
+			ListShopsPlace.logger.log("returning new ListShopsPlace");
+			return new ListShopsPlace(new HashMap<String, String>());
 		}
 
 		@Override

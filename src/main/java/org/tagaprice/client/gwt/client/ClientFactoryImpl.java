@@ -12,7 +12,7 @@ import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.d
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView.ListShopsViewImpl;
+import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
@@ -44,7 +44,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	private static final IShopServiceAsync shopService = GWT.create(IShopService.class);
 	private static final ICreateShopView createShopview = new CreateShopViewImpl();
-	private static final ListShopsView<IShop> listShopsView = new ListShopsViewImpl();
+	private static final ListShopsViewImpl<IShop> listShopsView = new ListShopsViewImpl<IShop>();
+	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
 
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
@@ -55,6 +56,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
 				.getColumnDefinitions());
+		ClientFactoryImpl.listShopsView.setColumnDefinitions(ClientFactoryImpl.shopColumnDefinitions.getColumnDefinitions());
 	}
 
 	@Override

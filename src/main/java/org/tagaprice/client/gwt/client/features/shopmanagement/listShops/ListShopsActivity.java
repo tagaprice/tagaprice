@@ -92,16 +92,25 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 			@Override
 			public void onSuccess(ArrayList<IShop> result) {
-				// TODO Auto-generated method stub
+				ListShopsActivity.logger.log("received results: " + result);
+				if(result != null) {
+					listShopsView.setData(result);
+				}
+
+				panel.setWidget(listShopsView.asWidget());
+
 
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				ListShopsActivity.logger.log("got exception:");
+				ListShopsActivity.logger.log(caught.getLocalizedMessage());
 
 			}
 		});
+
+
 
 
 	}
@@ -114,7 +123,9 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 			@Override
 			public void onSuccess(ArrayList<IShop> result) {
-				// TODO Auto-generated method stub
+				if(result != null) {
+					listShopsView.setData(result);
+				}
 
 			}
 
