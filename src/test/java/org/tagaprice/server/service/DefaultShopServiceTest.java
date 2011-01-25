@@ -1,7 +1,6 @@
 package org.tagaprice.server.service;
 
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,12 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.mockito.Matchers;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
@@ -22,8 +19,6 @@ import org.tagaprice.server.service.helper.EntityCreator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
 import static org.mockito.Mockito.*;
 
 
@@ -91,6 +86,14 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 		Shop expected = EntityCreator.createShop(1L);
 
 		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void getShopById_idNotFound_shouldReturnNull() throws Exception {
+		when(_shopDaoMock.getById(anyLong())).thenReturn(null);
+
+		Shop actual = _shopService.getById(1L);
+		assertThat(actual, equalTo(null));
 	}
 
 

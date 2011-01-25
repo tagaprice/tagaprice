@@ -17,7 +17,6 @@ public class DefaultShopService implements IShopService {
 	@Transactional(readOnly=true)
 	@Override
 	public Shop getById(long id) throws ServerException {
-		// TODO what happens if id doesn't exist?
 		return _shopDao.getById(id);
 	}
 

@@ -9,6 +9,10 @@ import org.tagaprice.core.entities.Shop;
 
 public interface IShopDAO {
 
+	/**
+	 * Get a {@link Shop} by it's id.
+	 * @return {@link Shop} with given id, or null, if no shop with given id was found.
+	 */
 	Shop getById(long id);
 
 	/**
