@@ -113,6 +113,44 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 	
+	@Test
+	public void saveExistingProduct_productHasCategoryWithParentCategoryAlreadyExistingInOriginalProduct_shouldPersistProductWithOutDeletingOldRevisions_shouldReturnProductWithAllRevisions() throws Exception {
+		_log.info("running test");
+		Long id = 1L;
+		Account creator = HibernateSaveEntityCreator.createAccount(1L);
+		Integer revId = 3;
+		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
+				HibernateSaveEntityCreator.createLocale(1),
+				HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(
+						3L, 
+						HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator), "category2", creator)));
+
+		
+		Product actual = _productService.save(productToSave);
+		
+		
+		Long expectedId = 1L;
+		Account expectedCreator = HibernateSaveEntityCreator.createAccount(1L);
+		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		Category category1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", expectedCreator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, category1, "www.urlToImage.com"));
+		Category category2 = HibernateSaveEntityCreator.createCategory(1L, category1, "category1", expectedCreator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(
+				3L, 
+				HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator), "category2", creator)));
+		
+		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
+				HibernateSaveEntityCreator.createLocale(1),
+				revisions);
+
+		compareProductsAndRevisions(actual, expected);
+		
+		DbSaveAssertUtility.assertEntitySaved(actual);
+		for (ProductRevision rev : actual.getRevisions())
+			DbSaveAssertUtility.assertEntitySaved(rev);
+	}
+	
 	private static void compareProductsAndRevisions(Product actual, Product expected) {
 		assertEquals(actual, expected);
 		
