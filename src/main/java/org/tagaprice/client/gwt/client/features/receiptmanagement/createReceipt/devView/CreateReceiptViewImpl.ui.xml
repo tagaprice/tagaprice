@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:my="urn:import:org.tagaprice.client.gwt.client.generics.widgets">
+	<g:VerticalPanel>
+		<g:HTML>
+			<h1>Add receipt</h1>
+		</g:HTML>
+		<g:DecoratorPanel addStyleNames="withMargin">
+			<g:VerticalPanel>
+				<g:HTMLPanel>
+					<table>
+						
+						<tr>
+							<td>
+								<g:Label ui:field="_date18N">Date</g:Label>
+							</td>
+							<td>
+								<g:TextBox ui:field="_date"></g:TextBox>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<g:Label ui:field="_shopI18N">Shop</g:Label>
+							</td>
+							<td>
+								<g:Label ui:field="_shop"></g:Label>
+							</td>
+						</tr>
+					</table>
+				</g:HTMLPanel>
+			</g:VerticalPanel>
+		</g:DecoratorPanel>
+		<g:DecoratorPanel addStyleNames="withMargin">
+			<g:VerticalPanel>
+				<g:HTML>
+					<h2>List of products</h2>
+				</g:HTML>
+				<g:HorizontalPanel>
+					<g:Label ui:field="_productI18N">Product</g:Label>
+					<g:SuggestBox ui:field="_products"></g:SuggestBox>
+					<g:Button ui:field="_saveButton">Add</g:Button>
+				</g:HorizontalPanel>
+				<g:FlexTable ui:field="_productTable">
+				</g:FlexTable>
+			</g:VerticalPanel>
+
+		</g:DecoratorPanel>
+	</g:VerticalPanel>
+</ui:UiBinder>

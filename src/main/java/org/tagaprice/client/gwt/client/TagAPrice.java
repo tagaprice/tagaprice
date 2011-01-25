@@ -121,10 +121,12 @@ public class TagAPrice implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("CreateReceipt");
+				History.newItem("CreateReceipt:");
 
 			}
 		});
+
+		this.leftPanel.add(createReceipt);
 
 
 
