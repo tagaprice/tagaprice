@@ -1,6 +1,25 @@
+
+-- Account
+INSERT INTO account (uid, email, last_login, password) VALUES ('1', 'haja@tagaprice.org', now(), 'myPw');
+
+
+-- Receipt
+INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('1', '1', default, '1');
+-- Receipt
+INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('2', '2', default, '1');
+-- Receipt
+INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('3', '1', default, '1');
+
+-- Shop
+INSERT INTO shop(shop_id, title, latitude, longitude) VALUES ('1', 'Billa', '48.225353', '16.349485');
+-- Shop
+INSERT INTO shop(shop_id, title, latitude, longitude) VALUES ('2', 'Hofer', '48.222797', '16.353841');
+
+
+
 -- Rechnung 1, ein product, billa
 -- Product
-INSERT INTO entiyRevision(ent_id, rev, title, created_at, creator) VALUES ('1', '1', 'Nöm Vollm. Fl. 1L', DEFAULT, '1');
+INSERT INTO entityRevision(ent_id, rev, title, created_at, creator) VALUES ('1', '1', 'Nöm Vollm. Fl. 1L', DEFAULT, '1');
 INSERT INTO productRevision(ent_id, rev, unit, amount, category_id, imageUrl) VALUES ('1', '1', 'l', '1', '1', 'someImageUrl');
 INSERT INTO entity(ent_id, locale_id) VALUES ('1', '1');
 INSERT INTO product(ent_id) VALUES ('1');
@@ -137,18 +156,3 @@ INSERT INTO product(ent_id) VALUES ('19');
 -- ReceiptEntry
 INSERT INTO receiptEntry(receipt_id, product_id, product_revision, product_count, price) VALUES ('3', '19', '1', '6', '74');
 
-
-
-
-
--- Receipt
-INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('1', '1', default, '1');
--- Receipt
-INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('2', '2', default, '1');
--- Receipt
-INSERT INTO receipt(receipt_id, shop_id, created_at, creator) VALUES ('3', '1', default, '1');
-
--- Shop
-INSERT INTO shop(shop_id, title, latitude, longitude) VALUES ('1', 'Billa', '48.225353', '16.349485');
--- Shop
-INSERT INTO shop(shop_id, title, latitude, longitude) VALUES ('2', 'Hofer', '48.222797', '16.353841');
