@@ -40,7 +40,7 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 	}
 
 	@Override
-	public double getPrice() {
+	public int getPrice() {
 		return _price;
 	}
 	@Override
@@ -56,7 +56,7 @@ public class ReceiptEntry extends AEntity<IReceiptEntry> implements IReceiptEntr
 		return _receipt;
 	}
 	@Override
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		_price = price;
 
 	}
