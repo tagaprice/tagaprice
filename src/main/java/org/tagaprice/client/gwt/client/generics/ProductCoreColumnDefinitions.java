@@ -65,18 +65,7 @@ public class ProductCoreColumnDefinitions {
 				return "Action";
 			}
 		});
-		this.columns.add(new ColumnDefinition<IProduct>() {
 
-			@Override
-			public Widget render(IProduct t) {
-				return new Anchor("Delete");
-			}
-
-			@Override
-			public String getColumnName() {
-				return "Delete";
-			}
-		});
 		this.columns.add(new ColumnDefinition<IProduct>() {
 
 			@Override
