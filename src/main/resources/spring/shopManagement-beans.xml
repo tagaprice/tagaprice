@@ -16,12 +16,13 @@
 			   
 	<bean id="defaultShopService" class="org.tagaprice.server.service.DefaultShopService">
 		<property name="shopDAO" ref="defaultShopDAO"/>
+		<property name="sessionFactory" ref="defaultSessionFactory"/>
 	</bean>
 	
 	<bean id="defaultShopDAO" class="org.tagaprice.server.dao.hibernate.HibernateShopDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
-			<!-- enable the configuration of transactional behavior based on annotations-->
+	<!-- enable the configuration of transactional behavior based on annotations-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

@@ -16,10 +16,12 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.IShopService;
 import org.tagaprice.core.entities.BasicShop;
 import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
+import org.tagaprice.server.service.SessionService;
 import org.tagaprice.server.service.helper.EntityCreator;
 
 
@@ -27,6 +29,7 @@ import org.tagaprice.server.service.helper.EntityCreator;
 public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 	private IShopService _shopService;
 	private IDbTestInitializer _dbInitializer;
+	private SessionService _sessionService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -38,6 +41,8 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 		_dbInitializer.fillTables();
 
 		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
+		
+		_sessionService = applicationContext.getBean("defaultSessionFactory", SessionService.class);
 	}
 
 	@Test
@@ -45,8 +50,10 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 		long nextFreeId = HibernateSaveEntityCreator.nextFreeShopId;
 
 		Shop toSave = EntityCreator.createShop(null);
-
-		Shop actual = _shopService.save(toSave);
+		
+		Session session = _sessionService.createSession(HibernateSaveEntityCreator.createAccount(1L));
+		
+		Shop actual = _shopService.save(toSave, session);
 
 		Shop expected = EntityCreator.createShop(nextFreeId);
 
@@ -57,7 +64,7 @@ public class ShopManagementTest extends AbstractJUnit4SpringContextTests {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void saveNullShop_shouldThrow() throws Exception {
-		_shopService.save(null);
+		_shopService.save(null, null);
 	}
 
 	@Test

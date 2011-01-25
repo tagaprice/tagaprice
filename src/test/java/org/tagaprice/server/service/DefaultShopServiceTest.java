@@ -13,6 +13,7 @@ import org.mockito.stubbing.Answer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.entities.BasicShop;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.dao.interfaces.IShopDAO;
 import org.tagaprice.server.service.helper.EntityCreator;
@@ -26,16 +27,17 @@ import static org.mockito.Mockito.*;
 public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 	private DefaultShopService _shopService;
 	private IShopDAO _shopDaoMock;
+	private SessionService _sessionFactoryMock;
 
 
 	@Before
 	public void setUp() throws Exception {
 		_shopService = applicationContext.getBean("defaultShopService", DefaultShopService.class);
 		_shopDaoMock = mock(IShopDAO.class);
-		_shopService.setShopDAO(_shopDaoMock); // TODO replace this by dependency injection via autowire, how to inject
-		// mock ? see
-		// http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean
-		// for help
+		_sessionFactoryMock = mock(SessionService.class);
+
+		_shopService.setShopDAO(_shopDaoMock);
+		_shopService.setSessionFactory(_sessionFactoryMock);
 	}
 
 	@Test
@@ -51,8 +53,10 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 				return new Shop(1L, shop.getTitle(), shop.getLatitude(), shop.getLongitude(), shop.getReceiptEntries());
 			}
 		});
+		
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(EntityCreator.createAccount());
 
-		Shop actual = _shopService.save(toSave);
+		Shop actual = _shopService.save(toSave, EntityCreator.createSession());
 
 		Shop expected = EntityCreator.createShop(1L);
 
@@ -62,7 +66,7 @@ public class DefaultShopServiceTest extends AbstractJUnit4SpringContextTests {
 	@Test(expected = IllegalArgumentException.class)
 	public void saveNullShop_shouldThrow() throws Exception {
 		try {
-			_shopService.save(null);
+			_shopService.save(null, null);
 		} catch (IllegalArgumentException e) {
 			throw e;
 		} finally {

@@ -55,13 +55,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			_log.debug("Attempting to load "+service+" from core.api");
 			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
 			_log.debug("Loaded "+service+" successfully.");
-
-			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
-
-
-			//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO"));
-			//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
-
 		} catch (Exception e) {
 			_log.debug(e.getClass() + ": " + e.getMessage());
 		} finally {

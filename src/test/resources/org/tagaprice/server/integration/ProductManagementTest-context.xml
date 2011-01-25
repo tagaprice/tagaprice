@@ -28,6 +28,7 @@
 	<!--
 		-	Import Feature
 	-->
+	<import resource="classpath:spring/sessionFactory-beans.xml" />
 	<import resource="classpath:spring/productManagement-beans.xml" />
 	
 </beans>
