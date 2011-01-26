@@ -69,8 +69,10 @@ public class ProductConverter {
 	 */
 	public IProduct convertProductToGWT(final Product productCore, int revisionToGet) {
 		_log.debug("Convert core -> GWT, id: " + productCore.getId() + ", rev: " + revisionToGet);
+		_log.debug("product :"+productCore);
 		// these are always existing products!!!
 		ProductRevision pr = productCore.getCurrentRevision();
+		_log.debug("currentRevision :"+pr);
 		if(revisionToGet == 0) {
 			productCore.getCurrentRevision();
 		} else {
@@ -81,6 +83,7 @@ public class ProductConverter {
 				}
 			}
 		}
+		_log.debug("end of if/else");
 
 
 		// get the data from the latest revision

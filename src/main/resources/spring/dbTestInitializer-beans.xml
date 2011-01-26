@@ -54,6 +54,6 @@
 				<value>/dbunit/60_receiptEntry.sql</value>
 			</list>
 		</property>
-		<property name="dbUnitData" value="classpath:dbunit/dbunit_testdata.xml" />
+		<property name="dbUnitData" value="classpath:dbunit/real_testdata.xml" />
 	</bean>
 </beans>

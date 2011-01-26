@@ -19,7 +19,6 @@ public class TestdataGenerator {
 		out.println("fileName");
 		String fileName = in.nextLine();
 		
-		
 		FileWriter fstream = new FileWriter(fileName);
 		CustomWriter sql = new CustomWriter(new BufferedWriter(fstream));
 		
