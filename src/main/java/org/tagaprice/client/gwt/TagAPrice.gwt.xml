@@ -21,6 +21,10 @@
   	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IQuantitySelecter" /> 
   </replace-with>
   
+  <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.ShopSelecter">
+  	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IShopSelector" /> 
+  </replace-with>
+  
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
