@@ -27,7 +27,7 @@ public class ReceiptEntry implements IReceiptEntry{
 	 * @param productId
 	 * @param receiptId
 	 */
-	public ReceiptEntry(int quantity, int price, Product product, Receipt receipt, IRevisionId productId,
+	public ReceiptEntry(int quantity, long price, IProduct product, IReceipt receipt, IRevisionId productId,
 			IRevisionId receiptId) {
 		super();
 		_quantity = quantity;

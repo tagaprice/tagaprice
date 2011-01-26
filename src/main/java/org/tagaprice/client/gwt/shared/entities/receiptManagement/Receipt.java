@@ -27,7 +27,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	private Date _date;
 	private Shop _shop;
 	private User _user;
-	private Set<ReceiptEntry> _receiptEntries;
+	private Set<IReceiptEntry> _receiptEntries;
 
 
 	public Receipt() {
@@ -44,7 +44,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(Long id, Date date, Shop shop, User user, Set<ReceiptEntry> receiptEntries) {
+	public Receipt(Long id, Date date, Shop shop, User user, Set<IReceiptEntry> receiptEntries) {
 		_date = date;
 		_shop = shop;
 		_user = user;
@@ -52,18 +52,22 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 
+	@Override
 	public Date getDate() {
 		return _date;
 	}
 
+	@Override
 	public void setDate(Date date) {
 		_date = date;
 	}
 
+	@Override
 	public Shop getShop() {
 		return _shop;
 	}
 
+	@Override
 	public void setShop(Shop shop) {
 		_shop = shop;
 	}
@@ -75,19 +79,23 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		// TODO
 	}
 
+	@Override
 	public User getUser() {
 		return _user;
 	}
 
+	@Override
 	public void setUser(User user) {
 		_user = user;
 	}
 
-	public Set<ReceiptEntry> getReceiptEntries() {
+	@Override
+	public Set<IReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
 
-	public void setReceiptEntries(Set<ReceiptEntry> receiptEntries) {
+	@Override
+	public void setReceiptEntries(Set<IReceiptEntry> receiptEntries) {
 		_receiptEntries = receiptEntries;
 	}
 
