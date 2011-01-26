@@ -7,10 +7,12 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 
-public class ShopSelecter extends Composite implements IShopSelecter{
+public class ShopSelecter extends Composite implements IShopSelecter {
 	MyLogger logger = LoggerFactory.getLogger(ShopSelecter.class);
 
 	ListBox _listBoxShop = new ListBox();
@@ -55,6 +57,11 @@ public class ShopSelecter extends Composite implements IShopSelecter{
 			this._listBoxShop.addItem(c.getTitle(), c.toString());
 		}
 
+	}
+
+	@Override
+	public HandlerRegistration addChangeHandler(ChangeHandler handler) {
+		return _listBoxShop.addChangeHandler(handler);
 	}
 
 

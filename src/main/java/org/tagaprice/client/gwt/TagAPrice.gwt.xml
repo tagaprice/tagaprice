@@ -22,7 +22,7 @@
   </replace-with>
   
   <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.ShopSelecter">
-  	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IShopSelector" /> 
+  	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IShopSelecter" /> 
   </replace-with>
   
 

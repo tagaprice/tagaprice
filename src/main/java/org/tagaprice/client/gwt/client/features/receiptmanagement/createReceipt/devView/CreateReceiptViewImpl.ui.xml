@@ -9,7 +9,7 @@
 			<g:VerticalPanel>
 				<g:HTMLPanel>
 					<table>
-						
+
 						<tr>
 							<td>
 								<g:Label ui:field="_date18N">Date</g:Label>
@@ -23,7 +23,8 @@
 								<g:Label ui:field="_shopI18N">Shop</g:Label>
 							</td>
 							<td>
-								<g:Label ui:field="_shop"></g:Label>
+								<my:ShopSelecter ui:field="_shop"></my:ShopSelecter>
+								<g:Label ui:field="_shopLoaded">shop not loaded</g:Label>
 							</td>
 						</tr>
 					</table>
@@ -35,13 +36,29 @@
 				<g:HTML>
 					<h2>List of products</h2>
 				</g:HTML>
-				<g:HorizontalPanel>
-					<g:Label ui:field="_productI18N">Product</g:Label>
-					<g:SuggestBox ui:field="_products"></g:SuggestBox>
-					<g:Button ui:field="_saveButton">Add</g:Button>
-				</g:HorizontalPanel>
+
+				<g:HTMLPanel>
+					<table>
+						<tr>
+							<td> 
+								<g:Label ui:field="_productI18N">Product</g:Label>
+							</td>
+							<td><g:Label ui:field="_unitpriceI18N">Unit price</g:Label></td>
+							<td><g:Label ui:field="_amountI18N">Amount</g:Label></td>
+							<td rowspan="2"><g:Button ui:field="_addButton">Add</g:Button></td>
+						</tr>
+						<tr><td ui:field="_productsCell">
+							<g:SuggestBox ui:field="_products"></g:SuggestBox>
+							</td>
+							<td><g:TextBox ui:field="_unitprice"></g:TextBox></td>
+							<td><g:TextBox ui:field="_amount"></g:TextBox></td>
+						</tr>
+						
+					</table>
+				</g:HTMLPanel>
 				<g:FlexTable ui:field="_productTable">
 				</g:FlexTable>
+				<g:Button ui:field="_saveButton">Add</g:Button>
 			</g:VerticalPanel>
 
 		</g:DecoratorPanel>

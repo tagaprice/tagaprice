@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 
+import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 
 /**
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  *
  */
 
-public interface IShopSelecter extends IsWidget {
+public interface IShopSelecter extends IsWidget, HasChangeHandlers {
 
 	/**
 	 * set a current shop
