@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopService;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.Boot;
@@ -82,17 +83,19 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop save(IShop shop)  {
+	public IShop save(IShop shop) throws UserNotLoggedInException  {
 		_logger.debug("saveShop with Shop " + shop);
 
 		ShopConverter shopConverter =ShopConverter.getInstance();
 
+		if(getThreadLocalRequest().getSession().getAttribute("session")==null) throw new UserNotLoggedInException("Not logged in");
+
 		try {
 			Shop shopCore = shopConverter.convertGWTShopToCoreShop(shop);
-			
-//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
-			Session session = Session.getRootToken(); //TODO replace this call by the one above
-			
+
+			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
+			//Session session = Session.getRootToken(); //TODO replace this call by the one above
+
 			shopCore = this._coreShopService.save(shopCore, session);
 			return shopConverter.convertCoreShopToGWTShop(shopCore);
 

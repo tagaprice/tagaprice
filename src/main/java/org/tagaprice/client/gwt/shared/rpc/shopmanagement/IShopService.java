@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -15,6 +16,6 @@ public interface IShopService extends RemoteService {
 
 	public IShop getShop(IRevisionId revisionId);
 
-	public IShop save(IShop shop);
+	public IShop save(IShop shop) throws UserNotLoggedInException;
 
 }
