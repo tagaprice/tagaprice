@@ -36,7 +36,7 @@ public interface ICreateReceiptView<T> extends IsWidget{
 
 	public void setQuantity(int quantity);
 
-	public int getPrice();
+	public long getPrice();
 
 	public void setPrice(long price);
 

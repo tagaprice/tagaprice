@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.client.generics.widgets.ShopSelecter;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
@@ -62,6 +63,8 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	HandlerRegistration shopHr;
 	HandlerRegistration productHr;
 
+	ArrayList<ColumnDefinition<T>> columnDefinitions;
+
 	public CreateReceiptViewImpl() {
 		this.initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
 
@@ -70,16 +73,19 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	}
 
 
-	@UiHandler("_addButton")
+	@UiHandler("_saveButton")
 	public void onSaveButtonClicked(ClickEvent event) {
 		this._presenter.onSaveEvent();
 	}
 
 
 	@Override
-	public int getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getPrice() {
+		String fieldValue = _unitprice.getText();
+		int posPoint = fieldValue.indexOf('.');
+		String fieldWOpoint = fieldValue.substring(0, posPoint) + fieldValue.substring(posPoint+1, fieldValue.length());
+
+		return Long.parseLong(fieldWOpoint);
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 
 	@Override
 	public  int getQuantity(){
-		return 0;
+		return Integer.parseInt(_amount.getText());
 	}
 
 
@@ -98,8 +104,6 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 		this._presenter = presenter;
 
 	}
-
-
 
 	@Override
 	public void setSuggestProducts(MultiWordSuggestOracle productList) {
@@ -123,8 +127,20 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 
 
 	@Override
-	public void addReceiptEntry(ArrayList<T> entry) {
-		// TODO Auto-generated method stub
+	public void addReceiptEntry(ArrayList<T> receiptEntries) {
+		this._productTable.removeAllRows();
+		this._productTable.insertRow(0);
+		this._productTable.getRowFormatter().addStyleName(0,"FlexTable-Header");
+		for(int i = 0; i < this.columnDefinitions.size(); i++) {
+			this._productTable.setHTML(0, i, this.columnDefinitions.get(i).getColumnName());
+		}
+		for (int i = 0; i < receiptEntries.size(); i++) {
+			T elem = receiptEntries.get(i);
+			for (int j = 0; j < this.columnDefinitions.size(); j++) {
+				ColumnDefinition<T> actualColumnDefinition = this.columnDefinitions.get(j);
+				this._productTable.setWidget(i+1, j, actualColumnDefinition.render(elem));
+			}
+		}
 
 	}
 
@@ -172,8 +188,18 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	@Override
 	public void setPrice(long price) {
 		String str = "";
-		str = (price / 100) + "." + (price % 100) + " EUR";
+		str = (price / 100) + "." + (price % 100);
 		this._unitprice.setText(str);
+	}
+
+	public void setColumnDefinitions(ArrayList<ColumnDefinition<T>> columnDefinitions) {
+		this.columnDefinitions = columnDefinitions;
+	}
+
+	@UiHandler("_addProductButton")
+	public void onAddProduct(ClickEvent event) {
+		_presenter.onAddEntry();
+		_products.setText("");
 	}
 
 

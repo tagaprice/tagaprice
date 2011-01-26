@@ -45,7 +45,7 @@
 							</td>
 							<td><g:Label ui:field="_unitpriceI18N">Unit price</g:Label></td>
 							<td><g:Label ui:field="_amountI18N">Amount</g:Label></td>
-							<td rowspan="2"><g:Button ui:field="_addButton">Add</g:Button></td>
+							<td></td> 
 						</tr>
 						<tr><td>
 						<g:VerticalPanel ui:field="_productsPanel">
@@ -54,13 +54,14 @@
 							</td>
 							<td><g:TextBox ui:field="_unitprice"></g:TextBox></td>
 							<td><g:TextBox ui:field="_amount"></g:TextBox></td>
+							<td><g:Button ui:field="_addProductButton">Add</g:Button></td> 
 						</tr>
 						
 					</table>
 				</g:HTMLPanel>
 				<g:FlexTable ui:field="_productTable">
 				</g:FlexTable>
-				<g:Button ui:field="_saveButton">Add</g:Button>
+				<g:Button ui:field="_saveButton">Save</g:Button>
 			</g:VerticalPanel>
 
 		</g:DecoratorPanel>

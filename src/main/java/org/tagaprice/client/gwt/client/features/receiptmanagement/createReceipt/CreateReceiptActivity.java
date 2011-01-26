@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
@@ -29,10 +30,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	private ICreateReceiptView<IReceiptEntry> createReceiptView;
 
 	private IShop shop;
-	private ArrayList<IReceiptEntry> receiptEntries;
-	private HashMap<String, IReceiptEntry> receiptEntriesViaProduct = new HashMap<String, IReceiptEntry>();
-
+	private ArrayList<IReceiptEntry> existingReceiptEntries;
+	private HashMap<String, IReceiptEntry> existingReceiptEntriesViaProduct = new HashMap<String, IReceiptEntry>();
+	private ArrayList<IReceiptEntry> newReceiptEntries = new ArrayList<IReceiptEntry>();
 	HandlerRegistration hr;
+
+	IReceipt receipt = new Receipt();
 
 	public CreateReceiptActivity(CreateReceiptPlace place, ClientFactory clientFactory) {
 		logger.log("CreateReceiptActivity created");
@@ -92,15 +95,15 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 						// TODO Auto-generated method stub
 						createReceiptView.shopsLoaded("shop " + result.getShop().getTitle() + " loaded successfully");
 						shop = result.getShop();
-						receiptEntries = result.getReceiptEntries();
+						existingReceiptEntries = result.getReceiptEntries();
 						//Speichern in HasMap - String: id_Title
 
 						MultiWordSuggestOracle mwso = new MultiWordSuggestOracle(",._");
-						for(IReceiptEntry re: receiptEntries) {
+						for(IReceiptEntry re: existingReceiptEntries) {
 							String combo = re.getProduct().getRevisionId().getId() + "_" + re.getProduct().getTitle();
 
 							mwso.add(combo);
-							receiptEntriesViaProduct.put(combo, re);
+							existingReceiptEntriesViaProduct.put(combo, re);
 
 						}
 
@@ -129,8 +132,27 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void onAddEntry() {
-		// TODO Auto-generated method stub
+		logger.log("onAddEntry: looking for product: " + createReceiptView.getProductName());
+		IReceiptEntry re = this.existingReceiptEntriesViaProduct.get(createReceiptView.getProductName());
+		if(re == null) {
+			logger.log("found NO product");
+			return;
+		}
+		logger.log("found product!");
 
+		IProduct product = re.getProduct();
+
+		long price = createReceiptView.getPrice();
+		int quantity = createReceiptView.getQuantity();
+
+		IReceiptEntry newRE = new ReceiptEntry(quantity, price, product, receipt, product.getRevisionId(), receipt.getRevisionId());
+
+		createReceiptView.setPrice(0L);
+		createReceiptView.setQuantity(0);
+
+		newReceiptEntries.add(newRE);
+
+		createReceiptView.addReceiptEntry(newReceiptEntries);
 	}
 
 
@@ -153,8 +175,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void onSelectProduct() {
-		logger.log("looking for product: " + createReceiptView.getProductName());
-		IReceiptEntry re = this.receiptEntriesViaProduct.get(createReceiptView.getProductName());
+		logger.log("onSelectProduct: looking for product: " + createReceiptView.getProductName());
+		IReceiptEntry re = this.existingReceiptEntriesViaProduct.get(createReceiptView.getProductName());
 		if(re == null) {
 			logger.log("found NO product");
 			return;

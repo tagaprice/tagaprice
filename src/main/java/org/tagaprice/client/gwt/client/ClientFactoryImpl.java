@@ -64,6 +64,7 @@ public class ClientFactoryImpl implements ClientFactory {
 				.getColumnDefinitions());
 		ClientFactoryImpl.listShopsView.setColumnDefinitions(ClientFactoryImpl.shopColumnDefinitions.getColumnDefinitions());
 		ClientFactoryImpl.createShopview.setColumnDefinitions(ClientFactoryImpl.receiptEntryColumnsDefinitions.getColumnDefinitions());
+		ClientFactoryImpl.createReceiptView.setColumnDefinitions(ClientFactoryImpl.receiptEntryColumnsDefinitions.getColumnDefinitions());
 	}
 
 	@Override
