@@ -1,15 +1,16 @@
 package org.tagaprice.client.gwt.shared.entities.receiptManagement;
 
-import org.tagaprice.client.gwt.shared.entities.IEntity;
+import java.io.Serializable;
+
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 
 /**
  * Stores information about a bought product, the quantity and the price (for quantity 1).
  * @author Helga
  *
  */
-public interface IReceiptEntry  extends IEntity<IReceiptEntry>{
+public interface IReceiptEntry extends Serializable {
 
 	public abstract int getQuantity();
 
@@ -19,21 +20,21 @@ public interface IReceiptEntry  extends IEntity<IReceiptEntry>{
 	 * returns the price per unit in cent
 	 * @return
 	 */
-	public abstract int getPrice();
+	public abstract long getPrice();
 
 	/**
 	 * sets the price per unit in cent
 	 * @param price
 	 */
-	public abstract void setPrice(int price);
+	public abstract void setPrice(long price);
 
-	public abstract Product getProduct();
+	public abstract IProduct getProduct();
 
-	public abstract void setProduct(Product product);
+	public abstract void setProduct(IProduct gwtProduct);
 
-	public abstract Receipt getReceipt();
+	public abstract IReceipt getReceipt();
 
-	public abstract void setReceipt(Receipt receipt);
+	public abstract void setReceipt(IReceipt receipt);
 
 	public abstract IRevisionId getProductId();
 

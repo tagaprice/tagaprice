@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface IShopServiceAsync {
 
-	void getShop(IRevisionId revisionId, AsyncCallback<IShop> callback);
+	void getShop(IRevisionId revisionId, AsyncCallback<ShopDTO> callback);
 
 	void getShops(IShop searchCriteria, AsyncCallback<ArrayList<IShop>> callback);
 

@@ -85,21 +85,24 @@ public class ProductConverter {
 		}
 		_log.debug("end of if/else");
 
+		return convertCoreProductRevisionToGWTProduct(pr);
+	}
+
+	public IProduct convertCoreProductRevisionToGWTProduct(ProductRevision coreRevision) {
+		IProduct gwtProduct = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product();
 
 		// get the data from the latest revision
-		long id = productCore.getId();
-		int revision = pr.getRevisionNumber();
-		String title = pr.getTitle();
-		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(pr.getCategory().getTitle());
-		IQuantity quantity = new Quantity(pr.getAmount(), pr.getUnit());
+		long id = coreRevision.getId();
+		int revision = coreRevision.getRevisionNumber();
+		String title = coreRevision.getTitle();
+		ICategory category = new org.tagaprice.client.gwt.shared.entities.dump.Category(coreRevision.getCategory().getTitle());
+		IQuantity quantity = new Quantity(coreRevision.getAmount(), coreRevision.getUnit());
 
 		IRevisionId revisionId = new RevisionId(id, revision);
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title,
 				category, quantity);
-		_log.debug("Converted: " + pr.getTitle() + ", " + pr.getId() + ", " + pr.getRevisionNumber() + " into " + productGWT);
+		_log.debug("Converted: " + coreRevision.getTitle() + ", " + coreRevision.getId() + ", " + coreRevision.getRevisionNumber() + " into " + productGWT);
 		return productGWT;
+
 	}
-
-
-
 }

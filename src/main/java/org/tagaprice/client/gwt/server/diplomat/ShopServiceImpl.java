@@ -4,10 +4,11 @@ import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tagaprice.client.gwt.server.diplomat.converter.ShopConverter;
+import org.tagaprice.client.gwt.server.diplomat.converter.*;
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopService;
+import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 import org.tagaprice.core.api.ServerException;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Shop;
@@ -60,14 +61,14 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop getShop(IRevisionId revisionId) {
+	public ShopDTO getShop(IRevisionId revisionId) {
 		_logger.debug("getShop with RevId " + revisionId);
 		ShopConverter converter = ShopConverter.getInstance();
+		ReceiptEntryConverter receiptEntryConverter = ReceiptEntryConverter.getInstance();
 		org.tagaprice.core.entities.Shop coreShop = null;
 		try {
 			coreShop = _coreShopService.getById(revisionId.getId());
 		} catch (ServerException e) {
-
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,10 +76,18 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 		_logger.debug("got CoreShop: " + coreShop);
 		IShop shop =converter.convertCoreShopToGWTShop(coreShop);
-
 		_logger.debug("converted GWTShop: " + shop);
 
-		return shop;
+		ArrayList<IReceiptEntry> receiptEntries = new ArrayList<IReceiptEntry>();
+		try {
+			for(ReceiptEntry re: coreShop.getReceiptEntries()) {
+				_logger.debug("Converting ReceiptEntry");
+				receiptEntries.add(receiptEntryConverter.convertCoreReceiptEntryToGWTReceiptEntry(re));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ShopDTO(shop, receiptEntries);
 	}
 
 	@Override

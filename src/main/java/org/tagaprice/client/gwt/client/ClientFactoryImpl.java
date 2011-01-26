@@ -9,11 +9,15 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.*;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.devView.CreateReceiptViewImpl;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipt.devView.ReceiptEntryColumnDefinitions;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
@@ -43,7 +47,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
 	private static final IShopServiceAsync shopService = GWT.create(IShopService.class);
-	private static final ICreateShopView createShopview = new CreateShopViewImpl();
+	private static final CreateShopViewImpl<IReceiptEntry> createShopview = new CreateShopViewImpl<IReceiptEntry>();
 	private static final ListShopsViewImpl<IShop> listShopsView = new ListShopsViewImpl<IShop>();
 	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
 
@@ -51,12 +55,15 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 
+	private static final CreateReceiptViewImpl<IReceiptEntry> createReceiptView = new CreateReceiptViewImpl<IReceiptEntry>();
+	private static final ReceiptEntryColumnDefinitions receiptEntryColumnsDefinitions = new ReceiptEntryColumnDefinitions();
 
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
 				.getColumnDefinitions());
 		ClientFactoryImpl.listShopsView.setColumnDefinitions(ClientFactoryImpl.shopColumnDefinitions.getColumnDefinitions());
+		ClientFactoryImpl.createShopview.setColumnDefinitions(ClientFactoryImpl.receiptEntryColumnsDefinitions.getColumnDefinitions());
 	}
 
 	@Override
@@ -94,7 +101,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ICreateShopView getCreateShopView() {
+	public ICreateShopView<IReceiptEntry> getCreateShopView() {
 		return ClientFactoryImpl.createShopview;
 	}
 
@@ -116,6 +123,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ListShopsView<IShop> getListShopsView() {
 		return ClientFactoryImpl.listShopsView;
+	}
+
+	@Override
+	public ICreateReceiptView<IReceiptEntry> getCreateReceiptView() {
+		return ClientFactoryImpl.createReceiptView;
 	}
 
 }

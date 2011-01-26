@@ -116,4 +116,9 @@ public class ShopConverterTest {
 
 
 	}
+
+	@Test
+	public void testConvertCoreShopToGWTShop_withReceiptEntries() {
+
+	}
 }
