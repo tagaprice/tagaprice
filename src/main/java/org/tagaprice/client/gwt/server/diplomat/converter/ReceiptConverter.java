@@ -1,7 +1,11 @@
 package org.tagaprice.client.gwt.server.diplomat.converter;
 
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
+import java.util.HashSet;
+
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
+import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Receipt;
+import org.tagaprice.core.entities.ReceiptEntry;
 
 public class ReceiptConverter {
 
@@ -16,7 +20,36 @@ public class ReceiptConverter {
 	}
 
 	public Receipt convertGWTReceiptToCoreReceipt(IReceipt gwtReceipt) {
-		return null;
+		ReceiptEntryConverter receiptEntryConverter = ReceiptEntryConverter.getInstance();
+		Receipt coreReceipt = null;
+		if(gwtReceipt.getRevisionId() != null && gwtReceipt.getRevisionId().getId() != 0) {
+			//this is a new product
+			Long receiptId = null;
+			BasicShop basicShop = new BasicShop(gwtReceipt.getShop().getRevisionId().getId(), gwtReceipt.getShop().getTitle());
+
+			HashSet<ReceiptEntry> receiptEntries = new HashSet<ReceiptEntry>();
+			for(IReceiptEntry gwtRE: gwtReceipt.getReceiptEntries()) {
+				receiptEntries.add(receiptEntryConverter.convertGWTReceiptEntryToCoreReceiptEntry(gwtRE));
+			}
+			coreReceipt = new Receipt(receiptId, basicShop, DefaultValues.defaultDate, DefaultValues.defaultCoreAccount, receiptEntries);
+
+
+		} else {
+			//this is an existing receipt
+
+		}
+
+		return coreReceipt;
+	}
+
+	public IReceipt convertBasicReceiptToGWTReceipt(BasicReceipt coreBasicReceipt) {
+		IReceipt receipt = new org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt();
+
+
+
+
+
+		return receipt;
 	}
 
 }

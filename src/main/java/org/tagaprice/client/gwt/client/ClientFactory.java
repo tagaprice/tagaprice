@@ -88,7 +88,7 @@ public interface ClientFactory {
 	 * Returns the CreateShopView
 	 * @return the CreateShopView
 	 */
-	ICreateShopView getCreateShopView();
+	ICreateShopView<IReceiptEntry> getCreateShopView();
 
 	ListShopsView<IShop> getListShopsView();
 

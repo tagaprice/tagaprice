@@ -7,6 +7,7 @@
 		<g:HTML>
 			<h1>Edit / Add shop</h1>
 		</g:HTML>
+		<g:HorizontalPanel>
 		<g:DecoratorPanel>
 			<g:HTMLPanel>
 				<table>
@@ -86,5 +87,12 @@
 
 		</g:DecoratorPanel>
 		<g:SimplePanel ui:field="_mapContainer"></g:SimplePanel>
+		</g:HorizontalPanel>
+		<g:DecoratorPanel>
+		
+		<g:FlexTable ui:field="_receiptEntriesTable" addStyleNames="FlexTable-Body"></g:FlexTable>
+		</g:DecoratorPanel>
+		
+		
 	</g:VerticalPanel>
 </ui:UiBinder>

@@ -2,9 +2,11 @@ package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.gwt.shared.rpc.shopmanagement.ShopDTO;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -17,7 +19,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopActivity.class);
 
 	private IShop _shop;
-	private ICreateShopView _createShopView;
+	private ICreateShopView<IReceiptEntry> _createShopView;
 	private CreateShopPlace _place;
 	private ClientFactory _clientFactory;
 
@@ -56,12 +58,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		if (_place.getRevisionId() != null && _place.getRevisionId().getId() != 0L) {
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(new RevisionId(_place.getRevisionId().getId()),
-					new AsyncCallback<IShop>() {
+					new AsyncCallback<ShopDTO>() {
 
 				@Override
-				public void onSuccess(IShop result) {
+				public void onSuccess(ShopDTO result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-					setShop(result);
+					setShop(result.getShop());
+					_createShopView.setReceiptEntries(result.getReceiptEntries());
 
 				}
 
