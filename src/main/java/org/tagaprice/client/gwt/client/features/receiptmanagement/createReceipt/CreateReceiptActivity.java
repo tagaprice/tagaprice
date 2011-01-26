@@ -93,7 +93,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 						receiptEntries = result.getReceiptEntries();
 						//Speichern in HasMap - String: id_Title
 
-						MultiWordSuggestOracle mwso = new MultiWordSuggestOracle();
+						MultiWordSuggestOracle mwso = new MultiWordSuggestOracle(",._");
 						for(IReceiptEntry re: receiptEntries) {
 							String combo = re.getProduct().getRevisionId().getId() + "_" + re.getProduct().getTitle();
 
@@ -101,9 +101,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 							receiptEntriesViaProduct.put(combo, re);
 
 						}
-						mwso = new MultiWordSuggestOracle(",.");
-						mwso.add("coke");
-						mwso.add("cola");
 
 						createReceiptView.setSuggestProducts(mwso);
 

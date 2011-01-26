@@ -9,7 +9,6 @@ import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.TableCellElement;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -43,10 +42,12 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	@UiField
 	ShopSelecter _shop;
 	@UiField
-	TableCellElement _productsCell;
+	VerticalPanel _productsPanel;
 
 	@UiField
 	Label _shopLoaded;
+
+	SuggestBox _products;
 
 
 	@UiField
@@ -96,7 +97,9 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	@Override
 	public void setSuggestProducts(MultiWordSuggestOracle productList) {
 		_logger.log("set oracle... suggestbox");
-		//this._products.add(new SuggestBox(productList));
+		this._productsPanel.clear();
+		this._products = new SuggestBox(productList);
+		this._productsPanel.add(this._products);
 	}
 
 

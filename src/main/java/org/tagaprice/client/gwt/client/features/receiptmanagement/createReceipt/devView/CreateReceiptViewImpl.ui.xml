@@ -47,8 +47,10 @@
 							<td><g:Label ui:field="_amountI18N">Amount</g:Label></td>
 							<td rowspan="2"><g:Button ui:field="_addButton">Add</g:Button></td>
 						</tr>
-						<tr><td ui:field="_productsCell">
+						<tr><td>
+						<g:VerticalPanel ui:field="_productsPanel">
 							<g:SuggestBox ui:field="_products"></g:SuggestBox>
+							</g:VerticalPanel>
 							</td>
 							<td><g:TextBox ui:field="_unitprice"></g:TextBox></td>
 							<td><g:TextBox ui:field="_amount"></g:TextBox></td>
