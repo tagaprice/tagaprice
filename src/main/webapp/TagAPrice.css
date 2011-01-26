@@ -28,7 +28,7 @@ body {
 
 .FlexTable-Body tr {
 	border-bottom-style: dotted;
-	border-bottom-width: 2px;
+	border-bottom-width: 1px;
 }
 
 .FlexTable-Header {

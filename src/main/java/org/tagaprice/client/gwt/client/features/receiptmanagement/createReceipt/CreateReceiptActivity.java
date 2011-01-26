@@ -65,6 +65,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		logger.log("start");
 
+		createReceiptView.setPresenter(this);
+
 		//load Shops
 		this._clientFactory.getShopService().getShops(null, new AsyncCallback<ArrayList<IShop>>() {
 
@@ -116,9 +118,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			}
 		});
 
+		//Register onChangeHandler with _products field
+
 		panel.setWidget(createReceiptView.asWidget());
 
 	}
+
 
 
 
@@ -141,6 +146,22 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	@Override
 	public void onSaveEvent() {
 		// TODO Auto-generated method stub
+
+	}
+
+
+
+	@Override
+	public void onSelectProduct() {
+		logger.log("looking for product: " + createReceiptView.getProductName());
+		IReceiptEntry re = this.receiptEntriesViaProduct.get(createReceiptView.getProductName());
+		if(re == null) {
+			logger.log("found NO product");
+			return;
+		}
+		logger.log("found product!");
+		createReceiptView.setPrice(re.getPrice());
+		createReceiptView.setQuantity(1);
 
 	}
 

@@ -9,8 +9,7 @@ import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
@@ -49,16 +48,24 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 
 	SuggestBox _products;
 
+	@UiField
+	TextBox _amount;
+
+	@UiField
+	TextBox _unitprice;
+
 
 	@UiField
 	FlexTable _productTable;
 
 
-	HandlerRegistration hr;
-
+	HandlerRegistration shopHr;
+	HandlerRegistration productHr;
 
 	public CreateReceiptViewImpl() {
 		this.initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
+
+
 
 	}
 
@@ -77,7 +84,7 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 
 	@Override
 	public String getProductName() {
-		return ""; //_products.getText();
+		return _products.getText();
 	}
 
 	@Override
@@ -100,6 +107,18 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 		this._productsPanel.clear();
 		this._products = new SuggestBox(productList);
 		this._productsPanel.add(this._products);
+
+		if(productHr != null) {
+			productHr.removeHandler();
+		}
+		productHr = this._products.getTextBox().addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				_logger.log("productfield changed");
+				_presenter.onSelectProduct();
+			}
+		});
 	}
 
 
@@ -131,10 +150,10 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 
 	@Override
 	public void addShopChangeHanlder(ChangeHandler handler) {
-		if(hr != null) {
-			hr.removeHandler();
+		if(shopHr != null) {
+			shopHr.removeHandler();
 		}
-		hr = this._shop.addChangeHandler(handler);
+		shopHr = this._shop.addChangeHandler(handler);
 	}
 
 
@@ -142,5 +161,20 @@ public class CreateReceiptViewImpl<T> extends Composite implements ICreateReceip
 	public void shopsLoaded(String loaded) {
 		this._shopLoaded.setText(loaded);
 	}
+
+
+	@Override
+	public void setQuantity(int quantity) {
+		this._amount.setText(String.valueOf(quantity));
+	}
+
+
+	@Override
+	public void setPrice(long price) {
+		String str = "";
+		str = (price / 100) + "." + (price % 100) + " EUR";
+		this._unitprice.setText(str);
+	}
+
 
 }

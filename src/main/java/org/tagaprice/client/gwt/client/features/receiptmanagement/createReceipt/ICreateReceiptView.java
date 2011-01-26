@@ -34,7 +34,11 @@ public interface ICreateReceiptView<T> extends IsWidget{
 
 	public int getQuantity();
 
+	public void setQuantity(int quantity);
+
 	public int getPrice();
+
+	public void setPrice(long price);
 
 	public void setAvailableShops(ArrayList<IShop> availableShops);
 
@@ -54,6 +58,7 @@ public interface ICreateReceiptView<T> extends IsWidget{
 		 */
 		public void onSave();
 		public void onSaveEvent();
+		public void onSelectProduct();
 
 	}
 

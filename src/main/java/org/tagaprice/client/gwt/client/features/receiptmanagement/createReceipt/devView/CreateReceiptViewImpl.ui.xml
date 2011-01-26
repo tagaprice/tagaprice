@@ -38,7 +38,7 @@
 				</g:HTML>
 
 				<g:HTMLPanel>
-					<table>
+					<table addStyleNames="FlexTable-Body ">
 						<tr>
 							<td> 
 								<g:Label ui:field="_productI18N">Product</g:Label>
