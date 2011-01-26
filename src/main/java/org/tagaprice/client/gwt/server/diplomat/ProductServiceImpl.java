@@ -101,15 +101,17 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public IProduct saveProduct(IProduct product) {
+	public IProduct saveProduct(IProduct product) throws UserNotLoggedInException {
 		_log.debug("product :"+product);
 
 		ProductConverter converter = ProductConverter.getInstance();
+		if(getThreadLocalRequest().getSession().getAttribute("session")==null) throw new UserNotLoggedInException("Not logged in");
+
 
 		try {
 			Product productCore = converter.convertProductToCore(product);
 
-//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
+			//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
 			Session session = Session.getRootToken(); //TODO replace this call by the one above
 			productCore = this._coreProductService.save(productCore, session);
 
