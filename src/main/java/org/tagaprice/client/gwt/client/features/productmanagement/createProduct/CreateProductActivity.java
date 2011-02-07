@@ -53,7 +53,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_product = null;
 		CreateProductActivity._logger.log("activity startet");
 
@@ -81,8 +81,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 		if (_place.getRevisionId().getId() == 0L) {
 			CreateProductActivity._logger.log("Create new Product");
-			panel.setWidget(createProductView);
+
 			updateView(new Product("", new Category("newProduct"), new Quantity(1L, Unit.piece)));
+			panel.setWidget(createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {
 			CreateProductActivity._logger.log("Get Product: id=" + _place.getRevisionId().getId() + ", rev: "
@@ -90,7 +91,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			// panel.setWidget(new
 			// Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
 
-			panel.setWidget(createProductView);
+
 			CreateProductActivity._logger.log("Load Categories...");
 
 
@@ -99,6 +100,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 				@Override
 				public void onSuccess(IProduct result) {
 					updateView(result);
+					panel.setWidget(_clientFactory.getCreateProductView());
 				}
 
 				@Override
@@ -107,6 +109,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 				}
 			});
+
 
 		}
 
@@ -210,7 +213,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		view.setCategory(product.getCategory());
 		view.setQuantity(product.getQuantity());
 
-		view.addPackages(product.getPackages());
+		view.setPackages(product.getPackages());
 	}
 
 	private IProduct getProduct() {

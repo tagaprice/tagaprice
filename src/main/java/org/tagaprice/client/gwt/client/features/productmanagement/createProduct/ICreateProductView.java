@@ -77,7 +77,7 @@ public interface ICreateProductView extends IsWidget {
 	 * Add some {@link IPackage} to the Product.
 	 * @param ipackage that will be added to the {@link IProduct}
 	 */
-	public void addPackages(ArrayList<IPackage> iPackage);
+	public void setPackages(ArrayList<IPackage> iPackage);
 
 	/**
 	 * Return all Packages includes in a {@link IProduct}

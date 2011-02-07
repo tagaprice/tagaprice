@@ -57,8 +57,8 @@ IProductService {
 		bergkasese.addPackage(new Package(new Quantity(750, Unit.g)));
 
 		this.saveProduct(bergkasese);
-		//this.saveProduct(new Product("Extrawurst von der Theke", food, new Quantity(0, Unit.g)));
-		//this.saveProduct(new Product("Limonade", nonalcoholics, new Quantity(1.5, Unit.l)));
+		this.saveProduct(new Product("Extrawurst von der Theke", food, new Quantity(0, Unit.g)));
+		this.saveProduct(new Product("Limonade", nonalcoholics, new Quantity(1.5, Unit.l)));
 
 		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", " + this.productsLatest.size() + ". Counter is " + this.productIdCounter + ".");
 

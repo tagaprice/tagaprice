@@ -130,12 +130,13 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void addPackages(ArrayList<IPackage> iPackage) {
-		System.out.println("satrt addPackages");
+	public void setPackages(ArrayList<IPackage> iPackage) {
+		_iPackage.clear();
+		_packagePanel.clear();
+
 		_iPackage.addAll(iPackage);
 
 		for(IPackage p: _iPackage){
-			System.out.println("set Package: "+p.getQuantity());
 			QuantitySelecter qs = new QuantitySelecter();
 			qs.setQuantity(p.getQuantity());
 			_packagePanel.add(qs);
