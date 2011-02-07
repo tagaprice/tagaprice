@@ -209,6 +209,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
 		view.setQuantity(product.getQuantity());
+
+		view.addPackages(product.getPackages());
 	}
 
 	private IProduct getProduct() {

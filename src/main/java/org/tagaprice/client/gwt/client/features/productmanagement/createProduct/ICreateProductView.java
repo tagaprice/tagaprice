@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -64,6 +66,24 @@ public interface ICreateProductView extends IsWidget {
 	 * @return Returns the depending {@link ICategory}
 	 */
 	public ICategory getCategory();
+
+	/**
+	 * Add one {@link IPackage} to the Product.
+	 * @param ipackage that will be added to the {@link IProduct}
+	 */
+	public void addPackage(IPackage ipackage);
+
+	/**
+	 * Add some {@link IPackage} to the Product.
+	 * @param ipackage that will be added to the {@link IProduct}
+	 */
+	public void addPackages(ArrayList<IPackage> iPackage);
+
+	/**
+	 * Return all Packages includes in a {@link IProduct}
+	 * @return all Packages includes in a {@link IProduct}
+	 */
+	public ArrayList<IPackage> getPackages();
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IProductView} to control this view. It is also necessary

@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,6 +28,9 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private static CreateProductViewImplUiBinder uiBinder = GWT
 	.create(CreateProductViewImplUiBinder.class);
 
+	//TODO replace with IPackageWidget
+	ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
+
 	private Presenter _presenter;
 
 	@UiField
@@ -43,12 +47,16 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@UiField
 	QuantitySelecter _quantity;
 
+
 	@UiField
 	CategorySelecter category;
 
 
 	@UiField
 	Button saveButton;
+
+	@UiField
+	VerticalPanel _packagePanel;
 
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
@@ -114,6 +122,31 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	public void setRevisionId(IRevisionId revisionId) {
 		this.id.setText(revisionId.toString());
 
+	}
+
+	@Override
+	public void addPackage(IPackage ipackage) {
+		_iPackage.add(ipackage);
+	}
+
+	@Override
+	public void addPackages(ArrayList<IPackage> iPackage) {
+		System.out.println("satrt addPackages");
+		_iPackage.addAll(iPackage);
+
+		for(IPackage p: _iPackage){
+			System.out.println("set Package: "+p.getQuantity());
+			QuantitySelecter qs = new QuantitySelecter();
+			qs.setQuantity(p.getQuantity());
+			_packagePanel.add(qs);
+		}
+	}
+
+	@Override
+	public ArrayList<IPackage> getPackages() {
+		ArrayList<IPackage> r = new ArrayList<IPackage>();
+		r.addAll(_iPackage);
+		return r;
 	}
 
 

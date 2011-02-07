@@ -28,6 +28,14 @@
 					</tr>
 					<tr>
 						<td>
+							<g:Label ui:field="categoryI18N">Category</g:Label>
+						</td>
+						<td>
+							<my:CategorySelecter ui:field="category" />
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<g:Label ui:field="quantityI18N">Unit</g:Label>
 						</td>
 						<td>
@@ -35,13 +43,17 @@
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<g:Label ui:field="categoryI18N">Category</g:Label>
-						</td>
-						<td>
-							<my:CategorySelecter ui:field="category" />
+						<td colspan="2">
+							Packages
+							<hr />
 						</td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							<g:VerticalPanel ui:field="_packagePanel"></g:VerticalPanel>
+						</td>
+					</tr>
+					
 					<tr>
 						<td colspan="2">
 							<g:Button ui:field="cancelButton">cancel</g:Button>

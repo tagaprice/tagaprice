@@ -45,6 +45,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 		super(title);
 		this._category = category;
 		this._quantity = quantity;
+
 	}
 
 	@Override
