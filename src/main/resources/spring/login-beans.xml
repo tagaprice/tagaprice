@@ -20,10 +20,6 @@
 	      <property name="sessionFactory" ref="defaultSessionFactory"/>
 	</bean>
 	
-	<bean id="defaultSessionFactory"
-	      class="org.tagaprice.server.service.SessionService">
-	</bean>
-	
 	<bean id="defaultAccountDao" class="org.tagaprice.server.dao.hibernate.HibernateAccountDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>

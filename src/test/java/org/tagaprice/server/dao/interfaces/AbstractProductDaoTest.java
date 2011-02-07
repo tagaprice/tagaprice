@@ -33,6 +33,7 @@ import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.DbUnitDataSetHelper;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
+import org.tagaprice.server.dao.helper.ProductComparator;
 
 /**
  * Testcase to test the {@link IProductDAO} interface.
@@ -82,13 +83,13 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 	@Test
 	@Rollback(false)
-	public void saveProduct_shouldReturnProductWithActualProductRevision() throws Exception {
+	public void saveNewProduct_shouldReturnProductWithActualProductRevision() throws Exception {
 		_log.info("running test");
 
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
 		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
 
-		long id = 4;
+		Long id = null;
 		int numberRevisions = 2;
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
@@ -96,11 +97,12 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 		Product actual = _productDao.save(productToSave);
 
+		Long expectedId = 4L; //TODO use nextFreeProductId from hibernatesaveentitycreator when implemented
 		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
-		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(id, 1, creator, Unit.ml,
+		ProductRevision expectedRev = HibernateSaveEntityCreator.createProductRevision(expectedId, 1, creator, Unit.ml,
 				category);
 		expectedRevisions.add(expectedRev);
-		Product expected = new Product(id, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
+		Product expected = new Product(expectedId, HibernateSaveEntityCreator.createLocale(2), expectedRevisions);
 
 		assertThat(actual, equalTo(expected));
 		assertThat(actual.getRevisions(), hasItem(expectedRev));
@@ -113,82 +115,47 @@ public class AbstractProductDaoTest extends AbstractTransactionalJUnit4SpringCon
 
 	@Test
 	@Rollback(false)
-	public void saveUpdatedProduct_shouldReturnProductWithUpdatedProductRevision() throws Exception {
+	public void saveExistingProduct_shouldPersistProduct_shouldReturnProductAsGiven() throws Exception {
+		//TODO fix this test 
+		//this test fails due to hibernate executing sql code: "set ent_id=null where ent_id=?" - no idea why, corresponding integration test runs
+		
 		_log.info("running test");
 
+		
+		Long id = 1L;
+		Integer revId = 3;
 		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
-
-		long id = 4;
-		int numberRevisions = 2;
+		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
+		Category category1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", creator, Unit.g, 100.0, category1, "www.urlToImage.com"));
+		Category category2 = HibernateSaveEntityCreator.createCategory(2L, category1, "category1", creator);
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", creator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
+		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, category2));
+		
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
-				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
+				revisions);
 
-		Product saved = _productDao.save(productToSave);
+		Product actual = _productDao.save(productToSave);
 
-		int revisionNumber = 3;
-		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
-				category);
-
-		saved.getRevisions().add(newRev);
-
-		Product updated = _productDao.save(saved);
-
-		assertThat(updated.getRevisions(), hasItem(newRev));
-		assertThat(updated.getId(), equalTo(id));
-
-		_sessionFactory.getCurrentSession().flush();
-		DbSaveAssertUtility.assertEntitySaved(saved);
-		DbSaveAssertUtility.assertEntitySaved(updated);
-		for (ProductRevision rev : updated.getRevisions())
-			DbSaveAssertUtility.assertEntitySaved(rev);
-	}
+		Long expectedId = 1L;
+		Account expectedCreator = HibernateSaveEntityCreator.createAccount(1L);
+		Set<ProductRevision> expectedRevisions = new HashSet<ProductRevision>();
+		Category expectedCategory1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", expectedCreator);
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, expectedCategory1, "www.urlToImage.com"));
+		Category expectedCategory2 = HibernateSaveEntityCreator.createCategory(1L, expectedCategory1, "category1", expectedCreator);
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, expectedCategory2, "www.differentUrlToImage.com"));
+		expectedRevisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
+		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
+				HibernateSaveEntityCreator.createLocale(1),
+				expectedRevisions);
 
 
-	@Test
-	@Rollback(false)
-	public void saveUpdatedProduct_productHasOnlyNewestRevision_shouldNotDeleteOldRevs() throws Exception {
-		_log.info("running test");
-
-		Account creator = HibernateSaveEntityCreator.createAccount(1L);
-		Category category = HibernateSaveEntityCreator.createCategory(null, creator);
-		Locale locale = HibernateSaveEntityCreator.createLocale(1);
-
-		long id = 4;
-		int numberRevisions = 2;
-		Product productToSave = HibernateSaveEntityCreator.createProduct(id, locale,
-				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, category));
-
-		Product saved = _productDao.save(productToSave);
-
-		// copy original revs
-		Set<ProductRevision> originalRevs = new HashSet<ProductRevision>();
-		originalRevs.addAll(saved.getRevisions());
-		assertThat(originalRevs.size(), is(2));
-
-		int revisionNumber = 3;
-		ProductRevision newRev = HibernateSaveEntityCreator.createProductRevision(id, revisionNumber, creator, Unit.ml,
-				category);
-
-		Product productWithJustNewRev = saved;
-		saved.getRevisions().clear();
-		saved.getRevisions().add(newRev);
-		assertThat(saved.getRevisions().size(), is(1));
-
-
-		Product updated = _productDao.save(productWithJustNewRev);
-
-		assertThat(updated.getRevisions(), hasItem(newRev));
-		assertThat(updated.getId(), equalTo(id));
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 
 		_sessionFactory.getCurrentSession().flush();
-		// assert updates
-		DbSaveAssertUtility.assertEntitySaved(updated);
-		DbSaveAssertUtility.assertEntitySaved(newRev);
-
-		// assert original revisions
-		for (ProductRevision rev : originalRevs)
+		DbSaveAssertUtility.assertEntitySaved(actual);
+		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);
 	}
 

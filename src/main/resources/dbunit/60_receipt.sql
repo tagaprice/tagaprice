@@ -7,5 +7,5 @@ CREATE TABLE receipt (
 	
 	PRIMARY KEY (receipt_id),
 --  FOREIGN KEY (receipt_id) REFERENCES entity (ent_id) --NOT VERSIONED
-	FOREIGN KEY (creator) REFERENCES account (uid)
+	--FOREIGN KEY (creator) REFERENCES account (uid)
 );

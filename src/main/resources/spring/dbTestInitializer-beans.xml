@@ -32,7 +32,6 @@
 				<value>product</value>
 				<value>shop</value>
 				<value>unit</value>
-				<value>accountadd</value>
 				<value>account</value>
 				<value>category</value>
 				<value>productRevision</value>
@@ -47,8 +46,6 @@
 				<value>/dbunit/30_entityRevision.sql</value>
 				<value>/dbunit/30_product.sql</value>
 				<value>/dbunit/30_shop.sql</value>
-				<value>/dbunit/30_unit.sql</value>
-				<value>/dbunit/40_account_add.sql</value>
 				<value>/dbunit/40_account.sql</value>
 				<value>/dbunit/40_category.sql</value>
 				<value>/dbunit/40_productRevision.sql</value>

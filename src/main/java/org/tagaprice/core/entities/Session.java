@@ -45,4 +45,8 @@ public class Session {
 	public String toString() {
 		return "Session [_sessionId=" + Arrays.toString(_sessionId) + "]";
 	}
+
+	public static Session getRootToken() {
+		return new Session("root".getBytes());
+	}
 }

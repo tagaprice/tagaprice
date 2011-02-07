@@ -7,6 +7,6 @@ CREATE TABLE receiptEntry (
 
 	PRIMARY KEY (receipt_id, product_id),
 --	FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id),
-	FOREIGN KEY (product_id) REFERENCES product (ent_id),
-	FOREIGN KEY (product_id, product_revision) REFERENCES productRevision (ent_id, rev)
+--FOREIGN KEY (product_id) REFERENCES product (ent_id),
+--	FOREIGN KEY (product_id, product_revision) REFERENCES productRevision (ent_id, rev)
 );

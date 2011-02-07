@@ -3,13 +3,16 @@ package org.tagaprice.core.api;
 import java.util.List;
 
 import org.tagaprice.core.entities.BasicShop;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
 
 public interface IShopService {
 
 	/**
 	 * Gets the shop with matching id.
-	 * @throws ServerException @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
+	 * @return matching {@link Shop}, or null, if no match was found.
+	 * 
+	 * @throws ServerException Thrown to indicate that the Server has failed handling the latest request.
 	 */
 	Shop getById(long id) throws ServerException;
 
@@ -19,7 +22,7 @@ public interface IShopService {
 	 * @return saved Shop with the id set.
 	 * @throws ServerException Thrown to indicate that the Server has failed handling the latest request. This can be due to not allowed null-values or internal errors.
 	 */
-	Shop save(Shop shop) throws ServerException;
+	Shop save(Shop shop, Session session) throws ServerException, UserNotLoggedInException;
 
 	/**
 	 * Returns all shops which match given title exactly.

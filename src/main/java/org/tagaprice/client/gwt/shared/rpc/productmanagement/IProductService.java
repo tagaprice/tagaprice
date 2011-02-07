@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -37,7 +38,7 @@ public interface IProductService extends RemoteService {
 	 * @param product The {@link IProduct} you want to UPDATE/CREATE
 	 * @return the SAVED or UPDATED {@link IProduct}
 	 */
-	public IProduct saveProduct(IProduct product);
+	public IProduct saveProduct(IProduct product) throws UserNotLoggedInException;
 
 	public ArrayList<ICategory> getCategories();
 

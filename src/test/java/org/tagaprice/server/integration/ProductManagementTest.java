@@ -21,10 +21,13 @@ import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
+import org.tagaprice.server.dao.helper.ProductComparator;
+import org.tagaprice.server.service.SessionService;
 
 @ContextConfiguration
 public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
@@ -33,6 +36,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 	private IProductService _productService;
 	@SuppressWarnings("unused")
 	private SessionFactory _sessionFactory;
+	private SessionService _sessionService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -46,7 +50,10 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		_productService = applicationContext.getBean("defaultProductService", IProductService.class);
 		
 		_sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+		
 		DbSaveAssertUtility.setDataSource(applicationContext.getBean(DataSource.class));
+		
+		_sessionService = applicationContext.getBean("defaultSessionFactory", SessionService.class);
 	}
 	
 	@After
@@ -61,9 +68,13 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		Product productToSave = HibernateSaveEntityCreator.createProduct(id,
 				HibernateSaveEntityCreator.createLocale(1),
 				HibernateSaveEntityCreator.createProductRevisions(id, numberRevisions, creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
-
 		
-		Product actual = _productService.save(productToSave);
+		
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
+		
+		_sessionService.clear();
 		
 		
 		Long expectedId = 4L;
@@ -73,7 +84,7 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createLocale(1),
 				HibernateSaveEntityCreator.createProductRevisions(expectedId, expectedNumberRevisions, expectedCreator, Unit.ml, HibernateSaveEntityCreator.createCategory(4L, creator)));
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
@@ -91,7 +102,11 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
 
 		
-		Product actual = _productService.save(productToSave);
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
+		
+		_sessionService.clear();
 		
 		
 		Long expectedId = 1L;
@@ -99,14 +114,14 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 		Set<ProductRevision> revisions = new HashSet<ProductRevision>();
 		Category category1 = HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", expectedCreator);
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 1, "coke", expectedCreator, Unit.g, 100.0, category1, "www.urlToImage.com"));
-		Category category2 = HibernateSaveEntityCreator.createCategory(1L, category1, "category1", expectedCreator);
+		Category category2 = HibernateSaveEntityCreator.createCategory(2L, category1, "category1", expectedCreator);
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, 2, "original coke", expectedCreator, Unit.g, 100.0, category2, "www.differentUrlToImage.com"));
 		revisions.add(HibernateSaveEntityCreator.createProductRevision(id, revId,	creator, Unit.ml, HibernateSaveEntityCreator.createCategory(null, creator)));
 		Product expected = HibernateSaveEntityCreator.createProduct(expectedId,
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
@@ -126,7 +141,9 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 						HibernateSaveEntityCreator.createCategory(1L, null, "rootCategory", creator), "category2", creator)));
 
 		
-		Product actual = _productService.save(productToSave);
+		Session session = _sessionService.createSession(creator);
+		
+		Product actual = _productService.save(productToSave, session);
 		
 		
 		Long expectedId = 1L;
@@ -144,22 +161,10 @@ public class ProductManagementTest extends AbstractJUnit4SpringContextTests{
 				HibernateSaveEntityCreator.createLocale(1),
 				revisions);
 
-		compareProductsAndRevisions(actual, expected);
+		ProductComparator.compareProductsAndRevisions(actual, expected);
 		
 		DbSaveAssertUtility.assertEntitySaved(actual);
 		for (ProductRevision rev : actual.getRevisions())
 			DbSaveAssertUtility.assertEntitySaved(rev);
-	}
-	
-	private static void compareProductsAndRevisions(Product actual, Product expected) {
-		assertEquals(actual, expected);
-		
-		compareProductRevisions(actual.getRevisions(), expected.getRevisions());
-	}
-
-	private static void compareProductRevisions(
-			SortedSet<ProductRevision> actual,
-			SortedSet<ProductRevision> expected) {
-		assertEquals(actual, expected);
 	}
 }

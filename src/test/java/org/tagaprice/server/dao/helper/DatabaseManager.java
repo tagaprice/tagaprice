@@ -35,53 +35,67 @@ public class DatabaseManager {
 	 */
 	public static void main(String[] args) {
 		try {
-			Class.forName("org.postgresql.Driver");
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 		} catch (ClassNotFoundException cnfe) {
 			System.err.println("Couldn't find driver class:");
 			cnfe.printStackTrace();
 		}
-
-		PrintStream out = System.out;
-		Scanner in = new Scanner(System.in);
-
-		String defHostname = "pgtest.tagaprice.org";
-		String defPort = "25432";
-		String defDatabasename="tagaprice";
-		String defUsername="tagaprice_web";
-
-
-		out.print("hostname: (default: "+defHostname+")");
-		String hostname = in.nextLine();
-		if(hostname.equals("")) hostname = defHostname;
-
-		out.print("port: (default: "+defPort+")");
-		String port = in.nextLine();
-		if(port.equals("")) port = defPort;
-
-		out.print("databasename: (default: "+defDatabasename+")");
-		String databasename = in.nextLine();
-		if(databasename.equals("")) databasename = defDatabasename;
-
-		out.print("username: (default: "+defUsername+")");
-		String username = in.nextLine();
-		if(username.equals("")) username = defUsername;
-
-		out.print("password: ");
-		String password = in.nextLine();
-
-		out.print("table: ");
-		String tablename = in.nextLine();
+//
+//		PrintStream out = System.out;
+//		Scanner in = new Scanner(System.in);
+//
+//		String defHostname = "pgtest.tagaprice.org";
+//		String defPort = "25432";
+//		String defDatabasename="tagaprice";
+//		String defUsername="tagaprice_web";
+//
+//
+//		out.print("hostname: (default: "+defHostname+")");
+//		String hostname = in.nextLine();
+//		if(hostname.equals("")) hostname = defHostname;
+//
+//		out.print("port: (default: "+defPort+")");
+//		String port = in.nextLine();
+//		if(port.equals("")) port = defPort;
+//
+//		out.print("databasename: (default: "+defDatabasename+")");
+//		String databasename = in.nextLine();
+//		if(databasename.equals("")) databasename = defDatabasename;
+//
+//		out.print("username: (default: "+defUsername+")");
+//		String username = in.nextLine();
+//		if(username.equals("")) username = defUsername;
+//
+//		out.print("password: ");
+//		String password = in.nextLine();
+//
+//		out.print("table: ");
+//		String tablename = in.nextLine();
 
 		Connection c;
 		DatabaseConnection dc;
 		QueryDataSet qds;
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":"+port+"/" + databasename+"?"+ "ssl=true&"+ "sslfactory=org.postgresql.ssl.NonValidatingFactory",
-					username, password);
+			c = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/xdb", "SA", "");
 			dc = new DatabaseConnection(c);
 			qds = new QueryDataSet(dc);
-			qds.addTable(tablename, "SELECT * FROM " + tablename);
-			File xmlFile = new File("./src/test/resources/hsqldb/tables/generated/" + tablename + "_dao.xml");
+			
+			String[] tables = new String[] { 
+					"locale",
+					"entity",
+					"entityRevision",
+					"product",
+					"shop",
+					"account",
+					"category",
+					"productRevision",
+					"receipt",
+					"receiptEntry"
+					};
+			
+			for(String table : tables)
+				qds.addTable(table, "SELECT * FROM " + table);
+			File xmlFile = new File("./src/main/resources/dbunit/real_testdata.xml");
 			FileOutputStream fos = new FileOutputStream(xmlFile);
 			XmlDataSet.write(qds, fos);
 		} catch (SQLException e) {

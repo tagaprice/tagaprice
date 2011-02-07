@@ -2,10 +2,7 @@ package org.tagaprice.server.dao.interfaces;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.is;
-
+import static org.hamcrest.Matchers.*;
 import java.util.List;
 
 import org.dbunit.dataset.IDataSet;
@@ -64,6 +61,14 @@ public class AbstractShopDaoTest extends AbstractTransactionalJUnit4SpringContex
 	@After
 	public void tearDown() throws Exception {
 		// _dbInitializer.resetTables();
+	}
+
+	@Test
+	public void getShopById_idNotFound_shouldReturnNull() throws Exception {
+		_log.info("running test");
+
+		Shop actual = _dao.getById(HibernateSaveEntityCreator.nextFreeShopId); // this id should not exist in db
+		assertThat(actual, equalTo(null));
 	}
 
 	@Test

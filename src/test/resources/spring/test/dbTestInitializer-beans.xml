@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			   http://www.springframework.org/schema/aop
+			   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			   http://www.springframework.org/schema/context
+			   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			   http://www.springframework.org/schema/tx
+			   http://www.springframework.org/schema/tx/spring-tx.xsd
+			   ">
+
+	<!--
+  	-	TESTDATA SETUP 
+  	-
+  	-	tablesToDrop:		tables to drop on startup (take care if you have the datasource directing to an existing database, if you are unsure specifiy an empty list)
+  	-	scriptsToExecute:	any sql scripts specified will be executed 
+  	-	dbUnitData:			specfiy an xml to load testdata 
+  	-
+  	-->
+	<bean id="dbTestInitializer" class="org.tagaprice.server.boot.dbinit.DbTestInitializer">
+		<constructor-arg index="0" ref="dataSource" />
+		<property name="tablesToDrop">
+			<list>
+				<value>locale</value>
+				<value>entity</value>
+				<value>entityRevision</value>
+				<value>product</value>
+				<value>shop</value>
+				<value>unit</value>
+				<value>account</value>
+				<value>category</value>
+				<value>productRevision</value>
+				<value>receipt</value>
+				<value>receiptEntry</value>
+			</list>
+		</property>
+		<property name="scriptsToExecute">
+			<list>
+				<value>/dbunit/10_locale.sql</value>
+				<value>/dbunit/20_entity.sql</value>
+				<value>/dbunit/30_entityRevision.sql</value>
+				<value>/dbunit/30_product.sql</value>
+				<value>/dbunit/30_shop.sql</value>
+				<value>/dbunit/40_account.sql</value>
+				<value>/dbunit/40_category.sql</value>
+				<value>/dbunit/40_productRevision.sql</value>
+				<value>/dbunit/60_receipt.sql</value>
+				<value>/dbunit/60_receiptEntry.sql</value>
+			</list>
+		</property>
+		<property name="dbUnitData" value="classpath:dbunit/test/dbunit_testdata.xml" />
+	</bean>
+</beans>

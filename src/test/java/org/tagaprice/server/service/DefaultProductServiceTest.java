@@ -17,8 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.tagaprice.core.api.OutdatedRevisionException;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.Product;
 import org.tagaprice.core.entities.ProductRevision;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 import org.tagaprice.server.dao.interfaces.IProductRevisionDAO;
 import org.tagaprice.server.service.helper.EntityCreator;
@@ -37,6 +39,7 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	private DefaultProductService _productManagement;
 	private IProductDAO _productDaoMock;
 	private IProductRevisionDAO _productRevisionDaoMock;
+	private SessionService _sessionFactoryMock;
 
 	@BeforeClass
 	public static void setUpBefore() throws Exception {
@@ -45,10 +48,14 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 	@Before
 	public void setUp() throws Exception {
 		_productManagement = applicationContext.getBean("defaultProductManagement", DefaultProductService.class); //maybe replace this with autowire
+		
 		_productDaoMock = mock(IProductDAO.class);
 		_productRevisionDaoMock = mock(IProductRevisionDAO.class);
-		_productManagement.setProductDAO(_productDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
-		_productManagement.setProductRevisionDAO(_productRevisionDaoMock); //TODO replace this by dependency injection via autowire, how to inject mock ? see http://stackoverflow.com/questions/2457239/injecting-mockito-mocks-into-a-spring-bean for help
+		_sessionFactoryMock = mock(SessionService.class);
+		
+		_productManagement.setProductDAO(_productDaoMock);
+		_productManagement.setProductRevisionDAO(_productRevisionDaoMock);
+		_productManagement.setSessionFactory(_sessionFactoryMock);
 	}
 
 	@After
@@ -65,12 +72,17 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 			@Override
 			public Product answer(InvocationOnMock invocation) throws Throwable {
 				Object[] args = invocation.getArguments();
-				return (Product) args[0];
+				Product product = (Product) args[0];
+				product.setId(4L);
+				return product; 
 			}
 
 		});
+		
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(EntityCreator.createAccount());
+		
 
-		Product actual = _productManagement.save(toSave);
+		Product actual = _productManagement.save(toSave, EntityCreator.createSession());
 
 		Product expected = EntityCreator.createProductWithRevisions(4L, 1);
 
@@ -91,8 +103,10 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 		Product totalProduct = EntityCreator.createProductWithRevisions(id, 3);
 		when(_productDaoMock.save((Product) any())).thenReturn(totalProduct);
+		
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(EntityCreator.createAccount());
 
-		Product actual = _productManagement.save(toSave);
+		Product actual = _productManagement.save(toSave, EntityCreator.createSession());
 
 		Product expected = EntityCreator.createProductWithRevisions(id, 3);
 
@@ -117,8 +131,10 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 		Product alreadyPersistedProduct = EntityCreator.createProductWithRevisions(id, 2);
 		when(_productDaoMock.getById(id)).thenReturn(alreadyPersistedProduct);
+		
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(EntityCreator.createAccount());
 
-		_productManagement.save(toSave);
+		_productManagement.save(toSave, EntityCreator.createSession());
 	}
 
 	@Test
@@ -131,12 +147,25 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 		Product alreadyPersistedProduct = EntityCreator.createProductWithRevisions(id, 2);
 		when(_productDaoMock.getById(id)).thenReturn(alreadyPersistedProduct);
 		when(_productDaoMock.save((Product) any())).thenReturn(alreadyPersistedProduct);
+		
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(EntityCreator.createAccount());
 
 		Product expected = EntityCreator.createProductWithRevisions(id, 2);
 
-		Product actual = _productManagement.save(toSave);
+		Product actual = _productManagement.save(toSave, EntityCreator.createSession());
 
 		assertThat(actual, equalTo(expected));
+	}
+	
+	@Test(expected=UserNotLoggedInException.class)
+	public void saveProduct_passInvalidSessionToken_ShouldThrowUserNotLoggedInException() throws UserNotLoggedInException, OutdatedRevisionException {
+		DefaultProductServiceTest._log.info("running test");
+
+		Product toSave = EntityCreator.createProductWithRevisions(null, 1);
+
+		when(_sessionFactoryMock.getAccount((Session) any())).thenReturn(null);
+		
+		_productManagement.save(toSave, EntityCreator.createSession());
 	}
 
 	@Test
@@ -164,7 +193,7 @@ public class DefaultProductServiceTest  extends AbstractJUnit4SpringContextTests
 
 		when(_productDaoMock.getById(id_1)).thenReturn(productContainingTitle_1);
 		when(_productDaoMock.getById(id_2)).thenReturn(productContainingTitle_2);
-
+		
 		List<Product> actual = _productManagement.getByTitle(title);
 
 		ProductRevision expected_revision_1_1 = EntityCreator.createProductRevision(id_1, 1, "other "+title);

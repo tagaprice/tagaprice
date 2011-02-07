@@ -13,9 +13,11 @@ import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.core.api.ICategoryService;
 import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;
+import org.tagaprice.core.entities.Session;
 import org.tagaprice.server.boot.Boot;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -53,13 +55,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 			_log.debug("Attempting to load "+service+" from core.api");
 			_coreCategoryService = (org.tagaprice.core.api.ICategoryService) Boot.getApplicationContext().getBean(service);
 			_log.debug("Loaded "+service+" successfully.");
-
-			//TODO/WORKAROUND this should be mapped by spring, but does not work yet
-
-
-			//			((DefaultProductService) coreService).setProductDAO((IProductDAO) Boot.getApplicationContext().getBean("defaultProductDAO"));
-			//			((DefaultProductService) coreService).setProductRevisionDAO((IProductRevisionDAO) Boot.getApplicationContext().getBean("defaultProductRevisionDAO")); //TODO/WORKAROUND this should be mapped by spring, but does not work yet
-
 		} catch (Exception e) {
 			_log.debug(e.getClass() + ": " + e.getMessage());
 		} finally {
@@ -106,18 +101,25 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public IProduct saveProduct(IProduct product) {
+	public IProduct saveProduct(IProduct product) throws UserNotLoggedInException {
 		_log.debug("product :"+product);
 
 		ProductConverter converter = ProductConverter.getInstance();
+		if(getThreadLocalRequest().getSession().getAttribute("session")==null) throw new UserNotLoggedInException("Not logged in");
+
 
 		try {
 			Product productCore = converter.convertProductToCore(product);
 
-			productCore = this._coreProductService.save(productCore);
+			//			Session session = (Session) getThreadLocalRequest().getSession().getAttribute("session");
+			Session session = Session.getRootToken(); //TODO replace this call by the one above
+			productCore = this._coreProductService.save(productCore, session);
 
 			return converter.convertProductToGWT(productCore, 0);
 		} catch (OutdatedRevisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UserNotLoggedInException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ServerException e) {

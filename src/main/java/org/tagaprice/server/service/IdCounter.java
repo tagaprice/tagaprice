@@ -6,7 +6,8 @@ public class IdCounter {
 
 	public synchronized static Long getNewId() {
 		IdCounter._id++;
-		return IdCounter._id;
+//		return IdCounter._id;
+		return null;
 	}
 
 }

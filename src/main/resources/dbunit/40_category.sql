@@ -8,6 +8,6 @@ CREATE TABLE category (
     creator BIGINT NOT NULL,
 
 	PRIMARY KEY (category_id),
-	FOREIGN KEY (parent_id) REFERENCES category (category_id)
+--	FOREIGN KEY (parent_id) REFERENCES category (category_id)
 --TODO fix  FOREIGN KEY (creator_id) REFERENCES account (account_id),
 );

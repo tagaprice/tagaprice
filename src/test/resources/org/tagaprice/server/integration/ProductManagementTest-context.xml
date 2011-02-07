@@ -23,11 +23,12 @@
 	-	TESTDATA SETUP
 	-	Defines a dbTestInitializer which can be used to insert testdata
 	-->
-	<import resource="classpath:spring/dbTestInitializer-beans.xml" />
+	<import resource="classpath:spring/test/testdata-setup.xml" />
 	
 	<!--
 		-	Import Feature
 	-->
+	<import resource="classpath:spring/sessionFactory-beans.xml" />
 	<import resource="classpath:spring/productManagement-beans.xml" />
 	
 </beans>
