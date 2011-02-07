@@ -28,7 +28,7 @@
 	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>productservice</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.diplomat.ProductServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -38,7 +38,7 @@
 	
 	<servlet>
 		<servlet-name>loginservice</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.diplomat.LoginServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.LoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -48,7 +48,7 @@
 	
 	<servlet>
 		<servlet-name>shopservice</servlet-name>
-		<servlet-class>org.tagaprice.client.gwt.server.diplomat.ShopServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.ShopServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

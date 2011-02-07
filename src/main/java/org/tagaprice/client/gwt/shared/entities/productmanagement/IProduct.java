@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.IEntity;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
@@ -49,5 +51,21 @@ public interface IProduct extends IEntity<IProduct> {
 	 */
 	public IQuantity getQuantity();
 
+	/**
+	 * Add one {@link IPackage} to the Product.
+	 * @param ipackage that will be added to the {@link IProduct}
+	 */
+	public void addPackage(IPackage ipackage);
 
+	/**
+	 * Add some {@link IPackage} to the Product.
+	 * @param ipackage that will be added to the {@link IProduct}
+	 */
+	public void addPackages(ArrayList<IPackage> iPackage);
+
+	/**
+	 * Return all Packages includes in a {@link IProduct}
+	 * @return all Packages includes in a {@link IProduct}
+	 */
+	public ArrayList<IPackage> getPackages();
 }

@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
@@ -15,6 +17,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	private static final long serialVersionUID = 4858431133448109402L;
 	private ICategory _category;
 	private IQuantity _quantity;
+	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
 
 	public Product() {}
 
@@ -25,10 +28,11 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	 * @param category
 	 * @param quantity
 	 */
-	public Product(IRevisionId revisionId, String title, ICategory category, IQuantity quantity) {
+	public Product(IRevisionId revisionId, String title, ICategory category, IQuantity quantity, ArrayList<IPackage> iPackage) {
 		super(revisionId, title);
 		this._category = category;
 		this._quantity = quantity;
+		addPackages(iPackage);
 	}
 
 	/**
@@ -68,7 +72,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	@Override
 	public IProduct copy() {
 		if(this.getRevisionId() != null) {
-			return new Product(this.getRevisionId().copy(), this.getTitle(), this._category.copy(), this._quantity.copy());
+			return new Product(this.getRevisionId().copy(), this.getTitle(), this._category.copy(), this._quantity.copy(), this._iPackage);
 		} else {
 			return new Product(this.getTitle(), this._category.copy(), this._quantity.copy());
 		}
@@ -103,6 +107,22 @@ public class Product extends AEntity<IProduct> implements IProduct {
 			quantitiyString = "Quantity is null";
 		}
 		return "Product: " + this.getTitle() + ", " + revString + ", " + quantitiyString ;
+	}
+
+	@Override
+	public void addPackage(IPackage ipackage) {
+		_iPackage.add(ipackage);
+	}
+
+	@Override
+	public void addPackages(ArrayList<IPackage> iPackage) {
+		_iPackage.addAll(iPackage);
+
+	}
+
+	@Override
+	public ArrayList<IPackage> getPackages() {
+		return _iPackage;
 	}
 
 }

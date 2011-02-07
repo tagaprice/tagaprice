@@ -5,6 +5,7 @@ import java.util.*;
 import org.slf4j.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.core.entities.*;
 import org.tagaprice.core.entities.Category;
@@ -100,7 +101,7 @@ public class ProductConverter {
 
 		IRevisionId revisionId = new RevisionId(id, revision);
 		IProduct productGWT = new org.tagaprice.client.gwt.shared.entities.productmanagement.Product(revisionId, title,
-				category, quantity);
+				category, quantity, new ArrayList<IPackage>());
 		_log.debug("Converted: " + coreRevision.getTitle() + ", " + coreRevision.getId() + ", " + coreRevision.getRevisionNumber() + " into " + productGWT);
 		return productGWT;
 
