@@ -9,7 +9,10 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 
-
+/**
+ * This is just a wrapper!
+ *
+ */
 public class ShopSelecter extends Composite implements IShopSelecter {
 
 	IShopSelecter shopSelecter = GWT.create(IShopSelecter.class);
