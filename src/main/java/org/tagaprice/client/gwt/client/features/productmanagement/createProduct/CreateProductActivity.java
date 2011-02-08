@@ -82,7 +82,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		if (_place.getRevisionId().getId() == 0L) {
 			CreateProductActivity._logger.log("Create new Product");
 
-			updateView(new Product("", new Category("newProduct"), new Quantity(1L, Unit.piece)));
+			updateView(new Product("", new Category("newProduct"), Unit.piece));
 			panel.setWidget(createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {
@@ -211,7 +211,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		}
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
-		view.setQuantity(product.getQuantity());
+		view.setUnit(product.getUnit());
 
 		view.setPackages(product.getPackages());
 	}
@@ -226,7 +226,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		ICreateProductView view = this._clientFactory.getEditProductView();
 		product.setTitle(view.getProductTitle());
 		product.setCategory(view.getCategory());
-		product.setQuantity(view.getQuantity());
+		product.setUnit(view.getUnit());
 		return product;
 
 	}

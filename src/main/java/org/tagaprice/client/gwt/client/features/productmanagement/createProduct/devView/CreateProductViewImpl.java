@@ -6,9 +6,11 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
+import org.tagaprice.client.gwt.client.generics.widgets.UnitSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,8 +37,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	@UiField
 	Label nameI18N;
-	@UiField
-	Label quantityI18N;
+
 	@UiField
 	Label categoryI18N;
 
@@ -44,8 +45,9 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	Label id;
 	@UiField
 	TextBox name;
+
 	@UiField
-	QuantitySelecter _quantity;
+	UnitSelecter _unit;
 
 
 	@UiField
@@ -63,7 +65,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 		//Set I18N
 		nameI18N.setText(I18N.I18N.name());
-		quantityI18N.setText(I18N.I18N.quantity());
 		categoryI18N.setText(I18N.I18N.category());
 	}
 
@@ -74,18 +75,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 
 
-
-
-	@Override
-	public void setQuantity(IQuantity quantity) {
-		_quantity.setQuantity(quantity);
-
-	}
-
-	@Override
-	public IQuantity getQuantity() {
-		return _quantity.getQuantity();
-	}
 
 	@Override
 	public void setCategory(ICategory category) {
@@ -148,6 +137,17 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		ArrayList<IPackage> r = new ArrayList<IPackage>();
 		r.addAll(_iPackage);
 		return r;
+	}
+
+	@Override
+	public void setUnit(Unit unit) {
+		_unit.setUnit(unit);
+
+	}
+
+	@Override
+	public Unit getUnit() {
+		return _unit.getUnit();
 	}
 
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -35,20 +35,26 @@ public interface ICreateProductView extends IsWidget {
 
 
 
-	/**
-	 * Set a {@link IQuantity} in which this {@link IProduct} can be bought.
-	 * 
-	 * @param quantity
-	 *            the {@link IQuantity} in which this {@link IProduct} can be bought.
-	 */
-	public void setQuantity(IQuantity quantity);
 
 	/**
-	 * Returns a list of {@link IQuantity}s corresponding to this {@link IProduct}.
+	 * Sets the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
+	 * have.
 	 * 
-	 * @return a list of {@link IQuantity}s corresponding to this {@link IProduct}.
+	 * @param unit
+	 *            the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            can
+	 *            have.
 	 */
-	public IQuantity getQuantity();
+	public void setUnit(Unit unit);
+
+	/**
+	 * The {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * bought.
+	 * 
+	 * @return the {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * bought
+	 */
+	public Unit getUnit();
 
 	/**
 	 * Sets the depending {@link ICategory} for a

@@ -43,7 +43,7 @@ public class ProductCoreColumnDefinitions {
 
 			@Override
 			public Widget render(IProduct t) {
-				return new HTML(t.getQuantity().toString());
+				return new HTML(t.getUnit().toString());
 			}
 
 			@Override

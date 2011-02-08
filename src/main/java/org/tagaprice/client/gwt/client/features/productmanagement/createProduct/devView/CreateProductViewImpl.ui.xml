@@ -36,10 +36,10 @@
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="quantityI18N">Unit</g:Label>
+							<g:Label ui:field="unitI18N">Unit</g:Label>
 						</td>
 						<td>
-							<my:QuantitySelecter ui:field="_quantity"></my:QuantitySelecter>
+							<my:UnitSelecter ui:field="_unit"></my:UnitSelecter>
 						</td>
 					</tr>
 					<tr>

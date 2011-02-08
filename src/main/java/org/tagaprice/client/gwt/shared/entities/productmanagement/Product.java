@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.core.entities.Unit;
 
 /**
  * This class is used to send {@link Product} data from client to server and from server to client. It will also be used
@@ -16,8 +16,8 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 	private static final long serialVersionUID = 4858431133448109402L;
 	private ICategory _category;
-	private IQuantity _quantity;
 	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
+	private Unit _unit;
 
 	public Product() {}
 
@@ -25,13 +25,13 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	 * Constructor to update a {@link Product}
 	 * @param revisionId
 	 * @param title
-	 * @param category
+	 * @param unit
 	 * @param quantity
 	 */
-	public Product(IRevisionId revisionId, String title, ICategory category, IQuantity quantity, ArrayList<IPackage> iPackage) {
+	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit, ArrayList<IPackage> iPackage) {
 		super(revisionId, title);
 		this._category = category;
-		this._quantity = quantity;
+		this._unit = unit;
 		addPackages(iPackage);
 	}
 
@@ -41,10 +41,10 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	 * @param category
 	 * @param quantity
 	 */
-	public Product(String title, ICategory category, IQuantity quantity) {
+	public Product(String title, ICategory category, Unit unit) {
 		super(title);
 		this._category = category;
-		this._quantity = quantity;
+		this._unit = unit;
 
 	}
 
@@ -60,22 +60,13 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	}
 
 
-	@Override
-	public void setQuantity(IQuantity quantity) {
-		_quantity=quantity;
-	}
-
-	@Override
-	public IQuantity getQuantity() {
-		return _quantity;
-	}
 
 	@Override
 	public IProduct copy() {
 		if(this.getRevisionId() != null) {
-			return new Product(this.getRevisionId().copy(), this.getTitle(), this._category.copy(), this._quantity.copy(), this._iPackage);
+			return new Product(this.getRevisionId().copy(), this.getTitle(), this._category.copy(), this._unit, this._iPackage);
 		} else {
-			return new Product(this.getTitle(), this._category.copy(), this._quantity.copy());
+			return new Product(this.getTitle(), this._category.copy(), this._unit);
 		}
 	}
 
@@ -83,7 +74,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	public boolean equals(Object o) {
 		if(o instanceof Product) {
 			Product p = (Product) o;
-			return super.equals(o) && this._category.equals(p._category) && this._quantity.equals(p._quantity);
+			return super.equals(o) && this._category.equals(p._category) && this._unit.equals(p._unit);
 		} else {
 			return false;
 		}
@@ -101,12 +92,8 @@ public class Product extends AEntity<IProduct> implements IProduct {
 		}else{
 			revString = "Revision is null";
 		}
-		String quantitiyString;
-		if(this.getQuantity() != null) {
-			quantitiyString = this.getQuantity().toString();
-		} else {
-			quantitiyString = "Quantity is null";
-		}
+		String quantitiyString="";
+
 		return "Product: " + this.getTitle() + ", " + revString + ", " + quantitiyString ;
 	}
 
@@ -124,6 +111,17 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	@Override
 	public ArrayList<IPackage> getPackages() {
 		return _iPackage;
+	}
+
+	@Override
+	public void setUnit(Unit unit) {
+		_unit=unit;
+
+	}
+
+	@Override
+	public Unit getUnit() {
+		return _unit;
 	}
 
 }
