@@ -29,10 +29,13 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		if (category != null) {
 			for (int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
 				logger.log("investigate " + this._listBoxCategories.getValue(i));
-				if (this._listBoxCategories.getItemText(i).equals(category.toString())) {
+				logger.log("equaling " + this._listBoxCategories.getValue(i)+" | "+category);
+				if(this._listBoxCategories.getValue(i).equals(category.toString())){
+					logger.log("Category found");
 					this._listBoxCategories.setSelectedIndex(i);
 					return;
 				}
+
 			}
 		}
 	}
