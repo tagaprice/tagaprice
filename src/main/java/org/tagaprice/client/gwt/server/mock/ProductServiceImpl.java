@@ -91,6 +91,10 @@ IProductService {
 	@Override
 	public IProduct saveProduct(final IProduct product) {
 		logger.log("save product " + product);
+
+		for(IPackage p:product.getPackages())
+			logger.log("package: "+p.toString());
+
 		//Check productId and revisionId
 		//if productId == 0 -> save as new product
 		if(product.getRevisionId() == null || product.getRevisionId().getId() == 0L) {

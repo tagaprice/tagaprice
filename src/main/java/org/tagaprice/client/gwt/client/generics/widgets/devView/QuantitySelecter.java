@@ -22,7 +22,6 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 		_vp.add(_quantity);
 		_vp.add(_unitSelecter);
 
-		_quantity.setText("test");
 
 
 	}
