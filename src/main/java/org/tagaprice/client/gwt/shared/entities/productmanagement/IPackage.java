@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.shared.entities.productmanagement;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
 /**
@@ -10,6 +11,19 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
  * 
  */
 public interface IPackage extends Serializable {
+
+	/**
+	 * Returns the current revision and ID for this Package. IF null this package is new.
+	 * @return  the current revision and ID for this Package
+	 */
+	public IRevisionId getRevisionId();
+
+	/**
+	 * Sets the current RevisionID for this Package. ONLY allowed on Server!
+	 * @param revisionId new revisionId
+	 */
+	public void setRevisionId(IRevisionId revisionId);
+
 
 	/**
 	 * Set the {@link IQuantity} which is represented by an Quantity and an Unit.

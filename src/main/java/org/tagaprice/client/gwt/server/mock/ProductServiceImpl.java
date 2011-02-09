@@ -53,8 +53,8 @@ IProductService {
 
 		//TestProduct
 		Product bergkasese = new Product("Bergkäse 4", food, Unit.g);
-		bergkasese.addPackage(new Package(new Quantity(500, Unit.g)));
-		bergkasese.addPackage(new Package(new Quantity(750, Unit.g)));
+		bergkasese.addPackage(new Package(new RevisionId(12L, 1), new Quantity(500, Unit.kg)));
+		bergkasese.addPackage(new Package(new RevisionId(13L, 1), new Quantity(750, Unit.g)));
 
 		this.saveProduct(bergkasese);
 		this.saveProduct(new Product("Extrawurst von der Theke", food, Unit.g));

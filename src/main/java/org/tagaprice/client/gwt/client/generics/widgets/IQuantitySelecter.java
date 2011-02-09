@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -22,4 +23,10 @@ public interface IQuantitySelecter extends IsWidget {
 	 * @return the current selected quantity
 	 */
 	public IQuantity getQuantity();
+
+	/**
+	 * If RelatedUnit is set, the user can only select related unit.
+	 * @param unit the {@link Unit} with which all other must be rated to.
+	 */
+	void setRelatedUnit(Unit unit);
 }

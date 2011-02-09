@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public class QuantitySelecter extends Composite implements IQuantitySelecter {
 
-	IQuantitySelecter quantitySelecter = GWT.create(IQuantitySelecter.class);
+	private IQuantitySelecter quantitySelecter = GWT.create(IQuantitySelecter.class);
 
 	public QuantitySelecter() {
 		initWidget(quantitySelecter.asWidget());
@@ -26,6 +27,11 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 	@Override
 	public IQuantity getQuantity() {
 		return quantitySelecter.getQuantity();
+	}
+
+	@Override
+	public void setRelatedUnit(Unit unit) {
+		quantitySelecter.setRelatedUnit(unit);
 	}
 
 }

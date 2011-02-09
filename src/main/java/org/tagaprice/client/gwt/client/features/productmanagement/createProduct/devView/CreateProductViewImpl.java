@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
+import org.tagaprice.client.gwt.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.UnitSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
@@ -58,7 +58,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	Button saveButton;
 
 	@UiField
-	VerticalPanel _packagePanel;
+	PackageSelecter _packages;
 
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
@@ -121,22 +121,15 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setPackages(ArrayList<IPackage> iPackage) {
 		_iPackage.clear();
-		_packagePanel.clear();
 
 		_iPackage.addAll(iPackage);
 
-		for(IPackage p: _iPackage){
-			QuantitySelecter qs = new QuantitySelecter();
-			qs.setQuantity(p.getQuantity());
-			_packagePanel.add(qs);
-		}
+		_packages.setPackages(_iPackage);
 	}
 
 	@Override
 	public ArrayList<IPackage> getPackages() {
-		ArrayList<IPackage> r = new ArrayList<IPackage>();
-		r.addAll(_iPackage);
-		return r;
+		return _packages.getPackages();
 	}
 
 	@Override

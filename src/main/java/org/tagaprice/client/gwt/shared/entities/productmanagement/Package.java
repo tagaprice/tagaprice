@@ -2,11 +2,13 @@ package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
 public class Package implements IPackage {
 
 	IQuantity _iQuantity;
+	IRevisionId _iRevisionId;
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 
 	/**
@@ -16,8 +18,22 @@ public class Package implements IPackage {
 	}
 
 
+	/**
+	 * Creates an new Package.
+	 * @param quantity the current quantity of a package.
+	 */
 	public Package(IQuantity quantity){
 		_iQuantity=quantity;
+	}
+
+	/**
+	 * Get or Update Package.
+	 * @param revisionId current revisionId.
+	 * @param quantity the current quantity of a package.
+	 */
+	public Package(IRevisionId revisionId, IQuantity quantity){
+		_iQuantity=quantity;
+		_iRevisionId=revisionId;
 	}
 
 
@@ -44,6 +60,18 @@ public class Package implements IPackage {
 	@Override
 	public ArrayList<Integer> getBarcodes() {
 		return _barcode;
+	}
+
+
+	@Override
+	public IRevisionId getRevisionId() {
+		return _iRevisionId;
+	}
+
+
+	@Override
+	public void setRevisionId(IRevisionId revisionId) {
+		_iRevisionId=revisionId;
 	}
 
 

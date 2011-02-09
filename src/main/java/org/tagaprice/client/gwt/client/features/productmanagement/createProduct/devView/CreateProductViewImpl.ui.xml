@@ -44,13 +44,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							Packages
-							<hr />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<g:VerticalPanel ui:field="_packagePanel"></g:VerticalPanel>
+							<my:PackageSelecter ui:field="_packages"></my:PackageSelecter>
 						</td>
 					</tr>
 					

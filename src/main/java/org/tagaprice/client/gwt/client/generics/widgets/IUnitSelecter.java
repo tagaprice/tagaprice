@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 public interface IUnitSelecter extends IsWidget {
 
 	/**
-	 * Set the {@link Unit} all other units must be related to. Is this is not set, all units are displayed
+	 * Set the {@link Unit} where all other units must be related to. Is this is not set, all units are displayed
 	 * @param unit Defines the {@link Unit} with which all other must be rated to.
 	 */
 	public void setRelatedUnit(Unit unit);

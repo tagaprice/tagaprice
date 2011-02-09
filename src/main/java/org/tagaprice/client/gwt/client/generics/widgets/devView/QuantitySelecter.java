@@ -3,6 +3,8 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 import org.tagaprice.client.gwt.client.generics.widgets.IQuantitySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.UnitSelecter;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
+import org.tagaprice.core.entities.Unit;
+
 import com.google.gwt.user.client.ui.*;
 
 /**
@@ -22,6 +24,7 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 
 		_quantity.setText("test");
 
+
 	}
 
 	@Override
@@ -34,5 +37,12 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 	public IQuantity getQuantity() {
 		return new Quantity(new Double(_quantity.getText()), _unitSelecter.getUnit());
 	}
+
+	@Override
+	public void setRelatedUnit(Unit unit){
+		_unitSelecter.setRelatedUnit(unit);
+	}
+
+
 
 }
