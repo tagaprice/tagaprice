@@ -29,5 +29,11 @@ public interface IUnitSelecter extends IsWidget {
 	 */
 	public Unit getUnit();
 
+	/**
+	 * Is called when the unit has changed
+	 * @param unitChangedHandler called when the unit has changed
+	 */
+	void addUnitChangedHandler(IUnitChangedHandler unitChangedHandler);
+
 
 }

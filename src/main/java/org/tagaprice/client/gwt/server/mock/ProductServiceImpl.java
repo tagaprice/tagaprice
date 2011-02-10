@@ -123,6 +123,11 @@ IProductService {
 				//compare revisionIds
 				updateProduct = product.copy();
 				updateProduct.getRevisionId().setRevision(updateProduct.getRevisionId().getRevision() + 1);
+
+
+				//find out if we have a new Package
+
+
 				this.productsAllRevisions.put(updateProduct.getRevisionId(), updateProduct);
 				this.productsLatest.put(updateProduct.getRevisionId().getId(), updateProduct);
 				return updateProduct;

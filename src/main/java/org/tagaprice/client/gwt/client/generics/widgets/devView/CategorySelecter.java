@@ -28,8 +28,6 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		logger.log("set category " + category);
 		if (category != null) {
 			for (int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
-				logger.log("investigate " + this._listBoxCategories.getValue(i));
-				logger.log("equaling " + this._listBoxCategories.getValue(i)+" | "+category);
 				if(this._listBoxCategories.getValue(i).equals(category.toString())){
 					logger.log("Category found");
 					this._listBoxCategories.setSelectedIndex(i);

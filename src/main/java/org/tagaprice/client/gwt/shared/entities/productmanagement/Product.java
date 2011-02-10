@@ -32,7 +32,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 		super(revisionId, title);
 		this._category = category;
 		this._unit = unit;
-		addPackages(iPackage);
+		setPackages(iPackage);
 	}
 
 	/**
@@ -103,7 +103,8 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	}
 
 	@Override
-	public void addPackages(ArrayList<IPackage> iPackage) {
+	public void setPackages(ArrayList<IPackage> iPackage) {
+		_iPackage.clear();
 		_iPackage.addAll(iPackage);
 
 	}

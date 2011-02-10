@@ -1,17 +1,32 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
+import org.tagaprice.client.gwt.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.IUnitSelecter;
+
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 import org.tagaprice.core.entities.Unit;
 
 public class UnitSelecter extends Composite implements IUnitSelecter{
 
-	ListBox _listBoxUnit = new ListBox();
+	private ListBox _listBoxUnit = new ListBox();
+	private IUnitChangedHandler _unitChangedHandler;
 
 	public UnitSelecter() {
 		initWidget(_listBoxUnit);
 		allowedUnit(null);
+
+		//add Listener
+		_listBoxUnit.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent arg0) {
+				if(_unitChangedHandler!=null)_unitChangedHandler.onChange(getUnit());
+
+			}
+		});
 	}
 
 	@Override
@@ -47,6 +62,11 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 		for(Unit u: Unit.values()) {
 			_listBoxUnit.addItem(u.name());
 		}
+	}
+
+	@Override
+	public void addUnitChangedHandler(IUnitChangedHandler unitChangedHandler) {
+		_unitChangedHandler=unitChangedHandler;
 	}
 
 }

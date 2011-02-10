@@ -32,4 +32,10 @@ public class UnitSelecter extends Composite implements IUnitSelecter {
 		return unitSelecter.getUnit();
 	}
 
+
+	@Override
+	public void addUnitChangedHandler(IUnitChangedHandler unitChangedHandler){
+		unitSelecter.addUnitChangedHandler(unitChangedHandler);
+	}
+
 }

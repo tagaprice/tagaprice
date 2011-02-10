@@ -29,4 +29,13 @@ public interface IQuantitySelecter extends IsWidget {
 	 * @param unit the {@link Unit} with which all other must be rated to.
 	 */
 	void setRelatedUnit(Unit unit);
+
+
+	/**
+	 * This handler is called when the quantity has changed.
+	 * @param quantityChangeHandler is called when the quantity has changed.
+	 */
+	void addQuantityChangeHandler(IQuantityChangeHandler quantityChangeHandler);
+
+
 }
