@@ -32,7 +32,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		ArrayList<IAddress> myAddresses = new ArrayList<IAddress>();
 		myAddresses.add(new Address(new RevisionId(1L, 1), "street", "1120", "Vienna", Country.at, 48.20888815483086, 16.371173858642578));
 
-		IShop shop = new Shop(new RevisionId(1L, 1), "shop", "street", "1120", "Vienna", Country.at, 48.20888815483086, 16.371173858642578, myAddresses);
+		IShop shop = new Shop(new RevisionId(1L, 1), "Main Shop", myAddresses);
 
 		_logger.log("send Shop: " + shop);
 
@@ -51,7 +51,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		myAddresses.add(new Address(new RevisionId(3L), "Pregarten", "1120", "Vienna", Country.at, 44.20888815483086, 16.371173858642578));
 
 
-		IShop shop = new Shop(new RevisionId(1L, 1), "shop", "street", "1120", "Vienna", Country.at, 48.20888815483086, 16.371173858642578, myAddresses);
+		IShop shop = new Shop(new RevisionId(1L, 1), "Mein Shop", myAddresses);
 
 		_logger.log("send Shop: " + shop);
 

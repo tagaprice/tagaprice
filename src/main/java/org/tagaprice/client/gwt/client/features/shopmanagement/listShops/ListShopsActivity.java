@@ -3,7 +3,6 @@ package org.tagaprice.client.gwt.client.features.shopmanagement.listShops;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopServiceAsync;
@@ -118,7 +117,7 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 	@Override
 	public void onSearch(String searchtext) {
 		ListShopsActivity.logger.log("search for " + searchtext);
-		IShop shop = new Shop(searchtext, "","","",Country.at, 0.1, 0.1);
+		IShop shop = new Shop(searchtext);
 		this.shopServiceAsync.getShops(shop , new AsyncCallback<ArrayList<IShop>>() {
 
 			@Override

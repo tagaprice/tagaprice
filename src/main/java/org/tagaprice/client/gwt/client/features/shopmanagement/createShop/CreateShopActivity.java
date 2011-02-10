@@ -10,7 +10,6 @@ import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -156,11 +155,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop = shop;
 		_createShopView.setRevisionId(shop.getRevisionId());
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setCountry(shop.getCountry());
-		_createShopView.setCity(shop.getCity());
-		_createShopView.setZip(shop.getZip());
-		_createShopView.setStreet(shop.getStreet());
-		_createShopView.setLatLng(LatLng.newInstance(shop.getLat(), shop.getLng()));
 		_createShopView.setAddresses(_shop.getAddresses());
 	}
 
@@ -172,12 +166,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setCountry(_createShopView.getCountry());
-		shop.setCity(_createShopView.getCity());
-		shop.setZip(_createShopView.getZip());
-		shop.setStreet(_createShopView.getStreet());
-		shop.setLat((_createShopView.getLatLng().getLatitude()));
-		shop.setLng((_createShopView.getLatLng().getLongitude()));
 		return shop;
 	}
 
