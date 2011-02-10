@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
-
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MarkerDragEndHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter{
@@ -29,36 +31,10 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 
 
 	private void addAddress(IAddress address){
-		VerticalPanel vePaTemp = new VerticalPanel();
+		OneAddressSelecter tempAddresser = new OneAddressSelecter();
+		tempAddresser.setAddress(address);
 
-		MarkerOptions _mOptions = MarkerOptions.newInstance();
-		_mOptions.setDraggable(true);
-		Marker marker = new Marker(LatLng.newInstance(address.getLat(), address.getLng()), _mOptions);
-		marker.setDraggingEnabled(true);
-
-		MapWidget mapWidget = new MapWidget(marker.getLatLng(), 13);
-		mapWidget.setSize("200px", "200px");
-		mapWidget.addOverlay(marker);
-
-		vePaTemp.add(new HTML("<hr />"));
-		Grid tempGrid = new Grid(6, 2);
-		tempGrid.setWidget(0, 0, new Label("street"));
-		tempGrid.setWidget(1, 0, new Label("zip"));
-		tempGrid.setWidget(2, 0, new Label("city"));
-		tempGrid.setWidget(3, 0, new Label("country"));
-		tempGrid.setWidget(4, 0, new Label("lat"));
-		tempGrid.setWidget(5, 0, new Label("lng"));
-
-		tempGrid.setWidget(0, 1, new Label(address.getStreet()));
-		tempGrid.setWidget(1, 1, new Label(address.getZip()));
-		tempGrid.setWidget(2, 1, new Label(address.getCity()));
-		tempGrid.setWidget(3, 1, new Label(""+address.getCountry()));
-		tempGrid.setWidget(4, 1, new Label(""+address.getLat()));
-		tempGrid.setWidget(5, 1, new Label(""+address.getLat()));
-
-		vePaTemp.add(tempGrid);
-		vePaTemp.add(mapWidget);
-		_vePa2.add(vePaTemp);
+		_vePa2.add(tempAddresser);
 	}
 
 	@Override
@@ -73,6 +49,83 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 	public ArrayList<IAddress> getAddresses() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	class OneAddressSelecter extends Composite{
+
+		VerticalPanel vePaTemp = new VerticalPanel();
+
+		TextBox _street = new TextBox();
+		TextBox _zip = new TextBox();
+		TextBox _city = new TextBox();
+		TextBox _country = new TextBox();
+		Label _lat = new Label();
+		Label _lng = new Label();
+
+		MarkerOptions _mOptions = MarkerOptions.newInstance();
+		Marker marker;
+		MapWidget mapWidget;
+
+		public OneAddressSelecter() {
+
+			HorizontalPanel hoPaTemp = new HorizontalPanel();
+			_mOptions.setDraggable(true);
+
+			marker = new Marker(LatLng.newInstance(44.20888815483086, 16.37117385864257), _mOptions);
+			marker.setDraggingEnabled(true);
+
+			mapWidget = new MapWidget(marker.getLatLng(), 13);
+			mapWidget.setSize("200px", "200px");
+			mapWidget.addOverlay(marker);
+
+			vePaTemp.add(new HTML("<hr />"));
+			Grid tempGrid = new Grid(6, 2);
+			tempGrid.setWidget(0, 0, new Label("street"));
+			tempGrid.setWidget(1, 0, new Label("zip"));
+			tempGrid.setWidget(2, 0, new Label("city"));
+			tempGrid.setWidget(3, 0, new Label("country"));
+			tempGrid.setWidget(4, 0, new Label("lat"));
+			tempGrid.setWidget(5, 0, new Label("lng"));
+
+			tempGrid.setWidget(0, 1, _street);
+			tempGrid.setWidget(1, 1, _zip);
+			tempGrid.setWidget(2, 1, _city);
+			tempGrid.setWidget(3, 1, _country);
+			tempGrid.setWidget(4, 1, _lat);
+			tempGrid.setWidget(5, 1, _lng);
+
+			hoPaTemp.add(tempGrid);
+			hoPaTemp.add(mapWidget);
+			vePaTemp.add(hoPaTemp);
+
+			initWidget(vePaTemp);
+
+
+			marker.addMarkerDragEndHandler(new MarkerDragEndHandler() {
+
+				@Override
+				public void onDragEnd(MarkerDragEndEvent event) {
+					setLatLng(event.getSender().getLatLng());
+				}
+			});
+		}
+
+		public void setAddress(IAddress address){
+			_street.setText(address.getStreet());
+			_zip.setText(address.getZip());
+			_city.setText(address.getCity());
+			_country.setText(""+address.getCountry());
+
+
+			setLatLng(LatLng.newInstance(address.getLat(), address.getLng()));
+		}
+
+		private void setLatLng(LatLng latLng){
+			_lat.setText(""+latLng.getLatitude());
+			_lng.setText(""+latLng.getLongitude());
+			marker.setLatLng(latLng);
+			mapWidget.setCenter(marker.getLatLng());
+		}
 	}
 
 }
