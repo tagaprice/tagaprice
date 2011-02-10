@@ -143,6 +143,7 @@ public class TagAPrice implements EntryPoint {
 				historyMapper);
 		historyHandler.register(placeController, eventBus, this.defaultPlace);
 
+
 		RootLayoutPanel.get().add(completeScreen);
 		historyHandler.handleCurrentHistory();
 

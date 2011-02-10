@@ -11,7 +11,7 @@ public interface IPackageSelecter extends IsWidget {
 
 
 	/**
-	 * Add some {@link IPackage} to the Product.
+	 * Set some {@link IPackage} to the Product.
 	 * @param ipackage that will be added to the {@link IProduct}
 	 */
 	public void setPackages(ArrayList<IPackage> iPackage);

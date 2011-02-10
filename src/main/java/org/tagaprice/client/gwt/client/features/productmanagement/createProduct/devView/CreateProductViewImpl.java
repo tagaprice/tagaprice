@@ -116,6 +116,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void addPackage(IPackage ipackage) {
 		_iPackage.add(ipackage);
+		_packages.setPackages(_iPackage);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
+import org.tagaprice.client.gwt.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
@@ -55,8 +56,9 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	@UiField
 	SimplePanel _mapContainer;
 
+
 	@UiField
-	VerticalPanel _addresses2;
+	AddressSelecter _addresses;
 
 	@UiField
 	Button _saveButton;
@@ -257,13 +259,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@Override
 	public void setAddresses(ArrayList<IAddress> addresses) {
-		_addresses2.clear();
-
-		for(IAddress a:addresses){
-			_addresses2.add(new Label("Lat: "+a.getLat()));
-		}
-
-
+		_addresses.setAddresses(addresses);
 	}
 
 	@Override
@@ -274,7 +270,6 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@Override
 	public ArrayList<IAddress> getAddresses() {
-		// TODO Auto-generated method stub
-		return null;
+		return _addresses.getAddresses();
 	}
 }

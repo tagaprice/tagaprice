@@ -24,6 +24,7 @@ body {
 	height: 100%;
 	border: 3px solid #BCF;
 	padding: 0.5em;
+	overflow-y: scroll;
 }
 
 .FlexTable-Body tr {
