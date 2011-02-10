@@ -9,9 +9,6 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.ShopDTO;
-
-
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -88,14 +85,13 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				_clientFactory.getShopService().getShop(createReceiptView.getShop().getRevisionId(), new AsyncCallback<ShopDTO>() {
+				_clientFactory.getShopService().getShop(createReceiptView.getShop().getRevisionId(), new AsyncCallback<IShop>() {
 
 					@Override
-					public void onSuccess(ShopDTO result) {
+					public void onSuccess(IShop result) {
 						// TODO Auto-generated method stub
-						createReceiptView.shopsLoaded("shop " + result.getShop().getTitle() + " loaded successfully");
-						shop = result.getShop();
-						existingReceiptEntries = result.getReceiptEntries();
+						createReceiptView.shopsLoaded("shop " + result.getTitle() + " loaded successfully");
+						shop = result;
 						//Speichern in HasMap - String: id_Title
 
 						MultiWordSuggestOracle mwso = new MultiWordSuggestOracle(",._");

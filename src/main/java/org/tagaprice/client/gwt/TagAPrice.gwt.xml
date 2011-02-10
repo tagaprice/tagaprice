@@ -37,9 +37,9 @@
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
-  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <inherits name='com.google.gwt.user.theme.dark.Dark'/>     
 
   <!-- Google Maps script must before inherits --> 
   <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=true&amp;key=ABQIAAAAmkm_NVB3ydA1uhh-Cxq1GRQ5GsBjyuBUf1bknn4Hhi0YSQaxCBSPAMRdoQMqKe_vK5E0JMVVEPcxdg" />
@@ -59,8 +59,5 @@
   <source path="client" />
   <source path="shared" />
   <source path="shared" />
-  <inherits name="org.tagaprice.core.core"/>
-  <inherits name="org.tagaprice.core.core"/>
-  <inherits name="org.tagaprice.core.core"/>
   <inherits name="org.tagaprice.core.core"/>
 </module>

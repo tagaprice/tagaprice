@@ -75,6 +75,12 @@
 							<g:Label ui:field="_lng"></g:Label>
 						</td>
 					</tr>
+					
+					<tr>
+						<td colspan="2">
+							<g:VerticalPanel ui:field="_addresses2"></g:VerticalPanel>
+						</td>
+					</tr>
 				
 					<tr>
 						<td colspan="2">

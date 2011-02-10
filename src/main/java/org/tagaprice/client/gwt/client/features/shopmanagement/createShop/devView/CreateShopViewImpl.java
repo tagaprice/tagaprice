@@ -6,6 +6,8 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreat
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.maps.client.MapWidget;
@@ -52,6 +54,9 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@UiField
 	SimplePanel _mapContainer;
+
+	@UiField
+	VerticalPanel _addresses2;
 
 	@UiField
 	Button _saveButton;
@@ -248,5 +253,28 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 				this._receiptEntriesTable.setWidget(i+1, j, actualColumnDefinition.render(elem));
 			}
 		}
+	}
+
+	@Override
+	public void setAddresses(ArrayList<IAddress> addresses) {
+		_addresses2.clear();
+
+		for(IAddress a:addresses){
+			_addresses2.add(new Label("Lat: "+a.getLat()));
+		}
+
+
+	}
+
+	@Override
+	public void addAddress(IAddress address) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public ArrayList<IAddress> getAddresses() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

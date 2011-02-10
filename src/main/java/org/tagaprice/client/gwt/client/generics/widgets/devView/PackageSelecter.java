@@ -1,7 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.client.generics.widgets.IPackageSelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IQuantityChangeHandler;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
@@ -9,7 +8,6 @@ import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
 import org.tagaprice.core.entities.Unit;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;

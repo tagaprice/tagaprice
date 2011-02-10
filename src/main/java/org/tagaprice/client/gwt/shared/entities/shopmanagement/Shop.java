@@ -1,5 +1,7 @@
 package org.tagaprice.client.gwt.shared.entities.shopmanagement;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
@@ -12,6 +14,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 	private Country _country;
 	private double _lat;
 	private double _lng;
+	private ArrayList<IAddress> _addresses = new ArrayList<IAddress>();
 
 	/**
 	 * 
@@ -43,17 +46,6 @@ public class Shop extends AEntity<IShop> implements IShop {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + " Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
-		+ ", _lat=" + _lat + ", _lng=" + _lng + "]";
-	}
-
-
-
 	/**
 	 * Constructor to update a {@link Shop}
 	 * @param revisionId
@@ -64,8 +56,9 @@ public class Shop extends AEntity<IShop> implements IShop {
 	 * @param country
 	 * @param lat
 	 * @param lng
+	 * @param addresses
 	 */
-	public Shop(IRevisionId revisionId,String title, String street, String zip, String city, Country country, double lat, double lng) {
+	public Shop(IRevisionId revisionId,String title, String street, String zip, String city, Country country, double lat, double lng, ArrayList<IAddress> addresses) {
 		super(revisionId, title);
 		_street = street;
 		_zip = zip;
@@ -73,9 +66,18 @@ public class Shop extends AEntity<IShop> implements IShop {
 		_country = country;
 		_lat = lat;
 		_lng = lng;
+		setAddresses(addresses);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + " Shop [_street=" + _street + ", _zip=" + _zip + ", _city=" + _city + ", _country=" + _country
+		+ ", _lat=" + _lat + ", _lng=" + _lng + "]";
+	}
 
 
 	@Override
@@ -193,6 +195,29 @@ public class Shop extends AEntity<IShop> implements IShop {
 		} else if (!_zip.equals(other._zip))
 			return false;
 		return true;
+	}
+
+
+
+	@Override
+	public void setAddresses(ArrayList<IAddress> addresses) {
+		_addresses.clear();
+		_addresses.addAll(addresses);
+
+	}
+
+
+
+	@Override
+	public void addAddress(IAddress address) {
+		_addresses.add(address);
+	}
+
+
+
+	@Override
+	public ArrayList<IAddress> getAddresses() {
+		return _addresses;
 	}
 
 

@@ -14,7 +14,7 @@ public interface IShopService extends RemoteService {
 
 	public ArrayList<IShop> getShops(IShop searchCriteria);
 
-	public ShopDTO getShop(IRevisionId revisionId);
+	public IShop getShop(IRevisionId revisionId);
 
 	public IShop save(IShop shop) throws UserNotLoggedInException;
 

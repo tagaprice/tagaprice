@@ -34,4 +34,10 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 		quantitySelecter.setRelatedUnit(unit);
 	}
 
+	@Override
+	public void addQuantityChangeHandler(IQuantityChangeHandler quantityChangeHandler) {
+		quantitySelecter.addQuantityChangeHandler(quantityChangeHandler);
+
+	}
+
 }

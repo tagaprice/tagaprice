@@ -6,7 +6,6 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.ShopDTO;
 import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.activity.shared.Activity;
@@ -61,15 +60,17 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setPresenter(this);
 
 		if (_place.getRevisionId() != null && _place.getRevisionId().getId() != 0L) {
+
+
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(new RevisionId(_place.getRevisionId().getId()),
-					new AsyncCallback<ShopDTO>() {
+					new AsyncCallback<IShop>() {
 
 				@Override
-				public void onSuccess(ShopDTO result) {
+				public void onSuccess(IShop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-					setShop(result.getShop());
-					_createShopView.setReceiptEntries(result.getReceiptEntries());
+					setShop(result);
+					//_createShopView.setReceiptEntries(result);
 
 				}
 
@@ -79,6 +80,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					CreateShopActivity._logger.log(caught.getMessage());
 				}
 			});
+
 
 		} else {
 			// new product... reseting view
@@ -159,6 +161,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setZip(shop.getZip());
 		_createShopView.setStreet(shop.getStreet());
 		_createShopView.setLatLng(LatLng.newInstance(shop.getLat(), shop.getLng()));
+		_createShopView.setAddresses(_shop.getAddresses());
 	}
 
 	private IShop getShop() {

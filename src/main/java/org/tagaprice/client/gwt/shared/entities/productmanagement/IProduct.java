@@ -59,7 +59,7 @@ public interface IProduct extends IEntity<IProduct> {
 	public void addPackage(IPackage ipackage);
 
 	/**
-	 * Set some {@link IPackage} to the Product. All included productes will be deleted.
+	 * Set some {@link IPackage} to the Product. All included products will be deleted.
 	 * @param ipackage that will be set to the {@link IProduct}
 	 */
 	public void setPackages(ArrayList<IPackage> iPackage);
