@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LocationCallback;
+import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
@@ -61,6 +66,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 		TextBox _country = new TextBox();
 		Label _lat = new Label();
 		Label _lng = new Label();
+		Geocoder coder = new Geocoder();
 
 		MarkerOptions _mOptions = MarkerOptions.newInstance();
 		Marker marker;
@@ -106,6 +112,22 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 				@Override
 				public void onDragEnd(MarkerDragEndEvent event) {
 					setLatLng(event.getSender().getLatLng());
+					coder.getLocations(event.getSender().getLatLng(), new LocationCallback() {
+
+						@Override
+						public void onSuccess(JsArray<Placemark> locations) {
+							_street.setText(locations.get(0).getStreet());
+							_zip.setText(locations.get(0).getPostalCode());
+							_city.setText(locations.get(0).getCity());
+							_country.setText(locations.get(0).getCountry());
+						}
+
+						@Override
+						public void onFailure(int statusCode) {
+							// TODO Auto-generated method stub
+
+						}
+					});
 				}
 			});
 		}
@@ -125,6 +147,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 			_lng.setText(""+latLng.getLongitude());
 			marker.setLatLng(latLng);
 			mapWidget.setCenter(marker.getLatLng());
+
+
+
 		}
 	}
 
