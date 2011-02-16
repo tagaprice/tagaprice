@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.shared.rpc.accountmanagement;
 
+import org.tagaprice.core.api.UserAlreadyLoggedInException;
 import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
@@ -19,7 +20,7 @@ public interface ILoginService extends RemoteService {
 	 * @return Unique SessionId (Must be saved on in browser as session)
 	 */
 
-	public String setLogin(String email, String password) throws WrongEmailOrPasswordException;
+	public String setLogin(String email, String password) throws WrongEmailOrPasswordException, UserAlreadyLoggedInException;
 
 
 	/**

@@ -24,8 +24,8 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	public LoginActivity(LoginPlace place, ClientFactory clientFactory) {
 		LoginActivity._logger.log("LoginActivity created");
 
-		_place=place;
-		_clientFactory=clientFactory;
+		_place = place;
+		_clientFactory = clientFactory;
 
 	}
 
@@ -51,25 +51,23 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		LoginActivity._logger.log("activity startet");
 
-		System.out.println("showCooky: "+Cookies.getCookie("TAP_SID"));
+		System.out.println("showCooky: " + Cookies.getCookie("TAP_SID"));
 
 
 
-		if(Cookies.getCookie("TAP_SID")==null || Cookies.getCookie("TAP_SID").isEmpty()){
+		if (Cookies.getCookie("TAP_SID") == null || Cookies.getCookie("TAP_SID").isEmpty()) {
 			System.out.println("showLogIN");
 			loginView = _clientFactory.getLoginView();
 			loginView.setPresenter(this);
 
 			panel.setWidget(loginView);
-		}else{
+		} else {
 			System.out.println("showLogou");
 			logoutView = _clientFactory.getLogoutView();
 			logoutView.setPresenter(this);
 
 			panel.setWidget(logoutView);
 		}
-
-
 
 
 
@@ -83,31 +81,38 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	@Override
 	public void onLoginEvent() {
 		LoginActivity._logger.log("Login Button clicked");
-		if(loginView!=null){
+		if (loginView != null) {
 			loginView.getEmail();
 			loginView.getPassword();
 
-			if(!loginView.getEmail().isEmpty() && !loginView.getPassword().isEmpty()){
+			if (!loginView.getEmail().isEmpty() && !loginView.getPassword().isEmpty()) {
 
-				try {
-					_clientFactory.getLoginService().setLogin(loginView.getEmail(), loginView.getPassword(), new AsyncCallback<String>() {
 
-						@Override
-						public void onSuccess(String sessionId) {
-							LoginActivity._logger.log("Login OK. SessionId: "+sessionId);
-							Cookies.setCookie("TAP_SID", sessionId);
-							goTo(new LoginPlace(sessionId));
+				_clientFactory.getLoginService().setLogin(loginView.getEmail(), loginView.getPassword(),
+						new AsyncCallback<String>() {
+
+					@Override
+					public void onSuccess(String sessionId) {
+						LoginActivity._logger.log("Login OK. SessionId: " + sessionId);
+						Cookies.setCookie("TAP_SID", sessionId);
+						goTo(new LoginPlace(sessionId));
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+
+						try {
+							throw caught;
+						} catch (WrongEmailOrPasswordException e) {
+							LoginActivity._logger.log("Login problem: " + e);
+						} catch (Throwable e) {
+							LoginActivity._logger.log("Unexpected error: " + e);
 						}
 
-						@Override
-						public void onFailure(Throwable e) {
-							LoginActivity._logger.log("Login problem: "+e);
 
-						}
-					});
-				} catch (WrongEmailOrPasswordException e) {
-					LoginActivity._logger.log("Login exception: "+e);
-				}
+
+					}
+				});
 			}
 		}
 	}
@@ -119,24 +124,27 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 		goTo(new LoginPlace());
 
 
-		try {
-			_clientFactory.getLoginService().setLogout(new AsyncCallback<Void>() {
 
-				@Override
-				public void onSuccess(Void value) {
-					LoginActivity._logger.log("Logout was ok: "+value);
+		_clientFactory.getLoginService().setLogout(new AsyncCallback<Void>() {
 
+			@Override
+			public void onSuccess(Void value) {
+				LoginActivity._logger.log("Logout was ok: " + value);
+
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				try {
+					throw caught;
+				} catch (UserNotLoggedInException e) {
+					LoginActivity._logger.log("Login problem: " + e);
+				} catch (Throwable e) {
+					LoginActivity._logger.log("Unexpected error: " + e);
 				}
+			}
+		});
 
-				@Override
-				public void onFailure(Throwable e) {
-					LoginActivity._logger.log("Logout problem: "+e);
-
-				}
-			});
-		} catch (UserNotLoggedInException e) {
-			LoginActivity._logger.log("Logout exception: "+e);
-		}
 
 
 	}
