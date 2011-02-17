@@ -6,6 +6,10 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
 public class Address implements IAddress {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5821304030783727083L;
 	private String _city;
 	private Country _country;
 	private double _lat;

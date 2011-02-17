@@ -3,9 +3,12 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;
 import com.google.gwt.maps.client.geocode.Geocoder;
@@ -14,6 +17,7 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -26,12 +30,25 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 
 	private VerticalPanel _vePa1 = new VerticalPanel();
 	private VerticalPanel _vePa2 = new VerticalPanel();
+	private OneAddressSelecter _newAdress = new OneAddressSelecter();
 
 	public AddressSelecter() {
 		initWidget(_vePa1);
 
 		_vePa1.add(new Label("Addresses"));
 		_vePa1.add(_vePa2);
+
+		//new Adress
+		_vePa1.add(new HTML("<b>Add new address</b>"));
+		_vePa1.add(_newAdress);
+		Button addAddress = new Button("Add this address");
+		_vePa1.add(addAddress);
+		addAddress.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				addAddress(_newAdress.getAddress());
+			}
+		});
 	}
 
 
@@ -77,7 +94,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 			HorizontalPanel hoPaTemp = new HorizontalPanel();
 			_mOptions.setDraggable(true);
 
-			marker = new Marker(LatLng.newInstance(44.20888815483086, 16.37117385864257), _mOptions);
+			marker = new Marker(LatLng.newInstance(48.21426, 16.37692), _mOptions);
 			marker.setDraggingEnabled(true);
 
 			mapWidget = new MapWidget(marker.getLatLng(), 13);
@@ -140,6 +157,20 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 
 
 			setLatLng(LatLng.newInstance(address.getLat(), address.getLng()));
+		}
+
+		public IAddress getAddress(){
+			IAddress backAddr = new Address();
+			backAddr.setStreet(_street.getText());
+			backAddr.setZip(_zip.getText());
+			backAddr.setCity(_city.getText());
+			//TODO add function to country
+			//backAddr.setCountry(_country.getText());
+			backAddr.setLat(marker.getLatLng().getLatitude());
+			backAddr.setLng(marker.getLatLng().getLongitude());
+
+
+			return backAddr;
 		}
 
 		private void setLatLng(LatLng latLng){
