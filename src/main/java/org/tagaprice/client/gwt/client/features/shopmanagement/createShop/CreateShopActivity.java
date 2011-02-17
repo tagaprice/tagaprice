@@ -53,8 +53,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+		_shop=null;
 		CreateShopActivity._logger.log("activity startet");
-
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
@@ -68,7 +68,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				@Override
 				public void onSuccess(IShop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-					setShop(result);
+					updateView(result);
 					//_createShopView.setReceiptEntries(result);
 
 				}
@@ -83,6 +83,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 		} else {
 			// new product... reseting view
+			CreateShopActivity._logger.log("Create new shop");
+
+			updateView(new Shop(""));
+
 		}
 
 		panel.setWidget(_createShopView);
@@ -103,7 +107,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			@Override
 			public void onSuccess(IShop result) {
 				CreateShopActivity._logger.log("got updated shop: " + result);
-				setShop(result);
+				updateView(result);
 			}
 
 			@Override
@@ -151,12 +155,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		});
 	}
 
-	private void setShop(IShop shop) {
-		_shop = shop;
-		_createShopView.setRevisionId(shop.getRevisionId());
-		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setAddresses(_shop.getAddresses());
-	}
 
 	private IShop getShop() {
 		IShop shop;
@@ -167,6 +165,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		}
 		shop.setTitle(_createShopView.getShopTitle());
 		return shop;
+	}
+
+	private void updateView(IShop shop){
+		_shop = shop;
+		_createShopView.setRevisionId(shop.getRevisionId());
+		_createShopView.setShopTitle(shop.getTitle());
+		_createShopView.setAddresses(_shop.getAddresses());
 	}
 
 }
