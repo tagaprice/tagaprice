@@ -64,4 +64,6 @@
   <source path="shared" />
   <source path="shared" />
   <inherits name="org.tagaprice.core.core"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
 </module>
