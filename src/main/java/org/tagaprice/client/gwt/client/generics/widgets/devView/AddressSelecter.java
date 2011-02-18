@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
@@ -69,8 +70,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 
 	@Override
 	public ArrayList<IAddress> getAddresses() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<IAddress> rA = new ArrayList<IAddress>();
+
+		for(int i=0;i<_vePa2.getWidgetCount();i++)
+			rA.add(((OneAddressSelecter)_vePa2.getWidget(i)).getAddress());
+
+		return rA;
 	}
 
 	class OneAddressSelecter extends Composite{
@@ -84,6 +89,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 		Label _lat = new Label();
 		Label _lng = new Label();
 		Geocoder coder = new Geocoder();
+		IAddress _address;
 
 		MarkerOptions _mOptions = MarkerOptions.newInstance();
 		Marker marker;
@@ -150,27 +156,29 @@ public class AddressSelecter extends Composite implements IAddressSelecter{
 		}
 
 		public void setAddress(IAddress address){
-			_street.setText(address.getStreet());
-			_zip.setText(address.getZip());
-			_city.setText(address.getCity());
-			_country.setText(""+address.getCountry());
+			_address=address;
+			_street.setText(_address.getStreet());
+			_zip.setText(_address.getZip());
+			_city.setText(_address.getCity());
+			_country.setText(""+_address.getCountry());
 
 
-			setLatLng(LatLng.newInstance(address.getLat(), address.getLng()));
+			setLatLng(LatLng.newInstance(_address.getLat(), _address.getLng()));
 		}
 
 		public IAddress getAddress(){
-			IAddress backAddr = new Address();
-			backAddr.setStreet(_street.getText());
-			backAddr.setZip(_zip.getText());
-			backAddr.setCity(_city.getText());
+			if(_address==null)_address = new Address();
+			_address.setStreet(_street.getText());
+			_address.setZip(_zip.getText());
+			_address.setCity(_city.getText());
 			//TODO add function to country
 			//backAddr.setCountry(_country.getText());
-			backAddr.setLat(marker.getLatLng().getLatitude());
-			backAddr.setLng(marker.getLatLng().getLongitude());
+			_address.setCountry(Country.at);
+			_address.setLat(marker.getLatLng().getLatitude());
+			_address.setLng(marker.getLatLng().getLongitude());
 
 
-			return backAddr;
+			return _address;
 		}
 
 		private void setLatLng(LatLng latLng){

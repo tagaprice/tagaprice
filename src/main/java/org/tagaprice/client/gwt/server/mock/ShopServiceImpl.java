@@ -32,11 +32,12 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		ArrayList<IAddress> al1 = new ArrayList<IAddress>();
 		IRevisionId r45665 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r45665.getId(), r45665);
-		al1.add(new Address(r45665, "Blumauergasse 1B", "1020", "Vienna", Country.at, 48.21906856732104, 16.38164520263672));
+		al1.add(new Address(new RevisionId(random.nextLong(), 1), "Blumauergasse 1B", "1020", "Vienna", Country.at, 48.21906856732104, 16.38164520263672));
 
 		IRevisionId r1598 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r1598.getId(), r1598);
-		al1.add(new Address(r1598, "Holzhausergasse 9", "1020", "Vienna", Country.at, 48.21975481443672, 16.38885498046875));
+		IAddress a1 = new Address(new RevisionId(random.nextLong(), 1), "Holzhausergasse 9", "1020", "Vienna", Country.at, 48.21975481443672, 16.38885498046875);
+		al1.add(a1);
 
 		//Create some Shop
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
@@ -62,9 +63,6 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 	@Override
 	public ArrayList<IShop> getShops(IShop searchCriteria) {
-		// TODO Auto-generated method stub
-
-
 		_logger.log("getShops with IShop SearchCriteria ");
 
 		ArrayList<IShop> result = new ArrayList<IShop>();
@@ -142,7 +140,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 				for(IAddress ta:updateShop.getAddresses()){
 					_logger.log("addr: "+ta.toString());
 
-					/*
+
 					if(ta.getRevisionID()==null || ta.getRevisionID().getId()==0L){
 						_logger.log("create new address");
 
@@ -153,9 +151,9 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 					}else{
 						_logger.log("update address");
-						//ta.getRevisionID().setRevision(ta.getRevisionID().getRevision()+1);
+						ta.getRevisionID().setRevision(ta.getRevisionID().getRevision()+1);
 					}
-					 */
+
 				}
 
 				return updateShop;

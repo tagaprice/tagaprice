@@ -35,7 +35,7 @@ public class Address implements IAddress {
 	 */
 	public Address(IRevisionId revisionId, String street, String zip, String city, Country country, double lat, double lng) {
 		this(street, zip, city, country, lat, lng);
-		setRevisionId(_revisionId);
+		setRevisionId(revisionId);
 
 	}
 
@@ -128,7 +128,7 @@ public class Address implements IAddress {
 
 	@Override
 	public IRevisionId getRevisionID() {
-		return _revisionId.copy();
+		return _revisionId;
 	}
 
 	/* (non-Javadoc)

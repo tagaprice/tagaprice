@@ -43,8 +43,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 	@Override
 	public IShop copy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Shop(getRevisionId().copy(), getTitle(), _addresses);
 	}
 
 
@@ -69,6 +68,18 @@ public class Shop extends AEntity<IShop> implements IShop {
 	@Override
 	public ArrayList<IAddress> getAddresses() {
 		return _addresses;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer toStringBuffer = new StringBuffer();
+		toStringBuffer.append(super.toString());
+
+		for(IAddress ia:_addresses){
+			toStringBuffer.append(ia.toString());
+		}
+
+		return toStringBuffer.toString();
 	}
 
 

@@ -68,6 +68,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				@Override
 				public void onSuccess(IShop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
+
+
 					updateView(result);
 					//_createShopView.setReceiptEntries(result);
 					panel.setWidget(_createShopView);
@@ -164,6 +166,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
+		shop.setAddresses(_createShopView.getAddresses());
 		return shop;
 	}
 
