@@ -52,7 +52,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	}
 
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_shop=null;
 		CreateShopActivity._logger.log("activity startet");
 		_createShopView = _clientFactory.getCreateShopView();
@@ -70,7 +70,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					CreateShopActivity._logger.log("got shop: " + result);
 					updateView(result);
 					//_createShopView.setReceiptEntries(result);
-
+					panel.setWidget(_createShopView);
 				}
 
 				@Override
@@ -86,10 +86,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			CreateShopActivity._logger.log("Create new shop");
 
 			updateView(new Shop(""));
-
+			panel.setWidget(_createShopView);
 		}
 
-		panel.setWidget(_createShopView);
+
 
 
 	}

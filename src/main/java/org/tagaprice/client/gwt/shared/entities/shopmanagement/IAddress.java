@@ -26,6 +26,8 @@ public interface IAddress extends Serializable {
 	public void setLng(double lng);
 
 
+	public IRevisionId getRevisionID();
+
 	public String getStreet();
 
 	public String getZip();

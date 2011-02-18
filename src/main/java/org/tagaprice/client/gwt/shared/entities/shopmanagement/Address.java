@@ -126,4 +126,20 @@ public class Address implements IAddress {
 		_zip=zip;
 	}
 
+	@Override
+	public IRevisionId getRevisionID() {
+		return _revisionId.copy();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
+		+ ", _revisionId=" + _revisionId + ", _street=" + _street + ", _zip=" + _zip + "]";
+	}
+
+
+
 }
