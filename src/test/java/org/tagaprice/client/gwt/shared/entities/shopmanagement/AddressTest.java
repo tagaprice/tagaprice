@@ -43,7 +43,8 @@ public class AddressTest extends TestCase {
 		assertEquals(testAddress.getLat(), _lat+2);
 		assertEquals(testAddress.getLng(), _lng+2);
 		assertEquals(testAddress.getRevisionID(), new RevisionId(_revisionId.getId()+2, _revisionId.getRevision()+2));
-
+		assertEquals(testAddress.getRevisionID().getId(), _revisionId.getId()+2);
+		assertEquals(testAddress.getRevisionID().getRevision(), _revisionId.getRevision()+2);
 	}
 
 	@Test
