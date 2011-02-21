@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
-import org.tagaprice.client.gwt.shared.rpc.receiptManagement.IReceiptService;
+import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.server.boot.Boot;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.rpc.receiptManagement;
+package org.tagaprice.client.gwt.shared.rpc.receiptmanagement;
 
 import java.util.ArrayList;
 

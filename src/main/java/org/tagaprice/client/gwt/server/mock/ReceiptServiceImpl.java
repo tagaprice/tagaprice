@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.server.mock;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
-import org.tagaprice.client.gwt.shared.rpc.receiptManagement.IReceiptService;
+import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
