@@ -9,6 +9,8 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView.*;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.devView.CreateReceiptViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
@@ -51,6 +53,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
+
+	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 
 
 	public ClientFactoryImpl() {
@@ -116,6 +120,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ListShopsView<IShop> getListShopsView() {
 		return ClientFactoryImpl.listShopsView;
+	}
+
+	@Override
+	public ICreateReceiptView getCreateReceiptView() {
+		return ClientFactoryImpl.CREATE_RECEIPT_VIEW;
 	}
 
 

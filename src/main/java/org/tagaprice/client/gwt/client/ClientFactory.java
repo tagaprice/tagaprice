@@ -5,6 +5,7 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutV
 import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
@@ -90,6 +91,8 @@ public interface ClientFactory {
 	ICreateShopView<IReceiptEntry> getCreateShopView();
 
 	ListShopsView<IShop> getListShopsView();
+
+	ICreateReceiptView getCreateReceiptView();
 
 
 	/****************** WIDGETS ***********************/

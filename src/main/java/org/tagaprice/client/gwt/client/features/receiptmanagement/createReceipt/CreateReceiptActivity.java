@@ -8,7 +8,6 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.HTML;
 
 public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptActivity.class);
@@ -52,7 +51,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		// TODO Auto-generated method stub
 		CreateReceiptActivity._logger.log("activity startet");
 
-		panel.setWidget(new HTML("Impl here some cool stuff"));
+		//panel.setWidget(new HTML("Impl here some cool stuff"));
+		panel.setWidget(_clientFactory.getCreateReceiptView());
 	}
 
 }

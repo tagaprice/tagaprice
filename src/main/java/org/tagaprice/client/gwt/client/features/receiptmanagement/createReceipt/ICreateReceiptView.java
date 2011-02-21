@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateReceiptView<T> extends IsWidget{
+public interface ICreateReceiptView extends IsWidget{
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary
 	 * for the {@link ICreateShopView} to communicate with the {@link Presenter}
