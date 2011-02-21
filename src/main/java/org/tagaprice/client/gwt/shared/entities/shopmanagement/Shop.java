@@ -52,7 +52,11 @@ public class Shop extends AEntity<IShop> implements IShop {
 	@Override
 	public void setAddresses(ArrayList<IAddress> addresses) {
 		_addresses.clear();
-		_addresses.addAll(addresses);
+
+		for(IAddress ad: addresses){
+			ad.setShop(this);
+			_addresses.add(ad);
+		}
 
 	}
 
@@ -60,6 +64,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 	@Override
 	public void addAddress(IAddress address) {
+		address.setShop(this);
 		_addresses.add(address);
 	}
 

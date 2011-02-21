@@ -6,8 +6,7 @@ import java.util.Set;
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.User;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
-import org.tagaprice.core.entities.ReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
 /**
  * A single Receipt
@@ -25,7 +24,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	private static final long serialVersionUID = -1411130663050015079L;
 
 	private Date _date;
-	private Shop _shop;
+	private IAddress _address;
 	private User _user;
 	private Set<IReceiptEntry> _receiptEntries;
 
@@ -44,11 +43,11 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(Long id, Date date, Shop shop, User user, Set<IReceiptEntry> receiptEntries) {
-		_date = date;
-		_shop = shop;
-		_user = user;
-		_receiptEntries = receiptEntries;
+	public Receipt(Long id, Date date, IAddress address, User user, Set<IReceiptEntry> receiptEntries) {
+		setDate(date);
+		setAddress(address);
+		setUser(user);
+		setReceiptEntries(receiptEntries);
 	}
 
 
@@ -62,17 +61,9 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		_date = date;
 	}
 
-	@Override
-	public Shop getShop() {
-		return _shop;
-	}
 
-	@Override
-	public void setShop(Shop shop) {
-		_shop = shop;
-	}
 	public IRevisionId getShopId(){
-		return getShop().getRevisionId();
+		return getAddress().getRevisionID();
 	}
 
 	public void setShopId(IRevisionId shopId){
@@ -96,12 +87,13 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 	@Override
 	public void setReceiptEntries(Set<IReceiptEntry> receiptEntries) {
-		_receiptEntries = receiptEntries;
+		_receiptEntries.clear();
+		_receiptEntries.addAll(receiptEntries);
 	}
 
 	@Override
 	public String toString() {
-		return "Receipt [_date=" + _date + ", _shop=" + _shop  + ", _user=" + _user
+		return "Receipt [_date=" + _date + ", _address=" + _address  + ", _user=" + _user
 		+ ", _receiptEntries=" + _receiptEntries + "]";
 	}
 
@@ -118,7 +110,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		int result = 1;
 		result = prime * result + ((_date == null) ? 0 : _date.hashCode());
 		result = prime * result + ((_receiptEntries == null) ? 0 : _receiptEntries.hashCode());
-		result = prime * result + ((_shop == null) ? 0 : _shop.hashCode());
+		result = prime * result + ((_address == null) ? 0 : _address.hashCode());
 		result = prime * result + ((_user == null) ? 0 : _user.hashCode());
 		return result;
 	}
@@ -142,10 +134,10 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 				return false;
 		} else if (!_receiptEntries.equals(other._receiptEntries))
 			return false;
-		if (_shop == null) {
-			if (other._shop != null)
+		if (_address == null) {
+			if (other._address != null)
 				return false;
-		} else if (!_shop.equals(other._shop))
+		} else if (!_address.equals(other._address))
 			return false;
 		if (_user == null) {
 			if (other._user != null)
@@ -153,6 +145,16 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		} else if (!_user.equals(other._user))
 			return false;
 		return true;
+	}
+
+	@Override
+	public IAddress getAddress() {
+		return _address;
+	}
+
+	@Override
+	public void setAddress(IAddress address) {
+		_address=address;
 	}
 
 

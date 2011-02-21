@@ -17,13 +17,14 @@ public class Address implements IAddress {
 	private IRevisionId _revisionId;
 	private String _street;
 	private String _zip;
+	private IShop _shop;
 
 	public Address() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Constructor to update a {@link Shop}
+	 * Constructor to update a {@link Address}
 	 * @param revisionId
 	 * @param title
 	 * @param street
@@ -138,6 +139,16 @@ public class Address implements IAddress {
 	public String toString() {
 		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
 		+ ", _revisionId=" + _revisionId + ", _street=" + _street + ", _zip=" + _zip + "]";
+	}
+
+	@Override
+	public void setShop(IShop shop) {
+		_shop=shop;
+	}
+
+	@Override
+	public IShop getShop() {
+		return _shop;
 	}
 
 

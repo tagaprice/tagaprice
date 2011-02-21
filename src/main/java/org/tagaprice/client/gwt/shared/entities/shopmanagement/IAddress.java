@@ -13,6 +13,12 @@ public interface IAddress extends Serializable {
 
 	public void setRevisionId(IRevisionId revisionId);
 
+	/**
+	 * Set the {@link IShop} on which the {@link IAddress} depends from.
+	 * @param shop the {@link IShop} on which the {@link IAddress} depends from.
+	 */
+	public void setShop(IShop shop);
+
 	public void setStreet(String street);
 
 	public void setZip(String zip);
@@ -26,7 +32,10 @@ public interface IAddress extends Serializable {
 	public void setLng(double lng);
 
 
+
 	public IRevisionId getRevisionID();
+
+	public IShop getShop();
 
 	public String getStreet();
 
