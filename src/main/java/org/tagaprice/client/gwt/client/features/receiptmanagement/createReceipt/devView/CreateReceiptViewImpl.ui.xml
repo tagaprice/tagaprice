@@ -2,6 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
 	xmlns:my="urn:import:org.tagaprice.client.gwt.client.generics.widgets" 
+	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
 	>
 	<g:VerticalPanel>
 		<g:HTML>
@@ -23,7 +24,7 @@
 							<g:Label ui:field="_dateI18N">date</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="_date"></g:TextBox>
+							<dp:DatePicker ui:field="_date"></dp:DatePicker>
 						</td>
 					</tr>
 					<tr>

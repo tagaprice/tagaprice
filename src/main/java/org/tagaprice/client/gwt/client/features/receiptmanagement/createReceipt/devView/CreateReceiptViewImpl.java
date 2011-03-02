@@ -11,6 +11,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 	interface CreateReceiptViewImplUiBinder extends UiBinder<Widget, CreateReceiptViewImpl>{}
@@ -24,6 +25,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@UiField
 	TextBox _title;
+
+	@UiField
+	DatePicker _date;
+
+	@UiField
+	TextBox _shop;
 
 	@Override
 	public void setPresenter(Presenter presenter) {
@@ -44,14 +51,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public Date getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return _date.getValue();
 	}
 
 	@Override
 	public void setDate(Date date) {
-		// TODO Auto-generated method stub
-
+		_date.setValue(date);
 	}
 
 	@Override
@@ -62,7 +67,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setAddress(IAddress address) {
-		// TODO Auto-generated method stub
+		_shop.setText(address.getShop().getTitle()+" "+address.getStreet());
 
 	}
 
