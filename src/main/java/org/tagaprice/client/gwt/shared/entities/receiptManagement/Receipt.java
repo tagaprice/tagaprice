@@ -1,8 +1,7 @@
 package org.tagaprice.client.gwt.shared.entities.receiptManagement;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.User;
@@ -26,7 +25,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	private Date _date;
 	private IAddress _address;
 	private User _user;
-	private Set<IReceiptEntry> _receiptEntries;
+	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
 
 
 	public Receipt() {
@@ -35,7 +34,23 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	/**
-	 * Initializes a new {@link Receipt}
+	 * Create new Receipt. Used on the Client
+	 * @param title the title of the receipt
+	 * @param date date of the receipt
+	 * @param address the shop-address
+	 * @param receiptEntries all entries plus price
+	 */
+	public Receipt(String title, Date date, IAddress address, ArrayList<IReceiptEntry> receiptEntries) {
+		setTitle(title);
+		setDate(date);
+		setAddress(address);
+		setReceiptEntries(receiptEntries);
+	}
+
+
+	/**
+	 * Update or select Receipt. Used on Client and Server
+	 * @param title
 	 * @param id
 	 * @param date the date and time when a receipt was created
 	 * @param shop {@link Shop} where the receipt is from
@@ -43,7 +58,8 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(Long id, Date date, IAddress address, User user, Set<IReceiptEntry> receiptEntries) {
+	public Receipt(String title, Long id, Date date, IAddress address, User user, ArrayList<IReceiptEntry> receiptEntries) {
+		setTitle(title);
 		setDate(date);
 		setAddress(address);
 		setUser(user);
@@ -81,21 +97,16 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	@Override
-	public Set<IReceiptEntry> getReceiptEntries() {
+	public ArrayList<IReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
 
 	@Override
-	public void setReceiptEntries(Set<IReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
 		_receiptEntries.clear();
 		_receiptEntries.addAll(receiptEntries);
 	}
 
-	@Override
-	public String toString() {
-		return "Receipt [_date=" + _date + ", _address=" + _address  + ", _user=" + _user
-		+ ", _receiptEntries=" + _receiptEntries + "]";
-	}
 
 
 	@Override
@@ -104,48 +115,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		return null;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_date == null) ? 0 : _date.hashCode());
-		result = prime * result + ((_receiptEntries == null) ? 0 : _receiptEntries.hashCode());
-		result = prime * result + ((_address == null) ? 0 : _address.hashCode());
-		result = prime * result + ((_user == null) ? 0 : _user.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Receipt other = (Receipt) obj;
-		if (_date == null) {
-			if (other._date != null)
-				return false;
-		} else if (!_date.equals(other._date))
-			return false;
-		if (_receiptEntries == null) {
-			if (other._receiptEntries != null)
-				return false;
-		} else if (!_receiptEntries.equals(other._receiptEntries))
-			return false;
-		if (_address == null) {
-			if (other._address != null)
-				return false;
-		} else if (!_address.equals(other._address))
-			return false;
-		if (_user == null) {
-			if (other._user != null)
-				return false;
-		} else if (!_user.equals(other._user))
-			return false;
-		return true;
-	}
 
 	@Override
 	public IAddress getAddress() {

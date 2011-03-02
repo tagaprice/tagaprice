@@ -12,26 +12,26 @@
 				<table>
 					<tr>
 						<td>
-							<g:Label ui:field="nameI18N">Name</g:Label>
+							<g:Label ui:field="_titleI18N">Title</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="name"></g:TextBox>
+							<g:TextBox ui:field="_title"></g:TextBox>
 						</td>
 					</tr>	
 					<tr>
 						<td>
-							<g:Label ui:field="dateI18N">date</g:Label>
+							<g:Label ui:field="_dateI18N">date</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="date"></g:TextBox>
+							<g:TextBox ui:field="_date"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="shopI18N">Shop</g:Label>
+							<g:Label ui:field="_shopI18N">Shop</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="shop"></g:TextBox>
+							<g:TextBox ui:field="_shop"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -41,21 +41,21 @@
 					</tr>	
 					<tr>
 						<td>
-							<g:Label ui:field="searchProductI18N">searchProduct</g:Label>
+							<g:Label ui:field="_searchProductI18N">searchProduct</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="searchProducts"></g:TextBox>
+							<g:TextBox ui:field="_searchProducts"></g:TextBox>
 						</td>
 					</tr>			
 					<tr>
 						<td colspan="2">
-							<my:ReceiptEntrySelecter ui:field="receiptEntrySelecter" />
+							<my:ReceiptEntrySelecter ui:field="_receiptEntrySelecter" />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<g:Button ui:field="cancelButton">cancel</g:Button>
-							<g:Button ui:field="saveButton">save product</g:Button>
+							<g:Button ui:field="_cancelButton">cancel</g:Button>
+							<g:Button ui:field="_saveButton">save product</g:Button>
 						</td>
 					</tr>
 				</table>

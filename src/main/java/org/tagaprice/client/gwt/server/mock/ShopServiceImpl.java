@@ -42,7 +42,8 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		//Create some Shop
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r1.getId(), r1);
-		IShop s1 = new Shop(r1, "Billa", al1);
+		IShop s1 = new Shop(r1, "Billa");
+		s1.setAddresses(al1);
 		shopsAllRevisions.put(r1, s1);
 
 
@@ -56,7 +57,8 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		//Create some Shop
 		IRevisionId r8998 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r8998.getId(), r8998);
-		IShop s8998 = new Shop(r8998, "Hofer", al2);
+		IShop s8998 = new Shop(r8998, "Hofer");
+		s8998.setAddresses(al2);
 		shopsAllRevisions.put(r8998, s8998);
 
 	}

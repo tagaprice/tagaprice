@@ -31,11 +31,9 @@ public class Shop extends AEntity<IShop> implements IShop {
 	 * Constructor to update a {@link Shop}
 	 * @param revisionId
 	 * @param title
-	 * @param addresses
 	 */
-	public Shop(IRevisionId revisionId, String title, ArrayList<IAddress> addresses) {
+	public Shop(IRevisionId revisionId, String title) {
 		super(revisionId, title);
-		setAddresses(addresses);
 	}
 
 
@@ -43,7 +41,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 	@Override
 	public IShop copy() {
-		return new Shop(getRevisionId().copy(), getTitle(), _addresses);
+		return new Shop(getRevisionId().copy(), getTitle());
 	}
 
 
