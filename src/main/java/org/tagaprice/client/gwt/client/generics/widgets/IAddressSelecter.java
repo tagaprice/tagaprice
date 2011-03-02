@@ -10,7 +10,7 @@ public interface IAddressSelecter extends IsWidget {
 
 	/**
 	 * Set some {@link IAddress} to the {@link IAddressSeleter}
-	 * @param address that will be added to the {@link IAddress}
+	 * @param address that will be added to the {@link IAddressSeleter}
 	 */
 	public void setAddresses(ArrayList<IAddress> address);
 
