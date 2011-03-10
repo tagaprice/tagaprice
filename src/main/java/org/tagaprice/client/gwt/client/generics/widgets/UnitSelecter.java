@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public class UnitSelecter extends Composite implements IUnitSelecter {
 
-	IUnitSelecter unitSelecter = GWT.create(IUnitSelecter.class);
+	private IUnitSelecter unitSelecter = GWT.create(IUnitSelecter.class);
 
 	public UnitSelecter(){
 		initWidget(unitSelecter.asWidget());

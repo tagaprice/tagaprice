@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IReceiptEntrySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
@@ -56,7 +57,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		private TextBox productTextBox = new TextBox();
 		private QuantitySelecter quantitySelecter = new QuantitySelecter();
 		private TextBox priceTextBox = new TextBox();
-		private TextBox currencyTextBox = new TextBox();
+		private CurrencySelecter currencySelecter = new CurrencySelecter();
 
 		public OneReceiptEntry() {
 			initWidget(hoPa1);
@@ -64,7 +65,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 			hoPa1.add(productTextBox);
 			hoPa1.add(quantitySelecter);
 			hoPa1.add(priceTextBox);
-			hoPa1.add(currencyTextBox);
+			hoPa1.add(currencySelecter);
 
 		}
 
@@ -72,7 +73,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 			productTextBox.setText(receiptEntry.getPackage().getProduct().getTitle());
 			quantitySelecter.setQuantity(receiptEntry.getPackage().getQuantity());
 			priceTextBox.setText(""+receiptEntry.getPrice().getPrice());
-			currencyTextBox.setText(""+receiptEntry.getPrice().getCurrency());
+			currencySelecter.setCurrency(receiptEntry.getPrice().getCurrency());
 
 		}
 	}

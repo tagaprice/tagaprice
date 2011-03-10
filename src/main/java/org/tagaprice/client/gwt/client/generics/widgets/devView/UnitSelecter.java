@@ -60,7 +60,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 		_listBoxUnit.clear();
 
 		for(Unit u: Unit.values()) {
-			_listBoxUnit.addItem(u.name());
+			_listBoxUnit.addItem(u.name(),u.name());
 		}
 	}
 

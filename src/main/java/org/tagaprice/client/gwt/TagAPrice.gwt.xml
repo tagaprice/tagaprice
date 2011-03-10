@@ -36,8 +36,13 @@
   <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.AddressSelecter">
   	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter" /> 
   </replace-with>
+  
   <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.ReceiptEntrySelecter">
   	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IReceiptEntrySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.CurrencySelecter">
+  	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.ICurrencySelecter" /> 
   </replace-with>
   
 
