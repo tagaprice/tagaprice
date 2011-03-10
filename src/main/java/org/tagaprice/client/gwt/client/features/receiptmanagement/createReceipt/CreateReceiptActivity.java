@@ -1,34 +1,16 @@
 package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
 
 import java.util.Date;
-import java.util.Random;
+
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.RevisionId;
-import org.tagaprice.client.gwt.shared.entities.dump.Category;
-import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.core.entities.Unit;
-
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Activity {
@@ -72,43 +54,46 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		// TODO Auto-generated method stub
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
-		//panel.setWidget(new HTML("Impl here some cool stuff"));
+		_createReceiptView.setPresenter(this);
+
+
+
+		if (_place.getId() == 0L) {
+			CreateReceiptActivity._logger.log("Create new Receipt");
+			_receipt=new Receipt();
+			_receipt.setTitle("New Receipt");
+			_receipt.setDate(new Date());
+			updateView(_receipt);
+		}else{
+			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
+
+			_clientFactory.getReceiptService().getReceipt(_place.getId(), new AsyncCallback<IReceipt>() {
+
+				@Override
+				public void onSuccess(IReceipt response) {
+					_receipt=response;
+					updateView(_receipt);
+				}
+
+				@Override
+				public void onFailure(Throwable e) {
+					CreateReceiptActivity._logger.log("ERROR AT Get Receipt: id= "+_place.getId()+"e:"+ e);
+
+				}
+			});
+		}
+
+
+
+
 		panel.setWidget(_createReceiptView);
-
-		Random random = new Random(1654196865);
-		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
-		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
-		IAddress tempAddres = new Address(r2, "Holzhausergasse 9", "1020", "Vienna", Country.at, 48.21975481443672, 16.38885498046875);
-		IShop tempshop = new Shop(r1, "Billa");
-		tempAddres.setShop(tempshop);
-
-
-
-
-
-		//Create test product
-		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres);
-
-
-		//Add receipt entries
-		IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
-		IProduct iprodc = new Product("Bergkäse 4", new Category("food"), Unit.g);
-		ipack.setProduct(iprodc);
-		iprodc.addPackage(ipack);
-		IReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
-		tempReceipt.addReceiptEntriy(ire);
-
-		updateView(tempReceipt);
 	}
 
 	private void updateView(IReceipt receipt){
 		_receipt=receipt;
 
-		_createReceiptView.setPresenter(this);
 		_createReceiptView.setTitle(_receipt.getTitle());
 		_createReceiptView.setDate(_receipt.getDate());
 		_createReceiptView.setAddress(_receipt.getAddress());

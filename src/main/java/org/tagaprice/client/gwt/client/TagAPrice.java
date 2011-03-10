@@ -52,7 +52,7 @@ public class TagAPrice implements EntryPoint {
 		this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
 		this.topPanel.add(this.mole);
 		//This is quite a mess...
-		clientFactory.getProductServiceDispatch().setMole(this.mole);
+		clientFactory.getProductService().setMole(this.mole);
 
 		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
 
@@ -116,18 +116,33 @@ public class TagAPrice implements EntryPoint {
 		/******************** Shop Links ******************/
 		this.leftPanel.add(new HTML("<hr />"));
 
-		Label createReceipt = new Label("Create Receipt");
-		createReceipt.addClickHandler(new ClickHandler() {
+		{
+			Label createReceipt = new Label("Create Receipt");
+			createReceipt.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				History.newItem("CreateReceipt:/create");
+				@Override
+				public void onClick(ClickEvent event) {
+					History.newItem("CreateReceipt:/create");
 
-			}
-		});
+				}
+			});
 
-		this.leftPanel.add(createReceipt);
+			this.leftPanel.add(createReceipt);
+		}
 
+		{
+			Label createReceipt = new Label("get Receipt id=1");
+			createReceipt.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					History.newItem("CreateReceipt:/show/id/1");
+
+				}
+			});
+
+			this.leftPanel.add(createReceipt);
+		}
 
 
 		this.mainPanel.addStyleName("mainPanel");

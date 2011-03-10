@@ -20,6 +20,8 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
+import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 
 import com.google.gwt.core.client.GWT;
@@ -56,6 +58,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 
+	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
+
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -83,7 +87,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ProductServiceDispatch getProductServiceDispatch() {
+	public ProductServiceDispatch getProductService() {
 		return ClientFactoryImpl.productServiceDispatch;
 	}
 
@@ -125,6 +129,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ICreateReceiptView getCreateReceiptView() {
 		return ClientFactoryImpl.CREATE_RECEIPT_VIEW;
+	}
+
+	@Override
+	public IReceiptServiceAsync getReceiptService() {
+		return ClientFactoryImpl.I_RECEIPT_SERVICE_ASYNC;
 	}
 
 

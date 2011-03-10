@@ -71,7 +71,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setAddress(IAddress address) {
-		_shop.setText(address.getShop().getTitle()+" "+address.getStreet());
+
+		if(address==null)
+			_shop.setText("");
+		else
+			_shop.setText(address.getShop().getTitle()+" "+address.getStreet());
 
 	}
 

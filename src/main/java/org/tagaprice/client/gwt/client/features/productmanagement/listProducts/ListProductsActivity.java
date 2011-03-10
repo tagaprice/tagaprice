@@ -49,7 +49,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 		// load data to work
 		this.listProductsView = this.clientFactory.getListProductsView();
-		this.productServiceAsync = this.clientFactory.getProductServiceDispatch();
+		this.productServiceAsync = this.clientFactory.getProductService();
 	}
 
 	/**

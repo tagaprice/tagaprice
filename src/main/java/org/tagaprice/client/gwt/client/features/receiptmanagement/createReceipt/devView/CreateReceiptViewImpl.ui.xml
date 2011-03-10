@@ -56,7 +56,7 @@
 					<tr>
 						<td colspan="2">
 							<g:Button ui:field="_cancelButton">cancel</g:Button>
-							<g:Button ui:field="_saveButton">save product</g:Button>
+							<g:Button ui:field="_saveButton">save receipt</g:Button>
 						</td>
 					</tr>
 				</table>

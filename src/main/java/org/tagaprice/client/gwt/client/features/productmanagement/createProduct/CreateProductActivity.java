@@ -60,7 +60,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		ICreateProductView createProductView = _clientFactory.getCreateProductView();
 		createProductView.setPresenter(this);
 
-		this._clientFactory.getProductServiceDispatch().getCategories(new AsyncCallback<ArrayList<ICategory>>() {
+		this._clientFactory.getProductService().getCategories(new AsyncCallback<ArrayList<ICategory>>() {
 
 			@Override
 			public void onSuccess(ArrayList<ICategory> result) {
@@ -95,7 +95,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			CreateProductActivity._logger.log("Load Categories...");
 
 
-			this._clientFactory.getProductServiceDispatch().getProduct(_place.getRevisionId(), new AsyncCallback<IProduct>() {
+			this._clientFactory.getProductService().getProduct(_place.getRevisionId(), new AsyncCallback<IProduct>() {
 
 				@Override
 				public void onSuccess(IProduct result) {
@@ -105,8 +105,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
-
+					CreateProductActivity._logger.log("ERROR at getProduct");
 				}
 			});
 
@@ -128,7 +127,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		//	product = new Product("default Title", new Category("default Category"), new Quantity(999L, Unit.ml));
 		CreateProductActivity._logger.log(product.toString());
 
-		this._clientFactory.getProductServiceDispatch().saveProduct(product, new AsyncCallback<IProduct>() {
+		this._clientFactory.getProductService().saveProduct(product, new AsyncCallback<IProduct>() {
 
 			@Override
 			public void onSuccess(IProduct result) {
