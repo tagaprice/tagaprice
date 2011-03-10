@@ -15,8 +15,7 @@ public class ReceiptEntry implements IReceiptEntry{
 	public ReceiptEntry() {
 	}
 
-	public ReceiptEntry(IReceipt receipt, IPrice price, IPackage ipackage){
-		setReceipt(receipt);
+	public ReceiptEntry(IPrice price, IPackage ipackage){
 		setPrice(price);
 		setPackage(ipackage);
 	}

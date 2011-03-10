@@ -5,10 +5,13 @@ import java.util.Random;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
@@ -93,7 +96,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		//Add receipt entries
 		IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
-		IReceiptEntry ire = new ReceiptEntry(tempReceipt, new Price(15, Currency.dkk), ipack);
+		IProduct iprodc = new Product("Bergkäse 4", new Category("food"), Unit.g);
+		ipack.setProduct(iprodc);
+		iprodc.addPackage(ipack);
+		IReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
 		tempReceipt.addReceiptEntriy(ire);
 
 		updateView(tempReceipt);

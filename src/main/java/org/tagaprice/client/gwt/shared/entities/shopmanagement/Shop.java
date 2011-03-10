@@ -37,12 +37,6 @@ public class Shop extends AEntity<IShop> implements IShop {
 	}
 
 
-
-
-
-
-
-
 	@Override
 	public void setAddresses(ArrayList<IAddress> addresses) {
 		_addresses.clear();

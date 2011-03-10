@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.gwt.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
@@ -31,6 +32,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@UiField
 	TextBox _shop;
+
+	@UiField
+	ReceiptEntrySelecter _receiptEntrySelecter;
 
 	@Override
 	public void setPresenter(Presenter presenter) {
@@ -74,13 +78,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public ArrayList<IReceiptEntry> getReceiptEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		return _receiptEntrySelecter.getReceiptEntries();
 	}
 
 	@Override
 	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
-		// TODO Auto-generated method stub
+		_receiptEntrySelecter.setReceiptEntries(receiptEntries);
 
 	}
 
