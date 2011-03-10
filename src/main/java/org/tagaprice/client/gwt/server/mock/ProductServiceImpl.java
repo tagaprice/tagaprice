@@ -71,14 +71,14 @@ IProductService {
 			if(revionsId.getRevision() == 0L) {
 				IProduct product = this.productsLatest.get(revionsId.getId());
 				if(product != null) {
-					return product.copy();
+					return product;
 				} else {
 					return null;
 				}
 			} else {
 				IProduct product = this.productsAllRevisions.get(revionsId);
 				if(product != null) {
-					return product.copy();
+					return product;
 				} else {
 					return null;
 				}
@@ -121,7 +121,7 @@ IProductService {
 				//get product
 				//get latest revision
 				//compare revisionIds
-				updateProduct = product.copy();
+				updateProduct = product;
 				updateProduct.getRevisionId().setRevision(updateProduct.getRevisionId().getRevision() + 1);
 
 
@@ -141,9 +141,9 @@ IProductService {
 		ArrayList<IProduct> products = new ArrayList<IProduct>();
 		for (IProduct p: this.productsLatest.values()) {
 			if(searchCriteria != null && p.getTitle().toLowerCase().contains((searchCriteria.getTitle().toLowerCase()))) {
-				products.add(p.copy());
+				products.add(p);
 			} else if(searchCriteria == null) {
-				products.add(p.copy());
+				products.add(p);
 			}
 		}
 		return products;

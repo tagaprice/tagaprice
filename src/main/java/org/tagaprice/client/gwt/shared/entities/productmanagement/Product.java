@@ -26,13 +26,11 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	 * @param revisionId
 	 * @param title
 	 * @param unit
-	 * @param quantity
 	 */
-	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit, ArrayList<IPackage> iPackage) {
+	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit) {
 		super(revisionId, title);
 		this._category = category;
 		this._unit = unit;
-		setPackages(iPackage);
 	}
 
 	/**
@@ -61,14 +59,6 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 
 
-	@Override
-	public IProduct copy() {
-		if(this.getRevisionId() != null) {
-			return new Product(this.getRevisionId().copy(), this.getTitle(), this._category.copy(), this._unit, this._iPackage);
-		} else {
-			return new Product(this.getTitle(), this._category.copy(), this._unit);
-		}
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -99,13 +89,17 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 	@Override
 	public void addPackage(IPackage ipackage) {
+		ipackage.setProduct(this);
 		_iPackage.add(ipackage);
 	}
 
 	@Override
 	public void setPackages(ArrayList<IPackage> iPackage) {
 		_iPackage.clear();
-		_iPackage.addAll(iPackage);
+		for(IPackage p:iPackage){
+			p.setProduct(this);
+			_iPackage.add(p);
+		}
 
 	}
 

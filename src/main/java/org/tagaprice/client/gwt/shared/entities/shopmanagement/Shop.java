@@ -39,10 +39,6 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 
 
-	@Override
-	public IShop copy() {
-		return new Shop(getRevisionId().copy(), getTitle());
-	}
 
 
 

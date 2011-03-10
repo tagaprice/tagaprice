@@ -1,21 +1,28 @@
 package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.core.entities.Unit;
+
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -75,9 +82,20 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 
+
+
+
+
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
+		IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres);
+
+
+		//Add receipt entries
+		IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
+		IReceiptEntry ire = new ReceiptEntry(tempReceipt, new Price(15, Currency.dkk), ipack);
+		tempReceipt.addReceiptEntriy(ire);
+
 		updateView(tempReceipt);
 	}
 

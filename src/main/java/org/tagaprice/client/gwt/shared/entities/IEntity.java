@@ -25,10 +25,5 @@ public interface IEntity<T> extends Serializable  {
 	 */
 	public void setTitle(String title);
 
-	/**
-	 * Copies an entity
-	 * @return a copy of the object OR itself (this) if copy is not supported (e.g. object is a singleton or immutable).
-	 */
-	public T copy();
 
 }

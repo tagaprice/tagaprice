@@ -24,6 +24,17 @@ public interface IPackage extends Serializable {
 	 */
 	public void setRevisionId(IRevisionId revisionId);
 
+	/**
+	 * Set the related {@link IProduct}
+	 * @param product the related {@link IProduct}
+	 */
+	public void setProduct(IProduct product);
+
+	/**
+	 * Returns the related {@link IProduct}
+	 * @return the related {@link IProduct}
+	 */
+	public IProduct getProduct();
 
 	/**
 	 * Set the {@link IQuantity} which is represented by an Quantity and an Unit.

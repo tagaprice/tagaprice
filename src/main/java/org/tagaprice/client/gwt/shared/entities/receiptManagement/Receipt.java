@@ -40,11 +40,10 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param address the shop-address
 	 * @param receiptEntries all entries plus price
 	 */
-	public Receipt(String title, Date date, IAddress address, ArrayList<IReceiptEntry> receiptEntries) {
+	public Receipt(String title, Date date, IAddress address) {
 		setTitle(title);
 		setDate(date);
 		setAddress(address);
-		setReceiptEntries(receiptEntries);
 	}
 
 
@@ -58,12 +57,11 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(String title, Long id, Date date, IAddress address, User user, ArrayList<IReceiptEntry> receiptEntries) {
+	public Receipt(String title, Long id, Date date, IAddress address, User user) {
 		setTitle(title);
 		setDate(date);
 		setAddress(address);
 		setUser(user);
-		setReceiptEntries(receiptEntries);
 	}
 
 
@@ -109,11 +107,6 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 
 
-	@Override
-	public IReceipt copy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 
@@ -125,6 +118,13 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	@Override
 	public void setAddress(IAddress address) {
 		_address=address;
+	}
+
+	@Override
+	public void addReceiptEntriy(IReceiptEntry receiptEntry) {
+		receiptEntry.setReceipt(this);
+		_receiptEntries.add(receiptEntry);
+
 	}
 
 

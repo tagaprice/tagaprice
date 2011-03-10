@@ -10,20 +10,22 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
 public interface IReceipt extends IEntity<IReceipt> {
 
-	public abstract Date getDate();
+	public Date getDate();
 
-	public abstract void setDate(Date date);
+	public void setDate(Date date);
 
-	public abstract IAddress getAddress();
+	public IAddress getAddress();
 
-	public abstract void setAddress(IAddress address);
+	public void setAddress(IAddress address);
 
-	public abstract User getUser();
+	public User getUser();
 
-	public abstract void setUser(User user);
+	public void setUser(User user);
 
-	public abstract ArrayList<IReceiptEntry> getReceiptEntries();
+	public ArrayList<IReceiptEntry> getReceiptEntries();
 
-	public abstract void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries);
+	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries);
+
+	public void addReceiptEntriy(IReceiptEntry receiptEntry);
 
 }

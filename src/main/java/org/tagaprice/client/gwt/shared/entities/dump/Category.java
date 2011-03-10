@@ -40,10 +40,7 @@ public class Category extends AEntity<ICategory> implements ICategory  {
 		this._parentCategory = category;
 	}
 
-	@Override
-	public ICategory copy() {
-		return this;
-	}
+
 
 	@Override
 	public void setId(long id) {

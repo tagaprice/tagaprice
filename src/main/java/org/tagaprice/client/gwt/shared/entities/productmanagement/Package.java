@@ -7,6 +7,7 @@ import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
 public class Package implements IPackage {
 
+	IProduct _product;
 	IQuantity _iQuantity;
 	IRevisionId _iRevisionId;
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
@@ -81,6 +82,18 @@ public class Package implements IPackage {
 	@Override
 	public String toString() {
 		return "Package [_iQuantity=" + _iQuantity + ", _iRevisionId=" + _iRevisionId + ", _barcode=" + _barcode + "]";
+	}
+
+
+	@Override
+	public void setProduct(IProduct product) {
+		_product=product;
+	}
+
+
+	@Override
+	public IProduct getProduct() {
+		return _product;
 	}
 
 
