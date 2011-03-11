@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.*;
@@ -51,5 +52,29 @@ public class ProductServiceDispatchImpl implements ProductServiceDispatch {
 	public void getCategories(AsyncCallback<ArrayList<ICategory>> callback) {
 		logger.log("get Categories");
 		ProductServiceDispatchImpl.productServiceAsync.getCategories(callback);
+	}
+
+	@Override
+	public void getCategoryChilds(IRevisionId revisionId, AsyncCallback<ICategory> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void getCategory(IRevisionId revisionId, AsyncCallback<ICategory> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void getPackage(IRevisionId revisionId, AsyncCallback<IPackage> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void savePackage(IPackage ipackage, AsyncCallback<IPackage> callback) {
+		// TODO Auto-generated method stub
+
 	}
 }
