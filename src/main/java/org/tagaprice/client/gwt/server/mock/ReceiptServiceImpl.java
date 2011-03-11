@@ -31,7 +31,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	private static final long serialVersionUID = 3420788026998858664L;
 
 	@Override
-	public IReceipt save(IReceipt receipt) {
+	public IReceipt saveReceipt(IReceipt receipt) {
 		// TODO Auto-generated method stub
 		return null;
 	}

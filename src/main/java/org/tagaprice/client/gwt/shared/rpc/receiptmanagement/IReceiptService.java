@@ -11,10 +11,17 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("receiptservice")
 public interface IReceiptService extends RemoteService {
 
-	IReceipt save(IReceipt receipt)  throws UserNotLoggedInException;
+	IReceipt saveReceipt(IReceipt receipt)  throws UserNotLoggedInException;
 
 	IReceipt getReceipt(long receiptid) throws UserNotLoggedInException;
 
+
+	/**
+	 * TODO This method must include, boundingBox, and productId
+	 * @param productid
+	 * @return
+	 */
+	@Deprecated
 	ArrayList<ReceiptEntry> getReceiptEntriesByProductId(long productid);
 
 }

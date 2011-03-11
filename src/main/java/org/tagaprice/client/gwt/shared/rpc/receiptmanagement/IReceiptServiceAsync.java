@@ -12,6 +12,6 @@ public interface IReceiptServiceAsync {
 
 	void getReceiptEntriesByProductId(long productid, AsyncCallback<ArrayList<ReceiptEntry>> callback);
 
-	void save(IReceipt receipt, AsyncCallback<IReceipt> callback);
+	void saveReceipt(IReceipt receipt, AsyncCallback<IReceipt> callback);
 
 }
