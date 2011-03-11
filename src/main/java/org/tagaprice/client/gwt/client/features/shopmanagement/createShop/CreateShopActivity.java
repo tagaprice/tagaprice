@@ -104,7 +104,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onSaveEvent() {
-		_clientFactory.getShopService().save(getShop(), new AsyncCallback<IShop>() {
+		_clientFactory.getShopService().saveShop(getShop(), new AsyncCallback<IShop>() {
 
 			@Override
 			public void onSuccess(IShop result) {

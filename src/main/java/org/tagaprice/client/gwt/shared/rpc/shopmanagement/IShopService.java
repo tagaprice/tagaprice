@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.shared.rpc.shopmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.core.api.UserNotLoggedInException;
 
@@ -16,6 +17,10 @@ public interface IShopService extends RemoteService {
 
 	public IShop getShop(IRevisionId revisionId);
 
-	public IShop save(IShop shop) throws UserNotLoggedInException;
+	public IShop saveShop(IShop shop) throws UserNotLoggedInException;
+
+	public IAddress getAddress(IRevisionId revisionId);
+
+	public IAddress saveAddress(IAddress address) throws UserNotLoggedInException;
 
 }

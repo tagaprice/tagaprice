@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -153,5 +154,33 @@ IProductService {
 	public ArrayList<ICategory> getCategories() {
 		logger.log("return categories");
 		return this.categories;
+	}
+
+
+	@Override
+	public IPackage getPackage(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public IPackage savePackage(IPackage ipackage) throws UserNotLoggedInException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ArrayList<ICategory> getCategoryChilds(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ICategory getCategory(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -92,7 +92,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop save(IShop shop) throws UserNotLoggedInException  {
+	public IShop saveShop(IShop shop) throws UserNotLoggedInException  {
 		_logger.debug("saveShop with Shop " + shop);
 
 		ShopConverter shopConverter =ShopConverter.getInstance();

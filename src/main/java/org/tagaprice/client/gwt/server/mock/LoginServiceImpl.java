@@ -47,4 +47,23 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		return sessionId;
 	}
 
+	@Override
+	public Boolean isEmailAvailable(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean registerUser(String email, String reCaptchaOK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
+	throws UserNotLoggedInException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

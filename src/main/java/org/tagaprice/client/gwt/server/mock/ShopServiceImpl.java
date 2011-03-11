@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -97,7 +98,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop save(IShop shop) {
+	public IShop saveShop(IShop shop) {
 		_logger.log("save Shop " + shop);
 		//shop.setRevisionId(new RevisionId(shop.getRevisionId().getId(), shop.getRevisionId().getRevision() + 1));
 
@@ -163,6 +164,18 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 		}
 
+	}
+
+	@Override
+	public IAddress getAddress(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IAddress saveAddress(IAddress address) throws UserNotLoggedInException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
