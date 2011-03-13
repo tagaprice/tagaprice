@@ -31,7 +31,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	DatePicker _date;
 
 	@UiField
-	TextBox _shop;
+	Label _shop;
 
 	@UiField
 	ReceiptEntrySelecter _receiptEntrySelecter;

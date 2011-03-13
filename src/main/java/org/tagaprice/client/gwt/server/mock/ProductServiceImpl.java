@@ -8,19 +8,18 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
-import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ProductServiceImpl extends RemoteServiceServlet implements
-IProductService {
+public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
 
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
 	HashMap<IRevisionId, IProduct> productsAllRevisions = new HashMap<IRevisionId, IProduct>();
 	HashMap<Long, IProduct> productsLatest = new HashMap<Long, IProduct>();
+	HashMap<IRevisionId, IPackage> packageAllRevisions = new HashMap<IRevisionId, IPackage>();
 	ArrayList<ICategory> categories = new ArrayList<ICategory>();
 
 	/**
@@ -52,33 +51,44 @@ IProductService {
 		beverages.setParentCategory(root);
 		food.setParentCategory(root);
 
-		//TestProduct
-		Product bergkasese = new Product("Bergkäse 4", food, Unit.g);
-		bergkasese.addPackage(new Package(new RevisionId(12L, 1), new Quantity(500, Unit.kg)));
-		bergkasese.addPackage(new Package(new RevisionId(13L, 1), new Quantity(750, Unit.g)));
+		// TestProduct
+		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);
+		bergkasese = saveProduct(bergkasese);
 
-		this.saveProduct(bergkasese);
+		{
+			IPackage tPackage=new Package(new Quantity(500, Unit.kg));
+			tPackage.setProduct(bergkasese);
+			bergkasese.addPackage(savePackage(tPackage));
+		}
+		{
+			IPackage tPackage=new Package(new Quantity(750, Unit.g));
+			tPackage.setProduct(bergkasese);
+			bergkasese.addPackage(savePackage(tPackage));
+		}
+
+		bergkasese = saveProduct(bergkasese);
 		this.saveProduct(new Product("Extrawurst von der Theke", food, Unit.g));
 		this.saveProduct(new Product("Limonade", nonalcoholics, Unit.l));
 
-		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", " + this.productsLatest.size() + ". Counter is " + this.productIdCounter + ".");
+		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", "
+				+ this.productsLatest.size() + ". Counter is " + this.productIdCounter + ".");
 
 	}
 
 
 	@Override
 	public IProduct getProduct(IRevisionId revionsId) {
-		if(revionsId != null) {
-			if(revionsId.getRevision() == 0L) {
+		if (revionsId != null) {
+			if (revionsId.getRevision() == 0L) {
 				IProduct product = this.productsLatest.get(revionsId.getId());
-				if(product != null) {
+				if (product != null) {
 					return product;
 				} else {
 					return null;
 				}
 			} else {
 				IProduct product = this.productsAllRevisions.get(revionsId);
-				if(product != null) {
+				if (product != null) {
 					return product;
 				} else {
 					return null;
@@ -93,40 +103,40 @@ IProductService {
 	public IProduct saveProduct(final IProduct product) {
 		logger.log("save product " + product);
 
-		for(IPackage p:product.getPackages())
-			logger.log("package: "+p.toString());
+		for (IPackage p : product.getPackages())
+			logger.log("package: " + p.toString());
 
-		//Check productId and revisionId
-		//if productId == 0 -> save as new product
-		if(product.getRevisionId() == null || product.getRevisionId().getId() == 0L) {
+		// Check productId and revisionId
+		// if productId == 0 -> save as new product
+		if (product.getRevisionId() == null || product.getRevisionId().getId() == 0L) {
 			logger.log("new product");
-			//SAVE
-			//make a copy ... to get sure
+			// SAVE
+			// make a copy ... to get sure
 			IProduct newProduct = product;
-			//set a productID and Revision 1
+			// set a productID and Revision 1
 			newProduct.setRevisionId(new RevisionId(this.productIdCounter++, 1));
-			//Save it into the hashmaps
+			// Save it into the hashmaps
 			this.productsAllRevisions.put(newProduct.getRevisionId(), newProduct);
 			this.productsLatest.put(newProduct.getRevisionId().getId(), newProduct);
 
 			return newProduct;
 		} else {
 			logger.log("update product");
-			//UPDATE
+			// UPDATE
 			IProduct updateProduct = this.productsAllRevisions.get(product.getRevisionId());
-			if(updateProduct == null) {
-				//ERROR
+			if (updateProduct == null) {
+				// ERROR
 				return null;
 			} else {
-				//else
-				//get product
-				//get latest revision
-				//compare revisionIds
+				// else
+				// get product
+				// get latest revision
+				// compare revisionIds
 				updateProduct = product;
 				updateProduct.getRevisionId().setRevision(updateProduct.getRevisionId().getRevision() + 1);
 
 
-				//find out if we have a new Package
+				// find out if we have a new Package
 
 
 				this.productsAllRevisions.put(updateProduct.getRevisionId(), updateProduct);
@@ -138,12 +148,13 @@ IProductService {
 
 	@Override
 	public ArrayList<IProduct> getProducts(IProduct searchCriteria) {
-		logger.log("getProducts... searchCriteria: "+ searchCriteria);
+		logger.log("getProducts... searchCriteria: " + searchCriteria);
 		ArrayList<IProduct> products = new ArrayList<IProduct>();
-		for (IProduct p: this.productsLatest.values()) {
-			if(searchCriteria != null && p.getTitle().toLowerCase().contains((searchCriteria.getTitle().toLowerCase()))) {
+		for (IProduct p : this.productsLatest.values()) {
+			if (searchCriteria != null
+					&& p.getTitle().toLowerCase().contains((searchCriteria.getTitle().toLowerCase()))) {
 				products.add(p);
-			} else if(searchCriteria == null) {
+			} else if (searchCriteria == null) {
 				products.add(p);
 			}
 		}
@@ -159,15 +170,25 @@ IProductService {
 
 	@Override
 	public IPackage getPackage(IRevisionId revisionId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return packageAllRevisions.get(revisionId);
 	}
 
 
 	@Override
-	public IPackage savePackage(IPackage ipackage) throws UserNotLoggedInException {
-		// TODO Auto-generated method stub
-		return null;
+	public IPackage savePackage(IPackage ipackage) {
+
+		if (ipackage.getRevisionId() == null) {
+
+			ipackage.setRevisionId(new RevisionId(this.productIdCounter++, 1));
+			logger.log("create package. ID="+this.productIdCounter);
+		} else {
+			ipackage.getRevisionId().setRevision(ipackage.getRevisionId().getRevision() + 1);
+		}
+
+		packageAllRevisions.put(
+				new RevisionId(ipackage.getRevisionId().getId(), ipackage.getRevisionId().getRevision()), ipackage);
+		return ipackage;
 	}
 
 

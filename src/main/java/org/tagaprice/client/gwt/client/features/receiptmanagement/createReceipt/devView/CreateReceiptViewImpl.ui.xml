@@ -29,10 +29,22 @@
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="_shopI18N">Shop</g:Label>
+							<g:Label ui:field="_shopSearchI18N">ShopSearch</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="_shop"></g:TextBox>
+							<g:TextBox ui:field="_shopSearch"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							
+							<table>
+							<tr>
+								<td>
+									<g:Label ui:field="_shop"></g:Label>
+								</td>
+							</tr>
+							</table>
 						</td>
 					</tr>
 					<tr>

@@ -30,6 +30,12 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	 */
 	private static final long serialVersionUID = 3420788026998858664L;
 
+	ProductServiceImpl productImpl = new ProductServiceImpl();
+
+	public ReceiptServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public IReceipt saveReceipt(IReceipt receipt) {
 		// TODO Auto-generated method stub
@@ -67,6 +73,11 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);
+			tempReceipt.addReceiptEntriy(ire);
+		}
+
+		{
+			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), productImpl.getPackage(new RevisionId(2L, 1)));
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
