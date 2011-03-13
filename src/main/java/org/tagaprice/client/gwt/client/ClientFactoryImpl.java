@@ -4,7 +4,6 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginVi
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LogoutViewImpl;
-import org.tagaprice.client.gwt.client.features.productmanagement.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
@@ -20,6 +19,8 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
@@ -45,7 +46,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
-	private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
+	//private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
 	private static final IShopServiceAsync shopService = GWT.create(IShopService.class);
 	private static final CreateShopViewImpl<IReceiptEntry> createShopview = new CreateShopViewImpl<IReceiptEntry>();
@@ -59,6 +60,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 
 	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
+	private static final IProductServiceAsync I_PRODUCT_SERVICE_ASYNC = GWT.create(IProductService.class);
 
 
 	public ClientFactoryImpl() {
@@ -86,10 +88,7 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.productListView;
 	}
 
-	@Override
-	public ProductServiceDispatch getProductService() {
-		return ClientFactoryImpl.productServiceDispatch;
-	}
+
 
 	@Override
 	public ICreateProductView getCreateProductView() {
@@ -134,6 +133,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IReceiptServiceAsync getReceiptService() {
 		return ClientFactoryImpl.I_RECEIPT_SERVICE_ASYNC;
+	}
+
+	@Override
+	public IProductServiceAsync getProductService() {
+		return ClientFactoryImpl.I_PRODUCT_SERVICE_ASYNC;
 	}
 
 

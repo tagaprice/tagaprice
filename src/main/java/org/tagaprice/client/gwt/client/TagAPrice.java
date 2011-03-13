@@ -52,7 +52,6 @@ public class TagAPrice implements EntryPoint {
 		this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
 		this.topPanel.add(this.mole);
 		//This is quite a mess...
-		clientFactory.getProductService().setMole(this.mole);
 
 		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
 

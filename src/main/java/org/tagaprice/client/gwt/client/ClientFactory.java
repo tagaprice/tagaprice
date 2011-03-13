@@ -2,7 +2,6 @@ package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
-import org.tagaprice.client.gwt.client.features.productmanagement.ProductServiceDispatch;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
@@ -12,6 +11,7 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopServiceAsync;
 
@@ -47,7 +47,7 @@ public interface ClientFactory {
 	 * 
 	 * @return
 	 */
-	ProductServiceDispatch getProductService();
+	IProductServiceAsync getProductService();
 
 
 	IReceiptServiceAsync getReceiptService();
