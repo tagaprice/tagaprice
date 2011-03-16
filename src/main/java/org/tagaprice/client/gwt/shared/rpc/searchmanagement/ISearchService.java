@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 
 @RemoteServiceRelativePath("searchservice")
@@ -30,11 +31,11 @@ public interface ISearchService extends RemoteService {
 	 * 
 	 * @param searchString
 	 *            Name of the Product
-	 * @param shop
-	 *            name of the {@link IShop} where the search process should begin
-	 * @return a list of {@link IProduct} sorted by {@link IShop} plus {@link IAddress}, than {@link IShop}, than
+	 * @param address
+	 *            name of the {@link IAddress} where the search process should begin
+	 * @return a list of {@link IProduct} sorted by {@link IAddress} plus {@link IAddress}, than {@link IAddress}, than
 	 *         similar
 	 *         products.
 	 */
-	ArrayList<IProduct> searchProduct(String searchString, IShop shop);
+	ArrayList<IProduct> searchProduct(String searchString, IAddress address);
 }

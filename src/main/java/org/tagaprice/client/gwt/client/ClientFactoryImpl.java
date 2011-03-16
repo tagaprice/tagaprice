@@ -19,10 +19,14 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.categorymanagement.ICategoryService;
+import org.tagaprice.client.gwt.shared.rpc.categorymanagement.ICategoryServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchService;
+import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 
 import com.google.gwt.core.client.GWT;
@@ -48,7 +52,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
 	//private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
-	private static final IShopServiceAsync shopService = GWT.create(IShopService.class);
+
 	private static final CreateShopViewImpl<IReceiptEntry> createShopview = new CreateShopViewImpl<IReceiptEntry>();
 	private static final ListShopsViewImpl<IShop> listShopsView = new ListShopsViewImpl<IShop>();
 	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
@@ -59,9 +63,11 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 
+	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
 	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
 	private static final IProductServiceAsync I_PRODUCT_SERVICE_ASYNC = GWT.create(IProductService.class);
-
+	private static final ICategoryServiceAsync I_CATEGORY_SERVICE_ASYNC = GWT.create(ICategoryService.class);
+	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -117,7 +123,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public IShopServiceAsync getShopService() {
-		return ClientFactoryImpl.shopService;
+		return ClientFactoryImpl.I_SHOP_SERVICE_ASYNC;
 	}
 
 	@Override
@@ -138,6 +144,17 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IProductServiceAsync getProductService() {
 		return ClientFactoryImpl.I_PRODUCT_SERVICE_ASYNC;
+	}
+
+	@Override
+	public ICategoryServiceAsync getCategoryService() {
+		return ClientFactoryImpl.I_CATEGORY_SERVICE_ASYNC;
+	}
+
+	@Override
+	public ISearchServiceAsync getSearchService() {
+		// TODO Auto-generated method stub
+		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
 
 

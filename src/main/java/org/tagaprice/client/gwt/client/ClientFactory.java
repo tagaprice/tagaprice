@@ -11,8 +11,10 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.categorymanagement.ICategoryServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptServiceAsync;
+import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopServiceAsync;
 
 import com.google.gwt.event.shared.EventBus;
@@ -56,6 +58,10 @@ public interface ClientFactory {
 	ILoginServiceAsync getLoginService();
 
 	IShopServiceAsync getShopService();
+
+	ICategoryServiceAsync getCategoryService();
+
+	ISearchServiceAsync getSearchService();
 
 
 	/****************** VIEWS ***********************/

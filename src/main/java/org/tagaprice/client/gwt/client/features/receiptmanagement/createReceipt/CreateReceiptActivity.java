@@ -1,10 +1,13 @@
 package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import com.google.gwt.activity.shared.Activity;
@@ -98,6 +101,52 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_createReceiptView.setDate(_receipt.getDate());
 		_createReceiptView.setAddress(_receipt.getAddress());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
+	}
+
+	@Override
+	public void shopSearchStringHasChanged(String shopSearch) {
+		CreateReceiptActivity._logger.log("Start shopSearch: "+shopSearch);
+
+		_clientFactory.getSearchService().searchShop(
+				shopSearch,
+				_createReceiptView.getBoundingBox(),
+				new AsyncCallback<ArrayList<IShop>>() {
+
+					@Override
+					public void onSuccess(ArrayList<IShop> response) {
+
+						_createReceiptView.setShopSearchResults(response);
+					}
+
+					@Override
+					public void onFailure(Throwable e) {
+						// TODO Auto-generated method stub
+						CreateReceiptActivity._logger.log("shopSearch ERROR: "+e);
+					}
+				});
+
+	}
+
+	@Override
+	public void productSearchStringHasChanged(String productSearch) {
+		CreateReceiptActivity._logger.log("Start productSearch: "+productSearch);
+
+		_clientFactory.getSearchService().searchProduct(
+				productSearch,
+				_createReceiptView.getAddress(),
+				new AsyncCallback<ArrayList<IProduct>>() {
+
+					@Override
+					public void onSuccess(ArrayList<IProduct> response) {
+						_createReceiptView.setProductSearchResults(response);
+					}
+
+					@Override
+					public void onFailure(Throwable e) {
+						// TODO Auto-generated method stub
+						CreateReceiptActivity._logger.log("productSearch ERROR: "+e);
+					}
+				});
 	}
 
 }
