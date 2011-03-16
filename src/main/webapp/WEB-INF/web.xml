@@ -66,6 +66,26 @@
 		<url-pattern>/TagAPrice/receiptservice</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>searchservice</servlet-name>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.SearchServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>searchservice</servlet-name>
+		<url-pattern>/TagAPrice/searchservice</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>categoryservice</servlet-name>
+		<servlet-class>org.tagaprice.client.gwt.server.mock.CategoryServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>categoryservice</servlet-name>
+		<url-pattern>/TagAPrice/categoryservice</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- END: RPC-->
 	

@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
@@ -17,12 +18,10 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 	interface CreateReceiptViewImplUiBinder extends UiBinder<Widget, CreateReceiptViewImpl>{}
 	private static CreateReceiptViewImplUiBinder uiBinder = GWT.create(CreateReceiptViewImplUiBinder.class);
-
+	private MapWidget _searchMap = new MapWidget();
 	private Presenter _presenter;
 
-	public CreateReceiptViewImpl() {
-		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
-	}
+
 
 	@UiField
 	TextBox _title;
@@ -35,6 +34,15 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@UiField
 	ReceiptEntrySelecter _receiptEntrySelecter;
+
+	@UiField
+	SimplePanel _searchMapArea;
+
+	public CreateReceiptViewImpl() {
+		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
+		_searchMapArea.setWidget(_searchMap);
+		_searchMap.setSize("100%", "70px");
+	}
 
 	@Override
 	public void setPresenter(Presenter presenter) {

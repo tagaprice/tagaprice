@@ -37,6 +37,11 @@
 					</tr>
 					<tr>
 						<td colspan="2">
+							<g:SimplePanel ui:field="_searchMapArea"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
 							
 							<table>
 							<tr>
