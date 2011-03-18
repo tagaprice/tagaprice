@@ -6,6 +6,7 @@ import org.tagaprice.client.gwt.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IReceiptEntrySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -100,6 +101,8 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		}
 
 		public void setReceiptEntry(IReceiptEntry receiptEntry){
+			_receiptEntry=receiptEntry;
+
 			productTextBox.setText(receiptEntry.getPackage().getProduct().getTitle());
 			quantitySelecter.setQuantity(receiptEntry.getPackage().getQuantity());
 			priceTextBox.setText(""+receiptEntry.getPrice().getPrice());
@@ -108,6 +111,12 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		}
 
 		public IReceiptEntry getReceiptEntry(){
+			_receiptEntry.setPrice(new Price(
+					Integer.parseInt(priceTextBox.getText()),
+					currencySelecter.getCurrency()));
+
+			_receiptEntry.getPackage().setQuantity(quantitySelecter.getQuantity());
+
 			return _receiptEntry;
 		}
 	}

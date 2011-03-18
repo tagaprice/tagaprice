@@ -76,5 +76,10 @@ public interface ICreateReceiptView extends IsWidget{
 		 * @param productSearch current search string
 		 */
 		public void productSearchStringHasChanged(String productSearch);
+
+		/**
+		 * Call if savebutton has been clicked
+		 */
+		public void onSaveEvent();
 	}
 }

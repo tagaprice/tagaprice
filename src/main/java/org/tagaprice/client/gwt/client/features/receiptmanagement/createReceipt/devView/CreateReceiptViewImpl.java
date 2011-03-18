@@ -6,8 +6,10 @@ import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.
 import org.tagaprice.client.gwt.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
+import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
@@ -24,6 +26,7 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -117,6 +120,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 		//_newAddressArea.setWidget(_addressSelecter);
+	}
+
+	@UiHandler("_saveButton")
+	public void onSaveEvent(ClickEvent event) {
+		_presenter.onSaveEvent();
 	}
 
 	@Override
@@ -264,7 +272,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setProductSearchResults(ArrayList<IProduct> productResults) {
 		_productSearchSuggestVePa.clear();
-		for(IProduct p:productResults){
+		for(final IProduct p:productResults){
 			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());
 			for(final IPackage pa: p.getPackages()){
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit());
@@ -279,7 +287,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					}
 				});
 			}
-			_productSearchSuggestVePa.add(new Label(p.getTitle()));
+			Label newPackage = new Label(p.getTitle()+" - x "+p.getUnit());
+			_productSearchSuggestVePa.add(newPackage);
+			newPackage.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent arg0) {
+					IPackage np = new Package(new Quantity(0, p.getUnit()));
+					np.setProduct(p);
+
+					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(0, Currency.dkk), np));
+				}
+			});
 		}
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
 

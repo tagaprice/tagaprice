@@ -149,4 +149,17 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				});
 	}
 
+	@Override
+	public void onSaveEvent() {
+		CreateReceiptActivity._logger.log("Try Save Receipt");
+
+		if(_receipt==null)_receipt=new Receipt();
+		_receipt.setTitle(_createReceiptView.getTitle());
+		_receipt.setDate(_createReceiptView.getDate());
+		_receipt.setAddress(_createReceiptView.getAddress());
+		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
+		CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
+
+	}
+
 }

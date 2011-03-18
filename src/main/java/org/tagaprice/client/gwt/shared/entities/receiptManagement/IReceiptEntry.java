@@ -45,4 +45,6 @@ public interface IReceiptEntry extends Serializable {
 	 * @return per {@link Currency}  in cent
 	 */
 	public IPrice getPrice();
+
+
 }

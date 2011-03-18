@@ -22,10 +22,10 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 	private static final long serialVersionUID = -1411130663050015079L;
 
-	private Date _date;
 	private IAddress _address;
-	private User _user;
+	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
+	private User _user;
 
 
 	public Receipt() {
@@ -66,22 +66,30 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 
 	@Override
+	public void addReceiptEntriy(IReceiptEntry receiptEntry) {
+		receiptEntry.setReceipt(this);
+		_receiptEntries.add(receiptEntry);
+
+	}
+
+	@Override
+	public IAddress getAddress() {
+		return _address;
+	}
+
+
+	@Override
 	public Date getDate() {
 		return _date;
 	}
 
 	@Override
-	public void setDate(Date date) {
-		_date = date;
+	public ArrayList<IReceiptEntry> getReceiptEntries() {
+		return _receiptEntries;
 	}
-
 
 	public IRevisionId getShopId(){
 		return getAddress().getRevisionID();
-	}
-
-	public void setShopId(IRevisionId shopId){
-		// TODO
 	}
 
 	@Override
@@ -90,13 +98,13 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	@Override
-	public void setUser(User user) {
-		_user = user;
+	public void setAddress(IAddress address) {
+		_address=address;
 	}
 
 	@Override
-	public ArrayList<IReceiptEntry> getReceiptEntries() {
-		return _receiptEntries;
+	public void setDate(Date date) {
+		_date = date;
 	}
 
 	@Override
@@ -105,26 +113,21 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		_receiptEntries.addAll(receiptEntries);
 	}
 
-
-
-
-
-
-	@Override
-	public IAddress getAddress() {
-		return _address;
+	public void setShopId(IRevisionId shopId){
+		// TODO
 	}
 
 	@Override
-	public void setAddress(IAddress address) {
-		_address=address;
+	public void setUser(User user) {
+		_user = user;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
-	public void addReceiptEntriy(IReceiptEntry receiptEntry) {
-		receiptEntry.setReceipt(this);
-		_receiptEntries.add(receiptEntry);
-
+	public String toString() {
+		return "Receipt [_date=" + _date + ", _address=" + _address + "]";
 	}
 
 
