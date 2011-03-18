@@ -17,6 +17,8 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
+import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
+import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
 import org.tagaprice.core.entities.Unit;
@@ -25,12 +27,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceiptService {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3420788026998858664L;
 
 	ProductServiceImpl productImpl = new ProductServiceImpl();
+	ShopServiceImpl shopImple = new ShopServiceImpl();
+	Random random = new Random(44646776);
+	int productIdCounter = 1;
+	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 
 	public ReceiptServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -38,8 +42,26 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	@Override
 	public IReceipt saveReceipt(IReceipt receipt) {
-		// TODO Auto-generated method stub
-		return null;
+
+		logger.log("Receipt saved: "+receipt);
+
+		//Create or update Receipt
+		if(receipt.getRevisionId()==null)receipt.setRevisionId(new RevisionId(productIdCounter++, 1));
+		else receipt.getRevisionId().setRevision(receipt.getRevisionId().getRevision()+1);
+
+
+		//create or update Shop
+		//shopImple.saveShop(shop)
+
+		//Create or update address
+
+
+		//create or update Product
+
+
+		//create or update Package
+
+		return receipt;
 	}
 
 	@Override

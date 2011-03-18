@@ -158,7 +158,22 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_receipt.setDate(_createReceiptView.getDate());
 		_receipt.setAddress(_createReceiptView.getAddress());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
-		CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
+
+
+
+		_clientFactory.getReceiptService().saveReceipt(_receipt, new AsyncCallback<IReceipt>() {
+
+			@Override
+			public void onSuccess(IReceipt response) {
+				CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				CreateReceiptActivity._logger.log("ERROR at saving a Receipt");
+			}
+		});
 
 	}
 

@@ -14,9 +14,7 @@ import org.tagaprice.core.api.UserNotLoggedInException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -4954618872880443049L;
 	MyLogger _logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 

@@ -22,9 +22,6 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	HashMap<IRevisionId, IPackage> packageAllRevisions = new HashMap<IRevisionId, IPackage>();
 	ArrayList<ICategory> categories = new ArrayList<ICategory>();
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5070553288173843014L;
 
 	/**
