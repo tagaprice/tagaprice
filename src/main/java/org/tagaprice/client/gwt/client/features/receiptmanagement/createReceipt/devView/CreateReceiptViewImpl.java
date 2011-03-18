@@ -72,14 +72,19 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	SimplePanel _searchMapArea;
 
 	@UiField
-	SimplePanel _newAddressArea;
+	VerticalPanel _newAddressArea;
+
+	@UiField
+	Button _saveButton;
 
 	AddressSelecter _addressSelecter;
+	IAddress _currAddress=null;
 
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
 		_searchMapArea.setWidget(_searchMap);
 		_searchMap.setSize("100%", "70px");
+		_saveButton.setEnabled(false);
 
 		//SearchShop
 		_shopSearch.addKeyPressHandler(new KeyPressHandler() {
@@ -143,18 +148,20 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public IAddress getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return _currAddress;
 	}
 
 	@Override
 	public void setAddress(IAddress address) {
+		_currAddress=address;
 		System.out.println("setAddress: "+address);
-		if(address==null)
+		if(_currAddress==null)
 			_shopHolder.clear();
 		else{
 			_searchMapArea.setVisible(false);
 			_shopSearch.setEnabled(false);
+			_newAddressArea.setVisible(false);
+			_saveButton.setEnabled(true);
 			_shopHolder.add(new Label(address.getShop().getTitle()+" "+address.getStreet()));
 			_shopHolder.add(new Button("-", new ClickHandler() {
 
@@ -162,6 +169,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				public void onClick(ClickEvent e) {
 					_searchMapArea.setVisible(true);
 					_shopSearch.setEnabled(true);
+					_saveButton.setEnabled(false);
 					_shopHolder.clear();
 
 				}
@@ -198,7 +206,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setShopSearchResults(ArrayList<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
-		for(IShop s:shopResults){
+		for(final IShop s:shopResults){
 			for(final IAddress a:s.getAddresses()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getStreet());
 
@@ -207,7 +215,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 					@Override
 					public void onClick(ClickEvent arg0) {
-						System.out.println("click");
 						setAddress(a);
 					}
 				});
@@ -219,9 +226,25 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 				@Override
 				public void onClick(ClickEvent arg0) {
+					_newAddressArea.clear();
+					_searchMapArea.setVisible(false);
+					_shopSearch.setEnabled(false);
 
 					if(_addressSelecter==null)_addressSelecter = new AddressSelecter();
-					_newAddressArea.setWidget(_addressSelecter);
+
+					_newAddressArea.add(new Label("Shop: "+s.getTitle()));
+					_newAddressArea.add(_addressSelecter);
+					_newAddressArea.add(new Button("Add Address", new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent e) {
+							IAddress ia= _addressSelecter.getAddress();
+							ia.setShop(s);
+							setAddress(ia);
+						}
+					}));
+					_newAddressArea.setVisible(true);
+
+
 
 				}
 			});
