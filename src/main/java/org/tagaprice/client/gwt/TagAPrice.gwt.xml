@@ -33,6 +33,10 @@
   	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IPackageSelecter" /> 
   </replace-with>
   
+  <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.MultipleAddressSelecter">
+  	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IMultipleAddressSelecter" /> 
+  </replace-with>
+  
   <replace-with class="org.tagaprice.client.gwt.client.generics.widgets.devView.AddressSelecter">
   	<when-type-is class="org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter" /> 
   </replace-with>

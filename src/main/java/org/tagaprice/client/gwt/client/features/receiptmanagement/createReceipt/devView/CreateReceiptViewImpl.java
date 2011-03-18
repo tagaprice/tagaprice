@@ -2,8 +2,8 @@ package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.gwt.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
@@ -16,17 +16,24 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.uibinder.client.*;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
@@ -50,7 +57,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	DatePicker _date;
 
 	@UiField
-	Label _shop;
+	HorizontalPanel _shopHolder;
 
 	@UiField
 	TextBox _shopSearch;
@@ -64,11 +71,15 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@UiField
 	SimplePanel _searchMapArea;
 
+	@UiField
+	SimplePanel _newAddressArea;
+
+	AddressSelecter _addressSelecter;
+
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
 		_searchMapArea.setWidget(_searchMap);
 		_searchMap.setSize("100%", "70px");
-
 
 		//SearchShop
 		_shopSearch.addKeyPressHandler(new KeyPressHandler() {
@@ -100,6 +111,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		DOM.setStyleAttribute(_productSearchSuggestPop.getElement(), "zIndex", "100000");
 
 
+		//_newAddressArea.setWidget(_addressSelecter);
 	}
 
 	@Override
@@ -139,9 +151,21 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setAddress(IAddress address) {
 		System.out.println("setAddress: "+address);
 		if(address==null)
-			_shop.setText("");
+			_shopHolder.clear();
 		else{
-			_shop.setText(address.getShop().getTitle()+" "+address.getStreet());
+			_searchMapArea.setVisible(false);
+			_shopSearch.setEnabled(false);
+			_shopHolder.add(new Label(address.getShop().getTitle()+" "+address.getStreet()));
+			_shopHolder.add(new Button("-", new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent e) {
+					_searchMapArea.setVisible(true);
+					_shopSearch.setEnabled(true);
+					_shopHolder.clear();
+
+				}
+			}));
 			_shopSearchSuggestPop.hide();
 		}
 
@@ -190,9 +214,23 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				_shopSearchSuggestVePa.add(foundAddress);
 			}
 
-			_shopSearchSuggestVePa.add(new Label(s.getTitle()));
+			Label createNewAddress = new Label(s.getTitle()+" (Add Address)");
+			createNewAddress.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent arg0) {
+
+					if(_addressSelecter==null)_addressSelecter = new AddressSelecter();
+					_newAddressArea.setWidget(_addressSelecter);
+
+				}
+			});
+			_shopSearchSuggestVePa.add(createNewAddress);
+
+
 			CreateReceiptViewImpl._logger.log("shopSearchResult: "+s.getTitle());
 		}
+
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
 
 		//_shopSearchSuggestPop.setPopupPosition( _shopSearch.getAbsoluteLeft()+300,_shopSearch.getAbsoluteTop());

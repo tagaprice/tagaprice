@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
-import org.tagaprice.client.gwt.client.generics.widgets.AddressSelecter;
+import org.tagaprice.client.gwt.client.generics.widgets.MultipleAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
@@ -30,7 +30,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	TextBox _name;
 
 	@UiField
-	AddressSelecter _addresses;
+	MultipleAddressSelecter _addresses;
 
 	@UiField
 	Button _saveButton;

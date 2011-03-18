@@ -29,7 +29,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<my:AddressSelecter ui:field="_addresses"></my:AddressSelecter>
+							<my:MultipleAddressSelecter ui:field="_addresses"></my:MultipleAddressSelecter>
 						</td>
 					</tr>				
 					<tr>

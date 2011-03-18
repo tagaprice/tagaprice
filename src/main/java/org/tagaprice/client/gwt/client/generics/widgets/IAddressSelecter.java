@@ -1,22 +1,19 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
-import java.util.ArrayList;
-
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
-
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IAddressSelecter extends IsWidget {
 
 	/**
-	 * Set some {@link IAddress} to the {@link IAddressSeleter}
-	 * @param address that will be added to the {@link IAddressSeleter}
+	 * Set an address
+	 * @param address
 	 */
-	public void setAddresses(ArrayList<IAddress> address);
+	public void setAddress(IAddress address);
 
 	/**
-	 * Returns all {@link IAddress} includes in the {@link IAddressSeleter}
-	 * @return all {@link IAddress} includes in the {@link IAddressSeleter}
+	 * Return the selected {@link IAddress}
+	 * @return the selected {@link IAddress}
 	 */
-	public ArrayList<IAddress> getAddresses();
+	public IAddress getAddress();
 }

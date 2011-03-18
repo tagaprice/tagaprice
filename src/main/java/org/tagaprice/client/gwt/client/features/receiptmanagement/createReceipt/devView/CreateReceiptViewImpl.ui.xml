@@ -42,11 +42,16 @@
 					</tr>
 					<tr>
 						<td colspan="2">
+							<g:SimplePanel ui:field="_newAddressArea"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
 							
 							<table>
 							<tr>
 								<td>
-									<g:Label ui:field="_shop"></g:Label>
+									<g:HorizontalPanel ui:field="_shopHolder"/>
 								</td>
 							</tr>
 							</table>
