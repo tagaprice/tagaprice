@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.shared.entities;
 
 import java.util.Date;
 
-import org.tagaprice.client.gwt.shared.entities.dump.IUser;
+import org.tagaprice.client.gwt.shared.entities.accountmanagement.IUser;
 
 /**
  * A {@link RevisionId} is used to

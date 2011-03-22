@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.shared.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.tagaprice.client.gwt.shared.entities.dump.IUser;
+import org.tagaprice.client.gwt.shared.entities.accountmanagement.IUser;
 
 /**
  * This interface is used to set an unique Id and revision for an {@link AEntity}. And to FIND an {@link AEntity}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.dump.User;
+import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
 
 /**
