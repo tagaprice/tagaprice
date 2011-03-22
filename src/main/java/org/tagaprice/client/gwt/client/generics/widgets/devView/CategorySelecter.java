@@ -14,10 +14,10 @@ import com.google.gwt.user.client.ui.ListBox;
  * 
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
-	MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
+	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
-	ListBox _listBoxCategories = new ListBox();
-	ArrayList<ICategory> _availableCategories = new ArrayList<ICategory>();
+	private ListBox _listBoxCategories = new ListBox();
+	private ArrayList<ICategory> _availableCategories = new ArrayList<ICategory>();
 
 	public CategorySelecter() {
 		initWidget(_listBoxCategories);

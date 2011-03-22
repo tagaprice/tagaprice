@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
 
-	ICategorySelecter categorySelecter = GWT.create(ICategorySelecter.class);
+	private ICategorySelecter categorySelecter = GWT.create(ICategorySelecter.class);
 
 	public CategorySelecter() {
 		//categorySelecter = GWT.create(ICategorySelecter.class);

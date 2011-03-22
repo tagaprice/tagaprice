@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
+import org.tagaprice.client.gwt.client.generics.widgets.CountrySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
@@ -30,7 +31,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	TextBox _street = new TextBox();
 	TextBox _zip = new TextBox();
 	TextBox _city = new TextBox();
-	TextBox _country = new TextBox();
+	//TextBox _country = new TextBox();
+	CountrySelecter _country = new CountrySelecter();
 	Label _lat = new Label();
 	Label _lng = new Label();
 	Geocoder coder = new Geocoder();
@@ -87,7 +89,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 						_street.setText(locations.get(0).getStreet());
 						_zip.setText(locations.get(0).getPostalCode());
 						_city.setText(locations.get(0).getCity());
-						_country.setText(locations.get(0).getCountry());
+						_country.setCountry(Country.valueOf(locations.get(0).getCountry()));
+						//_country.setText(locations.get(0).getCountry());
 					}
 
 					@Override
@@ -106,7 +109,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_street.setText(_address.getStreet());
 		_zip.setText(_address.getZip());
 		_city.setText(_address.getCity());
-		_country.setText(""+_address.getCountry());
+		_country.setCountry(_address.getCountry());
 
 
 		setLatLng(LatLng.newInstance(_address.getLat(), _address.getLng()));
@@ -118,9 +121,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_address.setStreet(_street.getText());
 		_address.setZip(_zip.getText());
 		_address.setCity(_city.getText());
-		//TODO add function to country
-		//backAddr.setCountry(_country.getText());
-		_address.setCountry(Country.AT);
+		_address.setCountry(_country.getCountry());
 		_address.setLat(marker.getLatLng().getLatitude());
 		_address.setLng(marker.getLatLng().getLongitude());
 
