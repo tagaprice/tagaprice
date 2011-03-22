@@ -2,12 +2,12 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 import org.tagaprice.client.gwt.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.IUnitSelecter;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
-import org.tagaprice.core.entities.Unit;
 
 public class UnitSelecter extends Composite implements IUnitSelecter{
 

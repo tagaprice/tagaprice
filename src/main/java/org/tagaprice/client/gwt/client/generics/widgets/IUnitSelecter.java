@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
-import org.tagaprice.core.entities.Unit;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 
 import com.google.gwt.user.client.ui.IsWidget;
 

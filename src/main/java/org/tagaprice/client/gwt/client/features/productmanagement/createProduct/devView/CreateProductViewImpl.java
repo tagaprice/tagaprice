@@ -8,9 +8,9 @@ import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.UnitSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
-import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

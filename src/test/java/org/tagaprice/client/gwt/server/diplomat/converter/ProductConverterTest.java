@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.server.diplomat.converter;
 
 import org.junit.*;
 import org.tagaprice.client.gwt.server.diplomat.converter.ProductConverter;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.core.entities.*;

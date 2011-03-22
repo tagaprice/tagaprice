@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
@@ -21,7 +22,6 @@ import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
-import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

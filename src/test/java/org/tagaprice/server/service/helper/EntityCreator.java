@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.BasicReceipt;
 import org.tagaprice.core.entities.BasicShop;
@@ -16,7 +17,6 @@ import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
-import org.tagaprice.core.entities.Unit;
 import org.tagaprice.server.dao.helper.HibernateSaveEntityCreator;
 
 /**

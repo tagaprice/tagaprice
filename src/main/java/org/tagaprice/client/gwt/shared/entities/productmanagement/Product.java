@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.core.entities.Unit;
 
 /**
  * This class is used to send {@link Product} data from client to server and from server to client. It will also be used

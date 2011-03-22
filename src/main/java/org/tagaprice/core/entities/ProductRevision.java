@@ -19,6 +19,8 @@ import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.tagaprice.client.gwt.shared.entities.Unit;
+
 /**
  * <p>
  * This class represents a specific revision of a product. For every new revision of a product, such a

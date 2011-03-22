@@ -3,9 +3,9 @@ package org.tagaprice.client.gwt.client.features.productmanagement.createProduct
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
-import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;

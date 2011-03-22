@@ -3,4 +3,5 @@
   <inherits name='com.google.gwt.user.User'/>
 	<source path="entities" />
 	<source path="api" />
+	<inherits name="org.tagaprice.client.gwt.TagAPrice"/>
 </module>

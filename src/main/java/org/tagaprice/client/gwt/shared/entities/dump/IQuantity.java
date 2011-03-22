@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.shared.entities.dump;
 
 import java.io.Serializable;
 
-import org.tagaprice.core.entities.Unit;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 
 
 /**

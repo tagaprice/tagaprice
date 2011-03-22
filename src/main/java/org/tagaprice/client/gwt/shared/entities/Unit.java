@@ -1,4 +1,4 @@
-package org.tagaprice.core.entities;
+package org.tagaprice.client.gwt.shared.entities;
 /**
  * Represents Units and converts between them.
  * @author Martin

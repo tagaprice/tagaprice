@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.core.entities.BasicReceipt;
 import org.tagaprice.core.entities.BasicShop;
@@ -15,7 +16,6 @@ import org.tagaprice.core.entities.Receipt;
 import org.tagaprice.core.entities.ReceiptEntry;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.core.entities.Shop;
-import org.tagaprice.core.entities.Unit;
 
 /**
  * This class is used for testing purposes only.

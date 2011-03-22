@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.core.api.UserNotLoggedInException;
-import org.tagaprice.core.entities.Unit;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
