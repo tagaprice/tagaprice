@@ -16,6 +16,7 @@ public class CurrencySelecter extends Composite implements ICurrencySelecter {
 		for(Currency c:Currency.values()){
 			_listBoxCurrency.addItem(""+c.name(),""+c.name());
 		}
+
 	}
 
 	@Override

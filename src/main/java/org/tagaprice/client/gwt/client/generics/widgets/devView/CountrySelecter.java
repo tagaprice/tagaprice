@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
+import org.tagaprice.client.gwt.client.generics.ICO2Countries;
 import org.tagaprice.client.gwt.client.generics.widgets.ICountrySelecter;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import com.google.gwt.user.client.ui.Composite;
@@ -12,7 +13,7 @@ public class CountrySelecter extends Composite implements ICountrySelecter {
 		initWidget(_countryListBox);
 
 		for(Country c:Country.values())
-			_countryListBox.addItem(""+c.name(), ""+c.name());
+			_countryListBox.addItem(ICO2Countries.ICO2_COUNTRIES.getString(""+c.name()), ""+c.name());
 	}
 
 	@Override
