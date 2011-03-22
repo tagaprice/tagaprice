@@ -120,7 +120,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_address.setCity(_city.getText());
 		//TODO add function to country
 		//backAddr.setCountry(_country.getText());
-		_address.setCountry(Country.at);
+		_address.setCountry(Country.AT);
 		_address.setLat(marker.getLatLng().getLatitude());
 		_address.setLng(marker.getLatLng().getLongitude());
 
