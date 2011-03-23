@@ -2,13 +2,21 @@ package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.gwt.client.generics.I18N;
+import org.tagaprice.client.gwt.client.generics.events.AddressChangedEvent;
+import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxEventHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
+import org.tagaprice.client.gwt.shared.entities.Address;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.logging.*;
 
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.core.client.*;
 import com.google.gwt.dom.client.Style.Unit;
@@ -44,8 +52,8 @@ public class TagAPrice implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		TagAPrice.logger.log("EntryPoint startet");
-		ClientFactory clientFactory = GWT.create(ClientFactory.class);
-		EventBus eventBus = clientFactory.getEventBus();
+		final ClientFactory clientFactory = GWT.create(ClientFactory.class);
+		final EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		//LAYOUT
@@ -176,12 +184,6 @@ public class TagAPrice implements EntryPoint {
 		//INfo test
 		//TODO Find out why setWidth(100%) is not working
 		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Success", INFOTYPE.SUCCESS));
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Info", INFOTYPE.INFO, 4000));
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Error", INFOTYPE.ERROR, 5000));
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Success", INFOTYPE.SUCCESS, 0));
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Info", INFOTYPE.INFO, 0));
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Error", INFOTYPE.ERROR, 0));
 
 
 		eventBus.addHandler(InfoBoxEvent.TYPE, new InfoBoxEventHandler() {
@@ -190,6 +192,42 @@ public class TagAPrice implements EntryPoint {
 				_infoBox.addInfoBoxEvent(event);
 			}
 		});
+
+
+		//AddressChangeHandler
+		eventBus.addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
+
+			@Override
+			public void onAddressChanged(AddressChangedEvent event) {
+				clientFactory.setAddress(event.getAddress());
+
+				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Address Updated", INFOTYPE.SUCCESS));
+			}
+		});
+
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Try to update address", INFOTYPE.INFO));
+		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
+
+			@Override
+			public void onSuccess(Position position) {
+
+
+				eventBus.fireEvent(new AddressChangedEvent(new Address(
+						"pregarten",
+						Country.AT,
+						position.getCoords().getLatitude(),
+						position.getCoords().getLongitude(),
+						"reichenstein 22",
+				"4230")));
+			}
+
+			@Override
+			public void onFailure(PositionError error) {
+				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+
+			}
+		});
+
 	}
 
 }
