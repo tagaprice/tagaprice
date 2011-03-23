@@ -23,6 +23,7 @@ public class TagAPrice implements EntryPoint {
 	private static MyLogger logger = LoggerFactory
 	.getLogger(TagAPrice.class);
 
+	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private Place defaultPlace = new ListProductsPlace("");
 	private HorizontalPanel topPanel = new HorizontalPanel();
 	private VerticalPanel leftPanel = new VerticalPanel();
@@ -160,6 +161,9 @@ public class TagAPrice implements EntryPoint {
 
 		RootLayoutPanel.get().add(completeScreen);
 		historyHandler.handleCurrentHistory();
+
+		//Add InfoBox Popup
+		_infoBoxPopUp.show();
 
 	}
 
