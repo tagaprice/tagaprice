@@ -113,5 +113,15 @@ public class Address implements Serializable {
 		_zip = zip;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
+		+ ", _street=" + _street + ", _zip=" + _zip + "]";
+	}
+
+
 
 }

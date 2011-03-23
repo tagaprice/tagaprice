@@ -23,6 +23,10 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LocationCallback;
+import com.google.gwt.maps.client.geocode.Placemark;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
@@ -45,6 +49,10 @@ public class TagAPrice implements EntryPoint {
 
 	final private NotificationMole mole = new NotificationMole();
 
+	private ClientFactory clientFactory;
+	private EventBus eventBus;
+	private Geocoder goecoder = new Geocoder();
+
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
 	 * For now, we have one display-area.
@@ -52,8 +60,8 @@ public class TagAPrice implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		TagAPrice.logger.log("EntryPoint startet");
-		final ClientFactory clientFactory = GWT.create(ClientFactory.class);
-		final EventBus eventBus = clientFactory.getEventBus();
+		clientFactory = GWT.create(ClientFactory.class);
+		eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		//LAYOUT
@@ -71,6 +79,15 @@ public class TagAPrice implements EntryPoint {
 		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
 
 		/******************** Product Links *****************/
+		this.leftPanel.add(new Button("Locate", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				locateMe();
+			}
+		}));
+
+
 		this.leftPanel.add(new HTML("<hr />"));
 		Label createProduct = new Label("Create Product");
 		createProduct.addClickHandler(new ClickHandler() {@Override
@@ -201,10 +218,17 @@ public class TagAPrice implements EntryPoint {
 			public void onAddressChanged(AddressChangedEvent event) {
 				clientFactory.setAddress(event.getAddress());
 
-				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Address Updated", INFOTYPE.SUCCESS));
+				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Address Updated: "+event.getAddress(), INFOTYPE.SUCCESS));
 			}
 		});
 
+		locateMe();
+
+
+
+	}
+
+	private void locateMe(){
 		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Try to update address", INFOTYPE.INFO));
 		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 
@@ -212,13 +236,38 @@ public class TagAPrice implements EntryPoint {
 			public void onSuccess(Position position) {
 
 
-				eventBus.fireEvent(new AddressChangedEvent(new Address(
-						"pregarten",
-						Country.AT,
+
+				goecoder.getLocations(LatLng.newInstance(
 						position.getCoords().getLatitude(),
-						position.getCoords().getLongitude(),
-						"reichenstein 22",
-				"4230")));
+						position.getCoords().getLongitude()),
+						new LocationCallback() {
+
+					@Override
+					public void onSuccess(JsArray<Placemark> locations) {
+						if(locations.length()>0){
+
+
+							eventBus.fireEvent(new AddressChangedEvent(new Address(
+									locations.get(0).getCity(),
+									Country.valueOf(locations.get(0).getCountry()),
+									locations.get(0).getPoint().getLatitude(),
+									locations.get(0).getPoint().getLongitude(),
+									locations.get(0).getStreet(),
+									locations.get(0).getPostalCode())));
+						}else{
+							_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+						}
+
+					}
+
+					@Override
+					public void onFailure(int statusCode) {
+						_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+
+					}
+				});
+
+
 			}
 
 			@Override
@@ -227,7 +276,6 @@ public class TagAPrice implements EntryPoint {
 
 			}
 		});
-
 	}
 
 }
