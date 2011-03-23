@@ -28,14 +28,14 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 
 		//Create address for Shop(bills)
-		ArrayList<IAddress> al1 = new ArrayList<IAddress>();
+		ArrayList<ISubsidiary> al1 = new ArrayList<ISubsidiary>();
 		IRevisionId r45665 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r45665.getId(), r45665);
-		al1.add(new Address(new RevisionId(random.nextLong(), 1), "Blumauergasse 1B", "1020", "Vienna", Country.AT, 48.21906856732104, 16.38164520263672));
+		al1.add(new Subsidiary(new RevisionId(random.nextLong(), 1), "Blumauergasse 1B", "1020", "Vienna", Country.AT, 48.21906856732104, 16.38164520263672));
 
 		IRevisionId r1598 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r1598.getId(), r1598);
-		IAddress a1 = new Address(new RevisionId(random.nextLong(), 1), "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
+		ISubsidiary a1 = new Subsidiary(new RevisionId(random.nextLong(), 1), "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
 		al1.add(a1);
 
 		//Create some Shop
@@ -48,10 +48,10 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 		//2 shop
 		//Create address for Shop(bills)
-		ArrayList<IAddress> al2 = new ArrayList<IAddress>();
+		ArrayList<ISubsidiary> al2 = new ArrayList<ISubsidiary>();
 		IRevisionId r798654 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r798654.getId(), r798654);
-		al2.add(new Address(r798654, "Schüttelstraße 19A", "1020", "Vienna", Country.AT, 48.21048970218907, 16.396751403808594));
+		al2.add(new Subsidiary(r798654, "Schüttelstraße 19A", "1020", "Vienna", Country.AT, 48.21048970218907, 16.396751403808594));
 
 		//Create some Shop
 		IRevisionId r8998 = new RevisionId(random.nextLong(), 1);
@@ -105,7 +105,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		if(shop.getRevisionId() == null || shop.getRevisionId().getId()==0L){
 			_logger.log("new Shop");
 
-			for(IAddress ia:shop.getAddresses()){
+			for(ISubsidiary ia:shop.getAddresses()){
 				IRevisionId rt = new RevisionId(random.nextLong(), 1);
 				ia.setRevisionId(rt);
 				newestRev.put(rt.getId(), rt);
@@ -138,7 +138,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 				shopsAllRevisions.put(updateShop.getRevisionId(), updateShop);
 				newestRev.put(updateShop.getRevisionId().getId(), nr);
 
-				for(IAddress ta:updateShop.getAddresses()){
+				for(ISubsidiary ta:updateShop.getAddresses()){
 					_logger.log("addr: "+ta.toString());
 
 
@@ -165,13 +165,13 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IAddress getAddress(IRevisionId revisionId) {
+	public ISubsidiary getAddress(IRevisionId revisionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IAddress saveAddress(IAddress address) throws UserNotLoggedInException {
+	public ISubsidiary saveAddress(ISubsidiary address) throws UserNotLoggedInException {
 		// TODO Auto-generated method stub
 		return null;
 	}

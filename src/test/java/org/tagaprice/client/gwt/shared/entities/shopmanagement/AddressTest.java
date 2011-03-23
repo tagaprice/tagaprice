@@ -16,13 +16,13 @@ public class AddressTest extends TestCase {
 	Country _country = Country.at;
 	double _lat = 12.34;
 	double _lng = 56.78;
-	IAddress testAddress;
+	ISubsidiary testAddress;
 	IRevisionId _revisionId = new RevisionId(1L, 2);
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		testAddress = new Address(_revisionId, _street,_zip,_city,_country,_lat,_lng);
+		testAddress = new Subsidiary(_revisionId, _street,_zip,_city,_country,_lat,_lng);
 	}
 
 

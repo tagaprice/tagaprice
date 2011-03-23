@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchService;
 
@@ -29,7 +29,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	}
 
 	@Override
-	public ArrayList<IProduct> searchProduct(String searchString, IAddress shop) {
+	public ArrayList<IProduct> searchProduct(String searchString, ISubsidiary shop) {
 
 		//Returns all shops
 		IProduct _dumpProduc = new Product();

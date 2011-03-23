@@ -14,7 +14,7 @@ public interface IShop extends IEntity<IShop> {
 	 * @param addresses
 	 *            that will be set to the {@link IShop}
 	 */
-	public void setAddresses(ArrayList<IAddress> addresses);
+	public void setAddresses(ArrayList<ISubsidiary> addresses);
 
 	/**
 	 * Add one new {@link IAddress} to this {@link IShop}. The setShop() method is called for every {@link IAddress} and
@@ -23,13 +23,13 @@ public interface IShop extends IEntity<IShop> {
 	 * @param address
 	 *            that will be added to the {@link IShop}
 	 */
-	public void addAddress(IAddress address);
+	public void addAddress(ISubsidiary address);
 
 	/**
 	 * Returns all {@link IAddress}es
 	 * 
 	 * @return all {@link IAddress}es
 	 */
-	public ArrayList<IAddress> getAddresses();
+	public ArrayList<ISubsidiary> getAddresses();
 
 }

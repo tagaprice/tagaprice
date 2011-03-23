@@ -3,8 +3,8 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 import org.tagaprice.client.gwt.client.generics.widgets.CountrySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapWidget;
@@ -36,7 +36,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	Label _lat = new Label();
 	Label _lng = new Label();
 	Geocoder coder = new Geocoder();
-	IAddress _address;
+	ISubsidiary _address;
 
 	MarkerOptions _mOptions = MarkerOptions.newInstance();
 	Marker marker;
@@ -104,7 +104,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public void setAddress(IAddress address){
+	public void setAddress(ISubsidiary address){
 		_address=address;
 		_street.setText(_address.getStreet());
 		_zip.setText(_address.getZip());
@@ -116,8 +116,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public IAddress getAddress(){
-		if(_address==null)_address = new Address();
+	public ISubsidiary getAddress(){
+		if(_address==null)_address = new Subsidiary();
 		_address.setStreet(_street.getText());
 		_address.setZip(_zip.getText());
 		_address.setCity(_city.getText());

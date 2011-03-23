@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -56,17 +56,17 @@ public interface ICreateShopView<T> extends IsWidget {
 	 * Set some {@link IAddress} to the Shop. All include products will be deleted.
 	 * @param addresses that will be set to the shop
 	 */
-	public void setAddresses(ArrayList<IAddress> addresses);
+	public void setAddresses(ArrayList<ISubsidiary> addresses);
 
 	/**
 	 * Add one new {@link IAddress} to this shop
 	 * @param address that will be added to the shop
 	 */
-	public void addAddress(IAddress address);
+	public void addAddress(ISubsidiary address);
 
 	/**
 	 * Returns all {@link IAddress}es
 	 * @return  all {@link IAddress}es
 	 */
-	public ArrayList<IAddress> getAddresses();
+	public ArrayList<ISubsidiary> getAddresses();
 }

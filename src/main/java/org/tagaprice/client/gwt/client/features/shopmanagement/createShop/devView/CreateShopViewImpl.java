@@ -6,7 +6,7 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreat
 import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
 import org.tagaprice.client.gwt.client.generics.widgets.MultipleAddressSelecter;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -100,18 +100,18 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 
 	@Override
-	public void setAddresses(ArrayList<IAddress> addresses) {
+	public void setAddresses(ArrayList<ISubsidiary> addresses) {
 		_addresses.setAddresses(addresses);
 	}
 
 	@Override
-	public void addAddress(IAddress address) {
+	public void addAddress(ISubsidiary address) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public ArrayList<IAddress> getAddresses() {
+	public ArrayList<ISubsidiary> getAddresses() {
 		return _addresses.getAddresses();
 	}
 }

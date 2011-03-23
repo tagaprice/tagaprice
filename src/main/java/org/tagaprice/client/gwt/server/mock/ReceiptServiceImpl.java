@@ -14,8 +14,8 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Address;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
@@ -70,7 +70,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		Random random = new Random(1654196865);
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
-		IAddress tempAddres = new Address(r2, "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
+		ISubsidiary tempAddres = new Subsidiary(r2, "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 

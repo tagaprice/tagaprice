@@ -9,6 +9,7 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreat
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.client.gwt.shared.rpc.categorymanagement.ICategoryServiceAsync;
@@ -105,5 +106,15 @@ public interface ClientFactory {
 	ICreateReceiptView getCreateReceiptView();
 
 
-	/****************** WIDGETS ***********************/
+	/****************** GlobalAddress ***********************/
+	/**
+	 * Returns global Address
+	 */
+	ISubsidiary getAddress();
+
+	/**
+	 * Set Global Address
+	 * @param address setGlobalAddress
+	 */
+	public void setAddress(ISubsidiary address);
 }

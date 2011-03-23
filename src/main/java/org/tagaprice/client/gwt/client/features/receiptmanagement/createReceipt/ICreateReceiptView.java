@@ -6,7 +6,7 @@ import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 
 import com.google.gwt.place.shared.Place;
@@ -30,9 +30,9 @@ public interface ICreateReceiptView extends IsWidget{
 
 	public void setDate(Date date);
 
-	public IAddress getAddress();
+	public ISubsidiary getAddress();
 
-	public void setAddress(IAddress address);
+	public void setAddress(ISubsidiary address);
 
 	public BoundingBox getBoundingBox();
 

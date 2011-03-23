@@ -2,7 +2,7 @@ package org.tagaprice.client.gwt.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
@@ -16,12 +16,12 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 	}
 
 	@Override
-	public void setAddresses(ArrayList<IAddress> address) {
+	public void setAddresses(ArrayList<ISubsidiary> address) {
 		addressSeleter.setAddresses(address);
 	}
 
 	@Override
-	public ArrayList<IAddress> getAddresses() {
+	public ArrayList<ISubsidiary> getAddresses() {
 		return addressSeleter.getAddresses();
 	}
 

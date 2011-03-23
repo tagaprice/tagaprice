@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.IEntity;
 import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 
 
@@ -14,9 +14,9 @@ public interface IReceipt extends IEntity<IReceipt> {
 
 	public void setDate(Date date);
 
-	public IAddress getAddress();
+	public ISubsidiary getAddress();
 
-	public void setAddress(IAddress address);
+	public void setAddress(ISubsidiary address);
 
 	public User getUser();
 

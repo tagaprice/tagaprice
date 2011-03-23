@@ -16,6 +16,7 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListSho
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
@@ -68,6 +69,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final IProductServiceAsync I_PRODUCT_SERVICE_ASYNC = GWT.create(IProductService.class);
 	private static final ICategoryServiceAsync I_CATEGORY_SERVICE_ASYNC = GWT.create(ICategoryService.class);
 	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
+
+	//private static final IAddress I_ADDRESS = new Address();
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -155,6 +158,18 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ISearchServiceAsync getSearchService() {
 		// TODO Auto-generated method stub
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
+	}
+
+	@Override
+	public ISubsidiary getAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAddress(ISubsidiary address) {
+		// TODO Auto-generated method stub
+
 	}
 
 

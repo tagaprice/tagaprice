@@ -4,7 +4,7 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
 
-public class Address implements IAddress {
+public class Subsidiary implements ISubsidiary {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class Address implements IAddress {
 	private String _zip;
 	private IShop _shop;
 
-	public Address() {
+	public Subsidiary() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -34,7 +34,7 @@ public class Address implements IAddress {
 	 * @param lat
 	 * @param lng
 	 */
-	public Address(IRevisionId revisionId, String street, String zip, String city, Country country, double lat, double lng) {
+	public Subsidiary(IRevisionId revisionId, String street, String zip, String city, Country country, double lat, double lng) {
 		this(street, zip, city, country, lat, lng);
 		setRevisionId(revisionId);
 
@@ -50,7 +50,7 @@ public class Address implements IAddress {
 	 * @param lat
 	 * @param lng
 	 */
-	public Address(String street, String zip, String city, Country country, double lat, double lng) {
+	public Subsidiary(String street, String zip, String city, Country country, double lat, double lng) {
 		setStreet(street);
 		setZip(zip);
 		setCity(city);

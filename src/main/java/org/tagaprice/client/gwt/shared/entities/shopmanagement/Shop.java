@@ -7,7 +7,7 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 
 public class Shop extends AEntity<IShop> implements IShop {
 
-	private ArrayList<IAddress> _addresses = new ArrayList<IAddress>();
+	private ArrayList<ISubsidiary> _addresses = new ArrayList<ISubsidiary>();
 
 	/**
 	 * 
@@ -38,10 +38,10 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 
 	@Override
-	public void setAddresses(ArrayList<IAddress> addresses) {
+	public void setAddresses(ArrayList<ISubsidiary> addresses) {
 		_addresses.clear();
 
-		for(IAddress ad: addresses){
+		for(ISubsidiary ad: addresses){
 			ad.setShop(this);
 			_addresses.add(ad);
 		}
@@ -51,7 +51,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 
 	@Override
-	public void addAddress(IAddress address) {
+	public void addAddress(ISubsidiary address) {
 		address.setShop(this);
 		_addresses.add(address);
 	}
@@ -59,7 +59,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 
 	@Override
-	public ArrayList<IAddress> getAddresses() {
+	public ArrayList<ISubsidiary> getAddresses() {
 		return _addresses;
 	}
 
@@ -68,7 +68,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 		StringBuffer toStringBuffer = new StringBuffer();
 		toStringBuffer.append(super.toString());
 
-		for(IAddress ia:_addresses){
+		for(ISubsidiary ia:_addresses){
 			toStringBuffer.append(ia.toString());
 		}
 

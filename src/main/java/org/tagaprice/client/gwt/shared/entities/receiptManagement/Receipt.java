@@ -5,7 +5,7 @@ import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 /**
  * A single Receipt
@@ -22,7 +22,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
 	private static final long serialVersionUID = -1411130663050015079L;
 
-	private IAddress _address;
+	private ISubsidiary _address;
 	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
 	private User _user;
@@ -40,7 +40,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param address the shop-address
 	 * @param receiptEntries all entries plus price
 	 */
-	public Receipt(String title, Date date, IAddress address) {
+	public Receipt(String title, Date date, ISubsidiary address) {
 		setTitle(title);
 		setDate(date);
 		setAddress(address);
@@ -57,7 +57,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(String title, Long id, Date date, IAddress address, User user) {
+	public Receipt(String title, Long id, Date date, ISubsidiary address, User user) {
 		setTitle(title);
 		setDate(date);
 		setAddress(address);
@@ -73,7 +73,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	@Override
-	public IAddress getAddress() {
+	public ISubsidiary getAddress() {
 		return _address;
 	}
 
@@ -98,7 +98,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	@Override
-	public void setAddress(IAddress address) {
+	public void setAddress(ISubsidiary address) {
 		_address=address;
 	}
 

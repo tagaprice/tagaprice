@@ -9,7 +9,7 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
  * An Address defines the position where a IShop can be.
  *
  */
-public interface IAddress extends Serializable {
+public interface ISubsidiary extends Serializable {
 
 	public void setRevisionId(IRevisionId revisionId);
 

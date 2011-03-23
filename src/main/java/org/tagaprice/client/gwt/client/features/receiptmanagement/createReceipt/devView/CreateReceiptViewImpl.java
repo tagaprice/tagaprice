@@ -14,7 +14,7 @@ import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IAddress;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
@@ -81,7 +81,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	Button _saveButton;
 
 	AddressSelecter _addressSelecter;
-	IAddress _currAddress=null;
+	ISubsidiary _currAddress=null;
 
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
@@ -155,12 +155,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public IAddress getAddress() {
+	public ISubsidiary getAddress() {
 		return _currAddress;
 	}
 
 	@Override
-	public void setAddress(IAddress address) {
+	public void setAddress(ISubsidiary address) {
 		_currAddress=address;
 		System.out.println("setAddress: "+address);
 		if(_currAddress==null)
@@ -215,7 +215,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShopSearchResults(ArrayList<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
-			for(final IAddress a:s.getAddresses()){
+			for(final ISubsidiary a:s.getAddresses()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getStreet());
 
 
@@ -245,7 +245,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_newAddressArea.add(new Button("Add Address", new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent e) {
-							IAddress ia= _addressSelecter.getAddress();
+							ISubsidiary ia= _addressSelecter.getAddress();
 							ia.setShop(s);
 							setAddress(ia);
 						}
