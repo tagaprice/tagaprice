@@ -14,9 +14,9 @@ import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreat
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView.*;
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginServiceAsync;
@@ -57,20 +57,17 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final CreateShopViewImpl<IReceiptEntry> createShopview = new CreateShopViewImpl<IReceiptEntry>();
 	private static final ListShopsViewImpl<IShop> listShopsView = new ListShopsViewImpl<IShop>();
 	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
-
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
-
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
-
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
 	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
 	private static final IProductServiceAsync I_PRODUCT_SERVICE_ASYNC = GWT.create(IProductService.class);
 	private static final ICategoryServiceAsync I_CATEGORY_SERVICE_ASYNC = GWT.create(ICategoryService.class);
 	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 
-	//private static final IAddress I_ADDRESS = new Address();
+	private static Address I_ADDRESS;
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -161,15 +158,20 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ISubsidiary getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+	public Address getAddress() {
+		return ClientFactoryImpl.I_ADDRESS;
 	}
 
 	@Override
-	public void setAddress(ISubsidiary address) {
-		// TODO Auto-generated method stub
+	public void setAddress(Address address) {
+		if(ClientFactoryImpl.I_ADDRESS==null)ClientFactoryImpl.I_ADDRESS=new Address();
 
+		ClientFactoryImpl.I_ADDRESS.setStreet(address.getStreet());
+		ClientFactoryImpl.I_ADDRESS.setCity(address.getCity());
+		ClientFactoryImpl.I_ADDRESS.setCountry(address.getCountry());
+		ClientFactoryImpl.I_ADDRESS.setZip(address.getZip());
+		ClientFactoryImpl.I_ADDRESS.setLat(address.getLat());
+		ClientFactoryImpl.I_ADDRESS.setLng(address.getLng());
 	}
 
 
