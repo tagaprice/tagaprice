@@ -35,3 +35,24 @@ body {
 .FlexTable-Header {
 	background-color: #A794E3;
 }
+
+.Success{
+	background-color: #beffb5;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+}
+
+.Info{
+	background-color: #b5daff;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+  	margin-top: 2px;
+  	margin-bottom: 2px;
+}
+
+.Error{	
+	background-color: #ff676e;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+  	
+}

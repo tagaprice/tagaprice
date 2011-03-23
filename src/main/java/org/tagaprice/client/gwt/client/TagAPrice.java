@@ -2,6 +2,10 @@ package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.gwt.client.generics.I18N;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent.INFOTYPE;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxEventHandler;
+import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
 import org.tagaprice.client.gwt.shared.logging.*;
 
@@ -13,6 +17,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 /**
  * GWT STARTPOINT - This is the class with the EntryPoint.
@@ -28,6 +33,7 @@ public class TagAPrice implements EntryPoint {
 	private HorizontalPanel topPanel = new HorizontalPanel();
 	private VerticalPanel leftPanel = new VerticalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
+	private InfoBox _infoBox = new InfoBox();
 
 	final private NotificationMole mole = new NotificationMole();
 
@@ -163,8 +169,27 @@ public class TagAPrice implements EntryPoint {
 		historyHandler.handleCurrentHistory();
 
 		//Add InfoBox Popup
+		_infoBoxPopUp.setWidget(_infoBox);
 		_infoBoxPopUp.show();
 
+
+		//INfo test
+		//TODO Find out why setWidth(100%) is not working
+		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Success", INFOTYPE.SUCCESS));
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Info", INFOTYPE.INFO, 4000));
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Error", INFOTYPE.ERROR, 5000));
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Success", INFOTYPE.SUCCESS, 0));
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Info", INFOTYPE.INFO, 0));
+		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Error", INFOTYPE.ERROR, 0));
+
+
+		eventBus.addHandler(InfoBoxEvent.TYPE, new InfoBoxEventHandler() {
+			@Override
+			public void onNewInfo(InfoBoxEvent event) {
+				_infoBox.addInfoBoxEvent(event);
+			}
+		});
 	}
 
 }

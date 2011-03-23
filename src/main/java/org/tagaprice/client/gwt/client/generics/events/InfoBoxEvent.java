@@ -10,6 +10,7 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 
 	public static Type<InfoBoxEventHandler> TYPE = new Type<InfoBoxEventHandler>();
 
+
 	public enum INFOTYPE {
 		SUCCESS, INFO, ERROR
 	};
@@ -19,8 +20,8 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 	private final int _autoCloseTime;
 
 	/**
-	 * Create an {@link InfoBoxEvent} that is handled by an {@link InfoBoxEventHandler}. The InfoBox will not be auto
-	 * closed.
+	 * Create an {@link InfoBoxEvent} that is handled by an {@link InfoBoxEventHandler}. The InfoBox will close after
+	 * 2000ml.
 	 * 
 	 * @param info
 	 *            The displayed text
@@ -28,7 +29,7 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 	 *            The INFOTYPE which should be displayed. 3 INFOTYPE (SUCCESS, INFO, ERROR)
 	 */
 	public InfoBoxEvent(String info, INFOTYPE type) {
-		this(info, type, 0);
+		this(info, type, 2000);
 	}
 
 
