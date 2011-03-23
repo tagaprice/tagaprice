@@ -1,22 +1,16 @@
 package org.tagaprice.client.gwt.shared.entities.shopmanagement;
 
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 
 
 public class Subsidiary implements ISubsidiary {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5821304030783727083L;
-	private String _city;
-	private Country _country;
-	private double _lat;
-	private double _lng;
+	private Address _address = new Address();
 	private IRevisionId _revisionId;
-	private String _street;
-	private String _zip;
 	private IShop _shop;
 
 	public Subsidiary() {
@@ -61,54 +55,54 @@ public class Subsidiary implements ISubsidiary {
 
 	@Override
 	public String getCity() {
-		return _city;
+		return _address.getCity();
 	}
 
 	@Override
 	public Country getCountry() {
-		return _country;
+		return _address.getCountry();
 	}
 
 	@Override
 	public double getLat() {
-		return _lat;
+		return _address.getLat();
 	}
 
 
 	@Override
 	public double getLng() {
-		return _lng;
+		return _address.getLng();
 	}
 
 	@Override
 	public String getStreet() {
-		return _street;
+		return _address.getStreet();
 	}
 
 	@Override
 	public String getZip() {
-		return _zip;
+		return _address.getZip();
 	}
 
 	@Override
 	public void setCity(String city) {
-		_city=city;
+		_address.setCity(city);
 	}
 
 	@Override
 	public void setCountry(Country country) {
-		_country=country;
+		_address.setCountry(country);
 	}
 
 	@Override
 	public void setLat(double lat) {
-		_lat=lat;
+		_address.setLat(lat);
 	}
 
 
 	@Override
 	public void setLng(double lng) {
-		_lng=lng;
+		_address.setLng(lng);
 	}
 
 	@Override
@@ -119,12 +113,12 @@ public class Subsidiary implements ISubsidiary {
 
 	@Override
 	public void setStreet(String street) {
-		_street=street;
+		_address.setStreet(street);
 	}
 
 	@Override
 	public void setZip(String zip) {
-		_zip=zip;
+		_address.setZip(zip);
 	}
 
 	@Override
@@ -132,14 +126,6 @@ public class Subsidiary implements ISubsidiary {
 		return _revisionId;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
-		+ ", _revisionId=" + _revisionId + ", _street=" + _street + ", _zip=" + _zip + "]";
-	}
 
 	@Override
 	public void setShop(IShop shop) {
