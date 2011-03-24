@@ -10,5 +10,5 @@ public interface ILoginServiceAsync {
 	void isEmailAvailable(String email, AsyncCallback<Boolean> callback);
 	void setNewPassword(String oldPassword, String newPassword, String newPassword2, AsyncCallback<Boolean> callback);
 	void registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
-			String reCaptchaResponse, AsyncCallback<Boolean> callback);
+			String reCaptchaResponse, AsyncCallback<String> callback);
 }

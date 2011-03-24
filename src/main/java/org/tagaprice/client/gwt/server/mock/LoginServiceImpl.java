@@ -1,5 +1,9 @@
 package org.tagaprice.client.gwt.server.mock;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
@@ -13,13 +17,19 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	private static final long serialVersionUID = 2766434026811432034L;
 
+	ArrayList<AccountUser> userList = new ArrayList<LoginServiceImpl.AccountUser>();
 
 
 	String sessionId = null; // is working for just one user ;-)
-
+	HttpSession session;
 
 
 	MyLogger _logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+
+	public LoginServiceImpl() {
+		//Is only to be sure that session has been created
+
+	}
 
 	@Override
 	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
@@ -28,6 +38,27 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		if (email.isEmpty() || password.isEmpty())
 			throw new WrongEmailOrPasswordException("Please controll user and password");
 
+
+
+		for(AccountUser au:userList){
+			if(au.email.equals(email)){
+
+				if(au.getPassword().equals(password)){
+					//create session
+
+					au.setSessionId(getSid());
+					return au.getSessionId();
+				}else{
+					throw new WrongEmailOrPasswordException("Please controll user and password");
+				}
+
+
+			}
+		}
+
+		throw new WrongEmailOrPasswordException("Please controll user and password");
+
+		/*
 		if (email.equals("test"))
 			throw new WrongEmailOrPasswordException("Please controll user and password");
 
@@ -38,27 +69,57 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		sessionId = "" + Math.random();
 		// TODO Auto-generated method stub
 		return sessionId;
+		 */
 	}
 
 	@Override
 	public void setLogout() throws UserNotLoggedInException {
 
+
+
+		if(session.getAttribute("sid")==null){
+			throw new UserNotLoggedInException("User is not logged in.");
+		}
+
+		for(AccountUser au:userList){
+			if(au.getSessionId().equals(getSid())){
+				if(session==null)session=getThreadLocalRequest().getSession();
+				session.invalidate();
+				au.setSessionId(null);
+			}
+		}
+
+		/*
 		if (sessionId == null)
 			throw new UserNotLoggedInException("User is not logged in.");
 
 		sessionId = null;
+		 */
 	}
 
 	@Override
 	public String isLoggedIn() {
 
-		return sessionId;
+		for(AccountUser au:userList){
+			if(au.getSessionId().equals(getSid())){
+				return au.getSessionId();
+			}
+		}
+
+		return null;
 	}
 
 	@Override
 	public Boolean isEmailAvailable(String email) {
+		boolean evailable = true;
+
+		for(AccountUser au:userList){
+			if(au.email.equals(email))
+				evailable=false;
+		}
+
 		// TODO Auto-generated method stub
-		return true;
+		return evailable;
 	}
 
 
@@ -71,7 +132,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public Boolean registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
+	public String registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
 			String reCaptchaResponse) {
 
 		_logger.log("Try to register: email: " + email + ", password: " + password + ", ConfirmPassword: "
@@ -81,10 +142,23 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 				&& isRecaptchaOK(reCaptchaChallange, reCaptchaResponse)) {
 
 			// TODO Register User and send mail
-			return true;
+
+			AccountUser au = new AccountUser(email, password);
+			userList.add(au);
+
+
+			try {
+				au.setSessionId(setLogin(email, password));
+				return au.getSessionId();
+			} catch (WrongEmailOrPasswordException e) {
+				e.printStackTrace();
+			} catch (UserAlreadyLoggedInException e) {
+				e.printStackTrace();
+			}
+
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
@@ -97,6 +171,71 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	private boolean isRecaptchaOK(String reCaptchaChallange, String reCaptchaResponse) {
 
 		return true;
+	}
+
+	private String getSid(){
+		if(session==null)session = getThreadLocalRequest().getSession();
+
+		return session.getId();
+	}
+
+
+
+
+	class AccountUser{
+		String email;
+		String password;
+		String sessionId=null;
+
+		public AccountUser(String email, String password){
+			setEmail(email);
+			setPassword(password);
+		}
+
+
+		/**
+		 * @return the email
+		 */
+		public String getEmail() {
+			return email;
+		}
+
+		/**
+		 * @param email the email to set
+		 */
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		/**
+		 * @return the password
+		 */
+		public String getPassword() {
+			return password;
+		}
+
+		/**
+		 * @param password the password to set
+		 */
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		/**
+		 * @return the sessionId
+		 */
+		public String getSessionId() {
+			return sessionId;
+		}
+
+		/**
+		 * @param sessionId the sessionId to set
+		 */
+		public void setSessionId(String sessionId) {
+			this.sessionId = sessionId;
+		}
+
+
 	}
 
 }

@@ -100,11 +100,11 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 								_registerView.getConfirmPassword(),
 								_registerView.getChallenge(),
 								_registerView.getResponse(),
-								new AsyncCallback<Boolean>() {
+								new AsyncCallback<String>() {
 
 									@Override
-									public void onSuccess(Boolean response) {
-										if(response==true){
+									public void onSuccess(String response) {
+										if(response!=null){
 											_clientFactory.getEventBus().fireEvent(new InfoBoxEvent("Juhu. You are registered!!!", INFOTYPE.SUCCESS));
 
 										}else{
