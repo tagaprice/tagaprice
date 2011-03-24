@@ -67,6 +67,32 @@ public enum Unit  {
 		}
 	},
 
+	mg{
+		@Override
+		public UnitType getType() {
+			return UnitType.Mass;
+		}
+
+		@Override
+		public double getFactor(Unit targetUnit) throws UnitNotConvertibleException {
+			switch (targetUnit) {
+			case mg:
+				return 1;
+			case g:
+				return 1000;
+			case kg:
+				return 1000000;
+			}
+			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
+		}
+
+		@Override
+		public Unit[] getRelativeTypes(){
+			Unit[] u = {kg,g,mg};
+			return u;
+		}
+	},
+
 	g{
 		@Override
 		public UnitType getType() {
@@ -76,6 +102,8 @@ public enum Unit  {
 		@Override
 		public double getFactor(Unit targetUnit) throws UnitNotConvertibleException {
 			switch (targetUnit) {
+			case mg:
+				return 0.001;
 			case g:
 				return 1;
 			case kg:
@@ -86,7 +114,7 @@ public enum Unit  {
 
 		@Override
 		public Unit[] getRelativeTypes(){
-			Unit[] u = {kg,g};
+			Unit[] u = {kg,g,mg};
 			return u;
 		}
 	},
@@ -104,13 +132,16 @@ public enum Unit  {
 				return 1;
 			case g:
 				return 0.001;
+			case mg:
+				return 0.000001;
 			}
+
 			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
 		}
 
 		@Override
 		public Unit[] getRelativeTypes(){
-			Unit[] u = {kg,g};
+			Unit[] u = {kg,g,mg};
 			return u;
 		}
 
