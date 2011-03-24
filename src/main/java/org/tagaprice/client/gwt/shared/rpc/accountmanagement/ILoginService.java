@@ -48,23 +48,31 @@ public interface ILoginService extends RemoteService {
 	public Boolean isEmailAvailable(String email);
 
 
+
 	/**
-	 * TODO: Find out how to integrate captcha.
 	 * Register a user with an email and controls if it is a human with a reCaptcha. The user will receive an email with
 	 * an auto generated password.
-	 * 
-	 * @param email email that should be registered
-	 * @param reCaptchaOK result of the captcha
+	 * @param email that should be registered
+	 * @param password password
+	 * @param confirmPassword confirm password. Must be the same as password
+	 * @param reCaptchaChallange the Recaptcha Challange
+	 * @param reCaptchaResponse the Recaptche Respone (input)
 	 * @return true if all was OK.
 	 */
-	public Boolean registerUser(String email, String reCaptchaOK);
+	public Boolean registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
+			String reCaptchaResponse);
 
 	/**
 	 * Set new password.
-	 * @param oldPassword old password
-	 * @param newPassword new password
-	 * @param newPassword2 second time the new password
+	 * 
+	 * @param oldPassword
+	 *            old password
+	 * @param newPassword
+	 *            new password
+	 * @param newPassword2
+	 *            second time the new password
 	 * @return True if password has being changed.
 	 */
-	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2) throws UserNotLoggedInException;
+	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
+	throws UserNotLoggedInException;
 }
