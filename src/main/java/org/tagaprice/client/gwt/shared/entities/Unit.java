@@ -1,4 +1,5 @@
 package org.tagaprice.client.gwt.shared.entities;
+
 /**
  * Represents Units and converts between them.
  * @author Martin
@@ -16,7 +17,9 @@ public enum Unit  {
 		public double getFactor(Unit targetUnit) throws UnitNotConvertibleException {
 			throw new UnitNotConvertibleException("A Piece is not convertible");
 		}
-	}, l{
+	},
+
+	l{
 		@Override
 		public UnitType getType() {
 			return UnitType.Volume;
@@ -32,7 +35,15 @@ public enum Unit  {
 			}
 			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
 		}
-	}, ml{
+
+		@Override
+		public Unit[] getRelativeTypes(){
+			Unit[] u = {ml,l};
+			return u;
+		}
+	},
+
+	ml{
 		@Override
 		public UnitType getType() {
 			return UnitType.Volume;
@@ -48,7 +59,15 @@ public enum Unit  {
 			}
 			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
 		}
-	}, g{
+
+		@Override
+		public Unit[] getRelativeTypes(){
+			Unit[] u = {ml,l};
+			return u;
+		}
+	},
+
+	g{
 		@Override
 		public UnitType getType() {
 			return UnitType.Mass;
@@ -64,7 +83,15 @@ public enum Unit  {
 			}
 			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
 		}
-	}, kg{
+
+		@Override
+		public Unit[] getRelativeTypes(){
+			Unit[] u = {kg,g};
+			return u;
+		}
+	},
+
+	kg{
 		@Override
 		public UnitType getType() {
 			return UnitType.Mass;
@@ -80,6 +107,13 @@ public enum Unit  {
 			}
 			throw new UnitNotConvertibleException("It is not possible to convert " + this.getType().toString() + " into " + targetUnit.getType().toString());
 		}
+
+		@Override
+		public Unit[] getRelativeTypes(){
+			Unit[] u = {kg,g};
+			return u;
+		}
+
 	};
 
 	/**
@@ -87,6 +121,10 @@ public enum Unit  {
 	 * @return the Type of this Unit
 	 */
 	public UnitType getType() {
+		return null;
+	}
+
+	public Unit[] getRelativeTypes(){
 		return null;
 	}
 

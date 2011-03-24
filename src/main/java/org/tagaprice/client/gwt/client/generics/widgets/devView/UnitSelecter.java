@@ -59,8 +59,14 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	private void allowedUnit(Unit unit){
 		_listBoxUnit.clear();
 
-		for(Unit u: Unit.values()) {
-			_listBoxUnit.addItem(u.name(),u.name());
+		if(unit==null){
+			for(Unit u: Unit.values()) {
+				_listBoxUnit.addItem(u.name(),u.name());
+			}
+		}else{
+			for(Unit u:unit.getRelativeTypes()){
+				_listBoxUnit.addItem(u.name(),u.name());
+			}
 		}
 	}
 

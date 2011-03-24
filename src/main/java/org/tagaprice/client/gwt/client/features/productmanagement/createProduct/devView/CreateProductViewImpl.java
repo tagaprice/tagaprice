@@ -136,6 +136,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setUnit(Unit unit) {
 		_unit.setUnit(unit);
+		_packages.setRelatedUnit(unit);
 
 	}
 
