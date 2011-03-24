@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client;
 
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
@@ -104,6 +105,9 @@ public interface ClientFactory {
 	ListShopsView<IShop> getListShopsView();
 
 	ICreateReceiptView getCreateReceiptView();
+
+
+	IRegisterView getRegisterView();
 
 
 	/****************** GlobalAddress ***********************/

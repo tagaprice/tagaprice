@@ -4,6 +4,8 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILoginVi
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LogoutViewImpl;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.IRegisterView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.devView.RegisterViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
@@ -48,24 +50,27 @@ public class ClientFactoryImpl implements ClientFactory {
 	 */
 	private static final PlaceController placeController = new PlaceController(
 			ClientFactoryImpl.eventBus);
-	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
-	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
+	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
+
 	//private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
-
+	//VIEWS
 	private static final CreateShopViewImpl<IReceiptEntry> createShopview = new CreateShopViewImpl<IReceiptEntry>();
 	private static final ListShopsViewImpl<IShop> listShopsView = new ListShopsViewImpl<IShop>();
-	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
-	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
+	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
+	private static final ICreateProductView createProductView = new CreateProductViewImpl();
+	private static final IRegisterView registerView = new RegisterViewImpl();
+	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
 	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
 	private static final IProductServiceAsync I_PRODUCT_SERVICE_ASYNC = GWT.create(IProductService.class);
 	private static final ICategoryServiceAsync I_CATEGORY_SERVICE_ASYNC = GWT.create(ICategoryService.class);
 	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
+	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 
 	private static Address I_ADDRESS;
 
@@ -172,6 +177,11 @@ public class ClientFactoryImpl implements ClientFactory {
 		ClientFactoryImpl.I_ADDRESS.setZip(address.getZip());
 		ClientFactoryImpl.I_ADDRESS.setLat(address.getLat());
 		ClientFactoryImpl.I_ADDRESS.setLng(address.getLng());
+	}
+
+	@Override
+	public IRegisterView getRegisterView() {
+		return ClientFactoryImpl.registerView;
 	}
 
 

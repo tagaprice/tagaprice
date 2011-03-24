@@ -71,7 +71,6 @@ public class LoginPlace extends Place {
 				return t.getToken();
 			}
 
-			// TODO Auto-generated method stub
 			return null;
 		}
 

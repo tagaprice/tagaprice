@@ -122,6 +122,12 @@ public class TagAPrice implements EntryPoint {
 			History.newItem("LogInOut:/login");}});
 		this.leftPanel.add(login);
 
+		Label register = new Label("Register");
+		register.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("Register:/REGISTER");}});
+		this.leftPanel.add(register);
+
 		/******************** Shop Links ******************/
 		this.leftPanel.add(new HTML("<hr />"));
 
