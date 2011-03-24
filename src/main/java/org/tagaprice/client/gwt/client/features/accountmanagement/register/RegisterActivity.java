@@ -8,7 +8,6 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Label;
 
 public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(RegisterActivity.class);
@@ -45,7 +44,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		RegisterActivity._logger.log("activity startet");
 
-		panel.setWidget(new Label("Add here the Register bla bla"));
+		panel.setWidget(_clientFactory.getRegisterView());
 	}
 
 	@Override
