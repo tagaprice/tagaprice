@@ -14,7 +14,7 @@
 							<g:Label ui:field="emailI18N">email</g:Label>
 						</td>
 						<td>
-							<g:TextBox ui:field="email"></g:TextBox>
+							<g:TextBox ui:field="_email"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -22,7 +22,7 @@
 							<g:Label ui:field="passwordI18N">password</g:Label>
 						</td>
 						<td>
-							<g:PasswordTextBox ui:field="password"></g:PasswordTextBox>
+							<g:PasswordTextBox ui:field="_password"></g:PasswordTextBox>
 						</td>
 					</tr>
 					<tr>
@@ -30,7 +30,7 @@
 							<g:Label ui:field="confirmPasswordI18N">confirm password</g:Label>
 						</td>
 						<td>
-							<g:PasswordTextBox ui:field="confirmPassword"></g:PasswordTextBox>
+							<g:PasswordTextBox ui:field="_confirmPassword"></g:PasswordTextBox>
 						</td>
 					</tr>
 					<tr>

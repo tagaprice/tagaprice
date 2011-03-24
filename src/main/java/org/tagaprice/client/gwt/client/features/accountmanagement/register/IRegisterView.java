@@ -16,29 +16,48 @@ public interface IRegisterView extends IsWidget {
 
 	/**
 	 * Email of the user
+	 * 
 	 * @return loginMail
 	 */
 	public String getEmail();
 
 	/**
 	 * Informs the View that this email is free or in use.
-	 * @param inUse Informs the View that this email is free or in use. TRUE=Free
+	 * 
+	 * @param inUse
+	 *            Informs the View that this email is free or in use. TRUE=Free
 	 */
 	public void setEmailIsFree(boolean inFree);
 
 	/**
 	 * Returns the Password
+	 * 
 	 * @return the password
 	 */
 	public String getPassword();
 
 	/**
-	 * Returns the Confirm Password. Must be the same as Password
+	 * Returns the Confirm Password. Must be the same as Password <a href="http://code.google.com/apis/recaptcha/docs/display.html" >ReCaptcha
+	 * Docu</a>
+	 * 
 	 * @return the Confirm Password. Must be the same as Password
 	 */
 	public String getConfirmPassword();
 
+	/**
+	 * Returns the ReCaptcha Challenge. <a href="http://code.google.com/apis/recaptcha/docs/display.html" >ReCaptcha
+	 * Docu</a>
+	 * 
+	 * @return the ReCaptcha Challenge
+	 */
+	public String getChallenge();
 
+	/**
+	 * Returns the ReCaptcha Response.
+	 * 
+	 * @return the ReCaptcha Response.
+	 */
+	public String getResponse();
 
 	public interface Presenter {
 
@@ -56,6 +75,9 @@ public interface IRegisterView extends IsWidget {
 		 * Tell the implementing class to control if the email address is free.
 		 */
 		public void checkEmail();
+
+
+		public void onRegisterButtonEvent();
 
 	}
 }

@@ -14,6 +14,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 
 	private RegisterPlace _place;
 	private ClientFactory _clientFactory;
+	private IRegisterView _registerView;
 
 	public RegisterActivity(RegisterPlace place, ClientFactory clientFactory) {
 		RegisterActivity._logger.log("RegisterActivity created");
@@ -44,7 +45,9 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		RegisterActivity._logger.log("activity startet");
 
-		panel.setWidget(_clientFactory.getRegisterView());
+		if(_registerView==null)_registerView=_clientFactory.getRegisterView();
+		_registerView.setPresenter(this);
+		panel.setWidget(_registerView);
 	}
 
 	@Override
@@ -55,6 +58,19 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	@Override
 	public void checkEmail() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onRegisterButtonEvent() {
+		RegisterActivity._logger.log("Register Button Pressed");
+
+		RegisterActivity._logger.log("Email: "+_registerView.getEmail());
+		RegisterActivity._logger.log("PW: "+_registerView.getPassword());
+		RegisterActivity._logger.log("PW2: "+_registerView.getConfirmPassword());
+		RegisterActivity._logger.log("challange: "+_registerView.getChallenge());
+		RegisterActivity._logger.log("response: "+_registerView.getResponse());
+
 
 	}
 
