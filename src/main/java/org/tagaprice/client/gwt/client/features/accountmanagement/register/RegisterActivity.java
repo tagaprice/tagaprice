@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.features.accountmanagement.register;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.RegisterPlace.RegisterType;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -49,10 +50,14 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		RegisterActivity._logger.log("activity startet");
 
-		if (_registerView == null)
-			_registerView = _clientFactory.getRegisterView();
-		_registerView.setPresenter(this);
-		panel.setWidget(_registerView);
+		if(_place.getRegisterType()==RegisterPlace.RegisterType.REGISTER){
+			if (_registerView == null)
+				_registerView = _clientFactory.getRegisterView();
+			_registerView.setPresenter(this);
+			panel.setWidget(_registerView);
+		}else if(_place.getRegisterType()==RegisterPlace.RegisterType.THANKS){
+			panel.setWidget(_clientFactory.getRegisteredView());
+		}
 	}
 
 	@Override
@@ -118,7 +123,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 									public void onSuccess(String response) {
 										if(response!=null){
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
-
+											goTo(new RegisterPlace(RegisterType.THANKS));
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
 

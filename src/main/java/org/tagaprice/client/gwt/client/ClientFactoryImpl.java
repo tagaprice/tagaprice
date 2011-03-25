@@ -5,7 +5,9 @@ import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutV
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.gwt.client.features.accountmanagement.login.devView.LogoutViewImpl;
 import org.tagaprice.client.gwt.client.features.accountmanagement.register.IRegisterView;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.IRegisteredView;
 import org.tagaprice.client.gwt.client.features.accountmanagement.register.devView.RegisterViewImpl;
+import org.tagaprice.client.gwt.client.features.accountmanagement.register.devView.RegisteredViewImpl;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
@@ -64,6 +66,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ListProductsViewImpl<IProduct> productListView = new ListProductsViewImpl<IProduct>();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final IRegisterView registerView = new RegisterViewImpl();
+	private static final IRegisteredView registeredView = new RegisteredViewImpl();
+
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
 	private static final IReceiptServiceAsync I_RECEIPT_SERVICE_ASYNC = GWT.create(IReceiptService.class);
@@ -182,6 +186,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IRegisterView getRegisterView() {
 		return ClientFactoryImpl.registerView;
+	}
+
+	@Override
+	public IRegisteredView getRegisteredView() {
+		return ClientFactoryImpl.registeredView;
 	}
 
 
