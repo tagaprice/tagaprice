@@ -8,9 +8,11 @@ import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.LoginChangeEventHandler;
+import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
+import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEventHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
 import org.tagaprice.client.gwt.shared.entities.Address;
@@ -248,7 +250,17 @@ public class TagAPrice implements EntryPoint {
 			}
 		});
 
-		locateMe();
+		eventBus.addHandler(WaitForAddressEvent.TYPE, new WaitForAddressEventHandler() {
+
+			@Override
+			public void onAddressChanged(WaitForAddressEvent event) {
+				locateMe();
+			}
+		});
+
+		eventBus.fireEvent(new WaitForAddressEvent());
+
+
 
 
 		//User loggedInHandler

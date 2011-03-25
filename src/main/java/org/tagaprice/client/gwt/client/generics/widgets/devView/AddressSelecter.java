@@ -2,10 +2,10 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 import org.tagaprice.client.gwt.client.generics.widgets.CountrySelecter;
 import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;
@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {
-
 
 	VerticalPanel vePaTemp = new VerticalPanel();
 
@@ -136,6 +135,17 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		mapWidget.setCenter(marker.getLatLng());
 
 
+
+	}
+
+	@Override
+	public void setCurrentAddress(Address address) {
+		_street.setText(address.getStreet());
+		_zip.setText(address.getZip());
+		_city.setText(address.getCity());
+		_country.setCountry(address.getCountry());
+
+		setLatLng(LatLng.newInstance(address.getLat(), address.getLng()));
 
 	}
 

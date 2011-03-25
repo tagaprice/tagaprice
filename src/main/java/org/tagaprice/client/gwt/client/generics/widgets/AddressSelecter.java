@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.core.client.GWT;
@@ -27,6 +28,11 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	@Override
 	public ISubsidiary getAddress() {
 		return addressSelecter.getAddress();
+	}
+
+	@Override
+	public void setCurrentAddress(Address address) {
+		addressSelecter.setCurrentAddress(address);
 	}
 
 }

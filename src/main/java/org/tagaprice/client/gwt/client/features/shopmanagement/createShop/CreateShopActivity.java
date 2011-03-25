@@ -1,8 +1,11 @@
 package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.generics.events.AddressChangedEvent;
+import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
@@ -89,6 +92,20 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			// new product... reseting view
 			CreateShopActivity._logger.log("Create new shop");
 
+			if(_clientFactory.getAddress()==null){
+				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
+			}else{
+				_createShopView.setCurrentAddress(_clientFactory.getAddress());
+			}
+
+			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
+
+				@Override
+				public void onAddressChanged(AddressChangedEvent event) {
+					_createShopView.setCurrentAddress(event.getAddress());
+				}
+			});
+
 			updateView(new Shop(""));
 			panel.setWidget(_createShopView);
 		}
@@ -171,7 +188,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setAddresses(_createShopView.getAddresses());
+		shop.setAddresses(_createShopView.getSubsidiary());
 		return shop;
 	}
 
@@ -179,7 +196,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop = shop;
 		_createShopView.setRevisionId(shop.getRevisionId());
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setAddresses(_shop.getAddresses());
+		_createShopView.setSubsidiary(_shop.getAddresses());
 	}
 
 }
