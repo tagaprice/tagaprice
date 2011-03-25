@@ -11,6 +11,7 @@ import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -120,10 +121,12 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 								new AsyncCallback<String>() {
 
 									@Override
-									public void onSuccess(String response) {
-										if(response!=null){
+									public void onSuccess(String sessionId) {
+										if(sessionId!=null){
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
 											goTo(new RegisterPlace(RegisterType.THANKS));
+											RegisterActivity._logger.log("Login OK. SessionId: " + sessionId);
+											Cookies.setCookie("TAP_SID", sessionId);
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
 
