@@ -180,6 +180,20 @@ public class TagAPrice implements EntryPoint {
 		}
 
 		{
+			Label listReceipt = new Label("List Receipts");
+			listReceipt.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					History.newItem("ListReceipts:/show");
+
+				}
+			});
+
+			this.leftPanel.add(listReceipt);
+		}
+
+		{
 			Label createReceipt = new Label("get Receipt id=1");
 			createReceipt.addClickHandler(new ClickHandler() {
 

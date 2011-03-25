@@ -10,6 +10,8 @@ import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.
 import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.*;
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.CreateReceiptActivity;
 import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.ListReceiptsActivity;
+import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.*;
@@ -57,6 +59,9 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof RegisterPlace){
 			logger.log("return new RegisterActivity");
 			return new RegisterActivity((RegisterPlace)place, this.clientFactory);
+		}if(place instanceof ListReceiptsPlace){
+			logger.log("return new ListReceiptsActivity");
+			return new ListReceiptsActivity((ListReceiptsPlace)place, this.clientFactory);
 		}
 
 		else {

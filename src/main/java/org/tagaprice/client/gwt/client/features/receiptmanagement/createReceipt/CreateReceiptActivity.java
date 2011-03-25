@@ -51,8 +51,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void goTo(Place place) {
-		// TODO Auto-generated method stub
-
+		this._clientFactory.getPlaceController().goTo(place);
 	}
 
 	@Override
