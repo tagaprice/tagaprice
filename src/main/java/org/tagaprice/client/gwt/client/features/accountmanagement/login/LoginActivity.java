@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.features.accountmanagement.login;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.core.api.UserNotLoggedInException;
@@ -95,6 +96,10 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 					public void onSuccess(String sessionId) {
 						LoginActivity._logger.log("Login OK. SessionId: " + sessionId);
 						Cookies.setCookie("TAP_SID", sessionId);
+
+						//Send User login event
+						_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
+
 						goTo(new LoginPlace(sessionId));
 					}
 
@@ -121,6 +126,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	public void onLogOutEvent() {
 		LoginActivity._logger.log("LogOut Button clicked");
 		Cookies.removeCookie("TAP_SID");
+		_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(false));
 		goTo(new LoginPlace());
 
 
@@ -130,6 +136,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 			@Override
 			public void onSuccess(Void value) {
 				LoginActivity._logger.log("Logout was ok: " + value);
+				//Send User login event
 
 			}
 

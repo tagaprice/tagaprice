@@ -4,6 +4,7 @@ import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.features.accountmanagement.register.RegisterPlace.RegisterType;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
@@ -127,6 +128,9 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 											goTo(new RegisterPlace(RegisterType.THANKS));
 											RegisterActivity._logger.log("Login OK. SessionId: " + sessionId);
 											Cookies.setCookie("TAP_SID", sessionId);
+
+											//Send LoggedInEvent
+											_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
 

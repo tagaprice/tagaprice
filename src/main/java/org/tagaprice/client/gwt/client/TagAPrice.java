@@ -7,8 +7,10 @@ import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandle
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEventHandler;
+import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
 import org.tagaprice.client.gwt.shared.entities.Address;
@@ -117,13 +119,20 @@ public class TagAPrice implements EntryPoint {
 
 		/******************** Login Links *****************/
 		this.leftPanel.add(new HTML("<hr />"));
-		Label login = new Label("Login");
+		final Label login = new Label("Login");
 		login.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("LogInOut:/login");}});
 		this.leftPanel.add(login);
 
-		Label register = new Label("Register");
+		final Label logout = new Label("Logout");
+		logout.addClickHandler(new ClickHandler() {@Override
+			public void onClick(ClickEvent arg0) {
+			History.newItem("LogInOut:/logout");}});
+		this.leftPanel.add(logout);
+		logout.setVisible(false);
+
+		final Label register = new Label("Register");
 		register.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("Register:/REGISTER");}});
@@ -242,7 +251,23 @@ public class TagAPrice implements EntryPoint {
 		locateMe();
 
 
+		//User loggedInHandler
+		eventBus.addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
 
+			@Override
+			public void onLoginChange(LoginChangeEvent event) {
+				if(event.isLoggedIn()){
+					login.setVisible(false);
+					register.setVisible(false);
+					logout.setVisible(true);
+				}else{
+					login.setVisible(true);
+					register.setVisible(true);
+					logout.setVisible(false);
+				}
+
+			}
+		});
 
 	}
 
