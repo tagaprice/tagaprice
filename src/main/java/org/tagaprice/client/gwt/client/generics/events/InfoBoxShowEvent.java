@@ -6,9 +6,9 @@ import com.google.gwt.event.shared.GwtEvent;
  * This event defines all function a InfoBox can have.
  * 
  */
-public class InfoBoxShowEvent extends GwtEvent<InfoBoxEventHandler> {
+public class InfoBoxShowEvent extends GwtEvent<InfoBoxShowEventHandler> {
 
-	public static Type<InfoBoxEventHandler> TYPE = new Type<InfoBoxEventHandler>();
+	public static Type<InfoBoxShowEventHandler> TYPE = new Type<InfoBoxShowEventHandler>();
 
 
 	public enum INFOTYPE {
@@ -85,12 +85,12 @@ public class InfoBoxShowEvent extends GwtEvent<InfoBoxEventHandler> {
 
 
 	@Override
-	protected void dispatch(InfoBoxEventHandler handler) {
+	protected void dispatch(InfoBoxShowEventHandler handler) {
 		handler.onNewInfo(this);
 	}
 
 	@Override
-	public Type<InfoBoxEventHandler> getAssociatedType() {
+	public Type<InfoBoxShowEventHandler> getAssociatedType() {
 		return InfoBoxShowEvent.TYPE;
 	}
 

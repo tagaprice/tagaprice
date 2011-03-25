@@ -5,15 +5,15 @@ import org.tagaprice.client.gwt.client.generics.I18N;
 import org.tagaprice.client.gwt.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEventHandler;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEventHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
 import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.logging.*;
-
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
@@ -30,6 +30,7 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 /**
@@ -210,16 +211,20 @@ public class TagAPrice implements EntryPoint {
 		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
 
 
-		eventBus.addHandler(InfoBoxShowEvent.TYPE, new InfoBoxEventHandler() {
+		eventBus.addHandler(InfoBoxShowEvent.TYPE, new InfoBoxShowEventHandler() {
 			@Override
 			public void onNewInfo(InfoBoxShowEvent event) {
 				_infoBox.addInfoBoxEvent(event);
 			}
 
+		});
+
+		eventBus.addHandler(InfoBoxDestroyEvent.TYPE, new InfoBoxDestroyEventHandler() {
+
 			@Override
 			public void onDestroyInfo(InfoBoxDestroyEvent event) {
-				// TODO Auto-generated method stub
-
+				TagAPrice.logger.log("Destroy event:");
+				_infoBox.removeInfoBoxEvent(event);
 			}
 		});
 
@@ -237,6 +242,31 @@ public class TagAPrice implements EntryPoint {
 
 		locateMe();
 
+
+		//InfoBoxTest
+		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy me", INFOTYPE.ERROR,0));
+		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy not", INFOTYPE.INFO,0));
+		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy not", INFOTYPE.SUCCESS,0));
+
+		{
+			Timer t = new Timer() {
+				@Override
+				public void run() {
+					eventBus.fireEvent(new InfoBoxDestroyEvent(TagAPrice.class, INFOTYPE.ERROR));
+				}
+			};
+			t.schedule(2000);
+		}
+
+		{
+			Timer t = new Timer() {
+				@Override
+				public void run() {
+					eventBus.fireEvent(new InfoBoxDestroyEvent(TagAPrice.class));
+				}
+			};
+			t.schedule(4000);
+		}
 
 
 	}

@@ -1,6 +1,7 @@
 package org.tagaprice.client.gwt.client.features.accountmanagement.register;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
@@ -67,6 +68,8 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 
 	@Override
 	public void onRegisterButtonEvent() {
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(RegisterActivity.class));
+
 		RegisterActivity._logger.log("Register Button Pressed");
 
 

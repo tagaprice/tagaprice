@@ -1,9 +1,12 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.widgets.IInfoBox;
+import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
+import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,20 +21,51 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class InfoBox extends Composite implements IInfoBox {
 
 	private VerticalPanel _infos = new VerticalPanel();
-
+	private static MyLogger _logger = LoggerFactory
+	.getLogger(InfoBox.class);
 	public InfoBox() {
 		initWidget(_infos);
 	}
 
 	@Override
 	public void addInfoBoxEvent(InfoBoxShowEvent event) {
-
 		_infos.add(new SimpleInfo(event));
+	}
+
+	@Override
+	public void removeInfoBoxEvent(InfoBoxDestroyEvent event) {
+		InfoBox._logger.log("destroy events");
+		// Destroy all from this class
+
+		if (event.getType() == null) {
+			System.err.println("type=null");
+			for (int i = 0; i < _infos.getWidgetCount(); i++) {
+				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass()) {
+					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					i--;
+				}
+			}
+		} else {
+			System.err.println("type=Notnull");
+			for (int i = 0; i < _infos.getWidgetCount(); i++) {
+				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass() &&
+						((SimpleInfo) _infos.getWidget(i)).getEvent().getType()==event.getType()) {
+					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					i--;
+				}
+			}
+		}
+
+		// TODO Auto-generated method stub
+
 	}
 
 	class SimpleInfo extends SimplePanel {
 
+		InfoBoxShowEvent _event;
+
 		public SimpleInfo(InfoBoxShowEvent event) {
+			_event = event;
 
 			if (event.getType() == INFOTYPE.SUCCESS) {
 				setStyleName("Success");
@@ -68,9 +102,15 @@ public class InfoBox extends Composite implements IInfoBox {
 			}
 		}
 
-		private void removeMe() {
+		public void removeMe() {
 			removeFromParent();
 		}
+
+		public InfoBoxShowEvent getEvent() {
+			return _event;
+		}
 	}
+
+
 
 }

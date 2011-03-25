@@ -1,5 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -15,4 +16,10 @@ public interface IInfoBox extends IsWidget {
 	 * @param event {@link InfoBoxEvent}
 	 */
 	public void addInfoBoxEvent(InfoBoxShowEvent event);
+
+	/**
+	 * Defines what should be removed.
+	 * @param event destroy options
+	 */
+	public void removeInfoBoxEvent(InfoBoxDestroyEvent event);
 }
