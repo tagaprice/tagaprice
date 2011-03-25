@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -33,6 +34,9 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 
 	@UiField
 	PasswordTextBox _confirmPassword;
+
+	@UiField
+	CheckBox _terms;
 
 	@UiField
 	Button registerButton;
@@ -85,6 +89,11 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 	@Override
 	public String getResponse() {
 		return reWidget.getResponse();
+	}
+
+	@Override
+	public boolean getAgreeTerms() {
+		return _terms.getValue();
 	}
 
 }

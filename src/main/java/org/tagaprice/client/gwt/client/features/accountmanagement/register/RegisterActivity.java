@@ -88,7 +88,15 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 		if(!_registerView.getPassword().equals(_registerView.getConfirmPassword()))
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Password and Confirm Password are not equal", INFOTYPE.ERROR,0));
 
-		if(!_registerView.getEmail().isEmpty() && !_registerView.getPassword().isEmpty() && _registerView.getPassword().equals(_registerView.getConfirmPassword())){
+		if(!_registerView.getAgreeTerms())
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Please aggree our terms and conditions!", INFOTYPE.ERROR,0));
+
+
+		if(
+				!_registerView.getEmail().isEmpty() &&
+				!_registerView.getPassword().isEmpty() &&
+				_registerView.getPassword().equals(_registerView.getConfirmPassword()) &&
+				_registerView.getAgreeTerms()){
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Register...", INFOTYPE.INFO));
 
 			_clientFactory.getLoginService().isEmailAvailable(_registerView.getEmail(), new AsyncCallback<Boolean>() {
@@ -103,6 +111,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 								_registerView.getConfirmPassword(),
 								_registerView.getChallenge(),
 								_registerView.getResponse(),
+								_registerView.getAgreeTerms(),
 								new AsyncCallback<String>() {
 
 									@Override

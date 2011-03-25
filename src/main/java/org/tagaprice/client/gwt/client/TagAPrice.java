@@ -30,7 +30,6 @@ import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 /**
@@ -243,30 +242,6 @@ public class TagAPrice implements EntryPoint {
 		locateMe();
 
 
-		//InfoBoxTest
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy me", INFOTYPE.ERROR,0));
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy not", INFOTYPE.INFO,0));
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Destroy not", INFOTYPE.SUCCESS,0));
-
-		{
-			Timer t = new Timer() {
-				@Override
-				public void run() {
-					eventBus.fireEvent(new InfoBoxDestroyEvent(TagAPrice.class, INFOTYPE.ERROR));
-				}
-			};
-			t.schedule(2000);
-		}
-
-		{
-			Timer t = new Timer() {
-				@Override
-				public void run() {
-					eventBus.fireEvent(new InfoBoxDestroyEvent(TagAPrice.class));
-				}
-			};
-			t.schedule(4000);
-		}
 
 
 	}

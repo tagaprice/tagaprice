@@ -133,13 +133,14 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	@Override
 	public String registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
-			String reCaptchaResponse) {
+			String reCaptchaResponse, boolean agreeTerms) {
 
 		_logger.log("Try to register: email: " + email + ", password: " + password + ", ConfirmPassword: "
 				+ confirmPassword + ", Challange: " + reCaptchaChallange + ", Response: "+reCaptchaResponse);
 
 		if (isEmailAvailable(email) == true && password.equals(confirmPassword)
-				&& isRecaptchaOK(reCaptchaChallange, reCaptchaResponse)) {
+				&& isRecaptchaOK(reCaptchaChallange, reCaptchaResponse)
+				&& agreeTerms==true) {
 
 			// TODO Register User and send mail
 

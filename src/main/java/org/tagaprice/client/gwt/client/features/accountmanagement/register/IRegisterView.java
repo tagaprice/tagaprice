@@ -59,6 +59,12 @@ public interface IRegisterView extends IsWidget {
 	 */
 	public String getResponse();
 
+	/**
+	 * Returns true if user agree the Terms and Conditions
+	 * @return true if user agree the Terms and Conditions
+	 */
+	public boolean getAgreeTerms();
+
 	public interface Presenter {
 
 		/**

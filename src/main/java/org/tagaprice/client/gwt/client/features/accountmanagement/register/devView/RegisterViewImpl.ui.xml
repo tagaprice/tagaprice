@@ -39,6 +39,14 @@
 						</td>
 					</tr>
 					<tr>
+						<td>
+							<g:Label>Read and agree with our terms and conditions!</g:Label>
+						</td>
+						<td>
+							<g:CheckBox ui:field="_terms" />
+						</td>
+					</tr>
+					<tr>
 						<td colspan="2">
 							<g:Button ui:field="registerButton">Register</g:Button>
 						</td>
