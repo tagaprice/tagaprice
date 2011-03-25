@@ -156,7 +156,8 @@ public enum Unit  {
 	}
 
 	public Unit[] getRelativeTypes(){
-		return null;
+		Unit[] u = {piece, ml,l,kg,g,mg};
+		return u;
 	}
 
 	/**

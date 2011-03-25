@@ -68,6 +68,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 				_listBoxUnit.addItem(u.name(),u.name());
 			}
 		}
+
 	}
 
 	@Override
