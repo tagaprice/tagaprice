@@ -1,6 +1,6 @@
 package org.tagaprice.client.gwt.client.generics.widgets;
 
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -14,5 +14,5 @@ public interface IInfoBox extends IsWidget {
 	 * Display the {@link InfoBoxEvent} in a box.
 	 * @param event {@link InfoBoxEvent}
 	 */
-	public void addInfoBoxEvent(InfoBoxEvent event);
+	public void addInfoBoxEvent(InfoBoxShowEvent event);
 }

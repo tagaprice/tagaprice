@@ -1,8 +1,8 @@
 package org.tagaprice.client.gwt.client.generics.widgets.devView;
 
 
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent.INFOTYPE;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.widgets.IInfoBox;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,14 +24,14 @@ public class InfoBox extends Composite implements IInfoBox {
 	}
 
 	@Override
-	public void addInfoBoxEvent(InfoBoxEvent event) {
+	public void addInfoBoxEvent(InfoBoxShowEvent event) {
 
 		_infos.add(new SimpleInfo(event));
 	}
 
 	class SimpleInfo extends SimplePanel {
 
-		public SimpleInfo(InfoBoxEvent event) {
+		public SimpleInfo(InfoBoxShowEvent event) {
 
 			if (event.getType() == INFOTYPE.SUCCESS) {
 				setStyleName("Success");

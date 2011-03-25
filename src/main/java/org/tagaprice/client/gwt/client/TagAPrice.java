@@ -4,8 +4,9 @@ import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.L
 import org.tagaprice.client.gwt.client.generics.I18N;
 import org.tagaprice.client.gwt.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandler;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent.INFOTYPE;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxEventHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
 import org.tagaprice.client.gwt.client.mvp.*;
@@ -209,10 +210,16 @@ public class TagAPrice implements EntryPoint {
 		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
 
 
-		eventBus.addHandler(InfoBoxEvent.TYPE, new InfoBoxEventHandler() {
+		eventBus.addHandler(InfoBoxShowEvent.TYPE, new InfoBoxEventHandler() {
 			@Override
-			public void onNewInfo(InfoBoxEvent event) {
+			public void onNewInfo(InfoBoxShowEvent event) {
 				_infoBox.addInfoBoxEvent(event);
+			}
+
+			@Override
+			public void onDestroyInfo(InfoBoxDestroyEvent event) {
+				// TODO Auto-generated method stub
+
 			}
 		});
 
@@ -224,7 +231,7 @@ public class TagAPrice implements EntryPoint {
 			public void onAddressChanged(AddressChangedEvent event) {
 				clientFactory.setAddress(event.getAddress());
 
-				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Address Updated: "+event.getAddress(), INFOTYPE.SUCCESS));
+				_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Address Updated: "+event.getAddress(), INFOTYPE.SUCCESS));
 			}
 		});
 
@@ -235,7 +242,7 @@ public class TagAPrice implements EntryPoint {
 	}
 
 	private void locateMe(){
-		_infoBox.addInfoBoxEvent(new InfoBoxEvent("Try to update address", INFOTYPE.INFO));
+		_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Try to update address", INFOTYPE.INFO));
 		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 
 			@Override
@@ -261,14 +268,14 @@ public class TagAPrice implements EntryPoint {
 									locations.get(0).getStreet(),
 									locations.get(0).getPostalCode())));
 						}else{
-							_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+							_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 						}
 
 					}
 
 					@Override
 					public void onFailure(int statusCode) {
-						_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 
 					}
 				});
@@ -278,7 +285,7 @@ public class TagAPrice implements EntryPoint {
 
 			@Override
 			public void onFailure(PositionError error) {
-				_infoBox.addInfoBoxEvent(new InfoBoxEvent("Can't find address", INFOTYPE.ERROR,0));
+				_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 
 			}
 		});

@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.GwtEvent;
  * This event defines all function a InfoBox can have.
  * 
  */
-public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
+public class InfoBoxShowEvent extends GwtEvent<InfoBoxEventHandler> {
 
 	public static Type<InfoBoxEventHandler> TYPE = new Type<InfoBoxEventHandler>();
 
@@ -18,24 +18,29 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 	private final String _info;
 	private final INFOTYPE _type;
 	private final int _autoCloseTime;
+	private final Class<?> _class;
 
 	/**
 	 * Create an {@link InfoBoxEvent} that is handled by an {@link InfoBoxEventHandler}. The InfoBox will close after
 	 * 2000ml.
 	 * 
+	 * @param iclass
+	 *            the sender class
 	 * @param info
 	 *            The displayed text
 	 * @param type
 	 *            The INFOTYPE which should be displayed. 3 INFOTYPE (SUCCESS, INFO, ERROR)
 	 */
-	public InfoBoxEvent(String info, INFOTYPE type) {
-		this(info, type, 2000);
+	public InfoBoxShowEvent(Class<?> iclass, String info, INFOTYPE type) {
+		this(iclass, info, type, 2000);
 	}
 
 
 	/**
 	 * Create an {@link InfoBoxEvent} that is handled by an {@link InfoBoxEventHandler}
 	 * 
+	 * @param iclass
+	 *            the sender class
 	 * @param info
 	 *            The displayed text
 	 * @param type
@@ -44,10 +49,15 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 	 *            defines the times in [ms] after the InfoBox should be auto closed. If time is [0] Info box will not
 	 *            auto close.
 	 */
-	public InfoBoxEvent(String info, INFOTYPE type, int autoCloseTime) {
+	public InfoBoxShowEvent(Class<?> iclass, String info, INFOTYPE type, int autoCloseTime) {
+		_class = iclass;
 		_info = info;
 		_type = type;
 		_autoCloseTime = autoCloseTime;
+	}
+
+	public Class<?> getSenderClass(){
+		return _class;
 	}
 
 
@@ -81,7 +91,7 @@ public class InfoBoxEvent extends GwtEvent<InfoBoxEventHandler> {
 
 	@Override
 	public Type<InfoBoxEventHandler> getAssociatedType() {
-		return InfoBoxEvent.TYPE;
+		return InfoBoxShowEvent.TYPE;
 	}
 
 

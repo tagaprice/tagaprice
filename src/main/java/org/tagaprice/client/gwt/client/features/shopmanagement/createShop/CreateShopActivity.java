@@ -1,8 +1,8 @@
 package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxEvent.INFOTYPE;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
@@ -106,7 +106,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onSaveEvent() {
-		_clientFactory.getEventBus().fireEvent(new InfoBoxEvent("Try to save shop", INFOTYPE.INFO));
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
 
 
 		_clientFactory.getShopService().saveShop(getShop(), new AsyncCallback<IShop>() {
