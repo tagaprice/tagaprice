@@ -1,7 +1,9 @@
 package org.tagaprice.client.gwt.client.features.accountmanagement.login;
 
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.core.api.UserNotLoggedInException;
@@ -110,6 +112,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 							throw caught;
 						} catch (WrongEmailOrPasswordException e) {
 							LoginActivity._logger.log("Login problem: " + e);
+							_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginActivity.class, "Login problem: " + e, INFOTYPE.INFO));
 						} catch (Throwable e) {
 							LoginActivity._logger.log("Unexpected error: " + e);
 						}
