@@ -7,6 +7,7 @@ import java.util.Random;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.Unit;
+import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
 import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
@@ -22,6 +23,7 @@ import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
+import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -34,40 +36,10 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	ShopServiceImpl shopImple = new ShopServiceImpl();
 	Random random = new Random(44646776);
 	int productIdCounter = 1;
+	ArrayList<IReceipt> _receiptList = new ArrayList<IReceipt>();
 	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 
 	public ReceiptServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public IReceipt saveReceipt(IReceipt receipt) {
-
-		logger.log("Receipt saved: "+receipt);
-
-		//Create or update Receipt
-		if(receipt.getRevisionId()==null)receipt.setRevisionId(new RevisionId(productIdCounter++, 1));
-		else receipt.getRevisionId().setRevision(receipt.getRevisionId().getRevision()+1);
-
-
-		//create or update Shop
-		//shopImple.saveShop(shop)
-
-		//Create or update address
-
-
-		//create or update Product
-
-
-		//create or update Package
-
-		return receipt;
-	}
-
-	@Override
-	public IReceipt getReceipt(long receiptid) {
-
-		Random random = new Random(1654196865);
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
 		ISubsidiary tempAddres = new Subsidiary(r2, "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
@@ -76,7 +48,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres);
+		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres, new User());
 
 
 		//Add receipt entries
@@ -103,14 +75,69 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
-
-		return tempReceipt;
+		_receiptList.add(tempReceipt);
 	}
 
 	@Override
+	public IReceipt saveReceipt(IReceipt receipt) {
+
+		logger.log("Receipt saved: "+receipt);
+
+		IReceipt returnReceipt=null;
+		//Create or update Receipt
+		if(receipt.getRevisionId()==null){
+			receipt.setRevisionId(new RevisionId(productIdCounter++, 1));
+			_receiptList.add(receipt);
+			returnReceipt=receipt;
+		}
+		else {
+			for(IReceipt ir:_receiptList){
+				if(ir.getRevisionId().getId()==receipt.getRevisionId().getId()){
+					ir=receipt;
+					ir.getRevisionId().setRevision(ir.getRevisionId().getRevision()+1);
+					returnReceipt=ir;
+				}
+			}
+
+		}
+
+
+		//create or update Shop
+		//shopImple.saveShop(shop)
+
+		//Create or update address
+
+
+		//create or update Product
+
+
+		//create or update Package
+
+		return returnReceipt;
+	}
+
+	@Override
+	public IReceipt getReceipt(long receiptid) {
+
+		for (IReceipt r:_receiptList)
+			if(r.getRevisionId().getId()==receiptid)
+				return r;
+
+
+		return null;
+	}
+
+	@Override
+	@Deprecated
 	public ArrayList<ReceiptEntry> getReceiptEntriesByProductId(long productid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<IReceipt> getReceits() throws UserNotLoggedInException {
+
+		return _receiptList;
 	}
 
 }

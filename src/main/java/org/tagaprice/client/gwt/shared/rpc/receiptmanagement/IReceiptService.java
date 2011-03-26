@@ -15,6 +15,8 @@ public interface IReceiptService extends RemoteService {
 
 	IReceipt getReceipt(long receiptid) throws UserNotLoggedInException;
 
+	ArrayList<IReceipt> getReceits() throws UserNotLoggedInException;
+
 
 	/**
 	 * TODO This method must include, boundingBox, and productId

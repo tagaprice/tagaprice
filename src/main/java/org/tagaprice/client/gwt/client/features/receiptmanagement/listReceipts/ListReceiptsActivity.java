@@ -1,12 +1,18 @@
 package org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts;
 
+import java.util.ArrayList;
+
 import org.tagaprice.client.gwt.client.ClientFactory;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class ListReceiptsActivity implements Activity, IListReceiptsView.Presenter {
@@ -50,9 +56,25 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 		ListReceiptsActivity._logger.log("activity startet");
 
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
-
+		_listReceiptsView.setPresenter(this);
 		panel.setWidget(_listReceiptsView);
 
+
+		_clientFactory.getReceiptService().getReceits(new AsyncCallback<ArrayList<IReceipt>>() {
+
+			@Override
+			public void onSuccess(ArrayList<IReceipt> response) {
+				_listReceiptsView.setReceipts(response);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				ListReceiptsActivity._logger.log(""+e);
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(ListReceiptsActivity.class, "Exception: "+e, INFOTYPE.ERROR));
+
+			}
+		});
 	}
 
 }

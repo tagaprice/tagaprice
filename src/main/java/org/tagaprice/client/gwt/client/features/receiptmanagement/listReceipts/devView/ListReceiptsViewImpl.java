@@ -2,29 +2,64 @@ package org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListReceiptsViewImpl extends Composite implements IListReceiptsView {
 
+	VerticalPanel _receiptList = new VerticalPanel();
+	Presenter _presenter;
 
 	public ListReceiptsViewImpl() {
-		initWidget(new Label("List Receipts"));
+		initWidget(_receiptList);
 	}
 
 	@Override
 	public void setReceipts(ArrayList<IReceipt> receipts) {
-		// TODO Auto-generated method stub
+		_receiptList.clear();
+
+		for(final IReceipt r:receipts){
+			Label ml = new Label(createNiceReceiptLine(r));
+			ml.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent e) {
+					_presenter.goTo(new CreateReceiptPlace(r.getRevisionId().getId()));
+				}
+			});
+			_receiptList.add(ml);
+		}
 
 	}
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
+		_presenter=presenter;
+	}
 
+	private String createNiceReceiptLine(IReceipt receipt){
+		String nice="";
+
+		if(receipt.getRevisionId()!=null) nice+="Id: "+receipt.getRevisionId().getId()+" | ";
+
+		nice+=receipt.getTitle()+" | ";
+
+		int money=0;
+		for(IReceiptEntry re: receipt.getReceiptEntries()){
+			money+=re.getPrice().getPrice();
+		}
+		nice+="m: "+money;
+
+
+		return nice;
 	}
 
 }

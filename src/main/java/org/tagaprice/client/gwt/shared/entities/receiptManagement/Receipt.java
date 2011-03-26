@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.client.gwt.shared.entities.AEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
@@ -50,14 +51,14 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	/**
 	 * Update or select Receipt. Used on Client and Server
 	 * @param title
-	 * @param id
 	 * @param date the date and time when a receipt was created
 	 * @param shop {@link Shop} where the receipt is from
 	 * @param user {@link User} who created the receipt
 	 * @param receiptEntries  {@link ReceiptEntry}
 	 */
 
-	public Receipt(String title, Long id, Date date, ISubsidiary address, User user) {
+	public Receipt(RevisionId revisionId, String title, Date date, ISubsidiary address, User user) {
+		setRevisionId(revisionId);
 		setTitle(title);
 		setDate(date);
 		setAddress(address);
