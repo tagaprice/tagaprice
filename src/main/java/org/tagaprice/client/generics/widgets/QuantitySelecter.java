@@ -1,7 +1,7 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.dump.IQuantity;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;

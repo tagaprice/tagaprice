@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.features.accountmanagement.login.devView;
+package org.tagaprice.client.features.accountmanagement.login.devView;
 
-import org.tagaprice.client.gwt.client.features.accountmanagement.login.ILogoutView;
+import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

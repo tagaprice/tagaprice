@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities.receiptManagement;
+package org.tagaprice.shared.entities.receiptManagement;
 
 import java.io.Serializable;
 

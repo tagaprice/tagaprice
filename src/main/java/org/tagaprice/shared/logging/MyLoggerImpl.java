@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.logging;
+package org.tagaprice.shared.logging;
 
 public class MyLoggerImpl implements MyLogger {
 	@SuppressWarnings("rawtypes")

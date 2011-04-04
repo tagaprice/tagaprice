@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.exceptions;
+package org.tagaprice.shared.exceptions;
 
 
 public class UserAlreadyLoggedInException extends Exception {

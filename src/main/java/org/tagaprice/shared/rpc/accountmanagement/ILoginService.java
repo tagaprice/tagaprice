@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.rpc.accountmanagement;
+package org.tagaprice.shared.rpc.accountmanagement;
 
-import org.tagaprice.client.gwt.shared.exceptions.UserAlreadyLoggedInException;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
+import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

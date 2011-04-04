@@ -1,10 +1,10 @@
-package org.tagaprice.client.gwt.shared.entities.productmanagement;
+package org.tagaprice.shared.entities.productmanagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.dump.IQuantity;
 
 /**
  * Every Product can be bought in different packages. This interface defines the properties of an package.

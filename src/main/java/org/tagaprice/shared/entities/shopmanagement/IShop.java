@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.entities.shopmanagement;
+package org.tagaprice.shared.entities.shopmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IEntity;
+import org.tagaprice.shared.entities.IEntity;
 
 public interface IShop extends IEntity<IShop> {
 

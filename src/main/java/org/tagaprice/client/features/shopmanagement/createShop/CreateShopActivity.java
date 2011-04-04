@@ -1,17 +1,17 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
+package org.tagaprice.client.features.shopmanagement.createShop;
 
-import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.generics.events.AddressChangedEvent;
-import org.tagaprice.client.gwt.client.generics.events.AddressChangedEventHandler;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEvent;
-import org.tagaprice.client.gwt.shared.entities.RevisionId;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.generics.events.AddressChangedEvent;
+import org.tagaprice.client.generics.events.AddressChangedEventHandler;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.WaitForAddressEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.shared.entities.RevisionId;
+import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.shopmanagement.*;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;

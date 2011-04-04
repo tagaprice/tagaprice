@@ -1,8 +1,9 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
-import org.tagaprice.client.gwt.client.generics.ICO2Countries;
-import org.tagaprice.client.gwt.client.generics.widgets.ICountrySelecter;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.client.generics.ICO2Countries;
+import org.tagaprice.client.generics.widgets.ICountrySelecter;
+import org.tagaprice.shared.entities.productmanagement.Country;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 

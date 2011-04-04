@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.rpc.categorymanagement;
+package org.tagaprice.shared.rpc.categorymanagement;
 
 public interface ICategoryServiceAsync {
 

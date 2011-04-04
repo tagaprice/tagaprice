@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.events;
+package org.tagaprice.client.generics.events;
 
-import org.tagaprice.client.gwt.shared.entities.Address;
+import org.tagaprice.shared.entities.Address;
 
 import com.google.gwt.event.shared.GwtEvent;
 

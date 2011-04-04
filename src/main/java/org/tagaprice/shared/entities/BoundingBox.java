@@ -12,7 +12,7 @@
  * Filename: BoundingBox.java
  * Date: 02.06.2010
  */
-package org.tagaprice.client.gwt.shared.entities;
+package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
 

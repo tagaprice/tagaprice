@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.rpc.receiptmanagement;
+package org.tagaprice.shared.rpc.receiptmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
+import org.tagaprice.shared.entities.receiptManagement.*;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

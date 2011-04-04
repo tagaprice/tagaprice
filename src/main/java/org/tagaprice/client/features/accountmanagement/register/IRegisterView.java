@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.accountmanagement.register;
+package org.tagaprice.client.features.accountmanagement.register;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -68,7 +68,7 @@ public interface IRegisterView extends IsWidget {
 	public interface Presenter {
 
 		/**
-		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
 		 * 
 		 * @param place

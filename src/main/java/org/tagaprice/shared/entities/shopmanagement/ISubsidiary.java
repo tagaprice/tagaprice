@@ -1,9 +1,9 @@
-package org.tagaprice.client.gwt.shared.entities.shopmanagement;
+package org.tagaprice.shared.entities.shopmanagement;
 
 import java.io.Serializable;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.productmanagement.Country;
 
 /**
  * An Address defines the position where a IShop can be.

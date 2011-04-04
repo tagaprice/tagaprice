@@ -1,9 +1,9 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;

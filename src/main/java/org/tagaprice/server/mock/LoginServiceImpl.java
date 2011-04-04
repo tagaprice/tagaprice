@@ -1,15 +1,15 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
-import org.tagaprice.client.gwt.shared.exceptions.UserAlreadyLoggedInException;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
+import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
+import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

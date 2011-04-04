@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.rpc.accountmanagement;
+package org.tagaprice.shared.rpc.accountmanagement;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

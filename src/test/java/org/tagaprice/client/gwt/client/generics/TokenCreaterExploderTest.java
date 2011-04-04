@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.client.generics;
 
 
 import org.junit.*;
+import org.tagaprice.client.generics.TokenCreator;
 
 public class TokenCreaterExploderTest {
 	TokenCreator.Exploder exploder;

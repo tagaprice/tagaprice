@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
 
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.user.client.ui.IsWidget;

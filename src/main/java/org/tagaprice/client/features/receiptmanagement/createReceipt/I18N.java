@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
+package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Messages;

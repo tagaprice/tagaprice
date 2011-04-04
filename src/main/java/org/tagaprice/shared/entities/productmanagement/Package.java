@@ -1,11 +1,12 @@
-package org.tagaprice.client.gwt.shared.entities.productmanagement;
+package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.dump.IQuantity;
 
 public class Package implements IPackage {
+	private static final long serialVersionUID = 1L;
 
 	IProduct _product;
 	IQuantity _iQuantity;

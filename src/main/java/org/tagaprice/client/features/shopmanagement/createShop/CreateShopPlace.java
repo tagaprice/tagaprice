@@ -1,9 +1,9 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
+package org.tagaprice.client.features.shopmanagement.createShop;
 
-import org.tagaprice.client.gwt.client.generics.TokenCreator;
-import org.tagaprice.client.gwt.shared.entities.RevisionId;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.generics.TokenCreator;
+import org.tagaprice.shared.entities.RevisionId;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.generics.events;
+package org.tagaprice.client.generics.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 

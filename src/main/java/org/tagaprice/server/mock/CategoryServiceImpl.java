@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
-import org.tagaprice.client.gwt.shared.rpc.categorymanagement.ICategoryService;
+import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

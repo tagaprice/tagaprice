@@ -1,11 +1,11 @@
-package org.tagaprice.client.gwt.shared.rpc.shopmanagement;
+package org.tagaprice.shared.rpc.shopmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.*;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

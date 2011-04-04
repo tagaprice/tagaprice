@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.entities.shopmanagement;
+package org.tagaprice.shared.entities.shopmanagement;
 
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.productmanagement.Country;
 
 
 public class Subsidiary implements ISubsidiary {

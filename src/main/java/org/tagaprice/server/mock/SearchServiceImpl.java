@@ -1,13 +1,13 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.BoundingBox;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchService;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

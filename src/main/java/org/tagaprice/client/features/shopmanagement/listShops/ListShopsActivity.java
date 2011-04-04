@@ -1,11 +1,11 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.listShops;
+package org.tagaprice.client.features.shopmanagement.listShops;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.IShopServiceAsync;
+import org.tagaprice.client.ClientFactory;
+import org.tagaprice.shared.entities.shopmanagement.*;
+import org.tagaprice.shared.logging.*;
+import org.tagaprice.shared.rpc.shopmanagement.IShopServiceAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
  * @author Helga Weik (kaltra)
  * 
  */
-public class ListShopsActivity extends AbstractActivity implements org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView.Presenter {
+public class ListShopsActivity extends AbstractActivity implements org.tagaprice.client.features.shopmanagement.listShops.ListShopsView.Presenter {
 	private static MyLogger logger = LoggerFactory.getLogger(ListShopsActivity.class);
 
 	private ListShopsPlace place;

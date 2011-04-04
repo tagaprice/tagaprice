@@ -1,10 +1,11 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts;
+package org.tagaprice.client.features.receiptmanagement.listReceipts;
 
 import java.util.ArrayList;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
+
+import org.tagaprice.shared.entities.receiptManagement.IReceipt;
 
 public interface IListReceiptsView extends IsWidget {
 
@@ -26,7 +27,7 @@ public interface IListReceiptsView extends IsWidget {
 	public interface Presenter{
 
 		/**
-		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
 		 * 
 		 * @param place

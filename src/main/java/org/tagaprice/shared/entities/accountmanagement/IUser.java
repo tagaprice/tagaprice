@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities.accountmanagement;
+package org.tagaprice.shared.entities.accountmanagement;
 
 import java.io.Serializable;
 

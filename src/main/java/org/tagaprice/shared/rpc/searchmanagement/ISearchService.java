@@ -1,14 +1,14 @@
-package org.tagaprice.client.gwt.shared.rpc.searchmanagement;
+package org.tagaprice.shared.rpc.searchmanagement;
 
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import org.tagaprice.client.gwt.shared.entities.BoundingBox;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 @RemoteServiceRelativePath("searchservice")
 public interface ISearchService extends RemoteService {

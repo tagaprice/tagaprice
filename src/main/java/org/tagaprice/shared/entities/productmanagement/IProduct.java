@@ -1,10 +1,10 @@
-package org.tagaprice.client.gwt.shared.entities.productmanagement;
+package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IEntity;
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.IEntity;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.dump.ICategory;
 
 
 /**
@@ -31,21 +31,21 @@ public interface IProduct extends IEntity<IProduct> {
 
 
 	/**
-	 * Sets the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
+	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
 	 * have.
 	 * 
 	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 *            can
 	 *            have.
 	 */
 	public void setUnit(Unit unit);
 
 	/**
-	 * The {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * The {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
 	 * bought.
 	 * 
-	 * @return the {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * @return the {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
 	 * bought
 	 */
 	public Unit getUnit();

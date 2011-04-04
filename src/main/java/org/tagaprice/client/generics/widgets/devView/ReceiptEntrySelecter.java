@@ -1,12 +1,12 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.generics.widgets.CurrencySelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.IReceiptEntrySelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.QuantitySelecter;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
+import org.tagaprice.client.generics.widgets.CurrencySelecter;
+import org.tagaprice.client.generics.widgets.IReceiptEntrySelecter;
+import org.tagaprice.client.generics.widgets.QuantitySelecter;
+import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

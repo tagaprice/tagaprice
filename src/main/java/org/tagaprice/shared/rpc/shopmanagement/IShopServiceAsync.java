@@ -1,10 +1,11 @@
-package org.tagaprice.client.gwt.shared.rpc.shopmanagement;
+package org.tagaprice.shared.rpc.shopmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface IShopServiceAsync {

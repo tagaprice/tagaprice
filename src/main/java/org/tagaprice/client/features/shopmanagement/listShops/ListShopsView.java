@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.listShops;
+package org.tagaprice.client.features.shopmanagement.listShops;
 
 import java.util.ArrayList;
 

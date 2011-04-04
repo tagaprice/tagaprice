@@ -1,11 +1,11 @@
-package org.tagaprice.client.gwt.shared.rpc.productmanagement;
+package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

@@ -1,13 +1,13 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
 import java.util.*;
 
-import org.tagaprice.client.gwt.shared.entities.*;
-import org.tagaprice.client.gwt.shared.entities.dump.*;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
-import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
+import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.dump.*;
+import org.tagaprice.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.logging.*;
+import org.tagaprice.shared.rpc.productmanagement.IProductService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

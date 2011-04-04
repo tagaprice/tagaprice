@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
+package org.tagaprice.client.features.shopmanagement.createShop;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Messages;

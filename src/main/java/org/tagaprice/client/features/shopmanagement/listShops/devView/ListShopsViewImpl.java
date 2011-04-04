@@ -1,10 +1,10 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.listShops.devView;
+package org.tagaprice.client.features.shopmanagement.listShops.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
-import org.tagaprice.client.gwt.shared.logging.*;
+import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
+import org.tagaprice.client.generics.ColumnDefinition;
+import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

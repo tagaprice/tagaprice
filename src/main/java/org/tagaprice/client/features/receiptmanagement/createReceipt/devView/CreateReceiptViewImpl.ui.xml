@@ -1,7 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
-	xmlns:my="urn:import:org.tagaprice.client.gwt.client.generics.widgets" 
+	xmlns:my="urn:import:org.tagaprice.client.generics.widgets" 
 	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
 	>
 	<g:VerticalPanel>

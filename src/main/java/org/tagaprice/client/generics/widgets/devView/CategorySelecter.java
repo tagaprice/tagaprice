@@ -1,10 +1,10 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.generics.widgets.ICategorySelecter;
-import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.logging.*;
+import org.tagaprice.client.generics.widgets.ICategorySelecter;
+import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;

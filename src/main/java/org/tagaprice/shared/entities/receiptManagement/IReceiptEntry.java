@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.entities.receiptManagement;
+package org.tagaprice.shared.entities.receiptManagement;
 
 import java.io.Serializable;
 
-import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.productmanagement.*;
 
 /**
  * Stores information about a bought product, the quantity and the price.

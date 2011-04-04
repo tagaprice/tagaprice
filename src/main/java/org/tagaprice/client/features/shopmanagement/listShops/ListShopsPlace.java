@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.listShops;
+package org.tagaprice.client.features.shopmanagement.listShops;
 
 import java.util.HashMap;
 
-import org.tagaprice.client.gwt.shared.logging.*;
+import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.place.shared.*;
 

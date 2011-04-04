@@ -1,16 +1,16 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.createProduct.devView;
+package org.tagaprice.client.features.productmanagement.createProduct.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.I18N;
-import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.ICreateProductView;
-import org.tagaprice.client.gwt.client.generics.widgets.CategorySelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.PackageSelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.UnitSelecter;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.dump.*;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.client.features.productmanagement.createProduct.I18N;
+import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.PackageSelecter;
+import org.tagaprice.client.generics.widgets.UnitSelecter;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.dump.*;
+import org.tagaprice.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

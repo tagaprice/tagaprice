@@ -1,13 +1,13 @@
-package org.tagaprice.client.gwt.client.mvp;
+package org.tagaprice.client.mvp;
 
-import org.tagaprice.client.gwt.client.features.accountmanagement.login.LoginPlace;
-import org.tagaprice.client.gwt.client.features.accountmanagement.register.RegisterPlace;
-import org.tagaprice.client.gwt.client.features.productmanagement.createProduct.CreateProductPlace;
-import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsPlace;
-import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
-import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
-import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.CreateShopPlace;
-import org.tagaprice.client.gwt.client.features.shopmanagement.listShops.ListShopsPlace;
+import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
+import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
+import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
+import org.tagaprice.client.features.productmanagement.listProducts.ListProductsPlace;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
+import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
+import org.tagaprice.client.features.shopmanagement.listShops.ListShopsPlace;
 
 import com.google.gwt.place.shared.*;
 

@@ -1,9 +1,11 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
 import java.util.ArrayList;
-import org.tagaprice.client.gwt.client.generics.widgets.IMultipleAddressSelecter;
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+
+import org.tagaprice.client.generics.widgets.IMultipleAddressSelecter;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;

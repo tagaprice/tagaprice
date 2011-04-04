@@ -1,11 +1,11 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.devView;
+package org.tagaprice.client.features.receiptmanagement.listReceipts.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
-import org.tagaprice.client.gwt.client.features.receiptmanagement.listReceipts.IListReceiptsView;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
+import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.mvp;
+package org.tagaprice.client.mvp;
 
 public abstract class AView<PresenterType> implements IView<PresenterType> {
 

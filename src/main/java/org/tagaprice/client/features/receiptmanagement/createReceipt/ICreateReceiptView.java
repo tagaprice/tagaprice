@@ -1,13 +1,13 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
+package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.tagaprice.client.gwt.shared.entities.BoundingBox;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -57,7 +57,7 @@ public interface ICreateReceiptView extends IsWidget{
 	public interface Presenter {
 
 		/**
-		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
 		 * 
 		 * @param place

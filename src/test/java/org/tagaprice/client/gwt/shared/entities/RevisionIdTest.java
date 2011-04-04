@@ -2,6 +2,7 @@ package org.tagaprice.client.gwt.shared.entities;
 
 
 import org.junit.*;
+import org.tagaprice.shared.entities.RevisionId;
 
 public class RevisionIdTest {
 	RevisionId underTest;

@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.shared.entities.receiptManagement;
+package org.tagaprice.shared.entities.receiptManagement;
 
-import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.productmanagement.*;
 
 public class ReceiptEntry implements IReceiptEntry {
 

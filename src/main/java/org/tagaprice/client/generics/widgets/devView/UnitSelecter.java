@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
-import org.tagaprice.client.gwt.client.generics.widgets.IUnitChangedHandler;
-import org.tagaprice.client.gwt.client.generics.widgets.IUnitSelecter;
-import org.tagaprice.client.gwt.shared.entities.Unit;
+import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
+import org.tagaprice.client.generics.widgets.IUnitSelecter;
+import org.tagaprice.shared.entities.Unit;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;

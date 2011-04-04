@@ -1,12 +1,12 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
 
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.client.gwt.client.generics.widgets.IInfoBox;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.generics.widgets.IInfoBox;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

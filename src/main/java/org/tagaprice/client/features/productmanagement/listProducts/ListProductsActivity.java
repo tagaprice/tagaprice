@@ -1,14 +1,14 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.listProducts;
+package org.tagaprice.client.features.productmanagement.listProducts;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.client.features.productmanagement.listProducts.ListProductsView.Presenter;
-import org.tagaprice.client.gwt.shared.entities.dump.Category;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
-import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductServiceAsync;
+import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
+import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.logging.*;
+import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;

@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities.productmanagement;
+package org.tagaprice.shared.entities.productmanagement;
 
 /**
  * These are all ISO-2 country codes

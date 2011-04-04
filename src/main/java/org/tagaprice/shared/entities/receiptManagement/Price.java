@@ -1,10 +1,11 @@
-package org.tagaprice.client.gwt.shared.entities.receiptManagement;
+package org.tagaprice.shared.entities.receiptManagement;
 
 /**
  * Set the price of an {@link IReceiptEntry}
  *
  */
 public class Price implements IPrice {
+	private static final long serialVersionUID = 1L;
 
 	private int _price;
 	private Currency _currency;

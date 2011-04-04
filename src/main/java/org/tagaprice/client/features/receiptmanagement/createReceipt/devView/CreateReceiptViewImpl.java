@@ -1,23 +1,25 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.devView;
+package org.tagaprice.client.features.receiptmanagement.createReceipt.devView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
-import org.tagaprice.client.gwt.client.generics.widgets.AddressSelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.ReceiptEntrySelecter;
-import org.tagaprice.client.gwt.shared.entities.BoundingBox;
-import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Price;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
+
+import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.generics.widgets.AddressSelecter;
+import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.dump.Quantity;
+import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

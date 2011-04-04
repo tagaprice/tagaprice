@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.shared.entities.dump;
+package org.tagaprice.shared.entities.dump;
 
-import org.tagaprice.client.gwt.shared.entities.*;
+import org.tagaprice.shared.entities.*;
 
 
 public class Category extends AEntity<ICategory> implements ICategory  {

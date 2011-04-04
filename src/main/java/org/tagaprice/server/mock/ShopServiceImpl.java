@@ -1,15 +1,15 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import org.tagaprice.client.gwt.shared.entities.*;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.exceptions.*;
+
+import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.shopmanagement.*;
+import org.tagaprice.shared.exceptions.*;
+import org.tagaprice.shared.logging.*;
+import org.tagaprice.shared.rpc.shopmanagement.*;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

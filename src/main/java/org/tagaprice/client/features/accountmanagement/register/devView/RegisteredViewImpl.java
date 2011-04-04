@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.features.accountmanagement.register.devView;
+package org.tagaprice.client.features.accountmanagement.register.devView;
 
-import org.tagaprice.client.gwt.client.features.accountmanagement.register.IRegisteredView;
+import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;

@@ -1,9 +1,9 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.listProducts.devView;
+package org.tagaprice.client.features.productmanagement.listProducts.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.generics.ColumnDefinition;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
 
 
 

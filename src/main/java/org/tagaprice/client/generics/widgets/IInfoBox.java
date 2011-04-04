@@ -1,7 +1,7 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxDestroyEvent;
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 
 import com.google.gwt.user.client.ui.IsWidget;
 

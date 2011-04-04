@@ -1,11 +1,11 @@
-package org.tagaprice.client.gwt.client.features.productmanagement.createProduct;
+package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -37,32 +37,32 @@ public interface ICreateProductView extends IsWidget {
 
 
 	/**
-	 * Sets the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
+	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
 	 * have.
 	 * 
 	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 *            can
 	 *            have.
 	 */
 	public void setUnit(Unit unit);
 
 	/**
-	 * The {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * The {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
 	 * bought.
 	 * 
-	 * @return the {@link Unit} in which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can be
+	 * @return the {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
 	 * bought
 	 */
 	public Unit getUnit();
 
 	/**
 	 * Sets the depending {@link ICategory} for a
-	 * {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 * {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 * 
 	 * @param category
 	 *            the depending {@link ICategory} for a
-	 *            {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 */
 	public void setCategory(ICategory category);
 
@@ -108,7 +108,7 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public interface Presenter {
 		/**
-		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
 		 * 
 		 * @param place
@@ -118,7 +118,7 @@ public interface ICreateProductView extends IsWidget {
 
 		/**
 		 * This event is called when the user has CHANGED/CREATED a
-		 * {@link org.tagaprice.client.gwt.shared.entities.productmanagement.Product}.
+		 * {@link org.tagaprice.shared.entities.productmanagement.Product}.
 		 */
 		public void onSaveEvent();
 

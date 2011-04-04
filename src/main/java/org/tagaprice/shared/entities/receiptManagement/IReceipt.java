@@ -1,10 +1,11 @@
-package org.tagaprice.client.gwt.shared.entities.receiptManagement;
+package org.tagaprice.shared.entities.receiptManagement;
 
 import java.util.ArrayList;
 import java.util.Date;
-import org.tagaprice.client.gwt.shared.entities.IEntity;
-import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+
+import org.tagaprice.shared.entities.IEntity;
+import org.tagaprice.shared.entities.accountmanagement.User;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 
 

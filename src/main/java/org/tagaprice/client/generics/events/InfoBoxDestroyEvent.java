@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.events;
+package org.tagaprice.client.generics.events;
 
-import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 
 import com.google.gwt.event.shared.GwtEvent;
 

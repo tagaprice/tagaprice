@@ -1,11 +1,12 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
-import org.tagaprice.client.gwt.client.generics.widgets.CountrySelecter;
-import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.generics.widgets.CountrySelecter;
+import org.tagaprice.client.generics.widgets.IAddressSelecter;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
+
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;

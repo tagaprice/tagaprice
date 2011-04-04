@@ -1,15 +1,16 @@
-package org.tagaprice.client.gwt.client.features.receiptmanagement.createReceipt;
+package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.tagaprice.client.gwt.client.ClientFactory;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceipt;
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.ClientFactory;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
+
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;

@@ -1,13 +1,13 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView;
+package org.tagaprice.client.features.shopmanagement.createShop.devView;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.gwt.client.generics.ColumnDefinition;
-import org.tagaprice.client.gwt.client.generics.widgets.MultipleAddressSelecter;
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
+import org.tagaprice.client.generics.ColumnDefinition;
+import org.tagaprice.client.generics.widgets.MultipleAddressSelecter;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -47,7 +47,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#setPresenter(org.tagaprice.client.gwt.client.features.shopmanagement.createShop.ICreateShopView.Presenter)
+	 * @see org.tagaprice.client.features.shopmanagement.createShop.devView.ICreateShopView#setPresenter(org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView.Presenter)
 	 */
 	@Override
 	public void setPresenter(Presenter presenter) {
@@ -55,7 +55,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#setTitle(java.lang.String)
+	 * @see org.tagaprice.client.features.shopmanagement.createShop.devView.ICreateShopView#setTitle(java.lang.String)
 	 */
 	@Override
 	public void setTitle(String title) {
@@ -70,7 +70,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 
 	/* (non-Javadoc)
-	 * @see org.tagaprice.client.gwt.client.features.shopmanagement.createShop.devView.ICreateShopView#getTitle()
+	 * @see org.tagaprice.client.features.shopmanagement.createShop.devView.ICreateShopView#getTitle()
 	 */
 	@Override
 	public String getShopTitle() {

@@ -1,10 +1,10 @@
-package org.tagaprice.client.gwt.client.features.shopmanagement.createShop;
+package org.tagaprice.client.features.shopmanagement.createShop;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -26,7 +26,7 @@ public interface ICreateShopView<T> extends IsWidget {
 	 */
 	public interface Presenter {
 		/**
-		 * Is used by the {@link org.tagaprice.client.gwt.client.mvp.AppActivityMapper} to display a new place in the
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
 		 * 
 		 * @param place

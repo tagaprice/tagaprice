@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.dump.IQuantity;
 
 public interface IQuantityChangeHandler {
 

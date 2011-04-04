@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.generics;
+package org.tagaprice.client.generics;
 
 
 import com.google.gwt.core.client.GWT;

@@ -1,6 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.widgets;
+package org.tagaprice.client.generics.widgets;
 
-import org.tagaprice.client.gwt.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
