@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.tagaprice.client.gwt.shared.entities.Unit;
+import org.hibernate.annotations.Cascade;
 
 /**
  * <p>
@@ -159,6 +160,7 @@ public class ProductRevision implements Serializable {
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.DETACH } )
 	@JoinColumn(table = "entityrevision", name = "creator")
 	public Account getCreator() {
 		return _creator;
@@ -191,7 +193,8 @@ public class ProductRevision implements Serializable {
 	}
 
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DETACH } )
 	@JoinColumn(name = "category_id")
 	public Category getCategory() {
 		return _category;

@@ -42,6 +42,20 @@ public class HibernateProductDAO implements IProductDAO {
 		criteria.setProjection(Projections.rowCount());
 		return ((Long)criteria.list().get(0)).intValue();
 	}
+
+	@Override
+	public Product update(Product product) {
+		Session session = _sessionFactory.getCurrentSession();
+		//		session.replicate(product, ReplicationMode.LATEST_VERSION);
+		session.merge(product);
+		return product;
+	}
+
+	@Override
+	public void evict(Product persistedProduct) {
+		Session session = _sessionFactory.getCurrentSession();
+		session.evict(persistedProduct);
+	}
 }
 
 
