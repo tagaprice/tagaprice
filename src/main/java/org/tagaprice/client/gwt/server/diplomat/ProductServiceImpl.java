@@ -8,12 +8,12 @@ import org.tagaprice.client.gwt.server.diplomat.converter.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.dump.*;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.*;
+import org.tagaprice.client.gwt.shared.exceptions.OutdatedRevisionException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.client.gwt.shared.rpc.productmanagement.IProductService;
 
 import org.tagaprice.core.api.ICategoryService;
-import org.tagaprice.core.api.OutdatedRevisionException;
 import org.tagaprice.core.api.ServerException;
-import org.tagaprice.core.api.UserNotLoggedInException;
 
 import org.tagaprice.core.entities.Category;
 import org.tagaprice.core.entities.Product;

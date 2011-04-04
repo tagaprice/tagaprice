@@ -1,6 +1,7 @@
-package org.tagaprice.core.api;
+package org.tagaprice.client.gwt.shared.exceptions;
 
-public class UserNotLoggedInException extends ServerException {
+
+public class UserNotLoggedInException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

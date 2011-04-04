@@ -2,11 +2,11 @@ package org.tagaprice.client.gwt.server.diplomat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tagaprice.client.gwt.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.core.api.ServerException;
-import org.tagaprice.core.api.UserAlreadyLoggedInException;
-import org.tagaprice.core.api.UserNotLoggedInException;
-import org.tagaprice.core.api.WrongEmailOrPasswordException;
 import org.tagaprice.core.entities.Session;
 import org.tagaprice.server.boot.Boot;
 

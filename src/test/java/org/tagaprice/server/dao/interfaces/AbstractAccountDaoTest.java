@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.tagaprice.core.api.WrongEmailOrPasswordException;
+import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.core.entities.Account;
 import org.tagaprice.server.boot.dbinit.IDbTestInitializer;
 import org.tagaprice.server.dao.helper.DbSaveAssertUtility;

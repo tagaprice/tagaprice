@@ -8,11 +8,10 @@ import org.tagaprice.client.gwt.server.diplomat.converter.*;
 import org.tagaprice.client.gwt.shared.entities.*;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
 import org.tagaprice.core.api.ServerException;
-import org.tagaprice.core.api.UserNotLoggedInException;
 import org.tagaprice.core.entities.*;
-import org.tagaprice.core.entities.Shop;
 import org.tagaprice.server.boot.Boot;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

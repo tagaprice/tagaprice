@@ -23,7 +23,7 @@ import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
-import org.tagaprice.core.api.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
