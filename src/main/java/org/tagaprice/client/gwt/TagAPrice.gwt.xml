@@ -5,8 +5,6 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=true&amp;key=ABQIAAAAmkm_NVB3ydA1uhh-Cxq1GRQ5GsBjyuBUf1bknn4Hhi0YSQaxCBSPAMRdoQMqKe_vK5E0JMVVEPcxdg" />
   
 
-  
-
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.resources.Resources" />
@@ -85,6 +83,4 @@
   <!-- Specify the paths for translatable code                    -->
   <source path="client" />
   <source path="shared" />
-  <!--  <inherits name="org.tagaprice.core.core"/> -->
-  <inherits name="com.google.gwt.junit.JUnit"/>
 </module>
