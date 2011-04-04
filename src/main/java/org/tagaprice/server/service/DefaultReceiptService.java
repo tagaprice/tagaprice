@@ -11,7 +11,6 @@ import org.tagaprice.server.dao.interfaces.IReceiptDAO;
 
 public class DefaultReceiptService implements IReceiptService {
 	private IReceiptDAO _receiptDao;
-	private SessionService _sessionFactory;
 
 	@Transactional
 	@Override
@@ -31,9 +30,5 @@ public class DefaultReceiptService implements IReceiptService {
 
 	public void setReceiptDAO(IReceiptDAO receiptDao) {
 		_receiptDao = receiptDao;
-	}
-
-	public void setSessionFactory(SessionService sessionFactory) {
-		_sessionFactory = sessionFactory;
 	}
 }

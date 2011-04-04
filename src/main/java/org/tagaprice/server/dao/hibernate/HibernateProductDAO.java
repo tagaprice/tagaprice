@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Projections;
 import org.tagaprice.core.entities.Product;
-import org.tagaprice.core.entities.ProductRevision;
 import org.tagaprice.server.dao.interfaces.IProductDAO;
 
 public class HibernateProductDAO implements IProductDAO {
