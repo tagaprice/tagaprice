@@ -6,7 +6,7 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.core.api.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

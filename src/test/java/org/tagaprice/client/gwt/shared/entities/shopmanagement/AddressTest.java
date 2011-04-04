@@ -13,7 +13,7 @@ public class AddressTest extends TestCase {
 	String _street = "street1";
 	String _zip = "zip1";
 	String _city = "city1";
-	Country _country = Country.at;
+	Country _country = Country.AT;
 	double _lat = 12.34;
 	double _lng = 56.78;
 	ISubsidiary testAddress;
@@ -29,7 +29,7 @@ public class AddressTest extends TestCase {
 
 	public void testUpdateAddress(){
 		testAddress.setCity(_city+"2");
-		testAddress.setCountry(Country.de);
+		testAddress.setCountry(Country.DE);
 		testAddress.setZip(_zip+"2");
 		testAddress.setStreet(_street+"2");
 		testAddress.setLat(_lat+2);
@@ -37,7 +37,7 @@ public class AddressTest extends TestCase {
 		testAddress.setRevisionId(new RevisionId(_revisionId.getId()+2, _revisionId.getRevision()+2));
 
 		assertEquals(testAddress.getCity(), _city+"2");
-		assertEquals(testAddress.getCountry(), Country.de);
+		assertEquals(testAddress.getCountry(), Country.DE);
 		assertEquals(testAddress.getZip(), _zip+"2");
 		assertEquals(testAddress.getStreet(), _street+"2");
 		assertEquals(testAddress.getLat(), _lat+2);

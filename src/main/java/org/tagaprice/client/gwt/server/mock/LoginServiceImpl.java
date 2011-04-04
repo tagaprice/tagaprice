@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.tagaprice.client.gwt.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import org.tagaprice.client.gwt.shared.rpc.accountmanagement.ILoginService;
-import org.tagaprice.core.api.UserAlreadyLoggedInException;
-import org.tagaprice.core.api.UserNotLoggedInException;
-import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
