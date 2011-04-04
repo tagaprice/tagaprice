@@ -223,6 +223,13 @@
 			<version>3.4.GA</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.jcouchdb</groupId>
+			<artifactId>jcouchdb</artifactId>
+			<version>1.0.1-1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- jb -->
