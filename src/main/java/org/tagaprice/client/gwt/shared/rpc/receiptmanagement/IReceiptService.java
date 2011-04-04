@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.shared.rpc.receiptmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
-import org.tagaprice.core.api.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

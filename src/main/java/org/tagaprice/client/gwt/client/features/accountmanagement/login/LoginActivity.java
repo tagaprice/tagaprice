@@ -4,10 +4,10 @@ import org.tagaprice.client.gwt.client.ClientFactory;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.client.gwt.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.core.api.UserNotLoggedInException;
-import org.tagaprice.core.api.WrongEmailOrPasswordException;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;

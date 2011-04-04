@@ -1,11 +1,12 @@
-package org.tagaprice.core.api;
+package org.tagaprice.client.gwt.shared.exceptions;
+
 
 /**
  * Thrown to indicate that a given email does not exist or a given password does not match.
  * @author "forste"
  *
  */
-public class WrongEmailOrPasswordException extends ServerException {
+public class WrongEmailOrPasswordException extends Exception {
 
 	/**
 	 * 

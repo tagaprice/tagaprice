@@ -9,9 +9,9 @@ import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.core.api.UserNotLoggedInException;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
