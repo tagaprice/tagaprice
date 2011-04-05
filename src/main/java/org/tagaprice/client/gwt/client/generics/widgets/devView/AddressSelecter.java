@@ -20,13 +20,10 @@ import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LocationCallback;
 import com.google.gwt.maps.client.geocode.Placemark;
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.maps.client.overlay.Marker;
-import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -49,9 +46,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	Geocoder coder = new Geocoder();
 	ISubsidiary _subsidiary;
 
-	MarkerOptions _mOptions = MarkerOptions.newInstance();
-	Marker marker;
-	MapWidget mapWidget;
 
 	//OSM
 	Map osmMap;
@@ -61,14 +55,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	public AddressSelecter() {
 
 		HorizontalPanel hoPaTemp = new HorizontalPanel();
-		_mOptions.setDraggable(true);
 
-		marker = new Marker(LatLng.newInstance(48.21426, 16.37692), _mOptions);
-		marker.setDraggingEnabled(true);
-
-		mapWidget = new MapWidget(marker.getLatLng(), 13);
-		mapWidget.setSize("200px", "200px");
-		mapWidget.addOverlay(marker);
 
 
 		//******** INIT OSM ************/
@@ -156,7 +143,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		tempGrid.setWidget(5, 1, _lng);
 
 		hoPaTemp.add(tempGrid);
-		hoPaTemp.add(mapWidget);
 		hoPaTemp.add(omapWidget);
 		vePaTemp.add(hoPaTemp);
 
@@ -185,8 +171,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_subsidiary.getAddress().setPostalcode(_zip.getText());
 		_subsidiary.getAddress().setCity(_city.getText());
 		_subsidiary.getAddress().setCountry(_country.getCountry());
-		_subsidiary.getAddress().setLat(marker.getLatLng().getLatitude());
-		_subsidiary.getAddress().setLng(marker.getLatLng().getLongitude());
+
+		_subsidiary.getAddress().setLat(osmMap.getCenter().lat());
+		_subsidiary.getAddress().setLng(osmMap.getCenter().lon());
 
 
 		return _subsidiary;
@@ -195,8 +182,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private void setLatLng(LatLng latLng){
 		_lat.setText(""+latLng.getLatitude());
 		_lng.setText(""+latLng.getLongitude());
-		marker.setLatLng(latLng);
-		mapWidget.setCenter(marker.getLatLng());
 
 		//osm
 		LonLat t = new LonLat(latLng.getLongitude(), latLng.getLatitude());
