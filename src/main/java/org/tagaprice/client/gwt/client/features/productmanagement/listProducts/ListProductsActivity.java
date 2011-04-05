@@ -129,7 +129,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void onSearch(String searchtext) {
 		ListProductsActivity.logger.log("search for " + searchtext);
-		IProduct product = new Product(searchtext, new Category(""), null);
+		IProduct product = new Product(searchtext, new Category("",null), null);
 		this.productServiceAsync.getProducts(product, new AsyncCallback<ArrayList<IProduct>>() {
 
 			@Override

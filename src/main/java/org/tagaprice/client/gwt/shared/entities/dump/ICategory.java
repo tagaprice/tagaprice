@@ -16,8 +16,5 @@ public interface ICategory extends IEntity<ICategory> {
 	 */
 	public void setParentCategory(ICategory category);
 
-	public void setId(long id);
-
-	public long getId();
 
 }

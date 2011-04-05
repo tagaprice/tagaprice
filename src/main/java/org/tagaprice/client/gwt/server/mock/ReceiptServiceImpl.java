@@ -8,6 +8,7 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.Category;
+import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
@@ -50,10 +51,11 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres);
 
 
+		ICategory root = new Category("root",null);
 		//Add receipt entries
 		{
 			IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
-			IProduct iprodc = new Product("Bergkäse 4", new Category("food"), Unit.g);
+			IProduct iprodc = new Product("Bergkäse 4", new Category("food",root), Unit.g);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			IReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
@@ -62,7 +64,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		{
 			IPackage ipack = new Package(new Quantity(1.5, Unit.l));
-			IProduct iprodc = new Product("CocaCola", new Category("food"), Unit.l);
+			IProduct iprodc = new Product("CocaCola", new Category("food",root), Unit.l);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);
