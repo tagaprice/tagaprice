@@ -1,0 +1,54 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:my="urn:import:org.tagaprice.client.generics.widgets" 
+	>
+	<g:VerticalPanel>
+		<g:HTML>
+			<h1>Edit / Add shop</h1>
+		</g:HTML>
+		<g:HorizontalPanel>
+		<g:DecoratorPanel>
+			<g:HTMLPanel>
+				<table>
+					<tr>
+						<td>
+							<g:Label >id</g:Label>
+						</td>
+						<td>
+							<g:Label ui:field="_id">id</g:Label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="_nameI18N">Name</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_name"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<my:MultipleAddressSelecter ui:field="_addresses"></my:MultipleAddressSelecter>
+						</td>
+					</tr>				
+					<tr>
+						<td colspan="2">
+							<g:Button ui:field="_cancelButton">cancel</g:Button>
+							<g:Button ui:field="_saveButton">save shop</g:Button>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+
+		</g:DecoratorPanel>
+		<g:SimplePanel ui:field="_mapContainer"></g:SimplePanel>
+		</g:HorizontalPanel>
+		<g:DecoratorPanel>
+		
+		<g:FlexTable ui:field="_receiptEntriesTable" addStyleNames="FlexTable-Body"></g:FlexTable>
+		</g:DecoratorPanel>
+		
+		
+	</g:VerticalPanel>
+</ui:UiBinder>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='TagAPrice'>
+
+  <!-- Google Maps script must before inherits --> 
+  <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=true&amp;key=ABQIAAAAmkm_NVB3ydA1uhh-Cxq1GRQ5GsBjyuBUf1bknn4Hhi0YSQaxCBSPAMRdoQMqKe_vK5E0JMVVEPcxdg" />
+  
+
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.resources.Resources" />
+  <inherits name="com.google.gwt.logging.LogImpl" /> 
+  <inherits name="com.google.gwt.place.Place" /> 
+  <inherits name="com.google.gwt.activity.Activity" /> 
+  <inherits name="com.google.gwt.i18n.I18N"/>
+  <inherits name='com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha' />
+  <inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
+  <inherits name='com.google.gwt.maps.GoogleMaps' />
+  
+  <replace-with class="org.tagaprice.client.ClientFactoryImpl">
+  	<when-type-is class="org.tagaprice.client.ClientFactory" /> 
+  </replace-with>
+  
+  <!--  Widgets -->
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.ICategorySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IQuantitySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.ShopSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IShopSelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.UnitSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IUnitSelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.MultipleAddressSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IMultipleAddressSelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.AddressSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IAddressSelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.ReceiptEntrySelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.CountrySelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.ICountrySelecter" /> 
+  </replace-with>
+  
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" /> 
+  </replace-with>
+  
+
+  
+
+  <!-- Inherit the default GWT style sheet.  You can change       -->
+  <!-- the theme of your GWT application by uncommenting          -->
+  <!-- any one of the following lines.                            -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard' />
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>  -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->    
+
+
+  
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='org.tagaprice.client.TagAPrice'/>
+ 
+  <!-- Specify the paths for translatable code                    -->
+  <source path="client" />
+  <source path="shared" />
+</module>

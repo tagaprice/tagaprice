@@ -2,7 +2,8 @@ package org.tagaprice.client.gwt.client.generics;
 
 
 import org.junit.*;
-import org.tagaprice.client.gwt.client.generics.TokenCreator.Imploder;
+import org.tagaprice.client.generics.TokenCreator;
+import org.tagaprice.client.generics.TokenCreator.Imploder;
 
 public class TokenCreaterImploderTest {
 	Imploder imploder;

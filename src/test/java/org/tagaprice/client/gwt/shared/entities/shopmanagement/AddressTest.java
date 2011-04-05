@@ -4,9 +4,11 @@ import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.RevisionId;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
+import org.tagaprice.shared.entities.productmanagement.Country;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
 
 public class AddressTest extends TestCase {
 

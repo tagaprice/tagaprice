@@ -2,6 +2,8 @@ package org.tagaprice.client.gwt.shared.entities.dump;
 
 
 import org.junit.*;
+import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.dump.ICategory;
 
 public class CategoryTest {
 	ICategory root = new Category("root");
