@@ -12,8 +12,8 @@ public class Address implements Serializable {
 	private Country _country;
 	private double _lat;
 	private double _lng;
-	private String _street;
 	private String _postalcode;
+	private String _street;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -31,7 +31,7 @@ public class Address implements Serializable {
 	 * @param street street
 	 * @param postalcode postalcode
 	 */
-	public Address(String city, Country country, double lat, double lng, String street, String postalcode) {
+	public Address(String street, String postalcode, String city, Country country, double lat, double lng) {
 		super();
 		_city = city;
 		_country = country;
@@ -49,24 +49,10 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		_city = city;
-	}
-
-	/**
 	 * @return the country
 	 */
 	public Country getCountry() {
 		return _country;
-	}
-
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(Country country) {
-		_country = country;
 	}
 
 	/**
@@ -77,38 +63,10 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @param lat the lat to set
-	 */
-	public void setLat(double lat) {
-		_lat = lat;
-	}
-
-	/**
 	 * @return the lng
 	 */
 	public double getLng() {
 		return _lng;
-	}
-
-	/**
-	 * @param lng the lng to set
-	 */
-	public void setLng(double lng) {
-		_lng = lng;
-	}
-
-	/**
-	 * @return the street
-	 */
-	public String getStreet() {
-		return _street;
-	}
-
-	/**
-	 * @param street the street to set
-	 */
-	public void setStreet(String street) {
-		_street = street;
 	}
 
 	/**
@@ -119,10 +77,52 @@ public class Address implements Serializable {
 	}
 
 	/**
+	 * @return the street
+	 */
+	public String getStreet() {
+		return _street;
+	}
+
+	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		_city = city;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(Country country) {
+		_country = country;
+	}
+
+	/**
+	 * @param lat the lat to set
+	 */
+	public void setLat(double lat) {
+		_lat = lat;
+	}
+
+	/**
+	 * @param lng the lng to set
+	 */
+	public void setLng(double lng) {
+		_lng = lng;
+	}
+
+	/**
 	 * @param postalcode the postalcode to set
 	 */
 	public void setPostalcode(String postalcode) {
 		_postalcode = postalcode;
+	}
+
+	/**
+	 * @param street the street to set
+	 */
+	public void setStreet(String street) {
+		_street = street;
 	}
 
 	/* (non-Javadoc)

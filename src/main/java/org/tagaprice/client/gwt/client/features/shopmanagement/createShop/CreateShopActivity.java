@@ -188,7 +188,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setAddresses(_createShopView.getSubsidiary());
+		shop.setSubsidiary(_createShopView.getSubsidiary());
 		return shop;
 	}
 
@@ -196,7 +196,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop = shop;
 		_createShopView.setRevisionId(shop.getRevisionId());
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setSubsidiary(_shop.getAddresses());
+		_createShopView.setSubsidiary(_shop.getSubsidiaries());
 	}
 
 }

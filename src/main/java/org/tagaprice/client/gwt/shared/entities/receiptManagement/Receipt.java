@@ -90,7 +90,7 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	public IRevisionId getShopId(){
-		return getAddress().getRevisionID();
+		return getAddress().getRevisionId();
 	}
 
 	@Override

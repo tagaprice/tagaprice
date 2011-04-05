@@ -3,7 +3,7 @@ package org.tagaprice.client.gwt.server.mock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.Unit;
@@ -42,7 +42,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	public ReceiptServiceImpl() {
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
-		ISubsidiary tempAddres = new Subsidiary(r2, "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
+		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875));
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 

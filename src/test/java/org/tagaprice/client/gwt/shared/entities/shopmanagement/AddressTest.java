@@ -31,7 +31,7 @@ public class AddressTest extends TestCase {
 		testAddress.setCity(_city+"2");
 		testAddress.setCountry(Country.DE);
 		testAddress.setZip(_zip+"2");
-		testAddress.setStreet(_street+"2");
+		testAddress.setPostalcode(_street+"2");
 		testAddress.setLat(_lat+2);
 		testAddress.setLng(_lng+2);
 		testAddress.setRevisionId(new RevisionId(_revisionId.getId()+2, _revisionId.getRevision()+2));
@@ -39,7 +39,7 @@ public class AddressTest extends TestCase {
 		assertEquals(testAddress.getCity(), _city+"2");
 		assertEquals(testAddress.getCountry(), Country.DE);
 		assertEquals(testAddress.getZip(), _zip+"2");
-		assertEquals(testAddress.getStreet(), _street+"2");
+		assertEquals(testAddress.getPostalcode(), _street+"2");
 		assertEquals(testAddress.getLat(), _lat+2);
 		assertEquals(testAddress.getLng(), _lng+2);
 		assertEquals(testAddress.getRevisionID(), new RevisionId(_revisionId.getId()+2, _revisionId.getRevision()+2));
@@ -69,7 +69,7 @@ public class AddressTest extends TestCase {
 
 	@Test
 	public void testStreet() {
-		assertEquals(testAddress.getStreet(), _street);
+		assertEquals(testAddress.getPostalcode(), _street);
 	}
 
 	@Test

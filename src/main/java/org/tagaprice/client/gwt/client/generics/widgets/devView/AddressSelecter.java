@@ -35,7 +35,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	Label _lat = new Label();
 	Label _lng = new Label();
 	Geocoder coder = new Geocoder();
-	ISubsidiary _address;
+	ISubsidiary _subsidiary;
 
 	MarkerOptions _mOptions = MarkerOptions.newInstance();
 	Marker marker;
@@ -104,28 +104,28 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	@Override
 	public void setAddress(ISubsidiary address){
-		_address=address;
-		_street.setText(_address.getStreet());
-		_zip.setText(_address.getZip());
-		_city.setText(_address.getCity());
-		_country.setCountry(_address.getCountry());
+		_subsidiary=address;
+		_street.setText(_subsidiary.getAddress().getStreet());
+		_zip.setText(_subsidiary.getAddress().getPostalcode());
+		_city.setText(_subsidiary.getAddress().getCity());
+		_country.setCountry(_subsidiary.getAddress().getCountry());
 
 
-		setLatLng(LatLng.newInstance(_address.getLat(), _address.getLng()));
+		setLatLng(LatLng.newInstance(_subsidiary.getAddress().getLat(), _subsidiary.getAddress().getLng()));
 	}
 
 	@Override
 	public ISubsidiary getAddress(){
-		if(_address==null)_address = new Subsidiary();
-		_address.setStreet(_street.getText());
-		_address.setZip(_zip.getText());
-		_address.setCity(_city.getText());
-		_address.setCountry(_country.getCountry());
-		_address.setLat(marker.getLatLng().getLatitude());
-		_address.setLng(marker.getLatLng().getLongitude());
+		if(_subsidiary==null)_subsidiary = new Subsidiary();
+		_subsidiary.getAddress().setStreet(_street.getText());
+		_subsidiary.getAddress().setPostalcode(_zip.getText());
+		_subsidiary.getAddress().setCity(_city.getText());
+		_subsidiary.getAddress().setCountry(_country.getCountry());
+		_subsidiary.getAddress().setLat(marker.getLatLng().getLatitude());
+		_subsidiary.getAddress().setLng(marker.getLatLng().getLongitude());
 
 
-		return _address;
+		return _subsidiary;
 	}
 
 	private void setLatLng(LatLng latLng){

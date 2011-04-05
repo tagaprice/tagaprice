@@ -9,8 +9,6 @@ import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
 import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.client.gwt.shared.logging.*;
 import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.exceptions.*;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
@@ -31,18 +29,18 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		ArrayList<ISubsidiary> al1 = new ArrayList<ISubsidiary>();
 		IRevisionId r45665 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r45665.getId(), r45665);
-		al1.add(new Subsidiary(new RevisionId(random.nextLong(), 1), "Blumauergasse 1B", "1020", "Vienna", Country.AT, 48.21906856732104, 16.38164520263672));
+		al1.add(new Subsidiary(new RevisionId(random.nextLong(), 1), new Address("Blumauergasse 1B", "1020", "Vienna", Country.AT, 48.21906856732104, 16.38164520263672)));
 
 		IRevisionId r1598 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r1598.getId(), r1598);
-		ISubsidiary a1 = new Subsidiary(new RevisionId(random.nextLong(), 1), "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
+		ISubsidiary a1 = new Subsidiary(new RevisionId(random.nextLong(), 1), new Address("Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875));
 		al1.add(a1);
 
 		//Create some Shop
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r1.getId(), r1);
 		IShop s1 = new Shop(r1, "Billa");
-		s1.setAddresses(al1);
+		s1.setSubsidiary(al1);
 		shopsAllRevisions.put(r1, s1);
 
 
@@ -51,13 +49,13 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		ArrayList<ISubsidiary> al2 = new ArrayList<ISubsidiary>();
 		IRevisionId r798654 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r798654.getId(), r798654);
-		al2.add(new Subsidiary(r798654, "Schüttelstraße 19A", "1020", "Vienna", Country.AT, 48.21048970218907, 16.396751403808594));
+		al2.add(new Subsidiary(r798654, new Address("Schüttelstraße 19A", "1020", "Vienna", Country.AT, 48.21048970218907, 16.396751403808594)));
 
 		//Create some Shop
 		IRevisionId r8998 = new RevisionId(random.nextLong(), 1);
 		newestRev.put(r8998.getId(), r8998);
 		IShop s8998 = new Shop(r8998, "Hofer");
-		s8998.setAddresses(al2);
+		s8998.setSubsidiary(al2);
 		shopsAllRevisions.put(r8998, s8998);
 
 	}
@@ -105,7 +103,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		if(shop.getRevisionId() == null || shop.getRevisionId().getId()==0L){
 			_logger.log("new Shop");
 
-			for(ISubsidiary ia:shop.getAddresses()){
+			for(ISubsidiary ia:shop.getSubsidiaries()){
 				IRevisionId rt = new RevisionId(random.nextLong(), 1);
 				ia.setRevisionId(rt);
 				newestRev.put(rt.getId(), rt);
@@ -138,11 +136,11 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 				shopsAllRevisions.put(updateShop.getRevisionId(), updateShop);
 				newestRev.put(updateShop.getRevisionId().getId(), nr);
 
-				for(ISubsidiary ta:updateShop.getAddresses()){
+				for(ISubsidiary ta:updateShop.getSubsidiaries()){
 					_logger.log("addr: "+ta.toString());
 
 
-					if(ta.getRevisionID()==null || ta.getRevisionID().getId()==0L){
+					if(ta.getRevisionId()==null || ta.getRevisionId().getId()==0L){
 						_logger.log("create new address");
 
 
@@ -152,7 +150,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 					}else{
 						_logger.log("update address");
-						ta.getRevisionID().setRevision(ta.getRevisionID().getRevision()+1);
+						ta.getRevisionId().setRevision(ta.getRevisionId().getRevision()+1);
 					}
 
 				}

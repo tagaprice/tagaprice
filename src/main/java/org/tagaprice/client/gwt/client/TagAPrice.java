@@ -317,12 +317,12 @@ public class TagAPrice implements EntryPoint {
 
 
 							eventBus.fireEvent(new AddressChangedEvent(new Address(
+									locations.get(0).getStreet(),
+									locations.get(0).getPostalCode(),
 									locations.get(0).getCity(),
 									Country.valueOf(locations.get(0).getCountry()),
 									locations.get(0).getPoint().getLatitude(),
-									locations.get(0).getPoint().getLongitude(),
-									locations.get(0).getStreet(),
-									locations.get(0).getPostalCode())));
+									locations.get(0).getPoint().getLongitude())));
 						}else{
 							_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 						}
