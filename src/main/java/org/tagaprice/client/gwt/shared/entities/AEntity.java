@@ -9,10 +9,8 @@ package org.tagaprice.client.gwt.shared.entities;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class AEntity<T> implements IEntity<T> {
+public abstract class AEntity<T> extends ASEntity<T> {
 
-
-	private static final long serialVersionUID = 1L;
 	private IRevisionId _revId;
 	private String _title;
 
@@ -21,11 +19,6 @@ public abstract class AEntity<T> implements IEntity<T> {
 	 * This constructor is used by the serialization algorithm
 	 */
 	public AEntity() {
-	}
-
-	@Override
-	public String toString() {
-		return "AEntity [_revId=" + _revId + ", _title=" + _title + "]";
 	}
 
 	/**
@@ -37,7 +30,7 @@ public abstract class AEntity<T> implements IEntity<T> {
 	 * @param title The title of the {@link AEntity}. It must not be null.
 	 */
 	public AEntity(IRevisionId revisionId, String title) {
-		setRevisionId(revisionId);
+		super(revisionId);
 		setTitle(title);
 
 	}
@@ -54,61 +47,24 @@ public abstract class AEntity<T> implements IEntity<T> {
 	}
 
 
-	@Override
+
 	public String getTitle() {
 		return _title;
 	}
 
-	@Override
+
 	public void setTitle(String title){
 		_title = title;
 	}
 
-
-	@Override
-	public IRevisionId getRevisionId() {
-		return _revId;
-	}
-
-	/**
-	 * Set the RevisionId of the {@link AEntity}.
-	 * @param revisionID set the RevisionID.
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public void setRevisionId(IRevisionId revisionID){
-		_revId=revisionID;
+	public String toString() {
+		return "AEntity [_revId=" + _revId + ", _title=" + _title + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_revId == null) ? 0 : _revId.hashCode());
-		result = prime * result + ((_title == null) ? 0 : _title.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AEntity other = (AEntity) obj;
-		if (_revId == null) {
-			if (other._revId != null)
-				return false;
-		} else if (!_revId.equals(other._revId))
-			return false;
-		if (_title == null) {
-			if (other._title != null)
-				return false;
-		} else if (!_title.equals(other._title))
-			return false;
-		return true;
-	}
 
 
 }
