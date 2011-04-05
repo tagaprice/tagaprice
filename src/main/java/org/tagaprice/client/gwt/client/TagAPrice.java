@@ -70,9 +70,9 @@ public class TagAPrice implements EntryPoint {
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		//LAYOUT
-		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.EM);
-		completeScreen.addNorth(this.topPanel, 7);
-		completeScreen.addWest(this.leftPanel, 10);
+		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
+		completeScreen.addNorth(this.topPanel, 80);
+		completeScreen.addWest(this.leftPanel, 300);
 		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
@@ -161,6 +161,11 @@ public class TagAPrice implements EntryPoint {
 		this.leftPanel.add(createShop);
 		this.leftPanel.add(getShop);
 		this.leftPanel.add(getShopById);
+
+
+		/*********** OSM test ***************/
+		leftPanel.add(new OSMTry());
+
 
 		/******************** Shop Links ******************/
 		this.leftPanel.add(new HTML("<hr />"));

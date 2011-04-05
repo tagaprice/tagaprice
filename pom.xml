@@ -223,6 +223,13 @@
 			<version>3.4.GA</version>
 		</dependency>
 
+		<!-- OSM -->
+		<dependency>
+			<groupId>org.gwtopenmaps.openlayers</groupId>
+			<artifactId>gwt-openlayers-client</artifactId>
+			<version>0.5</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<!-- jb -->
