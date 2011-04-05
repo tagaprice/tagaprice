@@ -16,6 +16,7 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.gwtopenmaps.openlayers.client.Pixel;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextArea;
 
@@ -34,16 +35,11 @@ public class OSMTry extends Composite {
 
 		MapOptions defaultMapOptions = new MapOptions();
 		MapWidget mapWidget = new MapWidget("250px", "200px", defaultMapOptions);
-
-
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
 		osm_2.setIsBaseLayer(true);
-
 		map = mapWidget.getMap();
 		map.addLayer(osm_2);
-
 		lonLat.transform("EPSG:4326", "EPSG:900913");
-
 		map.setCenter(lonLat, 12);
 
 		MYMarker noDrag = new MYMarker(lonLat,true);
@@ -51,7 +47,9 @@ public class OSMTry extends Composite {
 		//drag.setDragable(true);
 
 		map.addLayer(noDrag.createLayer());
+
 		//map.addLayer(drag.createLayer());
+
 
 		initWidget(mapWidget);
 	}
@@ -62,10 +60,23 @@ public class OSMTry extends Composite {
 		LonLat _lonLat;
 		DragFeature dragFeature;
 		boolean _dragable;
+		Point point;
+		Vector layer;
 
 		public MYMarker(LonLat lonLat, boolean dragable) {
 			_lonLat=lonLat;
 			_dragable=dragable;
+
+			Timer t = new Timer() {
+
+				@Override
+				public void run() {
+					if(point!=null && layer!=null){
+						point.setXY(point.getX()+1000, point.getY());
+						layer.redraw();
+					}
+				}
+			};
 		}
 
 
@@ -85,17 +96,18 @@ public class OSMTry extends Composite {
 			vectorOptions.setStyle(style);
 
 			// Create the layer
-			Vector layer = new Vector("Vector Layer", vectorOptions);
-			Point point = new Point(_lonLat.lon(), _lonLat.lat());
+			layer = new Vector("Vector Layer", vectorOptions);
+			point = new Point(_lonLat.lon(), _lonLat.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
 			layer.addFeature(pointFeature);
 			DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
 
-
 			dragFeature = new DragFeature(layer, dragFeatureOptions);
 
 
+
 			map.addControl(dragFeature);
+
 			if(_dragable)dragFeature.activate();
 			else dragFeature.deactivate();
 
@@ -103,12 +115,15 @@ public class OSMTry extends Composite {
 			dragFeatureOptions.onComplete(new DragFeatureListener() {
 				@Override
 				public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
+					System.out.println("dragEnd: lat: "+vectorFeature.getCenterLonLat().lat()+", lng: "+vectorFeature.getCenterLonLat().lon());
 
 					vectorFeature.getCenterLonLat().transform("EPSG:900913", "EPSG:4326");
 					System.out.println("dragEnd: lat: "+vectorFeature.getCenterLonLat().lat()+", lng: "+vectorFeature.getCenterLonLat().lon());
 
 				}
 			});
+
+
 
 			return layer;
 
