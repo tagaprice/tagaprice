@@ -30,13 +30,13 @@ public interface IReceiptEntry extends Serializable {
 
 	/**
 	 * 
-	 * @return
+	 * @return the related {@link IPackage}
 	 */
 	public IPackage getPackage();
 
 	/**
 	 * 
-	 * @return
+	 * @return the related {@link IReceipt}
 	 */
 	public IReceipt getReceipt();
 
