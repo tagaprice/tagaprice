@@ -65,7 +65,7 @@ public class Subsidiary extends ASEntity<ISubsidiary> implements ISubsidiary {
 	 */
 	@Override
 	public String toString() {
-		return "Subsidiary [_address=" + _address + ", _shop=" + _shop + "]";
+		return "Subsidiary [_address=" + _address + "]";
 	}
 
 

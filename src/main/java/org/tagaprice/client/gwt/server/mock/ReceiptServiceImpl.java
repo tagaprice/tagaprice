@@ -7,7 +7,6 @@ import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.RevisionId;
 import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.accountmanagement.User;
 import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
@@ -48,7 +47,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres, new User());
+		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres);
 
 
 		//Add receipt entries

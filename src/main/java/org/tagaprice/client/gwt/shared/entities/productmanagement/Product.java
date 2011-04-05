@@ -103,7 +103,7 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	 */
 	@Override
 	public String toString() {
-		return "Product [_category=" + _category + ", _iPackage=" + _iPackage + ", _unit=" + _unit + "]";
+		return "Product [_category=" + _category + ", _unit=" + _unit + "]";
 	}
 
 

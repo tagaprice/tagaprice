@@ -12,7 +12,7 @@ import org.tagaprice.client.gwt.shared.entities.IRevisionId;
  */
 public class Shop extends AEntity<IShop> implements IShop {
 
-	private ArrayList<ISubsidiary> _addresses = new ArrayList<ISubsidiary>();
+	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -48,11 +48,11 @@ public class Shop extends AEntity<IShop> implements IShop {
 
 	@Override
 	public void setSubsidiary(ArrayList<ISubsidiary> addresses) {
-		_addresses.clear();
+		_subsidiary.clear();
 
 		for (ISubsidiary ad : addresses) {
 			ad.setShop(this);
-			_addresses.add(ad);
+			_subsidiary.add(ad);
 		}
 
 	}
@@ -62,14 +62,14 @@ public class Shop extends AEntity<IShop> implements IShop {
 	@Override
 	public void addSubsidiary(ISubsidiary address) {
 		address.setShop(this);
-		_addresses.add(address);
+		_subsidiary.add(address);
 	}
 
 
 
 	@Override
 	public ArrayList<ISubsidiary> getSubsidiaries() {
-		return _addresses;
+		return _subsidiary;
 	}
 
 
@@ -81,7 +81,7 @@ public class Shop extends AEntity<IShop> implements IShop {
 	 */
 	@Override
 	public String toString() {
-		return "Shop [_addresses=" + _addresses + "]";
+		return "Shop";
 	}
 
 
