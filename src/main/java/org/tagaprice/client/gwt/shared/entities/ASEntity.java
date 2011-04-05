@@ -13,7 +13,7 @@ public abstract class ASEntity<T> implements ISEntity<T> {
 	private IRevisionId _revId;
 
 	/**
-	 * <b>CLIENT USE ONLY</b>
+	 * <b>NEW</b>
 	 * Is used to create a new {@link ASEntity}
 	 */
 	public ASEntity() {
@@ -21,7 +21,7 @@ public abstract class ASEntity<T> implements ISEntity<T> {
 	}
 
 	/**
-	 * <b>SERVER USE ONLY</b>
+	 * <b>UPDATE and GET</b>
 	 * This constructor is used by the server to fetch a {@link ASEntity} after SAVING or FINDING a {@link ASEntity}.
 	 * @param revisionID
 	 */

@@ -9,7 +9,7 @@ package org.tagaprice.client.gwt.shared.entities;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class AEntity<T> extends ASEntity<T> {
+public abstract class AEntity<T> extends ASEntity<T> implements IEntity<T> {
 
 	private IRevisionId _revId;
 	private String _title;
@@ -22,7 +22,7 @@ public abstract class AEntity<T> extends ASEntity<T> {
 	}
 
 	/**
-	 * <b>SERVER USE ONLY</b>
+	 * <b>UPDATE and GET</b>
 	 * This constructor is used by the server to fetch a {@link AEntity} after SAVING or FINDING a {@link AEntity}.
 	 * 
 	 * @param id
@@ -35,8 +35,9 @@ public abstract class AEntity<T> extends ASEntity<T> {
 
 	}
 
+
 	/**
-	 * <b>CLIENT USE ONLY</b>
+	 * <b>NEW</b>
 	 * Is used to create a new {@link AEntity}
 	 * 
 	 * @param title
@@ -47,12 +48,21 @@ public abstract class AEntity<T> extends ASEntity<T> {
 	}
 
 
-
+	/**
+	 * Returns the title
+	 * @return the title
+	 */
+	@Override
 	public String getTitle() {
 		return _title;
 	}
 
 
+	/**
+	 * Set the title
+	 * @param title title
+	 */
+	@Override
 	public void setTitle(String title){
 		_title = title;
 	}
@@ -64,6 +74,8 @@ public abstract class AEntity<T> extends ASEntity<T> {
 	public String toString() {
 		return "AEntity [_revId=" + _revId + ", _title=" + _title + "]";
 	}
+
+
 
 
 

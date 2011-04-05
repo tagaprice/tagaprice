@@ -141,7 +141,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	@Override
 	public void setCurrentAddress(Address address) {
 		_street.setText(address.getStreet());
-		_zip.setText(address.getZip());
+		_zip.setText(address.getPostalcode());
 		_city.setText(address.getCity());
 		_country.setCountry(address.getCountry());
 

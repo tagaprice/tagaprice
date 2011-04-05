@@ -2,7 +2,9 @@ package org.tagaprice.client.gwt.shared.entities.dump;
 
 import org.tagaprice.client.gwt.shared.entities.Unit;
 
-
+/**
+ * A {@link Quantity} defines in which way a user can buy a {@link Product}.
+ */
 public class Quantity implements IQuantity {
 
 	private static final long serialVersionUID = -8569323869233802603L;
@@ -10,10 +12,17 @@ public class Quantity implements IQuantity {
 	private double _quantity;
 	private Unit _unit;
 
-	public Quantity() {
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
+	public Quantity() {}
 
+	/**
+	 * TODO should quantity be in int?
+	 * Create a Quantity object defines by the quantity and a {@link Unit}
+	 * @param quantity the quantity
+	 * @param unit
+	 */
 	public Quantity(double quantity, Unit unit) {
 		this._quantity = quantity;
 		this._unit = unit;
@@ -21,52 +30,32 @@ public class Quantity implements IQuantity {
 
 	@Override
 	public void setQuantity(double quantity) {
-
 		this._quantity = quantity;
-
 	}
 
 	@Override
 	public double getQuantity() {
-
 		return this._quantity;
-
 	}
 
 	@Override
 	public void setUnit(Unit unit) {
-
 		this._unit = unit;
-
 	}
 
 	@Override
 	public Unit getUnit() {
-
 		return this._unit;
 	}
 
-	@Override
-	public IQuantity copy() {
-		return new Quantity(this._quantity, this._unit);
-	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return String.valueOf(this._quantity) + " " + this._unit.name();
+		return "Quantity [_quantity=" + _quantity + ", _unit=" + _unit + "]";
 	}
 
-	@Override
-	public boolean equals(Object other) {
-		if(other instanceof Quantity) {
-			return this.equals((Quantity) other);
-		} else {
-			return false;
-		}
-	}
 
-	public boolean equals(Quantity other) {
-		return this._unit.equals(other._unit) && this._quantity == other._quantity;
-	}
 
 }

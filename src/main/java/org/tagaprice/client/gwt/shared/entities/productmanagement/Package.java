@@ -2,32 +2,37 @@ package org.tagaprice.client.gwt.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.gwt.shared.entities.ASEntity;
 import org.tagaprice.client.gwt.shared.entities.IRevisionId;
 import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
 
-public class Package implements IPackage {
+public class Package extends ASEntity<IPackage> implements IPackage {
 
-	IProduct _product;
+	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	IQuantity _iQuantity;
 	IRevisionId _iRevisionId;
-	ArrayList<Integer> _barcode=new ArrayList<Integer>();
+	IProduct _product;
 
 	/**
 	 * Necessary for Serialisation
 	 */
 	public Package() {
+		super();
 	}
 
 
 	/**
+	 * <b>NEW</b>
 	 * Creates an new Package.
 	 * @param quantity the current quantity of a package.
 	 */
 	public Package(IQuantity quantity){
+		super(null);
 		_iQuantity=quantity;
 	}
 
 	/**
+	 * <b>UPDATE and GET</b>
 	 * Get or Update Package.
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
@@ -37,16 +42,6 @@ public class Package implements IPackage {
 		_iRevisionId=revisionId;
 	}
 
-
-	@Override
-	public void setQuantity(IQuantity quantity) {
-		_iQuantity=quantity;
-	}
-
-	@Override
-	public IQuantity getQuantity() {
-		return _iQuantity;
-	}
 
 	@Override
 	public void addBarcode(int barcode) {
@@ -63,25 +58,14 @@ public class Package implements IPackage {
 		return _barcode;
 	}
 
-
 	@Override
-	public IRevisionId getRevisionId() {
-		return _iRevisionId;
+	public IProduct getProduct() {
+		return _product;
 	}
 
-
 	@Override
-	public void setRevisionId(IRevisionId revisionId) {
-		_iRevisionId=revisionId;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Package [_iQuantity=" + _iQuantity + ", _iRevisionId=" + _iRevisionId + ", _barcode=" + _barcode + "]";
+	public IQuantity getQuantity() {
+		return _iQuantity;
 	}
 
 
@@ -92,10 +76,9 @@ public class Package implements IPackage {
 
 
 	@Override
-	public IProduct getProduct() {
-		return _product;
+	public void setQuantity(IQuantity quantity) {
+		_iQuantity=quantity;
 	}
-
 
 
 }

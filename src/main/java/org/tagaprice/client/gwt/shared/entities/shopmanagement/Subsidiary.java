@@ -81,7 +81,7 @@ public class Subsidiary implements ISubsidiary {
 
 	@Override
 	public String getZip() {
-		return _address.getZip();
+		return _address.getPostalcode();
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class Subsidiary implements ISubsidiary {
 
 	@Override
 	public void setZip(String zip) {
-		_address.setZip(zip);
+		_address.setPostalcode(zip);
 	}
 
 	@Override
