@@ -26,9 +26,9 @@ public interface IShop extends IEntity<IShop> {
 	public void addAddress(ISubsidiary address);
 
 	/**
-	 * Returns all {@link IAddress}es
+	 * Returns all {@link IAddress}
 	 * 
-	 * @return all {@link IAddress}es
+	 * @return all {@link IAddress}
 	 */
 	public ArrayList<ISubsidiary> getAddresses();
 
