@@ -60,6 +60,14 @@ public class Subsidiary extends ASEntity<ISubsidiary> implements ISubsidiary {
 		return _shop;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Subsidiary [_address=" + _address + ", _shop=" + _shop + "]";
+	}
+
 
 
 }

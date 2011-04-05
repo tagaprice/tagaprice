@@ -81,4 +81,15 @@ public class Package extends ASEntity<IPackage> implements IPackage {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + ", _iRevisionId=" + _iRevisionId
+		+ ", _product=" + _product + "]";
+	}
+
+
+
 }

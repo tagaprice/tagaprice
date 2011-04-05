@@ -66,20 +66,6 @@ public class Product extends AEntity<IProduct> implements IProduct {
 
 
 
-
-	@Override
-	public String toString() {
-		String revString;
-		if(this.getRevisionId()!= null){
-			revString = this.getRevisionId().toString();
-		}else{
-			revString = "Revision is null";
-		}
-		String quantitiyString="";
-
-		return "Product: " + this.getTitle() + ", " + revString + ", " + quantitiyString ;
-	}
-
 	@Override
 	public void addPackage(IPackage ipackage) {
 		ipackage.setProduct(this);
@@ -111,5 +97,15 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	public Unit getUnit() {
 		return _unit;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Product [_category=" + _category + ", _iPackage=" + _iPackage + ", _unit=" + _unit + "]";
+	}
+
+
 
 }
