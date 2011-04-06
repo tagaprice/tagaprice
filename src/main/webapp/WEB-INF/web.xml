@@ -4,12 +4,22 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+	<context-param>
+		<param-name>daoFactory</param-name>
+		<param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value>
+	</context-param>
 	<!-- Servlets -->
 
 
 	
 	
 	<!-- BEGIN: RPC -->
+	<servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.InitService</servlet-class>
+		<load-on-startup>true</load-on-startup>
+	</servlet>
+	
 	<servlet>
 		<servlet-name>productservice</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>
