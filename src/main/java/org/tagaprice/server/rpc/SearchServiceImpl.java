@@ -29,7 +29,8 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	private IProductDAO productDAO;
 	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
-	public SearchServiceImpl(IDaoFactory daoFactory) {
+	public SearchServiceImpl() {
+		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		shopDAO = daoFactory.getShopDAO();
 		productDAO = daoFactory.getProductDAO();
 	}

@@ -8,7 +8,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 
 public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	IDaoFactory m_daoFactory = null;
+	static IDaoFactory m_daoFactory = null;
 	
 	public void init() throws ServletException {
 		try {
@@ -30,7 +30,7 @@ public class InitServlet extends HttpServlet {
 		}
 	}
 	
-	public IDaoFactory getDaoFactory() {
+	public static IDaoFactory getDaoFactory() {
 		return m_daoFactory;
 	}
 }

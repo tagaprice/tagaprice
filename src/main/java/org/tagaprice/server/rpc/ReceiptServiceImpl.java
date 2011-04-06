@@ -18,7 +18,8 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	private static final long serialVersionUID = 3420788026998858664L;
 	IReceiptDAO receiptDAO;
 
-	public ReceiptServiceImpl(IDaoFactory daoFactory) {
+	public ReceiptServiceImpl() {
+		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		receiptDAO = daoFactory.getReceiptDAO();
 	}
 
