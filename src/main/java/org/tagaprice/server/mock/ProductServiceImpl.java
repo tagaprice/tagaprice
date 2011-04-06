@@ -12,6 +12,7 @@ import org.tagaprice.shared.rpc.productmanagement.IProductService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
+	private static final long serialVersionUID = 1L;
 
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 

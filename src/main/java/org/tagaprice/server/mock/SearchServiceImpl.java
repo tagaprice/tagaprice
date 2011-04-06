@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class SearchServiceImpl extends RemoteServiceServlet implements ISearchService {
-
+	private static final long serialVersionUID = 1L;
 
 	private ShopServiceImpl _mockShopService = new ShopServiceImpl();
 	private ProductServiceImpl _mockPrductService = new ProductServiceImpl();
