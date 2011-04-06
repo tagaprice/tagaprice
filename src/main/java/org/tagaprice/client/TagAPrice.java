@@ -31,7 +31,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -70,7 +69,6 @@ public class TagAPrice implements EntryPoint {
 
 	private ClientFactory clientFactory;
 	private EventBus eventBus;
-	private Geocoder goecoder = new Geocoder();
 
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
@@ -315,6 +313,8 @@ public class TagAPrice implements EntryPoint {
 
 	private void locateMe(){
 		_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Try to update address", INFOTYPE.INFO));
+
+
 		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 
 			@Override
