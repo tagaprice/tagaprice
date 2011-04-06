@@ -11,6 +11,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  * 
  */
 public class Shop extends AEntity implements IShop {
+	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
 

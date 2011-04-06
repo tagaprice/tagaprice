@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 import org.tagaprice.shared.entities.productmanagement.*;
 
 public class ReceiptEntry implements IReceiptEntry {
-
+	private static final long serialVersionUID = 1L;
 
 	private IPackage _package;
 	private IPrice _price;

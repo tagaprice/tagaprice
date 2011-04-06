@@ -11,6 +11,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  * 
  */
 public abstract class ASEntity implements ISEntity {
+	private static final long serialVersionUID = 1L;
 
 	private IRevisionId _revId;
 
