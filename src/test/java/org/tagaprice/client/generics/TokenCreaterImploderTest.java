@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.client.generics;
+package org.tagaprice.client.generics;
 
 
 import org.junit.*;

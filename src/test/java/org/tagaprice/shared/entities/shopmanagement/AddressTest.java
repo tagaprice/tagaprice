@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities.shopmanagement;
+package org.tagaprice.shared.entities.shopmanagement;
 
 import junit.framework.TestCase;
 
