@@ -51,38 +51,6 @@
 		<url>http://github.com/tagaprice/tagaprice</url>
 	</scm>
 	<dependencies>
-		<!-- spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>3.0.5.RELEASE</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
 		<!-- google web toolkit -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -111,18 +79,7 @@
 		    <artifactId>gwt-recaptcha</artifactId>
 		    <version>1.0.0.Beta2</version>
 		</dependency>
-		<!-- postgres jdbc -->
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
-		</dependency>
-		<!-- json -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20090211</version>
-		</dependency>
+
 		<!--  Gson: Java to Json conversion -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -168,56 +125,14 @@
 			<scope>runtime</scope>			
 		</dependency>
 		<!-- mocking -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.8.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>2.4.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>1.1</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>emma</groupId>
 			<artifactId>maven-emma-plugin</artifactId>
 			<version>0.5</version>
 		</dependency>
-		<!--		<dependency>
-			<groupId>org.hipbernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>3.6.0.Final</version>
-		</dependency>-->
-		<!--		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version></version>
-		</dependency>-->
-		<!-- hibernate - o/r mapper -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>3.5.4-Final</version>
-			<!--	<type>pom</type> -->
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.5.4-Final</version>
-		</dependency>
-		<!-- hibernate-sql-db - test db -->
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.0.0</version>
-		</dependency>
+
+
 
 		<!-- connection pool / BasicDataSource from apach -->
 		<dependency>
@@ -226,19 +141,6 @@
 			<version>1.4</version>
 		</dependency>
 
-		<!-- spring orm support -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
-
-		<!-- this is needed by hibernate (TODO dependencies should be resolved automatically?) -->
-		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.4.GA</version>
-		</dependency>
 
 		<!-- OSM -->
 		<dependency>
