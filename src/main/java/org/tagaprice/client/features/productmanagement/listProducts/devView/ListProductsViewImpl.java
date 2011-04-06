@@ -105,4 +105,10 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 		}
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

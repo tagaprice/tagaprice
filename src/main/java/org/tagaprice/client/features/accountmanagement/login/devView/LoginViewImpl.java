@@ -53,4 +53,10 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		_presenter=presenter;
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

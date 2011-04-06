@@ -327,6 +327,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 
 
 

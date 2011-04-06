@@ -1,9 +1,11 @@
 package org.tagaprice.client.features.accountmanagement.login;
 
-import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
+import org.tagaprice.client.generics.IView;
 
-public interface ILogoutView extends IsWidget {
+import com.google.gwt.place.shared.Place;
+
+public interface ILogoutView extends IView {
+
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ILogoutView} to control this view. It is also necessary
