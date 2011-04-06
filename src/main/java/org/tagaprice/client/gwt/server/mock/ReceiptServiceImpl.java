@@ -10,7 +10,6 @@ import org.tagaprice.client.gwt.shared.entities.Unit;
 import org.tagaprice.client.gwt.shared.entities.dump.Category;
 import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
 import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
@@ -42,7 +41,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	public ReceiptServiceImpl() {
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
-		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875));
+		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 

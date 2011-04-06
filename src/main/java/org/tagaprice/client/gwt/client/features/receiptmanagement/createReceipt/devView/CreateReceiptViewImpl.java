@@ -170,7 +170,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			_shopSearch.setEnabled(false);
 			_newAddressArea.setVisible(false);
 			_saveButton.setEnabled(true);
-			_shopHolder.add(new Label(subsidiary.getShop().getTitle()+" "+subsidiary.getAddress().getPostalcode()));
+			_shopHolder.add(new Label(subsidiary.getShop().getTitle()+" "+subsidiary.getAddress().getAddress()));
 			_shopHolder.add(new Button("-", new ClickHandler() {
 
 				@Override
@@ -216,7 +216,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
 			for(final ISubsidiary a:s.getSubsidiaries()){
-				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getPostalcode());
+				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
 
 				foundAddress.addClickHandler(new ClickHandler() {

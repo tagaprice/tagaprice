@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
@@ -45,5 +46,5 @@ public interface ISearchService extends RemoteService {
 	 * @param lng longitutde position
 	 * @return Address (Normaly a streetname)
 	 */
-	String searchAddress(double lat, double lng);
+	Address searchAddress(double lat, double lng);
 }

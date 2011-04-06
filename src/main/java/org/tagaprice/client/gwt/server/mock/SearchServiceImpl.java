@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import org.tagaprice.client.gwt.shared.entities.Address;
 import org.tagaprice.client.gwt.shared.entities.BoundingBox;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
 import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
@@ -41,10 +43,10 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	}
 
 	@Override
-	public String searchAddress(double lat, double lng) {
+	public Address searchAddress(double lat, double lng) {
 		try {
 			_logger.log("findService: "+lat+":"+lng);
-			URL urlg = new URL("http://api.geonames.org/findNearbyStreetsOSMJSON?lat=55.7020313&lng=12.5612394&username=tagaprice");
+			URL urlg = new URL("http://api.geonames.org/findNearbyStreetsOSMJSON?lat="+lat+"&lng="+lng+"&username=tagaprice");
 			InputStream isg = urlg.openStream();
 			//Geonames
 			Gson gsonG = new Gson();
@@ -52,7 +54,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 			if(g.getStreetSegment()!=null & g.getStreetSegment().length>0){
 				_logger.log("findService: found: "+g.getStreetSegment()[0].getName());
-				return g.getStreetSegment()[0].getName();
+				return new Address(g.getStreetSegment()[0].getName(), lat, lng);
 			}else{
 				_logger.log("Not Found");
 				return null;

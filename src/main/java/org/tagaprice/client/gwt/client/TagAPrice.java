@@ -14,29 +14,42 @@ import org.tagaprice.client.gwt.client.generics.events.InfoBoxShowEventHandler;
 import org.tagaprice.client.gwt.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.gwt.client.generics.events.WaitForAddressEventHandler;
 import org.tagaprice.client.gwt.client.generics.widgets.InfoBox;
-import org.tagaprice.client.gwt.client.mvp.*;
+import org.tagaprice.client.gwt.client.mvp.AppActivityMapper;
+import org.tagaprice.client.gwt.client.mvp.AppPlaceHistoryMapper;
 import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
-import org.tagaprice.client.gwt.shared.logging.*;
+import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
+import org.tagaprice.client.gwt.shared.logging.MyLogger;
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
-import com.google.gwt.activity.shared.*;
-import com.google.gwt.core.client.*;
+import com.google.gwt.activity.shared.ActivityManager;
+import com.google.gwt.activity.shared.ActivityMapper;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.maps.client.geocode.Geocoder;
-import com.google.gwt.maps.client.geocode.LocationCallback;
-import com.google.gwt.maps.client.geocode.Placemark;
-import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.place.shared.*;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.NotificationMole;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
 /**
  * GWT STARTPOINT - This is the class with the EntryPoint.
  * @author Helga Weik (kaltra)
@@ -305,55 +318,24 @@ public class TagAPrice implements EntryPoint {
 		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 
 			@Override
-			public void onSuccess(Position position) {
+			public void onSuccess(final Position position) {
 
 
 				//user OSM
 				clientFactory.getSearchService().searchAddress(position.getCoords().getLatitude(), position.getCoords().getLongitude(),
-						new AsyncCallback<String>() {
+						new AsyncCallback<Address>() {
 
 					@Override
-					public void onSuccess(String result) {
+					public void onSuccess(Address result) {
 						// TODO Auto-generated method stub
 						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Something was ok: "+result, INFOTYPE.INFO));
+						eventBus.fireEvent(new AddressChangedEvent(result));
 
 					}
 
 					@Override
 					public void onFailure(Throwable e) {
 						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
-					}
-				});
-
-
-				//use google
-				goecoder.getLocations(LatLng.newInstance(
-						position.getCoords().getLatitude(),
-						position.getCoords().getLongitude()),
-						new LocationCallback() {
-
-					@Override
-					public void onSuccess(JsArray<Placemark> locations) {
-						if(locations.length()>0){
-
-
-							eventBus.fireEvent(new AddressChangedEvent(new Address(
-									locations.get(0).getStreet(),
-									locations.get(0).getPostalCode(),
-									locations.get(0).getCity(),
-									Country.valueOf(locations.get(0).getCountry()),
-									locations.get(0).getPoint().getLatitude(),
-									locations.get(0).getPoint().getLongitude())));
-						}else{
-							_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
-						}
-
-					}
-
-					@Override
-					public void onFailure(int statusCode) {
-						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
-
 					}
 				});
 
