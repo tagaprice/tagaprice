@@ -2,7 +2,6 @@ package org.tagaprice.shared.entities;
 
 /**
  * Represents Units and converts between them.
- * @author Martin
  *
  */
 public enum Unit  {
@@ -172,7 +171,6 @@ public enum Unit  {
 
 	/**
 	 * Every Type is convertible with itself.
-	 * @author Martin
 	 *
 	 */
 	public enum UnitType {

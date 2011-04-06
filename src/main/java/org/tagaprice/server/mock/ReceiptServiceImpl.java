@@ -3,27 +3,27 @@ package org.tagaprice.server.mock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
-import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.RevisionId;
-import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.accountmanagement.User;
-import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.Country;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
-import org.tagaprice.shared.entities.productmanagement.Package;
-import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.*;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
-import org.tagaprice.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-import org.tagaprice.shared.rpc.receiptmanagement.IReceiptService;
+import org.tagaprice.client.gwt.shared.entities.Address;
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.Unit;
+import org.tagaprice.client.gwt.shared.entities.dump.Category;
+import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
+import org.tagaprice.client.gwt.shared.entities.dump.Quantity;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Country;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IPackage;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
+import org.tagaprice.client.gwt.shared.entities.receiptManagement.*;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.Shop;
+import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
+import org.tagaprice.client.gwt.shared.logging.MyLogger;
+import org.tagaprice.client.gwt.shared.rpc.receiptmanagement.IReceiptService;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.Package;
+import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -42,19 +42,20 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	public ReceiptServiceImpl() {
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
-		ISubsidiary tempAddres = new Subsidiary(r2, "Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875);
+		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", "1020", "Vienna", Country.AT, 48.21975481443672, 16.38885498046875));
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres, new User());
+		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres);
 
 
+		ICategory root = new Category("root",null);
 		//Add receipt entries
 		{
 			IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
-			IProduct iprodc = new Product("Bergkäse 4", new Category("food"), Unit.g);
+			IProduct iprodc = new Product("Bergkäse 4", new Category("food",root), Unit.g);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			IReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
@@ -63,7 +64,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		{
 			IPackage ipack = new Package(new Quantity(1.5, Unit.l));
-			IProduct iprodc = new Product("CocaCola", new Category("food"), Unit.l);
+			IProduct iprodc = new Product("CocaCola", new Category("food",root), Unit.l);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);

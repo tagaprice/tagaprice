@@ -21,24 +21,22 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	HashMap<IRevisionId, IPackage> packageAllRevisions = new HashMap<IRevisionId, IPackage>();
 	ArrayList<ICategory> categories = new ArrayList<ICategory>();
 
-	private static final long serialVersionUID = 5070553288173843014L;
-
 	/**
 	 * Initialization with some products and Categories.
 	 */
 	public ProductServiceImpl() {
 		logger.log("Load servlet...");
-		ICategory root = new Category("root");
+		ICategory root = new Category("root",null);
 		this.categories.add(root);
-		ICategory food = new Category("food");
+		ICategory food = new Category("food", root);
 		this.categories.add(food);
-		ICategory vegetables = new Category("vegetables");
+		ICategory vegetables = new Category("vegetables", root);
 		this.categories.add(vegetables);
-		ICategory beverages = new Category("beverages");
+		ICategory beverages = new Category("beverages", root);
 		this.categories.add(beverages);
-		ICategory alcoholics = new Category("alcohol");
+		ICategory alcoholics = new Category("alcohol", root);
 		this.categories.add(alcoholics);
-		ICategory nonalcoholics = new Category("nonalcoholics");
+		ICategory nonalcoholics = new Category("nonalcoholics", root);
 		this.categories.add(nonalcoholics);
 
 		nonalcoholics.setParentCategory(beverages);

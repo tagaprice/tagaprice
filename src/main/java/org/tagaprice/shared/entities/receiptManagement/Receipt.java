@@ -2,12 +2,10 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import org.tagaprice.shared.entities.AEntity;
-import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.RevisionId;
-import org.tagaprice.shared.entities.accountmanagement.User;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.gwt.shared.entities.AEntity;
+import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.client.gwt.shared.entities.RevisionId;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
 
 /**
  * A single Receipt
@@ -15,55 +13,47 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
  * the date when the receipt was created, a reference to the shop {@link Shop} where the receipt is from
  * and all {@link ReceiptEntry} of a receipt.
  * 
- * @author Helga Weik (kaltra)
- *
  */
 public class Receipt extends AEntity<IReceipt> implements IReceipt {
 
-
-
-	private static final long serialVersionUID = -1411130663050015079L;
-
-	private ISubsidiary _address;
+	private ISubsidiary _subsidiary;
 	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
-	private User _user;
 
-
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
 	public Receipt() {
 		super();
-
 	}
 
 	/**
+	 * <b>NEW</b>
 	 * Create new Receipt. Used on the Client
 	 * @param title the title of the receipt
 	 * @param date date of the receipt
-	 * @param address the shop-address
-	 * @param receiptEntries all entries plus price
+	 * @param subsidiary the subsidiary
 	 */
-	public Receipt(String title, Date date, ISubsidiary address) {
-		setTitle(title);
+	public Receipt(String title, Date date, ISubsidiary subsidiary) {
+		super(title);
 		setDate(date);
-		setAddress(address);
+		setSubsidiary(subsidiary);
 	}
 
 
 	/**
+	 * <b>UPDATE and GET</b>
 	 * Update or select Receipt. Used on Client and Server
-	 * @param title
+	 * @param revisionId the revision of the receipt. (it is not really necessary to save the revision)
+	 * @param title the title of the receipt
 	 * @param date the date and time when a receipt was created
-	 * @param shop {@link Shop} where the receipt is from
-	 * @param user {@link User} who created the receipt
-	 * @param receiptEntries  {@link ReceiptEntry}
+	 * @param subsidiary {@link ISubsidiary} where the receipt is from
 	 */
 
-	public Receipt(RevisionId revisionId, String title, Date date, ISubsidiary address, User user) {
-		setRevisionId(revisionId);
-		setTitle(title);
+	public Receipt(RevisionId revisionId, String title, Date date, ISubsidiary subsidiary) {
+		super(revisionId, title);
 		setDate(date);
-		setAddress(address);
-		setUser(user);
+		setSubsidiary(subsidiary);
 	}
 
 
@@ -75,15 +65,11 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	@Override
-	public ISubsidiary getAddress() {
-		return _address;
+	public ISubsidiary getSubsidiary() {
+		return _subsidiary;
 	}
 
 
-	@Override
-	public Date getDate() {
-		return _date;
-	}
 
 	@Override
 	public ArrayList<IReceiptEntry> getReceiptEntries() {
@@ -91,22 +77,13 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	}
 
 	public IRevisionId getShopId(){
-		return getAddress().getRevisionID();
+		return getSubsidiary().getRevisionId();
 	}
 
-	@Override
-	public User getUser() {
-		return _user;
-	}
 
 	@Override
-	public void setAddress(ISubsidiary address) {
-		_address=address;
-	}
-
-	@Override
-	public void setDate(Date date) {
-		_date = date;
+	public void setSubsidiary(ISubsidiary subsidiary) {
+		_subsidiary=subsidiary;
 	}
 
 	@Override
@@ -115,13 +92,15 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 		_receiptEntries.addAll(receiptEntries);
 	}
 
-	public void setShopId(IRevisionId shopId){
-		// TODO
+
+	@Override
+	public void setDate(Date date) {
+		_date=date;
 	}
 
 	@Override
-	public void setUser(User user) {
-		_user = user;
+	public Date getDate() {
+		return _date;
 	}
 
 	/* (non-Javadoc)
@@ -129,9 +108,9 @@ public class Receipt extends AEntity<IReceipt> implements IReceipt {
 	 */
 	@Override
 	public String toString() {
-		return "Receipt [_date=" + _date + ", _address=" + _address + "]";
+		return "Receipt [_subsidiary=" + _subsidiary + ", _date=" + _date + ", _receiptEntries=" + _receiptEntries
+		+ "]";
 	}
-
 
 
 

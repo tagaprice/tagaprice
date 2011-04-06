@@ -12,21 +12,33 @@ public class Address implements Serializable {
 	private Country _country;
 	private double _lat;
 	private double _lng;
+	private String _postalcode;
 	private String _street;
-	private String _zip;
 
-	public Address() {
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
+	public Address() {}
 
-	public Address(String city, Country country, double lat, double lng, String street, String zip) {
+
+	/**
+	 * <b>NEW</b>
+	 * Constructor to create a new Address
+	 * @param city city
+	 * @param country {@link Country}
+	 * @param lat latitude
+	 * @param lng longitude
+	 * @param street street
+	 * @param postalcode postalcode
+	 */
+	public Address(String street, String postalcode, String city, Country country, double lat, double lng) {
 		super();
 		_city = city;
 		_country = country;
 		_lat = lat;
 		_lng = lng;
 		_street = street;
-		_zip = zip;
+		_postalcode = postalcode;
 	}
 
 	/**
@@ -37,24 +49,10 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		_city = city;
-	}
-
-	/**
 	 * @return the country
 	 */
 	public Country getCountry() {
 		return _country;
-	}
-
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(Country country) {
-		_country = country;
 	}
 
 	/**
@@ -65,13 +63,6 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @param lat the lat to set
-	 */
-	public void setLat(double lat) {
-		_lat = lat;
-	}
-
-	/**
 	 * @return the lng
 	 */
 	public double getLng() {
@@ -79,10 +70,10 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @param lng the lng to set
+	 * @return the postalcode
 	 */
-	public void setLng(double lng) {
-		_lng = lng;
+	public String getPostalcode() {
+		return _postalcode;
 	}
 
 	/**
@@ -93,24 +84,45 @@ public class Address implements Serializable {
 	}
 
 	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		_city = city;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(Country country) {
+		_country = country;
+	}
+
+	/**
+	 * @param lat the lat to set
+	 */
+	public void setLat(double lat) {
+		_lat = lat;
+	}
+
+	/**
+	 * @param lng the lng to set
+	 */
+	public void setLng(double lng) {
+		_lng = lng;
+	}
+
+	/**
+	 * @param postalcode the postalcode to set
+	 */
+	public void setPostalcode(String postalcode) {
+		_postalcode = postalcode;
+	}
+
+	/**
 	 * @param street the street to set
 	 */
 	public void setStreet(String street) {
 		_street = street;
-	}
-
-	/**
-	 * @return the zip
-	 */
-	public String getZip() {
-		return _zip;
-	}
-
-	/**
-	 * @param zip the zip to set
-	 */
-	public void setZip(String zip) {
-		_zip = zip;
 	}
 
 	/* (non-Javadoc)
@@ -119,7 +131,7 @@ public class Address implements Serializable {
 	@Override
 	public String toString() {
 		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
-		+ ", _street=" + _street + ", _zip=" + _zip + "]";
+		+ ", _street=" + _street + ", _zip=" + _postalcode + "]";
 	}
 
 

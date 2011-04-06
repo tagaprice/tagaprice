@@ -10,10 +10,18 @@ public class Price implements IPrice {
 	private int _price;
 	private Currency _currency;
 
-	public Price() {
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
+	public Price() {}
 
+
+	/**
+	 * <b>NEW</b>
+	 * Create a new price
+	 * @param price the price
+	 * @param currency the currency
+	 */
 	public Price(int price, Currency currency){
 		setPrice(price);
 		setCurrency(currency);
@@ -40,5 +48,16 @@ public class Price implements IPrice {
 	public Currency getCurrency() {
 		return _currency;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Price [_price=" + _price + ", _currency=" + _currency + "]";
+	}
+
+
 
 }

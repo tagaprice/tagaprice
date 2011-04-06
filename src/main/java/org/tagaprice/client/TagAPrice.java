@@ -71,9 +71,9 @@ public class TagAPrice implements EntryPoint {
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		//LAYOUT
-		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.EM);
-		completeScreen.addNorth(this.topPanel, 7);
-		completeScreen.addWest(this.leftPanel, 10);
+		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
+		completeScreen.addNorth(this.topPanel, 80);
+		completeScreen.addWest(this.leftPanel, 150);
 		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
@@ -162,6 +162,8 @@ public class TagAPrice implements EntryPoint {
 		this.leftPanel.add(createShop);
 		this.leftPanel.add(getShop);
 		this.leftPanel.add(getShopById);
+
+
 
 		/******************** Shop Links ******************/
 		this.leftPanel.add(new HTML("<hr />"));
@@ -318,12 +320,12 @@ public class TagAPrice implements EntryPoint {
 
 
 							eventBus.fireEvent(new AddressChangedEvent(new Address(
+									locations.get(0).getStreet(),
+									locations.get(0).getPostalCode(),
 									locations.get(0).getCity(),
 									Country.valueOf(locations.get(0).getCountry()),
 									locations.get(0).getPoint().getLatitude(),
-									locations.get(0).getPoint().getLongitude(),
-									locations.get(0).getStreet(),
-									locations.get(0).getPostalCode())));
+									locations.get(0).getPoint().getLongitude())));
 						}else{
 							_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 						}

@@ -8,28 +8,28 @@ public interface IShop extends IEntity<IShop> {
 
 
 	/**
-	 * Set some {@link IAddress} to the Shop. The setShop() method is called for every {@link IAddress} and this
-	 * {@link IShop} will be added. All include products will be deleted.
+	 * Set some {@link ISubsidiary} to the Shop. The setShop() method is called for every {@link ISubsidiary} and this
+	 * {@link IShop} will be added. All include {@link ISubsidiary} will be deleted.
 	 * 
 	 * @param addresses
 	 *            that will be set to the {@link IShop}
 	 */
-	public void setAddresses(ArrayList<ISubsidiary> addresses);
+	public void setSubsidiary(ArrayList<ISubsidiary> subsidiaries);
 
 	/**
-	 * Add one new {@link IAddress} to this {@link IShop}. The setShop() method is called for every {@link IAddress} and
+	 * Add one new {@link ISubsidiary} to this {@link IShop}. The setShop() method is called for every {@link ISubsidiary} and
 	 * this {@link IShop} will be added.
 	 * 
-	 * @param address
+	 * @param subsidiary
 	 *            that will be added to the {@link IShop}
 	 */
-	public void addAddress(ISubsidiary address);
+	public void addSubsidiary(ISubsidiary subsidiary);
 
 	/**
-	 * Returns all {@link IAddress}es
+	 * Returns all {@link ISubsidiary}
 	 * 
-	 * @return all {@link IAddress}es
+	 * @return all {@link ISubsidiary}
 	 */
-	public ArrayList<ISubsidiary> getAddresses();
+	public ArrayList<ISubsidiary> getSubsidiaries();
 
 }

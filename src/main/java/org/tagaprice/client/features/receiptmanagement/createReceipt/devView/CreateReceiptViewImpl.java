@@ -162,9 +162,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setAddress(ISubsidiary address) {
-		_currAddress=address;
-		System.out.println("setAddress: "+address);
+	public void setAddress(ISubsidiary subsidiary) {
+		_currAddress=subsidiary;
+		System.out.println("setAddress: "+subsidiary);
 		if(_currAddress==null)
 			_shopHolder.clear();
 		else{
@@ -172,7 +172,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			_shopSearch.setEnabled(false);
 			_newAddressArea.setVisible(false);
 			_saveButton.setEnabled(true);
-			_shopHolder.add(new Label(address.getShop().getTitle()+" "+address.getStreet()));
+			_shopHolder.add(new Label(subsidiary.getShop().getTitle()+" "+subsidiary.getAddress().getPostalcode()));
 			_shopHolder.add(new Button("-", new ClickHandler() {
 
 				@Override
@@ -217,8 +217,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShopSearchResults(ArrayList<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
-			for(final ISubsidiary a:s.getAddresses()){
-				Label foundAddress = new Label(s.getTitle()+" "+a.getStreet());
+			for(final ISubsidiary a:s.getSubsidiaries()){
+				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getPostalcode());
 
 
 				foundAddress.addClickHandler(new ClickHandler() {

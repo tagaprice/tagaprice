@@ -99,7 +99,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		_createReceiptView.setTitle(_receipt.getTitle());
 		_createReceiptView.setDate(_receipt.getDate());
-		_createReceiptView.setAddress(_receipt.getAddress());
+		_createReceiptView.setAddress(_receipt.getSubsidiary());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
 	}
 
@@ -156,7 +156,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		if(_receipt==null)_receipt=new Receipt();
 		_receipt.setTitle(_createReceiptView.getTitle());
 		_receipt.setDate(_createReceiptView.getDate());
-		_receipt.setAddress(_createReceiptView.getAddress());
+		_receipt.setSubsidiary(_createReceiptView.getAddress());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
 
 

@@ -18,25 +18,17 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
 	private Unit _unit;
 
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
 	public Product() {}
 
 	/**
-	 * Constructor to update a {@link Product}
-	 * @param revisionId
-	 * @param title
-	 * @param unit
-	 */
-	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit) {
-		super(revisionId, title);
-		this._category = category;
-		this._unit = unit;
-	}
-
-	/**
+	 * <b>NEW</b>
 	 * Constructor to create a new {@link Product}
-	 * @param title
-	 * @param category
-	 * @param quantity
+	 * @param title Product Title
+	 * @param category Product category
+	 * @param Unit Product unit
 	 */
 	public Product(String title, ICategory category, Unit unit) {
 		super(title);
@@ -44,6 +36,22 @@ public class Product extends AEntity<IProduct> implements IProduct {
 		this._unit = unit;
 
 	}
+
+	/**
+	 * <b>UPDATE and GET</b>
+	 * Constructor to update and GET a {@link Product}
+	 * @param revisionId the product revision
+	 * @param title Product Title
+	 * @param category Product category
+	 * @param Unit Product unit
+	 */
+	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit) {
+		super(revisionId, title);
+		this._category = category;
+		this._unit = unit;
+	}
+
+
 
 	@Override
 	public void setCategory(ICategory category) {
@@ -57,34 +65,6 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	}
 
 
-
-
-	@Override
-	public boolean equals(Object o) {
-		if(o instanceof Product) {
-			Product p = (Product) o;
-			return super.equals(o) && this._category.equals(p._category) && this._unit.equals(p._unit);
-		} else {
-			return false;
-		}
-	}
-
-	public boolean equals(Product p) {
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		String revString;
-		if(this.getRevisionId()!= null){
-			revString = this.getRevisionId().toString();
-		}else{
-			revString = "Revision is null";
-		}
-		String quantitiyString="";
-
-		return "Product: " + this.getTitle() + ", " + revString + ", " + quantitiyString ;
-	}
 
 	@Override
 	public void addPackage(IPackage ipackage) {
@@ -117,5 +97,15 @@ public class Product extends AEntity<IProduct> implements IProduct {
 	public Unit getUnit() {
 		return _unit;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Product [_category=" + _category + ", _unit=" + _unit + "]";
+	}
+
+
 
 }

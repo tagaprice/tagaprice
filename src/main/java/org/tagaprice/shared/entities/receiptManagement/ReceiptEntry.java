@@ -5,16 +5,21 @@ import org.tagaprice.shared.entities.productmanagement.*;
 public class ReceiptEntry implements IReceiptEntry {
 
 
-	private static final long serialVersionUID = -7990234621338289392L;
 	private IPackage _package;
-
 	private IPrice _price;
 	private IReceipt _receipt;
 
-	public ReceiptEntry() {
-	}
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
+	public ReceiptEntry() {}
 
-
+	/**
+	 * <b>NEW</b>
+	 * Create a new ReceiptEntry. Method setReceipt() must be called
+	 * @param price the price of the {@link IReceiptEntry}
+	 * @param ipackage the related package
+	 */
 	public ReceiptEntry(IPrice price, IPackage ipackage) {
 		setPrice(price);
 		setPackage(ipackage);

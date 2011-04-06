@@ -1,52 +1,35 @@
-package org.tagaprice.shared.entities.shopmanagement;
+package org.tagaprice.client.gwt.shared.entities.shopmanagement;
 
-import java.io.Serializable;
-
-import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.productmanagement.Country;
+import org.tagaprice.client.gwt.shared.entities.Address;
+import org.tagaprice.client.gwt.shared.entities.ISEntity;
 
 /**
  * An Address defines the position where a IShop can be.
  *
  */
-public interface ISubsidiary extends Serializable {
+public interface ISubsidiary extends ISEntity<ISubsidiary> {
 
-	public void setRevisionId(IRevisionId revisionId);
+	/**
+	 * Set an {@link Address} to the Subsidiary
+	 * @param address subsidiary address
+	 */
+	public void setAddress(Address address);
+
+	/**
+	 * @return the address of the subsidiary
+	 */
+	public Address getAddress();
+
+	/**
+	 * @return the {@link IShop}
+	 */
+	public IShop getShop();
+
 
 	/**
 	 * Set the {@link IShop} on which the {@link IAddress} depends from.
 	 * @param shop the {@link IShop} on which the {@link IAddress} depends from.
 	 */
 	public void setShop(IShop shop);
-
-	public void setStreet(String street);
-
-	public void setZip(String zip);
-
-	public void setCity(String city);
-
-	public void setCountry(Country country);
-
-	public void setLat(double lat);
-
-	public void setLng(double lng);
-
-
-
-	public IRevisionId getRevisionID();
-
-	public IShop getShop();
-
-	public String getStreet();
-
-	public String getZip();
-
-	public String getCity();
-
-	public Country getCountry();
-
-	public double getLat();
-
-	public double getLng();
 
 }
