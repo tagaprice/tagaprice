@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.IEntity;
 
-public interface IShop extends IEntity<IShop> {
+public interface IShop extends IEntity {
 
 
 	/**

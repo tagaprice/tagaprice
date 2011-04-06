@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.dump.ICategory;
  * as model. (Read MVP pattern on <a href="http://code.google.com/webtoolkit/articles/mvp-architecture.html#model" />)
  * 
  */
-public class Product extends AEntity<IProduct> implements IProduct {
+public class Product extends AEntity implements IProduct {
 
 
 	private static final long serialVersionUID = 4858431133448109402L;

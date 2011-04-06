@@ -14,7 +14,7 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
  * and all {@link ReceiptEntry} of a receipt.
  * 
  */
-public class Receipt extends AEntity<IReceipt> implements IReceipt {
+public class Receipt extends AEntity implements IReceipt {
 
 	private ISubsidiary _subsidiary;
 	private Date _date;

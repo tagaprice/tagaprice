@@ -9,7 +9,7 @@ import org.tagaprice.shared.entities.dump.IQuantity;
  * Every Product can be bought in different packages. This interface defines the properties of an package.
  * 
  */
-public interface IPackage extends ISEntity<IPackage>{
+public interface IPackage extends ISEntity{
 
 	/**
 	 * Set the related {@link IProduct}

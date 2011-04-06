@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.tagaprice.shared.entities.IRevisionId;
 
-public interface ISEntity<T> extends Serializable {
+public interface ISEntity extends Serializable {
 
 
 	/**

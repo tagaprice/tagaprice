@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
  * A {@link IReceipt} contains all informations after a user was in an {@link Subsidiary}
  * The {@link IReceipt} informations are used to combine a Subsidiary with a Package and a price
  */
-public interface IReceipt extends IEntity<IReceipt> {
+public interface IReceipt extends IEntity {
 
 
 	/**

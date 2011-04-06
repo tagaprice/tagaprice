@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class ASEntity<T> implements ISEntity<T> {
+public abstract class ASEntity implements ISEntity {
 
 	private IRevisionId _revId;
 

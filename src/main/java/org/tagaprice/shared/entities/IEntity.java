@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.entities.ISEntity;
 
-public interface IEntity<T> extends ISEntity<T>  {
+public interface IEntity extends ISEntity  {
 
 
 	/**

@@ -6,7 +6,8 @@ import org.tagaprice.shared.entities.*;
  * A category describes which properties and dependencies a {@link IProduct} has.
  *
  */
-public class Category extends AEntity<ICategory> implements ICategory  {
+public class Category extends AEntity implements ICategory  {
+	private static final long serialVersionUID = 1L;
 
 	private ICategory _parentCategory;
 
