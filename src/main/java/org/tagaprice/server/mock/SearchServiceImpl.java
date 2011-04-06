@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.server.mock;
+package org.tagaprice.server.mock;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,15 +7,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.BoundingBox;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
-import org.tagaprice.client.gwt.shared.entities.productmanagement.Product;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchService;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

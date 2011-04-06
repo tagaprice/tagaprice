@@ -1,5 +1,7 @@
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.client.gwt.shared.entities.ISEntity;
+
 public interface IEntity<T> extends ISEntity<T>  {
 
 

@@ -2,9 +2,9 @@ package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.IEntity;
-import org.tagaprice.client.gwt.shared.entities.Unit;
-import org.tagaprice.client.gwt.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.IEntity;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.dump.ICategory;
 
 
 /**

@@ -2,10 +2,10 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.util.ArrayList;
 import java.util.Date;
-import org.tagaprice.client.gwt.shared.entities.AEntity;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
-import org.tagaprice.client.gwt.shared.entities.RevisionId;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 /**
  * A single Receipt

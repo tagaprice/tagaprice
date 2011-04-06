@@ -2,6 +2,8 @@ package org.tagaprice.client.gwt.shared.entities;
 
 import java.io.Serializable;
 
+import org.tagaprice.shared.entities.IRevisionId;
+
 public interface ISEntity<T> extends Serializable {
 
 

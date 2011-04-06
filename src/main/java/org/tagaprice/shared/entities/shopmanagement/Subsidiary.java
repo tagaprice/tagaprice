@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.entities.shopmanagement;
+package org.tagaprice.shared.entities.shopmanagement;
 
 import org.tagaprice.client.gwt.shared.entities.ASEntity;
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.IRevisionId;
 
 /**
  * A Subsidiary is a location of a shop. Only a {@link Subsidiary} can include products

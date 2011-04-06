@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.client.gwt.shared.entities.ISEntity;
-import org.tagaprice.client.gwt.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.dump.IQuantity;
 
 /**
  * Every Product can be bought in different packages. This interface defines the properties of an package.

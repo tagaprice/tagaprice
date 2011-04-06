@@ -3,11 +3,17 @@ package org.tagaprice.server.mock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import org.tagaprice.client.gwt.shared.entities.*;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.*;
-import org.tagaprice.client.gwt.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.client.gwt.shared.logging.*;
-import org.tagaprice.client.gwt.shared.rpc.shopmanagement.*;
+
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.logging.*;
+import org.tagaprice.shared.rpc.shopmanagement.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {

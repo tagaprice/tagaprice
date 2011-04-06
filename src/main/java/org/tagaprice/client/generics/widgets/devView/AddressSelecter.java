@@ -1,7 +1,6 @@
-package org.tagaprice.client.gwt.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.devView;
 
 import org.gwtopenmaps.openlayers.client.LonLat;
-import org.tagaprice.client.gwt.shared.logging.LoggerFactory;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
@@ -15,13 +14,14 @@ import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
-import org.tagaprice.client.gwt.client.generics.widgets.IAddressSelecter;
-import org.tagaprice.client.gwt.shared.entities.Address;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.Subsidiary;
-import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.client.gwt.shared.logging.MyLogger;
-import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchService;
+import org.tagaprice.client.generics.widgets.IAddressSelecter;
+import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
+import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.logging.MyLogger;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchServiceAsync;
+import org.tagaprice.shared.logging.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.maps.client.geocode.Geocoder;

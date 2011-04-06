@@ -1,5 +1,7 @@
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.client.gwt.shared.entities.ASEntity;
+
 
 /**
  * The {@link AEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
