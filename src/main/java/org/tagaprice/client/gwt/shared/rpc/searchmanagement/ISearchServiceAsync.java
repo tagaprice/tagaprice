@@ -14,4 +14,6 @@ public interface ISearchServiceAsync {
 	void searchShop(String searchString, BoundingBox bbox, AsyncCallback<ArrayList<IShop>> callback);
 
 	void searchProduct(String searchString, ISubsidiary address,  AsyncCallback<ArrayList<IProduct>> callback);
+
+	void searchAddress(double lat, double lng,  AsyncCallback<String> callback);
 }

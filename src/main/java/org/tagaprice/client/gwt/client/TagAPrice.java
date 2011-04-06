@@ -35,6 +35,7 @@ import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.place.shared.*;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 /**
  * GWT STARTPOINT - This is the class with the EntryPoint.
@@ -307,7 +308,25 @@ public class TagAPrice implements EntryPoint {
 			public void onSuccess(Position position) {
 
 
+				//user OSM
+				clientFactory.getSearchService().searchAddress(position.getCoords().getLatitude(), position.getCoords().getLongitude(),
+						new AsyncCallback<String>() {
 
+					@Override
+					public void onSuccess(String result) {
+						// TODO Auto-generated method stub
+						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Something was ok: "+result, INFOTYPE.INFO));
+
+					}
+
+					@Override
+					public void onFailure(Throwable e) {
+						_infoBox.addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
+					}
+				});
+
+
+				//use google
 				goecoder.getLocations(LatLng.newInstance(
 						position.getCoords().getLatitude(),
 						position.getCoords().getLongitude()),

@@ -38,4 +38,12 @@ public interface ISearchService extends RemoteService {
 	 *         products.
 	 */
 	ArrayList<IProduct> searchProduct(String searchString, ISubsidiary address);
+
+	/**
+	 * Find the Address of the lat lng position
+	 * @param lat latitude position
+	 * @param lng longitutde position
+	 * @return Address (Normaly a streetname)
+	 */
+	String searchAddress(double lat, double lng);
 }

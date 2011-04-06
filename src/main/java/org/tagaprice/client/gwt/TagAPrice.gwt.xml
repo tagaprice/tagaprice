@@ -85,4 +85,5 @@
   <source path="client" />
   <source path="shared" />
   <inherits name="org.tagaprice.client.gwt.TagAPrice"/>
+  <inherits name="org.tagaprice.client.gwt.TagAPrice"/>
 </module>
