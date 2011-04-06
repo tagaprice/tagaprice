@@ -21,6 +21,8 @@ import java.io.Serializable;
  */
 public class BoundingBox implements Serializable {
 	/// default serial version id
+	private static final long serialVersionUID = 1L;
+
 	private double x1, y1;
 	private double x2, y2;
 

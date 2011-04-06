@@ -15,6 +15,7 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
  * 
  */
 public class Receipt extends AEntity implements IReceipt {
+	private static final long serialVersionUID = 1L;
 
 	private ISubsidiary _subsidiary;
 	private Date _date;

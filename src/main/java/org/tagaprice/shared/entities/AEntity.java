@@ -12,6 +12,7 @@ import org.tagaprice.shared.entities.ASEntity;
  * 
  */
 public abstract class AEntity extends ASEntity implements IEntity {
+	private static final long serialVersionUID = 1L;
 
 	private IRevisionId _revId;
 	private String _title;

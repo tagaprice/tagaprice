@@ -9,6 +9,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  *
  */
 public class Subsidiary extends ASEntity implements ISubsidiary {
+	private static final long serialVersionUID = 1L;
 
 	private Address _address = new Address();
 	private IShop _shop;
