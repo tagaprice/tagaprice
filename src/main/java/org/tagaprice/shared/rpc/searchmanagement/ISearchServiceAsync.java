@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.rpc.searchmanagement;
+package org.tagaprice.shared.rpc.searchmanagement;
 
 import java.util.ArrayList;
 

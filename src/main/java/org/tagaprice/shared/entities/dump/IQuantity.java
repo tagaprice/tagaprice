@@ -1,8 +1,8 @@
-package org.tagaprice.client.gwt.shared.entities.dump;
+package org.tagaprice.shared.entities.dump;
 
 import java.io.Serializable;
 
-import org.tagaprice.client.gwt.shared.entities.Unit;
+import org.tagaprice.shared.entities.Unit;
 
 
 /**

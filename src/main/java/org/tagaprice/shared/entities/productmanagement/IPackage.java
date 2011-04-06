@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.gwt.shared.entities.ISEntity;
+import org.tagaprice.shared.entities.ISEntity;
 import org.tagaprice.shared.entities.dump.IQuantity;
 
 /**

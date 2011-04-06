@@ -1,7 +1,7 @@
 package org.tagaprice.client.features.accountmanagement.register.devView;
 
 import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
-import org.tagaprice.client.gwt.client.Config;
+import org.tagaprice.client.Config;
 
 import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
 import com.google.gwt.core.client.GWT;

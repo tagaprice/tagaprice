@@ -1,4 +1,4 @@
-package org.tagaprice.client.gwt.shared.entities;
+package org.tagaprice.shared.entities;
 
 import org.tagaprice.shared.entities.IRevisionId;
 

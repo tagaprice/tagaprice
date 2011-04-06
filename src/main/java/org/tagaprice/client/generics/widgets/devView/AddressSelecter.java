@@ -20,7 +20,7 @@ import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
 import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
-import org.tagaprice.client.gwt.shared.rpc.searchmanagement.ISearchServiceAsync;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.shared.logging.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;

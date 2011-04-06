@@ -1,6 +1,6 @@
 package org.tagaprice.shared.entities.shopmanagement;
 
-import org.tagaprice.client.gwt.shared.entities.ASEntity;
+import org.tagaprice.shared.entities.ASEntity;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
 

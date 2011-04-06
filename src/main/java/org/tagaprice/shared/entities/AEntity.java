@@ -1,6 +1,6 @@
 package org.tagaprice.shared.entities;
 
-import org.tagaprice.client.gwt.shared.entities.ASEntity;
+import org.tagaprice.shared.entities.ASEntity;
 
 
 /**
