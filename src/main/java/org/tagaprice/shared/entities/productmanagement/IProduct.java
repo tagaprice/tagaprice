@@ -29,18 +29,8 @@ public interface IProduct extends IEntity<IProduct> {
 
 
 	/**
-<<<<<<< HEAD:src/main/java/org/tagaprice/shared/entities/productmanagement/IProduct.java
-	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
-	 * have.
-	 * 
-	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
-	 *            can
-	 *            have.
-=======
 	 * Return all Packages includes in a {@link IProduct}
 	 * @return all Packages includes in a {@link IProduct}
->>>>>>> origin/master:src/main/java/org/tagaprice/client/gwt/shared/entities/productmanagement/IProduct.java
 	 */
 	public ArrayList<IPackage> getPackages();
 
@@ -70,11 +60,11 @@ public interface IProduct extends IEntity<IProduct> {
 	public void setPackages(ArrayList<IPackage> iPackage);
 
 	/**
-	 * Sets the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct} can
+	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
 	 * have.
 	 * 
 	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct}
+	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 *            can
 	 *            have.
 	 */
