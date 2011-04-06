@@ -6,7 +6,8 @@ import org.tagaprice.shared.entities.ASEntity;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.IQuantity;
 
-public class Package extends ASEntity<IPackage> implements IPackage {
+public class Package extends ASEntity implements IPackage {
+	private static final long serialVersionUID = 1L;
 
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	IQuantity _iQuantity;

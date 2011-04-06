@@ -8,7 +8,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  * A Subsidiary is a location of a shop. Only a {@link Subsidiary} can include products
  *
  */
-public class Subsidiary extends ASEntity<ISubsidiary> implements ISubsidiary {
+public class Subsidiary extends ASEntity implements ISubsidiary {
 
 	private Address _address = new Address();
 	private IShop _shop;

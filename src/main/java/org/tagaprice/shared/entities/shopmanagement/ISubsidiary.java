@@ -7,7 +7,7 @@ import org.tagaprice.shared.entities.ISEntity;
  * An Address defines the position where a IShop can be.
  *
  */
-public interface ISubsidiary extends ISEntity<ISubsidiary> {
+public interface ISubsidiary extends ISEntity {
 
 	/**
 	 * Set an {@link Address} to the Subsidiary

@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.dump.ICategory;
  * Defines all methods needed to buy a {@link Product}
  * 
  */
-public interface IProduct extends IEntity<IProduct> {
+public interface IProduct extends IEntity {
 
 
 	/**

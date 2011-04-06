@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.IRevisionId;
  * "Karlsplatz 14, 1050 Wien"
  * 
  */
-public class Shop extends AEntity<IShop> implements IShop {
+public class Shop extends AEntity implements IShop {
 
 	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
 
