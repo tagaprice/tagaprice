@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc.searchmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -23,7 +23,7 @@ public interface ISearchService extends RemoteService {
 	 *            the area where to search for this shop
 	 * @return a list of shop results. (Is never null)
 	 */
-	ArrayList<IShop> searchShop(String searchString, BoundingBox bbox);
+	List<IShop> searchShop(String searchString, BoundingBox bbox);
 
 	/**
 	 * Returns a list of {@link IProduct} sorted by {@link IShop} plus {@link IAddress}, than {@link IShop}, than
@@ -38,7 +38,7 @@ public interface ISearchService extends RemoteService {
 	 *         similar
 	 *         products.
 	 */
-	ArrayList<IProduct> searchProduct(String searchString, ISubsidiary address);
+	List<IProduct> searchProduct(String searchString, ISubsidiary address);
 
 	/**
 	 * Find the Address of the lat lng position

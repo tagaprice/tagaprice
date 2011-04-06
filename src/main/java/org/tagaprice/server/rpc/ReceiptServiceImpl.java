@@ -1,8 +1,11 @@
-package org.tagaprice.server.dao.mock;
+package org.tagaprice.server.rpc;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
@@ -31,14 +34,15 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	private static final long serialVersionUID = 3420788026998858664L;
 
-	ProductServiceImpl productImpl = new ProductServiceImpl();
-	ShopServiceImpl shopImple = new ShopServiceImpl();
+	IPackageDAO packageDAO;
 	Random random = new Random(44646776);
 	int productIdCounter = 1;
 	ArrayList<IReceipt> _receiptList = new ArrayList<IReceipt>();
 	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 
-	public ReceiptServiceImpl() {
+	public ReceiptServiceImpl(IDaoFactory daoFactory) {
+		packageDAO = daoFactory.getPackageDAO();
+		
 		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
 		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
 		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
@@ -71,7 +75,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		}
 
 		{
-			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), productImpl.getPackage(new RevisionId(2L, 1)));
+			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get(new RevisionId(2L, 1)));
 			tempReceipt.addReceiptEntriy(ire);
 		}
 

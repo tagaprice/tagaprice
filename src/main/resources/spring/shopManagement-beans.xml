@@ -14,7 +14,7 @@
 			   http://www.springframework.org/schema/tx/spring-tx.xsd
 			   ">
 			   
-	<bean id="defaultShopService" class="org.tagaprice.server.service.DefaultShopService">
+	<bean id="defaultShopService" class="org.tagaprice.server.rpc.DefaultShopService">
 		<property name="shopDAO" ref="defaultShopDAO"/>
 		<property name="sessionFactory" ref="defaultSessionFactory"/>
 	</bean>

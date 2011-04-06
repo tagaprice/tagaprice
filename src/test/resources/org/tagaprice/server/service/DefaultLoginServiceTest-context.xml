@@ -15,6 +15,6 @@
 
 
 	<bean id="defaultLoginService"
-	      class="org.tagaprice.server.service.DefaultLoginService">
+	      class="org.tagaprice.server.rpc.DefaultLoginService">
 	</bean>
 </beans>

@@ -1,12 +1,15 @@
-package org.tagaprice.server.dao.mock;
+package org.tagaprice.server.rpc;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
+import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IProductDAO;
+import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -22,24 +25,27 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class SearchServiceImpl extends RemoteServiceServlet implements ISearchService {
 	private static final long serialVersionUID = 1L;
 
-	private ShopServiceImpl _mockShopService = new ShopServiceImpl();
-	private ProductServiceImpl _mockPrductService = new ProductServiceImpl();
+	private IShopDAO shopDAO;
+	private IProductDAO productDAO;
 	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
+	public SearchServiceImpl(IDaoFactory daoFactory) {
+		shopDAO = daoFactory.getShopDAO();
+		productDAO = daoFactory.getProductDAO();
+	}
+	
 	@Override
-	public ArrayList<IShop> searchShop(String searchString, BoundingBox bbox) {
-
-		//Returns all shops
-		return _mockShopService.getShops(null);
+	public List<IShop> searchShop(String searchString, BoundingBox bbox) {
+		return shopDAO.list();
 	}
 
 	@Override
-	public ArrayList<IProduct> searchProduct(String searchString, ISubsidiary shop) {
+	public List<IProduct> searchProduct(String searchString, ISubsidiary shop) {
 
 		//Returns all shops
-		IProduct _dumpProduc = new Product();
-		_dumpProduc.setTitle(searchString);
-		return _mockPrductService.getProducts(_dumpProduc);
+		IProduct _dumpProduct = new Product();
+		_dumpProduct.setTitle(searchString);
+		return productDAO.find(_dumpProduct);
 	}
 
 	@Override

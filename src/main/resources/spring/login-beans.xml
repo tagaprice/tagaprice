@@ -15,7 +15,7 @@
 			   ">
 			   
 	<bean id="defaultLoginService"
-	      class="org.tagaprice.server.service.DefaultLoginService">
+	      class="org.tagaprice.server.rpc.DefaultLoginService">
 	      <property name="localAccountDAO" ref="defaultAccountDao"/>
 	      <property name="sessionFactory" ref="defaultSessionFactory"/>
 	</bean>

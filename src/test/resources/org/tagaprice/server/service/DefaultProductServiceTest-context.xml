@@ -15,6 +15,6 @@
 
 
 	<bean id="defaultProductManagement"
-	      class="org.tagaprice.server.service.DefaultProductService">
+	      class="org.tagaprice.server.rpc.DefaultProductService">
 	</bean>
 </beans>

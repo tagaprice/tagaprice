@@ -15,6 +15,6 @@
 
 
 	<bean id="defaultCategoryService"
-	      class="org.tagaprice.server.service.DefaultCategoryService">
+	      class="org.tagaprice.server.rpc.DefaultCategoryService">
 	</bean>
 </beans>

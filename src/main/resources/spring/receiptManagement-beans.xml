@@ -22,7 +22,7 @@
 		-	
 	-->
 	<bean id="defaultReceiptService"
-    class="org.tagaprice.server.service.DefaultReceiptService">
+    class="org.tagaprice.server.rpc.DefaultReceiptService">
 		<property name="receiptDAO" ref="defaultReceiptDAO"/>
 	</bean>
 

@@ -12,7 +12,7 @@
 			   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<bean id="sessionService"
-	      class="org.tagaprice.server.service.SessionService"
+	      class="org.tagaprice.server.rpc.SessionService"
 	      scope="prototype">
 	</bean>
 </beans>

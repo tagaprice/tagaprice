@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao.mock;
+package org.tagaprice.server.rpc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 
 
 	public ShopServiceImpl() {
-		_logger.log("Load servlet...");
+		_logger.log("Load ShopServiceImpl servlet...");
 
 
 		//Create address for Shop(bills)

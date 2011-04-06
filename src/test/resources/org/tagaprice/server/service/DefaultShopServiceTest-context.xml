@@ -15,7 +15,7 @@
 
 
 	<bean id="defaultShopService"
-	      class="org.tagaprice.server.service.DefaultShopService">
+	      class="org.tagaprice.server.rpc.DefaultShopService">
 	</bean>
 
 </beans>

@@ -12,7 +12,7 @@
 	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>productservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.ProductServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -22,7 +22,7 @@
 	
 	<servlet>
 		<servlet-name>loginservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.LoginServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.LoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -32,7 +32,7 @@
 	
 	<servlet>
 		<servlet-name>shopservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.ShopServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.dservikeShopServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -42,7 +42,7 @@
 	
 	<servlet>
 		<servlet-name>receiptservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.ReceiptServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.daservi.eeceiptServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -52,7 +52,7 @@
 	
 	<servlet>
 		<servlet-name>searchservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.SearchServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.SearchServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -62,7 +62,7 @@
 	
 	<servlet>
 		<servlet-name>categoryservice</servlet-name>
-		<servlet-class>org.tagaprice.server.dao.mock.CategoryServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.daservi.eategoryServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

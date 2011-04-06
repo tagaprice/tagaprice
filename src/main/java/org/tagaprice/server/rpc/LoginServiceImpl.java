@@ -1,4 +1,4 @@
-package org.tagaprice.server.dao.mock;
+package org.tagaprice.server.rpc;
 
 import java.util.ArrayList;
 

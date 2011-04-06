@@ -15,7 +15,7 @@
 			   ">
 			   
   <bean id="defaultProductService"
-    class="org.tagaprice.server.service.DefaultProductService">
+    class="org.tagaprice.server.rpc.DefaultProductService">
   	<property name="productDAO" ref="defaultProductDAO"/>
   	<property name="productRevisionDAO" ref="defaultProductRevisionDAO"/>
   	<property name="sessionFactory" ref="defaultSessionFactory"/>
