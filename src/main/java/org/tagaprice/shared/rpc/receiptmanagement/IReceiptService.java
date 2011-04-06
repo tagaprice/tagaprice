@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc.receiptmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
@@ -15,7 +15,7 @@ public interface IReceiptService extends RemoteService {
 
 	IReceipt getReceipt(long receiptid) throws UserNotLoggedInException;
 
-	ArrayList<IReceipt> getReceits() throws UserNotLoggedInException;
+	List<IReceipt> getReceits() throws UserNotLoggedInException;
 
 
 	/**
@@ -24,6 +24,6 @@ public interface IReceiptService extends RemoteService {
 	 * @return
 	 */
 	@Deprecated
-	ArrayList<ReceiptEntry> getReceiptEntriesByProductId(long productid);
+	List<ReceiptEntry> getReceiptEntriesByProductId(long productid);
 
 }
