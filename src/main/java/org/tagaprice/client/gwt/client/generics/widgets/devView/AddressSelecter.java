@@ -3,6 +3,7 @@ package org.tagaprice.client.gwt.client.generics.widgets.devView;
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
+import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Pixel;
 import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.control.DragFeature;
@@ -61,13 +62,13 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		//******** INIT OSM ************/
 		MapOptions defaultMapOptions = new MapOptions();
 		LonLat lonLat = new LonLat(16.37692,48.21426);
-		org.gwtopenmaps.openlayers.client.MapWidget omapWidget = new org.gwtopenmaps.openlayers.client.MapWidget("200px", "200px", defaultMapOptions);
+		MapWidget omapWidget = new MapWidget("200px", "200px", defaultMapOptions);
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
 		osm_2.setIsBaseLayer(true);
 		osmMap = omapWidget.getMap();
 		osmMap.addLayer(osm_2);
 		lonLat.transform("EPSG:4326", "EPSG:900913");
-		osmMap.setCenter(lonLat, 12);
+		osmMap.setCenter(lonLat, 15);
 
 		//******** INIT OSM Vector ************/
 		VectorOptions vectorOptions = new VectorOptions();
@@ -82,7 +83,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		vectorOptions.setStyle(style);
 
 		// Create the layer
-		layer = new Vector("Vector Layer", vectorOptions);
+		layer = new Vector("Vector Layer"+Math.random(), vectorOptions);
 
 		point = new Point(lonLat.lon(), lonLat.lat());
 		VectorFeature pointFeature = new VectorFeature(point);
@@ -172,8 +173,11 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_subsidiary.getAddress().setCity(_city.getText());
 		_subsidiary.getAddress().setCountry(_country.getCountry());
 
-		_subsidiary.getAddress().setLat(osmMap.getCenter().lat());
-		_subsidiary.getAddress().setLng(osmMap.getCenter().lon());
+		LonLat l = osmMap.getCenter();
+		l.transform("EPSG:900913","EPSG:4326");
+
+		_subsidiary.getAddress().setLat(l.lat());
+		_subsidiary.getAddress().setLng(l.lon());
 
 
 		return _subsidiary;

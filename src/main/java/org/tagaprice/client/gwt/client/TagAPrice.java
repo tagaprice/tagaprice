@@ -72,7 +72,7 @@ public class TagAPrice implements EntryPoint {
 		//LAYOUT
 		DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
 		completeScreen.addNorth(this.topPanel, 80);
-		completeScreen.addWest(this.leftPanel, 300);
+		completeScreen.addWest(this.leftPanel, 150);
 		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
@@ -162,9 +162,6 @@ public class TagAPrice implements EntryPoint {
 		this.leftPanel.add(getShop);
 		this.leftPanel.add(getShopById);
 
-
-		/*********** OSM test ***************/
-		leftPanel.add(new OSMTry());
 
 
 		/******************** Shop Links ******************/
