@@ -2,18 +2,13 @@ package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
 
-import org.tagaprice.shared.entities.productmanagement.Country;
-
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 4080140561327538031L;
 
-	private String _city;
-	private Country _country;
+	private String _address;
 	private double _lat;
 	private double _lng;
-	private String _postalcode;
-	private String _street;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -24,36 +19,18 @@ public class Address implements Serializable {
 	/**
 	 * <b>NEW</b>
 	 * Constructor to create a new Address
-	 * @param city city
-	 * @param country {@link Country}
+	 * @param address address
 	 * @param lat latitude
 	 * @param lng longitude
-	 * @param street street
-	 * @param postalcode postalcode
 	 */
-	public Address(String street, String postalcode, String city, Country country, double lat, double lng) {
+	public Address(String address, double lat, double lng) {
 		super();
-		_city = city;
-		_country = country;
+		_address=address;
 		_lat = lat;
 		_lng = lng;
-		_street = street;
-		_postalcode = postalcode;
 	}
 
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return _city;
-	}
 
-	/**
-	 * @return the country
-	 */
-	public Country getCountry() {
-		return _country;
-	}
 
 	/**
 	 * @return the lat
@@ -69,33 +46,7 @@ public class Address implements Serializable {
 		return _lng;
 	}
 
-	/**
-	 * @return the postalcode
-	 */
-	public String getPostalcode() {
-		return _postalcode;
-	}
 
-	/**
-	 * @return the street
-	 */
-	public String getStreet() {
-		return _street;
-	}
-
-	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		_city = city;
-	}
-
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(Country country) {
-		_country = country;
-	}
 
 	/**
 	 * @param lat the lat to set
@@ -111,28 +62,32 @@ public class Address implements Serializable {
 		_lng = lng;
 	}
 
-	/**
-	 * @param postalcode the postalcode to set
-	 */
-	public void setPostalcode(String postalcode) {
-		_postalcode = postalcode;
-	}
 
 	/**
-	 * @param street the street to set
+	 * @return the address
 	 */
-	public void setStreet(String street) {
-		_street = street;
+	public String getAddress() {
+		return _address;
 	}
+
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		_address = address;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Address [_city=" + _city + ", _country=" + _country + ", _lat=" + _lat + ", _lng=" + _lng
-		+ ", _street=" + _street + ", _zip=" + _postalcode + "]";
+		return "Address [_address=" + _address + ", _lat=" + _lat + ", _lng=" + _lng + "]";
 	}
+
+
 
 
 

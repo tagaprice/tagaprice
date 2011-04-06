@@ -31,7 +31,17 @@
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 			<layout>default</layout>
 		</repository>
-	</repositories>
+		<repository>
+		      <id>gson</id>
+		      <url>http://google-gson.googlecode.com/svn/mavenrepo</url>
+		      <snapshots>
+			<enabled>true</enabled>
+		      </snapshots>
+		      <releases>
+			<enabled>true</enabled>
+		      </releases>
+		    </repository>
+		</repositories>
 
 	<issueManagement>
 		<system>Trac</system>
@@ -112,6 +122,13 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20090211</version>
+		</dependency>
+		<!--  Gson: Java to Json conversion -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>1.6</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- junit -->
 		<dependency>

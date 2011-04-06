@@ -1,14 +1,15 @@
-package org.tagaprice.shared.rpc.searchmanagement;
+package org.tagaprice.client.gwt.shared.rpc.searchmanagement;
 
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import org.tagaprice.shared.entities.BoundingBox;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.gwt.shared.entities.Address;
+import org.tagaprice.client.gwt.shared.entities.BoundingBox;
+import org.tagaprice.client.gwt.shared.entities.productmanagement.IProduct;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.client.gwt.shared.entities.shopmanagement.IShop;
 
 @RemoteServiceRelativePath("searchservice")
 public interface ISearchService extends RemoteService {
@@ -38,4 +39,12 @@ public interface ISearchService extends RemoteService {
 	 *         products.
 	 */
 	ArrayList<IProduct> searchProduct(String searchString, ISubsidiary address);
+
+	/**
+	 * Find the Address of the lat lng position
+	 * @param lat latitude position
+	 * @param lng longitutde position
+	 * @return Address (Normaly a streetname)
+	 */
+	Address searchAddress(double lat, double lng);
 }
