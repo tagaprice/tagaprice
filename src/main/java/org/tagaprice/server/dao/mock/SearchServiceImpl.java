@@ -1,4 +1,4 @@
-package org.tagaprice.server.mock;
+package org.tagaprice.server.dao.mock;
 
 import java.io.IOException;
 import java.io.InputStream;

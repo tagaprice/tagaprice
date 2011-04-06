@@ -1,4 +1,4 @@
-package org.tagaprice.server.mock;
+package org.tagaprice.server.dao.mock;
 
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
 
