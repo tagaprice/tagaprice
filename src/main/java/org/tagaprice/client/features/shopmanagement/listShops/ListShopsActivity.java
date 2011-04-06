@@ -86,6 +86,7 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 		ListShopsActivity.logger.log("Activity starts...");
 
 		listShopsView.setPresenter(this);
+		listShopsView.reset();
 
 		this.shopServiceAsync.getShops(null, new AsyncCallback<ArrayList<IShop>>() {
 

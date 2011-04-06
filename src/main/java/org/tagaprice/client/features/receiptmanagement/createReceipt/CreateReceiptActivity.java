@@ -60,6 +60,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
+		_createReceiptView.reset();
 
 
 
