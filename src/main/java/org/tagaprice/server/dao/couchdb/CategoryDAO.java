@@ -2,7 +2,6 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
@@ -23,11 +22,11 @@ public class CategoryDAO extends DAOClass<ICategory> implements ICategoryDAO {
 
 	@Override
 	public List<ICategory> list() {
-		ViewResult<Map> result = m_db.listDocuments(null, null);
+		ViewResult<?> result = m_db.listDocuments(null, null);
 		List<ICategory> rc = new ArrayList<ICategory>();
 		
 		System.out.println("CatList:");
-		for (ValueRow<Map> row: result.getRows()) {
+		for (ValueRow<?> row: result.getRows()) {
 			ICategory category = get(new RevisionId(row.getId()));
 			rc.add(category);
 		}
