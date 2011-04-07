@@ -114,8 +114,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public List<IReceipt> list() {
-		// TODO Auto-generated method stub
-		return null;
+		return _receiptList;
 	}
 
 }
