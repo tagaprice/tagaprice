@@ -2,7 +2,7 @@ package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -22,17 +22,17 @@ public class ShopSelecter extends Composite implements IShopSelecter {
 
 	}
 	@Override
-	public IShop getShop() {
+	public Shop getShop() {
 		return shopSelecter.getShop();
 	}
 
 	@Override
-	public void setShop(IShop shop) {
+	public void setShop(Shop shop) {
 		shopSelecter.setShop(shop);
 
 	}
 	@Override
-	public void setAvailableShops(ArrayList<IShop> shops) {
+	public void setAvailableShops(ArrayList<Shop> shops) {
 		shopSelecter.setAvailableShops(shops);
 
 	}

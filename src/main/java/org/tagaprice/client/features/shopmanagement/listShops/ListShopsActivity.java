@@ -25,9 +25,9 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 	private ListShopsPlace place;
 	private ClientFactory clientFactory;
-	private ArrayList<IShop> products;
+	private ArrayList<Shop> products;
 
-	private final ListShopsView<IShop> listShopsView;
+	private final ListShopsView<Shop> listShopsView;
 	private IShopServiceAsync shopServiceAsync;
 
 	/**
@@ -89,10 +89,10 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 		listShopsView.setPresenter(this);
 		listShopsView.reset();
 
-		this.shopServiceAsync.getShops(null, new AsyncCallback<List<IShop>>() {
+		this.shopServiceAsync.getShops(null, new AsyncCallback<List<Shop>>() {
 
 			@Override
-			public void onSuccess(List<IShop> result) {
+			public void onSuccess(List<Shop> result) {
 				ListShopsActivity.logger.log("received results: " + result);
 				if(result != null) {
 					listShopsView.setData(result);
@@ -119,11 +119,11 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 	@Override
 	public void onSearch(String searchtext) {
 		ListShopsActivity.logger.log("search for " + searchtext);
-		IShop shop = new Shop(searchtext);
-		this.shopServiceAsync.getShops(shop , new AsyncCallback<List<IShop>>() {
+		Shop shop = new Shop(searchtext);
+		this.shopServiceAsync.getShops(shop , new AsyncCallback<List<Shop>>() {
 
 			@Override
-			public void onSuccess(List<IShop> result) {
+			public void onSuccess(List<Shop> result) {
 				if(result != null) {
 					listShopsView.setData(result);
 				}

@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.shared.entities.AEntity;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 /**
  * A single Receipt
@@ -15,7 +15,7 @@ import org.tagaprice.shared.entities.shopmanagement.IShop;
 public class Receipt extends AEntity implements IReceipt {
 	private static final long serialVersionUID = 1L;
 
-	private IShop _shop;
+	private Shop _shop;
 	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
 
@@ -33,7 +33,7 @@ public class Receipt extends AEntity implements IReceipt {
 	 * @param date date of the receipt
 	 * @param subsidiary the subsidiary
 	 */
-	public Receipt(String title, Date date, IShop shop) {
+	public Receipt(String title, Date date, Shop shop) {
 		super(title);
 		setDate(date);
 		setShop(shop);
@@ -49,7 +49,7 @@ public class Receipt extends AEntity implements IReceipt {
 	 * @param subsidiary {@link ISubsidiary} where the receipt is from
 	 */
 
-	public Receipt(String receiptId, String revision, String title, Date date, IShop shop) {
+	public Receipt(String receiptId, String revision, String title, Date date, Shop shop) {
 		super(receiptId, revision, title);
 		setDate(date);
 		setShop(shop);
@@ -64,7 +64,7 @@ public class Receipt extends AEntity implements IReceipt {
 	}
 
 	@Override
-	public IShop getShop() {
+	public Shop getShop() {
 		return _shop;
 	}
 
@@ -81,7 +81,7 @@ public class Receipt extends AEntity implements IReceipt {
 
 
 	@Override
-	public void setShop(IShop shop) {
+	public void setShop(Shop shop) {
 		_shop=shop;
 	}
 

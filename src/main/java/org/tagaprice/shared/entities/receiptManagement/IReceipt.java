@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.tagaprice.shared.entities.IEntity;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 
 /**
@@ -28,7 +28,7 @@ public interface IReceipt extends IEntity {
 	/**
 	 * @return the subsidiary where the user shopped
 	 */
-	public IShop getShop();
+	public Shop getShop();
 
 	/**
 	 * Set a list of {@link IReceiptEntry}. All included {@link IReceiptEntry} will be overwritten!
@@ -40,7 +40,7 @@ public interface IReceipt extends IEntity {
 	 * Set the {@link ISubsidiary} where the user bought the things.
 	 * @param subsidiary
 	 */
-	public void setShop(IShop shop);
+	public void setShop(Shop shop);
 
 	/**
 	 * Set the {@link IReceipt} date

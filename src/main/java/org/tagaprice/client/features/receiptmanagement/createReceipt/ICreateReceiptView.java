@@ -8,7 +8,7 @@ import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
 public interface ICreateReceiptView extends IView{
@@ -29,13 +29,13 @@ public interface ICreateReceiptView extends IView{
 
 	public void setDate(Date date);
 
-	public IShop getAddress();
+	public Shop getAddress();
 
-	public void setAddress(IShop address);
+	public void setAddress(Shop address);
 
 	public BoundingBox getBoundingBox();
 
-	public void setShopSearchResults(List<IShop> shopResults);
+	public void setShopSearchResults(List<Shop> shopResults);
 
 	public void setProductSearchResults(List<IProduct> productResults);
 

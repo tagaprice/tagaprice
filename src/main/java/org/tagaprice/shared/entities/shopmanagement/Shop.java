@@ -10,12 +10,12 @@ import org.tagaprice.shared.entities.Address;
  * "Karlsplatz 14, 1050 Wien"
  * 
  */
-public class Shop extends AEntity implements IShop {
+public class Shop extends AEntity {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<IShop> _kids = new ArrayList<IShop>();
+	private ArrayList<Shop> _kids = new ArrayList<Shop>();
 	private Address _address = new Address();
-	private IShop _parent;
+	private Shop _parent;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -59,58 +59,37 @@ public class Shop extends AEntity implements IShop {
 		return "Shop";
 	}
 
-
-
-	@Override
-	public void setParent(IShop parent) {
+	public void setParent(Shop parent) {
 		_parent=parent;
 	}
 
-
-
-	@Override
-	public IShop getParent() {
+	public Shop getParent() {
 		return _parent;
 	}
 
-
-
-	@Override
-	public void setChilds(ArrayList<IShop> kids) {
+	public void setChildren(ArrayList<Shop> kids) {
 		_kids.clear();
 
-		for(IShop s:kids){
+		for (Shop s: kids) {
 			s.setParent(this);
 			_kids.add(s);
 		}
 	}
 
-
-
-	@Override
-	public void addChild(IShop kid) {
+	public void addChild(Shop kid) {
 		kid.setParent(this);
 		_kids.add(kid);
 
 	}
 
-
-
-	@Override
-	public ArrayList<IShop> getChilds() {
+	public ArrayList<Shop> getChildren() {
 		return _kids;
 	}
 
-
-
-	@Override
 	public void setAddress(Address address) {
 		_address=address;
 	}
 
-
-
-	@Override
 	public Address getAddress() {
 		return _address;
 	}

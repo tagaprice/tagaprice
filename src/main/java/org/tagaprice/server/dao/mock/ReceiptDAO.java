@@ -22,7 +22,6 @@ import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ReceiptDAO implements IReceiptDAO {
@@ -35,9 +34,9 @@ public class ReceiptDAO implements IReceiptDAO {
 	public ReceiptDAO(IDaoFactory daoFactory) {
 		packageDAO = daoFactory.getPackageDAO();
 
-		IShop tempAddres = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Holzhausergasse 9");
+		Shop tempAddres = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Holzhausergasse 9");
 		tempAddres.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-		IShop tempshop = new Shop(new Long(random.nextLong()).toString(), "1", "Billa");
+		Shop tempshop = new Shop(new Long(random.nextLong()).toString(), "1", "Billa");
 		tempAddres.setParent(tempshop);
 
 		//Create test product

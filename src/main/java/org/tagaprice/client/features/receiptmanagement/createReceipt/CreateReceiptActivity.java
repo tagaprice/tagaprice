@@ -6,7 +6,7 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -111,10 +111,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getSearchService().searchShop(
 				shopSearch,
 				_createReceiptView.getBoundingBox(),
-				new AsyncCallback<List<IShop>>() {
+				new AsyncCallback<List<Shop>>() {
 
 					@Override
-					public void onSuccess(List<IShop> response) {
+					public void onSuccess(List<Shop> response) {
 
 						_createReceiptView.setShopSearchResults(response);
 					}

@@ -16,7 +16,6 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
@@ -41,7 +40,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	TextBox _address = new TextBox();
 	Label _lat = new Label();
 	Label _lng = new Label();
-	IShop _shop;
+	Shop _shop;
 
 
 	//OSM
@@ -146,7 +145,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public void setAddress(IShop address){
+	public void setAddress(Shop address){
 		_shop=address;
 		_address.setText(_shop.getAddress().getAddress());
 
@@ -156,7 +155,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public IShop getAddress(){
+	public Shop getAddress(){
 		if(_shop==null)_shop = new Shop();
 		_shop.getAddress().setAddress(_address.getText());
 

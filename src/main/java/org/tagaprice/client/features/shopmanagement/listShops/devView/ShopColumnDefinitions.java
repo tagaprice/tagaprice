@@ -3,19 +3,19 @@ package org.tagaprice.client.features.shopmanagement.listShops.devView;
 import java.util.ArrayList;
 
 import org.tagaprice.client.generics.ColumnDefinition;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.user.client.ui.*;
 
 public class ShopColumnDefinitions {
 
-	ArrayList<ColumnDefinition<IShop>> columns = new ArrayList<ColumnDefinition<IShop>>();
+	ArrayList<ColumnDefinition<Shop>> columns = new ArrayList<ColumnDefinition<Shop>>();
 
 	public ShopColumnDefinitions() {
-		columns.add(new ColumnDefinition<IShop>() {
+		columns.add(new ColumnDefinition<Shop>() {
 
 			@Override
-			public Widget render(IShop t) {
+			public Widget render(Shop t) {
 				return new HTML(t.getTitle());
 			}
 
@@ -24,10 +24,10 @@ public class ShopColumnDefinitions {
 				return "Title";
 			}
 		});
-		this.columns.add(new ColumnDefinition<IShop>() {
+		this.columns.add(new ColumnDefinition<Shop>() {
 
 			@Override
-			public Widget render(IShop t) {
+			public Widget render(Shop t) {
 
 				return new Anchor("Open/Edit", "#CreateShop:/show/id/" + t.getId());
 
@@ -39,10 +39,10 @@ public class ShopColumnDefinitions {
 				return "Action";
 			}
 		});
-		this.columns.add(new ColumnDefinition<IShop>() {
+		this.columns.add(new ColumnDefinition<Shop>() {
 
 			@Override
-			public Widget render(IShop t) {
+			public Widget render(Shop t) {
 				if(t.getId() != null)
 					return new HTML(t.getId());
 				else
@@ -57,7 +57,7 @@ public class ShopColumnDefinitions {
 
 	}
 
-	public ArrayList<ColumnDefinition<IShop>> getColumnDefinitions() {
+	public ArrayList<ColumnDefinition<Shop>> getColumnDefinitions() {
 		return this.columns;
 	}
 }

@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 @RemoteServiceRelativePath("searchservice")
 public interface ISearchService extends RemoteService {
@@ -22,10 +22,10 @@ public interface ISearchService extends RemoteService {
 	 *            the area where to search for this shop
 	 * @return a list of shop results. (Is never null)
 	 */
-	List<IShop> searchShop(String searchString, BoundingBox bbox);
+	List<Shop> searchShop(String searchString, BoundingBox bbox);
 
 	/**
-	 * Returns a list of {@link IProduct} sorted by {@link IShop} plus {@link IAddress}, than {@link IShop}, than
+	 * Returns a list of {@link IProduct} sorted by {@link Shop} plus {@link IAddress}, than {@link Shop}, than
 	 * similar
 	 * products.
 	 * 
@@ -37,7 +37,7 @@ public interface ISearchService extends RemoteService {
 	 *         similar
 	 *         products.
 	 */
-	List<IProduct> searchProduct(String searchString, IShop address);
+	List<IProduct> searchProduct(String searchString, Shop address);
 
 	/**
 	 * Find the Address of the lat lng position

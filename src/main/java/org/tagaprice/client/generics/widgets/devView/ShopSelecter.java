@@ -3,7 +3,7 @@ package org.tagaprice.client.generics.widgets.devView;
 import java.util.ArrayList;
 
 import org.tagaprice.client.generics.widgets.IShopSelecter;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -16,14 +16,14 @@ public class ShopSelecter extends Composite implements IShopSelecter {
 	MyLogger logger = LoggerFactory.getLogger(ShopSelecter.class);
 
 	ListBox _listBoxShop = new ListBox();
-	ArrayList<IShop> _availableShops = new ArrayList<IShop>();
+	ArrayList<Shop> _availableShops = new ArrayList<Shop>();
 
 	public ShopSelecter(){
 		initWidget(_listBoxShop);
 	}
 
 	@Override
-	public IShop getShop() {
+	public Shop getShop() {
 		if(this._availableShops != null && this._availableShops.size() > 0) {
 			return this._availableShops.get(this._listBoxShop.getSelectedIndex());
 		} else {
@@ -34,7 +34,7 @@ public class ShopSelecter extends Composite implements IShopSelecter {
 
 
 	@Override
-	public void setShop(IShop shop) {
+	public void setShop(Shop shop) {
 		logger.log("set shop " + shop);
 		if(shop !=null){
 			for(int i = 0; i< this._listBoxShop.getItemCount(); i++){
@@ -50,10 +50,10 @@ public class ShopSelecter extends Composite implements IShopSelecter {
 	}
 
 	@Override
-	public void setAvailableShops(ArrayList<IShop> shops) {
+	public void setAvailableShops(ArrayList<Shop> shops) {
 		this._availableShops = shops;
 		this._listBoxShop.clear();
-		for (IShop c : this._availableShops) {
+		for (Shop c : this._availableShops) {
 			this._listBoxShop.addItem(c.getTitle(), c.toString());
 		}
 

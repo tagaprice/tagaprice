@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopActivity.class);
 
-	private IShop _shop;
+	private Shop _shop;
 	private ICreateShopView<IReceiptEntry> _createShopView;
 	private CreateShopPlace _place;
 	private ClientFactory _clientFactory;
@@ -67,12 +67,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		if (_place.getRevisionId() != null && _place.getRevisionId().getId() != null) {
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(_place.getRevisionId().getId(),
-					new AsyncCallback<IShop>() {
+					new AsyncCallback<Shop>() {
 
 				@Override
-				public void onSuccess(IShop result) {
+				public void onSuccess(Shop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-					for(IShop s: result.getChilds())
+					for(Shop s: result.getChildren())
 						CreateShopActivity._logger.log("child: " + s.getTitle());
 
 					updateView(result);
@@ -126,10 +126,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
 
 
-		_clientFactory.getShopService().saveShop(getShop(), new AsyncCallback<IShop>() {
+		_clientFactory.getShopService().saveShop(getShop(), new AsyncCallback<Shop>() {
 
 			@Override
-			public void onSuccess(IShop result) {
+			public void onSuccess(Shop result) {
 				CreateShopActivity._logger.log("got updated shop: " + result);
 				updateView(result);
 			}
@@ -180,23 +180,23 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	}
 
 
-	private IShop getShop() {
-		IShop shop;
+	private Shop getShop() {
+		Shop shop;
 		if (_shop != null) {
 			shop = _shop;
 		} else {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setChilds(_createShopView.getChilds());
+		shop.setChildren(_createShopView.getChilds());
 		return shop;
 	}
 
-	private void updateView(IShop shop){
+	private void updateView(Shop shop){
 		_shop = shop;
 		_createShopView.setRevisionId(new RevisionId(shop.getId(), shop.getRevision()));
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setChilds(_shop.getChilds());
+		_createShopView.setChilds(_shop.getChildren());
 	}
 
 }

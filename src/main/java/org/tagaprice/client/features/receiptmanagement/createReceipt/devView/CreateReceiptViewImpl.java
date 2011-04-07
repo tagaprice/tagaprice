@@ -19,7 +19,7 @@ import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -85,7 +85,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	Button _saveButton;
 
 	AddressSelecter _addressSelecter;
-	IShop _currAddress=null;
+	Shop _currAddress=null;
 
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
@@ -169,12 +169,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public IShop getAddress() {
+	public Shop getAddress() {
 		return _currAddress;
 	}
 
 	@Override
-	public void setAddress(IShop subsidiary) {
+	public void setAddress(Shop subsidiary) {
 		_currAddress=subsidiary;
 		_shopHolder.clear();
 		if(_currAddress==null)
@@ -234,10 +234,10 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setShopSearchResults(List<IShop> shopResults) {
+	public void setShopSearchResults(List<Shop> shopResults) {
 		_shopSearchSuggestVePa.clear();
-		for(final IShop s:shopResults){
-			for(final IShop a:s.getChilds()){
+		for(final Shop s:shopResults){
+			for(final Shop a:s.getChildren()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
 
@@ -267,7 +267,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_newAddressArea.add(new Button("Add Address", new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent e) {
-							IShop ia= _addressSelecter.getAddress();
+							Shop ia= _addressSelecter.getAddress();
 							ia.setParent(s);
 							setAddress(ia);
 						}

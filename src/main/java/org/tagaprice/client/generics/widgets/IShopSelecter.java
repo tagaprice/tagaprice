@@ -2,7 +2,7 @@ package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -20,16 +20,16 @@ public interface IShopSelecter extends IsWidget, HasChangeHandlers {
 	 * @param shop
 	 */
 
-	public void setShop(IShop shop);
+	public void setShop(Shop shop);
 
 	/**
 	 * returns the current selected shop
 	 * @return
 	 */
 
-	public IShop getShop();
+	public Shop getShop();
 
-	public void setAvailableShops(ArrayList<IShop> shops);
+	public void setAvailableShops(ArrayList<Shop> shops);
 
 
 
