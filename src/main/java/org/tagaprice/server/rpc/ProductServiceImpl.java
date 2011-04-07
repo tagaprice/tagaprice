@@ -48,6 +48,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	@Override
 	public List<IProduct> findProducts(IProduct searchCriteria) {
+		logger.log("findProducts... searchCriteria: " + searchCriteria);
 		return productDAO.find(searchCriteria);
 	}
 

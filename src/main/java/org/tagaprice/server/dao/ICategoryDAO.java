@@ -7,7 +7,6 @@ import org.tagaprice.shared.entities.dump.ICategory;
 
 public interface ICategoryDAO {
 	public ICategory create(final ICategory category);
-	public ICategory get(String name);
 	public ICategory get(IRevisionId id);
 	public ICategory update(final ICategory product);
 	public void delete(ICategory product);

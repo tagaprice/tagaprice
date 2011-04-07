@@ -38,17 +38,16 @@ public class CategoryDAO implements ICategoryDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public ICategory get(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
-	public ICategory get(IRevisionId id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ICategory get(IRevisionId revisionId) {
+		ICategory rc = null;
+		
+		if (revisionId != null && categories.size() > revisionId.getId()) {
+			rc = categories.get((int) revisionId.getId());
+		}
+		
+		return rc;
 	}
 
 	@Override

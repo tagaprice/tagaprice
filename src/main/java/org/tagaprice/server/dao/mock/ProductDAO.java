@@ -33,8 +33,8 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 		
-		ICategory food = categoryDAO.get("food");
-		ICategory nonalcoholics = categoryDAO.get("nonalcoholics");
+		ICategory food = categoryDAO.get(new RevisionId(1));
+		ICategory nonalcoholics = categoryDAO.get(new RevisionId(5));
 		
 		// TestProduct
 		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);
@@ -129,7 +129,6 @@ public class ProductDAO implements IProductDAO {
 
 	@Override
 	public List<IProduct> find(IProduct searchPattern) {
-		logger.log("getProducts... searchCriteria: " + searchPattern);
 		ArrayList<IProduct> products = new ArrayList<IProduct>();
 		for (IProduct p : this.productsLatest.values()) {
 			if (searchPattern != null
