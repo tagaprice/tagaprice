@@ -204,11 +204,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		if(product == null)
 			return;
 		ICreateProductView view = this._clientFactory.getEditProductView();
-		if(product.getRevisionId() != null) {
-			view.setRevisionId(product.getRevisionId());
-		} else {
-			view.setRevisionId(new RevisionId());
-		}
+		view.setRevisionId(new RevisionId(product.getId(), product.getRevision()));
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
 		view.setUnit(product.getUnit());

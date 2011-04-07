@@ -56,7 +56,7 @@ public class ProductCoreColumnDefinitions {
 			@Override
 			public Widget render(IProduct t) {
 
-				return new Anchor("Open/Edit", "#CreateProduct:/show/id/" + t.getRevisionId().getId());
+				return new Anchor("Open/Edit", "#CreateProduct:/show/id/" + t.getId());
 
 			}
 
@@ -71,8 +71,8 @@ public class ProductCoreColumnDefinitions {
 
 			@Override
 			public Widget render(IProduct t) {
-				if(t.getRevisionId() != null)
-					return new HTML(t.getRevisionId().toString());
+				if(t.getId() != null)
+					return new HTML("id: "+t.getId()+", rev: "+t.getRevision());
 				else
 					return new HTML("Revision is null");
 			}

@@ -1,6 +1,6 @@
 package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.entities.IRevisionId;
+import org.svenson.JSONProperty;
 
 /**
  * The {@link ASEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
@@ -13,14 +13,14 @@ import org.tagaprice.shared.entities.IRevisionId;
 public abstract class ASEntity implements ISEntity {
 	private static final long serialVersionUID = 1L;
 
-	private IRevisionId _revId;
+	private String _id = null;
+	private String _rev = null;
 
 	/**
 	 * <b>NEW</b>
 	 * Is used to create a new {@link ASEntity}
 	 */
 	public ASEntity() {
-		setRevisionId(null);
 	}
 
 	/**
@@ -28,20 +28,33 @@ public abstract class ASEntity implements ISEntity {
 	 * This constructor is used by the server to fetch a {@link ASEntity} after SAVING or FINDING a {@link ASEntity}.
 	 * @param revisionID
 	 */
-	public ASEntity(IRevisionId revisionID){
-		setRevisionId(revisionID);
+	public ASEntity(String id, String revision){
+		setId(id);
+		setRevision(revision);
 	}
 
 
 	@Override
-	public IRevisionId getRevisionId() {
-		return _revId;
+	@JSONProperty(value="_rev")
+	public String getRevision() {
+		return _rev;
 	}
 
 
 	@Override
-	public void setRevisionId(IRevisionId revisionID){
-		_revId=revisionID;
+	public void setRevision(String revision) {
+		_rev=revision;
+	}
+	
+	@Override
+	@JSONProperty(value="_id")
+	public String getId() {
+		return _id;
+	}
+
+	@Override
+	public void setId(String entityId) {
+		_id = entityId;
 	}
 
 	/* (non-Javadoc)
@@ -49,7 +62,7 @@ public abstract class ASEntity implements ISEntity {
 	 */
 	@Override
 	public String toString() {
-		return "ASEntity [_revId=" + _revId + "]";
+		return "ASEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 
 

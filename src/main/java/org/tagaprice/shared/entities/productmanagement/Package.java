@@ -15,7 +15,7 @@ public class Package extends ASEntity implements IPackage {
 	IProduct _product;
 
 	/**
-	 * Necessary for Serialisation
+	 * Necessary for serialization
 	 */
 	public Package() {
 		super();
@@ -27,8 +27,8 @@ public class Package extends ASEntity implements IPackage {
 	 * Creates an new Package.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(IQuantity quantity){
-		super(null);
+	public Package(IQuantity quantity) {
+		super();
 		_iQuantity=quantity;
 	}
 

@@ -34,8 +34,8 @@ public class Category extends AEntity implements ICategory  {
 	 * @param title the title of the category
 	 * @param parent the parent of the category
 	 */
-	public Category(IRevisionId revisionId, String title, ICategory parent){
-		super(revisionId, title);
+	public Category(String id, String revision, String title, ICategory parent){
+		super(id, revision, title);
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class ShopColumnDefinitions {
 			@Override
 			public Widget render(IShop t) {
 
-				return new Anchor("Open/Edit", "#CreateShop:/show/id/" + t.getRevisionId().getId());
+				return new Anchor("Open/Edit", "#CreateShop:/show/id/" + t.getId());
 
 			}
 
@@ -43,8 +43,8 @@ public class ShopColumnDefinitions {
 
 			@Override
 			public Widget render(IShop t) {
-				if(t.getRevisionId() != null)
-					return new HTML(t.getRevisionId().toString());
+				if(t.getId() != null)
+					return new HTML(t.getId());
 				else
 					return new HTML("Revision is null");
 			}

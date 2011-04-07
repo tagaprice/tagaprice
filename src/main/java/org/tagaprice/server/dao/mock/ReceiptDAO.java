@@ -40,15 +40,13 @@ public class ReceiptDAO implements IReceiptDAO {
 	public ReceiptDAO(IDaoFactory daoFactory) {
 		packageDAO = daoFactory.getPackageDAO();
 		
-		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), null);
-		IRevisionId r2 = new RevisionId(new Long(random.nextLong()).toString(), null);
-		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-		IShop tempshop = new Shop(r1, "Billa");
+		ISubsidiary tempAddres = new Subsidiary(new Long(random.nextLong()).toString(), "1", new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
+		IShop tempshop = new Shop(new Long(random.nextLong()).toString(), "1", "Billa");
 		tempAddres.setShop(tempshop);
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt(new RevisionId("firstReceipt"), "First Receipt",  new Date(), tempAddres);
+		IReceipt tempReceipt = new Receipt("firstReceipt", "1", "First Receipt",  new Date(), tempAddres);
 
 
 		ICategory root = new Category("root",null);
@@ -81,7 +79,8 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public IReceipt create(IReceipt receipt) {
-		receipt.setRevisionId(new RevisionId(receipt.getTitle()));
+		receipt.setId(receipt.getTitle());
+		receipt.setRevision("1");
 		_receiptList.add(receipt);
 		return receipt;
 	}
@@ -89,7 +88,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	@Override
 	public IReceipt get(IRevisionId receiptId) {
 		for (IReceipt r:_receiptList) {
-			if(r.getRevisionId().getId()==receiptId.getId()) {
+			if(r.getId()==receiptId.getId()) {
 				return r;
 			}
 		}
@@ -99,9 +98,9 @@ public class ReceiptDAO implements IReceiptDAO {
 	@Override
 	public IReceipt update(IReceipt receipt) {
 		for(IReceipt ir:_receiptList){
-			if(ir.getRevisionId().getId()==receipt.getRevisionId().getId()){
+			if(ir.getId()==receipt.getId()){
 				ir=receipt;
-				ir.getRevisionId().setRevision(ir.getRevisionId().getRevision()+1);
+				ir.setRevision(ir.getRevision()+1);
 				return ir;
 			}
 		}

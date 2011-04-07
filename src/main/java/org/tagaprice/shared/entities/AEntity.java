@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.ASEntity;
 
 
@@ -14,7 +15,6 @@ import org.tagaprice.shared.entities.ASEntity;
 public abstract class AEntity extends ASEntity implements IEntity {
 	private static final long serialVersionUID = 1L;
 
-	private IRevisionId _revId;
 	private String _title;
 
 
@@ -32,12 +32,10 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 *            Unique EntityID
 	 * @param title The title of the {@link AEntity}. It must not be null.
 	 */
-	public AEntity(IRevisionId revisionId, String title) {
-		super(revisionId);
+	public AEntity(String id, String revision, String title) {
+		super(id, revision);
 		setTitle(title);
-
 	}
-
 
 	/**
 	 * <b>NEW</b>
@@ -47,7 +45,7 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 *            The title of the {@link AEntity}. Every {@link AEntity} needs a title. It must not be null.
 	 */
 	public AEntity(String title) {
-		this(null, title);
+		this(null, null, title);
 	}
 
 
@@ -56,6 +54,7 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 * @return the title
 	 */
 	@Override
+	@JSONProperty(value="title")
 	public String getTitle() {
 		return _title;
 	}
@@ -75,7 +74,7 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 */
 	@Override
 	public String toString() {
-		return "AEntity [_revId=" + _revId + ", _title=" + _title + "]";
+		return "AEntity ["+super.toString()+", title=" + _title + "]";
 	}
 
 

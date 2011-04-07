@@ -18,7 +18,8 @@ public class PackageDAO implements IPackageDAO {
 	
 	@Override
 	public IPackage create(IPackage pkg) {
-		pkg.setRevisionId(new RevisionId(new Long(this.revIdCounter++).toString(), "1"));
+		pkg.setId(new Integer(this.revIdCounter++).toString());
+		pkg.setRevision("1");
 		logger.log("create package. ID="+this.revIdCounter);
 		return pkg;
 	}
@@ -31,10 +32,10 @@ public class PackageDAO implements IPackageDAO {
 
 	@Override
 	public IPackage update(IPackage pkg) {
-		pkg.getRevisionId().setRevision(pkg.getRevisionId().getRevision() + 1);
+		pkg.setRevision(pkg.getRevision() + 1);
 
 		packageAllRevisions.put(
-				new RevisionId(pkg.getRevisionId().getId(), pkg.getRevisionId().getRevision()), pkg);
+				new RevisionId(pkg.getId(), pkg.getRevision()), pkg);
 		return pkg;
 	}
 

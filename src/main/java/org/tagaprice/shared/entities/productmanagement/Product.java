@@ -45,8 +45,8 @@ public class Product extends AEntity implements IProduct {
 	 * @param category Product category
 	 * @param Unit Product unit
 	 */
-	public Product(IRevisionId revisionId, String title, ICategory category, Unit unit) {
-		super(revisionId, title);
+	public Product(String productId, String revision, String title, ICategory category, Unit unit) {
+		super(productId, revision, title);
 		this._category = category;
 		this._unit = unit;
 	}

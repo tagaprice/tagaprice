@@ -19,9 +19,9 @@ public class RevisionIdTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.underTest = new RevisionId(539L, 432);
-		this.equalRevision = new RevisionId(539L, 432);
-		this.differentRevision = new RevisionId(123L, 321);
+		this.underTest = new RevisionId("539", "432");
+		this.equalRevision = new RevisionId("539", "432");
+		this.differentRevision = new RevisionId("123", "321");
 	}
 
 	@After

@@ -32,7 +32,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 
 				@Override
 				public void onClick(ClickEvent e) {
-					_presenter.goTo(new CreateReceiptPlace(r.getRevisionId().getId()));
+					_presenter.goTo(new CreateReceiptPlace(r.getId()));
 				}
 			});
 			_receiptList.add(ml);
@@ -48,7 +48,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private String createNiceReceiptLine(IReceipt receipt){
 		String nice="";
 
-		if(receipt.getRevisionId()!=null) nice+="Id: "+receipt.getRevisionId().getId()+" | ";
+		if (receipt.getId() != null) nice+="Id: "+receipt.getId()+" | ";
 
 		nice+=receipt.getTitle()+" | ";
 

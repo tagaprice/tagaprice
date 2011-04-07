@@ -2,7 +2,6 @@ package org.tagaprice.shared.entities.shopmanagement;
 
 import org.tagaprice.shared.entities.ASEntity;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.IRevisionId;
 
 /**
  * A Subsidiary is a location of a shop. Only a {@link Subsidiary} can include products
@@ -25,10 +24,9 @@ public class Subsidiary extends ASEntity implements ISubsidiary {
 	 * @param revisionId the revision of the {@link Subsidiary}
 	 * @param address
 	 */
-	public Subsidiary(IRevisionId revisionId, Address address) {
-		this(address);
-		setRevisionId(revisionId);
-
+	public Subsidiary(String subsidiaryId, String revision, Address address) {
+		super(subsidiaryId, revision);
+		setAddress(address);
 	}
 
 	/**
@@ -37,7 +35,7 @@ public class Subsidiary extends ASEntity implements ISubsidiary {
 	 * @param address
 	 */
 	public Subsidiary(Address address) {
-		setAddress(address);
+		this(null, null, address);
 	}
 
 	@Override

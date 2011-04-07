@@ -193,7 +193,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	private void updateView(IShop shop){
 		_shop = shop;
-		_createShopView.setRevisionId(shop.getRevisionId());
+		_createShopView.setRevisionId(new RevisionId(shop.getId(), shop.getRevision()));
 		_createShopView.setShopTitle(shop.getTitle());
 		_createShopView.setSubsidiary(_shop.getSubsidiaries());
 	}

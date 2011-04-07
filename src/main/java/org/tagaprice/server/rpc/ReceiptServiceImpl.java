@@ -29,7 +29,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		IReceipt rc=null;
 
 		//Create or update Receipt
-		if (receipt.getRevisionId()==null){
+		if (receipt.getId()==null){
 			rc = receiptDAO.create(receipt);
 		}
 		else {

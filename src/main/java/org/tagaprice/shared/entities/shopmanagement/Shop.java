@@ -3,7 +3,6 @@ package org.tagaprice.shared.entities.shopmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.AEntity;
-import org.tagaprice.shared.entities.IRevisionId;
 
 /**
  * A shop contains a group of {@link ISubsidiary}. Eg. the shop is "Billa" and the subsidiary is
@@ -42,8 +41,8 @@ public class Shop extends AEntity implements IShop {
 	 * @param revisionId
 	 * @param title
 	 */
-	public Shop(IRevisionId revisionId, String title) {
-		super(revisionId, title);
+	public Shop(String shopId, String revision, String title) {
+		super(shopId, revision, title);
 	}
 
 

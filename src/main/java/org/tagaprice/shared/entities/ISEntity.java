@@ -2,20 +2,29 @@ package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
 
-import org.tagaprice.shared.entities.IRevisionId;
+import org.svenson.JSONProperty;
 
 public interface ISEntity extends Serializable {
 
+	@JSONProperty(value="_id")
+	public String getId();
 
 	/**
-	 * Returns the RevisionId of the {@link ASEntity} or null, if IRevisionId is not set.
-	 * @return Returns the RevisionId of the {@link ASEntity or null, if IRevisionId is not set.
+	 * Returns the Revision of the {@link ISEntity} or null, if it wasn't yet set (e.g. for unsaved {@link ISEntity Entities})
+	 * @return Returns the Revision of the {@link ISEntity} or null, if IRevisionId is not set.
 	 */
-	public IRevisionId getRevisionId() ;
+	@JSONProperty(value="_rev")
+	public String getRevision() ;
 
 	/**
-	 * Set the revisionID of the {@link ASEntity}.
-	 * @param revisionId of the {@link ASEntity}.
+	 * Set the Entity ID
+	 * @param entityId Entity ID
 	 */
-	public void setRevisionId(IRevisionId revisionId);
+	public void setId(String entityId);
+	
+	/**
+	 * Set the Entity revision
+	 * @param revision Revision ID
+	 */
+	public void setRevision(String revision);
 }

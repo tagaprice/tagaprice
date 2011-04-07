@@ -67,10 +67,10 @@ public class ProductDAO implements IProductDAO {
 		// make a copy ... to get sure
 		IProduct newProduct = product;
 		// set a productID and Revision 1
-		newProduct.setRevisionId(new RevisionId(product.getTitle()));
+		newProduct.setId(product.getTitle());
 		// Save it into the hashmaps
-		this.productsAllRevisions.put(newProduct.getRevisionId(), newProduct);
-		this.productsLatest.put(newProduct.getRevisionId().getId(), newProduct);
+		this.productsAllRevisions.put(new RevisionId(newProduct.getId(), newProduct.getRevision()), newProduct);
+		this.productsLatest.put(newProduct.getId(), newProduct);
 
 		return newProduct;
 	}
@@ -100,7 +100,7 @@ public class ProductDAO implements IProductDAO {
 	@Override
 	public IProduct update(final IProduct product) {
 		logger.log("update product");
-		IProduct updateProduct = this.productsAllRevisions.get(product.getRevisionId());
+		IProduct updateProduct = this.productsAllRevisions.get(new RevisionId(product.getId(), product.getRevision()));
 		if (updateProduct == null) {
 			// ERROR
 			return product;
@@ -110,14 +110,14 @@ public class ProductDAO implements IProductDAO {
 			// get latest revision
 			// compare revisionIds
 			updateProduct = product;
-			updateProduct.getRevisionId().setRevision(updateProduct.getRevisionId().getRevision() + 1);
+			updateProduct.setRevision(updateProduct.getRevision() + 1);
 
 
 			// find out if we have a new Package
 
 
-			this.productsAllRevisions.put(updateProduct.getRevisionId(), updateProduct);
-			this.productsLatest.put(updateProduct.getRevisionId().getId(), updateProduct);
+			this.productsAllRevisions.put(new RevisionId(updateProduct.getId(), updateProduct.getRevision()), updateProduct);
+			this.productsLatest.put(updateProduct.getId(), updateProduct);
 		}
 		
 		return product;

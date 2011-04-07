@@ -43,7 +43,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	public IShop saveShop(IShop shop) {
 		logger.log("save Shop " + shop);
 		IShop rc = null;
-		if (shop.getRevisionId() != null) {
+		if (shop.getId() != null) {
 			rc = shopDAO.update(shop);
 		}
 		else {

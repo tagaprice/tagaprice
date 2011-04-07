@@ -29,17 +29,17 @@ public class ShopDAO implements IShopDAO {
 		ArrayList<ISubsidiary> al1 = new ArrayList<ISubsidiary>();
 		IRevisionId r45665 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r45665.getId(), r45665);
-		al1.add(new Subsidiary(new RevisionId(new Long(random.nextLong()).toString(), "1"), new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672)));
+		al1.add(new Subsidiary(new Long(random.nextLong()).toString(), "1", new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672)));
 
 		IRevisionId r1598 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1598.getId(), r1598);
-		ISubsidiary a1 = new Subsidiary(new RevisionId(new Long(random.nextLong()).toString(), "1"), new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
+		ISubsidiary a1 = new Subsidiary(new Long(random.nextLong()).toString(), "1", new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
 		al1.add(a1);
 
 		//Create some Shops
 		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1.getId(), r1);
-		IShop s1 = new Shop(r1, "Billa");
+		IShop s1 = new Shop(r1.getId(), r1.getRevision(), "Billa");
 		s1.setSubsidiary(al1);
 		shopsAllRevisions.put(r1, s1);
 
@@ -49,12 +49,12 @@ public class ShopDAO implements IShopDAO {
 		ArrayList<ISubsidiary> al2 = new ArrayList<ISubsidiary>();
 		IRevisionId r798654 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r798654.getId(), r798654);
-		al2.add(new Subsidiary(r798654, new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594)));
+		al2.add(new Subsidiary(r798654.getId(), r798654.getRevision(), new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594)));
 
 		//Create some Shop
 		IRevisionId r8998 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r8998.getId(), r8998);
-		IShop s8998 = new Shop(r8998, "Hofer");
+		IShop s8998 = new Shop(r8998.getId(), r8998.getRevision(), "Hofer");
 		s8998.setSubsidiary(al2);
 		shopsAllRevisions.put(r8998, s8998);
 
@@ -64,16 +64,16 @@ public class ShopDAO implements IShopDAO {
 		logger.log("new Shop");
 
 		for(ISubsidiary ia:shop.getSubsidiaries()){
-			IRevisionId rt = new RevisionId(new Long(random.nextLong()).toString(), "foo");
-			ia.setRevisionId(rt);
-			newestRev.put(rt.getId(), rt);
+			ia.setId(new Long(random.nextLong()).toString());
+			ia.setRevision("1");
+			newestRev.put(ia.getId(), new RevisionId(ia.getId(), ia.getRevision()));
 		}
 
-		IRevisionId rt = new RevisionId(new Long(random.nextLong()).toString(), "foo");
-		shop.setRevisionId(rt);
-		newestRev.put(rt.getId(), rt);
+		shop.setId(new Long(random.nextLong()).toString());
+		shop.setRevision("1");
+		newestRev.put(shop.getId(), new RevisionId(shop.getId(), shop.getRevision()));
 
-		shopsAllRevisions.put(rt, shop);
+		shopsAllRevisions.put(new RevisionId(shop.getId(), shop.getRevision()), shop);
 
 		return shop;
 	}
@@ -98,7 +98,7 @@ public class ShopDAO implements IShopDAO {
 	public IShop update(IShop shop) {
 		logger.log("update shop");
 		//UPDATE
-		IShop updateShop = shopsAllRevisions.get(shop.getRevisionId());
+		IShop updateShop = shopsAllRevisions.get(new RevisionId(shop.getId(), shop.getRevision()));
 		if(updateShop == null){
 			//ERROR
 			logger.log("unexpected error");
@@ -106,29 +106,25 @@ public class ShopDAO implements IShopDAO {
 		}else{
 			updateShop=shop;
 
-			IRevisionId nr = updateShop.getRevisionId();
-			nr.setRevision(nr.getRevision()+1);
-			updateShop.setRevisionId(nr);
+			updateShop.setRevision(new Integer(Integer.parseInt(updateShop.getRevision())+1).toString());
 
-
-			shopsAllRevisions.put(updateShop.getRevisionId(), updateShop);
-			newestRev.put(updateShop.getRevisionId().getId(), nr);
+			shopsAllRevisions.put(new RevisionId(updateShop.getId(), updateShop.getRevision()), updateShop);
+			newestRev.put(updateShop.getId(), new RevisionId(updateShop.getId(), updateShop.getRevision()));
 
 			for(ISubsidiary ta:updateShop.getSubsidiaries()){
 				logger.log("addr: "+ta.toString());
 
 
-				if(ta.getRevisionId()==null || ta.getRevisionId().getId()==null){
+				if (ta.getId()==null) {
 					logger.log("create new address");
 
+					ta.setId(new Long(random.nextLong()).toString());
+					ta.setRevision("1");
 
-					IRevisionId rt = new RevisionId(new Long(random.nextLong()).toString(), "1");
-					ta.setRevisionId(rt);
-					newestRev.put(rt.getId(), rt);
-
+					newestRev.put(ta.getId(), new RevisionId(ta.getId(), ta.getRevision()));
 				}else{
 					logger.log("update address");
-					ta.getRevisionId().setRevision(ta.getRevisionId().getRevision()+1);
+					ta.setRevision(new Integer(Integer.parseInt(ta.getRevision())+1).toString());
 				}
 
 			}
