@@ -7,9 +7,9 @@ import org.tagaprice.shared.entities.IRevisionId;
 
 public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
 	protected Database m_db;
-	Class<T> m_class;
+	Class<? extends T> m_class;
 	
-	protected DAOClass(Class<T> classObject, String dbName) {
+	protected DAOClass(Class<? extends T> classObject, String dbName) {
 		m_db = new Database("localhost", dbName);
 		m_class = classObject;
 	}
@@ -22,8 +22,7 @@ public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
 
 	@Override
 	public T get(IRevisionId id) {
-		m_db.getDocument(m_class, id.getId());
-		return null;
+		return m_db.getDocument(m_class, id.getId());
 	}
 
 	@Override
