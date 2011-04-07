@@ -33,29 +33,22 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 		addAddress.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addAddress(_newAdress.getAddress());
+				addShop(_newAdress.getAddress());
 			}
 		});
 	}
 
 
-	private void addAddress(IShop address){
-		AddressSelecter tempAddresser = new AddressSelecter();
-		tempAddresser.setAddress(address);
-
-		_vePa2.add(tempAddresser);
-	}
-
 	@Override
-	public void setShop(ArrayList<IShop> address) {
+	public void setShops(ArrayList<IShop> address) {
 		_vePa2.clear();
 
 		for(IShop a:address)
-			addAddress(a);
+			addShop(a);
 	}
 
 	@Override
-	public ArrayList<IShop> getShop() {
+	public ArrayList<IShop> getShops() {
 		ArrayList<IShop> rA = new ArrayList<IShop>();
 
 		for(int i=0;i<_vePa2.getWidgetCount();i++)
@@ -68,6 +61,16 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 	@Override
 	public void setCurrentAddress(Address address) {
 		_newAdress.setCurrentAddress(address);
+	}
+
+
+	@Override
+	public void addShop(IShop shop) {
+		AddressSelecter tempAddresser = new AddressSelecter();
+		tempAddresser.setAddress(shop);
+
+		_vePa2.add(tempAddresser);
+
 	}
 
 

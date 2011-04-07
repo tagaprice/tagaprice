@@ -112,19 +112,16 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 	@Override
-	public void addKid(IShop kid) {
-		// TODO Auto-generated method stub
-
+	public void addChild(IShop kid) {
 	}
 
 	@Override
-	public ArrayList<IShop> getKids() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<IShop> getChilds() {
+		return _addresses.getShops();
 	}
 
 	@Override
-	public void setKids(ArrayList<IShop> kids) {
+	public void setChilds(ArrayList<IShop> kids) {
 		// TODO Auto-generated method stub
 
 	}

@@ -6,7 +6,6 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.shopmanagement.*;
@@ -15,7 +14,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
 	private static final long serialVersionUID = -4954618872880443049L;
 	MyLogger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
-	
+
 	IShopDAO shopDAO;
 
 	public ShopServiceImpl() {
@@ -52,17 +51,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		return rc;
 	}
 
-	@Override
-	public ISubsidiary getAddress(IRevisionId revisionId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ISubsidiary saveAddress(ISubsidiary address) throws UserNotLoggedInException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

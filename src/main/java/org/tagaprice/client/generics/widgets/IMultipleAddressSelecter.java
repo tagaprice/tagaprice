@@ -18,11 +18,18 @@ public interface IMultipleAddressSelecter extends IsWidget {
 	 * Set some {@link IAddress} to the {@link IAddressSeleter}
 	 * @param address that will be added to the {@link IAddressSeleter}
 	 */
-	public void setShop(ArrayList<IShop> address);
+	public void setShops(ArrayList<IShop> address);
+
+	/**
+	 * 
+	 * @param shop
+	 */
+	public void addShop(IShop shop);
+
 
 	/**
 	 * Returns all {@link IAddress} includes in the {@link IAddressSeleter}
 	 * @return all {@link IAddress} includes in the {@link IAddressSeleter}
 	 */
-	public ArrayList<IShop> getShop();
+	public ArrayList<IShop> getShops();
 }

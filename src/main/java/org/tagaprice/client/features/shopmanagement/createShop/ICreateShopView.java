@@ -62,17 +62,17 @@ public interface ICreateShopView<T> extends IView {
 	 * Set {@link IShop} kids. All included {@link IShop} will be deleted and overwritten.
 	 * @param kids all {@link IShop} kids
 	 */
-	public void setKids(ArrayList<IShop> kids);
+	public void setChilds(ArrayList<IShop> childs);
 
 	/**
 	 * Insert one {@link IShop} as kid
 	 * @param kid {@link IShop} kid
 	 */
-	public void addKid(IShop kid);
+	public void addChild(IShop child);
 
 	/**
 	 * Returns all includes {@link IShop} kids
 	 * @return includes {@link IShop} kids
 	 */
-	public ArrayList<IShop> getKids();
+	public ArrayList<IShop> getChilds();
 }

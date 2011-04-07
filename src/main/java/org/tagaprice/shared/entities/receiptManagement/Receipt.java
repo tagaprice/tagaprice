@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 /**
  * A single Receipt
@@ -16,7 +15,6 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 public class Receipt extends AEntity implements IReceipt {
 	private static final long serialVersionUID = 1L;
 
-	private ISubsidiary _subsidiary;
 	private IShop _shop;
 	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
@@ -109,7 +107,7 @@ public class Receipt extends AEntity implements IReceipt {
 	 */
 	@Override
 	public String toString() {
-		return "Receipt [_subsidiary=" + _subsidiary + ", _date=" + _date + ", _receiptEntries=" + _receiptEntries
+		return "Receipt [, _date=" + _date + ", _receiptEntries=" + _receiptEntries
 		+ "]";
 	}
 

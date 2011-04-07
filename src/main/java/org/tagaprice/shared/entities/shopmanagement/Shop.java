@@ -13,7 +13,6 @@ import org.tagaprice.shared.entities.Address;
 public class Shop extends AEntity implements IShop {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
 	private ArrayList<IShop> _kids = new ArrayList<IShop>();
 	private Address _address = new Address();
 	private IShop _parent;

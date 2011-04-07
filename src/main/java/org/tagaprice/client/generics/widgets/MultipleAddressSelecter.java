@@ -16,18 +16,23 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 	}
 
 	@Override
-	public void setShop(ArrayList<IShop> address) {
-		addressSeleter.setShop(address);
+	public void setShops(ArrayList<IShop> address) {
+		addressSeleter.setShops(address);
 	}
 
 	@Override
-	public ArrayList<IShop> getShop() {
-		return addressSeleter.getShop();
+	public ArrayList<IShop> getShops() {
+		return addressSeleter.getShops();
 	}
 
 	@Override
 	public void setCurrentAddress(Address address) {
 		addressSeleter.setCurrentAddress(address);
+	}
+
+	@Override
+	public void addShop(IShop shop) {
+		addressSeleter.addShop(shop);
 	}
 
 }
