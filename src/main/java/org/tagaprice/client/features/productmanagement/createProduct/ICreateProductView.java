@@ -6,7 +6,7 @@ import java.util.List;
 import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.place.shared.Place;
@@ -58,21 +58,21 @@ public interface ICreateProductView extends IView {
 	public Unit getUnit();
 
 	/**
-	 * Sets the depending {@link ICategory} for a
+	 * Sets the depending {@link Category} for a
 	 * {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 * 
 	 * @param category
-	 *            the depending {@link ICategory} for a
+	 *            the depending {@link Category} for a
 	 *            {@link org.tagaprice.shared.entities.productmanagement.IProduct}
 	 */
-	public void setCategory(ICategory category);
+	public void setCategory(Category category);
 
 	/**
-	 * Returns the depending {@link ICategory}
+	 * Returns the depending {@link Category}
 	 * 
-	 * @return Returns the depending {@link ICategory}
+	 * @return Returns the depending {@link Category}
 	 */
-	public ICategory getCategory();
+	public Category getCategory();
 
 	/**
 	 * Add one {@link IPackage} to the Product.
@@ -101,7 +101,7 @@ public interface ICreateProductView extends IView {
 	 */
 	public void setPresenter(Presenter presenter);
 
-	public void setAvailableCategories(List<ICategory> categories);
+	public void setAvailableCategories(List<Category> categories);
 
 	/**
 	 * 

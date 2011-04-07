@@ -7,10 +7,10 @@ import org.tagaprice.shared.entities.*;
  * A category describes which properties and dependencies a {@link IProduct} has.
  *
  */
-public class Category extends AEntity implements ICategory  {
+public class Category extends AEntity   {
 	private static final long serialVersionUID = 1L;
 
-	private ICategory _parentCategory;
+	private Category _parentCategory;
 
 
 	/**
@@ -24,7 +24,7 @@ public class Category extends AEntity implements ICategory  {
 	 * @param title the title of the category
 	 * @param parent the parent of the category.
 	 */
-	public Category(String title, ICategory parent) {
+	public Category(String title, Category parent) {
 		super(title);
 	}
 
@@ -35,20 +35,16 @@ public class Category extends AEntity implements ICategory  {
 	 * @param title the title of the category
 	 * @param parent the parent of the category
 	 */
-	public Category(String id, String revision, String title, ICategory parent){
+	public Category(String id, String revision, String title, Category parent){
 		super(id, revision, title);
 	}
 
-	@Override
-	
 	@JSONProperty(value="parent")
-	public ICategory getParentCategory() {
+	public Category getParentCategory() {
 		return this._parentCategory;
 	}
 
-
-	@Override
-	public void setParentCategory(ICategory category) {
+	public void setParentCategory(Category category) {
 		this._parentCategory = category;
 	}
 

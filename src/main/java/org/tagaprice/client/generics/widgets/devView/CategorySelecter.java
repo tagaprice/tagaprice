@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -18,14 +18,14 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	private ListBox _listBoxCategories = new ListBox();
-	private List<ICategory> _availableCategories = new ArrayList<ICategory>();
+	private List<Category> _availableCategories = new ArrayList<Category>();
 
 	public CategorySelecter() {
 		initWidget(_listBoxCategories);
 	}
 
 	@Override
-	public void setCategory(ICategory category) {
+	public void setCategory(Category category) {
 		logger.log("set category " + category);
 		if (category != null) {
 			for (int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
@@ -40,7 +40,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public ICategory getCategory() {
+	public Category getCategory() {
 		if(this._availableCategories != null && this._availableCategories.size() > 0) {
 			return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
 		} else {
@@ -49,10 +49,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public void setAvailableCategories(List<ICategory> categories) {
+	public void setAvailableCategories(List<Category> categories) {
 		this._availableCategories = categories;
 		this._listBoxCategories.clear();
-		for (ICategory c : this._availableCategories) {
+		for (Category c : this._availableCategories) {
 			this._listBoxCategories.addItem(c.getTitle(), c.toString());
 		}
 	}

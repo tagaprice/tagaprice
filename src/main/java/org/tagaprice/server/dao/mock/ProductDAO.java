@@ -11,7 +11,7 @@ import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -33,8 +33,8 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 		
-		ICategory food = categoryDAO.get("food");
-		ICategory nonalcoholics = categoryDAO.get("nonalcoholics");
+		Category food = categoryDAO.get("food");
+		Category nonalcoholics = categoryDAO.get("nonalcoholics");
 		
 		// TestProduct
 		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);

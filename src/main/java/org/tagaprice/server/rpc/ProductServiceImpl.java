@@ -7,7 +7,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -58,7 +58,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public List<ICategory> getCategories() {
+	public List<Category> getCategories() {
 		logger.log("return categories");
 		return categoryDAO.list();
 	}
@@ -82,14 +82,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public List<ICategory> getCategoryChilds(IRevisionId revisionId) {
+	public List<Category> getCategoryChilds(IRevisionId revisionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public ICategory getCategory(IRevisionId revisionId) {
+	public Category getCategory(IRevisionId revisionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

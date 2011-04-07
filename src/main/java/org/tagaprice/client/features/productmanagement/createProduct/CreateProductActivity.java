@@ -61,10 +61,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		createProductView.setPresenter(this);
 		createProductView.reset();
 
-		this._clientFactory.getProductService().getCategories(new AsyncCallback<List<ICategory>>() {
+		this._clientFactory.getProductService().getCategories(new AsyncCallback<List<Category>>() {
 
 			@Override
-			public void onSuccess(List<ICategory> result) {
+			public void onSuccess(List<Category> result) {
 				int resultsize = 0;
 				if(result != null) {
 					resultsize = result.size();

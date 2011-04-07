@@ -3,15 +3,14 @@ package org.tagaprice.shared.entities.dump;
 
 import org.junit.*;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.dump.ICategory;
 
 public class CategoryTest {
-	ICategory root = new Category("root", null);
-	ICategory food = new Category("food", root);
-	ICategory vegetables = new Category("vegetables", food);
-	ICategory beverages = new Category("beverages", food);
-	ICategory alcoholics = new Category("alcohol", beverages);
-	ICategory nonalcoholics = new Category("nonalcoholics", beverages);
+	Category root = new Category("root", null);
+	Category food = new Category("food", root);
+	Category vegetables = new Category("vegetables", food);
+	Category beverages = new Category("beverages", food);
+	Category alcoholics = new Category("alcohol", beverages);
+	Category nonalcoholics = new Category("nonalcoholics", beverages);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

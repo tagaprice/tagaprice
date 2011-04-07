@@ -78,12 +78,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 
 	@Override
-	public void setCategory(ICategory category) {
+	public void setCategory(Category category) {
 		this.category.setCategory(category);
 	}
 
 	@Override
-	public ICategory getCategory() {
+	public Category getCategory() {
 		return this.category.getCategory();
 	}
 
@@ -98,7 +98,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void setAvailableCategories(List<ICategory> categories) {
+	public void setAvailableCategories(List<Category> categories) {
 		this.category.setAvailableCategories(categories);
 	}
 

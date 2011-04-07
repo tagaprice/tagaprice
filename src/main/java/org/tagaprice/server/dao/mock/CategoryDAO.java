@@ -5,24 +5,23 @@ import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.dump.ICategory;
 
 public class CategoryDAO implements ICategoryDAO {
-	HashMap<String, ICategory> categories = new HashMap<String, ICategory>();
+	HashMap<String, Category> categories = new HashMap<String, Category>();
 	
 	
 	CategoryDAO() {
-		ICategory root = new Category("root",null);
+		Category root = new Category("root",null);
 		this.categories.put("root", root);
-		ICategory food = new Category("food", root);
+		Category food = new Category("food", root);
 		this.categories.put("food", food);
-		ICategory vegetables = new Category("vegetables", root);
+		Category vegetables = new Category("vegetables", root);
 		this.categories.put("vegetables", vegetables);
-		ICategory beverages = new Category("beverages", root);
+		Category beverages = new Category("beverages", root);
 		this.categories.put("beverages", beverages);
-		ICategory alcoholics = new Category("alcohol", root);
+		Category alcoholics = new Category("alcohol", root);
 		this.categories.put("alcoholics", alcoholics);
-		ICategory nonalcoholics = new Category("nonalcoholics", root);
+		Category nonalcoholics = new Category("nonalcoholics", root);
 		this.categories.put("nonalcoholics", nonalcoholics);
 
 		nonalcoholics.setParentCategory(beverages);
@@ -34,14 +33,14 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 
 	@Override
-	public ICategory create(ICategory category) {
+	public Category create(Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public ICategory get(String id, String revision) {
-		ICategory rc = null;
+	public Category get(String id, String revision) {
+		Category rc = null;
 		
 		if (id != null && categories.containsKey(id)) {
 			rc = categories.get(id);
@@ -51,30 +50,30 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 	
 	@Override
-	public ICategory get(String id) {
+	public Category get(String id) {
 		return get(id, null);
 	}
 
 	@Override
-	public ICategory update(ICategory category) {
+	public Category update(Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void delete(ICategory category) {
+	public void delete(Category category) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<ICategory> find(ICategory searchPattern) {
+	public List<Category> find(Category searchPattern) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ICategory> list() {
+	public List<Category> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}

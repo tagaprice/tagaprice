@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.IEntity;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 
 
 /**
@@ -21,11 +21,11 @@ public interface IProduct extends IEntity {
 	public void addPackage(IPackage ipackage);
 
 	/**
-	 * Returns the {@link ICategory} which this {@link IProduct} depends from.
+	 * Returns the {@link Category} which this {@link IProduct} depends from.
 	 * 
-	 * @return Returns the {@link ICategory} which this {@link IProduct} depends from.
+	 * @return Returns the {@link Category} which this {@link IProduct} depends from.
 	 */
-	public ICategory getCategory();
+	public Category getCategory();
 
 
 	/**
@@ -46,12 +46,12 @@ public interface IProduct extends IEntity {
 
 
 	/**
-	 * Sets the depending {@link ICategory} for a product.
+	 * Sets the depending {@link Category} for a product.
 	 * 
 	 * @param category
-	 *            Is the depending {@link ICategory} for a product
+	 *            Is the depending {@link Category} for a product
 	 */
-	public void setCategory(ICategory category);
+	public void setCategory(Category category);
 
 	/**
 	 * Set some {@link IPackage} to the Product. All included products will be deleted.

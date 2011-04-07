@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.*;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 
 /**
  * This class is used to send {@link Product} data from client to server and from server to client. It will also be used
@@ -14,7 +14,7 @@ public class Product extends AEntity implements IProduct {
 
 
 	private static final long serialVersionUID = 4858431133448109402L;
-	private ICategory _category;
+	private Category _category;
 	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
 	private Unit _unit;
 
@@ -30,7 +30,7 @@ public class Product extends AEntity implements IProduct {
 	 * @param category Product category
 	 * @param Unit Product unit
 	 */
-	public Product(String title, ICategory category, Unit unit) {
+	public Product(String title, Category category, Unit unit) {
 		super(title);
 		this._category = category;
 		this._unit = unit;
@@ -45,7 +45,7 @@ public class Product extends AEntity implements IProduct {
 	 * @param category Product category
 	 * @param Unit Product unit
 	 */
-	public Product(String productId, String revision, String title, ICategory category, Unit unit) {
+	public Product(String productId, String revision, String title, Category category, Unit unit) {
 		super(productId, revision, title);
 		this._category = category;
 		this._unit = unit;
@@ -54,13 +54,13 @@ public class Product extends AEntity implements IProduct {
 
 
 	@Override
-	public void setCategory(ICategory category) {
+	public void setCategory(Category category) {
 		_category=category;
 
 	}
 
 	@Override
-	public ICategory getCategory() {
+	public Category getCategory() {
 		return _category;
 	}
 

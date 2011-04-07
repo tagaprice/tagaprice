@@ -11,7 +11,6 @@ import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.dump.ICategory;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -46,7 +45,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		IReceipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
 
 
-		ICategory root = new Category("root",null);
+		Category root = new Category("root",null);
 		//Add receipt entries
 		{
 			IPackage ipack = new Package(new Quantity(1.2, Unit.kg));

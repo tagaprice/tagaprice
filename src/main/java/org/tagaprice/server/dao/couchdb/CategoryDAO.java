@@ -7,26 +7,25 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.dump.ICategory;
 
-public class CategoryDAO extends DAOClass<ICategory> implements ICategoryDAO {
+public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	public CategoryDAO() {
 		super(Category.class, "category");
 	}
 
 	@Override
-	public List<ICategory> find(ICategory searchPattern) {
+	public List<Category> find(Category searchPattern) {
 		throw new UnsupportedOperationException("CategoryDAO.find() wasn't implemented yet");
 	}
 
 	@Override
-	public List<ICategory> list() {
+	public List<Category> list() {
 		ViewResult<?> result = m_db.listDocuments(null, null);
-		List<ICategory> rc = new ArrayList<ICategory>();
+		List<Category> rc = new ArrayList<Category>();
 		
 		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
-			ICategory category = get(row.getId());
+			Category category = get(row.getId());
 			rc.add(category);
 		}
 		

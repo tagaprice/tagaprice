@@ -2,9 +2,9 @@ package org.tagaprice.server.dao;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 
-public interface ICategoryDAO extends IDAOClass<ICategory> {
-	public List<ICategory> find(final ICategory searchPattern);
-	public List<ICategory> list();
+public interface ICategoryDAO extends IDAOClass<Category> {
+	public List<Category> find(final Category searchPattern);
+	public List<Category> list();
 }

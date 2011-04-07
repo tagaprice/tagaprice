@@ -3,7 +3,7 @@ package org.tagaprice.shared.rpc.productmanagement;
 import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
@@ -53,26 +53,26 @@ public interface IProductService extends RemoteService {
 	 * @return
 	 */
 	@Deprecated
-	public List<ICategory> getCategories();
+	public List<Category> getCategories();
 
 
 	/**
-	 * Returns all children for a {@link ICategory}.
+	 * Returns all children for a {@link Category}.
 	 * 
 	 * @param revisionId
-	 *            of an {@link ICategory}
+	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public List<ICategory> getCategoryChilds(IRevisionId revisionId);
+	public List<Category> getCategoryChilds(IRevisionId revisionId);
 
 	/**
-	 * Returns a {@link ICategory} with all parents!
+	 * Returns a {@link Category} with all parents!
 	 * 
 	 * @param revisionId
-	 *            of an {@link ICategory}
-	 * @return a {@link ICategory} with all parents!
+	 *            of an {@link Category}
+	 * @return a {@link Category} with all parents!
 	 */
-	public ICategory getCategory(IRevisionId revisionId);
+	public Category getCategory(IRevisionId revisionId);
 
 
 	/**

@@ -3,7 +3,7 @@ package org.tagaprice.shared.rpc.productmanagement;
 import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.dump.ICategory;
+import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 
@@ -20,7 +20,7 @@ public interface IProductServiceAsync {
 	void saveProduct(IProduct product, AsyncCallback<IProduct> callback);
 
 	@Deprecated
-	void getCategories(AsyncCallback<List<ICategory>> callback);
+	void getCategories(AsyncCallback<List<Category>> callback);
 
 
 	void getPackage(String id, String revision, AsyncCallback<IPackage> callback);
@@ -28,7 +28,7 @@ public interface IProductServiceAsync {
 
 	void savePackage(IPackage ipackage, AsyncCallback<IPackage> callback);
 
-	void getCategory(IRevisionId revisionId, AsyncCallback<ICategory> callback);
+	void getCategory(IRevisionId revisionId, AsyncCallback<Category> callback);
 
-	void getCategoryChilds(IRevisionId revisionId, AsyncCallback<List<ICategory>> callback);
+	void getCategoryChilds(IRevisionId revisionId, AsyncCallback<List<Category>> callback);
 }
