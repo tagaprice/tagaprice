@@ -35,7 +35,7 @@ public abstract class ASEntity implements ISEntity {
 
 
 	@Override
-	@JSONProperty(value="_rev")
+	@JSONProperty(value="_rev", ignoreIfNull = true)
 	public String getRevision() {
 		return _rev;
 	}
@@ -47,7 +47,7 @@ public abstract class ASEntity implements ISEntity {
 	}
 	
 	@Override
-	@JSONProperty(value="_id")
+	@JSONProperty(value="_id", ignoreIfNull = true)
 	public String getId() {
 		return _id;
 	}
