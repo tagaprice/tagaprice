@@ -18,7 +18,7 @@ public interface IUnitSelecter extends IsWidget {
 	public void setRelatedUnit(Unit unit);
 
 	/**
-	 * Set the {@link IUnit}.
+	 * Set the {@link Unit}.
 	 * @param unit the current {@link Unit}.
 	 */
 	public void setUnit(Unit unit);

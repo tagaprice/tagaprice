@@ -53,7 +53,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 
 	/**
-	 * This method will set the display part to allowed {@link IUnit}s
+	 * This method will set the display part to allowed {@link Unit}s
 	 * @param unit allowed unit. If null, all are displayed.
 	 */
 	private void allowedUnit(Unit unit){
