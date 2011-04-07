@@ -52,13 +52,13 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 
 	@Override
-	public ICategory update(ICategory product) {
+	public ICategory update(ICategory category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void delete(ICategory product) {
+	public void delete(ICategory category) {
 		// TODO Auto-generated method stub
 
 	}
