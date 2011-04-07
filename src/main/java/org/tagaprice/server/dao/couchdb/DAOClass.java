@@ -5,7 +5,6 @@ import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
 import org.tagaprice.shared.entities.ISEntity;
-import org.tagaprice.shared.entities.IRevisionId;
 
 public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
 	protected Database m_db;
@@ -28,8 +27,13 @@ public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
 	}
 
 	@Override
-	public T get(IRevisionId id) {
-		return m_db.getDocument(m_class, id.getId());
+	public T get(String id, String revision) {
+		return m_db.getDocument(m_class, id);
+	}
+	
+	@Override
+	public T get(String id) {
+		return get(id, null);
 	}
 
 	@Override

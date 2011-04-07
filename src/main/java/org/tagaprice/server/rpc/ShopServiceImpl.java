@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IShopDAO;
-import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.shopmanagement.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -33,9 +31,15 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public IShop getShop(IRevisionId revisionId) {
-		logger.log("getShop with RevId " + revisionId);
-		return shopDAO.get(revisionId);
+	public IShop getShop(String id, String revision) {
+		logger.log("getShop with id " + id+", rev "+revision);
+		return shopDAO.get(id, revision);
+	}
+	
+	@Override
+	public IShop getShop(String id) {
+		logger.log("getShop with id " + id);
+		return shopDAO.get(id);
 	}
 
 	@Override

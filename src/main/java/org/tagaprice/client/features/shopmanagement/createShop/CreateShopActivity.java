@@ -66,7 +66,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 		if (_place.getRevisionId() != null && _place.getRevisionId().getId() != null) {
 			// Existing product... trying to load
-			_clientFactory.getShopService().getShop(new RevisionId(_place.getRevisionId().getId()),
+			_clientFactory.getShopService().getShop(_place.getRevisionId().getId(),
 					new AsyncCallback<IShop>() {
 
 				@Override

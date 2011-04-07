@@ -90,19 +90,24 @@ public class ShopDAO implements IShopDAO {
 	}
 
 	@Override
-	public IShop get(IRevisionId revisionId) {
+	public IShop get(String id, String revision) {
 		IShop rc = null;
 
 		//get id from
-		if(revisionId!=null) {
-			if (revisionId.getRevision() == null) {
-				return shopsAllRevisions.get(newestRev.get(revisionId.getId()));
+		if(id!=null) {
+			if (revision == null) {
+				return shopsAllRevisions.get(newestRev.get(id));
 			}else{
-				return shopsAllRevisions.get(revisionId);
+				return shopsAllRevisions.get(id);
 			}
 		}
 
 		return rc;
+	}
+	
+	@Override
+	public IShop get(String id) {
+		return get(id, null);
 	}
 
 	@Override

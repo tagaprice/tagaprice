@@ -9,8 +9,6 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.ICategory;
@@ -69,7 +67,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		}
 
 		{
-			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get(new RevisionId("secondReceipt")));
+			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get("secondReceipt"));
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
@@ -85,13 +83,18 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public IReceipt get(IRevisionId receiptId) {
+	public IReceipt get(String id, String receipt) {
 		for (IReceipt r:_receiptList) {
-			if(r.getId()==receiptId.getId()) {
+			if(r.getId() == id) {
 				return r;
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public IReceipt get(String id) {
+		return get(id, null);
 	}
 
 	@Override

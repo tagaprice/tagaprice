@@ -11,7 +11,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface IProductServiceAsync {
 
-	void getProduct(IRevisionId revisionId, AsyncCallback<IProduct> callback);
+	void getProduct(String id, String revision, AsyncCallback<IProduct> callback);
+	
+	void getProduct(String id, AsyncCallback<IProduct> callback);
 
 	void findProducts(IProduct searchCriteria, AsyncCallback<List<IProduct>> callback);
 
@@ -21,7 +23,8 @@ public interface IProductServiceAsync {
 	void getCategories(AsyncCallback<List<ICategory>> callback);
 
 
-	void getPackage(IRevisionId revisionId, AsyncCallback<IPackage> callback);
+	void getPackage(String id, String revision, AsyncCallback<IPackage> callback);
+	void getPackage(String id, AsyncCallback<IPackage> callback);
 
 	void savePackage(IPackage ipackage, AsyncCallback<IPackage> callback);
 

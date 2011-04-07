@@ -22,7 +22,9 @@ public interface IProductService extends RemoteService {
 	 *            be null.
 	 * @return The {@link IProduct} corresponding to the {@link IRevisionId}
 	 */
-	public IProduct getProduct(IRevisionId revionsId);
+	public IProduct getProduct(String id, String revision);
+	
+	public IProduct getProduct(String id);
 
 	/**
 	 * Depending on the search criterias returns the method a list with IProducts
@@ -82,7 +84,9 @@ public interface IProductService extends RemoteService {
 	 * @return a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
 	 *         {@link IProduct}
 	 */
-	public IPackage getPackage(IRevisionId revisionId);
+	public IPackage getPackage(String id, String revision);
+	
+	public IPackage getPackage(String id);
 
 
 	/**

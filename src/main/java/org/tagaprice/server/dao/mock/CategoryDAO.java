@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.ICategory;
 
@@ -41,14 +40,19 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 	
 	@Override
-	public ICategory get(IRevisionId revisionId) {
+	public ICategory get(String id, String revision) {
 		ICategory rc = null;
 		
-		if (revisionId != null && categories.containsKey(revisionId.getId())) {
-			rc = categories.get(revisionId.getId());
+		if (id != null && categories.containsKey(id)) {
+			rc = categories.get(id);
 		}
 		
 		return rc;
+	}
+	
+	@Override
+	public ICategory get(String id) {
+		return get(id, null);
 	}
 
 	@Override

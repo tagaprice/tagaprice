@@ -96,7 +96,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			CreateProductActivity._logger.log("Load Categories...");
 
 
-			this._clientFactory.getProductService().getProduct(_place.getRevisionId(), new AsyncCallback<IProduct>() {
+			this._clientFactory.getProductService().getProduct(_place.getRevisionId().getId(), _place.getRevisionId().getRevision(), new AsyncCallback<IProduct>() {
 
 				@Override
 				public void onSuccess(IProduct result) {
