@@ -1,7 +1,7 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -110,10 +110,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getSearchService().searchShop(
 				shopSearch,
 				_createReceiptView.getBoundingBox(),
-				new AsyncCallback<ArrayList<IShop>>() {
+				new AsyncCallback<List<IShop>>() {
 
 					@Override
-					public void onSuccess(ArrayList<IShop> response) {
+					public void onSuccess(List<IShop> response) {
 
 						_createReceiptView.setShopSearchResults(response);
 					}
@@ -134,10 +134,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getSearchService().searchProduct(
 				productSearch,
 				_createReceiptView.getAddress(),
-				new AsyncCallback<ArrayList<IProduct>>() {
+				new AsyncCallback<List<IProduct>>() {
 
 					@Override
-					public void onSuccess(ArrayList<IProduct> response) {
+					public void onSuccess(List<IProduct> response) {
 						_createReceiptView.setProductSearchResults(response);
 					}
 

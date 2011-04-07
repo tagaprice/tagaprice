@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.Unit;
@@ -100,7 +101,7 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public void setPresenter(Presenter presenter);
 
-	public void setAvailableCategories(ArrayList<ICategory> categories);
+	public void setAvailableCategories(List<ICategory> categories);
 
 	/**
 	 * 

@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.shopmanagement.listShops;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.shopmanagement.*;
@@ -87,10 +88,10 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 		listShopsView.setPresenter(this);
 
-		this.shopServiceAsync.getShops(null, new AsyncCallback<ArrayList<IShop>>() {
+		this.shopServiceAsync.getShops(null, new AsyncCallback<List<IShop>>() {
 
 			@Override
-			public void onSuccess(ArrayList<IShop> result) {
+			public void onSuccess(List<IShop> result) {
 				ListShopsActivity.logger.log("received results: " + result);
 				if(result != null) {
 					listShopsView.setData(result);
@@ -118,10 +119,10 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 	public void onSearch(String searchtext) {
 		ListShopsActivity.logger.log("search for " + searchtext);
 		IShop shop = new Shop(searchtext);
-		this.shopServiceAsync.getShops(shop , new AsyncCallback<ArrayList<IShop>>() {
+		this.shopServiceAsync.getShops(shop , new AsyncCallback<List<IShop>>() {
 
 			@Override
-			public void onSuccess(ArrayList<IShop> result) {
+			public void onSuccess(List<IShop> result) {
 				if(result != null) {
 					listShopsView.setData(result);
 				}

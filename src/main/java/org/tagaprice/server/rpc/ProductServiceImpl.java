@@ -68,4 +68,18 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public IPackage savePackage(IPackage pkg) {
 		return packageDAO.update(pkg);
 	}
+
+
+	@Override
+	public List<ICategory> getCategoryChilds(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ICategory getCategory(IRevisionId revisionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

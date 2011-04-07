@@ -2,6 +2,7 @@ package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -36,9 +37,9 @@ public interface ICreateReceiptView extends IsWidget{
 
 	public BoundingBox getBoundingBox();
 
-	public void setShopSearchResults(ArrayList<IShop> shopResults);
+	public void setShopSearchResults(List<IShop> shopResults);
 
-	public void setProductSearchResults(ArrayList<IProduct> productResults);
+	public void setProductSearchResults(List<IProduct> productResults);
 
 	public ArrayList<IReceiptEntry> getReceiptEntries();
 

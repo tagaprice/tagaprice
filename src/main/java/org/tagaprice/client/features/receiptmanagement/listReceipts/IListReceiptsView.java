@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.listReceipts;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -13,7 +13,7 @@ public interface IListReceiptsView extends IsWidget {
 	 * Display a receipt list
 	 * @param receipts all receipts of this user.
 	 */
-	public void setReceipts(ArrayList<IReceipt> receipts);
+	public void setReceipts(List<IReceipt> receipts);
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IListReceiptsView} to control this view. It is also necessary

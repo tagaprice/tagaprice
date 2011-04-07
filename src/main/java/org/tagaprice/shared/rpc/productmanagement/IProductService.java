@@ -53,6 +53,26 @@ public interface IProductService extends RemoteService {
 	@Deprecated
 	public List<ICategory> getCategories();
 
+
+	/**
+	 * Returns all children for a {@link ICategory}.
+	 * 
+	 * @param revisionId
+	 *            of an {@link ICategory}
+	 * @return list of all children. Children will not hold there parents!
+	 */
+	public List<ICategory> getCategoryChilds(IRevisionId revisionId);
+
+	/**
+	 * Returns a {@link ICategory} with all parents!
+	 * 
+	 * @param revisionId
+	 *            of an {@link ICategory}
+	 * @return a {@link ICategory} with all parents!
+	 */
+	public ICategory getCategory(IRevisionId revisionId);
+
+
 	/**
 	 * Returns a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
 	 * {@link IProduct}

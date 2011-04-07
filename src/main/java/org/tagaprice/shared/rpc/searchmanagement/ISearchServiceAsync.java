@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc.searchmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
@@ -12,9 +12,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ISearchServiceAsync {
 
-	void searchShop(String searchString, BoundingBox bbox, AsyncCallback<ArrayList<IShop>> callback);
+	void searchShop(String searchString, BoundingBox bbox, AsyncCallback<List<IShop>> callback);
 
-	void searchProduct(String searchString, ISubsidiary address,  AsyncCallback<ArrayList<IProduct>> callback);
+	void searchProduct(String searchString, ISubsidiary address,  AsyncCallback<List<IProduct>> callback);
 
 	void searchAddress(double lat, double lng,  AsyncCallback<Address> callback);
 }

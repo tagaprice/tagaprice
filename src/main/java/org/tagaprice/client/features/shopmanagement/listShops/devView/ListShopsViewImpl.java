@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.shopmanagement.listShops.devView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.generics.ColumnDefinition;
@@ -94,7 +95,7 @@ public class ListShopsViewImpl<T> extends Composite implements ListShopsView<T> 
 	}
 
 	@Override
-	public void setData(ArrayList<T> data) {
+	public void setData(List<T> data) {
 		this.table.removeAllRows();
 		for (int i = 0; i < data.size(); i++) {
 			T elem = data.get(i);

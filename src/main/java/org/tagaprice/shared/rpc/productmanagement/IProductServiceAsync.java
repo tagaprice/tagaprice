@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc.productmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.ICategory;
@@ -13,19 +13,19 @@ public interface IProductServiceAsync {
 
 	void getProduct(IRevisionId revisionId, AsyncCallback<IProduct> callback);
 
-	void getProducts(IProduct searchCriteria, AsyncCallback<ArrayList<IProduct>> callback);
+	void findProducts(IProduct searchCriteria, AsyncCallback<List<IProduct>> callback);
 
 	void saveProduct(IProduct product, AsyncCallback<IProduct> callback);
 
 	@Deprecated
-	void getCategories(AsyncCallback<ArrayList<ICategory>> callback);
-
-	void getCategoryChilds(IRevisionId revisionId, AsyncCallback<ICategory> callback);
-
-	void getCategory(IRevisionId revisionId, AsyncCallback<ICategory> callback);
+	void getCategories(AsyncCallback<List<ICategory>> callback);
 
 
 	void getPackage(IRevisionId revisionId, AsyncCallback<IPackage> callback);
 
 	void savePackage(IPackage ipackage, AsyncCallback<IPackage> callback);
+
+	void getCategory(IRevisionId revisionId, AsyncCallback<ICategory> callback);
+
+	void getCategoryChilds(IRevisionId revisionId, AsyncCallback<List<ICategory>> callback);
 }

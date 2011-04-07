@@ -1,6 +1,6 @@
 package org.tagaprice.server.rpc;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
@@ -12,8 +12,9 @@ public class InitServlet extends HttpServlet {
 	
 	public void init() throws ServletException {
 		try {
-			ServletConfig config = getServletConfig();
-			String daoFactoryClassName = config.getInitParameter("daoFactory");
+			ServletContext context = getServletContext();
+			String daoFactoryClassName = context.getInitParameter("daoFactory");
+			if (daoFactoryClassName == null) throw new ServletException("No 'daoFactory' context parameter found!");
 			Object daoFactoryObject = Thread.currentThread().getContextClassLoader().loadClass(daoFactoryClassName).newInstance(); 
 			if (daoFactoryObject instanceof IDaoFactory) {
 				m_daoFactory = (IDaoFactory) daoFactoryObject;

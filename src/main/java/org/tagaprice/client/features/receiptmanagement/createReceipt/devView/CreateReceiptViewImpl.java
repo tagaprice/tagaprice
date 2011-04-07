@@ -2,6 +2,7 @@ package org.tagaprice.client.features.receiptmanagement.createReceipt.devView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
@@ -234,7 +235,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setShopSearchResults(ArrayList<IShop> shopResults) {
+	public void setShopSearchResults(List<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
 			for(final ISubsidiary a:s.getSubsidiaries()){
@@ -292,7 +293,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setProductSearchResults(ArrayList<IProduct> productResults) {
+	public void setProductSearchResults(List<IProduct> productResults) {
 		_productSearchSuggestVePa.clear();
 		for(final IProduct p:productResults){
 			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());

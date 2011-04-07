@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.productmanagement.listProducts;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -30,6 +30,6 @@ public interface ListProductsView<T> extends IsWidget {
 
 	public void setPresenter(Presenter presenter);
 
-	public void setData(ArrayList<T> data);
+	public void setData(List<T> data);
 
 }
