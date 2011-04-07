@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.generics.widgets.IMultipleAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
-
+import org.tagaprice.shared.entities.shopmanagement.IShop;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -40,7 +39,7 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 	}
 
 
-	private void addAddress(ISubsidiary address){
+	private void addAddress(IShop address){
 		AddressSelecter tempAddresser = new AddressSelecter();
 		tempAddresser.setAddress(address);
 
@@ -48,16 +47,16 @@ public class MultipleAddressSelecter extends Composite implements IMultipleAddre
 	}
 
 	@Override
-	public void setSubsidiaries(ArrayList<ISubsidiary> address) {
+	public void setShop(ArrayList<IShop> address) {
 		_vePa2.clear();
 
-		for(ISubsidiary a:address)
+		for(IShop a:address)
 			addAddress(a);
 	}
 
 	@Override
-	public ArrayList<ISubsidiary> getSubsidiaries() {
-		ArrayList<ISubsidiary> rA = new ArrayList<ISubsidiary>();
+	public ArrayList<IShop> getShop() {
+		ArrayList<IShop> rA = new ArrayList<IShop>();
 
 		for(int i=0;i<_vePa2.getWidgetCount();i++)
 			rA.add(((AddressSelecter)_vePa2.getWidget(i)).getAddress());

@@ -50,34 +50,6 @@ public class Shop extends AEntity implements IShop {
 	}
 
 
-	@Override
-	public void setSubsidiary(ArrayList<ISubsidiary> addresses) {
-		_subsidiary.clear();
-
-		for (ISubsidiary ad : addresses) {
-			ad.setShop(this);
-			_subsidiary.add(ad);
-		}
-
-	}
-
-
-
-	@Override
-	public void addSubsidiary(ISubsidiary address) {
-		address.setShop(this);
-		_subsidiary.add(address);
-	}
-
-
-
-	@Override
-	public ArrayList<ISubsidiary> getSubsidiaries() {
-		return _subsidiary;
-	}
-
-
-
 	/*
 	 * (non-Javadoc)
 	 * 

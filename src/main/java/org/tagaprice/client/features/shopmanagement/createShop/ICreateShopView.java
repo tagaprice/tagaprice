@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
-
+import org.tagaprice.shared.entities.shopmanagement.IShop;
 import com.google.gwt.place.shared.Place;
 
 public interface ICreateShopView<T> extends IView {
@@ -60,20 +59,20 @@ public interface ICreateShopView<T> extends IView {
 
 
 	/**
-	 * Set some {@link ISubsidiary} to the Shop. All include products will be deleted.
-	 * @param subsidiary that will be set to the shop
+	 * Set {@link IShop} kids. All included {@link IShop} will be deleted and overwritten.
+	 * @param kids all {@link IShop} kids
 	 */
-	public void setSubsidiary(ArrayList<ISubsidiary> subsidiary);
+	public void setKids(ArrayList<IShop> kids);
 
 	/**
-	 * Add one new {@link IAddress} to this shop
-	 * @param subsidiary that will be added to the shop
+	 * Insert one {@link IShop} as kid
+	 * @param kid {@link IShop} kid
 	 */
-	public void addSubsidiary(ISubsidiary subsidiary);
+	public void addKid(IShop kid);
 
 	/**
-	 * Returns all {@link ISubsidiary}es
-	 * @return  all {@link ISubsidiary}es
+	 * Returns all includes {@link IShop} kids
+	 * @return includes {@link IShop} kids
 	 */
-	public ArrayList<ISubsidiary> getSubsidiary();
+	public ArrayList<IShop> getKids();
 }
