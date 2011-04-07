@@ -48,13 +48,13 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 	}
 
 	@Override
-	public void setQuantity(IQuantity quantity) {
+	public void setQuantity(Quantity quantity) {
 		_quantity.setText(""+quantity.getQuantity());
 		_unitSelecter.setUnit(quantity.getUnit());
 	}
 
 	@Override
-	public IQuantity getQuantity() {
+	public Quantity getQuantity() {
 		return new Quantity(new Double(_quantity.getText()), _unitSelecter.getUnit());
 	}
 

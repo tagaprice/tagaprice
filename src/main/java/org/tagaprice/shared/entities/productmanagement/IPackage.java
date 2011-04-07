@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.ISEntity;
-import org.tagaprice.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.dump.Quantity;
 
 /**
  * Every Product can be bought in different packages. This interface defines the properties of an package.
@@ -24,19 +24,19 @@ public interface IPackage extends ISEntity{
 	public IProduct getProduct();
 
 	/**
-	 * Set the {@link IQuantity} which is represented by an Quantity and an Unit.
+	 * Set the {@link Quantity} which is represented by an Quantity and an Unit.
 	 * 
 	 * @param qantity
 	 *            is represented by an Quantity and an Unit
 	 */
-	public void setQuantity(IQuantity qantity);
+	public void setQuantity(Quantity qantity);
 
 	/**
-	 * Returns the {@link IQuantity} of an {@link IPackage}
+	 * Returns the {@link Quantity} of an {@link IPackage}
 	 * 
-	 * @return the {@link IQuantity} of an {@link IPackage}
+	 * @return the {@link Quantity} of an {@link IPackage}
 	 */
-	public IQuantity getQuantity();
+	public Quantity getQuantity();
 
 	/**
 	 * Add one barcode is labeled on the {@link IPackage}

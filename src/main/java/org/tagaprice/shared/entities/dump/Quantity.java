@@ -1,11 +1,13 @@
 package org.tagaprice.shared.entities.dump;
 
+import java.io.Serializable;
+
 import org.tagaprice.shared.entities.Unit;
 
 /**
  * A {@link Quantity} defines in which way a user can buy a {@link Product}.
  */
-public class Quantity implements IQuantity {
+public class Quantity implements Serializable {
 
 	private static final long serialVersionUID = -8569323869233802603L;
 
@@ -28,22 +30,18 @@ public class Quantity implements IQuantity {
 		this._unit = unit;
 	}
 
-	@Override
 	public void setQuantity(double quantity) {
 		this._quantity = quantity;
 	}
 
-	@Override
 	public double getQuantity() {
 		return this._quantity;
 	}
 
-	@Override
 	public void setUnit(Unit unit) {
 		this._unit = unit;
 	}
 
-	@Override
 	public Unit getUnit() {
 		return this._unit;
 	}

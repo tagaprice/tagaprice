@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.ASEntity;
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.dump.Quantity;
 
 public class Package extends ASEntity implements IPackage {
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
-	IQuantity _iQuantity;
+	Quantity _iQuantity;
 	IRevisionId _iRevisionId;
 	IProduct _product;
 
@@ -27,7 +27,7 @@ public class Package extends ASEntity implements IPackage {
 	 * Creates an new Package.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(IQuantity quantity) {
+	public Package(Quantity quantity) {
 		super();
 		_iQuantity=quantity;
 	}
@@ -38,7 +38,7 @@ public class Package extends ASEntity implements IPackage {
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(IRevisionId revisionId, IQuantity quantity){
+	public Package(IRevisionId revisionId, Quantity quantity){
 		_iQuantity=quantity;
 		_iRevisionId=revisionId;
 	}
@@ -65,7 +65,7 @@ public class Package extends ASEntity implements IPackage {
 	}
 
 	@Override
-	public IQuantity getQuantity() {
+	public Quantity getQuantity() {
 		return _iQuantity;
 	}
 
@@ -77,7 +77,7 @@ public class Package extends ASEntity implements IPackage {
 
 
 	@Override
-	public void setQuantity(IQuantity quantity) {
+	public void setQuantity(Quantity quantity) {
 		_iQuantity=quantity;
 	}
 

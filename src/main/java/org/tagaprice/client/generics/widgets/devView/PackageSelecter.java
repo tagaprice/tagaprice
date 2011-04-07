@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.generics.widgets.IPackageSelecter;
 import org.tagaprice.client.generics.widgets.IQuantityChangeHandler;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.IQuantity;
+import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -62,7 +62,7 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 		temp.addQuantityChangeHandler(new IQuantityChangeHandler() {
 
 			@Override
-			public void onChange(IQuantity quantity) {
+			public void onChange(Quantity quantity) {
 				iPackage.setQuantity(quantity);
 
 			}
