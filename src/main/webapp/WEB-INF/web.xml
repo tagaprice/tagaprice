@@ -5,7 +5,7 @@
 
 <web-app>
 	<context-param>
-		<param-name>daoFactory</param-name>
+		<param-name>daoFactoryClass</param-name>
 		<param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value>
 	</context-param>
 	<!-- Servlets -->

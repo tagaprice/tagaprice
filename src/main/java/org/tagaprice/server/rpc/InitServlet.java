@@ -25,7 +25,7 @@ public class InitServlet extends HttpServlet {
 		try {
 			// First get the class name
 			ServletContext context = getServletContext();
-			String daoFactoryClassName = context.getInitParameter("daoFactory");
+			String daoFactoryClassName = context.getInitParameter("daoFactoryClass");
 			if (daoFactoryClassName == null) throw new ServletException("No 'daoFactory' context parameter found!");
 			
 			// Then ask the ClassLoader to resolve it for us and create an instance
