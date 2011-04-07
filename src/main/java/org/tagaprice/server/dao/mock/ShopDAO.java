@@ -46,7 +46,7 @@ public class ShopDAO implements IShopDAO {
 		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1.getId(), r1);
 		IShop s1 = new Shop(r1.getId(), r1.getRevision(), "Billa");
-		s1.setKids(al1);
+		s1.setChilds(al1);
 		shopsAllRevisions.put(r1, s1);
 
 
@@ -66,7 +66,7 @@ public class ShopDAO implements IShopDAO {
 		IRevisionId r8998 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r8998.getId(), r8998);
 		IShop s8998 = new Shop(r8998.getId(), r8998.getRevision(), "Hofer");
-		s8998.setKids(al2);
+		s8998.setChilds(al2);
 		shopsAllRevisions.put(r8998, s8998);
 
 	}
@@ -74,7 +74,7 @@ public class ShopDAO implements IShopDAO {
 	public IShop create(IShop shop) {
 		logger.log("new Shop");
 
-		for(IShop ia:shop.getKids()){
+		for(IShop ia:shop.getChilds()){
 			ia.setId(new Long(random.nextLong()).toString());
 			ia.setRevision("1");
 			newestRev.put(ia.getId(), new RevisionId(ia.getId(), ia.getRevision()));
@@ -122,7 +122,7 @@ public class ShopDAO implements IShopDAO {
 			shopsAllRevisions.put(new RevisionId(updateShop.getId(), updateShop.getRevision()), updateShop);
 			newestRev.put(updateShop.getId(), new RevisionId(updateShop.getId(), updateShop.getRevision()));
 
-			for(IShop ta:updateShop.getKids()){
+			for(IShop ta:updateShop.getChilds()){
 				logger.log("addr: "+ta.toString());
 
 
@@ -152,8 +152,10 @@ public class ShopDAO implements IShopDAO {
 
 	@Override
 	public List<IShop> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<IShop> list = new ArrayList<IShop>();
+		for(IRevisionId s:shopsAllRevisions.keySet())
+			list.add(shopsAllRevisions.get(s));
+		return list;
 	}
 
 }

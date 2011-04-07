@@ -237,7 +237,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShopSearchResults(List<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
-			for(final IShop a:s.getKids()){
+			for(final IShop a:s.getChilds()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
 

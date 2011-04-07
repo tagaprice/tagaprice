@@ -77,7 +77,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public void setKids(ArrayList<IShop> kids) {
+	public void setChilds(ArrayList<IShop> kids) {
 		_kids.clear();
 
 		for(IShop s:kids){
@@ -89,7 +89,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public void addKid(IShop kid) {
+	public void addChild(IShop kid) {
 		kid.setParent(this);
 		_kids.add(kid);
 
@@ -98,7 +98,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public ArrayList<IShop> getKids() {
+	public ArrayList<IShop> getChilds() {
 		return _kids;
 	}
 
