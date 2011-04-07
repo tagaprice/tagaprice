@@ -86,15 +86,13 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public IReceipt get(IRevisionId receiptId) {
-		return _receiptList.get(0);
-		/*
 		for (IReceipt r:_receiptList) {
 			if(r.getId()==receiptId.getId()) {
 				return r;
 			}
 		}
 		return null;
-		 */
+
 	}
 
 	@Override
