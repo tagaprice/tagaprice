@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities.dump;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.*;
 
 /**
@@ -39,6 +40,8 @@ public class Category extends AEntity implements ICategory  {
 	}
 
 	@Override
+	
+	@JSONProperty(value="parent")
 	public ICategory getParentCategory() {
 		return this._parentCategory;
 	}
