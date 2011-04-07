@@ -3,6 +3,7 @@ package org.tagaprice.shared.entities.shopmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.Address;
 
 /**
  * A shop contains a group of {@link ISubsidiary}. Eg. the shop is "Billa" and the subsidiary is
@@ -13,6 +14,9 @@ public class Shop extends AEntity implements IShop {
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
+	private ArrayList<IShop> _kids = new ArrayList<IShop>();
+	private Address _address = new Address();
+	private IShop _parent;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -82,6 +86,62 @@ public class Shop extends AEntity implements IShop {
 	@Override
 	public String toString() {
 		return "Shop";
+	}
+
+
+
+	@Override
+	public void setParent(IShop parent) {
+		_parent=parent;
+	}
+
+
+
+	@Override
+	public IShop getParent() {
+		return _parent;
+	}
+
+
+
+	@Override
+	public void setKids(ArrayList<IShop> kids) {
+		_kids.clear();
+
+		for(IShop s:kids){
+			s.setParent(this);
+			_kids.add(s);
+		}
+	}
+
+
+
+	@Override
+	public void addKid(IShop kid) {
+		kid.setParent(this);
+		_kids.add(kid);
+
+	}
+
+
+
+	@Override
+	public ArrayList<IShop> getKids() {
+		return _kids;
+	}
+
+
+
+	@Override
+	public void setAddress(Address address) {
+		_address=address;
+	}
+
+
+
+	@Override
+	public Address getAddress() {
+		return _address;
 	}
 
 
