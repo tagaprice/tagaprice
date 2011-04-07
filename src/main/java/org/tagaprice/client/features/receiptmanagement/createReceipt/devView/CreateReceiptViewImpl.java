@@ -2,7 +2,12 @@ package org.tagaprice.client.features.receiptmanagement.createReceipt.devView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.gwtopenmaps.openlayers.client.LonLat;
+import org.gwtopenmaps.openlayers.client.Map;
+import org.gwtopenmaps.openlayers.client.MapOptions;
+import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
@@ -10,7 +15,6 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
-import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -25,7 +29,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -40,18 +43,18 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 	interface CreateReceiptViewImplUiBinder extends UiBinder<Widget, CreateReceiptViewImpl>{}
 	private static CreateReceiptViewImplUiBinder uiBinder = GWT.create(CreateReceiptViewImplUiBinder.class);
-	private MapWidget _searchMap = new MapWidget();
 	private Presenter _presenter;
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptViewImpl.class);
 	private VerticalPanel _shopSearchSuggestVePa = new VerticalPanel();
 	private PopupPanel _shopSearchSuggestPop = new PopupPanel();
 	private VerticalPanel _productSearchSuggestVePa = new VerticalPanel();
 	private PopupPanel _productSearchSuggestPop = new PopupPanel();
-
+	private Map _osmMap;
 
 
 
@@ -87,9 +90,19 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
-		_searchMapArea.setWidget(_searchMap);
-		_searchMap.setSize("100%", "70px");
-		_saveButton.setEnabled(false);
+		//OSM
+
+		MapOptions defaultMapOptions = new MapOptions();
+
+		org.gwtopenmaps.openlayers.client.MapWidget omapWidget = new org.gwtopenmaps.openlayers.client.MapWidget("200px", "200px", defaultMapOptions);
+		OSM osm_2 = OSM.Mapnik("Mapnik");
+		osm_2.setIsBaseLayer(true);
+		_osmMap = omapWidget.getMap();
+		_osmMap.addLayer(osm_2);
+		omapWidget.setSize("100%", "150px");
+
+		_searchMapArea.setWidget(omapWidget);
+
 
 		//SearchShop
 		_shopSearch.addKeyPressHandler(new KeyPressHandler() {
@@ -110,9 +123,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 		_shopSearchSuggestPop.setWidget(_shopSearchSuggestVePa);
-		_shopSearchSuggestPop.setAutoHideEnabled(true);
 		_productSearchSuggestPop.setWidget(_productSearchSuggestVePa);
-		_productSearchSuggestPop.setAutoHideEnabled(true);
+
+		reset();
 
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
@@ -162,9 +175,10 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setAddress(ISubsidiary address) {
-		_currAddress=address;
-		System.out.println("setAddress: "+address);
+	public void setAddress(ISubsidiary subsidiary) {
+		_currAddress=subsidiary;
+		System.out.println("setAddress: "+subsidiary);
+		_shopHolder.clear();
 		if(_currAddress==null)
 			_shopHolder.clear();
 		else{
@@ -172,7 +186,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			_shopSearch.setEnabled(false);
 			_newAddressArea.setVisible(false);
 			_saveButton.setEnabled(true);
-			_shopHolder.add(new Label(address.getShop().getTitle()+" "+address.getStreet()));
+			_shopHolder.add(new Label(subsidiary.getShop().getTitle()+" "+subsidiary.getAddress().getAddress()));
 			_shopHolder.add(new Button("-", new ClickHandler() {
 
 				@Override
@@ -204,21 +218,29 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public BoundingBox getBoundingBox() {
+
+		LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftY(), _osmMap.getExtent().getLowerLeftX());
+		LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightY(), _osmMap.getExtent().getUpperRightX());
+		southWest.transform("EPSG:900913","EPSG:4326");
+		northEast.transform("EPSG:900913","EPSG:4326");
+
+
+
 		return new BoundingBox(
-				_searchMap.getBounds().getSouthWest().getLatitude(),
-				_searchMap.getBounds().getSouthWest().getLongitude(),
-				_searchMap.getBounds().getNorthEast().getLatitude(),
-				_searchMap.getBounds().getNorthEast().getLongitude());
+				southWest.lat(),
+				southWest.lon(),
+				northEast.lat(),
+				northEast.lon());
 
 
 	}
 
 	@Override
-	public void setShopSearchResults(ArrayList<IShop> shopResults) {
+	public void setShopSearchResults(List<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
-			for(final ISubsidiary a:s.getAddresses()){
-				Label foundAddress = new Label(s.getTitle()+" "+a.getStreet());
+			for(final ISubsidiary a:s.getSubsidiaries()){
+				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
 
 				foundAddress.addClickHandler(new ClickHandler() {
@@ -272,7 +294,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setProductSearchResults(ArrayList<IProduct> productResults) {
+	public void setProductSearchResults(List<IProduct> productResults) {
 		_productSearchSuggestVePa.clear();
 		for(final IProduct p:productResults){
 			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());
@@ -304,6 +326,22 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		}
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
 
+
+	}
+
+	@Override
+	public void reset() {
+		if(_shopHolder!=null)_shopHolder.clear();
+		if(_shopSearch!=null)_shopSearch.setText("");
+		if(_saveButton!=null)_saveButton.setEnabled(false);
+		if(_shopSearchSuggestPop!=null)_shopSearchSuggestPop.setAutoHideEnabled(true);
+		if(_productSearchSuggestPop!=null)_productSearchSuggestPop.setAutoHideEnabled(true);
+		if(_currAddress!=null)_currAddress=null;
+
+		if(_searchMapArea!=null)_searchMapArea.setVisible(true);
+		if(_shopSearch!=null)_shopSearch.setEnabled(true);
+		//if(_addressSelecter!=null)_addressSelecter.setVisible(false);
+		if(_newAddressArea!=null)_newAddressArea.setVisible(false);
 
 	}
 

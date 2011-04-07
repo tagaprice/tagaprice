@@ -177,11 +177,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public void setAddress(Address address) {
 		if(ClientFactoryImpl.I_ADDRESS==null)ClientFactoryImpl.I_ADDRESS=new Address();
-
-		ClientFactoryImpl.I_ADDRESS.setStreet(address.getStreet());
-		ClientFactoryImpl.I_ADDRESS.setCity(address.getCity());
-		ClientFactoryImpl.I_ADDRESS.setCountry(address.getCountry());
-		ClientFactoryImpl.I_ADDRESS.setZip(address.getZip());
+		ClientFactoryImpl.I_ADDRESS.setAddress(address.getAddress());
 		ClientFactoryImpl.I_ADDRESS.setLat(address.getLat());
 		ClientFactoryImpl.I_ADDRESS.setLng(address.getLng());
 	}

@@ -1,28 +1,15 @@
 package org.tagaprice.shared.entities.productmanagement;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.ISEntity;
 import org.tagaprice.shared.entities.dump.IQuantity;
 
 /**
  * Every Product can be bought in different packages. This interface defines the properties of an package.
  * 
  */
-public interface IPackage extends Serializable {
-
-	/**
-	 * Returns the current revision and ID for this Package. IF null this package is new.
-	 * @return  the current revision and ID for this Package
-	 */
-	public IRevisionId getRevisionId();
-
-	/**
-	 * Sets the current RevisionID for this Package. ONLY allowed on Server!
-	 * @param revisionId new revisionId
-	 */
-	public void setRevisionId(IRevisionId revisionId);
+public interface IPackage extends ISEntity{
 
 	/**
 	 * Set the related {@link IProduct}

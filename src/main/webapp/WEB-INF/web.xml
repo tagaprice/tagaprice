@@ -4,6 +4,10 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+	<context-param>
+		<param-name>daoFactory</param-name>
+		<param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value>
+	</context-param>
 	<!-- Servlets -->
 
 
@@ -11,8 +15,14 @@
 	
 	<!-- BEGIN: RPC -->
 	<servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.InitServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>productservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.ProductServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -22,7 +32,7 @@
 	
 	<servlet>
 		<servlet-name>loginservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.LoginServiceImpl</servlet-class>
+		<servlet-class>org.tagaprice.server.rpc.LoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -31,42 +41,42 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>shopservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.ShopServiceImpl</servlet-class>
+		<servlet-name>shopService</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.ShopServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>shopservice</servlet-name>
+		<servlet-name>shopService</servlet-name>
 		<url-pattern>/TagAPrice/shopservice</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>receiptservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.ReceiptServiceImpl</servlet-class>
+		<servlet-name>receiptService</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.ReceiptServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>receiptservice</servlet-name>
+		<servlet-name>receiptService</servlet-name>
 		<url-pattern>/TagAPrice/receiptservice</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>searchservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.SearchServiceImpl</servlet-class>
+		<servlet-name>searchService</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.SearchServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>searchservice</servlet-name>
+		<servlet-name>searchService</servlet-name>
 		<url-pattern>/TagAPrice/searchservice</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>categoryservice</servlet-name>
-		<servlet-class>org.tagaprice.server.mock.CategoryServiceImpl</servlet-class>
+		<servlet-name>categoryService</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.CategoryServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>categoryservice</servlet-name>
+		<servlet-name>categoryService</servlet-name>
 		<url-pattern>/TagAPrice/categoryservice</url-pattern>
 	</servlet-mapping>
 	

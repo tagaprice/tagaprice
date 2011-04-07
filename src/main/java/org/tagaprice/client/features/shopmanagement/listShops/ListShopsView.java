@@ -1,9 +1,10 @@
 package org.tagaprice.client.features.shopmanagement.listShops;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import org.tagaprice.client.generics.IView;
 
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
 
 /**
  * The interface ListProductsView<T> defines the ListProducts View
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  * 
  * @param <T>
  */
-public interface ListShopsView<T> extends IsWidget {
+public interface ListShopsView<T> extends IView {
 
 	public interface Presenter {
 		public void goTo(Place place);
@@ -30,6 +31,6 @@ public interface ListShopsView<T> extends IsWidget {
 
 	public void setPresenter(Presenter presenter);
 
-	public void setData(ArrayList<T> data);
+	public void setData(List<T> data);
 
 }

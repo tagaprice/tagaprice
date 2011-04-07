@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.productmanagement.listProducts;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
@@ -27,7 +27,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	private ListProductsPlace place;
 	private ClientFactory clientFactory;
-	private ArrayList<IProduct> products;
+	private List<IProduct> products;
 
 	private final ListProductsView<IProduct> listProductsView;
 	private IProductServiceAsync productServiceAsync;
@@ -89,11 +89,12 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		ListProductsActivity.logger.log("Activity starts...");
 
 		listProductsView.setPresenter(this);
+		listProductsView.reset();
 
-		this.productServiceAsync.getProducts(null, new AsyncCallback<ArrayList<IProduct>>() {
+		this.productServiceAsync.findProducts(null, new AsyncCallback<List<IProduct>>() {
 
 			@Override
-			public void onSuccess(ArrayList<IProduct> result) {
+			public void onSuccess(List<IProduct> result) {
 				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
 				products = result;
 				listProductsView.setData(result);
@@ -129,11 +130,11 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void onSearch(String searchtext) {
 		ListProductsActivity.logger.log("search for " + searchtext);
-		IProduct product = new Product(searchtext, new Category(""), null);
-		this.productServiceAsync.getProducts(product, new AsyncCallback<ArrayList<IProduct>>() {
+		IProduct product = new Product(searchtext, new Category("",null), null);
+		this.productServiceAsync.findProducts(product, new AsyncCallback<List<IProduct>>() {
 
 			@Override
-			public void onSuccess(ArrayList<IProduct> result) {
+			public void onSuccess(List<IProduct> result) {
 
 				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
 				products = result;

@@ -2,7 +2,9 @@ package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
@@ -10,9 +12,8 @@ import org.tagaprice.shared.entities.shopmanagement.IShop;
 import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateReceiptView extends IsWidget{
+public interface ICreateReceiptView extends IView{
 
 	/**
 	 * Returns the Title of the {@link IReceipt}, if Title is NULL you get NULL back
@@ -36,9 +37,9 @@ public interface ICreateReceiptView extends IsWidget{
 
 	public BoundingBox getBoundingBox();
 
-	public void setShopSearchResults(ArrayList<IShop> shopResults);
+	public void setShopSearchResults(List<IShop> shopResults);
 
-	public void setProductSearchResults(ArrayList<IProduct> productResults);
+	public void setProductSearchResults(List<IProduct> productResults);
 
 	public ArrayList<IReceiptEntry> getReceiptEntries();
 

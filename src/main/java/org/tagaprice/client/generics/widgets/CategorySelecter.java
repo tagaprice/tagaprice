@@ -1,6 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.dump.ICategory;
 
@@ -33,7 +33,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public void setAvailableCategories(ArrayList<ICategory> categories) {
+	public void setAvailableCategories(List<ICategory> categories) {
 		categorySelecter.setAvailableCategories(categories);
 	}
 

@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.productmanagement.createProduct.devView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
@@ -97,7 +98,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void setAvailableCategories(ArrayList<ICategory> categories) {
+	public void setAvailableCategories(List<ICategory> categories) {
 		this.category.setAvailableCategories(categories);
 	}
 
@@ -143,6 +144,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public Unit getUnit() {
 		return _unit.getUnit();
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
 	}
 
 

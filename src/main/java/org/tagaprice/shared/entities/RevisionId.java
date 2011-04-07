@@ -13,17 +13,18 @@ public class RevisionId implements IRevisionId {
 
 
 	private static final long serialVersionUID = 2011503142739304476L;
-	private long _id;
-	private int _rev;
+	private long _id = 0L;
+	private int _rev = 0;
 	private IUser _user;
 	private Date _date;
 
-	public RevisionId() {
-		this._id = 0L;
-		this._rev = 0;
-	}
+	/**
+	 * This constructor is used by the serialization algorithm
+	 */
+	public RevisionId() {}
 
 	/**
+	 * <b>GET</b>
 	 * Initializes Revision id with given productId and Revision 0L.
 	 * @param id
 	 */
@@ -32,6 +33,11 @@ public class RevisionId implements IRevisionId {
 		setRevision(0);
 	}
 
+	/**
+	 * <b>UPDATE and GET</b>
+	 * @param id
+	 * @param revision
+	 */
 	public RevisionId(long id, int revision) {
 		this(id);
 		setRevision(revision);
@@ -77,37 +83,16 @@ public class RevisionId implements IRevisionId {
 		return _date;
 	}
 
-	@Override
-	public int hashCode() {
-		// http://www.javapractices.com/topic/TopicAction.do?Id=28
-		int prime = 37;
-		// Calculate with ID and REV
-		int hash = ((int) (this._id ^ (this._id >>> 32))) * prime + (this._rev ^ (this._rev >>> 32));
-
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof IRevisionId) {
-			return this.equals((IRevisionId) o);
-		} else {
-			return false;
-		}
-	}
-
-	public boolean equals(IRevisionId other) {
-		return this._id == other.getId() && this._rev == other.getRevision();
-	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return this._id + "_" + this._rev;
+		return "RevisionId [_id=" + _id + ", _rev=" + _rev + ", _user=" + _user + ", _date=" + _date + "]";
 	}
 
-	@Override
-	public IRevisionId copy() {
-		return new RevisionId(this._id, this._rev);
-	}
+
+
+
 
 }

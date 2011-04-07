@@ -11,16 +11,14 @@ import org.tagaprice.shared.entities.dump.ICategory;
  * Defines all methods needed to buy a {@link Product}
  * 
  */
-public interface IProduct extends IEntity<IProduct> {
+public interface IProduct extends IEntity {
 
 
 	/**
-	 * Sets the depending {@link ICategory} for a product.
-	 * 
-	 * @param category
-	 *            Is the depending {@link ICategory} for a product
+	 * Add one {@link IPackage} to the Product.
+	 * @param ipackage that will be added to the {@link IProduct}
 	 */
-	public void setCategory(ICategory category);
+	public void addPackage(IPackage ipackage);
 
 	/**
 	 * Returns the {@link ICategory} which this {@link IProduct} depends from.
@@ -31,15 +29,10 @@ public interface IProduct extends IEntity<IProduct> {
 
 
 	/**
-	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
-	 * have.
-	 * 
-	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
-	 *            can
-	 *            have.
+	 * Return all Packages includes in a {@link IProduct}
+	 * @return all Packages includes in a {@link IProduct}
 	 */
-	public void setUnit(Unit unit);
+	public ArrayList<IPackage> getPackages();
 
 	/**
 	 * The {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
@@ -53,10 +46,12 @@ public interface IProduct extends IEntity<IProduct> {
 
 
 	/**
-	 * Add one {@link IPackage} to the Product.
-	 * @param ipackage that will be added to the {@link IProduct}
+	 * Sets the depending {@link ICategory} for a product.
+	 * 
+	 * @param category
+	 *            Is the depending {@link ICategory} for a product
 	 */
-	public void addPackage(IPackage ipackage);
+	public void setCategory(ICategory category);
 
 	/**
 	 * Set some {@link IPackage} to the Product. All included products will be deleted.
@@ -65,8 +60,13 @@ public interface IProduct extends IEntity<IProduct> {
 	public void setPackages(ArrayList<IPackage> iPackage);
 
 	/**
-	 * Return all Packages includes in a {@link IProduct}
-	 * @return all Packages includes in a {@link IProduct}
+	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
+	 * have.
+	 * 
+	 * @param unit
+	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
+	 *            can
+	 *            have.
 	 */
-	public ArrayList<IPackage> getPackages();
+	public void setUnit(Unit unit);
 }

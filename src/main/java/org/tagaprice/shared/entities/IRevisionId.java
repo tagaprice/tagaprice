@@ -20,7 +20,6 @@ public interface IRevisionId extends Serializable {
 	public void setId(long id);
 
 
-
 	/**
 	 * Returns a unique {@link AEntity} ID
 	 * @return Returns a unique {@link AEntity} ID
@@ -71,8 +70,6 @@ public interface IRevisionId extends Serializable {
 	 * @return Returned the {@link Date} when the {@link IRevision} was created.
 	 */
 	public Date getDate();
-
-	public IRevisionId copy();
 
 
 

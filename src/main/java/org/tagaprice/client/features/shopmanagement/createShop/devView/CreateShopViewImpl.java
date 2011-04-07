@@ -120,4 +120,10 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	public void setCurrentAddress(Address address) {
 		_addresses.setCurrentAddress(address);
 	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
 }

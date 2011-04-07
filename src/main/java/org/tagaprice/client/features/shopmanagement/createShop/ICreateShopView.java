@@ -2,14 +2,14 @@ package org.tagaprice.client.features.shopmanagement.createShop;
 
 import java.util.ArrayList;
 
+import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateShopView<T> extends IsWidget {
+public interface ICreateShopView<T> extends IView {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary

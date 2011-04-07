@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.listReceipts.devView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
@@ -23,7 +23,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	}
 
 	@Override
-	public void setReceipts(ArrayList<IReceipt> receipts) {
+	public void setReceipts(List<IReceipt> receipts) {
 		_receiptList.clear();
 
 		for(final IReceipt r:receipts){
@@ -60,6 +60,12 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 
 
 		return nice;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -2,9 +2,8 @@
 <module rename-to='TagAPrice'>
 
   <!-- Google Maps script must before inherits --> 
-  <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=true&amp;key=ABQIAAAAmkm_NVB3ydA1uhh-Cxq1GRQ5GsBjyuBUf1bknn4Hhi0YSQaxCBSPAMRdoQMqKe_vK5E0JMVVEPcxdg" />
   
-
+  <inherits name='org.gwtopenmaps.openlayers.OpenLayers'/>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.resources.Resources" />
@@ -14,7 +13,6 @@
   <inherits name="com.google.gwt.i18n.I18N"/>
   <inherits name='com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha' />
   <inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
-  <inherits name='com.google.gwt.maps.GoogleMaps' />
   
   <replace-with class="org.tagaprice.client.ClientFactoryImpl">
   	<when-type-is class="org.tagaprice.client.ClientFactory" /> 

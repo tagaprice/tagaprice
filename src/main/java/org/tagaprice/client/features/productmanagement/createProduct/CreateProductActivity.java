@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.RevisionId;
@@ -59,11 +59,12 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 		ICreateProductView createProductView = _clientFactory.getCreateProductView();
 		createProductView.setPresenter(this);
+		createProductView.reset();
 
-		this._clientFactory.getProductService().getCategories(new AsyncCallback<ArrayList<ICategory>>() {
+		this._clientFactory.getProductService().getCategories(new AsyncCallback<List<ICategory>>() {
 
 			@Override
-			public void onSuccess(ArrayList<ICategory> result) {
+			public void onSuccess(List<ICategory> result) {
 				int resultsize = 0;
 				if(result != null) {
 					resultsize = result.size();
@@ -82,7 +83,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		if (_place.getRevisionId().getId() == 0L) {
 			CreateProductActivity._logger.log("Create new Product");
 
-			updateView(new Product("", new Category("newProduct"), Unit.piece));
+			updateView(new Product("", new Category("newProduct",null), Unit.piece));
 			panel.setWidget(createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {

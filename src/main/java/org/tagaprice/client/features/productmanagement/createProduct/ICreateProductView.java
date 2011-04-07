@@ -1,20 +1,21 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.ICategory;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
 
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
 
 /**
  * This interface is necessary to implement a ProductManagementView
  * 
  */
-public interface ICreateProductView extends IsWidget {
+public interface ICreateProductView extends IView {
 
 	public void setRevisionId(IRevisionId revisionId);
 
@@ -100,7 +101,7 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public void setPresenter(Presenter presenter);
 
-	public void setAvailableCategories(ArrayList<ICategory> categories);
+	public void setAvailableCategories(List<ICategory> categories);
 
 	/**
 	 * 

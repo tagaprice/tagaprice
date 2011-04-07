@@ -1,7 +1,7 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
@@ -60,14 +60,15 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
+		_createReceiptView.reset();
 
 
 
 		if (_place.getId() == 0L) {
 			CreateReceiptActivity._logger.log("Create new Receipt");
 			_receipt=new Receipt();
-			_receipt.setTitle("New Receipt");
-			_receipt.setDate(new Date());
+			//_receipt.setTitle("New Receipt");
+			//_receipt.setDate(new Date());
 			updateView(_receipt);
 		}else{
 			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
@@ -99,7 +100,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		_createReceiptView.setTitle(_receipt.getTitle());
 		_createReceiptView.setDate(_receipt.getDate());
-		_createReceiptView.setAddress(_receipt.getAddress());
+		_createReceiptView.setAddress(_receipt.getSubsidiary());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
 	}
 
@@ -110,10 +111,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getSearchService().searchShop(
 				shopSearch,
 				_createReceiptView.getBoundingBox(),
-				new AsyncCallback<ArrayList<IShop>>() {
+				new AsyncCallback<List<IShop>>() {
 
 					@Override
-					public void onSuccess(ArrayList<IShop> response) {
+					public void onSuccess(List<IShop> response) {
 
 						_createReceiptView.setShopSearchResults(response);
 					}
@@ -134,10 +135,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getSearchService().searchProduct(
 				productSearch,
 				_createReceiptView.getAddress(),
-				new AsyncCallback<ArrayList<IProduct>>() {
+				new AsyncCallback<List<IProduct>>() {
 
 					@Override
-					public void onSuccess(ArrayList<IProduct> response) {
+					public void onSuccess(List<IProduct> response) {
 						_createReceiptView.setProductSearchResults(response);
 					}
 
@@ -156,7 +157,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		if(_receipt==null)_receipt=new Receipt();
 		_receipt.setTitle(_createReceiptView.getTitle());
 		_receipt.setDate(_createReceiptView.getDate());
-		_receipt.setAddress(_createReceiptView.getAddress());
+		_receipt.setSubsidiary(_createReceiptView.getAddress());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
 
 

@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.productmanagement.listProducts.devView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.generics.ColumnDefinition;
@@ -94,7 +95,7 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 	}
 
 	@Override
-	public void setData(ArrayList<T> data) {
+	public void setData(List<T> data) {
 		this.table.removeAllRows();
 		for (int i = 0; i < data.size(); i++) {
 			T elem = data.get(i);
@@ -103,6 +104,12 @@ public class ListProductsViewImpl<T> extends Composite implements ListProductsVi
 				this.table.setWidget(i, j, actualColumnDefinition.render(elem));
 			}
 		}
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

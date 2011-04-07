@@ -1,6 +1,6 @@
 package org.tagaprice.shared.rpc.productmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.ICategory;
@@ -30,7 +30,7 @@ public interface IProductService extends RemoteService {
 	 * @param searchCriteria
 	 * @return
 	 */
-	public ArrayList<IProduct> getProducts(IProduct searchCriteria);
+	public List<IProduct> findProducts(IProduct searchCriteria);
 
 
 	/**
@@ -51,7 +51,7 @@ public interface IProductService extends RemoteService {
 	 * @return
 	 */
 	@Deprecated
-	public ArrayList<ICategory> getCategories();
+	public List<ICategory> getCategories();
 
 
 	/**
@@ -61,7 +61,7 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link ICategory}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public ArrayList<ICategory> getCategoryChilds(IRevisionId revisionId);
+	public List<ICategory> getCategoryChilds(IRevisionId revisionId);
 
 	/**
 	 * Returns a {@link ICategory} with all parents!

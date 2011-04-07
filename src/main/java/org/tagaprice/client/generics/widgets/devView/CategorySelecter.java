@@ -1,6 +1,7 @@
 package org.tagaprice.client.generics.widgets.devView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.shared.entities.dump.ICategory;
@@ -17,7 +18,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	private ListBox _listBoxCategories = new ListBox();
-	private ArrayList<ICategory> _availableCategories = new ArrayList<ICategory>();
+	private List<ICategory> _availableCategories = new ArrayList<ICategory>();
 
 	public CategorySelecter() {
 		initWidget(_listBoxCategories);
@@ -48,7 +49,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public void setAvailableCategories(ArrayList<ICategory> categories) {
+	public void setAvailableCategories(List<ICategory> categories) {
 		this._availableCategories = categories;
 		this._listBoxCategories.clear();
 		for (ICategory c : this._availableCategories) {

@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities.dump;
 
 import org.tagaprice.shared.entities.IEntity;
 
-public interface ICategory extends IEntity<ICategory> {
+public interface ICategory extends IEntity {
 
 	/**
 	 * Returns the parent category.
@@ -16,8 +16,5 @@ public interface ICategory extends IEntity<ICategory> {
 	 */
 	public void setParentCategory(ICategory category);
 
-	public void setId(long id);
-
-	public long getId();
 
 }

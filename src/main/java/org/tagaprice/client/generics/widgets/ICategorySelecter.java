@@ -1,6 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.dump.ICategory;
 
@@ -21,5 +21,5 @@ public interface ICategorySelecter extends IsWidget {
 
 	public ICategory getCategory();
 
-	void setAvailableCategories(ArrayList<ICategory> categories);
+	void setAvailableCategories(List<ICategory> categories);
 }

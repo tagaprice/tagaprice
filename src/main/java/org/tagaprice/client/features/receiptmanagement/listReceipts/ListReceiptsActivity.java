@@ -1,6 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.listReceipts;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
@@ -57,13 +57,14 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
 		_listReceiptsView.setPresenter(this);
+		_listReceiptsView.reset();
 		panel.setWidget(_listReceiptsView);
 
 
-		_clientFactory.getReceiptService().getReceits(new AsyncCallback<ArrayList<IReceipt>>() {
+		_clientFactory.getReceiptService().getReceits(new AsyncCallback<List<IReceipt>>() {
 
 			@Override
-			public void onSuccess(ArrayList<IReceipt> response) {
+			public void onSuccess(List<IReceipt> response) {
 				_listReceiptsView.setReceipts(response);
 
 			}
