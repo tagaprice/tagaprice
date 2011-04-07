@@ -77,6 +77,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				@Override
 				public void onSuccess(IReceipt response) {
 					_receipt=response;
+					CreateReceiptActivity._logger.log("Result: "+_receipt.toString());
 					updateView(_receipt);
 				}
 

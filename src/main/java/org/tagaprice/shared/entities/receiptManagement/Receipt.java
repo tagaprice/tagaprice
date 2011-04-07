@@ -107,8 +107,7 @@ public class Receipt extends AEntity implements IReceipt {
 	 */
 	@Override
 	public String toString() {
-		return "Receipt [, _date=" + _date + ", _receiptEntries=" + _receiptEntries
-		+ "]";
+		return "Receipt";
 	}
 
 

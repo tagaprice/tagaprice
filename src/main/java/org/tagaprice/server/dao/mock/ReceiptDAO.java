@@ -45,7 +45,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt("firstReceipt", "1", "First Receipt",  new Date(), tempAddres);
+		IReceipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
 
 
 		ICategory root = new Category("root",null);
@@ -86,12 +86,15 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public IReceipt get(IRevisionId receiptId) {
+		return _receiptList.get(0);
+		/*
 		for (IReceipt r:_receiptList) {
 			if(r.getId()==receiptId.getId()) {
 				return r;
 			}
 		}
 		return null;
+		 */
 	}
 
 	@Override
