@@ -113,6 +113,7 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@Override
 	public void addChild(IShop kid) {
+		_addresses.addShop(kid);
 	}
 
 	@Override
@@ -122,7 +123,6 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@Override
 	public void setChilds(ArrayList<IShop> kids) {
-		// TODO Auto-generated method stub
-
+		_addresses.setShops(kids);
 	}
 }
