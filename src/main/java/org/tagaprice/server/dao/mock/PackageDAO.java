@@ -25,7 +25,13 @@ public class PackageDAO implements IPackageDAO {
 	}
 
 	@Override
-	public IPackage get(IRevisionId id) {
+	public IPackage get(String id, String revision) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public IPackage get(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

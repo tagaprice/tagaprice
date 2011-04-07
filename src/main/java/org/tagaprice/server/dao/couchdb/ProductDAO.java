@@ -6,7 +6,6 @@ import java.util.List;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
@@ -23,7 +22,7 @@ public class ProductDAO extends DAOClass<IProduct> implements IProductDAO {
 		
 		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
-			IProduct product = get(new RevisionId(row.getId()));
+			IProduct product = get(row.getId());
 			rc.add(product);
 		}
 		

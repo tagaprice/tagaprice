@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IReceiptDAO;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -41,7 +40,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	@Override
 	public IReceipt getReceipt(String receiptId) {
-		return receiptDAO.get(new RevisionId(receiptId));
+		return receiptDAO.get(receiptId);
 	}
 
 	@Override

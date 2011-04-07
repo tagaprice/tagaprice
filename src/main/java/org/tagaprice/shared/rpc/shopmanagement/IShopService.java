@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.shopmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.*;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 
@@ -14,7 +13,8 @@ public interface IShopService extends RemoteService {
 
 	public List<IShop> getShops(IShop searchCriteria);
 
-	public IShop getShop(IRevisionId revisionId);
+	public IShop getShop(String id, String revision);
+	public IShop getShop(String id);
 
 	public IShop saveShop(IShop shop) throws UserNotLoggedInException;
 

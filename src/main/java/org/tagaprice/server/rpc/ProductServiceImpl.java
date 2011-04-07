@@ -37,8 +37,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public IProduct getProduct(IRevisionId revionsId) {
-		return productDAO.get(revionsId);
+	public IProduct getProduct(String id, String revision) {
+		return productDAO.get(id, revision);
+	}
+	
+	@Override
+	public IProduct getProduct(String id) {
+		return productDAO.get(id);
 	}
 
 	@Override
@@ -60,8 +65,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public IPackage getPackage(IRevisionId revisionId) {
-		return packageDAO.get(revisionId);
+	public IPackage getPackage(String id, String revision) {
+		return packageDAO.get(id, revision);
+	}
+	
+	@Override
+	public IPackage getPackage(String id) {
+		return packageDAO.get(id);
 	}
 
 

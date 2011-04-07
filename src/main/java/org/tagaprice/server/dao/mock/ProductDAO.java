@@ -33,8 +33,8 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 		
-		ICategory food = categoryDAO.get(new RevisionId("food"));
-		ICategory nonalcoholics = categoryDAO.get(new RevisionId("nonalcoholics"));
+		ICategory food = categoryDAO.get("food");
+		ICategory nonalcoholics = categoryDAO.get("nonalcoholics");
 		
 		// TestProduct
 		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);
@@ -76,25 +76,30 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public IProduct get(IRevisionId revisionId) {
+	public IProduct get(String id, String revision) {
 		IProduct rc = null;
 		
-		if (revisionId != null) {
-			if (revisionId.getRevision() == null) {
+		if (id != null) {
+			if (revision == null) {
 				// get the current revision
-				IProduct product = this.productsLatest.get(revisionId.getId());
+				IProduct product = this.productsLatest.get(id);
 				if (product != null) {
 					rc = product;
 				}
 			} else {
 				// get a specific revision
-				IProduct product = this.productsAllRevisions.get(revisionId);
+				IProduct product = this.productsAllRevisions.get(id);
 				if (product != null) {
 					rc = product;
 				}
 			}
 		}
 		return rc;
+	}
+	
+	@Override
+	public IProduct get(String id) {
+		return get(id, null);
 	}
 
 	@Override
