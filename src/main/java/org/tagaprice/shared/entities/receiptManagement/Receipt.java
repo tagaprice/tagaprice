@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 import java.util.ArrayList;
 import java.util.Date;
 import org.tagaprice.shared.entities.AEntity;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
 
 /**
  * A single Receipt
@@ -15,7 +15,7 @@ import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 public class Receipt extends AEntity implements IReceipt {
 	private static final long serialVersionUID = 1L;
 
-	private ISubsidiary _subsidiary;
+	private IShop _shop;
 	private Date _date;
 	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
 
@@ -33,10 +33,10 @@ public class Receipt extends AEntity implements IReceipt {
 	 * @param date date of the receipt
 	 * @param subsidiary the subsidiary
 	 */
-	public Receipt(String title, Date date, ISubsidiary subsidiary) {
+	public Receipt(String title, Date date, IShop shop) {
 		super(title);
 		setDate(date);
-		setSubsidiary(subsidiary);
+		setShop(shop);
 	}
 
 
@@ -49,10 +49,10 @@ public class Receipt extends AEntity implements IReceipt {
 	 * @param subsidiary {@link ISubsidiary} where the receipt is from
 	 */
 
-	public Receipt(String receiptId, String revision, String title, Date date, ISubsidiary subsidiary) {
+	public Receipt(String receiptId, String revision, String title, Date date, IShop shop) {
 		super(receiptId, revision, title);
 		setDate(date);
-		setSubsidiary(subsidiary);
+		setShop(shop);
 	}
 
 
@@ -64,8 +64,8 @@ public class Receipt extends AEntity implements IReceipt {
 	}
 
 	@Override
-	public ISubsidiary getSubsidiary() {
-		return _subsidiary;
+	public IShop getShop() {
+		return _shop;
 	}
 
 
@@ -76,13 +76,13 @@ public class Receipt extends AEntity implements IReceipt {
 	}
 
 	public String getShopId(){
-		return getSubsidiary().getId();
+		return _shop.getId();
 	}
 
 
 	@Override
-	public void setSubsidiary(ISubsidiary subsidiary) {
-		_subsidiary=subsidiary;
+	public void setShop(IShop shop) {
+		_shop=shop;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class Receipt extends AEntity implements IReceipt {
 	 */
 	@Override
 	public String toString() {
-		return "Receipt [_subsidiary=" + _subsidiary + ", _date=" + _date + ", _receiptEntries=" + _receiptEntries
+		return "Receipt [, _date=" + _date + ", _receiptEntries=" + _receiptEntries
 		+ "]";
 	}
 

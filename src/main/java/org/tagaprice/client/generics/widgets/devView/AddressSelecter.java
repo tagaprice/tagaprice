@@ -16,8 +16,8 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
+import org.tagaprice.shared.entities.shopmanagement.IShop;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
@@ -41,7 +41,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	TextBox _address = new TextBox();
 	Label _lat = new Label();
 	Label _lng = new Label();
-	ISubsidiary _subsidiary;
+	IShop _shop;
 
 
 	//OSM
@@ -146,28 +146,28 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public void setAddress(ISubsidiary address){
-		_subsidiary=address;
-		_address.setText(_subsidiary.getAddress().getAddress());
+	public void setAddress(IShop address){
+		_shop=address;
+		_address.setText(_shop.getAddress().getAddress());
 
-		LonLat l = new LonLat(_subsidiary.getAddress().getLng(), _subsidiary.getAddress().getLat());
+		LonLat l = new LonLat(_shop.getAddress().getLng(), _shop.getAddress().getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
 		setLatLng(l);
 	}
 
 	@Override
-	public ISubsidiary getAddress(){
-		if(_subsidiary==null)_subsidiary = new Subsidiary();
-		_subsidiary.getAddress().setAddress(_address.getText());
+	public IShop getAddress(){
+		if(_shop==null)_shop = new Shop();
+		_shop.getAddress().setAddress(_address.getText());
 
 		LonLat l = osmMap.getCenter();
 		l.transform("EPSG:900913","EPSG:4326");
 
-		_subsidiary.getAddress().setLat(l.lat());
-		_subsidiary.getAddress().setLng(l.lon());
+		_shop.getAddress().setLat(l.lat());
+		_shop.getAddress().setLng(l.lon());
 
 
-		return _subsidiary;
+		return _shop;
 	}
 
 	private void setLatLng(LonLat lonLat){

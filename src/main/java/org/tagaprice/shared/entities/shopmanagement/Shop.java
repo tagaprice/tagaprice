@@ -13,7 +13,6 @@ import org.tagaprice.shared.entities.Address;
 public class Shop extends AEntity implements IShop {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<ISubsidiary> _subsidiary = new ArrayList<ISubsidiary>();
 	private ArrayList<IShop> _kids = new ArrayList<IShop>();
 	private Address _address = new Address();
 	private IShop _parent;
@@ -50,34 +49,6 @@ public class Shop extends AEntity implements IShop {
 	}
 
 
-	@Override
-	public void setSubsidiary(ArrayList<ISubsidiary> addresses) {
-		_subsidiary.clear();
-
-		for (ISubsidiary ad : addresses) {
-			ad.setShop(this);
-			_subsidiary.add(ad);
-		}
-
-	}
-
-
-
-	@Override
-	public void addSubsidiary(ISubsidiary address) {
-		address.setShop(this);
-		_subsidiary.add(address);
-	}
-
-
-
-	@Override
-	public ArrayList<ISubsidiary> getSubsidiaries() {
-		return _subsidiary;
-	}
-
-
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -105,7 +76,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public void setKids(ArrayList<IShop> kids) {
+	public void setChilds(ArrayList<IShop> kids) {
 		_kids.clear();
 
 		for(IShop s:kids){
@@ -117,7 +88,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public void addKid(IShop kid) {
+	public void addChild(IShop kid) {
 		kid.setParent(this);
 		_kids.add(kid);
 
@@ -126,7 +97,7 @@ public class Shop extends AEntity implements IShop {
 
 
 	@Override
-	public ArrayList<IShop> getKids() {
+	public ArrayList<IShop> getChilds() {
 		return _kids;
 	}
 

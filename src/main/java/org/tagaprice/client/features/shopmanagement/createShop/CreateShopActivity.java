@@ -72,7 +72,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				@Override
 				public void onSuccess(IShop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-
+					for(IShop s: result.getChilds())
+						CreateShopActivity._logger.log("child: " + s.getTitle());
 
 					updateView(result);
 					//_createShopView.setReceiptEntries(result);
@@ -187,7 +188,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setSubsidiary(_createShopView.getSubsidiary());
+		shop.setChilds(_createShopView.getChilds());
 		return shop;
 	}
 
@@ -195,7 +196,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop = shop;
 		_createShopView.setRevisionId(new RevisionId(shop.getId(), shop.getRevision()));
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setSubsidiary(_shop.getSubsidiaries());
+		_createShopView.setChilds(_shop.getChilds());
 	}
 
 }

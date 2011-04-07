@@ -11,9 +11,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -26,36 +24,49 @@ public class ShopDAO implements IShopDAO {
 
 	public ShopDAO() {
 		//Create address for Shop(bills)
-		ArrayList<ISubsidiary> al1 = new ArrayList<ISubsidiary>();
+		ArrayList<IShop> al1 = new ArrayList<IShop>();
 		IRevisionId r45665 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r45665.getId(), r45665);
-		al1.add(new Subsidiary(new Long(random.nextLong()).toString(), "1", new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672)));
+		{
+			IShop is = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Blumauergasse 1B");
+			is.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
+			al1.add(is);
+		}
 
 		IRevisionId r1598 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1598.getId(), r1598);
-		ISubsidiary a1 = new Subsidiary(new Long(random.nextLong()).toString(), "1", new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-		al1.add(a1);
+
+		{
+			IShop is = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Holzhausergasse 9");
+			is.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
+			al1.add(is);
+		}
 
 		//Create some Shops
 		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1.getId(), r1);
 		IShop s1 = new Shop(r1.getId(), r1.getRevision(), "Billa");
-		s1.setSubsidiary(al1);
+		s1.setChilds(al1);
 		shopsAllRevisions.put(r1, s1);
 
 
 		//2 shop
 		//Create address for Shop(bills)
-		ArrayList<ISubsidiary> al2 = new ArrayList<ISubsidiary>();
+		ArrayList<IShop> al2 = new ArrayList<IShop>();
 		IRevisionId r798654 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r798654.getId(), r798654);
-		al2.add(new Subsidiary(r798654.getId(), r798654.getRevision(), new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594)));
+		{
+			IShop is = new Shop(new Long(random.nextLong()).toString(), "1", "Hofer - Schüttelstraße 19A");
+			is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
+			al2.add(is);
+		}
+
 
 		//Create some Shop
 		IRevisionId r8998 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r8998.getId(), r8998);
 		IShop s8998 = new Shop(r8998.getId(), r8998.getRevision(), "Hofer");
-		s8998.setSubsidiary(al2);
+		s8998.setChilds(al2);
 		shopsAllRevisions.put(r8998, s8998);
 
 	}
@@ -63,7 +74,7 @@ public class ShopDAO implements IShopDAO {
 	public IShop create(IShop shop) {
 		logger.log("new Shop");
 
-		for(ISubsidiary ia:shop.getSubsidiaries()){
+		for(IShop ia:shop.getChilds()){
 			ia.setId(new Long(random.nextLong()).toString());
 			ia.setRevision("1");
 			newestRev.put(ia.getId(), new RevisionId(ia.getId(), ia.getRevision()));
@@ -81,7 +92,7 @@ public class ShopDAO implements IShopDAO {
 	@Override
 	public IShop get(IRevisionId revisionId) {
 		IShop rc = null;
-		
+
 		//get id from
 		if(revisionId!=null) {
 			if (revisionId.getRevision() == null) {
@@ -111,7 +122,7 @@ public class ShopDAO implements IShopDAO {
 			shopsAllRevisions.put(new RevisionId(updateShop.getId(), updateShop.getRevision()), updateShop);
 			newestRev.put(updateShop.getId(), new RevisionId(updateShop.getId(), updateShop.getRevision()));
 
-			for(ISubsidiary ta:updateShop.getSubsidiaries()){
+			for(IShop ta:updateShop.getChilds()){
 				logger.log("addr: "+ta.toString());
 
 
@@ -141,8 +152,10 @@ public class ShopDAO implements IShopDAO {
 
 	@Override
 	public List<IShop> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<IShop> list = new ArrayList<IShop>();
+		for(IRevisionId s:shopsAllRevisions.keySet())
+			list.add(shopsAllRevisions.get(s));
+		return list;
 	}
 
 }

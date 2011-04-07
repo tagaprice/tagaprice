@@ -7,8 +7,7 @@ import org.tagaprice.client.generics.ColumnDefinition;
 import org.tagaprice.client.generics.widgets.MultipleAddressSelecter;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.IRevisionId;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
-
+import org.tagaprice.shared.entities.shopmanagement.IShop;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.*;
@@ -100,21 +99,6 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 
-	@Override
-	public void setSubsidiary(ArrayList<ISubsidiary> addresses) {
-		_addresses.setSubsidiaries(addresses);
-	}
-
-	@Override
-	public void addSubsidiary(ISubsidiary address) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public ArrayList<ISubsidiary> getSubsidiary() {
-		return _addresses.getSubsidiaries();
-	}
 
 	@Override
 	public void setCurrentAddress(Address address) {
@@ -123,6 +107,21 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 
 	@Override
 	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addChild(IShop kid) {
+	}
+
+	@Override
+	public ArrayList<IShop> getChilds() {
+		return _addresses.getShops();
+	}
+
+	@Override
+	public void setChilds(ArrayList<IShop> kids) {
 		// TODO Auto-generated method stub
 
 	}

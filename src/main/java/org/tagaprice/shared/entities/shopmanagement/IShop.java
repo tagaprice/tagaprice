@@ -16,7 +16,7 @@ public interface IShop extends IEntity {
 
 	/**
 	 * Returns the {@link IShop} parent
-	 * @return the parent. If null no parrent.
+	 * @return the parent. If null no parent.
 	 */
 	public IShop getParent();
 
@@ -24,46 +24,20 @@ public interface IShop extends IEntity {
 	 * Set {@link IShop} kids. All included {@link IShop} will be deleted and overwritten.
 	 * @param kids all {@link IShop} kids
 	 */
-	public void setKids(ArrayList<IShop> kids);
+	public void setChilds(ArrayList<IShop> childs);
 
 	/**
 	 * Insert one {@link IShop} as kid
 	 * @param kid {@link IShop} kid
 	 */
-	public void addKid(IShop kid);
+	public void addChild(IShop child);
 
 	/**
 	 * Returns all includes {@link IShop} kids
 	 * @return includes {@link IShop} kids
 	 */
-	public ArrayList<IShop> getKids();
+	public ArrayList<IShop> getChilds();
 
-	/**
-	 * Set some {@link ISubsidiary} to the Shop. The setShop() method is called for every {@link ISubsidiary} and this
-	 * {@link IShop} will be added. All include {@link ISubsidiary} will be deleted.
-	 * 
-	 * @param addresses
-	 *            that will be set to the {@link IShop}
-	 */
-	public void setSubsidiary(ArrayList<ISubsidiary> subsidiaries);
-
-
-
-	/**
-	 * Add one new {@link ISubsidiary} to this {@link IShop}. The setShop() method is called for every {@link ISubsidiary} and
-	 * this {@link IShop} will be added.
-	 * 
-	 * @param subsidiary
-	 *            that will be added to the {@link IShop}
-	 */
-	public void addSubsidiary(ISubsidiary subsidiary);
-
-	/**
-	 * Returns all {@link ISubsidiary}
-	 * 
-	 * @return all {@link ISubsidiary}
-	 */
-	public ArrayList<ISubsidiary> getSubsidiaries();
 
 	/**
 	 * Set an {@link Address} to the {@link IShop}

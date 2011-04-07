@@ -20,7 +20,6 @@ import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.IShop;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -86,7 +85,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	Button _saveButton;
 
 	AddressSelecter _addressSelecter;
-	ISubsidiary _currAddress=null;
+	IShop _currAddress=null;
 
 	public CreateReceiptViewImpl() {
 		initWidget(CreateReceiptViewImpl.uiBinder.createAndBindUi(this));
@@ -170,14 +169,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public ISubsidiary getAddress() {
+	public IShop getAddress() {
 		return _currAddress;
 	}
 
 	@Override
-	public void setAddress(ISubsidiary subsidiary) {
+	public void setAddress(IShop subsidiary) {
 		_currAddress=subsidiary;
-		System.out.println("setAddress: "+subsidiary);
 		_shopHolder.clear();
 		if(_currAddress==null)
 			_shopHolder.clear();
@@ -186,7 +184,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			_shopSearch.setEnabled(false);
 			_newAddressArea.setVisible(false);
 			_saveButton.setEnabled(true);
-			_shopHolder.add(new Label(subsidiary.getShop().getTitle()+" "+subsidiary.getAddress().getAddress()));
+			_shopHolder.add(new Label(subsidiary.getParent().getTitle()+" "+subsidiary.getAddress().getAddress()));
 			_shopHolder.add(new Button("-", new ClickHandler() {
 
 				@Override
@@ -239,7 +237,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShopSearchResults(List<IShop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final IShop s:shopResults){
-			for(final ISubsidiary a:s.getSubsidiaries()){
+			for(final IShop a:s.getChilds()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
 
@@ -269,8 +267,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_newAddressArea.add(new Button("Add Address", new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent e) {
-							ISubsidiary ia= _addressSelecter.getAddress();
-							ia.setShop(s);
+							IShop ia= _addressSelecter.getAddress();
+							ia.setParent(s);
 							setAddress(ia);
 						}
 					}));
