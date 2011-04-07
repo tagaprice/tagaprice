@@ -1,6 +1,8 @@
 package org.tagaprice.server.dao.couchdb;
 
 import org.jcouchdb.db.Database;
+import org.jcouchdb.db.Server;
+import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
 import org.tagaprice.shared.entities.ISEntity;
 import org.tagaprice.shared.entities.IRevisionId;
@@ -10,7 +12,12 @@ public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
 	Class<? extends T> m_class;
 	
 	protected DAOClass(Class<? extends T> classObject, String dbName) {
-		m_db = new Database("localhost", dbName);
+		Server server = new ServerImpl("localhost");
+		// TODO use server.setCredentials() to authenticate
+		if (!server.listDatabases().contains(dbName)) {
+			server.createDatabase(dbName);
+		}
+		m_db = new Database(server, dbName);
 		m_class = classObject;
 	}
 
