@@ -25,7 +25,7 @@ public class ProductDAO implements IProductDAO {
 
 	int productIdCounter = 1;
 	HashMap<IRevisionId, IProduct> productsAllRevisions = new HashMap<IRevisionId, IProduct>();
-	HashMap<Long, IProduct> productsLatest = new HashMap<Long, IProduct>();
+	HashMap<String, IProduct> productsLatest = new HashMap<String, IProduct>();
 	ICategoryDAO categoryDAO;
 	
 	public ProductDAO(IDaoFactory daoFactory) {
@@ -33,8 +33,8 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 		
-		ICategory food = categoryDAO.get(new RevisionId(1));
-		ICategory nonalcoholics = categoryDAO.get(new RevisionId(5));
+		ICategory food = categoryDAO.get(new RevisionId("food"));
+		ICategory nonalcoholics = categoryDAO.get(new RevisionId("nonalcoholics"));
 		
 		// TestProduct
 		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);
@@ -67,7 +67,7 @@ public class ProductDAO implements IProductDAO {
 		// make a copy ... to get sure
 		IProduct newProduct = product;
 		// set a productID and Revision 1
-		newProduct.setRevisionId(new RevisionId(this.productIdCounter++, 1));
+		newProduct.setRevisionId(new RevisionId(product.getTitle()));
 		// Save it into the hashmaps
 		this.productsAllRevisions.put(newProduct.getRevisionId(), newProduct);
 		this.productsLatest.put(newProduct.getRevisionId().getId(), newProduct);
@@ -80,12 +80,14 @@ public class ProductDAO implements IProductDAO {
 		IProduct rc = null;
 		
 		if (revisionId != null) {
-			if (revisionId.getRevision() == 0L) {
+			if (revisionId.getRevision() == null) {
+				// get the current revision
 				IProduct product = this.productsLatest.get(revisionId.getId());
 				if (product != null) {
 					rc = product;
 				}
 			} else {
+				// get a specific revision
 				IProduct product = this.productsAllRevisions.get(revisionId);
 				if (product != null) {
 					rc = product;

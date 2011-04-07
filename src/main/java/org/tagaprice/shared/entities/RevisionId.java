@@ -10,11 +10,9 @@ import org.tagaprice.shared.entities.accountmanagement.IUser;
  * - UPDATE an {@link AEntity} by the ID and Revision
  */
 public class RevisionId implements IRevisionId {
-
-
 	private static final long serialVersionUID = 2011503142739304476L;
-	private long _id = 0L;
-	private int _rev = 0;
+	private String _id = null;
+	private String _rev = null;
 	private IUser _user;
 	private Date _date;
 
@@ -28,9 +26,8 @@ public class RevisionId implements IRevisionId {
 	 * Initializes Revision id with given productId and Revision 0L.
 	 * @param id
 	 */
-	public RevisionId(long id) {
-		setId(id);
-		setRevision(0);
+	public RevisionId(String id) {
+		this(id, null);
 	}
 
 	/**
@@ -38,28 +35,28 @@ public class RevisionId implements IRevisionId {
 	 * @param id
 	 * @param revision
 	 */
-	public RevisionId(long id, int revision) {
-		this(id);
+	public RevisionId(String id, String revision) {
+		setId(id);
 		setRevision(revision);
 	}
 
 	@Override
-	public void setId(long id) {
+	public void setId(String id) {
 		_id = id;
 	}
 
 	@Override
-	public long getId() {
+	public String getId() {
 		return _id;
 	}
 
 	@Override
-	public void setRevision(int rev) {
+	public void setRevision(String rev) {
 		_rev = rev;
 	}
 
 	@Override
-	public int getRevision() {
+	public String getRevision() {
 		return _rev;
 	}
 

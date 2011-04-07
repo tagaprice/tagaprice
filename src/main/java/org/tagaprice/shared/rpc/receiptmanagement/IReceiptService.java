@@ -13,7 +13,7 @@ public interface IReceiptService extends RemoteService {
 
 	IReceipt saveReceipt(IReceipt receipt)  throws UserNotLoggedInException;
 
-	IReceipt getReceipt(long receiptid) throws UserNotLoggedInException;
+	IReceipt getReceipt(String receiptid) throws UserNotLoggedInException;
 
 	List<IReceipt> getReceits() throws UserNotLoggedInException;
 

@@ -19,7 +19,7 @@ public class AddressTest extends TestCase {
 	double _lat = 12.34;
 	double _lng = 56.78;
 	ISubsidiary testAddress;
-	IRevisionId _revisionId = new RevisionId(1L, 2);
+	IRevisionId _revisionId = new RevisionId("1", "2");
 
 	@Override
 	@Before
@@ -29,7 +29,7 @@ public class AddressTest extends TestCase {
 
 
 
-	public void testUpdateAddress(){
+	public void testUpdateAddress() {
 		testAddress.setCity(_city+"2");
 		testAddress.setCountry(Country.DE);
 		testAddress.setZip(_zip+"2");

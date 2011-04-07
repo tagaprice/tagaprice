@@ -80,7 +80,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			}
 		});
 
-		if (_place.getRevisionId().getId() == 0L) {
+		if (_place.getRevisionId().getId() == null) {
 			CreateProductActivity._logger.log("Create new Product");
 
 			updateView(new Product("", new Category("newProduct",null), Unit.piece));

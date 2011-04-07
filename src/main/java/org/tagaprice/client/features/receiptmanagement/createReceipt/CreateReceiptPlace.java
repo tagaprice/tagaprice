@@ -10,17 +10,16 @@ import com.google.gwt.place.shared.Prefix;
 
 public class CreateReceiptPlace extends Place {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptPlace.class);
-	private long _id = 0L;
+	private String _id = null;
 
 	public CreateReceiptPlace() {
-		_id = 0L;
 	}
 
-	public CreateReceiptPlace(long id){
+	public CreateReceiptPlace(String id){
 		_id=id;
 	}
 
-	public long getId(){
+	public String getId(){
 		return _id;
 	}
 
@@ -37,7 +36,7 @@ public class CreateReceiptPlace extends Place {
 					return new CreateReceiptPlace();
 				}else if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null){
-						return new CreateReceiptPlace(Long.parseLong(e.getNode("id")));
+						return new CreateReceiptPlace(e.getNode("id"));
 					}
 				}
 				return null;
@@ -48,23 +47,25 @@ public class CreateReceiptPlace extends Place {
 
 		@Override
 		public String getToken(CreateReceiptPlace place) {
-			if(place.getId()==0L){
+			String rc = null;
+			
+			if (place.getId() == null) {
 				CreateReceiptPlace._logger.log("Tokenizer create receipt");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
-				return t.getToken();
-			}else if(place.getId()!=0L){
+				rc = t.getToken();
+			} else { // if(place.getId()!=null)
 				CreateReceiptPlace._logger.log("Tokenizer show receipt: id="+place.getId());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getId());
 
-				return t.getToken();
+				rc = t.getToken();
 			}
 
-			return null;
+			return rc;
 		}
 
 	}

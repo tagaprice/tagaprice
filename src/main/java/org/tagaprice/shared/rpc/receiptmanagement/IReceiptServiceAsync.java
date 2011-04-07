@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface IReceiptServiceAsync {
 
-	void getReceipt(long receiptid, AsyncCallback<IReceipt> callback);
+	void getReceipt(String receiptId, AsyncCallback<IReceipt> callback);
 
 	void  getReceits( AsyncCallback<List<IReceipt>> callback);
 

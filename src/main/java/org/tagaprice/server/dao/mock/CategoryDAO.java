@@ -1,6 +1,6 @@
 package org.tagaprice.server.dao.mock;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDAO;
@@ -9,21 +9,22 @@ import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.ICategory;
 
 public class CategoryDAO implements ICategoryDAO {
-	ArrayList<ICategory> categories = new ArrayList<ICategory>();
+	HashMap<String, ICategory> categories = new HashMap<String, ICategory>();
+	
 	
 	CategoryDAO() {
 		ICategory root = new Category("root",null);
-		this.categories.add(root);
+		this.categories.put("root", root);
 		ICategory food = new Category("food", root);
-		this.categories.add(food);
+		this.categories.put("food", food);
 		ICategory vegetables = new Category("vegetables", root);
-		this.categories.add(vegetables);
+		this.categories.put("vegetables", vegetables);
 		ICategory beverages = new Category("beverages", root);
-		this.categories.add(beverages);
+		this.categories.put("beverages", beverages);
 		ICategory alcoholics = new Category("alcohol", root);
-		this.categories.add(alcoholics);
+		this.categories.put("alcoholics", alcoholics);
 		ICategory nonalcoholics = new Category("nonalcoholics", root);
-		this.categories.add(nonalcoholics);
+		this.categories.put("nonalcoholics", nonalcoholics);
 
 		nonalcoholics.setParentCategory(beverages);
 		alcoholics.setParentCategory(beverages);
@@ -43,8 +44,8 @@ public class CategoryDAO implements ICategoryDAO {
 	public ICategory get(IRevisionId revisionId) {
 		ICategory rc = null;
 		
-		if (revisionId != null && categories.size() > revisionId.getId()) {
-			rc = categories.get((int) revisionId.getId());
+		if (revisionId != null && categories.containsKey(revisionId.getId())) {
+			rc = categories.get(revisionId.getId());
 		}
 		
 		return rc;

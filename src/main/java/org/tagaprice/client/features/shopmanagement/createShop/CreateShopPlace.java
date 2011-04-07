@@ -18,11 +18,11 @@ public class CreateShopPlace extends Place {
 		_revisonId=new RevisionId();
 	}
 
-	public CreateShopPlace(long id) {
+	public CreateShopPlace(String id) {
 		_revisonId=new RevisionId(id);
 	}
 
-	public CreateShopPlace(long id, int revision) {
+	public CreateShopPlace(String id, String revision) {
 		_revisonId=new RevisionId(id,revision);
 	}
 
@@ -41,9 +41,9 @@ public class CreateShopPlace extends Place {
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
-						return new CreateShopPlace(Long.parseLong(e.getNode("id")), Integer.parseInt(e.getNode("rev")));
+						return new CreateShopPlace(e.getNode("id"), e.getNode("rev"));
 					}else if(e.getNode("id")!=null){
-						return new CreateShopPlace(Long.parseLong(e.getNode("id")));
+						return new CreateShopPlace(e.getNode("id"));
 					}
 					return null;
 				}else if(e.getRoot().equals("create")){
@@ -56,26 +56,28 @@ public class CreateShopPlace extends Place {
 
 		@Override
 		public String getToken(CreateShopPlace place) {
-			if(place.getRevisionId().getId()==0L){
+			String rc = null;
+			
+			if(place.getRevisionId().getId()==null){
 				CreateShopPlace.logger.log("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
-				return t.getToken();
-			}else if(place.getRevisionId().getId()!=0L){
+				rc = t.getToken();
+			} else { // if(place.getRevisionId().getId()!=null)
 				CreateShopPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getRevisionId().getId());
 
-				if(place.getRevisionId().getRevision()!=0L){
+				if (place.getRevisionId().getRevision() != null) {
 					t.addNode("rev", ""+place.getRevisionId().getRevision());
 				}
 
-				return t.getToken();
+				rc = t.getToken();
 			}
-			return null;
+			return rc;
 		}
 
 	}

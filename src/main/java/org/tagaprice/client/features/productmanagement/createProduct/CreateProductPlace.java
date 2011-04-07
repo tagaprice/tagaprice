@@ -18,11 +18,11 @@ public class CreateProductPlace extends Place {
 		_revisonId=new RevisionId();
 	}
 
-	public CreateProductPlace(long id){
+	public CreateProductPlace(String id){
 		_revisonId=new RevisionId(id);
 	}
 
-	public CreateProductPlace(long id, int revision){
+	public CreateProductPlace(String id, String revision){
 		_revisonId=new RevisionId(id, revision);
 	}
 
@@ -42,10 +42,10 @@ public class CreateProductPlace extends Place {
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
 						CreateProductPlace.logger.log("return ProductPlace with it and Revision");
-						return new CreateProductPlace(Long.parseLong(e.getNode("id")), Integer.parseInt(e.getNode("rev")));
+						return new CreateProductPlace(e.getNode("id"), e.getNode("rev"));
 					}else if(e.getNode("id")!=null){
 						CreateProductPlace.logger.log("return ProductPlace only with id");
-						return new CreateProductPlace(Long.parseLong(e.getNode("id")));
+						return new CreateProductPlace(e.getNode("id"));
 					}
 					return null;
 				}else if(e.getRoot().equals("create")){
@@ -58,26 +58,28 @@ public class CreateProductPlace extends Place {
 
 		@Override
 		public String getToken(CreateProductPlace place) {
-			if(place.getRevisionId().getId()==0L){
+			String rc = null;
+			
+			if(place.getRevisionId().getId()==null){
 				CreateProductPlace.logger.log("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
-				return t.getToken();
-			}else if(place.getRevisionId().getId()!=0L){
+				rc = t.getToken();
+			} else { //if(place.getRevisionId().getId()!=null)
 				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getRevisionId().getId());
 
-				if(place.getRevisionId().getRevision()!=0L){
+				if (place.getRevisionId().getRevision()!=null){
 					t.addNode("rev", ""+place.getRevisionId().getRevision());
 				}
 
-				return t.getToken();
+				rc = t.getToken();
 			}
-			return null;
+			return rc;
 		}
 
 	}

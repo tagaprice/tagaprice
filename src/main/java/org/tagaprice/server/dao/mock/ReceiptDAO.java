@@ -40,15 +40,15 @@ public class ReceiptDAO implements IReceiptDAO {
 	public ReceiptDAO(IDaoFactory daoFactory) {
 		packageDAO = daoFactory.getPackageDAO();
 		
-		IRevisionId r1 = new RevisionId(random.nextLong(), 1);
-		IRevisionId r2 = new RevisionId(random.nextLong(), 1);
+		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), null);
+		IRevisionId r2 = new RevisionId(new Long(random.nextLong()).toString(), null);
 		ISubsidiary tempAddres = new Subsidiary(r2, new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
 		IShop tempshop = new Shop(r1, "Billa");
 		tempAddres.setShop(tempshop);
 
 		//Create test product
 		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt(new RevisionId(productIdCounter++, 1), "First Receipt",  new Date(), tempAddres);
+		IReceipt tempReceipt = new Receipt(new RevisionId("firstReceipt"), "First Receipt",  new Date(), tempAddres);
 
 
 		ICategory root = new Category("root",null);
@@ -72,7 +72,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		}
 
 		{
-			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get(new RevisionId(2L, 1)));
+			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get(new RevisionId("secondReceipt")));
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
@@ -81,7 +81,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public IReceipt create(IReceipt receipt) {
-		receipt.setRevisionId(new RevisionId(productIdCounter++, 1));
+		receipt.setRevisionId(new RevisionId(receipt.getTitle()));
 		_receiptList.add(receipt);
 		return receipt;
 	}

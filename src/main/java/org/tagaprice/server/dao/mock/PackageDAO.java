@@ -18,7 +18,7 @@ public class PackageDAO implements IPackageDAO {
 	
 	@Override
 	public IPackage create(IPackage pkg) {
-		pkg.setRevisionId(new RevisionId(this.revIdCounter++, 1));
+		pkg.setRevisionId(new RevisionId(new Long(this.revIdCounter++).toString(), "1"));
 		logger.log("create package. ID="+this.revIdCounter);
 		return pkg;
 	}
