@@ -102,7 +102,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		omapWidget.setSize("100%", "150px");
 
 		_searchMapArea.setWidget(omapWidget);
-		_saveButton.setEnabled(false);
+
 
 		//SearchShop
 		_shopSearch.addKeyPressHandler(new KeyPressHandler() {
@@ -123,9 +123,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 		_shopSearchSuggestPop.setWidget(_shopSearchSuggestVePa);
-		_shopSearchSuggestPop.setAutoHideEnabled(true);
 		_productSearchSuggestPop.setWidget(_productSearchSuggestVePa);
-		_productSearchSuggestPop.setAutoHideEnabled(true);
+
+		reset();
 
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
@@ -178,6 +178,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setAddress(ISubsidiary subsidiary) {
 		_currAddress=subsidiary;
 		System.out.println("setAddress: "+subsidiary);
+		_shopHolder.clear();
 		if(_currAddress==null)
 			_shopHolder.clear();
 		else{
@@ -325,6 +326,22 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		}
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
 
+
+	}
+
+	@Override
+	public void reset() {
+		if(_shopHolder!=null)_shopHolder.clear();
+		if(_shopSearch!=null)_shopSearch.setText("");
+		if(_saveButton!=null)_saveButton.setEnabled(false);
+		if(_shopSearchSuggestPop!=null)_shopSearchSuggestPop.setAutoHideEnabled(true);
+		if(_productSearchSuggestPop!=null)_productSearchSuggestPop.setAutoHideEnabled(true);
+		if(_currAddress!=null)_currAddress=null;
+
+		if(_searchMapArea!=null)_searchMapArea.setVisible(true);
+		if(_shopSearch!=null)_shopSearch.setEnabled(true);
+		//if(_addressSelecter!=null)_addressSelecter.setVisible(false);
+		if(_newAddressArea!=null)_newAddressArea.setVisible(false);
 
 	}
 

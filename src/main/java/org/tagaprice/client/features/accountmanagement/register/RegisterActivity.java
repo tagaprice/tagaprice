@@ -55,9 +55,11 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 		if(_place.getRegisterType()==RegisterPlace.RegisterType.REGISTER){
 			if (_registerView == null)
 				_registerView = _clientFactory.getRegisterView();
+			_registerView.reset();
 			_registerView.setPresenter(this);
 			panel.setWidget(_registerView);
 		}else if(_place.getRegisterType()==RegisterPlace.RegisterType.THANKS){
+			_clientFactory.getRegisteredView().reset();
 			panel.setWidget(_clientFactory.getRegisteredView());
 		}
 	}

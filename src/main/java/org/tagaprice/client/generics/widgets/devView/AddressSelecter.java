@@ -24,8 +24,6 @@ import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.shared.logging.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.maps.client.geocode.Geocoder;
-import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
@@ -43,7 +41,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	TextBox _address = new TextBox();
 	Label _lat = new Label();
 	Label _lng = new Label();
-	Geocoder coder = new Geocoder();
 	ISubsidiary _subsidiary;
 
 
@@ -100,8 +97,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			@Override
 			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
 				LonLat l = vectorFeature.getCenterLonLat();
+				setLatLng(l);
 				l.transform("EPSG:900913","EPSG:4326");
-				setLatLng(LatLng.newInstance(l.lat(), l.lon()));
+
 				System.out.println("dragEnd: lat: "+vectorFeature.getCenterLonLat().lat()+", lng: "+vectorFeature.getCenterLonLat().lon());
 
 
@@ -152,8 +150,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_subsidiary=address;
 		_address.setText(_subsidiary.getAddress().getAddress());
 
-
-		setLatLng(LatLng.newInstance(_subsidiary.getAddress().getLat(), _subsidiary.getAddress().getLng()));
+		LonLat l = new LonLat(_subsidiary.getAddress().getLng(), _subsidiary.getAddress().getLat());
+		l.transform("EPSG:4326", "EPSG:900913");
+		setLatLng(l);
 	}
 
 	@Override
@@ -171,16 +170,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		return _subsidiary;
 	}
 
-	private void setLatLng(LatLng latLng){
-		_lat.setText(""+latLng.getLatitude());
-		_lng.setText(""+latLng.getLongitude());
+	private void setLatLng(LonLat lonLat){
+		_lat.setText(""+lonLat.lat());
+		_lng.setText(""+lonLat.lon());
 
-		//osm
-		LonLat t = new LonLat(latLng.getLongitude(), latLng.getLatitude());
-		t.transform("EPSG:4326", "EPSG:900913");
-		osmMap.setCenter(t);
-
-		point.setXY(t.lon(), t.lat());
+		osmMap.setCenter(lonLat);
+		point.setXY(lonLat.lon(), lonLat.lat());
 		layer.redraw();
 
 
@@ -190,7 +185,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	public void setCurrentAddress(Address address) {
 		_address.setText(address.getAddress());
 
-		setLatLng(LatLng.newInstance(address.getLat(), address.getLng()));
+		LonLat l = new LonLat(address.getLng(),address.getLat());
+		l.transform("EPSG:4326", "EPSG:900913");
+		setLatLng(l);
 
 	}
 

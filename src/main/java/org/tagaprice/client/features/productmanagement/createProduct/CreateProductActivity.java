@@ -59,6 +59,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 		ICreateProductView createProductView = _clientFactory.getCreateProductView();
 		createProductView.setPresenter(this);
+		createProductView.reset();
 
 		this._clientFactory.getProductService().getCategories(new AsyncCallback<List<ICategory>>() {
 

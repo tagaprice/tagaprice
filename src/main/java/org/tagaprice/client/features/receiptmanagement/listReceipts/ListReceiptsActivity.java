@@ -57,6 +57,7 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
 		_listReceiptsView.setPresenter(this);
+		_listReceiptsView.reset();
 		panel.setWidget(_listReceiptsView);
 
 

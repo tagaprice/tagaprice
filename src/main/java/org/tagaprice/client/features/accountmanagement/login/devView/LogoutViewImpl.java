@@ -36,4 +36,10 @@ public class LogoutViewImpl extends Composite implements ILogoutView {
 		_presenter=presenter;
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

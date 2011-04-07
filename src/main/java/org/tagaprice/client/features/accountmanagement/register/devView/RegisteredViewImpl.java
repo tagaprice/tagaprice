@@ -19,4 +19,10 @@ public class RegisteredViewImpl extends Composite implements IRegisteredView {
 
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

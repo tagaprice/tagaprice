@@ -1,9 +1,10 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
-import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.IsWidget;
+import org.tagaprice.client.generics.IView;
 
-public interface IRegisterView extends IsWidget {
+import com.google.gwt.place.shared.Place;
+
+public interface IRegisterView extends IView {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IRegisterView} to control this view. It is also necessary

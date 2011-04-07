@@ -89,6 +89,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		ListProductsActivity.logger.log("Activity starts...");
 
 		listProductsView.setPresenter(this);
+		listProductsView.reset();
 
 		this.productServiceAsync.findProducts(null, new AsyncCallback<List<IProduct>>() {
 

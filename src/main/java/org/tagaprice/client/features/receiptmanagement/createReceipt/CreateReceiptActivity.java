@@ -60,14 +60,15 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
+		_createReceiptView.reset();
 
 
 
 		if (_place.getId() == 0L) {
 			CreateReceiptActivity._logger.log("Create new Receipt");
 			_receipt=new Receipt();
-			_receipt.setTitle("New Receipt");
-			_receipt.setDate(new Date());
+			//_receipt.setTitle("New Receipt");
+			//_receipt.setDate(new Date());
 			updateView(_receipt);
 		}else{
 			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());

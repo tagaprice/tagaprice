@@ -97,4 +97,10 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 		return _terms.getValue();
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

@@ -106,4 +106,10 @@ public class ListShopsViewImpl<T> extends Composite implements ListShopsView<T> 
 		}
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

@@ -61,12 +61,14 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 		if (Cookies.getCookie("TAP_SID") == null || Cookies.getCookie("TAP_SID").isEmpty()) {
 			System.out.println("showLogIN");
 			loginView = _clientFactory.getLoginView();
+			loginView.reset();
 			loginView.setPresenter(this);
 
 			panel.setWidget(loginView);
 		} else {
 			System.out.println("showLogou");
 			logoutView = _clientFactory.getLogoutView();
+			logoutView.reset();
 			logoutView.setPresenter(this);
 
 			panel.setWidget(logoutView);
