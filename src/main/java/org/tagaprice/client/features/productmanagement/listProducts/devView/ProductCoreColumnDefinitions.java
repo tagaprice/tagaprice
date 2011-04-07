@@ -31,6 +31,7 @@ public class ProductCoreColumnDefinitions {
 
 			@Override
 			public Widget render(IProduct t) {
+				if (t.getCategory() == null) return new HTML("[no category]"); 
 				return new HTML(t.getCategory().toString());
 			}
 
