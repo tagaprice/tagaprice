@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.tagaprice.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.generics.widgets.IReceiptEntrySelecter;
 import org.tagaprice.client.generics.widgets.QuantitySelecter;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,9 +35,9 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
 		receiptContainer.clear();
-		for(IReceiptEntry ir:receiptEntries){
+		for(ReceiptEntry ir:receiptEntries){
 			OneReceiptEntry ore = new OneReceiptEntry();
 			ore.setReceiptEntry(ir);
 
@@ -47,7 +47,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public void addReceiptEntrie(IReceiptEntry receiptEntry) {
+	public void addReceiptEntrie(ReceiptEntry receiptEntry) {
 		OneReceiptEntry ore = new OneReceiptEntry();
 		ore.setReceiptEntry(receiptEntry);
 
@@ -56,8 +56,8 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public ArrayList<IReceiptEntry> getReceiptEntries() {
-		ArrayList<IReceiptEntry> returnList = new ArrayList<IReceiptEntry> ();
+	public ArrayList<ReceiptEntry> getReceiptEntries() {
+		ArrayList<ReceiptEntry> returnList = new ArrayList<ReceiptEntry> ();
 
 		for(int i=0;i<receiptContainer.getWidgetCount();i++){
 			returnList.add(((OneReceiptEntry)receiptContainer.getWidget(i)).getReceiptEntry());
@@ -74,7 +74,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		private TextBox priceTextBox = new TextBox();
 		private CurrencySelecter currencySelecter = new CurrencySelecter();
 		private Button removeButton = new Button("-");
-		private IReceiptEntry _receiptEntry;
+		private ReceiptEntry _receiptEntry;
 
 		public OneReceiptEntry() {
 			initWidget(hoPa1);
@@ -100,7 +100,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 			this.removeFromParent();
 		}
 
-		public void setReceiptEntry(IReceiptEntry receiptEntry){
+		public void setReceiptEntry(ReceiptEntry receiptEntry){
 			_receiptEntry=receiptEntry;
 
 			productTextBox.setText(receiptEntry.getPackage().getProduct().getTitle());
@@ -110,7 +110,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 
 		}
 
-		public IReceiptEntry getReceiptEntry(){
+		public ReceiptEntry getReceiptEntry(){
 			_receiptEntry.setPrice(new Price(
 					Integer.parseInt(priceTextBox.getText()),
 					currencySelecter.getCurrency()));

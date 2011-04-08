@@ -2,27 +2,27 @@ package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
 
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IReceiptEntrySelecter extends IsWidget {
 
 	/**
-	 * Set some {@link IReceiptEntry} to the {@link IReceiptEntrySelecter}
+	 * Set some {@link ReceiptEntry} to the {@link IReceiptEntrySelecter}
 	 * @param receiptEntries that will be added to the {@link IReceiptEntrySelecter}
 	 */
-	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries);
+	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries);
 
 	/**
-	 * Add one {@link IReceiptEntry}
+	 * Add one {@link ReceiptEntry}
 	 * @param receiptEntry new entry
 	 */
-	public void addReceiptEntrie(IReceiptEntry receiptEntry);
+	public void addReceiptEntrie(ReceiptEntry receiptEntry);
 
 	/**
-	 * Return all {@link IReceiptEntry}
-	 * @return all {@link IReceiptEntry}
+	 * Return all {@link ReceiptEntry}
+	 * @return all {@link ReceiptEntry}
 	 */
-	public ArrayList<IReceiptEntry> getReceiptEntries();
+	public ArrayList<ReceiptEntry> getReceiptEntries();
 }

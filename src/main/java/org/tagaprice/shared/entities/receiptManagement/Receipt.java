@@ -17,7 +17,7 @@ public class Receipt extends AEntity {
 
 	private Shop _shop;
 	private Date _date;
-	private ArrayList<IReceiptEntry> _receiptEntries = new ArrayList<IReceiptEntry>();
+	private ArrayList<ReceiptEntry> _receiptEntries = new ArrayList<ReceiptEntry>();
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -56,7 +56,7 @@ public class Receipt extends AEntity {
 	}
 
 
-	public void addReceiptEntriy(IReceiptEntry receiptEntry) {
+	public void addReceiptEntriy(ReceiptEntry receiptEntry) {
 		receiptEntry.setReceipt(this);
 		_receiptEntries.add(receiptEntry);
 
@@ -66,7 +66,7 @@ public class Receipt extends AEntity {
 		return _shop;
 	}
 
-	public ArrayList<IReceiptEntry> getReceiptEntries() {
+	public ArrayList<ReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
 
@@ -78,7 +78,7 @@ public class Receipt extends AEntity {
 		_shop=shop;
 	}
 
-	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
 		_receiptEntries.clear();
 		_receiptEntries.addAll(receiptEntries);
 	}

@@ -7,7 +7,7 @@ import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.RevisionId;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -27,7 +27,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopActivity.class);
 
 	private Shop _shop;
-	private ICreateShopView<IReceiptEntry> _createShopView;
+	private ICreateShopView<ReceiptEntry> _createShopView;
 	private CreateShopPlace _place;
 	private ClientFactory _clientFactory;
 

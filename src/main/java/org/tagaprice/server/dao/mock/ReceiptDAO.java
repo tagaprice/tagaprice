@@ -16,7 +16,6 @@ import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -37,7 +36,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		tempAddres.setParent(tempshop);
 
 		//Create test product
-		//Receipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
+		//Receipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<ReceiptEntry>());
 		Receipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
 
 
@@ -48,7 +47,7 @@ public class ReceiptDAO implements IReceiptDAO {
 			Product iprodc = new Product("Bergkäse 4", new Category("food",root), Unit.g);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
-			IReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
+			ReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
@@ -57,12 +56,12 @@ public class ReceiptDAO implements IReceiptDAO {
 			Product iprodc = new Product("CocaCola", new Category("food",root), Unit.l);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
-			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);
+			ReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
 		{
-			IReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get("secondReceipt"));
+			ReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), packageDAO.get("secondReceipt"));
 			tempReceipt.addReceiptEntriy(ire);
 		}
 

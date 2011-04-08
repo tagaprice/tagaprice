@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry implements IReceiptEntry {
+public class ReceiptEntry {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;
@@ -17,7 +17,7 @@ public class ReceiptEntry implements IReceiptEntry {
 	/**
 	 * <b>NEW</b>
 	 * Create a new ReceiptEntry. Method setReceipt() must be called
-	 * @param price the price of the {@link IReceiptEntry}
+	 * @param price the price of the {@link ReceiptEntry}
 	 * @param ipackage the related package
 	 */
 	public ReceiptEntry(IPrice price, Package ipackage) {
@@ -25,32 +25,26 @@ public class ReceiptEntry implements IReceiptEntry {
 		setPackage(ipackage);
 	}
 
-	@Override
 	public Package getPackage() {
 		return _package;
 	}
 
-	@Override
 	public IPrice getPrice() {
 		return _price;
 	}
 
-	@Override
 	public Receipt getReceipt() {
 		return _receipt;
 	}
 
-	@Override
 	public void setPackage(Package ipackage) {
 		_package = ipackage;
 	}
 
-	@Override
 	public void setPrice(IPrice price) {
 		_price = price;
 	}
 
-	@Override
 	public void setReceipt(Receipt receipt) {
 		_receipt = receipt;
 

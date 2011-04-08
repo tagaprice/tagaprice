@@ -5,7 +5,7 @@ import java.util.List;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -53,7 +53,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		nice+=receipt.getTitle()+" | ";
 
 		int money=0;
-		for(IReceiptEntry re: receipt.getReceiptEntries()){
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			money+=re.getPrice().getPrice();
 		}
 		nice+="m: "+money;

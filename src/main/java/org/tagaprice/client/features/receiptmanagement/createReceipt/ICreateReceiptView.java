@@ -7,7 +7,7 @@ import java.util.List;
 import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
@@ -39,9 +39,9 @@ public interface ICreateReceiptView extends IView{
 
 	public void setProductSearchResults(List<Product> productResults);
 
-	public ArrayList<IReceiptEntry> getReceiptEntries();
+	public ArrayList<ReceiptEntry> getReceiptEntries();
 
-	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries);
+	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries);
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateReceiptView} to control this view. It is also necessary

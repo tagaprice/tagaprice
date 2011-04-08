@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
 /**
- * Set the price of an {@link IReceiptEntry}
+ * Set the price of an {@link ReceiptEntry}
  *
  */
 public class Price implements IPrice {

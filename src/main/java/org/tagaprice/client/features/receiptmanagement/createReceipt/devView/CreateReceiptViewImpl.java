@@ -16,7 +16,6 @@ import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
-import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -203,12 +202,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 	@Override
-	public ArrayList<IReceiptEntry> getReceiptEntries() {
+	public ArrayList<ReceiptEntry> getReceiptEntries() {
 		return _receiptEntrySelecter.getReceiptEntries();
 	}
 
 	@Override
-	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
 		_receiptEntrySelecter.setReceiptEntries(receiptEntries);
 
 	}
