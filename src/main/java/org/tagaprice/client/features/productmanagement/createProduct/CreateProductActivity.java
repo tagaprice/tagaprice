@@ -3,7 +3,6 @@ package org.tagaprice.client.features.productmanagement.createProduct;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.*;
@@ -80,15 +79,15 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			}
 		});
 
-		if (_place.getRevisionId().getId() == null) {
+		if (_place.getId() == null) {
 			CreateProductActivity._logger.log("Create new Product");
 
 			updateView(new Product("", new Category("newProduct",null), Unit.piece));
 			panel.setWidget(createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {
-			CreateProductActivity._logger.log("Get Product: id=" + _place.getRevisionId().getId() + ", rev: "
-					+ _place.getRevisionId().getRevision());
+			CreateProductActivity._logger.log("Get Product: id=" + _place.getId() + ", rev: "
+					+ _place.getRevision());
 			// panel.setWidget(new
 			// Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
 
@@ -96,7 +95,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			CreateProductActivity._logger.log("Load Categories...");
 
 
-			this._clientFactory.getProductService().getProduct(_place.getRevisionId().getId(), _place.getRevisionId().getRevision(), new AsyncCallback<Product>() {
+			this._clientFactory.getProductService().getProduct(_place.getId(), _place.getRevision(), new AsyncCallback<Product>() {
 
 				@Override
 				public void onSuccess(Product result) {
@@ -204,7 +203,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		if(product == null)
 			return;
 		ICreateProductView view = this._clientFactory.getEditProductView();
-		view.setRevisionId(new RevisionId(product.getId(), product.getRevision()));
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
 		view.setUnit(product.getUnit());

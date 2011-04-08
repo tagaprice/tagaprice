@@ -8,7 +8,6 @@ import org.tagaprice.client.features.productmanagement.createProduct.ICreateProd
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -108,11 +107,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 
-	@Override
-	public void setRevisionId(RevisionId revisionId) {
-		this.id.setText(revisionId.toString());
-
-	}
 
 	@Override
 	public void addPackage(Package ipackage) {

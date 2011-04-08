@@ -3,7 +3,6 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.ASEntity;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Quantity;
 
 public class Package extends ASEntity {
@@ -11,7 +10,6 @@ public class Package extends ASEntity {
 
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	Quantity _iQuantity;
-	RevisionId _iRevisionId;
 	Product _product;
 
 	/**
@@ -38,9 +36,9 @@ public class Package extends ASEntity {
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(RevisionId revisionId, Quantity quantity){
+	public Package(String id, String revision, Quantity quantity){
+		super(id, revision);
 		_iQuantity=quantity;
-		_iRevisionId=revisionId;
 	}
 
 	public void addBarcode(int barcode) {
@@ -77,8 +75,10 @@ public class Package extends ASEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + ", _iRevisionId=" + _iRevisionId+"]";
+		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + "]";
 	}
+
+
 
 
 

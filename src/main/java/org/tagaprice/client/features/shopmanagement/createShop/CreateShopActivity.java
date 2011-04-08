@@ -6,7 +6,6 @@ import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
@@ -64,9 +63,9 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setPresenter(this);
 		_createShopView.reset();
 
-		if (_place.getRevisionId() != null && _place.getRevisionId().getId() != null) {
+		if (_place.getId() != null) {
 			// Existing product... trying to load
-			_clientFactory.getShopService().getShop(_place.getRevisionId().getId(),
+			_clientFactory.getShopService().getShop(_place.getId(), _place.getRevision(),
 					new AsyncCallback<Shop>() {
 
 				@Override
@@ -194,7 +193,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	private void updateView(Shop shop){
 		_shop = shop;
-		_createShopView.setRevisionId(new RevisionId(shop.getId(), shop.getRevision()));
 		_createShopView.setShopTitle(shop.getTitle());
 		_createShopView.setChilds(_shop.getChildren());
 	}

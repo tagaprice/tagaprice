@@ -12,13 +12,13 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
-import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class ReceiptDAO implements IReceiptDAO {
 
@@ -26,6 +26,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	Random random = new Random(44646776);
 	int productIdCounter = 1;
 	ArrayList<Receipt> _receiptList = new ArrayList<Receipt>();
+	Receipt tempReceipt;
 
 	public ReceiptDAO(IDaoFactory daoFactory) {
 		packageDAO = daoFactory.getPackageDAO();
@@ -37,7 +38,7 @@ public class ReceiptDAO implements IReceiptDAO {
 
 		//Create test product
 		//Receipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<ReceiptEntry>());
-		Receipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
+		tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
 
 
 		Category root = new Category("root",null);
@@ -50,6 +51,7 @@ public class ReceiptDAO implements IReceiptDAO {
 			ReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
 			tempReceipt.addReceiptEntriy(ire);
 		}
+
 
 		{
 			Package ipack = new Package(new Quantity(1.5, Unit.l));
@@ -65,6 +67,7 @@ public class ReceiptDAO implements IReceiptDAO {
 			tempReceipt.addReceiptEntriy(ire);
 		}
 
+
 		_receiptList.add(tempReceipt);
 	}
 
@@ -78,15 +81,17 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public Receipt get(String id, String receipt) {
+		return tempReceipt;
+		/*
 		for (Receipt r:_receiptList) {
 			if(r.getId() == id) {
 				return r;
 			}
 		}
 		return null;
-
+		 */
 	}
-	
+
 	@Override
 	public Receipt get(String id) {
 		return get(id, null);

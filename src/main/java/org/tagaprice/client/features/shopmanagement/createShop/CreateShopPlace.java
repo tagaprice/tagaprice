@@ -1,7 +1,6 @@
 package org.tagaprice.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -12,23 +11,29 @@ import com.google.gwt.place.shared.Prefix;
 public class CreateShopPlace extends Place {
 	private static final MyLogger logger = LoggerFactory.getLogger(CreateShopPlace.class);
 
-	private RevisionId _revisonId;
+	private String _id = null;
+	private String _rev = null;
 
 	public CreateShopPlace() {
-		_revisonId=new RevisionId();
 	}
 
 	public CreateShopPlace(String id) {
-		_revisonId=new RevisionId(id);
+		_id=id;
 	}
 
 	public CreateShopPlace(String id, String revision) {
-		_revisonId=new RevisionId(id,revision);
+		_id=id;
+		_rev=revision;
 	}
 
-	public RevisionId getRevisionId(){
-		return _revisonId;
+	public String getRevision() {
+		return _rev;
 	}
+
+	public String getId() {
+		return _id;
+	}
+
 
 	@Prefix("CreateShop")
 	public static class Tokenizer implements PlaceTokenizer<CreateShopPlace>{
@@ -57,22 +62,22 @@ public class CreateShopPlace extends Place {
 		@Override
 		public String getToken(CreateShopPlace place) {
 			String rc = null;
-			
-			if(place.getRevisionId().getId()==null){
+
+			if(place.getId()==null){
 				CreateShopPlace.logger.log("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				rc = t.getToken();
 			} else { // if(place.getRevisionId().getId()!=null)
-				CreateShopPlace.logger.log("Tokenizer show product: id="+place.getRevisionId().getId()+", rev="+place.getRevisionId().getRevision());
+				CreateShopPlace.logger.log("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
-				t.addNode("id", ""+place.getRevisionId().getId());
+				t.addNode("id", ""+place.getId());
 
-				if (place.getRevisionId().getRevision() != null) {
-					t.addNode("rev", ""+place.getRevisionId().getRevision());
+				if (place.getRevision() != null) {
+					t.addNode("rev", ""+place.getRevision());
 				}
 
 				rc = t.getToken();

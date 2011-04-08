@@ -11,7 +11,7 @@ public interface IReceiptServiceAsync {
 
 	void getReceipt(String receiptId, AsyncCallback<Receipt> callback);
 
-	void  getReceipts( AsyncCallback<List<Receipt>> callback);
+	void getReceipts(AsyncCallback<List<Receipt>> callback);
 
 	@Deprecated
 	void getReceiptEntriesByProductId(long productid, AsyncCallback<List<ReceiptEntry>> callback);

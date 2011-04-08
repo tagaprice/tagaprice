@@ -6,7 +6,6 @@ import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.ColumnDefinition;
 import org.tagaprice.client.generics.widgets.MultipleAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -82,14 +81,6 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 
-	@Override
-	public void setRevisionId(RevisionId revisionId) {
-		if(revisionId != null) {
-			this._id.setText(revisionId.getId() + "_" + revisionId.getRevision());
-		}else {
-			this._id.setText("");
-		}
-	}
 
 
 	ArrayList<ColumnDefinition<T>> _columnDefinitions;

@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -23,7 +22,7 @@ public interface IProductService extends RemoteService {
 	 * @return The {@link Product} corresponding to the {@link RevisionId}
 	 */
 	public Product getProduct(String id, String revision);
-	
+
 	public Product getProduct(String id);
 
 	/**
@@ -63,7 +62,7 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public List<Category> getCategoryChilds(RevisionId revisionId);
+	public List<Category> getCategoryChilds(String id);
 
 	/**
 	 * Returns a {@link Category} with all parents!
@@ -72,7 +71,7 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return a {@link Category} with all parents!
 	 */
-	public Category getCategory(RevisionId revisionId);
+	public Category getCategory(String id);
 
 
 	/**
@@ -85,7 +84,7 @@ public interface IProductService extends RemoteService {
 	 *         {@link Product}
 	 */
 	public Package getPackage(String id, String revision);
-	
+
 	public Package getPackage(String id);
 
 

@@ -5,16 +5,15 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
 public class PackageDAO implements IPackageDAO {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	HashMap<RevisionId, Package> packageAllRevisions = new HashMap<RevisionId, Package>();
+	HashMap<String, Package> packageAllRevisions = new HashMap<String, Package>();
 	int revIdCounter = 0;
-	
+
 	@Override
 	public Package create(Package pkg) {
 		pkg.setId(new Integer(this.revIdCounter++).toString());
@@ -28,7 +27,7 @@ public class PackageDAO implements IPackageDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Package get(String id) {
 		// TODO Auto-generated method stub
@@ -40,7 +39,7 @@ public class PackageDAO implements IPackageDAO {
 		pkg.setRevision(pkg.getRevision() + 1);
 
 		packageAllRevisions.put(
-				new RevisionId(pkg.getId(), pkg.getRevision()), pkg);
+				pkg.getId(), pkg);
 		return pkg;
 	}
 

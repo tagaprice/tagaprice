@@ -6,7 +6,6 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -24,7 +23,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	IPackageDAO packageDAO;
 	IProductDAO productDAO;
 	ICategoryDAO categoryDAO;
-	
+
 	/**
 	 * Initialization with some products and Categories.
 	 */
@@ -40,7 +39,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public Product getProduct(String id, String revision) {
 		return productDAO.get(id, revision);
 	}
-	
+
 	@Override
 	public Product getProduct(String id) {
 		return productDAO.get(id);
@@ -68,7 +67,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	public Package getPackage(String id, String revision) {
 		return packageDAO.get(id, revision);
 	}
-	
+
 	@Override
 	public Package getPackage(String id) {
 		return packageDAO.get(id);
@@ -82,14 +81,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public List<Category> getCategoryChilds(RevisionId revisionId) {
+	public List<Category> getCategoryChilds(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public Category getCategory(RevisionId revisionId) {
+	public Category getCategory(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

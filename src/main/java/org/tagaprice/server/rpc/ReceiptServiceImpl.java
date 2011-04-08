@@ -40,6 +40,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	@Override
 	public Receipt getReceipt(String receiptId) {
+		logger.log("Receipt getReceipt: "+receiptId);
 		return receiptDAO.get(receiptId);
 	}
 
