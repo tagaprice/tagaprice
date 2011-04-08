@@ -12,7 +12,7 @@ import org.tagaprice.shared.entities.ASEntity;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class AEntity extends ASEntity implements IEntity {
+public abstract class AEntity extends ASEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String _title;
@@ -53,7 +53,6 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 * Returns the title
 	 * @return the title
 	 */
-	@Override
 	@JSONProperty(value="title")
 	public String getTitle() {
 		return _title;
@@ -64,7 +63,6 @@ public abstract class AEntity extends ASEntity implements IEntity {
 	 * Set the title
 	 * @param title title
 	 */
-	@Override
 	public void setTitle(String title){
 		_title = title;
 	}
