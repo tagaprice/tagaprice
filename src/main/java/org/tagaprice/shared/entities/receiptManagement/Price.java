@@ -1,10 +1,12 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
+import java.io.Serializable;
+
 /**
  * Set the price of an {@link ReceiptEntry}
  *
  */
-public class Price implements IPrice {
+public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int _price;
@@ -27,24 +29,20 @@ public class Price implements IPrice {
 		setCurrency(currency);
 	}
 
-	@Override
 	public void setPrice(int price) {
 		_price=price;
 
 	}
 
-	@Override
 	public void setCurrency(Currency currency) {
 		_currency=currency;
 
 	}
 
-	@Override
 	public int getPrice() {
 		return _price;
 	}
 
-	@Override
 	public Currency getCurrency() {
 		return _currency;
 	}

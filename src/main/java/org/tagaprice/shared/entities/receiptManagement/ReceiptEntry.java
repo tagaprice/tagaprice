@@ -6,7 +6,7 @@ public class ReceiptEntry {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;
-	private IPrice _price;
+	private Price _price;
 	private Receipt _receipt;
 
 	/**
@@ -20,7 +20,7 @@ public class ReceiptEntry {
 	 * @param price the price of the {@link ReceiptEntry}
 	 * @param ipackage the related package
 	 */
-	public ReceiptEntry(IPrice price, Package ipackage) {
+	public ReceiptEntry(Price price, Package ipackage) {
 		setPrice(price);
 		setPackage(ipackage);
 	}
@@ -29,7 +29,7 @@ public class ReceiptEntry {
 		return _package;
 	}
 
-	public IPrice getPrice() {
+	public Price getPrice() {
 		return _price;
 	}
 
@@ -41,7 +41,7 @@ public class ReceiptEntry {
 		_package = ipackage;
 	}
 
-	public void setPrice(IPrice price) {
+	public void setPrice(Price price) {
 		_price = price;
 	}
 
