@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ASEntity;
+import org.tagaprice.shared.entities.ASimpleEntity;
 
 
 /**
@@ -12,7 +12,7 @@ import org.tagaprice.shared.entities.ASEntity;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class AEntity extends ASEntity {
+public abstract class AEntity extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String _title;

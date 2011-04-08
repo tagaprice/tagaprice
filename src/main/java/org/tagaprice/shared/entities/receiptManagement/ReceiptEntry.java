@@ -1,9 +1,9 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import org.tagaprice.shared.entities.ASEntity;
+import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry extends ASEntity {
+public class ReceiptEntry extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;

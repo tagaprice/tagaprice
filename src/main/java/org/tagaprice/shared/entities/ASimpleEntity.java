@@ -5,14 +5,14 @@ import java.io.Serializable;
 import org.svenson.JSONProperty;
 
 /**
- * The {@link ASEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
- * for FIND and one for CREATE an {@link ASEntity}.
- * If you like to UPDATE a {@link ASEntity} you have to FIND a {@link ASEntity} first. The server will set the
+ * The {@link ASimpleEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
+ * for FIND and one for CREATE an {@link ASimpleEntity}.
+ * If you like to UPDATE a {@link ASimpleEntity} you have to FIND a {@link ASimpleEntity} first. The server will set the
  * {@link User} and the RevisionID.
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class ASEntity implements Serializable {
+public abstract class ASimpleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String _id = null;
@@ -20,17 +20,17 @@ public abstract class ASEntity implements Serializable {
 
 	/**
 	 * <b>NEW</b>
-	 * Is used to create a new {@link ASEntity}
+	 * Is used to create a new {@link ASimpleEntity}
 	 */
-	public ASEntity() {
+	public ASimpleEntity() {
 	}
 
 	/**
 	 * <b>UPDATE and GET</b>
-	 * This constructor is used by the server to fetch a {@link ASEntity} after SAVING or FINDING a {@link ASEntity}.
+	 * This constructor is used by the server to fetch a {@link ASimpleEntity} after SAVING or FINDING a {@link ASimpleEntity}.
 	 * @param revisionID
 	 */
-	public ASEntity(String id, String revision){
+	public ASimpleEntity(String id, String revision){
 		setId(id);
 		setRevision(revision);
 	}
@@ -58,7 +58,7 @@ public abstract class ASEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "ASEntity [id: " + _id + ", rev: "+_rev+"]";
+		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 
 
