@@ -1,5 +1,7 @@
 package org.tagaprice.shared.entities;
 
+import java.io.Serializable;
+
 import org.svenson.JSONProperty;
 
 /**
@@ -10,7 +12,7 @@ import org.svenson.JSONProperty;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class ASEntity implements ISEntity {
+public abstract class ASEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String _id = null;
@@ -33,26 +35,20 @@ public abstract class ASEntity implements ISEntity {
 		setRevision(revision);
 	}
 
-
-	@Override
 	@JSONProperty(value="_rev", ignoreIfNull = true)
 	public String getRevision() {
 		return _rev;
 	}
 
-
-	@Override
 	public void setRevision(String revision) {
 		_rev=revision;
 	}
-	
-	@Override
+
 	@JSONProperty(value="_id", ignoreIfNull = true)
 	public String getId() {
 		return _id;
 	}
 
-	@Override
 	public void setId(String entityId) {
 		_id = entityId;
 	}

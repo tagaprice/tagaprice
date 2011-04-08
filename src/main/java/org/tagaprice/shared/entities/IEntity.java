@@ -1,16 +1,11 @@
 package org.tagaprice.shared.entities;
 
-import org.tagaprice.shared.entities.ISEntity;
-
-import org.svenson.JSONProperty;
-
-public interface IEntity extends ISEntity  {
+public interface IEntity  {
 
 	/**
 	 * Returns the Title of the {@link AEntity}, if Title is NULL you get NULL back
 	 * @return Returns the Title of the {@link AEntity} or null.
 	 */
-	@JSONProperty(value="title")
 	public String getTitle();
 
 	/**

@@ -1,8 +1,8 @@
 package org.tagaprice.server.dao;
 
-import org.tagaprice.shared.entities.ISEntity;
+import org.tagaprice.shared.entities.ASEntity;
 
-public interface IDAOClass<T extends ISEntity> {
+public interface IDAOClass<T extends ASEntity> {
 	public T create(final T entity);
 	public T get(String id);
 	public T get(String id, String revision);

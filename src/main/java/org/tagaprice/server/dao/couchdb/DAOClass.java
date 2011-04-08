@@ -4,9 +4,9 @@ import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
-import org.tagaprice.shared.entities.ISEntity;
+import org.tagaprice.shared.entities.ASEntity;
 
-public class DAOClass<T extends ISEntity> implements IDAOClass<T> {
+public class DAOClass<T extends ASEntity> implements IDAOClass<T> {
 	protected Database m_db;
 	Class<? extends T> m_class;
 	
