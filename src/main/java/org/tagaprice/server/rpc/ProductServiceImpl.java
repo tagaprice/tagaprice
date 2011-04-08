@@ -8,7 +8,7 @@ import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -65,18 +65,18 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public IPackage getPackage(String id, String revision) {
+	public Package getPackage(String id, String revision) {
 		return packageDAO.get(id, revision);
 	}
 	
 	@Override
-	public IPackage getPackage(String id) {
+	public Package getPackage(String id) {
 		return packageDAO.get(id);
 	}
 
 
 	@Override
-	public IPackage savePackage(IPackage pkg) {
+	public Package savePackage(Package pkg) {
 		return packageDAO.update(pkg);
 	}
 

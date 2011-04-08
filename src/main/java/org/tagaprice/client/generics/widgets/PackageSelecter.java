@@ -3,7 +3,7 @@ package org.tagaprice.client.generics.widgets;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
@@ -23,13 +23,13 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 
 
 	@Override
-	public void setPackages(ArrayList<IPackage> iPackage) {
-		packageSeleter.setPackages(iPackage);
+	public void setPackages(ArrayList<Package> packages) {
+		packageSeleter.setPackages(packages);
 
 	}
 
 	@Override
-	public ArrayList<IPackage> getPackages() {
+	public ArrayList<Package> getPackages() {
 		return packageSeleter.getPackages();
 	}
 

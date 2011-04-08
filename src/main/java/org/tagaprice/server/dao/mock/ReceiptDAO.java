@@ -12,7 +12,6 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
@@ -46,7 +45,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		Category root = new Category("root",null);
 		//Add receipt entries
 		{
-			IPackage ipack = new Package(new Quantity(1.2, Unit.kg));
+			Package ipack = new Package(new Quantity(1.2, Unit.kg));
 			Product iprodc = new Product("Bergkäse 4", new Category("food",root), Unit.g);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
@@ -55,7 +54,7 @@ public class ReceiptDAO implements IReceiptDAO {
 		}
 
 		{
-			IPackage ipack = new Package(new Quantity(1.5, Unit.l));
+			Package ipack = new Package(new Quantity(1.5, Unit.l));
 			Product iprodc = new Product("CocaCola", new Category("food",root), Unit.l);
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);

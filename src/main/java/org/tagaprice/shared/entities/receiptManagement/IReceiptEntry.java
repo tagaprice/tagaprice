@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.io.Serializable;
 
-import org.tagaprice.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 /**
  * Stores information about a bought product, the quantity and the price.
@@ -23,16 +23,16 @@ public interface IReceiptEntry extends Serializable {
 	public void setPrice(IPrice price);
 
 	/**
-	 * defines the {@link IPackage} (Product)
-	 * @param prackage the {@link IPackage} (Product)
+	 * defines the {@link Package} (Product)
+	 * @param prackage the {@link Package} (Product)
 	 */
-	public void setPackage(IPackage ipackage);
+	public void setPackage(Package ipackage);
 
 	/**
 	 * 
-	 * @return the related {@link IPackage}
+	 * @return the related {@link Package}
 	 */
-	public IPackage getPackage();
+	public Package getPackage();
 
 	/**
 	 * 

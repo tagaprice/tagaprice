@@ -11,7 +11,7 @@ import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.*;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,7 +32,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	.create(CreateProductViewImplUiBinder.class);
 
 	//TODO replace with IPackageWidget
-	ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
+	ArrayList<Package> _iPackage = new ArrayList<Package>();
 
 	private Presenter _presenter;
 
@@ -115,13 +115,13 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void addPackage(IPackage ipackage) {
+	public void addPackage(Package ipackage) {
 		_iPackage.add(ipackage);
 		_packages.setPackages(_iPackage);
 	}
 
 	@Override
-	public void setPackages(ArrayList<IPackage> iPackage) {
+	public void setPackages(ArrayList<Package> iPackage) {
 		_iPackage.clear();
 
 		_iPackage.addAll(iPackage);
@@ -130,7 +130,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public ArrayList<IPackage> getPackages() {
+	public ArrayList<Package> getPackages() {
 		return _packages.getPackages();
 	}
 

@@ -225,7 +225,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		product.setUnit(view.getUnit());
 
 		//if
-		//for(IPackage p:view.getPackages())
+		//for(Package p:view.getPackages())
 		//if(p.getRevisionId()==null) product.addPackage(p);
 
 		product.setPackages(view.getPackages());

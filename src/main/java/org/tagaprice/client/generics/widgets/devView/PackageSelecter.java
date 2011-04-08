@@ -6,8 +6,6 @@ import org.tagaprice.client.generics.widgets.IPackageSelecter;
 import org.tagaprice.client.generics.widgets.IQuantityChangeHandler;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,7 +20,7 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 
 	private VerticalPanel _vePa = new VerticalPanel();
 	private VerticalPanel _vePa2 = new VerticalPanel();
-	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
+	private ArrayList<Package> _iPackage = new ArrayList<Package>();
 	private Unit _relatedUnit;
 	private ArrayList<QuantitySelecter> _quantitySaveList = new ArrayList<QuantitySelecter>();
 	private QuantitySelecter newQuant = new QuantitySelecter();
@@ -54,7 +52,7 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 		_vePa.add(hoPaPlus);
 	}
 
-	private void addPackage(final IPackage iPackage){
+	private void addPackage(final Package iPackage){
 		QuantitySelecter temp = new QuantitySelecter();
 		temp.setRelatedUnit(_relatedUnit);
 		temp.setQuantity(iPackage.getQuantity());
@@ -79,22 +77,22 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 	}
 
 	@Override
-	public void setPackages(ArrayList<IPackage> iPackage) {
+	public void setPackages(ArrayList<Package> packages) {
 		_vePa2.clear();
 		_iPackage.clear();
 		_quantitySaveList.clear();
-		_iPackage.addAll(iPackage);
+		_iPackage.addAll(packages);
 
 
-		for(IPackage p:_iPackage){
+		for (Package p: _iPackage) {
 			addPackage(p);
 		}
 
 	}
 
 	@Override
-	public ArrayList<IPackage> getPackages() {
-		ArrayList<IPackage> copyList = new ArrayList<IPackage>();
+	public ArrayList<Package> getPackages() {
+		ArrayList<Package> copyList = new ArrayList<Package>();
 
 
 		copyList.addAll(_iPackage);

@@ -13,7 +13,6 @@ import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -40,12 +39,12 @@ public class ProductDAO implements IProductDAO {
 		bergkasese = create(bergkasese);
 
 		{
-			IPackage tPackage=new Package(new Quantity(500, Unit.kg));
+			Package tPackage=new Package(new Quantity(500, Unit.kg));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}
 		{
-			IPackage tPackage=new Package(new Quantity(750, Unit.g));
+			Package tPackage=new Package(new Quantity(750, Unit.g));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}

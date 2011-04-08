@@ -13,7 +13,7 @@ import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
@@ -42,7 +42,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
-import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 	interface CreateReceiptViewImplUiBinder extends UiBinder<Widget, CreateReceiptViewImpl>{}
@@ -296,7 +295,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_productSearchSuggestVePa.clear();
 		for(final Product p:productResults){
 			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());
-			for(final IPackage pa: p.getPackages()){
+			for(final Package pa: p.getPackages()){
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit());
 
 				_productSearchSuggestVePa.add(clickProduct);
@@ -315,7 +314,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 				@Override
 				public void onClick(ClickEvent arg0) {
-					IPackage np = new Package(new Quantity(0, p.getUnit()));
+					Package np = new Package(new Quantity(0, p.getUnit()));
 					np.setProduct(p);
 
 					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(0, Currency.dkk), np));

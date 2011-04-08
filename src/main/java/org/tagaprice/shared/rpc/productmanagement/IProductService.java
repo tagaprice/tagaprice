@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 
@@ -76,27 +76,27 @@ public interface IProductService extends RemoteService {
 
 
 	/**
-	 * Returns a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
+	 * Returns a {@link Package} by the given {@link IRevisionId}. The {@link Package} will also hold its parent
 	 * {@link Product}
 	 * 
-	 * @param revisionId
-	 *            of the {@link IPackage}
-	 * @return a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
+	 * @param id {@link Package Package's} ID
+	 * @param revision {@link Package Package's} revision
+	 * @return a {@link Package} by the given {@link IRevisionId}. The {@link Package} will also hold its parent
 	 *         {@link Product}
 	 */
-	public IPackage getPackage(String id, String revision);
+	public Package getPackage(String id, String revision);
 	
-	public IPackage getPackage(String id);
+	public Package getPackage(String id);
 
 
 	/**
-	 * Save or create {@link IPackage}. The {@link Product} must be included.
+	 * Save or create {@link Package}. The {@link Product} must be included.
 	 * 
 	 * @param ipackage
-	 *            {@link IPackage} that should be created or saved.
-	 * @return return the new {@link IPackage} with {@link IRevisionId}
+	 *            {@link Package} that should be created or saved.
+	 * @return return the new {@link Package} with {@link IRevisionId}
 	 * @throws UserNotLoggedInException
 	 */
-	public IPackage savePackage(IPackage ipackage) throws UserNotLoggedInException;
+	public Package savePackage(Package ipackage) throws UserNotLoggedInException;
 
 }

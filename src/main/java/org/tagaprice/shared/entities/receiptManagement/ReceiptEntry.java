@@ -1,11 +1,11 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import org.tagaprice.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class ReceiptEntry implements IReceiptEntry {
 	private static final long serialVersionUID = 1L;
 
-	private IPackage _package;
+	private Package _package;
 	private IPrice _price;
 	private IReceipt _receipt;
 
@@ -20,13 +20,13 @@ public class ReceiptEntry implements IReceiptEntry {
 	 * @param price the price of the {@link IReceiptEntry}
 	 * @param ipackage the related package
 	 */
-	public ReceiptEntry(IPrice price, IPackage ipackage) {
+	public ReceiptEntry(IPrice price, Package ipackage) {
 		setPrice(price);
 		setPackage(ipackage);
 	}
 
 	@Override
-	public IPackage getPackage() {
+	public Package getPackage() {
 		return _package;
 	}
 
@@ -41,7 +41,7 @@ public class ReceiptEntry implements IReceiptEntry {
 	}
 
 	@Override
-	public void setPackage(IPackage ipackage) {
+	public void setPackage(Package ipackage) {
 		_package = ipackage;
 	}
 

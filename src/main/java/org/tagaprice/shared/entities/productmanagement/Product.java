@@ -15,7 +15,7 @@ public class Product extends AEntity {
 
 	private static final long serialVersionUID = 4858431133448109402L;
 	private Category _category;
-	private ArrayList<IPackage> _iPackage = new ArrayList<IPackage>();
+	private ArrayList<Package> _iPackage = new ArrayList<Package>();
 	private Unit _unit;
 
 	/**
@@ -60,21 +60,21 @@ public class Product extends AEntity {
 		return _category;
 	}
 
-	public void addPackage(IPackage ipackage) {
+	public void addPackage(Package ipackage) {
 		ipackage.setProduct(this);
 		_iPackage.add(ipackage);
 	}
 
-	public void setPackages(ArrayList<IPackage> iPackage) {
+	public void setPackages(ArrayList<Package> iPackage) {
 		_iPackage.clear();
-		for(IPackage p:iPackage){
+		for (Package p: iPackage) {
 			p.setProduct(this);
 			_iPackage.add(p);
 		}
 
 	}
 
-	public ArrayList<IPackage> getPackages() {
+	public ArrayList<Package> getPackages() {
 		return _iPackage;
 	}
 

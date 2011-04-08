@@ -2,8 +2,8 @@ package org.tagaprice.server.dao;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.productmanagement.IPackage;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
-public interface IPackageDAO extends IDAOClass<IPackage> {
-	public List<IPackage> find(final IPackage searchPattern);
+public interface IPackageDAO extends IDAOClass<Package> {
+	public List<Package> find(final Package searchPattern);
 }

@@ -6,7 +6,7 @@ import org.tagaprice.shared.entities.ASEntity;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Quantity;
 
-public class Package extends ASEntity implements IPackage {
+public class Package extends ASEntity {
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
@@ -43,40 +43,30 @@ public class Package extends ASEntity implements IPackage {
 		_iRevisionId=revisionId;
 	}
 
-
-	@Override
 	public void addBarcode(int barcode) {
 		_barcode.add(barcode);
 	}
 
-	@Override
 	public void addBarcodes(ArrayList<Integer> barcode) {
 		_barcode.addAll(barcode);
 	}
 
-	@Override
 	public ArrayList<Integer> getBarcodes() {
 		return _barcode;
 	}
 
-	@Override
 	public Product getProduct() {
 		return _product;
 	}
 
-	@Override
 	public Quantity getQuantity() {
 		return _iQuantity;
 	}
 
-
-	@Override
 	public void setProduct(Product product) {
 		_product=product;
 	}
 
-
-	@Override
 	public void setQuantity(Quantity quantity) {
 		_iQuantity=quantity;
 	}
