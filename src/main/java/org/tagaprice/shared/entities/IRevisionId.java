@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.accountmanagement.IUser;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * This interface is used to set an unique Id and revision for an {@link AEntity}. And to FIND an {@link AEntity}
@@ -51,14 +51,14 @@ public interface IRevisionId extends Serializable {
 	 * @param user
 	 *            The user who created this {@link IRevision}
 	 */
-	public void setUser(IUser user);
+	public void setUser(User user);
 
 	/**
 	 * 
 	 * @return Returns the user, who created the {@link IRevision} of a special {@link AEntity}
 	 */
 	@JSONProperty(value="author")
-	public IUser getUser();
+	public User getUser();
 
 	/**
 	 * Set the {@link Date} when the {@link IRevision} is going to be created. This method must not be used on the client.

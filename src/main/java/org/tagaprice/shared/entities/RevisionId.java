@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities;
 
 import java.util.Date;
 
-import org.tagaprice.shared.entities.accountmanagement.IUser;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * A {@link RevisionId} is used to
@@ -13,7 +13,7 @@ public class RevisionId implements IRevisionId {
 	private static final long serialVersionUID = 2011503142739304476L;
 	private String _id = null;
 	private String _rev = null;
-	private IUser _user;
+	private User _user;
 	private Date _date;
 
 	/**
@@ -61,12 +61,12 @@ public class RevisionId implements IRevisionId {
 	}
 
 	@Override
-	public void setUser(IUser user) {
+	public void setUser(User user) {
 		_user = user;
 	}
 
 	@Override
-	public IUser getUser() {
+	public User getUser() {
 		return _user;
 	}
 

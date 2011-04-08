@@ -8,7 +8,7 @@ import org.tagaprice.shared.entities.ASEntity;
  * The {@link AEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
  * for FIND and one for CREATE an {@link AEntity}.
  * If you like to UPDATE a {@link AEntity} you have to FIND a {@link AEntity} first. The server will set the
- * {@link IUser} and the RevisionID.
+ * {@link User} and the RevisionID.
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */

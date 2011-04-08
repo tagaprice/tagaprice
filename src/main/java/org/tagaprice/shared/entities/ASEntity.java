@@ -6,7 +6,7 @@ import org.svenson.JSONProperty;
  * The {@link ASEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
  * for FIND and one for CREATE an {@link ASEntity}.
  * If you like to UPDATE a {@link ASEntity} you have to FIND a {@link ASEntity} first. The server will set the
- * {@link IUser} and the RevisionID.
+ * {@link User} and the RevisionID.
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
