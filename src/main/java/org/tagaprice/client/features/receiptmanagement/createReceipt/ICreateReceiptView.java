@@ -14,8 +14,8 @@ import com.google.gwt.place.shared.Place;
 public interface ICreateReceiptView extends IView{
 
 	/**
-	 * Returns the Title of the {@link IReceipt}, if Title is NULL you get NULL back
-	 * @return Returns the Title of the {@link IReceipt} or null.
+	 * Returns the Title of the {@link Receipt}, if Title is NULL you get NULL back
+	 * @return Returns the Title of the {@link Receipt} or null.
 	 */
 	public String getTitle();
 

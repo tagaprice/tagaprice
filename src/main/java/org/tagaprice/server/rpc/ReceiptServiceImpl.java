@@ -23,9 +23,9 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public IReceipt saveReceipt(IReceipt receipt) {
+	public Receipt saveReceipt(Receipt receipt) {
 		logger.log("Receipt saved: "+receipt);
-		IReceipt rc=null;
+		Receipt rc=null;
 
 		//Create or update Receipt
 		if (receipt.getId()==null){
@@ -39,7 +39,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public IReceipt getReceipt(String receiptId) {
+	public Receipt getReceipt(String receiptId) {
 		return receiptDAO.get(receiptId);
 	}
 
@@ -51,7 +51,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public List<IReceipt> getReceits() throws UserNotLoggedInException {
+	public List<Receipt> getReceipts() throws UserNotLoggedInException {
 		return receiptDAO.list();
 	}
 

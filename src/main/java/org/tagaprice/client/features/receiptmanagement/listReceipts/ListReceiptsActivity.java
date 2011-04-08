@@ -5,7 +5,7 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -61,10 +61,10 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 		panel.setWidget(_listReceiptsView);
 
 
-		_clientFactory.getReceiptService().getReceits(new AsyncCallback<List<IReceipt>>() {
+		_clientFactory.getReceiptService().getReceipts(new AsyncCallback<List<Receipt>>() {
 
 			@Override
-			public void onSuccess(List<IReceipt> response) {
+			public void onSuccess(List<Receipt> response) {
 				_listReceiptsView.setReceipts(response);
 
 			}

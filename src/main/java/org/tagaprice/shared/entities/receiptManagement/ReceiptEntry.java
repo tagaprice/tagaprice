@@ -7,7 +7,7 @@ public class ReceiptEntry implements IReceiptEntry {
 
 	private Package _package;
 	private IPrice _price;
-	private IReceipt _receipt;
+	private Receipt _receipt;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -36,7 +36,7 @@ public class ReceiptEntry implements IReceiptEntry {
 	}
 
 	@Override
-	public IReceipt getReceipt() {
+	public Receipt getReceipt() {
 		return _receipt;
 	}
 
@@ -51,7 +51,7 @@ public class ReceiptEntry implements IReceiptEntry {
 	}
 
 	@Override
-	public void setReceipt(IReceipt receipt) {
+	public void setReceipt(Receipt receipt) {
 		_receipt = receipt;
 
 	}

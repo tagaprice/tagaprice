@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gwt.place.shared.Place;
 import org.tagaprice.client.generics.IView;
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 public interface IListReceiptsView extends IView {
 
@@ -12,7 +12,7 @@ public interface IListReceiptsView extends IView {
 	 * Display a receipt list
 	 * @param receipts all receipts of this user.
 	 */
-	public void setReceipts(List<IReceipt> receipts);
+	public void setReceipts(List<Receipt> receipts);
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IListReceiptsView} to control this view. It is also necessary

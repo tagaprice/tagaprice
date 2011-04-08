@@ -2,9 +2,9 @@ package org.tagaprice.server.dao;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 
-public interface IReceiptDAO extends IDAOClass<IReceipt> {
-	public List<IReceipt> list();
+public interface IReceiptDAO extends IDAOClass<Receipt> {
+	public List<Receipt> list();
 }

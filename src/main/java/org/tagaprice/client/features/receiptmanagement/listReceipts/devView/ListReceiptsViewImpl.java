@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,10 +23,10 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	}
 
 	@Override
-	public void setReceipts(List<IReceipt> receipts) {
+	public void setReceipts(List<Receipt> receipts) {
 		_receiptList.clear();
 
-		for(final IReceipt r:receipts){
+		for(final Receipt r:receipts){
 			Label ml = new Label(createNiceReceiptLine(r));
 			ml.addClickHandler(new ClickHandler() {
 
@@ -45,7 +45,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		_presenter=presenter;
 	}
 
-	private String createNiceReceiptLine(IReceipt receipt){
+	private String createNiceReceiptLine(Receipt receipt){
 		String nice="";
 
 		if (receipt.getId() != null) nice+="Id: "+receipt.getId()+" | ";

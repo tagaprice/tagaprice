@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -21,7 +20,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	private CreateReceiptPlace _place;
 	private ClientFactory _clientFactory;
-	private IReceipt _receipt;
+	private Receipt _receipt;
 	private ICreateReceiptView _createReceiptView;
 
 	public CreateReceiptActivity(CreateReceiptPlace place, ClientFactory clientFactory) {
@@ -72,10 +71,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		} else {
 			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
 
-			_clientFactory.getReceiptService().getReceipt(_place.getId(), new AsyncCallback<IReceipt>() {
+			_clientFactory.getReceiptService().getReceipt(_place.getId(), new AsyncCallback<Receipt>() {
 
 				@Override
-				public void onSuccess(IReceipt response) {
+				public void onSuccess(Receipt response) {
 					_receipt=response;
 					CreateReceiptActivity._logger.log("Result: "+_receipt.toString());
 					updateView(_receipt);
@@ -95,7 +94,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		panel.setWidget(_createReceiptView);
 	}
 
-	private void updateView(IReceipt receipt){
+	private void updateView(Receipt receipt){
 		_receipt=receipt;
 
 		_createReceiptView.setTitle(_receipt.getTitle());
@@ -162,10 +161,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 
 
-		_clientFactory.getReceiptService().saveReceipt(_receipt, new AsyncCallback<IReceipt>() {
+		_clientFactory.getReceiptService().saveReceipt(_receipt, new AsyncCallback<Receipt>() {
 
 			@Override
-			public void onSuccess(IReceipt response) {
+			public void onSuccess(Receipt response) {
 				CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
 			}
 

@@ -14,7 +14,7 @@ public interface IReceiptEntry extends Serializable {
 	 * The related receipt
 	 * @param receipt the related receipt
 	 */
-	public void setReceipt(IReceipt receipt);
+	public void setReceipt(Receipt receipt);
 
 	/**
 	 * sets the price per {@link Currency}  in cent
@@ -36,9 +36,9 @@ public interface IReceiptEntry extends Serializable {
 
 	/**
 	 * 
-	 * @return the related {@link IReceipt}
+	 * @return the related {@link Receipt}
 	 */
-	public IReceipt getReceipt();
+	public Receipt getReceipt();
 
 	/**
 	 * returns the price per {@link Currency} in cent

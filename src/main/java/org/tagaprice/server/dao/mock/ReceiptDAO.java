@@ -15,10 +15,9 @@ import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
-import org.tagaprice.shared.entities.receiptManagement.IReceipt;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
-import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
@@ -27,7 +26,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	IPackageDAO packageDAO;
 	Random random = new Random(44646776);
 	int productIdCounter = 1;
-	ArrayList<IReceipt> _receiptList = new ArrayList<IReceipt>();
+	ArrayList<Receipt> _receiptList = new ArrayList<Receipt>();
 
 	public ReceiptDAO(IDaoFactory daoFactory) {
 		packageDAO = daoFactory.getPackageDAO();
@@ -38,8 +37,8 @@ public class ReceiptDAO implements IReceiptDAO {
 		tempAddres.setParent(tempshop);
 
 		//Create test product
-		//IReceipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
-		IReceipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
+		//Receipt tempReceipt = new Receipt("First Receipt", new Date(), tempAddres, new ArrayList<IReceiptEntry>());
+		Receipt tempReceipt = new Receipt(""+random.nextInt(), "1", "First Receipt",  new Date(), tempAddres);
 
 
 		Category root = new Category("root",null);
@@ -71,7 +70,7 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public IReceipt create(IReceipt receipt) {
+	public Receipt create(Receipt receipt) {
 		receipt.setId(receipt.getTitle());
 		receipt.setRevision("1");
 		_receiptList.add(receipt);
@@ -79,8 +78,8 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public IReceipt get(String id, String receipt) {
-		for (IReceipt r:_receiptList) {
+	public Receipt get(String id, String receipt) {
+		for (Receipt r:_receiptList) {
 			if(r.getId() == id) {
 				return r;
 			}
@@ -90,13 +89,13 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 	
 	@Override
-	public IReceipt get(String id) {
+	public Receipt get(String id) {
 		return get(id, null);
 	}
 
 	@Override
-	public IReceipt update(IReceipt receipt) {
-		for(IReceipt ir:_receiptList){
+	public Receipt update(Receipt receipt) {
+		for(Receipt ir:_receiptList){
 			if(ir.getId()==receipt.getId()){
 				ir=receipt;
 				ir.setRevision(ir.getRevision()+1);
@@ -107,13 +106,13 @@ public class ReceiptDAO implements IReceiptDAO {
 	}
 
 	@Override
-	public void delete(IReceipt shop) {
+	public void delete(Receipt shop) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<IReceipt> list() {
+	public List<Receipt> list() {
 		return _receiptList;
 	}
 

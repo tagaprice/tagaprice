@@ -12,7 +12,7 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
  * and all {@link ReceiptEntry} of a receipt.
  * 
  */
-public class Receipt extends AEntity implements IReceipt {
+public class Receipt extends AEntity {
 	private static final long serialVersionUID = 1L;
 
 	private Shop _shop;
@@ -56,21 +56,16 @@ public class Receipt extends AEntity implements IReceipt {
 	}
 
 
-	@Override
 	public void addReceiptEntriy(IReceiptEntry receiptEntry) {
 		receiptEntry.setReceipt(this);
 		_receiptEntries.add(receiptEntry);
 
 	}
 
-	@Override
 	public Shop getShop() {
 		return _shop;
 	}
 
-
-
-	@Override
 	public ArrayList<IReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
@@ -79,25 +74,19 @@ public class Receipt extends AEntity implements IReceipt {
 		return _shop.getId();
 	}
 
-
-	@Override
 	public void setShop(Shop shop) {
 		_shop=shop;
 	}
 
-	@Override
 	public void setReceiptEntries(ArrayList<IReceiptEntry> receiptEntries) {
 		_receiptEntries.clear();
 		_receiptEntries.addAll(receiptEntries);
 	}
 
-
-	@Override
 	public void setDate(Date date) {
 		_date=date;
 	}
 
-	@Override
 	public Date getDate() {
 		return _date;
 	}
