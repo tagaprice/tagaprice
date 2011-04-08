@@ -12,7 +12,7 @@ public class Package extends ASEntity implements IPackage {
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	Quantity _iQuantity;
 	IRevisionId _iRevisionId;
-	IProduct _product;
+	Product _product;
 
 	/**
 	 * Necessary for serialization
@@ -60,7 +60,7 @@ public class Package extends ASEntity implements IPackage {
 	}
 
 	@Override
-	public IProduct getProduct() {
+	public Product getProduct() {
 		return _product;
 	}
 
@@ -71,7 +71,7 @@ public class Package extends ASEntity implements IPackage {
 
 
 	@Override
-	public void setProduct(IProduct product) {
+	public void setProduct(Product product) {
 		_product=product;
 	}
 

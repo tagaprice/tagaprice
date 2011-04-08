@@ -5,19 +5,19 @@ import java.util.List;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface IProductServiceAsync {
 
-	void getProduct(String id, String revision, AsyncCallback<IProduct> callback);
+	void getProduct(String id, String revision, AsyncCallback<Product> callback);
 	
-	void getProduct(String id, AsyncCallback<IProduct> callback);
+	void getProduct(String id, AsyncCallback<Product> callback);
 
-	void findProducts(IProduct searchCriteria, AsyncCallback<List<IProduct>> callback);
+	void findProducts(Product searchCriteria, AsyncCallback<List<Product>> callback);
 
-	void saveProduct(IProduct product, AsyncCallback<IProduct> callback);
+	void saveProduct(Product product, AsyncCallback<Product> callback);
 
 	@Deprecated
 	void getCategories(AsyncCallback<List<Category>> callback);

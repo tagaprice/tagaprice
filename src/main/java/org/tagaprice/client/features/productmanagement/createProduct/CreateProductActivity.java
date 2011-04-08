@@ -26,7 +26,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	private CreateProductPlace _place;
 	private ClientFactory _clientFactory;
-	private IProduct _product;
+	private Product _product;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
 		CreateProductActivity._logger.log("CreateProductActivity created");
@@ -96,10 +96,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			CreateProductActivity._logger.log("Load Categories...");
 
 
-			this._clientFactory.getProductService().getProduct(_place.getRevisionId().getId(), _place.getRevisionId().getRevision(), new AsyncCallback<IProduct>() {
+			this._clientFactory.getProductService().getProduct(_place.getRevisionId().getId(), _place.getRevisionId().getRevision(), new AsyncCallback<Product>() {
 
 				@Override
-				public void onSuccess(IProduct result) {
+				public void onSuccess(Product result) {
 					updateView(result);
 					panel.setWidget(_clientFactory.getCreateProductView());
 				}
@@ -124,14 +124,14 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	@Override
 	public void onSaveEvent() {
 		CreateProductActivity._logger.log("Save Product");
-		IProduct product = this.getProduct();
+		Product product = this.getProduct();
 		//	product = new Product("default Title", new Category("default Category"), new Quantity(999L, Unit.ml));
 		CreateProductActivity._logger.log(product.toString());
 
-		this._clientFactory.getProductService().saveProduct(product, new AsyncCallback<IProduct>() {
+		this._clientFactory.getProductService().saveProduct(product, new AsyncCallback<Product>() {
 
 			@Override
-			public void onSuccess(IProduct result) {
+			public void onSuccess(Product result) {
 				updateView(result);
 			}
 
@@ -199,7 +199,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	}
 
-	private void updateView(IProduct product) {
+	private void updateView(Product product) {
 		_product = product;
 		if(product == null)
 			return;
@@ -212,8 +212,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		view.setPackages(product.getPackages());
 	}
 
-	private IProduct getProduct() {
-		IProduct product;
+	private Product getProduct() {
+		Product product;
 		if(_product == null) {
 			product = new Product();
 		} else {

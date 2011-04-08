@@ -38,32 +38,32 @@ public interface ICreateProductView extends IView {
 
 
 	/**
-	 * Sets the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can
+	 * Sets the {@link Unit} which a {@link Product} can
 	 * have.
 	 * 
 	 * @param unit
-	 *            the {@link Unit} which a {@link org.tagaprice.shared.entities.productmanagement.IProduct}
+	 *            the {@link Unit} which a {@link Product}
 	 *            can
 	 *            have.
 	 */
 	public void setUnit(Unit unit);
 
 	/**
-	 * The {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
+	 * The {@link Unit} in which a {@link Product} can be
 	 * bought.
 	 * 
-	 * @return the {@link Unit} in which a {@link org.tagaprice.shared.entities.productmanagement.IProduct} can be
+	 * @return the {@link Unit} in which a {@link Product} can be
 	 * bought
 	 */
 	public Unit getUnit();
 
 	/**
 	 * Sets the depending {@link Category} for a
-	 * {@link org.tagaprice.shared.entities.productmanagement.IProduct}
+	 * {@link Product}
 	 * 
 	 * @param category
 	 *            the depending {@link Category} for a
-	 *            {@link org.tagaprice.shared.entities.productmanagement.IProduct}
+	 *            {@link Product}
 	 */
 	public void setCategory(Category category);
 
@@ -76,19 +76,19 @@ public interface ICreateProductView extends IView {
 
 	/**
 	 * Add one {@link IPackage} to the Product.
-	 * @param ipackage that will be added to the {@link IProduct}
+	 * @param ipackage that will be added to the {@link Product}
 	 */
 	public void addPackage(IPackage ipackage);
 
 	/**
 	 * Add some {@link IPackage} to the Product.
-	 * @param ipackage that will be added to the {@link IProduct}
+	 * @param ipackage that will be added to the {@link Product}
 	 */
 	public void setPackages(ArrayList<IPackage> iPackage);
 
 	/**
-	 * Return all Packages includes in a {@link IProduct}
-	 * @return all Packages includes in a {@link IProduct}
+	 * Return all Packages includes in a {@link Product}
+	 * @return all Packages includes in a {@link Product}
 	 */
 	public ArrayList<IPackage> getPackages();
 

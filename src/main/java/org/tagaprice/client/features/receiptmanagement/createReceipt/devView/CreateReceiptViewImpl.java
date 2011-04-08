@@ -14,7 +14,7 @@ import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -292,9 +292,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public void setProductSearchResults(List<IProduct> productResults) {
+	public void setProductSearchResults(List<Product> productResults) {
 		_productSearchSuggestVePa.clear();
-		for(final IProduct p:productResults){
+		for(final Product p:productResults){
 			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());
 			for(final IPackage pa: p.getPackages()){
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit());

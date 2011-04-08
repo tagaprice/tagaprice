@@ -14,7 +14,6 @@ import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -24,8 +23,8 @@ public class ProductDAO implements IProductDAO {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
-	HashMap<IRevisionId, IProduct> productsAllRevisions = new HashMap<IRevisionId, IProduct>();
-	HashMap<String, IProduct> productsLatest = new HashMap<String, IProduct>();
+	HashMap<IRevisionId, Product> productsAllRevisions = new HashMap<IRevisionId, Product>();
+	HashMap<String, Product> productsLatest = new HashMap<String, Product>();
 	ICategoryDAO categoryDAO;
 	
 	public ProductDAO(IDaoFactory daoFactory) {
@@ -37,7 +36,7 @@ public class ProductDAO implements IProductDAO {
 		Category nonalcoholics = categoryDAO.get("nonalcoholics");
 		
 		// TestProduct
-		IProduct bergkasese = new Product("Bergkäse 4", food, Unit.g);
+		Product bergkasese = new Product("Bergkäse 4", food, Unit.g);
 		bergkasese = create(bergkasese);
 
 		{
@@ -61,11 +60,11 @@ public class ProductDAO implements IProductDAO {
 	}
 	
 	@Override
-	public IProduct create(final IProduct product) {
+	public Product create(final Product product) {
 		logger.log("new product");
 		// SAVE
 		// make a copy ... to get sure
-		IProduct newProduct = product;
+		Product newProduct = product;
 		// set a productID and Revision 1
 		newProduct.setId(product.getTitle());
 		// Save it into the hashmaps
@@ -76,19 +75,19 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public IProduct get(String id, String revision) {
-		IProduct rc = null;
+	public Product get(String id, String revision) {
+		Product rc = null;
 		
 		if (id != null) {
 			if (revision == null) {
 				// get the current revision
-				IProduct product = this.productsLatest.get(id);
+				Product product = this.productsLatest.get(id);
 				if (product != null) {
 					rc = product;
 				}
 			} else {
 				// get a specific revision
-				IProduct product = this.productsAllRevisions.get(id);
+				Product product = this.productsAllRevisions.get(id);
 				if (product != null) {
 					rc = product;
 				}
@@ -98,14 +97,14 @@ public class ProductDAO implements IProductDAO {
 	}
 	
 	@Override
-	public IProduct get(String id) {
+	public Product get(String id) {
 		return get(id, null);
 	}
 
 	@Override
-	public IProduct update(final IProduct product) {
+	public Product update(final Product product) {
 		logger.log("update product");
-		IProduct updateProduct = this.productsAllRevisions.get(new RevisionId(product.getId(), product.getRevision()));
+		Product updateProduct = this.productsAllRevisions.get(new RevisionId(product.getId(), product.getRevision()));
 		if (updateProduct == null) {
 			// ERROR
 			return product;
@@ -129,15 +128,15 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public void delete(IProduct shop) {
+	public void delete(Product shop) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<IProduct> find(IProduct searchPattern) {
-		ArrayList<IProduct> products = new ArrayList<IProduct>();
-		for (IProduct p : this.productsLatest.values()) {
+	public List<Product> find(Product searchPattern) {
+		ArrayList<Product> products = new ArrayList<Product>();
+		for (Product p : this.productsLatest.values()) {
 			if (searchPattern != null
 					&& p.getTitle().toLowerCase().contains((searchPattern.getTitle().toLowerCase()))) {
 				products.add(p);

@@ -5,7 +5,6 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
 import org.tagaprice.shared.entities.dump.Category;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
@@ -27,9 +26,9 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	private ListProductsPlace place;
 	private ClientFactory clientFactory;
-	private List<IProduct> products;
+	private List<Product> products;
 
-	private final ListProductsView<IProduct> listProductsView;
+	private final ListProductsView<Product> listProductsView;
 	private IProductServiceAsync productServiceAsync;
 
 	/**
@@ -91,10 +90,10 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		listProductsView.setPresenter(this);
 		listProductsView.reset();
 
-		this.productServiceAsync.findProducts(null, new AsyncCallback<List<IProduct>>() {
+		this.productServiceAsync.findProducts(null, new AsyncCallback<List<Product>>() {
 
 			@Override
-			public void onSuccess(List<IProduct> result) {
+			public void onSuccess(List<Product> result) {
 				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
 				products = result;
 				listProductsView.setData(result);
@@ -130,11 +129,11 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void onSearch(String searchtext) {
 		ListProductsActivity.logger.log("search for " + searchtext);
-		IProduct product = new Product(searchtext, new Category("",null), null);
-		this.productServiceAsync.findProducts(product, new AsyncCallback<List<IProduct>>() {
+		Product product = new Product(searchtext, new Category("",null), null);
+		this.productServiceAsync.findProducts(product, new AsyncCallback<List<Product>>() {
 
 			@Override
-			public void onSuccess(List<IProduct> result) {
+			public void onSuccess(List<Product> result) {
 
 				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
 				products = result;

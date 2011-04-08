@@ -12,16 +12,16 @@ import org.tagaprice.shared.entities.dump.Quantity;
 public interface IPackage extends ISEntity{
 
 	/**
-	 * Set the related {@link IProduct}
-	 * @param product the related {@link IProduct}
+	 * Set the related {@link Product}
+	 * @param product the related {@link Product}
 	 */
-	public void setProduct(IProduct product);
+	public void setProduct(Product product);
 
 	/**
-	 * Returns the related {@link IProduct}
-	 * @return the related {@link IProduct}
+	 * Returns the related {@link Product}
+	 * @return the related {@link Product}
 	 */
-	public IProduct getProduct();
+	public Product getProduct();
 
 	/**
 	 * Set the {@link Quantity} which is represented by an Quantity and an Unit.

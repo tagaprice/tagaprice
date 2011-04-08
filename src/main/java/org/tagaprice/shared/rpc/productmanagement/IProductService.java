@@ -5,7 +5,7 @@ import java.util.List;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -18,13 +18,13 @@ public interface IProductService extends RemoteService {
 	 * Get a unique product from the server
 	 * 
 	 * @param revionsId
-	 *            The ID (and Revision) of the {@link IProduct} you want to find. The ID in {@link IRevisionId} must not
+	 *            The ID (and Revision) of the {@link Product} you want to find. The ID in {@link IRevisionId} must not
 	 *            be null.
-	 * @return The {@link IProduct} corresponding to the {@link IRevisionId}
+	 * @return The {@link Product} corresponding to the {@link IRevisionId}
 	 */
-	public IProduct getProduct(String id, String revision);
+	public Product getProduct(String id, String revision);
 	
-	public IProduct getProduct(String id);
+	public Product getProduct(String id);
 
 	/**
 	 * Depending on the search criterias returns the method a list with IProducts
@@ -32,20 +32,20 @@ public interface IProductService extends RemoteService {
 	 * @param searchCriteria
 	 * @return
 	 */
-	public List<IProduct> findProducts(IProduct searchCriteria);
+	public List<Product> findProducts(Product searchCriteria);
 
 
 	/**
-	 * CREATE or UPDATE a {@link IProduct} on the server.
+	 * CREATE or UPDATE a {@link Product} on the server.
 	 * CREATE: A product with id=0 or RevisionID=null gets a new id and the initial revisionID 1.
 	 * UPDATE: the existing product gets a new revisionID incremented by one. Throws an exception, if the given
 	 * revisionID is not the last one for this product.
 	 * 
 	 * @param product
-	 *            The {@link IProduct} you want to UPDATE/CREATE
-	 * @return the SAVED or UPDATED {@link IProduct}
+	 *            The {@link Product} you want to UPDATE/CREATE
+	 * @return the SAVED or UPDATED {@link Product}
 	 */
-	public IProduct saveProduct(IProduct product) throws UserNotLoggedInException;
+	public Product saveProduct(Product product) throws UserNotLoggedInException;
 
 	/**
 	 * Returns a list of all categories. TODO Return
@@ -77,12 +77,12 @@ public interface IProductService extends RemoteService {
 
 	/**
 	 * Returns a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
-	 * {@link IProduct}
+	 * {@link Product}
 	 * 
 	 * @param revisionId
 	 *            of the {@link IPackage}
 	 * @return a {@link IPackage} by the given {@link IRevisionId}. The {@link IPackage} will also hold its parent
-	 *         {@link IProduct}
+	 *         {@link Product}
 	 */
 	public IPackage getPackage(String id, String revision);
 	
@@ -90,7 +90,7 @@ public interface IProductService extends RemoteService {
 
 
 	/**
-	 * Save or create {@link IPackage}. The {@link IProduct} must be included.
+	 * Save or create {@link IPackage}. The {@link Product} must be included.
 	 * 
 	 * @param ipackage
 	 *            {@link IPackage} that should be created or saved.

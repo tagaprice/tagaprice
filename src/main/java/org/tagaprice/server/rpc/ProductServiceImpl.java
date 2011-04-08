@@ -9,7 +9,7 @@ import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.IPackage;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.productmanagement.IProductService;
@@ -37,22 +37,22 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public IProduct getProduct(String id, String revision) {
+	public Product getProduct(String id, String revision) {
 		return productDAO.get(id, revision);
 	}
 	
 	@Override
-	public IProduct getProduct(String id) {
+	public Product getProduct(String id) {
 		return productDAO.get(id);
 	}
 
 	@Override
-	public IProduct saveProduct(final IProduct product) {
+	public Product saveProduct(final Product product) {
 		return productDAO.update(product);
 	}
 
 	@Override
-	public List<IProduct> findProducts(IProduct searchCriteria) {
+	public List<Product> findProducts(Product searchCriteria) {
 		logger.log("findProducts... searchCriteria: " + searchCriteria);
 		return productDAO.find(searchCriteria);
 	}

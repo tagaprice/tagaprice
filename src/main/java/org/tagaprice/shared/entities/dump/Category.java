@@ -4,7 +4,7 @@ import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.*;
 
 /**
- * A category describes which properties and dependencies a {@link IProduct} has.
+ * A category describes which properties and dependencies a {@link Product} has.
  *
  */
 public class Category extends AEntity   {

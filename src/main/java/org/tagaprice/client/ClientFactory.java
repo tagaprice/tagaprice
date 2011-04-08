@@ -11,7 +11,7 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceipt
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.productmanagement.IProduct;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.IReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
@@ -46,7 +46,7 @@ public interface ClientFactory {
 	 * 
 	 * @return
 	 */
-	ListProductsView<IProduct> getListProductsView();
+	ListProductsView<Product> getListProductsView();
 
 	/**
 	 * Locale Dispatch for remote RPC Service

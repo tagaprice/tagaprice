@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.dump.Category;
  * as model. (Read MVP pattern on <a href="http://code.google.com/webtoolkit/articles/mvp-architecture.html#model" />)
  * 
  */
-public class Product extends AEntity implements IProduct {
+public class Product extends AEntity {
 
 
 	private static final long serialVersionUID = 4858431133448109402L;
@@ -51,28 +51,20 @@ public class Product extends AEntity implements IProduct {
 		this._unit = unit;
 	}
 
-
-
-	@Override
 	public void setCategory(Category category) {
 		_category=category;
 
 	}
 
-	@Override
 	public Category getCategory() {
 		return _category;
 	}
 
-
-
-	@Override
 	public void addPackage(IPackage ipackage) {
 		ipackage.setProduct(this);
 		_iPackage.add(ipackage);
 	}
 
-	@Override
 	public void setPackages(ArrayList<IPackage> iPackage) {
 		_iPackage.clear();
 		for(IPackage p:iPackage){
@@ -82,18 +74,15 @@ public class Product extends AEntity implements IProduct {
 
 	}
 
-	@Override
 	public ArrayList<IPackage> getPackages() {
 		return _iPackage;
 	}
 
-	@Override
 	public void setUnit(Unit unit) {
 		_unit=unit;
 
 	}
 
-	@Override
 	public Unit getUnit() {
 		return _unit;
 	}
