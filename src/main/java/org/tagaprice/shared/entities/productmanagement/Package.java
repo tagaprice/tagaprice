@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.ASEntity;
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Quantity;
 
 public class Package extends ASEntity {
@@ -11,7 +11,7 @@ public class Package extends ASEntity {
 
 	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	Quantity _iQuantity;
-	IRevisionId _iRevisionId;
+	RevisionId _iRevisionId;
 	Product _product;
 
 	/**
@@ -38,7 +38,7 @@ public class Package extends ASEntity {
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(IRevisionId revisionId, Quantity quantity){
+	public Package(RevisionId revisionId, Quantity quantity){
 		_iQuantity=quantity;
 		_iRevisionId=revisionId;
 	}

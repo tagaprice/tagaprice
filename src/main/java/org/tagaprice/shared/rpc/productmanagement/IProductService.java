@@ -2,7 +2,7 @@ package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -18,9 +18,9 @@ public interface IProductService extends RemoteService {
 	 * Get a unique product from the server
 	 * 
 	 * @param revionsId
-	 *            The ID (and Revision) of the {@link Product} you want to find. The ID in {@link IRevisionId} must not
+	 *            The ID (and Revision) of the {@link Product} you want to find. The ID in {@link RevisionId} must not
 	 *            be null.
-	 * @return The {@link Product} corresponding to the {@link IRevisionId}
+	 * @return The {@link Product} corresponding to the {@link RevisionId}
 	 */
 	public Product getProduct(String id, String revision);
 	
@@ -63,7 +63,7 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public List<Category> getCategoryChilds(IRevisionId revisionId);
+	public List<Category> getCategoryChilds(RevisionId revisionId);
 
 	/**
 	 * Returns a {@link Category} with all parents!
@@ -72,16 +72,16 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return a {@link Category} with all parents!
 	 */
-	public Category getCategory(IRevisionId revisionId);
+	public Category getCategory(RevisionId revisionId);
 
 
 	/**
-	 * Returns a {@link Package} by the given {@link IRevisionId}. The {@link Package} will also hold its parent
+	 * Returns a {@link Package} by the given {@link RevisionId}. The {@link Package} will also hold its parent
 	 * {@link Product}
 	 * 
 	 * @param id {@link Package Package's} ID
 	 * @param revision {@link Package Package's} revision
-	 * @return a {@link Package} by the given {@link IRevisionId}. The {@link Package} will also hold its parent
+	 * @return a {@link Package} by the given {@link RevisionId}. The {@link Package} will also hold its parent
 	 *         {@link Product}
 	 */
 	public Package getPackage(String id, String revision);
@@ -94,7 +94,7 @@ public interface IProductService extends RemoteService {
 	 * 
 	 * @param ipackage
 	 *            {@link Package} that should be created or saved.
-	 * @return return the new {@link Package} with {@link IRevisionId}
+	 * @return return the new {@link Package} with {@link RevisionId}
 	 * @throws UserNotLoggedInException
 	 */
 	public Package savePackage(Package ipackage) throws UserNotLoggedInException;

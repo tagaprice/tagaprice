@@ -4,11 +4,8 @@ import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.productmanagement.Country;
-import org.tagaprice.shared.entities.shopmanagement.ISubsidiary;
-import org.tagaprice.shared.entities.shopmanagement.Subsidiary;
 
 public class AddressTest extends TestCase {
 
@@ -19,7 +16,7 @@ public class AddressTest extends TestCase {
 	double _lat = 12.34;
 	double _lng = 56.78;
 	ISubsidiary testAddress;
-	IRevisionId _revisionId = new RevisionId("1", "2");
+	RevisionId _revisionId = new RevisionId("1", "2");
 
 	@Override
 	@Before

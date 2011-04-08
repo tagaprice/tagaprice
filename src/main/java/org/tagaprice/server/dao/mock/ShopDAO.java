@@ -8,7 +8,6 @@ import java.util.Random;
 import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -17,14 +16,14 @@ import org.tagaprice.shared.logging.MyLogger;
 public class ShopDAO implements IShopDAO {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-	HashMap<IRevisionId, Shop> shopsAllRevisions = new HashMap<IRevisionId, Shop>();
-	HashMap<String, IRevisionId> newestRev = new HashMap<String, IRevisionId>();
+	HashMap<RevisionId, Shop> shopsAllRevisions = new HashMap<RevisionId, Shop>();
+	HashMap<String, RevisionId> newestRev = new HashMap<String, RevisionId>();
 	Random random = new Random(1654196865);
 
 	public ShopDAO() {
 		//Create address for Shop(bills)
 		ArrayList<Shop> al1 = new ArrayList<Shop>();
-		IRevisionId r45665 = new RevisionId(new Long(random.nextLong()).toString(), "1");
+		RevisionId r45665 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r45665.getId(), r45665);
 		{
 			Shop is = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Blumauergasse 1B");
@@ -32,7 +31,7 @@ public class ShopDAO implements IShopDAO {
 			al1.add(is);
 		}
 
-		IRevisionId r1598 = new RevisionId(new Long(random.nextLong()).toString(), "1");
+		RevisionId r1598 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1598.getId(), r1598);
 
 		{
@@ -42,7 +41,7 @@ public class ShopDAO implements IShopDAO {
 		}
 
 		//Create some Shops
-		IRevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), "1");
+		RevisionId r1 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r1.getId(), r1);
 		Shop s1 = new Shop(r1.getId(), r1.getRevision(), "Billa");
 		s1.setChildren(al1);
@@ -52,7 +51,7 @@ public class ShopDAO implements IShopDAO {
 		//2 shop
 		//Create address for Shop(bills)
 		ArrayList<Shop> al2 = new ArrayList<Shop>();
-		IRevisionId r798654 = new RevisionId(new Long(random.nextLong()).toString(), "1");
+		RevisionId r798654 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r798654.getId(), r798654);
 		{
 			Shop is = new Shop(new Long(random.nextLong()).toString(), "1", "Hofer - Schüttelstraße 19A");
@@ -62,7 +61,7 @@ public class ShopDAO implements IShopDAO {
 
 
 		//Create some Shop
-		IRevisionId r8998 = new RevisionId(new Long(random.nextLong()).toString(), "1");
+		RevisionId r8998 = new RevisionId(new Long(random.nextLong()).toString(), "1");
 		newestRev.put(r8998.getId(), r8998);
 		Shop s8998 = new Shop(r8998.getId(), r8998.getRevision(), "Hofer");
 		s8998.setChildren(al2);
@@ -157,7 +156,7 @@ public class ShopDAO implements IShopDAO {
 	@Override
 	public List<Shop> list() {
 		ArrayList<Shop> list = new ArrayList<Shop>();
-		for(IRevisionId s:shopsAllRevisions.keySet())
+		for(RevisionId s:shopsAllRevisions.keySet())
 			list.add(shopsAllRevisions.get(s));
 		return list;
 	}

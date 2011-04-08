@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
@@ -49,7 +49,7 @@ public interface ICreateShopView<T> extends IView {
 
 	void setShopTitle(String title);
 
-	void setRevisionId(IRevisionId revisionId);
+	void setRevisionId(RevisionId revisionId);
 
 	/**
 	 * Set current address (Position of the user)

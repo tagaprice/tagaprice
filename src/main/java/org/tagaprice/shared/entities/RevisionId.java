@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.tagaprice.shared.entities.accountmanagement.User;
@@ -9,7 +10,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
  * - FIND an {@link AEntity}, by the ID or ID and Revision
  * - UPDATE an {@link AEntity} by the ID and Revision
  */
-public class RevisionId implements IRevisionId {
+public class RevisionId implements Serializable {
 	private static final long serialVersionUID = 2011503142739304476L;
 	private String _id = null;
 	private String _rev = null;
@@ -40,42 +41,34 @@ public class RevisionId implements IRevisionId {
 		setRevision(revision);
 	}
 
-	@Override
 	public void setId(String id) {
 		_id = id;
 	}
 
-	@Override
 	public String getId() {
 		return _id;
 	}
 
-	@Override
 	public void setRevision(String rev) {
 		_rev = rev;
 	}
 
-	@Override
 	public String getRevision() {
 		return _rev;
 	}
 
-	@Override
 	public void setUser(User user) {
 		_user = user;
 	}
 
-	@Override
 	public User getUser() {
 		return _user;
 	}
 
-	@Override
 	public void setDate(Date date) {
 		_date = date;
 	}
 
-	@Override
 	public Date getDate() {
 		return _date;
 	}

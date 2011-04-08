@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.client.generics.IView;
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -17,7 +17,7 @@ import com.google.gwt.place.shared.Place;
  */
 public interface ICreateProductView extends IView {
 
-	public void setRevisionId(IRevisionId revisionId);
+	public void setRevisionId(RevisionId revisionId);
 
 	/**
 	 * Sets the displayed title

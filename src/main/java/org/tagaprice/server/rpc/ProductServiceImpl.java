@@ -6,7 +6,7 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -82,14 +82,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public List<Category> getCategoryChilds(IRevisionId revisionId) {
+	public List<Category> getCategoryChilds(RevisionId revisionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public Category getCategory(IRevisionId revisionId) {
+	public Category getCategory(RevisionId revisionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

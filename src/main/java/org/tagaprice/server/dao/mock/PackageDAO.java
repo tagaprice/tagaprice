@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
-import org.tagaprice.shared.entities.IRevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -13,7 +12,7 @@ import org.tagaprice.shared.logging.MyLogger;
 
 public class PackageDAO implements IPackageDAO {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	HashMap<IRevisionId, Package> packageAllRevisions = new HashMap<IRevisionId, Package>();
+	HashMap<RevisionId, Package> packageAllRevisions = new HashMap<RevisionId, Package>();
 	int revIdCounter = 0;
 	
 	@Override

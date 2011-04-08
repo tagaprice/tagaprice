@@ -8,7 +8,7 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
-import org.tagaprice.shared.entities.IRevisionId;
+import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.RevisionId;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
@@ -22,7 +22,7 @@ public class ProductDAO implements IProductDAO {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
-	HashMap<IRevisionId, Product> productsAllRevisions = new HashMap<IRevisionId, Product>();
+	HashMap<RevisionId, Product> productsAllRevisions = new HashMap<RevisionId, Product>();
 	HashMap<String, Product> productsLatest = new HashMap<String, Product>();
 	ICategoryDAO categoryDAO;
 	
