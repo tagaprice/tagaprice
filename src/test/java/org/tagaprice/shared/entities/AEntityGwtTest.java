@@ -1,5 +1,5 @@
 package org.tagaprice.shared.entities;
 
-public class AEntityTest {
+public class AEntityGwtTest {
 
 }
