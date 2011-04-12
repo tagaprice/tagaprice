@@ -168,6 +168,41 @@
 		<!-- jb / -->
 		<plugins>
 			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<additionalClasspathElements>
+					<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+					<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<useManifestOnlyJar>false</useManifestOnlyJar>
+					<forkMode>always</forkMode>
+					<systemProperties>
+						<property>
+						  <name>gwt.args</name>
+						  <value>-out \${webAppDirectory}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.2.0</version>
+				<configuration>
+					<includes>**/*GwtTest.java</includes>
+				</configuration>
+				<executions>
+					<execution>
+					<goals>
+						<goal>test</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -189,6 +224,8 @@
 				<configuration>
 					<runTarget>index.html</runTarget>
 					<hostedWebapp>target/classes</hostedWebapp>
+					<testTimeOut>600</testTimeOut> 
+                                        <mode>htmlunit</mode> 
 				</configuration>
 				<executions>
 					<execution>
@@ -206,6 +243,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/Abstract*.java</exclude>
+						<exclude>**/*GwtTest.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
