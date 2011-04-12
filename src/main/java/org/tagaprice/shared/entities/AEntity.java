@@ -76,7 +76,18 @@ public abstract class AEntity extends ASimpleEntity {
 	}
 
 
+	@Override
+	public boolean equals(Object otherObject) {
+		boolean rc = true;
 
+		if (otherObject instanceof AEntity) {
+			AEntity other = (AEntity) otherObject;
+			if (!super.equals(other)) rc = false;
+			else if (!_equals(_title, other._title)) rc = false;
+		}
+		else rc = false;
+		return rc;
+	}
 
 
 }
