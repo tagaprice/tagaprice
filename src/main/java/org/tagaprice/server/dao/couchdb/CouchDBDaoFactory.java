@@ -7,12 +7,32 @@ import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.server.dao.IShopDAO;
 
+/**
+ * IDaoFactory implementation providing a CouchDB persistence layer
+ */
 public class CouchDBDaoFactory implements IDaoFactory {
-	ICategoryDAO categoryDAO = new CategoryDAO();
-	IPackageDAO packageDAO = new PackageDAO();
-	IProductDAO productDAO = new ProductDAO();
-	IReceiptDAO receiptDAO = new ReceiptDAO();
-	IShopDAO shopDAO = new ShopDAO();
+	ICategoryDAO categoryDAO;
+	IPackageDAO packageDAO;
+	IProductDAO productDAO;
+	IReceiptDAO receiptDAO;
+	IShopDAO shopDAO;
+	
+	public CouchDBDaoFactory(String dbPrefix) {
+		categoryDAO = new CategoryDAO(dbPrefix);
+		packageDAO = new PackageDAO(dbPrefix);
+		productDAO = new ProductDAO(dbPrefix);
+		receiptDAO = new ReceiptDAO(dbPrefix);
+		shopDAO = new ShopDAO(dbPrefix);
+	}
+	
+	/**
+	 * Default DAO factory constructor
+	 * 
+	 * This Constructor is needed for the DAO Factory injection to work properly
+	 */
+	public CouchDBDaoFactory() {
+		this("");
+	}
 	
 	@Override
 	public ICategoryDAO getCategoryDAO() {

@@ -9,8 +9,8 @@ import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
 public class ProductDAO extends DAOClass<Product> implements IProductDAO {
-	public ProductDAO() {
-		super(Product.class, "product");
+	public ProductDAO(String dbPrefix) {
+		super(dbPrefix, Product.class, "product");
 	}
 
 	@Override

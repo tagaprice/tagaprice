@@ -6,8 +6,8 @@ import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ShopDAO extends DAOClass<Shop> implements IShopDAO {
-	public ShopDAO() {
-		super(Shop.class, "shop");
+	public ShopDAO(String dbPrefix) {
+		super(dbPrefix, Shop.class, "shop");
 	}
 	
 	@Override

@@ -10,7 +10,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	protected Database m_db;
 	Class<? extends T> m_class;
 	
-	protected DAOClass(Class<? extends T> classObject, String dbName) {
+	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String dbName) {
 		Server server = new ServerImpl("localhost");
 		// TODO use server.setCredentials() to authenticate
 		if (!server.listDatabases().contains(dbName)) {

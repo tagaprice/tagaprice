@@ -6,8 +6,8 @@ import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
-	public ReceiptDAO() {
-		super(Receipt.class, "receipt");
+	public ReceiptDAO(String dbPrefix) {
+		super(dbPrefix, Receipt.class, "receipt");
 	}
 	
 	@Override
