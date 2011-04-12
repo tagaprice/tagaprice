@@ -2,28 +2,21 @@ package org.tagaprice.server.dao.couchdb;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.dump.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
-public class ProductDAOTest {
+public class ProductDAOTest extends AbstractDAOTest {
 	CouchDBDaoFactory daoFactory = new CouchDBDaoFactory("test_");
-	ProductDAO productDAO = (daoFactory.getProductDAO() instanceof ProductDAO) ? (ProductDAO) daoFactory.getProductDAO() : null;
+	ProductDAO productDAO = daoFactory.getProductDAO();
 
-	@Before
-	public void setUp() throws Exception {
-		if (productDAO.hasDB()) productDAO.deleteDB();
-		productDAO.createDB();
+	public ProductDAOTest() {
+		addDAOClass(productDAO);
+		addDAOClass(daoFactory.getCategoryDAO());
+		addDAOClass(daoFactory.getUnitDAO());
 	}
-
-	@After
-	public void tearDown() throws Exception {
-		productDAO.deleteDB();
-	}
-
+	
 	@Test
 	public void testCreateProduct() {
 		Product product = new Product("productTitle", new Category("catId", "catRev", "catTitle", null), new Unit("unitId", "revID", "grams"));
