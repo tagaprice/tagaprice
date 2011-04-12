@@ -1,7 +1,7 @@
 package org.tagaprice.server.dao.couchdb;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +10,7 @@ import org.junit.Before;
  * Base class for CouchDB DAO unit tests that provides automatic DB cleanup
  */
 public class AbstractDAOTest {
-	Set<DAOClass<?>> m_daoClasses = new TreeSet<DAOClass<?>>();
+	List<DAOClass<?>> m_daoClasses = new ArrayList<DAOClass<?>>();
 	
 	/**
 	 * Add a DAO class to the automatic cleanup list
