@@ -17,7 +17,13 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	IReceiptDAO receiptDAO;
 	IShopDAO shopDAO;
 	
-	public CouchDBDaoFactory(String dbPrefix) {
+	/**
+	 * DAO factory constructor that allows the caller to specify a prefix String that will
+	 * be used when connecting to databases.
+	 * 
+	 * This constructor comes in handy when writing DAO-Tests e.g.
+	 */
+	CouchDBDaoFactory(String dbPrefix) {
 		categoryDAO = new CategoryDAO(dbPrefix);
 		packageDAO = new PackageDAO(dbPrefix);
 		productDAO = new ProductDAO(dbPrefix);
@@ -28,7 +34,9 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	/**
 	 * Default DAO factory constructor
 	 * 
-	 * This Constructor is needed for the DAO Factory injection to work properly
+	 * This Constructor is needed for the DAO Factory injection to work properly.
+	 * It simply sets the DB prefix to "". This may change in further versions where
+	 * the prefix might be read from a configuration file for example.
 	 */
 	public CouchDBDaoFactory() {
 		this("");
