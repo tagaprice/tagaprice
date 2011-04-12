@@ -1,6 +1,7 @@
 package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.svenson.JSONProperty;
 
@@ -61,5 +62,38 @@ public abstract class ASimpleEntity implements Serializable {
 		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 
+	@Override
+	public boolean equals(Object otherObject) {
+		boolean rc = true;
 
+		if (otherObject instanceof ASimpleEntity) {
+			ASimpleEntity other = (ASimpleEntity) otherObject;
+			if (!_equals(_id, other._id)) rc = false;
+			else if (!_equals(_rev, other._rev)) rc = false;
+		}
+		else rc = false;
+
+		return rc;
+	}
+
+	protected static boolean _equals(Object a, Object b) {
+		boolean rc = false;
+		if (a == null) rc = b == null;
+		else rc = a.equals(b);
+		return rc;
+	}
+
+	protected static boolean _equalArrays(List<?> a, List<?> b) {
+		boolean rc = true;
+
+		if ((a == null || b == null) && a != b) rc = false;
+		if (a.size() != b.size()) rc = false;
+		else {
+			for (int i = 0; rc && i < a.size(); i++) {
+				rc = _equals(a.get(i), b.get(i));
+			}
+		}
+
+		return rc;
+	}
 }
