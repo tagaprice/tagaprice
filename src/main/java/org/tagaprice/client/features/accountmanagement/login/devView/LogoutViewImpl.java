@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -17,6 +18,8 @@ public class LogoutViewImpl extends Composite implements ILogoutView {
 		VerticalPanel vePa = new VerticalPanel();
 		Button logoutButton = new Button("Logout");
 		initWidget(vePa);
+
+		vePa.add(new HTML ( "<fb:login-button autologoutlink='true' perms='publish_stream,read_stream' />" ));
 
 		vePa.add(new Label("Click logout-button to logout"));
 		vePa.add(logoutButton);

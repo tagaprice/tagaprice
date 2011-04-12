@@ -9,7 +9,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,8 +31,14 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@UiField
 	Button loginButton;
 
+	@UiField
+	SimplePanel _fbPanel;
+
 	public LoginViewImpl() {
 		initWidget(LoginViewImpl.uiBinder.createAndBindUi(this));
+
+		//Set Fabecook button
+		_fbPanel.setWidget(new HTML ( "<fb:login-button autologoutlink='true' perms='publish_stream,read_stream' />" ));
 	}
 
 	@Override

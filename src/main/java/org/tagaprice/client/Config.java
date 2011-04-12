@@ -7,4 +7,5 @@ public interface Config extends Messages {
 	public static final Config CONFIG = GWT.create(Config.class);
 
 	String recaptchaPuplicKey();
+	String facebookAppId();
 }
