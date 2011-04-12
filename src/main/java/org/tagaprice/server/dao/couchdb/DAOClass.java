@@ -7,17 +7,47 @@ import org.tagaprice.server.dao.IDAOClass;
 import org.tagaprice.shared.entities.ASimpleEntity;
 
 public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
+	private Server m_server;
 	protected Database m_db;
 	Class<? extends T> m_class;
+	String m_prefixedDBName;
 	
 	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String dbName) {
-		Server server = new ServerImpl("localhost");
-		// TODO use server.setCredentials() to authenticate
-		if (!server.listDatabases().contains(dbName)) {
-			server.createDatabase(dbName);
-		}
-		m_db = new Database(server, dbName);
+		m_server = new ServerImpl("localhost");
+		m_prefixedDBName = dbPrefix+dbName;
 		m_class = classObject;
+
+		// TODO use server.setCredentials() to authenticate
+		createDB();
+	}
+	
+	void createDB() {
+		if (!hasDB()) {
+			m_server.createDatabase(m_prefixedDBName);
+			m_db = new Database(m_server, m_prefixedDBName);
+			setupDB();
+		}
+		else {
+			m_db = new Database(m_server, m_prefixedDBName);
+		}
+	}
+	
+	void deleteDB() {
+		if (m_db != null) {
+			Server server = m_db.getServer();
+			server.deleteDatabase(m_prefixedDBName);
+			m_db = null;
+		}
+	}
+	
+	boolean hasDB() {
+		return m_server.listDatabases().contains(m_prefixedDBName);
+	}
+	
+	/**
+	 * Empty method (overload it if you want some injection-like stuff to be done upon DB creation) 
+	 */
+	protected void setupDB() {
 	}
 
 	@Override
