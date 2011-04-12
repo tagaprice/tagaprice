@@ -11,8 +11,6 @@ import org.tagaprice.shared.entities.dump.Category;
  * 
  */
 public class Product extends AEntity {
-
-
 	private static final long serialVersionUID = 4858431133448109402L;
 	private Category _category;
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
@@ -92,9 +90,22 @@ public class Product extends AEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Product [_category=" + _category + ", _unit=" + _unit + "]";
+		return "Product ["+super.toString()+", category=" + _category + ", unit=" + _unit + "]";
 	}
 
-
+	public boolean equals(Object otherObject) {
+		boolean rc = true;
+		
+		if (otherObject instanceof Product) {
+			Product other = (Product) otherObject;
+			if (!super.equals(other)) rc = false;
+			else if (!_equals(_category, other._category)) rc = false;
+			else if (!_equalArrays(_iPackage, other._iPackage)) rc = false;
+			else if (!_equals(_unit, other._unit)) rc = false;
+		}
+		else rc = false;
+		
+		return rc;
+	}
 
 }
