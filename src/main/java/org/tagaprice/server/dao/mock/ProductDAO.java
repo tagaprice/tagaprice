@@ -33,24 +33,24 @@ public class ProductDAO implements IProductDAO {
 		Category nonalcoholics = categoryDAO.get("nonalcoholics");
 
 		// TestProduct
-		Product bergkasese = new Product("Bergkäse 4", food, Unit.g);
+		Product bergkasese = new Product("Bergkäse 4", food, new Unit("grams"));
 		bergkasese = create(bergkasese);
 
 		{
-			Package tPackage=new Package(new Quantity(500, Unit.kg));
+			Package tPackage=new Package(new Quantity(500, new Unit("kg")));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}
 		{
-			Package tPackage=new Package(new Quantity(750, Unit.g));
+			Package tPackage=new Package(new Quantity(750, new Unit("g")));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}
 
 		update(bergkasese);
 
-		create(new Product("Extrawurst von der Theke", food, Unit.g));
-		create(new Product("Limonade", nonalcoholics, Unit.l));
+		create(new Product("Extrawurst von der Theke", food, new Unit("grams")));
+		create(new Product("Limonade", nonalcoholics, new Unit("liters")));
 
 		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", "
 				+ this.productsLatest.size() + ". Counter is " + this.productIdCounter + ".");

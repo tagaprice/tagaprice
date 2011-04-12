@@ -82,7 +82,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		if (_place.getId() == null) {
 			CreateProductActivity._logger.log("Create new Product");
 
-			updateView(new Product("", new Category("newProduct",null), Unit.piece));
+			updateView(new Product("", new Category("newProduct",null), new Unit("piece")));
 			panel.setWidget(createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {

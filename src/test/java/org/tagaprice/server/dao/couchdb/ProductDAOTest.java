@@ -26,7 +26,7 @@ public class ProductDAOTest {
 
 	@Test
 	public void testCreateProduct() {
-		Product product = new Product("productTitle", new Category("catId", "catRev", "catTitle", null), Unit.g);
+		Product product = new Product("productTitle", new Category("catId", "catRev", "catTitle", null), new Unit("unitId", "revID", "grams"));
 		
 		productDAO.create(product);
 		assertNotNull(product.getId());

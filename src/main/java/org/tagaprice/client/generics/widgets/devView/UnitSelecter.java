@@ -38,17 +38,19 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	public void setUnit(Unit unit) {
 		int pos = 0;
 
-		for(int i= 0; i < Unit.values().length; i++ ) {
+		/// TODO fix me
+/*		for(int i= 0; i < Unit.values().length; i++ ) {
 			if(Unit.values()[i].equals(unit)) {
 				pos=i;
 			}
-		}
+		}*/
 		_listBoxUnit.setSelectedIndex(pos);
 	}
 
 	@Override
 	public Unit getUnit() {
-		return Unit.valueOf(_listBoxUnit.getItemText(_listBoxUnit.getSelectedIndex()));
+		return null;
+		//return Unit.valueOf(_listBoxUnit.getItemText(_listBoxUnit.getSelectedIndex()));
 	}
 
 
@@ -59,6 +61,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	private void allowedUnit(Unit unit){
 		_listBoxUnit.clear();
 
+		/*
 		if(unit==null){
 			for(Unit u: Unit.values()) {
 				_listBoxUnit.addItem(u.name(),u.name());
@@ -67,7 +70,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 			for(Unit u:unit.getRelativeTypes()){
 				_listBoxUnit.addItem(u.name(),u.name());
 			}
-		}
+		}*/
 
 	}
 

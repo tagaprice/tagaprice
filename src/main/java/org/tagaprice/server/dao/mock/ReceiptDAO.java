@@ -44,8 +44,8 @@ public class ReceiptDAO implements IReceiptDAO {
 		Category root = new Category("root",null);
 		//Add receipt entries
 		{
-			Package ipack = new Package(new Quantity(1.2, Unit.kg));
-			Product iprodc = new Product("Bergkäse 4", new Category("food",root), Unit.g);
+			Package ipack = new Package(new Quantity(1.2, new Unit("kg")));
+			Product iprodc = new Product("Bergkäse 4", new Category("food",root), new Unit("grams"));
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			ReceiptEntry ire = new ReceiptEntry(new Price(15, Currency.dkk), ipack);
@@ -54,8 +54,8 @@ public class ReceiptDAO implements IReceiptDAO {
 
 
 		{
-			Package ipack = new Package(new Quantity(1.5, Unit.l));
-			Product iprodc = new Product("CocaCola", new Category("food",root), Unit.l);
+			Package ipack = new Package(new Quantity(1.5, new Unit("l")));
+			Product iprodc = new Product("CocaCola", new Category("food",root), new Unit("l"));
 			ipack.setProduct(iprodc);
 			iprodc.addPackage(ipack);
 			ReceiptEntry ire = new ReceiptEntry(new Price(30, Currency.dkk), ipack);
