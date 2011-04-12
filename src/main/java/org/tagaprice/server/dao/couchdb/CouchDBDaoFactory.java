@@ -1,23 +1,19 @@
 package org.tagaprice.server.dao.couchdb;
 
-import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IReceiptDAO;
-import org.tagaprice.server.dao.IShopDAO;
-import org.tagaprice.server.dao.IUnitDAO;
 
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
  */
 public class CouchDBDaoFactory implements IDaoFactory {
-	ICategoryDAO categoryDAO;
-	IPackageDAO packageDAO;
-	IProductDAO productDAO;
-	IReceiptDAO receiptDAO;
-	IShopDAO shopDAO;
-	IUnitDAO unitDAO;
+	String m_dbPrefix;
+	
+	CategoryDAO m_categoryDAO = null;
+	PackageDAO m_packageDAO = null;
+	ProductDAO m_productDAO = null;
+	ReceiptDAO m_receiptDAO = null;
+	ShopDAO m_shopDAO = null;
+	UnitDAO m_unitDAO = null;
 	
 	/**
 	 * DAO factory constructor that allows the caller to specify a prefix String that will
@@ -26,12 +22,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	 * This constructor comes in handy when writing DAO-Tests e.g.
 	 */
 	CouchDBDaoFactory(String dbPrefix) {
-		categoryDAO = new CategoryDAO(dbPrefix);
-		packageDAO = new PackageDAO(dbPrefix);
-		productDAO = new ProductDAO(dbPrefix);
-		receiptDAO = new ReceiptDAO(dbPrefix);
-		shopDAO = new ShopDAO(dbPrefix);
-		unitDAO = new UnitDAO(dbPrefix);
+		m_dbPrefix = dbPrefix;
 	}
 	
 	/**
@@ -46,32 +37,50 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	}
 	
 	@Override
-	public ICategoryDAO getCategoryDAO() {
-		return categoryDAO;
+	public CategoryDAO getCategoryDAO() {
+		if (m_categoryDAO == null) {
+			m_categoryDAO = new CategoryDAO(m_dbPrefix);
+		}
+		return m_categoryDAO;
 	}
 
 	@Override
-	public IPackageDAO getPackageDAO() {
-		return packageDAO;
+	public PackageDAO getPackageDAO() {
+		if (m_packageDAO == null) {
+			m_packageDAO = new PackageDAO(m_dbPrefix);
+		}
+		return m_packageDAO;
 	}
 
 	@Override
-	public IProductDAO getProductDAO() {
-		return productDAO;
+	public ProductDAO getProductDAO() {
+		if (m_productDAO == null) {
+			m_productDAO = new ProductDAO(m_dbPrefix);
+		}
+		return m_productDAO;
 	}
 
 	@Override
-	public IReceiptDAO getReceiptDAO() {
-		return receiptDAO;
+	public ReceiptDAO getReceiptDAO() {
+		if (m_receiptDAO == null) {
+			m_receiptDAO = new ReceiptDAO(m_dbPrefix);
+		}
+		return m_receiptDAO;
 	}
 
 	@Override
-	public IShopDAO getShopDAO() {
-		return shopDAO;
+	public ShopDAO getShopDAO() {
+		if (m_shopDAO == null) {
+			m_shopDAO = new ShopDAO(m_dbPrefix);
+		}
+		return m_shopDAO;
 	}
 
 	@Override
-	public IUnitDAO getUnitDAO() {
-		return unitDAO;
+	public UnitDAO getUnitDAO() {
+		if (m_unitDAO == null) {
+			m_unitDAO = new UnitDAO(m_dbPrefix);
+		}
+		return m_unitDAO;
 	}
 }
