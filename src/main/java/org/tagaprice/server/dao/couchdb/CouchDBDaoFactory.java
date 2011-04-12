@@ -6,6 +6,7 @@ import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.server.dao.IShopDAO;
+import org.tagaprice.server.dao.IUnitDAO;
 
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
@@ -16,6 +17,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	IProductDAO productDAO;
 	IReceiptDAO receiptDAO;
 	IShopDAO shopDAO;
+	IUnitDAO unitDAO;
 	
 	/**
 	 * DAO factory constructor that allows the caller to specify a prefix String that will
@@ -29,6 +31,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 		productDAO = new ProductDAO(dbPrefix);
 		receiptDAO = new ReceiptDAO(dbPrefix);
 		shopDAO = new ShopDAO(dbPrefix);
+		unitDAO = new UnitDAO(dbPrefix);
 	}
 	
 	/**
@@ -67,4 +70,8 @@ public class CouchDBDaoFactory implements IDaoFactory {
 		return shopDAO;
 	}
 
+	@Override
+	public IUnitDAO getUnitDAO() {
+		return unitDAO;
+	}
 }

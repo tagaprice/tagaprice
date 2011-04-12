@@ -6,4 +6,5 @@ public interface IDaoFactory {
 	IProductDAO getProductDAO();
 	IReceiptDAO getReceiptDAO();
 	IShopDAO getShopDAO();
+	IUnitDAO getUnitDAO();
 }
