@@ -3,6 +3,7 @@ package org.tagaprice.client;
 import org.tagaprice.client.generics.I18N;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
+import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.widgets.InfoBox;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.dom.client.Style.Unit;
@@ -55,7 +56,7 @@ public class UIDesktop implements IUi {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				//locateMe();
+				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
 			}
 		}));
 

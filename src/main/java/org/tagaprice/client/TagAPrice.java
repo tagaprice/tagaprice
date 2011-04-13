@@ -6,6 +6,7 @@ import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.InfoBoxShowEventHandler;
@@ -109,7 +110,25 @@ public class TagAPrice implements EntryPoint {
 			}
 		});
 
-		eventBus.fireEvent(new WaitForAddressEvent());
+
+
+		//Start Account Initialisation
+		//clientFactory.getAccountPersistor().getAddress();
+
+		//Get Position if no one is saved in the cookies.
+		if(clientFactory.getAccountPersistor().getAddress()==null){
+			eventBus.fireEvent(new WaitForAddressEvent());
+		}
+
+
+		//Test if user is logged in
+		if(!clientFactory.getAccountPersistor().isLoggedIn()){
+			eventBus.fireEvent(new LoginChangeEvent(false));
+		}else{
+			eventBus.fireEvent(new LoginChangeEvent(true));
+
+			//TODO Get address from user via rpc and send AddressChanged event
+		}
 
 
 

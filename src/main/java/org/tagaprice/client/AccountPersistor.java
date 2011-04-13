@@ -1,7 +1,6 @@
 package org.tagaprice.client;
 
 import org.tagaprice.shared.entities.Address;
-
 import com.google.gwt.user.client.Cookies;
 
 /**
@@ -11,20 +10,32 @@ import com.google.gwt.user.client.Cookies;
  */
 public class AccountPersistor {
 	private Address I_ADDRESS;
-	private boolean isLoggedIn = false;
 
 	/**
 	 * Returns global Address
 	 */
 	public Address getAddress() {
-		return I_ADDRESS;
+
+		if(Cookies.getCookie("TAP_address")!=null &&
+				Cookies.getCookie("TAP_Lat")!=null &&
+				Cookies.getCookie("TAP_Lng")!=null){
+
+			if(I_ADDRESS==null)I_ADDRESS = new Address(
+					Cookies.getCookie("TAP_address"),
+					Double.parseDouble(Cookies.getCookie("TAP_Lat")),
+					Double.parseDouble(Cookies.getCookie("TAP_Lng")));
+		}
+
+		return new Address();
 	}
+
 
 	/**
 	 * Set Global Address. Saves it also in the cookies.
 	 * @param address setGlobalAddress
 	 */
 	public void setAddress(Address address) {
+		if(I_ADDRESS==null)I_ADDRESS=new Address();
 		I_ADDRESS.setAddress(address.getAddress());
 		I_ADDRESS.setLat(address.getLat());
 		I_ADDRESS.setLng(address.getLng());
@@ -38,14 +49,16 @@ public class AccountPersistor {
 	 * @return true if user is logged in.
 	 */
 	public boolean isLoggedIn() {
-		return isLoggedIn;
+		if(Cookies.getCookie("TAP_SID")==null)
+			return false;
+		else
+			return true;
 	}
 
 	/**
 	 * Logout user and remove sid
 	 */
 	public void logout() {
-		isLoggedIn = false;
 		Cookies.removeCookie("TAP_SID");
 	}
 
@@ -54,7 +67,6 @@ public class AccountPersistor {
 	 * @param sessionId new SessionId
 	 */
 	public void setSessionId(String sessionId) {
-		isLoggedIn = true;
 		Cookies.setCookie("TAP_SID", sessionId);
 	}
 }

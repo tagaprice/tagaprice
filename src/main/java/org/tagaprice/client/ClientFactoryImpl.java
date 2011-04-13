@@ -20,7 +20,6 @@ import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
-import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -79,7 +78,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 
-	private static Address I_ADDRESS=new Address();
 	private static AccountPersistor s_accountPersistor = new AccountPersistor();
 
 	public ClientFactoryImpl() {
