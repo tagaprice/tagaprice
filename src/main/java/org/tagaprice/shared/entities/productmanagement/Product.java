@@ -69,7 +69,7 @@ public class Product extends AEntity {
 	}
 
 	public void setCategoryId(String categoryId) {
-		_category = new Category(categoryId, null, null, null);
+		setCategory(new Category(categoryId, null, null, null));
 	}
 	
 	public void addPackage(Package ipackage) {
@@ -106,6 +106,10 @@ public class Product extends AEntity {
 		String rc = null;
 		if (getUnit() != null) rc = getUnit().getId();
 		return rc;
+	}
+	
+	public void setUnitId(String unitId) {
+		setUnit(new Unit(unitId, null, null));
 	}
 
 	public boolean equals(Object otherObject) {
