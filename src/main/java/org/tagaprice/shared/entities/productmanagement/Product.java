@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.*;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
@@ -49,15 +50,28 @@ public class Product extends AEntity {
 		this._unit = unit;
 	}
 
+	@JSONProperty(ignore=true)
 	public void setCategory(Category category) {
 		_category=category;
 
 	}
 
+	@JSONProperty(ignore=true)
 	public Category getCategory() {
 		return _category;
 	}
+	
+	@JSONProperty(value="categoryId", ignoreIfNull=true)
+	public String getCategoryId() {
+		String rc = null;
+		if (getCategory() != null) rc = getCategory().getId();
+		return rc;
+	}
 
+	public void setCategoryId(String categoryId) {
+		_category = new Category(categoryId, null, null, null);
+	}
+	
 	public void addPackage(Package ipackage) {
 		ipackage.setProduct(this);
 		_iPackage.add(ipackage);
@@ -72,6 +86,7 @@ public class Product extends AEntity {
 
 	}
 
+	@JSONProperty(ignore=true)
 	public ArrayList<Package> getPackages() {
 		return _iPackage;
 	}
@@ -81,16 +96,16 @@ public class Product extends AEntity {
 
 	}
 
+	@JSONProperty(ignore=true)
 	public Unit getUnit() {
 		return _unit;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Product ["+super.toString()+", category=" + _category + ", unit=" + _unit + "]";
+	
+	@JSONProperty(value="unitId", ignoreIfNull=true)
+	public String getUnitId() {
+		String rc = null;
+		if (getUnit() != null) rc = getUnit().getId();
+		return rc;
 	}
 
 	public boolean equals(Object otherObject) {

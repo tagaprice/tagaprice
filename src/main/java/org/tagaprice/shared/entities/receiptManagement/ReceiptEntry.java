@@ -50,17 +50,4 @@ public class ReceiptEntry extends ASimpleEntity {
 		_receipt = receipt;
 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ReceiptEntry [_package=" + _package + ", _receipt=" + _receipt + ", _price=" + _price + "]";
-	}
-
-
-
 }

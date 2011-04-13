@@ -48,14 +48,4 @@ public class Category extends AEntity   {
 	public void setParentCategory(Category category) {
 		this._parentCategory = category;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Category [_parentCategory=" + _parentCategory + "]";
-	}
-
-
 }

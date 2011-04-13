@@ -45,15 +45,4 @@ public class Quantity implements Serializable {
 	public Unit getUnit() {
 		return this._unit;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Quantity [_quantity=" + _quantity + ", _unit=" + _unit + "]";
-	}
-
-
-
 }

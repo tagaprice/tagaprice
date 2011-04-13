@@ -3,6 +3,7 @@ package org.tagaprice.shared.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import org.svenson.JSON;
 import org.svenson.JSONProperty;
 
 /**
@@ -59,7 +60,7 @@ public abstract class ASimpleEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
+		return JSON.defaultJSON().dumpObjectFormatted(this);
 	}
 
 	@Override

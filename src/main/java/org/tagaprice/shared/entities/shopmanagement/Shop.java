@@ -48,17 +48,6 @@ public class Shop extends AEntity {
 		super(shopId, revision, title);
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Shop";
-	}
-
 	public void setParent(Shop parent) {
 		_parent=parent;
 	}
