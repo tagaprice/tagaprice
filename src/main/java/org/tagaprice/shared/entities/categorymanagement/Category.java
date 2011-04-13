@@ -57,5 +57,4 @@ public class Category extends AEntity   {
 		return super.toString()+" Category [_parentCategory=" + _parentCategory + "]";
 	}
 
-
 }
