@@ -22,14 +22,20 @@ public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	public List<Category> list() {
 		ViewResult<?> result = m_db.listDocuments(null, null);
 		List<Category> rc = new ArrayList<Category>();
-		
+
 		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
 			Category category = get(row.getId());
 			rc.add(category);
 		}
-		
+
 		return rc;
+	}
+
+	@Override
+	public List<Category> childs(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

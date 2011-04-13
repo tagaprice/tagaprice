@@ -1,5 +1,7 @@
 package org.tagaprice.server.dao.mock;
 
+import java.util.List;
+
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
 
@@ -32,6 +34,12 @@ public class UnitDAO implements IUnitDAO {
 	public void delete(Unit entity) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Unit> relatedUnits(Unit unit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
