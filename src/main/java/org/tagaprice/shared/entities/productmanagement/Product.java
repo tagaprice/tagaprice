@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.*;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
  * This class is used to send {@link Product} data from client to server and from server to client. It will also be used

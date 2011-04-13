@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.user.client.ui.Composite;

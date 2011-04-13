@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 
 public class CategoryDAO implements ICategoryDAO {
 	HashMap<String, Category> categories = new HashMap<String, Category>();

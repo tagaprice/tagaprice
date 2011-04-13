@@ -9,7 +9,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;

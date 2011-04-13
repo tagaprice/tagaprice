@@ -6,7 +6,7 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;

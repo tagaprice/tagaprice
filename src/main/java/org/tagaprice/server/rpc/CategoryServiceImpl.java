@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;

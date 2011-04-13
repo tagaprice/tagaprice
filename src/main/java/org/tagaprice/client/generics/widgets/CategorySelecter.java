@@ -2,7 +2,7 @@ package org.tagaprice.client.generics.widgets;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;

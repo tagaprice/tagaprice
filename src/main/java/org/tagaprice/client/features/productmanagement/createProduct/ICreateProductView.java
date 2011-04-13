@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.tagaprice.client.generics.IView;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.place.shared.Place;

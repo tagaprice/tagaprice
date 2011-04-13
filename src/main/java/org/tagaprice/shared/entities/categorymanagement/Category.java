@@ -1,4 +1,4 @@
-package org.tagaprice.shared.entities.dump;
+package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.*;

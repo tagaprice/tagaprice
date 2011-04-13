@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;

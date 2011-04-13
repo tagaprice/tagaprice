@@ -9,6 +9,7 @@ import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.Package;
 

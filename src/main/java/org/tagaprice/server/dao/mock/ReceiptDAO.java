@@ -10,7 +10,7 @@ import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;

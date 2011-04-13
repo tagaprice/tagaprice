@@ -6,7 +6,7 @@ import java.util.List;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 
 public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	public CategoryDAO(String dbPrefix) {

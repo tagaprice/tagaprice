@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.Category;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
 public class ProductDAOTest extends AbstractDAOTest {

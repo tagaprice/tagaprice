@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
