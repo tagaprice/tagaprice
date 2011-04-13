@@ -55,7 +55,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public ProductDAO getProductDAO() {
 		if (m_productDAO == null) {
-			m_productDAO = new ProductDAO(m_dbPrefix);
+			m_productDAO = new ProductDAO(this, m_dbPrefix);
 		}
 		return m_productDAO;
 	}
