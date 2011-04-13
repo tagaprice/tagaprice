@@ -10,7 +10,6 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -118,13 +117,8 @@ public interface ClientFactory {
 
 	/****************** GlobalAddress ***********************/
 	/**
-	 * Returns global Address
+	 * Returns Static {@link AccountPersistor}
+	 * @return {@link AccountPersistor}
 	 */
-	Address getAddress();
-
-	/**
-	 * Set Global Address
-	 * @param address setGlobalAddress
-	 */
-	public void setAddress(Address address);
+	public AccountPersistor getAccountPersistor();
 }

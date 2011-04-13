@@ -91,10 +91,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			// new product... reseting view
 			CreateShopActivity._logger.log("Create new shop");
 
-			if(_clientFactory.getAddress()==null){
+			if(_clientFactory.getAccountPersistor().getAddress()==null){
 				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
 			}else{
-				_createShopView.setCurrentAddress(_clientFactory.getAddress());
+				_createShopView.setCurrentAddress(_clientFactory.getAccountPersistor().getAddress());
 			}
 
 			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {

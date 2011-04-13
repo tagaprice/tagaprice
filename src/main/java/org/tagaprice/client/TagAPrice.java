@@ -95,7 +95,7 @@ public class TagAPrice implements EntryPoint {
 
 			@Override
 			public void onAddressChanged(AddressChangedEvent event) {
-				clientFactory.setAddress(event.getAddress());
+				clientFactory.getAccountPersistor().setAddress(event.getAddress());
 
 				_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Address Updated: "+event.getAddress(), INFOTYPE.SUCCESS));
 			}

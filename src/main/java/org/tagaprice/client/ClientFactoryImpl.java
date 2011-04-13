@@ -79,7 +79,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 	private static final ILoginServiceAsync I_LOGIN_SERVICE_ASYNC = GWT.create(ILoginService.class);
 
-	private static Address I_ADDRESS;
+	private static Address I_ADDRESS=new Address();
+	private static AccountPersistor s_accountPersistor = new AccountPersistor();
 
 	public ClientFactoryImpl() {
 		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
@@ -169,18 +170,6 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
 
-	@Override
-	public Address getAddress() {
-		return ClientFactoryImpl.I_ADDRESS;
-	}
-
-	@Override
-	public void setAddress(Address address) {
-		if(ClientFactoryImpl.I_ADDRESS==null)ClientFactoryImpl.I_ADDRESS=new Address();
-		ClientFactoryImpl.I_ADDRESS.setAddress(address.getAddress());
-		ClientFactoryImpl.I_ADDRESS.setLat(address.getLat());
-		ClientFactoryImpl.I_ADDRESS.setLng(address.getLng());
-	}
 
 	@Override
 	public IRegisterView getRegisterView() {
@@ -195,6 +184,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IListReceiptsView getListReceiptsView() {
 		return ClientFactoryImpl.listReceiptView;
+	}
+
+	@Override
+	public AccountPersistor getAccountPersistor() {
+		return ClientFactoryImpl.s_accountPersistor;
 	}
 
 
