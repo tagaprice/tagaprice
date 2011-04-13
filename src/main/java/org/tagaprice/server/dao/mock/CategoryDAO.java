@@ -1,14 +1,18 @@
 package org.tagaprice.server.dao.mock;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 public class CategoryDAO implements ICategoryDAO {
 	HashMap<String, Category> categories = new HashMap<String, Category>();
+	MyLogger logger = LoggerFactory.getLogger(CategoryDAO.class);
 	Random rand = new Random(15645651);
 
 	CategoryDAO() {
@@ -28,6 +32,9 @@ public class CategoryDAO implements ICategoryDAO {
 		category.setRevision(id);
 
 		categories.put(id, category);
+
+
+		logger.log("create category: "+category);
 
 		return category;
 	}
@@ -74,7 +81,24 @@ public class CategoryDAO implements ICategoryDAO {
 
 	@Override
 	public List<Category> childs(String id) {
-		return null;
+
+		ArrayList<Category> rc = new ArrayList<Category>();
+		//return root elements
+		if(id==null){
+			for(String key: categories.keySet()){
+				if(categories.get(key).getParentCategory()==null){
+					rc.add(categories.get(key));
+				}
+			}
+		}else{
+			for(String key: categories.keySet()){
+				if(categories.get(key).getParentCategory().getId()==id){
+					rc.add(categories.get(key));
+				}
+			}
+		}
+
+		return rc;
 	}
 
 }

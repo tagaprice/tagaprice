@@ -5,7 +5,6 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -61,7 +60,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		createProductView.setPresenter(this);
 		createProductView.reset();
 
-		this._clientFactory.getProductService().getCategories(new AsyncCallback<List<Category>>() {
+		//Returns the root elements
+		_clientFactory.getCategoryService().getCategoryChilds(null, new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onSuccess(List<Category> result) {
@@ -74,11 +74,11 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			}
 
 			@Override
-			public void onFailure(Throwable caught) {
+			public void onFailure(Throwable arg0) {
 				CreateProductActivity._logger.log("ERROR receiving list of categories");
-
 			}
 		});
+
 
 		if (_place.getId() == null) {
 			CreateProductActivity._logger.log("Create new Product");

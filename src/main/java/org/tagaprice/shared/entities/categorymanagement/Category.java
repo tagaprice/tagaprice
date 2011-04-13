@@ -25,7 +25,7 @@ public class Category extends AEntity   {
 	 * @param parent the parent of the category.
 	 */
 	public Category(String title, Category parent) {
-		super(title);
+		this(null, null, title, parent);
 	}
 
 	/**
@@ -37,6 +37,7 @@ public class Category extends AEntity   {
 	 */
 	public Category(String id, String revision, String title, Category parent){
 		super(id, revision, title);
+		setParentCategory(parent);
 	}
 
 	@JSONProperty(value="parent")
