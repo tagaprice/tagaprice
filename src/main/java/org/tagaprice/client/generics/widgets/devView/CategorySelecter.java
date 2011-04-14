@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -29,7 +28,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CategorySelecter extends Composite implements ICategorySelecter {
 	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
 
-	private SimplePanel _siPa = new SimplePanel();
 	private ListBox _listBoxCategories = new ListBox();
 	private List<Category> _availableCategories = new ArrayList<Category>();
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
