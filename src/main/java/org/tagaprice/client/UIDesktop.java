@@ -70,7 +70,7 @@ public class UIDesktop implements IUi {
 		Label getProduct = new Label("List Products");
 		getProduct.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
-			History.newItem("ListProducts");}});
+			History.newItem("ListProducts:/show");}});
 
 		Label getProductById = new Label("get Product id=1");
 		getProductById.addClickHandler(new ClickHandler() {@Override

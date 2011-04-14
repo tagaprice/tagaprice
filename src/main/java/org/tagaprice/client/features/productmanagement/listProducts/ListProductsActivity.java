@@ -47,8 +47,8 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 		this.clientFactory = clientFactory;
 
 		// load data to work
-		this.listProductsView = this.clientFactory.getListProductsView();
-		this.productServiceAsync = this.clientFactory.getProductService();
+		listProductsView = clientFactory.getListProductsView();
+		productServiceAsync = clientFactory.getProductService();
 	}
 
 	/**
@@ -86,6 +86,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		ListProductsActivity.logger.log("Activity starts...");
+
 
 		listProductsView.setPresenter(this);
 		listProductsView.reset();
