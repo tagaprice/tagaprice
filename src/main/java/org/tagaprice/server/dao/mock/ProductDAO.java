@@ -29,11 +29,17 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 
-		Category food = categoryDAO.get("food");
-		Category nonalcoholics = categoryDAO.get("nonalcoholics");
+		Category food = categoryDAO.create(new Category("food", null));
+		Category vegetables = categoryDAO.create(new Category("vegetables", food));
+		Category beverages = categoryDAO.create(new Category("beverages", null));
+		Category alcoholics = categoryDAO.create(new Category("alcohol", beverages));
+		Category nonalcoholics = categoryDAO.create(new Category("nonalcoholics", beverages));
+		Category softAlc = categoryDAO.create(new Category("softalk", alcoholics));
+		Category hardAlc = categoryDAO.create(new Category("hardalk", alcoholics));
+
 
 		// TestProduct
-		Product bergkasese = new Product("Bergkäse 4", food, new Unit("grams"));
+		Product bergkasese = new Product("Bergkäse 4", vegetables, new Unit("grams"));
 		bergkasese = create(bergkasese);
 
 		{
@@ -49,7 +55,7 @@ public class ProductDAO implements IProductDAO {
 
 		update(bergkasese);
 
-		create(new Product("Extrawurst von der Theke", food, new Unit("grams")));
+		create(new Product("Extrawurst von der Theke", vegetables, new Unit("grams")));
 		create(new Product("Limonade", nonalcoholics, new Unit("liters")));
 
 		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", "

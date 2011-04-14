@@ -22,7 +22,6 @@ import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -53,14 +52,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	 */
 	private static final PlaceController placeController = new PlaceController(
 			ClientFactoryImpl.eventBus);
-	private static final ProductCoreColumnDefinitions productCoreColumnDefinitions = new ProductCoreColumnDefinitions();
-	private static final ShopColumnDefinitions shopColumnDefinitions = new ShopColumnDefinitions();
 
 	//private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
 	//VIEWS
 	private static final CreateShopViewImpl<ReceiptEntry> createShopview = new CreateShopViewImpl<ReceiptEntry>();
-	private static final ListShopsViewImpl<Shop> listShopsView = new ListShopsViewImpl<Shop>();
+	private static final ListShopsViewImpl listShopsView = new ListShopsViewImpl();
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
@@ -81,9 +78,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static AccountPersistor s_accountPersistor = new AccountPersistor();
 
 	public ClientFactoryImpl() {
-		ClientFactoryImpl.productListView.setColumnDefinitions(ClientFactoryImpl.productCoreColumnDefinitions
-				.getColumnDefinitions());
-		ClientFactoryImpl.listShopsView.setColumnDefinitions(ClientFactoryImpl.shopColumnDefinitions.getColumnDefinitions());
 	}
 
 	@Override
@@ -138,7 +132,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ListShopsView<Shop> getListShopsView() {
+	public ListShopsView getListShopsView() {
 		return ClientFactoryImpl.listShopsView;
 	}
 

@@ -9,7 +9,7 @@ import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.server.dao.IUnitDAO;
 
 public class MockDaoFactory implements IDaoFactory {
-	ICategoryDAO m_categoryDAO = new CategoryDAO();
+	ICategoryDAO m_categoryDAO = new CategoryDAO(this);
 	IPackageDAO m_packageDAO = new PackageDAO();
 	IProductDAO m_productDAO = new ProductDAO(this);
 	IReceiptDAO m_receiptDAO = new ReceiptDAO(this);
@@ -20,12 +20,12 @@ public class MockDaoFactory implements IDaoFactory {
 	public ICategoryDAO getCategoryDAO() {
 		return m_categoryDAO;
 	}
-	
+
 	@Override
 	public IPackageDAO getPackageDAO() {
 		return m_packageDAO;
 	}
-	
+
 	@Override
 	public IProductDAO getProductDAO() {
 		return m_productDAO;

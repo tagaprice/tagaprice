@@ -10,7 +10,6 @@ import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.core.client.GWT;
@@ -73,8 +72,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	public void onSaveButtonClicked(ClickEvent event) {
 		_presenter.onSaveEvent();
 	}
-
-
 
 
 	@Override

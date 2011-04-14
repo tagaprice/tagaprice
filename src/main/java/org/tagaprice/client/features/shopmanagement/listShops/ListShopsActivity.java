@@ -27,8 +27,9 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 	private ClientFactory clientFactory;
 	private ArrayList<Shop> products;
 
-	private final ListShopsView<Shop> listShopsView;
 	private IShopServiceAsync shopServiceAsync;
+
+	private ListShopsView listShopsView;
 
 	/**
 	 * 
@@ -46,8 +47,8 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 		this.clientFactory = clientFactory;
 
 		// load data to work
-		this.listShopsView = this.clientFactory.getListShopsView();
-		this.shopServiceAsync = this.clientFactory.getShopService();
+		listShopsView = this.clientFactory.getListShopsView();
+		shopServiceAsync = this.clientFactory.getShopService();
 	}
 
 	/**
@@ -74,7 +75,6 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 	@Override
 	public void onStop() {
-		this.listShopsView.setPresenter(null);
 
 	}
 
@@ -116,38 +116,4 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 	}
 
-	@Override
-	public void onSearch(String searchtext) {
-		ListShopsActivity.logger.log("search for " + searchtext);
-		Shop shop = new Shop(searchtext);
-		this.shopServiceAsync.getShops(shop , new AsyncCallback<List<Shop>>() {
-
-			@Override
-			public void onSuccess(List<Shop> result) {
-				if(result != null) {
-					listShopsView.setData(result);
-				}
-
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-	}
-
-	@Override
-	public void onAddShop() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onEditShop(int index) {
-		// TODO Auto-generated method stub
-
-	}
 }

@@ -49,27 +49,27 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	@Override
 	public void setCategory(Category category) {
 		logger.log("set category " + category);
-
+		_hoPa.clear();
 		if (category != null) {
-			_hoPa.clear();
+
 			Category newCat = category;
 
 			while(newCat!=null){
 				_hoPa.insert(new SimpleCategorySelecter(newCat), 0);
 				newCat = newCat.getParentCategory();
 			}
-			_hoPa.insert(new SimpleCategorySelecter(null), 0);
+
 
 		}
+		_hoPa.insert(new SimpleCategorySelecter(null), 0);
 	}
 
 	@Override
 	public Category getCategory() {
-		if(this._availableCategories != null && this._availableCategories.size() > 0) {
-			return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
-		} else {
-			return null;
-		}
+		if(_hoPa.getWidgetCount()>0)
+			return ((SimpleCategorySelecter)_hoPa.getWidget(_hoPa.getWidgetCount()-1)).getCategory();
+
+		return null;
 	}
 
 	@Override
@@ -154,6 +154,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 				}
 			});
 
+		}
+
+		public Category getCategory(){
+			return _myCat;
 		}
 	}
 }
