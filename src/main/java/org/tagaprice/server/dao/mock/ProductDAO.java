@@ -107,6 +107,7 @@ public class ProductDAO implements IProductDAO {
 	@Override
 	public Product update(final Product product) {
 		logger.log("update product");
+
 		Product updateProduct = this.productsAllRevisions.get(product.getId());
 		if (updateProduct == null) {
 			// ERROR
