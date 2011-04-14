@@ -59,6 +59,7 @@ public abstract class ASimpleEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
+
 		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 
