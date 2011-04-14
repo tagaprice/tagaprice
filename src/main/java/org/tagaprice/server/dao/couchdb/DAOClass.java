@@ -68,7 +68,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 
 	@Override
 	public T update(T entity) {
-		m_db.createDocument(entity);
+		m_db.updateDocument(entity);
 		return entity;
 	}
 
