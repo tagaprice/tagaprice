@@ -81,4 +81,10 @@ public abstract class AEntity extends ASimpleEntity {
 	}
 
 
+	@Override
+	public String toString() {
+		return super.toString()+", title: "+_title;
+	}
+
+
 }

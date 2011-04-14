@@ -15,21 +15,23 @@ public class CategoryDAO implements ICategoryDAO {
 	MyLogger logger = LoggerFactory.getLogger(CategoryDAO.class);
 	Random rand = new Random(15645651);
 
+
 	CategoryDAO() {
 		Category food = create(new Category("food", null));
 		Category vegetables = create(new Category("vegetables", food));
 		Category beverages = create(new Category("beverages", null));
 		Category alcoholics = create(new Category("alcohol", beverages));
 		Category nonalcoholics = create(new Category("nonalcoholics", beverages));
-
+		Category softAlc = create(new Category("softalk", alcoholics));
+		Category hardAlc = create(new Category("hardalk", alcoholics));
 
 	}
 
 	@Override
 	public Category create(Category category) {
 		String id = ""+rand.nextLong();
-		category.setId(""+rand.nextLong());
-		category.setRevision(id);
+		category.setId(id);
+		category.setRevision(""+1);
 
 		categories.put(id, category);
 
@@ -81,7 +83,7 @@ public class CategoryDAO implements ICategoryDAO {
 
 	@Override
 	public List<Category> childs(String id) {
-
+		logger.log("childs: "+id);
 		ArrayList<Category> rc = new ArrayList<Category>();
 		//return root elements
 		if(id==null){
@@ -91,11 +93,17 @@ public class CategoryDAO implements ICategoryDAO {
 				}
 			}
 		}else{
+
+
 			for(String key: categories.keySet()){
-				if(categories.get(key).getParentCategory().getId()==id){
-					rc.add(categories.get(key));
+
+				if(categories.get(key).getParentCategory()!=null){
+					if(categories.get(key).getParentCategory().getId().equals(id))
+						rc.add(categories.get(key));
 				}
+
 			}
+
 		}
 
 		return rc;

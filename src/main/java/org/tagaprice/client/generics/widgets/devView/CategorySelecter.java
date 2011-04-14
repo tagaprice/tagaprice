@@ -13,10 +13,14 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * The class will manage the Category selection, and will also communicate with the server.
@@ -29,35 +33,35 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private ListBox _listBoxCategories = new ListBox();
 	private List<Category> _availableCategories = new ArrayList<Category>();
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
+	private HorizontalPanel _hoPa = new HorizontalPanel();
 
+	Category food = (new Category("food", null));
+	Category vegetables = (new Category("vegetables", food));
+	Category beverages = (new Category("beverages", null));
+	Category alcoholics = (new Category("alcohol", beverages));
+	Category nonalcoholics = (new Category("nonalcoholics", beverages));
 
 	public CategorySelecter() {
-		initWidget(_siPa);
+		initWidget(_hoPa);
 
-		Category root = new Category("root", null);
-		Category one = new Category("one",root);
-		Category two = new Category("two", one);
-		setCategory(two);
 
-		_siPa.setWidget(new SimpleCategorySelecter(null));
+		_hoPa.add(new SimpleCategorySelecter(null));
 	}
 
 	@Override
 	public void setCategory(Category category) {
 		logger.log("set category " + category);
+
 		if (category != null) {
-			_siPa.setWidget(new SimpleCategorySelecter(category));
+			_hoPa.clear();
+			Category newCat = category;
 
-			/*
-			for (int i = 0; i < this._listBoxCategories.getItemCount(); i++) {
-				if(this._listBoxCategories.getValue(i).equals(category.toString())){
-					logger.log("Category found");
-					this._listBoxCategories.setSelectedIndex(i);
-					return;
-				}
-
+			while(newCat!=null){
+				_hoPa.insert(new SimpleCategorySelecter(newCat), 0);
+				newCat = newCat.getParentCategory();
 			}
-			 */
+			_hoPa.insert(new SimpleCategorySelecter(null), 0);
+
 		}
 	}
 
@@ -83,55 +87,71 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	class SimpleCategorySelecter extends Composite{
 
-		private ListBox _catList = new ListBox();
 
 		private HorizontalPanel hoPa1 = new HorizontalPanel();
+		private Button arrow = new Button("->");
+		private Label text = new Label("");
 		Category _myCat = null;
+		private PopupPanel showCats = new PopupPanel(true);
 
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
 			logger.log("CreateSimpleCategory " + category);
-			initWidget(hoPa1);
-
-			//Empty root element
 
 
 
-			if(_myCat!=null && _myCat.getParentCategory()!=null){
-				hoPa1.add(new SimpleCategorySelecter(_myCat.getParentCategory()));
+			if(_myCat!=null){
+				text.setText(_myCat.getTitle());
 			}
 
-			if(_myCat!=null)
-				_catList.addItem(_myCat.getTitle(),_myCat.getId());
-
-			hoPa1.add(_catList);
-
+			hoPa1.add(text);
+			hoPa1.add(arrow);
+			initWidget(hoPa1);
 
 
-			_catList.addClickHandler(new ClickHandler() {
+			arrow.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent arg0) {
-					//Implement listener
+					showCats.setWidget(new Label("loading..."));
+					showCats.showRelativeTo(arrow);
+
 					String id=null;
-					if(_myCat!=null)
-						id=_myCat.getId();
+					if(_myCat!=null)id=_myCat.getId();
+
+					logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
 					_categoryServiceAsync.getCategoryChilds(id, new AsyncCallback<List<Category>>() {
 
 						@Override
-						public void onSuccess(List<Category> result) {
-							_catList.clear();
-							for(Category c: result)
-								_catList.addItem(c.getTitle(),c.getId());
+						public void onSuccess(List<Category> results) {
+							VerticalPanel vePa = new VerticalPanel();
+
+							for(final Category c: results){
+								Label catText = new Label(c.getTitle());
+								vePa.add(catText);
+
+								catText.addClickHandler(new ClickHandler() {
+
+									@Override
+									public void onClick(ClickEvent arg0) {
+										setCategory(c);
+
+									}
+								});
+							}
+							showCats.setWidget(vePa);
+							showCats.showRelativeTo(arrow);
 						}
 
 						@Override
 						public void onFailure(Throwable e) {
-							logger.log("get categories problem" + e);
+							logger.log("getCategoryProblem: "+e);
 						}
 					});
+
 				}
 			});
+
 		}
 	}
 }
