@@ -6,7 +6,6 @@ import java.util.List;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IShopDAO;
-import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ShopDAO extends DAOClass<Shop> implements IShopDAO {

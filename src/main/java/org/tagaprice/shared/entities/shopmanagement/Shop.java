@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities.shopmanagement;
 
 import java.util.ArrayList;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.Address;
 
@@ -63,6 +64,7 @@ public class Shop extends AEntity {
 		_parent=parent;
 	}
 
+	@JSONProperty(ignore=true)
 	public Shop getParent() {
 		return _parent;
 	}

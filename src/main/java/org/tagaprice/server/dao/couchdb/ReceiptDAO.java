@@ -1,7 +1,10 @@
 package org.tagaprice.server.dao.couchdb;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jcouchdb.document.ValueRow;
+import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
@@ -12,7 +15,16 @@ public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
 	
 	@Override
 	public List<Receipt> list() {
-		throw new UnsupportedOperationException("ReceiptDAO.list() wasn't implemented yet");
+		ViewResult<?> result = m_db.listDocuments(null, null);
+		List<Receipt> rc = new ArrayList<Receipt>();
+		
+		System.out.println("CatList:");
+		for (ValueRow<?> row: result.getRows()) {
+			Receipt receipt = get(row.getId());
+			rc.add(receipt);
+		}
+		
+		return rc;
 	}
 
 }
