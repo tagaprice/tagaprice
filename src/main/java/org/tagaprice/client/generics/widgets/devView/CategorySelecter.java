@@ -116,7 +116,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 					String id=null;
 					if(_myCat!=null)
 						id=_myCat.getId();
-					_categoryServiceAsync.getCategoryChilds(id, new AsyncCallback<List<Category>>() {
+					_categoryServiceAsync.getCategoryChildren(id, new AsyncCallback<List<Category>>() {
 
 						@Override
 						public void onSuccess(List<Category> result) {

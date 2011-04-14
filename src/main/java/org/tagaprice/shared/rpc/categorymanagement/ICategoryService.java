@@ -35,7 +35,7 @@ public interface ICategoryService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public List<Category> getCategoryChilds(String id);
+	public List<Category> getCategoryChildren(String id);
 
 
 }

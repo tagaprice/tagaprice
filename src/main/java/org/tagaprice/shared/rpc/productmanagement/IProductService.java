@@ -62,7 +62,7 @@ public interface IProductService extends RemoteService {
 	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
 	 */
-	public List<Category> getCategoryChilds(String id);
+	public List<Category> getCategoryChildren(String id);
 
 	/**
 	 * Returns a {@link Category} with all parents!
