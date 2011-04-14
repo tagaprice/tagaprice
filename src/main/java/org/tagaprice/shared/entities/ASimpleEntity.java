@@ -59,8 +59,8 @@ public abstract class ASimpleEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		//return JSON.defaultJSON().dumpObjectFormatted(this);
-		return "ID:"+_id+", Rev: "+_rev;
+
+		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 
 	@Override

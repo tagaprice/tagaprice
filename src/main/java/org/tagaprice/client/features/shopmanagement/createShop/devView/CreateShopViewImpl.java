@@ -108,12 +108,12 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	}
 
 	@Override
-	public ArrayList<Shop> getChilds() {
+	public ArrayList<Shop> getChildren() {
 		return _addresses.getShops();
 	}
 
 	@Override
-	public void setChilds(ArrayList<Shop> kids) {
-		_addresses.setShops(kids);
+	public void setChildren(ArrayList<Shop> children) {
+		_addresses.setShops(children);
 	}
 }

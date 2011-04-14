@@ -187,14 +187,14 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			shop = new Shop();
 		}
 		shop.setTitle(_createShopView.getShopTitle());
-		shop.setChildren(_createShopView.getChilds());
+		shop.setChildren(_createShopView.getChildren());
 		return shop;
 	}
 
 	private void updateView(Shop shop){
 		_shop = shop;
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setChilds(_shop.getChildren());
+		_createShopView.setChildren(_shop.getChildren());
 	}
 
 }

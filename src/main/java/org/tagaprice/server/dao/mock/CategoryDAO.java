@@ -82,8 +82,9 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 
 	@Override
-	public List<Category> childs(String id) {
+	public List<Category> children(String id) {
 		logger.log("childs: "+id);
+
 		ArrayList<Category> rc = new ArrayList<Category>();
 		//return root elements
 		if(id==null){

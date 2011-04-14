@@ -33,7 +33,7 @@ public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	}
 
 	@Override
-	public List<Category> childs(String id) {
+	public List<Category> children(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

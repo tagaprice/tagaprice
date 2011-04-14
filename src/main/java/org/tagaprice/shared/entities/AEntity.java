@@ -67,6 +67,15 @@ public abstract class AEntity extends ASimpleEntity {
 		_title = title;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AEntity ["+super.toString()+", title=" + _title + "]";
+	}
+
+
 	@Override
 	public boolean equals(Object otherObject) {
 		boolean rc = true;
@@ -80,11 +89,6 @@ public abstract class AEntity extends ASimpleEntity {
 		return rc;
 	}
 
-
-	@Override
-	public String toString() {
-		return super.toString()+", title: "+_title;
-	}
 
 
 }

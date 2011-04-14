@@ -68,4 +68,18 @@ public class Package extends ASimpleEntity {
 	public void setQuantity(Quantity quantity) {
 		_iQuantity=quantity;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + "]";
+	}
+
+
+
+
+
 }

@@ -90,4 +90,16 @@ public class Receipt extends AEntity {
 	public Date getDate() {
 		return _date;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Receipt";
+	}
+
+
+
+
 }

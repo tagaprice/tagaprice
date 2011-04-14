@@ -12,5 +12,5 @@ public interface ICategoryServiceAsync {
 
 	void getCategory(String id, AsyncCallback<Category> callback);
 
-	void getCategoryChilds(String id, AsyncCallback<List<Category>> callback);
+	void getCategoryChildren(String id, AsyncCallback<List<Category>> callback);
 }

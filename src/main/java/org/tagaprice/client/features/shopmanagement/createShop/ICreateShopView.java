@@ -58,9 +58,9 @@ public interface ICreateShopView<T> extends IView {
 
 	/**
 	 * Set {@link Shop} kids. All included {@link Shop} will be deleted and overwritten.
-	 * @param kids all {@link Shop} kids
+	 * @param children all {@link Shop} kids
 	 */
-	public void setChilds(ArrayList<Shop> childs);
+	public void setChildren(ArrayList<Shop> children);
 
 	/**
 	 * Insert one {@link Shop} as kid
@@ -72,5 +72,5 @@ public interface ICreateShopView<T> extends IView {
 	 * Returns all includes {@link Shop} kids
 	 * @return includes {@link Shop} kids
 	 */
-	public ArrayList<Shop> getChilds();
+	public ArrayList<Shop> getChildren();
 }

@@ -81,7 +81,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public List<Category> getCategoryChilds(String id) {
+	public List<Category> getCategoryChildren(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
