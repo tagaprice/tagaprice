@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
-import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
@@ -28,7 +27,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	private ClientFactory clientFactory;
 	private List<Product> products;
 
-	private final ListProductsView<Product> listProductsView;
+	private final ListProductsView listProductsView;
 	private IProductServiceAsync productServiceAsync;
 
 	/**
@@ -111,43 +110,4 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 	}
 
-	/**
-	 * 
-	 */
-	@Override
-	public void onEditProduct(int index) {
-		//this.goTo(new EditProductPlace(this.products.get(index).getId()));
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public void onAddProduct() {
-		//this.goTo(new EditProductPlace());
-	}
-
-	@Override
-	public void onSearch(String searchtext) {
-		ListProductsActivity.logger.log("search for " + searchtext);
-		Product product = new Product(searchtext, new Category("",null), null);
-		this.productServiceAsync.findProducts(product, new AsyncCallback<List<Product>>() {
-
-			@Override
-			public void onSuccess(List<Product> result) {
-
-				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
-				products = result;
-				listProductsView.setData(result);
-
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-	}
 }

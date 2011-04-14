@@ -20,7 +20,6 @@ import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
-import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
@@ -61,7 +60,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
-	private static final ListProductsViewImpl<Product> productListView = new ListProductsViewImpl<Product>();
+	private static final ListProductsViewImpl productListView = new ListProductsViewImpl();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final IRegisterView registerView = new RegisterViewImpl();
 	private static final IRegisteredView registeredView = new RegisteredViewImpl();
@@ -95,7 +94,7 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.createProductView;
 	}
 	@Override
-	public ListProductsView<Product> getListProductsView() {
+	public ListProductsView getListProductsView() {
 		return ClientFactoryImpl.productListView;
 	}
 
