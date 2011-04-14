@@ -21,61 +21,38 @@ public class ShopDAO implements IShopDAO {
 
 	public ShopDAO() {
 		//Create address for Shop(bills)
-		ArrayList<Shop> al1 = new ArrayList<Shop>();
 		String r45665 = new Long(random.nextLong()).toString();
 		newestRev.put(r45665, r45665);
-		{
-			Shop is = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Blumauergasse 1B");
-			is.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
-			al1.add(is);
-		}
 
 		String r1598 = new Long(random.nextLong()).toString();
 		newestRev.put(r1598, r1598);
 
-		{
-			Shop is = new Shop(new Long(random.nextLong()).toString(), "1", "Billa - Holzhausergasse 9");
-			is.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-			al1.add(is);
-		}
-
 		//Create some Shops
 		String r1 = new Long(random.nextLong()).toString();
 		newestRev.put(r1, r1);
-		Shop s1 = new Shop(r1, "1", "Billa");
-		s1.setChildren(al1);
+		Shop s1 = new Shop(r1, "1", "Billa1");
+		s1.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
+		
 		shopsAllRevisions.put(r1, s1);
 
 
 		//2 shop
 		//Create address for Shop(bills)
-		ArrayList<Shop> al2 = new ArrayList<Shop>();
 		String r798654 = new Long(random.nextLong()).toString();
 		newestRev.put(r798654, r798654);
-		{
-			Shop is = new Shop(new Long(random.nextLong()).toString(), "1", "Hofer - Schüttelstraße 19A");
-			is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
-			al2.add(is);
-		}
-
 
 		//Create some Shop
 		String r8998 = new Long(random.nextLong()).toString();
 		newestRev.put(r8998, r8998);
 		Shop s8998 = new Shop(r8998, "1", "Hofer");
-		s8998.setChildren(al2);
+		s8998.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
+
 		shopsAllRevisions.put(r8998, s8998);
 
 	}
 	@Override
 	public Shop create(Shop shop) {
 		logger.log("new Shop");
-
-		for(Shop ia:shop.getChildren()){
-			ia.setId(new Long(random.nextLong()).toString());
-			ia.setRevision("1");
-			newestRev.put(ia.getId(), ia.getId());
-		}
 
 		shop.setId(new Long(random.nextLong()).toString());
 		shop.setRevision("1");
@@ -123,24 +100,6 @@ public class ShopDAO implements IShopDAO {
 
 			shopsAllRevisions.put(updateShop.getId(), updateShop);
 			newestRev.put(updateShop.getId(), updateShop.getId());
-
-			for(Shop ta:updateShop.getChildren()){
-				logger.log("addr: "+ta.toString());
-
-
-				if (ta.getId()==null) {
-					logger.log("create new address");
-
-					ta.setId(new Long(random.nextLong()).toString());
-					ta.setRevision("1");
-
-					newestRev.put(ta.getId(), ta.getId());
-				}else{
-					logger.log("update address");
-					ta.setRevision(new Integer(Integer.parseInt(ta.getRevision())+1).toString());
-				}
-
-			}
 
 			return updateShop;
 		}

@@ -234,20 +234,17 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setShopSearchResults(List<Shop> shopResults) {
 		_shopSearchSuggestVePa.clear();
-		for(final Shop s:shopResults){
-			for(final Shop a:s.getChildren()){
-				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
+		for (final Shop s:shopResults) {
+			Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
 
+			foundAddress.addClickHandler(new ClickHandler() {
 
-				foundAddress.addClickHandler(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent arg0) {
-						setAddress(a);
-					}
-				});
-				_shopSearchSuggestVePa.add(foundAddress);
-			}
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setAddress(s);
+				}
+			});
+			_shopSearchSuggestVePa.add(foundAddress);
 
 			Label createNewAddress = new Label(s.getTitle()+" (Add Address)");
 			createNewAddress.addClickHandler(new ClickHandler() {
