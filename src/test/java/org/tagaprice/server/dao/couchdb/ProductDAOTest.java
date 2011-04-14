@@ -46,4 +46,23 @@ public class ProductDAOTest extends AbstractDAOTest {
 
 		assertEquals(product, fetchedProduct);
 	}
+	
+	@Test
+	public void testUpdateProduct() {
+		Product product = new Product("productTitle", m_testCategory, m_testUnit);
+		productDAO.create(product);
+		
+		String oldId = product.getId();
+		String oldRevision = product.getRevision();
+		
+		product.setTitle("newProductTitle");
+		productDAO.update(product);
+		
+		assertEquals("The Product's ID misteriously changed", oldId, product.getId());
+		assertNotSame("The Product's revision hasn't changed", oldRevision, product.getRevision());
+		assertEquals("The Product's updated title hasn't been stored correctly", "newProductTitle", product.getTitle());
+		
+		Product fetchedProduct = productDAO.get(product.getId());
+		assertEquals("The product we've just fetched from the database doesn't seem to match the original product we saved there", product, fetchedProduct);
+	}
 }
