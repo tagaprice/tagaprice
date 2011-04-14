@@ -46,4 +46,16 @@ public class Price implements Serializable {
 	public Currency getCurrency() {
 		return _currency;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Price [_price=" + _price + ", _currency=" + _currency + "]";
+	}
+
+
+
 }

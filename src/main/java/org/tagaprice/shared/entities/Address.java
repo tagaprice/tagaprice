@@ -77,4 +77,18 @@ public class Address implements Serializable {
 	public void setAddress(String address) {
 		_address = address;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [_address=" + _address + ", _lat=" + _lat + ", _lng=" + _lng + "]";
+	}
+
+
+
+
+
 }

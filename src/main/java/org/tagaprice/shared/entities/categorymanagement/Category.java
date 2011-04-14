@@ -54,7 +54,8 @@ public class Category extends AEntity   {
 	 */
 	@Override
 	public String toString() {
-		return super.toString()+" Category [_parentCategory=" + _parentCategory + "]";
+		return "Category [_parentCategory=" + _parentCategory + "]";
 	}
+
 
 }

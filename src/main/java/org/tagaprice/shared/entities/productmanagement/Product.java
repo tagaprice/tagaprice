@@ -112,6 +112,14 @@ public class Product extends AEntity {
 		setUnit(new Unit(unitId, null, null));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Product ["+super.toString()+", category=" + _category + ", unit=" + _unit + "]";
+	}
+
 	public boolean equals(Object otherObject) {
 		boolean rc = true;
 		
