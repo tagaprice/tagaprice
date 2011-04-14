@@ -80,7 +80,7 @@ public class CategoryDAO implements ICategoryDAO {
 	}
 
 	@Override
-	public List<Category> childs(String id) {
+	public List<Category> children(String id) {
 
 		ArrayList<Category> rc = new ArrayList<Category>();
 		//return root elements
