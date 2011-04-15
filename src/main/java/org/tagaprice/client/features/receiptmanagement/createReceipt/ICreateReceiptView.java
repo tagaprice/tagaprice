@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.tagaprice.client.generics.IView;
+import org.tagaprice.client.features.IFeatureView;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
-public interface ICreateReceiptView extends IView{
+public interface ICreateReceiptView extends IFeatureView{
 
 	/**
 	 * Returns the Title of the {@link Receipt}, if Title is NULL you get NULL back

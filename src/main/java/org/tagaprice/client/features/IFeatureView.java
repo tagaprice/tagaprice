@@ -1,4 +1,4 @@
-package org.tagaprice.client.generics;
+package org.tagaprice.client.features;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  * Every View must implement this Interface.
  * Extend Widget with more methods
  */
-public interface IView extends IsWidget {
+public interface IFeatureView extends IsWidget {
 
 	/**
 	 * Reset the view. That it looks like a new view.

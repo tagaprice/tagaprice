@@ -2,12 +2,12 @@ package org.tagaprice.client.features.shopmanagement.createShop;
 
 import java.util.ArrayList;
 
-import org.tagaprice.client.generics.IView;
+import org.tagaprice.client.features.IFeatureView;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
-public interface ICreateShopView<T> extends IView {
+public interface ICreateShopView<T> extends IFeatureView {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary

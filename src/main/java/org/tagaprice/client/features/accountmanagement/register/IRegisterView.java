@@ -1,10 +1,10 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
-import org.tagaprice.client.generics.IView;
+import org.tagaprice.client.features.IFeatureView;
 
 import com.google.gwt.place.shared.Place;
 
-public interface IRegisterView extends IView {
+public interface IRegisterView extends IFeatureView {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IRegisterView} to control this view. It is also necessary
