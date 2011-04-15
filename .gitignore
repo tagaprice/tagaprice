@@ -1,7 +1,5 @@
 .post_compile.sh
 .gwt
-jdbc.properties
-mail.properties
 target
 doc/
 .project
