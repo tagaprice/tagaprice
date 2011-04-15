@@ -3,7 +3,6 @@ package org.tagaprice.client.features.shopmanagement.createShop.devView;
 import java.util.ArrayList;
 
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.generics.ColumnDefinition;
 import org.tagaprice.client.generics.widgets.MultipleAddressSelecter;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -12,7 +11,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
-public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<T> {
+public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	interface CreateShopViewImpleUiBinder extends
 	UiBinder<Widget, CreateShopViewImpl> {
 	}
@@ -79,16 +78,6 @@ public class CreateShopViewImpl<T> extends Composite implements ICreateShopView<
 	public void setShopTitle(String title) {
 		_name.setText(title);
 	}
-
-
-
-
-	ArrayList<ColumnDefinition<T>> _columnDefinitions;
-
-	public void setColumnDefinitions(ArrayList<ColumnDefinition<T>> columnDefinitions) {
-		this._columnDefinitions = columnDefinitions;
-	}
-
 
 
 	@Override

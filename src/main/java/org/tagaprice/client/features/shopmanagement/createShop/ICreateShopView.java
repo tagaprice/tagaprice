@@ -7,7 +7,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
 
-public interface ICreateShopView<T> extends IFeatureView {
+public interface ICreateShopView extends IFeatureView {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary
@@ -44,9 +44,9 @@ public interface ICreateShopView<T> extends IFeatureView {
 		public void onSaveEvent();
 	}
 
-	String getShopTitle();
+	public String getShopTitle();
 
-	void setShopTitle(String title);
+	public void setShopTitle(String title);
 
 
 	/**

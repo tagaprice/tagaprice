@@ -10,7 +10,6 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryServiceAsync;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
@@ -99,7 +98,7 @@ public interface ClientFactory {
 	 * Returns the CreateShopView
 	 * @return the CreateShopView
 	 */
-	ICreateShopView<ReceiptEntry> getCreateShopView();
+	ICreateShopView getCreateShopView();
 
 	ListShopsView getListShopsView();
 

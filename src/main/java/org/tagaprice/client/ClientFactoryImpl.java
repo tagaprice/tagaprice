@@ -20,7 +20,6 @@ import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
-import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -49,13 +48,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	/**
 	 * The PlaceController is unique for the whole GWT Application.
 	 */
-	private static final PlaceController placeController = new PlaceController(
-			ClientFactoryImpl.eventBus);
+	private static final PlaceController placeController = new PlaceController(ClientFactoryImpl.eventBus);
 
-	//private static final ProductServiceDispatchImpl productServiceDispatch = new ProductServiceDispatchImpl();
 
 	//VIEWS
-	private static final CreateShopViewImpl<ReceiptEntry> createShopview = new CreateShopViewImpl<ReceiptEntry>();
+	private static final CreateShopViewImpl createShopview = new CreateShopViewImpl();
 	private static final ListShopsViewImpl listShopsView = new ListShopsViewImpl();
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
@@ -88,7 +85,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	public PlaceController getPlaceController() {
 		return ClientFactoryImpl.placeController;
 	}
-
 	@Override
 	public ICreateProductView getEditProductView() {
 		return ClientFactoryImpl.createProductView;
@@ -97,9 +93,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ListProductsView getListProductsView() {
 		return ClientFactoryImpl.productListView;
 	}
-
-
-
 	@Override
 	public ICreateProductView getCreateProductView() {
 		return ClientFactoryImpl.createProductView;
@@ -111,7 +104,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ICreateShopView<ReceiptEntry> getCreateShopView() {
+	public ICreateShopView getCreateShopView() {
 		return ClientFactoryImpl.createShopview;
 	}
 
