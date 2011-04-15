@@ -43,26 +43,38 @@ public class MockDaoFactory implements IDaoFactory {
 		Category hardAlc = m_categoryDAO.create(new Category("hardalk", alcoholics));
 
 
+		//Create units
+		Unit st = m_unitDAO.create(new Unit("st"));
+		Unit kg = m_unitDAO.create(new Unit("kg"));
+		Unit g = m_unitDAO.create(new Unit("g"));
+		m_unitDAO.setFactorizedUnit(kg.getId(), g.getId(), 1000);
+		m_unitDAO.setFactorizedUnit(g.getId(), kg.getId(), 0.001);
+
+		Unit l = m_unitDAO.create(new Unit("l"));
+		Unit ml = m_unitDAO.create(new Unit("ml"));
+		m_unitDAO.setFactorizedUnit(l.getId(), ml.getId(), 1000);
+		m_unitDAO.setFactorizedUnit(ml.getId(), l.getId(), 0.001);
+
 		//Create Products
 		// TestProduct
-		Product bergkasese = new Product("Bergkäse 4", vegetables, new Unit("grams"));
+		Product bergkasese = new Product("Bergkäse 4", vegetables, g);
 		bergkasese = m_productDAO.create(bergkasese);
 
 		{
-			Package tPackage=new Package(new Quantity(500, new Unit("kg")));
+			Package tPackage=new Package(new Quantity(500, kg));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}
 		{
-			Package tPackage=new Package(new Quantity(750, new Unit("g")));
+			Package tPackage=new Package(new Quantity(750, g));
 			tPackage.setProduct(bergkasese);
 			bergkasese.addPackage(tPackage);
 		}
 
 		m_productDAO.update(bergkasese);
 
-		m_productDAO.create(new Product("Extrawurst von der Theke", vegetables, new Unit("grams")));
-		m_productDAO.create(new Product("Limonade", nonalcoholics, new Unit("liters")));
+		m_productDAO.create(new Product("Extrawurst von der Theke", vegetables, g));
+		m_productDAO.create(new Product("Limonade", nonalcoholics, l));
 
 
 		//Create shops

@@ -12,5 +12,5 @@ public interface IUnitService extends RemoteService {
 
 	public Unit getUnit(String id);
 	public Unit getUnit(String id, String revision);
-	public List<Unit> getRelatedUnits(String id);
+	public List<Unit> getFactorizedUnits(String id);
 }

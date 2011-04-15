@@ -34,8 +34,11 @@ public class UnitServiceImpl extends RemoteServiceServlet implements IUnitServic
 	}
 
 	@Override
-	public List<Unit> getRelatedUnits(String id) {
-		return unitDAO.relatedUnits(id);
+	public List<Unit> getFactorizedUnits(String id) {
+		return unitDAO.factorizedUnits(id);
 	}
+
+
+
 
 }

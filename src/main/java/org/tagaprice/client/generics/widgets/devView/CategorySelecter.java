@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * 
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
-	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
+	private MyLogger _logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	private ListBox _listBoxCategories = new ListBox();
 	private List<Category> _availableCategories = new ArrayList<Category>();
@@ -48,7 +48,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	@Override
 	public void setCategory(Category category) {
-		logger.log("set category " + category);
+		_logger.log("set category " + category);
 		_hoPa.clear();
 		if (category != null) {
 
@@ -84,7 +84,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
-			logger.log("CreateSimpleCategory " + category);
+			_logger.log("CreateSimpleCategory " + category);
 
 
 
@@ -107,7 +107,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 					String id=null;
 
 
-					logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
+					_logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
 
 					if(_myCat!=null)
 						id=_myCat.getId();
@@ -137,7 +137,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 						@Override
 						public void onFailure(Throwable e) {
-							logger.log("getCategoryProblem: "+e);
+							_logger.log("getCategoryProblem: "+e);
 						}
 					});
 

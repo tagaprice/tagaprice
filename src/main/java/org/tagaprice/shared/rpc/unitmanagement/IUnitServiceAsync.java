@@ -9,5 +9,5 @@ public interface IUnitServiceAsync {
 
 	public void getUnit(String id, AsyncCallback<Unit> callback);
 	public void getUnit(String id, String revision, AsyncCallback<Unit> callback);
-	public void getRelatedUnits(String id, AsyncCallback<List<Unit>> callback);
+	public void getFactorizedUnits(String id, AsyncCallback<List<Unit>> callback);
 }
