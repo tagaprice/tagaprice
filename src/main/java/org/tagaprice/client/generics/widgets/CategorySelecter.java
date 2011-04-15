@@ -1,7 +1,5 @@
 package org.tagaprice.client.generics.widgets;
 
-import java.util.List;
-
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 import com.google.gwt.core.client.GWT;
@@ -32,9 +30,5 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		return categorySelecter.getCategory();
 	}
 
-	@Override
-	public void setAvailableCategories(List<Category> categories) {
-		categorySelecter.setAvailableCategories(categories);
-	}
 
 }

@@ -76,11 +76,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	public void setLogout() throws UserNotLoggedInException {
 
 
-
-		if(session.getAttribute("sid")==null){
-			throw new UserNotLoggedInException("User is not logged in.");
-		}
-
 		for(AccountUser au:userList){
 			if(au.getSessionId().equals(getSid())){
 				if(session==null)session=getThreadLocalRequest().getSession();
@@ -89,12 +84,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			}
 		}
 
-		/*
-		if (sessionId == null)
-			throw new UserNotLoggedInException("User is not logged in.");
-
-		sessionId = null;
-		 */
 	}
 
 	@Override

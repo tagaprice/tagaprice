@@ -72,6 +72,10 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 			public void onSuccess(JavaScriptObject result) {
 				LoginActivity._logger.log("Facebook loginstatus has changed");
 				//myHellow(result);
+
+
+				//Send User login event
+				_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 			}
 
 			@Override

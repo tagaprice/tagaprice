@@ -1,8 +1,6 @@
 package org.tagaprice.client.features.productmanagement.createProduct.devView;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
@@ -94,10 +92,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		name.setText(title);
 	}
 
-	@Override
-	public void setAvailableCategories(List<Category> categories) {
-		this.category.setAvailableCategories(categories);
-	}
 
 	@Override
 	public String getProductTitle() {

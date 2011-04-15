@@ -1,8 +1,6 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.tagaprice.client.features.IFeatureView;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -99,7 +97,6 @@ public interface ICreateProductView extends IFeatureView {
 	 */
 	public void setPresenter(Presenter presenter);
 
-	public void setAvailableCategories(List<Category> categories);
 
 	/**
 	 * 

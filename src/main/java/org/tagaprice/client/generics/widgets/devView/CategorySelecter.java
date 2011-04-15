@@ -72,16 +72,6 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		return null;
 	}
 
-	@Override
-	public void setAvailableCategories(List<Category> categories) {
-		/*
-		this._availableCategories = categories;
-		this._listBoxCategories.clear();
-		for (Category c : this._availableCategories) {
-			this._listBoxCategories.addItem(c.getTitle(), c.toString());
-		}
-		 */
-	}
 
 	class SimpleCategorySelecter extends Composite{
 

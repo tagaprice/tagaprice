@@ -11,6 +11,7 @@ import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.InfoBoxShowEventHandler;
 import org.tagaprice.client.generics.events.WaitForAddressEventHandler;
+import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.client.mvp.AppActivityMapper;
 import org.tagaprice.client.mvp.AppPlaceHistoryMapper;
 import org.tagaprice.shared.entities.Address;
@@ -24,6 +25,7 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -36,13 +38,15 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
  *
  */
 public class TagAPrice implements EntryPoint {
-	private static MyLogger logger = LoggerFactory.getLogger(TagAPrice.class);
+	private static MyLogger _logger = LoggerFactory.getLogger(TagAPrice.class);
 
 	private ClientFactory clientFactory;
 	private EventBus eventBus;
 
 
 	private IUi _iui = new UIDesktop();
+	private FBCore _fbCore = new FBCore();
+
 
 	/**
 	 * Initializes ActivityManager and ActivityMapper for each display-area.
@@ -50,7 +54,7 @@ public class TagAPrice implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		TagAPrice.logger.log("EntryPoint startet");
+		TagAPrice._logger.log("EntryPoint startet");
 		clientFactory = GWT.create(ClientFactory.class);
 		eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
@@ -85,7 +89,7 @@ public class TagAPrice implements EntryPoint {
 
 			@Override
 			public void onDestroyInfo(InfoBoxDestroyEvent event) {
-				TagAPrice.logger.log("Destroy event:");
+				TagAPrice._logger.log("Destroy event:");
 				_iui.getInfoBox().removeInfoBoxEvent(event);
 			}
 		});
@@ -123,8 +127,31 @@ public class TagAPrice implements EntryPoint {
 
 		//Test if user is logged in
 		if(!clientFactory.getAccountPersistor().isLoggedIn()){
+			TagAPrice._logger.log("User is not loggedIn");
 			eventBus.fireEvent(new LoginChangeEvent(false));
 		}else{
+			TagAPrice._logger.log("User is loggedIn");
+
+			//Start Facebook
+			_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
+
+			//Check current status via async
+			_fbCore.getLoginStatus(new AsyncCallback<JavaScriptObject>() {
+
+				@Override
+				public void onSuccess(JavaScriptObject result) {
+					TagAPrice._logger.log("Findout the facebook login status");
+					//myHellow(result);
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					TagAPrice._logger.log("Facebook login Problem");
+				}
+			});
+
+
+
 			eventBus.fireEvent(new LoginChangeEvent(true));
 
 			//TODO Get address from user via rpc and send AddressChanged event
