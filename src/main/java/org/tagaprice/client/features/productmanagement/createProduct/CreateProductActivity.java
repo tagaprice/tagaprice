@@ -27,6 +27,11 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	@Override
+	public void goTo(Place place) {
+		_clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
 	public String mayStop() {
 		// TODO Auto-generated method stub
 		return null;
@@ -39,7 +44,62 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	}
 
 	@Override
+	public void onCategorySelectedEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onSaveEvent() {
+		CreateProductActivity._logger.log("Save Product");
+
+
+		//Get data from View
+		_product.setTitle(_createProductView.getProductTitle());
+		_product.setCategory(_createProductView.getCategory());
+		_product.setUnit(_createProductView.getUnit());
+		_product.setPackages(_createProductView.getPackages());
+
+		this._clientFactory.getProductService().saveProduct(_product, new AsyncCallback<Product>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				try{
+					throw caught;
+				}catch (UserNotLoggedInException e){
+					CreateProductActivity._logger.log(e.getMessage());
+				}catch (Throwable e){
+					// last resort -- a very unexpected exception
+					CreateProductActivity._logger.log(e.getMessage());
+					e.printStackTrace();
+				}
+
+				CreateProductActivity._logger.log(caught.getLocalizedMessage());
+
+			}
+
+			@Override
+			public void onSuccess(Product result) {
+				updateView(result);
+			}
+		});
+
+	}
+
+	@Override
 	public void onStop() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTitleSelectedEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onUnitSelectedEvent() {
 		// TODO Auto-generated method stub
 
 	}
@@ -73,79 +133,19 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			this._clientFactory.getProductService().getProduct(_place.getId(), _place.getRevision(), new AsyncCallback<Product>() {
 
 				@Override
-				public void onSuccess(Product result) {
-					updateView(result);
-					panel.setWidget(_createProductView);
+				public void onFailure(Throwable caught) {
+					CreateProductActivity._logger.log("ERROR at getProduct");
 				}
 
 				@Override
-				public void onFailure(Throwable caught) {
-					CreateProductActivity._logger.log("ERROR at getProduct");
+				public void onSuccess(Product result) {
+					updateView(result);
+					panel.setWidget(_createProductView);
 				}
 			});
 
 
 		}
-
-	}
-
-	@Override
-	public void goTo(Place place) {
-		_clientFactory.getPlaceController().goTo(place);
-	}
-
-	@Override
-	public void onSaveEvent() {
-		CreateProductActivity._logger.log("Save Product");
-
-
-		//Get data from View
-		_product.setTitle(_createProductView.getProductTitle());
-		_product.setCategory(_createProductView.getCategory());
-		_product.setUnit(_createProductView.getUnit());
-		_product.setPackages(_createProductView.getPackages());
-
-		this._clientFactory.getProductService().saveProduct(_product, new AsyncCallback<Product>() {
-
-			@Override
-			public void onSuccess(Product result) {
-				updateView(result);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				try{
-					throw caught;
-				}catch (UserNotLoggedInException e){
-					CreateProductActivity._logger.log(e.getMessage());
-				}catch (Throwable e){
-					// last resort -- a very unexpected exception
-					CreateProductActivity._logger.log(e.getMessage());
-					e.printStackTrace();
-				}
-
-				CreateProductActivity._logger.log(caught.getLocalizedMessage());
-
-			}
-		});
-
-	}
-
-	@Override
-	public void onTitleSelectedEvent() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onUnitSelectedEvent() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onCategorySelectedEvent() {
-		// TODO Auto-generated method stub
 
 	}
 

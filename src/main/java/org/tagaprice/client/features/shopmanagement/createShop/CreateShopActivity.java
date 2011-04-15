@@ -34,6 +34,11 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 
 	@Override
+	public void goTo(Place place) {
+		_clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
 	public String mayStop() {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,6 +48,40 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	public void onCancel() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onSaveEvent() {
+		CreateShopActivity._logger.log("Save Shop");
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
+
+		//Get data from View
+		_shop.setTitle(_createShopView.getShopTitle());
+		_shop.setChildren(_createShopView.getChildren());
+
+		_clientFactory.getShopService().saveShop(_shop, new AsyncCallback<Shop>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+
+				try{
+					throw caught;
+				}catch (UserNotLoggedInException e){
+					CreateShopActivity._logger.log(e.getMessage());
+				}catch (Throwable e){
+					// last resort -- a very unexpected exception
+					CreateShopActivity._logger.log(e.getMessage());
+				}
+
+				CreateShopActivity._logger.log("exception "+caught.getMessage());
+			}
+
+			@Override
+			public void onSuccess(Shop result) {
+				CreateShopActivity._logger.log("got updated shop: " + result);
+				updateView(result);
+			}
+		});
 	}
 
 	@Override
@@ -65,16 +104,16 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					new AsyncCallback<Shop>() {
 
 				@Override
+				public void onFailure(Throwable caught) {
+
+					CreateShopActivity._logger.log(caught.getMessage());
+				}
+
+				@Override
 				public void onSuccess(Shop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
 					updateView(result);
 					panel.setWidget(_createShopView);
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-
-					CreateShopActivity._logger.log(caught.getMessage());
 				}
 			});
 
@@ -101,45 +140,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			panel.setWidget(_createShopView);
 		}
 
-	}
-
-	@Override
-	public void goTo(Place place) {
-		_clientFactory.getPlaceController().goTo(place);
-	}
-
-	@Override
-	public void onSaveEvent() {
-		CreateShopActivity._logger.log("Save Shop");
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
-
-		//Get data from View
-		_shop.setTitle(_createShopView.getShopTitle());
-		_shop.setChildren(_createShopView.getChildren());
-
-		_clientFactory.getShopService().saveShop(_shop, new AsyncCallback<Shop>() {
-
-			@Override
-			public void onSuccess(Shop result) {
-				CreateShopActivity._logger.log("got updated shop: " + result);
-				updateView(result);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-
-				try{
-					throw caught;
-				}catch (UserNotLoggedInException e){
-					CreateShopActivity._logger.log(e.getMessage());
-				}catch (Throwable e){
-					// last resort -- a very unexpected exception
-					CreateShopActivity._logger.log(e.getMessage());
-				}
-
-				CreateShopActivity._logger.log("exception "+caught.getMessage());
-			}
-		});
 	}
 
 
