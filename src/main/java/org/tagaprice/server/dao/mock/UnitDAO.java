@@ -37,7 +37,7 @@ public class UnitDAO implements IUnitDAO {
 	}
 
 	@Override
-	public List<Unit> relatedUnits(Unit unit) {
+	public List<Unit> relatedUnits(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

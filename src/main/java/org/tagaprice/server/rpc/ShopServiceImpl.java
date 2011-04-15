@@ -10,14 +10,14 @@ import org.tagaprice.shared.rpc.shopmanagement.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
-	private static final long serialVersionUID = -4954618872880443049L;
+	private static final long serialVersionUID = 1L;
 	MyLogger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
 	IShopDAO shopDAO;
 
 	public ShopServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		logger.log("Load ShopServiceImpl servlet...");
+		logger.log("Load servlet...");
 
 		shopDAO = daoFactory.getShopDAO();
 
@@ -35,7 +35,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		logger.log("getShop with id " + id+", rev "+revision);
 		return shopDAO.get(id, revision);
 	}
-	
+
 	@Override
 	public Shop getShop(String id) {
 		logger.log("getShop with id " + id);

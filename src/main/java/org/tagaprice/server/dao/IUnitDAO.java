@@ -10,8 +10,8 @@ public interface IUnitDAO extends IDAOClass<Unit> {
 	 * A list of all related units. e.g. g -> kg, g, mg
 	 * 
 	 * @param unit
-	 *            Unit for which you search realted units. If it is null you get all units.
+	 *            Unit id for which you search related units. If it is null you get all units.
 	 * @return A list of related units
 	 */
-	public List<Unit> relatedUnits(Unit unit);
+	public List<Unit> relatedUnits(String id);
 }

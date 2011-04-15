@@ -9,11 +9,6 @@ public interface IShopServiceAsync {
 
 	void getShop(String id, String revision, AsyncCallback<Shop> callback);
 	void getShop(String id, AsyncCallback<Shop> callback);
-	
-
 	void getShops(Shop searchCriteria, AsyncCallback<List<Shop>> callback);
-
 	void saveShop(Shop shop, AsyncCallback<Shop> callback);
-
-
 }
