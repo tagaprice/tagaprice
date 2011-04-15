@@ -15,12 +15,8 @@ import org.tagaprice.shared.logging.MyLogger;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.NotificationMole;
-import com.google.gwt.user.client.ui.PopupPanel;
 
 public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopActivity.class);
@@ -57,7 +53,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
-		_shop=null;
+		_shop=new Shop();
 		CreateShopActivity._logger.log("activity startet");
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
@@ -71,11 +67,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				@Override
 				public void onSuccess(Shop result) {
 					CreateShopActivity._logger.log("got shop: " + result);
-					for(Shop s: result.getChildren())
-						CreateShopActivity._logger.log("child: " + s.getTitle());
-
 					updateView(result);
-					//_createShopView.setReceiptEntries(result);
 					panel.setWidget(_createShopView);
 				}
 
@@ -105,19 +97,15 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				}
 			});
 
-			updateView(new Shop(""));
+			updateView(_shop);
 			panel.setWidget(_createShopView);
 		}
-
-
-
 
 	}
 
 	@Override
 	public void goTo(Place place) {
-		// TODO Auto-generated method stub
-
+		_clientFactory.getPlaceController().goTo(place);
 	}
 
 	@Override
@@ -139,41 +127,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				try{
 					throw caught;
 				}catch (UserNotLoggedInException e){
-					//TODO This stuff must be implementet at an global place
-					final PopupPanel pop = new PopupPanel();
-					final NotificationMole mole = new NotificationMole();
-					pop.show();
-					pop.setPopupPosition(Window.getClientWidth() / 2, Window.getClientHeight() / 2);
-					pop.add(mole);
-					mole.setMessage("user not logged in "+e.getMessage());
-					mole.setAnimationDuration(500);
-					mole.show();
-
-					Timer t = new Timer() {
-						@Override
-						public void run() {
-							mole.hide();
-							Timer t2 = new Timer() {
-
-								@Override
-								public void run() {
-									pop.hide();
-								}
-							};
-							t2.schedule(500);
-						}
-					};
-
-					t.schedule(2000);
 					CreateShopActivity._logger.log(e.getMessage());
 				}catch (Throwable e){
 					// last resort -- a very unexpected exception
 					CreateShopActivity._logger.log(e.getMessage());
-					e.printStackTrace();
 				}
 
-				CreateShopActivity._logger.log("got exception");
-				CreateShopActivity._logger.log(caught.getMessage());
+				CreateShopActivity._logger.log("exception "+caught.getMessage());
 			}
 		});
 	}

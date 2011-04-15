@@ -90,8 +90,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void goTo(Place place) {
-		// TODO Auto-generated method stub
-
+		_clientFactory.getPlaceController().goTo(place);
 	}
 
 	@Override
