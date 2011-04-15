@@ -8,10 +8,6 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
-import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.entities.dump.Quantity;
-import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -29,37 +25,7 @@ public class ProductDAO implements IProductDAO {
 
 		categoryDAO = daoFactory.getCategoryDAO();
 
-		Category food = categoryDAO.create(new Category("food", null));
-		Category vegetables = categoryDAO.create(new Category("vegetables", food));
-		Category beverages = categoryDAO.create(new Category("beverages", null));
-		Category alcoholics = categoryDAO.create(new Category("alcohol", beverages));
-		Category nonalcoholics = categoryDAO.create(new Category("nonalcoholics", beverages));
-		Category softAlc = categoryDAO.create(new Category("softalk", alcoholics));
-		Category hardAlc = categoryDAO.create(new Category("hardalk", alcoholics));
 
-
-		// TestProduct
-		Product bergkasese = new Product("Bergkäse 4", vegetables, new Unit("grams"));
-		bergkasese = create(bergkasese);
-
-		{
-			Package tPackage=new Package(new Quantity(500, new Unit("kg")));
-			tPackage.setProduct(bergkasese);
-			bergkasese.addPackage(tPackage);
-		}
-		{
-			Package tPackage=new Package(new Quantity(750, new Unit("g")));
-			tPackage.setProduct(bergkasese);
-			bergkasese.addPackage(tPackage);
-		}
-
-		update(bergkasese);
-
-		create(new Product("Extrawurst von der Theke", vegetables, new Unit("grams")));
-		create(new Product("Limonade", nonalcoholics, new Unit("liters")));
-
-		System.out.println("ProductService startet. Size is " + this.productsAllRevisions.size() + ", "
-				+ this.productsLatest.size() + ". Counter is " + this.productIdCounter + ".");
 	}
 
 	@Override
