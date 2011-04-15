@@ -55,6 +55,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+		_receipt=new Receipt();
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
@@ -64,9 +65,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		if (_place.getId() == null) {
 			CreateReceiptActivity._logger.log("Create new Receipt");
-			_receipt=new Receipt();
-			//_receipt.setTitle("New Receipt");
-			//_receipt.setDate(new Date());
+
 			updateView(_receipt);
 		} else {
 			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
@@ -76,8 +75,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				@Override
 				public void onSuccess(Receipt response) {
 					CreateReceiptActivity._logger.log("Result: "+response);
-					_receipt=response;
-
 					updateView(_receipt);
 				}
 
@@ -154,7 +151,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	public void onSaveEvent() {
 		CreateReceiptActivity._logger.log("Try Save Receipt");
 
-		if(_receipt==null)_receipt=new Receipt();
+		//Get data from View
+
 		_receipt.setTitle(_createReceiptView.getTitle());
 		_receipt.setDate(_createReceiptView.getDate());
 		_receipt.setShop(_createReceiptView.getAddress());
@@ -167,6 +165,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			@Override
 			public void onSuccess(Receipt response) {
 				CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
+				updateView(response);
 			}
 
 			@Override

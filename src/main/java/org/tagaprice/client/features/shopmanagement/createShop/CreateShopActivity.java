@@ -110,10 +110,14 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onSaveEvent() {
+		CreateShopActivity._logger.log("Save Shop");
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
 
+		//Get data from View
+		_shop.setTitle(_createShopView.getShopTitle());
+		_shop.setChildren(_createShopView.getChildren());
 
-		_clientFactory.getShopService().saveShop(getShop(), new AsyncCallback<Shop>() {
+		_clientFactory.getShopService().saveShop(_shop, new AsyncCallback<Shop>() {
 
 			@Override
 			public void onSuccess(Shop result) {
@@ -139,17 +143,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	}
 
 
-	private Shop getShop() {
-		Shop shop;
-		if (_shop != null) {
-			shop = _shop;
-		} else {
-			shop = new Shop();
-		}
-		shop.setTitle(_createShopView.getShopTitle());
-		shop.setChildren(_createShopView.getChildren());
-		return shop;
-	}
+
 
 	private void updateView(Shop shop){
 		_shop = shop;
