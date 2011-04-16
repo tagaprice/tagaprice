@@ -138,7 +138,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public Address getAddress() {
-		return _address.getAddress().getAddress();
+		return _address.getAddress();
 	}
 
 	@Override

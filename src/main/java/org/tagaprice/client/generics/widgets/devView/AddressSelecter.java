@@ -16,7 +16,6 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
@@ -37,10 +36,10 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 	VerticalPanel vePaTemp = new VerticalPanel();
 
-	TextBox _address = new TextBox();
+	TextBox _addressBox = new TextBox();
 	Label _lat = new Label();
 	Label _lng = new Label();
-	Shop _shop;
+	Address _adddress;
 
 
 	//OSM
@@ -107,7 +106,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					@Override
 					public void onSuccess(Address address) {
 						AddressSelecter._logger.log(address.getAddress());
-						_address.setText(address.getAddress());
+						_addressBox.setText(address.getAddress());
 
 					}
 
@@ -130,7 +129,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		tempGrid.setWidget(4, 0, new Label("lat"));
 		tempGrid.setWidget(5, 0, new Label("lng"));
 
-		tempGrid.setWidget(0, 1, _address);
+		tempGrid.setWidget(0, 1, _addressBox);
 		tempGrid.setWidget(4, 1, _lat);
 		tempGrid.setWidget(5, 1, _lng);
 
@@ -145,28 +144,28 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public void setAddress(Shop address){
-		_shop=address;
-		_address.setText(_shop.getAddress().getAddress());
+	public void setAddress(Address address){
+		_adddress=address;
+		_addressBox.setText(_adddress.getAddress());
 
-		LonLat l = new LonLat(_shop.getAddress().getLng(), _shop.getAddress().getLat());
+		LonLat l = new LonLat(_adddress.getLng(), _adddress.getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
 		setLatLng(l);
 	}
 
 	@Override
-	public Shop getAddress(){
-		if(_shop==null)_shop = new Shop();
-		_shop.getAddress().setAddress(_address.getText());
+	public Address getAddress(){
+		if(_adddress==null)_adddress = new Address();
+		_adddress.setAddress(_addressBox.getText());
 
 		LonLat l = osmMap.getCenter();
 		l.transform("EPSG:900913","EPSG:4326");
 
-		_shop.getAddress().setLat(l.lat());
-		_shop.getAddress().setLng(l.lon());
+		_adddress.setLat(l.lat());
+		_adddress.setLng(l.lon());
 
 
-		return _shop;
+		return _adddress;
 	}
 
 	private void setLatLng(LonLat lonLat){
@@ -182,7 +181,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	@Override
 	public void setCurrentAddress(Address address) {
-		_address.setText(address.getAddress());
+		_addressBox.setText(address.getAddress());
 
 		LonLat l = new LonLat(address.getLng(),address.getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
