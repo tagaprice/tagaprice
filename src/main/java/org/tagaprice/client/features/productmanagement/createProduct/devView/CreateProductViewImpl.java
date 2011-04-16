@@ -132,11 +132,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		return _unit.getUnit();
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 
 

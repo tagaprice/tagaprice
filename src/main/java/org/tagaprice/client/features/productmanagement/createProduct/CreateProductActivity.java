@@ -111,7 +111,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 		_createProductView = _clientFactory.getCreateProductView();
 		_createProductView.setPresenter(this);
-		_createProductView.reset();
 
 
 		if (_place.getId() == null) {

@@ -122,7 +122,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_shopSearchSuggestPop.setWidget(_shopSearchSuggestVePa);
 		_productSearchSuggestPop.setWidget(_productSearchSuggestVePa);
 
-		reset();
 
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
@@ -325,6 +324,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	}
 
+	/*
 	@Override
 	public void reset() {
 		if(_shopHolder!=null)_shopHolder.clear();
@@ -340,6 +340,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		if(_newAddressArea!=null)_newAddressArea.setVisible(false);
 
 	}
+	 */
 
 
 

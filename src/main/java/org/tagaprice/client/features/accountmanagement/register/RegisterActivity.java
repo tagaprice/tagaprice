@@ -55,11 +55,9 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 		if(_place.getRegisterType()==RegisterPlace.RegisterType.REGISTER){
 			if (_registerView == null)
 				_registerView = _clientFactory.getRegisterView();
-			_registerView.reset();
 			_registerView.setPresenter(this);
 			panel.setWidget(_registerView);
 		}else if(_place.getRegisterType()==RegisterPlace.RegisterType.THANKS){
-			_clientFactory.getRegisteredView().reset();
 			panel.setWidget(_clientFactory.getRegisteredView());
 		}
 	}
@@ -84,18 +82,12 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 
 		RegisterActivity._logger.log("Email: "+_registerView.getEmail());
 		RegisterActivity._logger.log("PW: "+_registerView.getPassword());
-		RegisterActivity._logger.log("PW2: "+_registerView.getConfirmPassword());
-		RegisterActivity._logger.log("challange: "+_registerView.getChallenge());
-		RegisterActivity._logger.log("response: "+_registerView.getResponse());
 
 		if(_registerView.getEmail().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Email is empty", INFOTYPE.ERROR,0));
 
 		if(_registerView.getPassword().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Password is empty", INFOTYPE.ERROR,0));
-
-		if(!_registerView.getPassword().equals(_registerView.getConfirmPassword()))
-			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Password and Confirm Password are not equal", INFOTYPE.ERROR,0));
 
 		if(!_registerView.getAgreeTerms())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Please aggree our terms and conditions!", INFOTYPE.ERROR,0));
@@ -104,7 +96,6 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 		if(
 				!_registerView.getEmail().isEmpty() &&
 				!_registerView.getPassword().isEmpty() &&
-				_registerView.getPassword().equals(_registerView.getConfirmPassword()) &&
 				_registerView.getAgreeTerms()){
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Register...", INFOTYPE.INFO));
 
@@ -117,9 +108,6 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 						_clientFactory.getLoginService().registerUser(
 								_registerView.getEmail(),
 								_registerView.getPassword(),
-								_registerView.getConfirmPassword(),
-								_registerView.getChallenge(),
-								_registerView.getResponse(),
 								_registerView.getAgreeTerms(),
 								new AsyncCallback<String>() {
 

@@ -95,7 +95,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		CreateShopActivity._logger.log("activity startet");
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
-		_createShopView.reset();
 
 		if (_place.getId() != null) {
 			// Existing product... trying to load

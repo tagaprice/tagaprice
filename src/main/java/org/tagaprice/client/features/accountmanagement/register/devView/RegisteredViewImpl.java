@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class RegisteredViewImpl extends Composite implements IRegisteredView {
 
-	private Label _thxText = new Label("Thanks for registation. (Normale you should be sent to the user area)");
+	private Label _thxText = new Label("Thanks for registation.");
 
 	public RegisteredViewImpl() {
 		initWidget(_thxText);
@@ -19,10 +19,5 @@ public class RegisteredViewImpl extends Composite implements IRegisteredView {
 
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

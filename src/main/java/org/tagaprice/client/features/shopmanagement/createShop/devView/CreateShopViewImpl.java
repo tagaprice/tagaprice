@@ -86,12 +86,6 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	}
 
 	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void addChild(Shop kid) {
 		_addresses.addShop(kid);
 	}

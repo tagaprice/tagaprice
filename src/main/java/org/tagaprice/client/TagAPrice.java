@@ -6,7 +6,6 @@ import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.InfoBoxShowEventHandler;
@@ -25,7 +24,6 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -115,7 +113,7 @@ public class TagAPrice implements EntryPoint {
 		});
 
 
-
+		/*
 		//Start Account Initialisation
 		//clientFactory.getAccountPersistor().getAddress();
 
@@ -123,7 +121,6 @@ public class TagAPrice implements EntryPoint {
 		if(clientFactory.getAccountPersistor().getAddress()==null){
 			eventBus.fireEvent(new WaitForAddressEvent());
 		}
-
 
 		//Test if user is logged in
 		if(!clientFactory.getAccountPersistor().isLoggedIn()){
@@ -150,13 +147,11 @@ public class TagAPrice implements EntryPoint {
 				}
 			});
 
-
-
 			eventBus.fireEvent(new LoginChangeEvent(true));
 
 			//TODO Get address from user via rpc and send AddressChanged event
 		}
-
+		 */
 
 
 	}

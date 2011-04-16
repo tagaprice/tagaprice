@@ -8,9 +8,5 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface IFeatureView extends IsWidget {
 
-	/**
-	 * Reset the view. That it looks like a new view.
-	 */
-	public void reset();
 
 }

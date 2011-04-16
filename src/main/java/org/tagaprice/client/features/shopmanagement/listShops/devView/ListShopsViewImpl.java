@@ -35,11 +35,6 @@ public class ListShopsViewImpl extends Composite implements ListShopsView {
 
 
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 
 	@Override

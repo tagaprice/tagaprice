@@ -62,10 +62,5 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		return nice;
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

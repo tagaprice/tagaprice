@@ -40,11 +40,6 @@ public class ListProductsViewImpl extends Composite implements ListProductsView 
 	VerticalPanel _table;
 
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void setData(List<Product> data) {

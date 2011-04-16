@@ -64,7 +64,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
 				CreateReceiptActivity._logger.log("ERROR at saving a Receipt");
 			}
 
@@ -94,7 +93,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onFailure(Throwable e) {
-						// TODO Auto-generated method stub
 						CreateReceiptActivity._logger.log("productSearch ERROR: "+e);
 					}
 
@@ -116,7 +114,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onFailure(Throwable e) {
-						// TODO Auto-generated method stub
 						CreateReceiptActivity._logger.log("shopSearch ERROR: "+e);
 					}
 
@@ -135,7 +132,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
-		_createReceiptView.reset();
 
 
 
