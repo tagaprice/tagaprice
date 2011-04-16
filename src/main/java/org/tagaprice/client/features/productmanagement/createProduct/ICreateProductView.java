@@ -1,18 +1,18 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
-import org.tagaprice.client.features.IFeatureView;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
 
 /**
  * This interface is necessary to implement a ProductManagementView
  * 
  */
-public interface ICreateProductView extends IFeatureView {
+public interface ICreateProductView extends IsWidget {
 
 
 	/**

@@ -1,10 +1,9 @@
 package org.tagaprice.client.features.accountmanagement.login;
 
-import org.tagaprice.client.features.IFeatureView;
-
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ILogoutView extends IFeatureView {
+public interface ILogoutView extends IsWidget {
 
 
 	/**

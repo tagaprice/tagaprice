@@ -2,10 +2,10 @@ package org.tagaprice.client.features.productmanagement.listProducts;
 
 import java.util.List;
 
-import org.tagaprice.client.features.IFeatureView;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
 
 /**
  * The interface ListProductsView<T> defines the ListProducts View
@@ -14,7 +14,7 @@ import com.google.gwt.place.shared.Place;
  * 
  * @param <T>
  */
-public interface ListProductsView extends IFeatureView {
+public interface ListProductsView extends IsWidget {
 
 	public interface Presenter {
 		public void goTo(Place place);
