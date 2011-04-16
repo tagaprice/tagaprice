@@ -33,6 +33,9 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 		productDAO = daoFactory.getProductDAO();
 	}
 
+
+
+
 	@Override
 	public List<Shop> searchShop(String searchString, BoundingBox bbox) {
 		return shopDAO.list();

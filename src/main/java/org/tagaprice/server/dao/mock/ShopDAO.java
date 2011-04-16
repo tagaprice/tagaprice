@@ -26,11 +26,6 @@ public class ShopDAO implements IShopDAO {
 	public Shop create(Shop shop) {
 		logger.log("new Shop");
 
-		for(Shop ia:shop.getChildren()){
-			ia.setId(new Long(random.nextLong()).toString());
-			ia.setRevision("1");
-			newestRev.put(ia.getId(), ia.getId());
-		}
 
 		shop.setId(new Long(random.nextLong()).toString());
 		shop.setRevision("1");
@@ -79,23 +74,6 @@ public class ShopDAO implements IShopDAO {
 			shopsAllRevisions.put(updateShop.getId(), updateShop);
 			newestRev.put(updateShop.getId(), updateShop.getId());
 
-			for(Shop ta:updateShop.getChildren()){
-				logger.log("addr: "+ta.toString());
-
-
-				if (ta.getId()==null) {
-					logger.log("create new address");
-
-					ta.setId(new Long(random.nextLong()).toString());
-					ta.setRevision("1");
-
-					newestRev.put(ta.getId(), ta.getId());
-				}else{
-					logger.log("update address");
-					ta.setRevision(new Integer(Integer.parseInt(ta.getRevision())+1).toString());
-				}
-
-			}
 
 			return updateShop;
 		}

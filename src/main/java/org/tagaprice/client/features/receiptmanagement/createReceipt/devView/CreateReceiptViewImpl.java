@@ -234,6 +234,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShopSearchResults(List<Shop> shopResults) {
 		_shopSearchSuggestVePa.clear();
 		for(final Shop s:shopResults){
+			/*
 			for(final Shop a:s.getChildren()){
 				Label foundAddress = new Label(s.getTitle()+" "+a.getAddress().getAddress());
 
@@ -247,6 +248,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				});
 				_shopSearchSuggestVePa.add(foundAddress);
 			}
+			 */
 
 			Label createNewAddress = new Label(s.getTitle()+" (Add Address)");
 			createNewAddress.addClickHandler(new ClickHandler() {

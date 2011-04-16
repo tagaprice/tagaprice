@@ -72,20 +72,9 @@ public class UIDesktop implements IUi {
 			public void onClick(ClickEvent arg0) {
 			History.newItem("ListProducts:/show");}});
 
-		Label getProductById = new Label("get Product id=1");
-		getProductById.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateProduct:/show/id/1");}});
-
-		Label getProductByIdAndRev = new Label("get Product id=1, rev=3");
-		getProductByIdAndRev.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateProduct:/show/id/1/rev/3");}});
 
 		this.leftPanel.add(createProduct);
 		this.leftPanel.add(getProduct);
-		this.leftPanel.add(getProductById);
-		this.leftPanel.add(getProductByIdAndRev);
 
 
 		/******************** Login Links *****************/
@@ -122,14 +111,9 @@ public class UIDesktop implements IUi {
 			public void onClick(ClickEvent arg0) {
 			History.newItem("ListShops:/show");}});
 
-		Label getShopById = new Label("get Shop id=1");
-		getShopById.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateShop:/show/id/1");}});
 
 		this.leftPanel.add(createShop);
 		this.leftPanel.add(getShop);
-		this.leftPanel.add(getShopById);
 
 		/******************** Shop Links ******************/
 		this.leftPanel.add(new HTML("<hr />"));
@@ -162,19 +146,6 @@ public class UIDesktop implements IUi {
 			this.leftPanel.add(listReceipt);
 		}
 
-		{
-			Label createReceipt = new Label("get Receipt id=1");
-			createReceipt.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					History.newItem("CreateReceipt:/show/id/1");
-
-				}
-			});
-
-			this.leftPanel.add(createReceipt);
-		}
 
 
 		mainPanel.addStyleName("mainPanel");

@@ -11,14 +11,7 @@
 		<g:DecoratorPanel>
 			<g:HTMLPanel>
 				<table>
-					<tr>
-						<td>
-							<g:Label >id</g:Label>
-						</td>
-						<td>
-							<g:Label ui:field="_id">id</g:Label>
-						</td>
-					</tr>
+				
 					<tr>
 						<td>
 							<g:Label ui:field="_nameI18N">Name</g:Label>
@@ -28,8 +21,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td>
+							<g:Label ui:field="_brandinI18N">Branding</g:Label>
+						</td>
+						<td>
+							<g:TextBox ui:field="_branding"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
 						<td colspan="2">
-							<my:MultipleAddressSelecter ui:field="_addresses"></my:MultipleAddressSelecter>
+							<my:AddressSelecter ui:field="_address"></my:AddressSelecter>
 						</td>
 					</tr>				
 					<tr>

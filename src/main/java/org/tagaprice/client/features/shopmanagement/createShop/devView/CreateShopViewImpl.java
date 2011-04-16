@@ -1,13 +1,17 @@
 package org.tagaprice.client.features.shopmanagement.createShop.devView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.generics.widgets.MultipleAddressSelecter;
+import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -21,14 +25,16 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	private Presenter _presenter;
 
-	@UiField
-	Label _id;
 
 	@UiField
 	TextBox _name;
 
 	@UiField
-	MultipleAddressSelecter _addresses;
+	TextBox _branding;
+
+
+	@UiField
+	AddressSelecter _address;
 
 	@UiField
 	Button _saveButton;
@@ -36,11 +42,22 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@UiField
 	FlexTable _receiptEntriesTable;
 
+	PopupPanel _brandiPop = new PopupPanel(true);
 
+	Shop _brand;
 
 	public CreateShopViewImpl() {
 		initWidget(CreateShopViewImpl.uiBinder.createAndBindUi(this));
 
+
+		//Branding Search
+		_branding.addKeyUpHandler(new KeyUpHandler() {
+
+			@Override
+			public void onKeyUp(KeyUpEvent arg0) {
+				_presenter.brandingSearch(_branding.getText());
+			}
+		});
 	}
 
 	/* (non-Javadoc)
@@ -81,22 +98,61 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 
 	@Override
-	public void setCurrentAddress(Address address) {
-		_addresses.setCurrentAddress(address);
+	public void setAddress(Address address) {
+		_address.setCurrentAddress(address);
 	}
 
 	@Override
-	public void addChild(Shop kid) {
-		_addresses.addShop(kid);
+	public void setBrandingSearchResults(List<Shop> results) {
+		VerticalPanel vePa = new VerticalPanel();
+
+		for(final Shop s:results){
+			Label l = new Label(s.getTitle());
+			vePa.add(l);
+
+			l.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setBranding(s);
+
+				}
+			});
+		}
+
+		Label l = new Label("has no Branding");
+		l.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setBranding(null);
+
+			}
+		});
+		vePa.add(l);
+
+		_brandiPop.setWidget(vePa);
+		_brandiPop.showRelativeTo(_branding);
+
 	}
 
 	@Override
-	public ArrayList<Shop> getChildren() {
-		return _addresses.getShops();
+	public Address getAddress() {
+		return _address.getAddress().getAddress();
 	}
 
 	@Override
-	public void setChildren(ArrayList<Shop> children) {
-		_addresses.setShops(children);
+	public Shop getBranding() {
+		return _brand;
 	}
+
+	@Override
+	public void setBranding(Shop branding) {
+		_brand=branding;
+		if(branding==null)_branding.setText("");
+		else _branding.setText(_brand.getTitle());
+		_brandiPop.hide();
+	}
+
+
 }

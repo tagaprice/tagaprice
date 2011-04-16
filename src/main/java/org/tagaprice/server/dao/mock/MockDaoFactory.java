@@ -1,7 +1,5 @@
 package org.tagaprice.server.dao.mock;
 
-import java.util.ArrayList;
-
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
@@ -79,45 +77,40 @@ public class MockDaoFactory implements IDaoFactory {
 
 		//Create shops
 		//Create address for Shop(bills)
-		ArrayList<Shop> al1 = new ArrayList<Shop>();
-
+		//Create some Shops
+		Shop s1 = m_shopDAO.create(new Shop("Billa"));
 		{
 			Shop is = m_shopDAO.create(new Shop("Billa - Blumauergasse 1B"));
 			is.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
+			is.setParent(s1);
 			is=m_shopDAO.update(is);
-			al1.add(is);
 		}
 
 
 		{
 			Shop is = m_shopDAO.create(new Shop("Billa - Holzhausergasse 9"));
 			is.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
+			is.setParent(s1);
 			is=m_shopDAO.update(is);
-			al1.add(is);
 		}
 
-		//Create some Shops
-		Shop s1 = m_shopDAO.create(new Shop("Billa"));
-		s1.setChildren(al1);
-		s1=m_shopDAO.update(s1);
+
 
 
 		//2 shop
 		//Create address for Shop(bills)
-		ArrayList<Shop> al2 = new ArrayList<Shop>();
-
+		//Create some Shop
+		Shop s2 = m_shopDAO.create(new Shop("Hofer"));
 		{
 			Shop is = m_shopDAO.create(new Shop("Hofer - Schüttelstraße 19A"));
 			is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
+			is.setParent(s2);
 			is=m_shopDAO.update(is);
-			al2.add(is);
 		}
 
 
-		//Create some Shop
-		Shop s2 = m_shopDAO.create(new Shop("Hofer"));
-		s2.setChildren(al2);
-		s2=m_shopDAO.update(s2);
+
+
 	}
 
 	@Override

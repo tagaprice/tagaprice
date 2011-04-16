@@ -1,7 +1,5 @@
 package org.tagaprice.shared.entities.shopmanagement;
 
-import java.util.ArrayList;
-
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.Address;
@@ -14,7 +12,6 @@ import org.tagaprice.shared.entities.Address;
 public class Shop extends AEntity {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Shop> _kids = new ArrayList<Shop>();
 	private Address _address = new Address();
 	private Shop _parent;
 
@@ -69,24 +66,6 @@ public class Shop extends AEntity {
 		return _parent;
 	}
 
-	public void setChildren(ArrayList<Shop> kids) {
-		_kids.clear();
-
-		for (Shop s: kids) {
-			s.setParent(this);
-			_kids.add(s);
-		}
-	}
-
-	public void addChild(Shop kid) {
-		kid.setParent(this);
-		_kids.add(kid);
-
-	}
-
-	public ArrayList<Shop> getChildren() {
-		return _kids;
-	}
 
 	public void setAddress(Address address) {
 		_address=address;

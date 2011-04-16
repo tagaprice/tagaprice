@@ -1,28 +1,23 @@
 package org.tagaprice.client.features.shopmanagement.createShop;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface ICreateShopView extends IsWidget {
 
 	/**
-	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary
-	 * for the {@link ICreateShopView} to communicate with the {@link Presenter}
-	 * 
-	 * @param presenter
-	 *            Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view.
-	 */
-	public void setPresenter(Presenter presenter);
-
-	/**
 	 * 
 	 *
 	 */
 	public interface Presenter {
+		public void brandingSearch(String search);
+
+
 		/**
 		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
 		 * browser window.
@@ -46,31 +41,30 @@ public interface ICreateShopView extends IsWidget {
 
 	public String getShopTitle();
 
-	public void setShopTitle(String title);
+	public Address getAddress();
 
+	public Shop getBranding();
 
 	/**
 	 * Set current address (Position of the user)
 	 * @param address address (position) of the user
 	 */
-	public void setCurrentAddress(Address address);
+	public void setAddress(Address address);
+
+	public void setBranding(Shop branding);
+
+	public void setBrandingSearchResults(List<Shop> results);
 
 
 	/**
-	 * Set {@link Shop} kids. All included {@link Shop} will be deleted and overwritten.
-	 * @param children all {@link Shop} kids
+	 * Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view. It is also necessary
+	 * for the {@link ICreateShopView} to communicate with the {@link Presenter}
+	 * 
+	 * @param presenter
+	 *            Sets the {@link Presenter} which implements the {@link ICreateShopView} to control this view.
 	 */
-	public void setChildren(ArrayList<Shop> children);
+	public void setPresenter(Presenter presenter);
 
-	/**
-	 * Insert one {@link Shop} as kid
-	 * @param kid {@link Shop} kid
-	 */
-	public void addChild(Shop child);
+	public void setShopTitle(String title);
 
-	/**
-	 * Returns all includes {@link Shop} kids
-	 * @return includes {@link Shop} kids
-	 */
-	public ArrayList<Shop> getChildren();
 }

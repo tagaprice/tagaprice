@@ -1,5 +1,7 @@
 package org.tagaprice.client.features.shopmanagement.createShop;
 
+import java.util.List;
+
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
@@ -56,7 +58,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 		//Get data from View
 		_shop.setTitle(_createShopView.getShopTitle());
-		_shop.setChildren(_createShopView.getChildren());
+		_shop.setAddress(_createShopView.getAddress());
+		_shop.setParent(_createShopView.getBranding());
 
 		_clientFactory.getShopService().saveShop(_shop, new AsyncCallback<Shop>() {
 
@@ -123,14 +126,14 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			if(_clientFactory.getAccountPersistor().getAddress()==null){
 				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
 			}else{
-				_createShopView.setCurrentAddress(_clientFactory.getAccountPersistor().getAddress());
+				_createShopView.setAddress(_clientFactory.getAccountPersistor().getAddress());
 			}
 
 			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
 
 				@Override
 				public void onAddressChanged(AddressChangedEvent event) {
-					_createShopView.setCurrentAddress(event.getAddress());
+					_createShopView.setAddress(event.getAddress());
 				}
 			});
 
@@ -146,7 +149,30 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private void updateView(Shop shop){
 		_shop = shop;
 		_createShopView.setShopTitle(shop.getTitle());
-		_createShopView.setChildren(_shop.getChildren());
+		_createShopView.setAddress(shop.getAddress());
+		_createShopView.setBranding(shop.getParent());
+	}
+
+
+	@Override
+	public void brandingSearch(String search) {
+
+		_clientFactory.getSearchService().searchShop(search, null, new AsyncCallback<List<Shop>>() {
+
+			@Override
+			public void onSuccess(List<Shop> results) {
+				_createShopView.setBrandingSearchResults(results);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				CreateShopActivity._logger.log("ShopSerachError: "+e);
+			}
+		});
+
+
+
+
 	}
 
 }
