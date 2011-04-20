@@ -112,6 +112,8 @@ public class TagAPrice implements EntryPoint {
 			}
 		});
 
+		clientFactory.getAccountPersistor().setClientFactory(clientFactory);
+		clientFactory.getAccountPersistor().checkLogin();
 
 		/*
 		//Start Account Initialisation

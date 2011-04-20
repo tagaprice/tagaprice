@@ -28,7 +28,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	public LoginServiceImpl() {
 		//Is only to be sure that session has been created
-
+		userList.add(new AccountUser("a@a.a", "aaa"));
 	}
 
 	@Override
