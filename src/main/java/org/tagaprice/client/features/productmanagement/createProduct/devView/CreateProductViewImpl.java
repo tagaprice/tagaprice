@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.Unit;
@@ -64,6 +65,17 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Set I18N
 		nameI18N.setText(I18N.I18N.name());
 		categoryI18N.setText(I18N.I18N.category());
+
+
+		_unit.addUnitChangedHandler(new IUnitChangedHandler() {
+
+			@Override
+			public void onChange(Unit unit) {
+				_presenter.onUnitSelectedEvent();
+				_packages.setRelatedUnit(_unit.getUnit());
+
+			}
+		});
 	}
 
 	@UiHandler("saveButton")
@@ -109,9 +121,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setPackages(ArrayList<Package> iPackage) {
 		_iPackage.clear();
-
 		_iPackage.addAll(iPackage);
-
 		_packages.setPackages(_iPackage);
 	}
 

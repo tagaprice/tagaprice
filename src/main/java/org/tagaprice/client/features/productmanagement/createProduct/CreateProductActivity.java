@@ -100,7 +100,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onUnitSelectedEvent() {
-		// TODO Auto-generated method stub
+		CreateProductActivity._logger.log("Unit has changed");
 
 	}
 
