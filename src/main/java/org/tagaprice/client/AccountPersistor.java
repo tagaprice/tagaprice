@@ -120,6 +120,7 @@ public class AccountPersistor {
 	 */
 	public void setSessionId(String sessionId) {
 		Cookies.setCookie("TAP_SID", sessionId);
+		checkLogin();
 	}
 
 	/**

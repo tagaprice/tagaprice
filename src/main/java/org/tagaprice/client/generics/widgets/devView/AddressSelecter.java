@@ -45,7 +45,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	//OSM
 	Map osmMap;
 	Point point;
-	Vector layer;
+	final Vector layer;
 
 	public AddressSelecter() {
 
@@ -77,7 +77,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		vectorOptions.setStyle(style);
 
 		// Create the layer
-		layer = new Vector("Vector Layer"+Math.random(), vectorOptions);
+		layer = new Vector("Marker", vectorOptions);
 
 		point = new Point(lonLat.lon(), lonLat.lat());
 		VectorFeature pointFeature = new VectorFeature(point);
@@ -89,6 +89,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		dragFeature.activate();
 
 		osmMap.addLayer(layer);
+
+
 
 		dragFeatureOptions.onComplete(new DragFeatureListener() {
 
@@ -175,7 +177,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		osmMap.setCenter(lonLat);
 		point.setXY(lonLat.lon(), lonLat.lat());
 		layer.redraw();
-
 
 	}
 

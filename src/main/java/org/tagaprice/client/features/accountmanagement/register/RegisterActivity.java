@@ -4,7 +4,6 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace.RegisterType;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -12,7 +11,6 @@ import org.tagaprice.shared.logging.MyLogger;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -114,13 +112,12 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 									@Override
 									public void onSuccess(String sessionId) {
 										if(sessionId!=null){
+											_clientFactory.getAccountPersistor().setSessionId(sessionId);
+
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
 											goTo(new RegisterPlace(RegisterType.THANKS));
 											RegisterActivity._logger.log("Login OK. SessionId: " + sessionId);
-											Cookies.setCookie("TAP_SID", sessionId);
 
-											//Send LoggedInEvent
-											_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
 
