@@ -3,6 +3,7 @@ package org.tagaprice.server.dao.mock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
@@ -19,6 +20,7 @@ public class ProductDAO implements IProductDAO {
 	HashMap<String, Product> productsAllRevisions = new HashMap<String, Product>();
 	HashMap<String, Product> productsLatest = new HashMap<String, Product>();
 	ICategoryDAO categoryDAO;
+	Random random = new Random(7356783);
 
 	public ProductDAO(IDaoFactory daoFactory) {
 		logger.log("Load mock.ProductDAO...");
@@ -29,18 +31,17 @@ public class ProductDAO implements IProductDAO {
 	}
 
 	@Override
-	public Product create(final Product product) {
+	public Product create(Product product) {
 		logger.log("new product");
 		// SAVE
-		// make a copy ... to get sure
-		Product newProduct = product;
 		// set a productID and Revision 1
-		newProduct.setId(product.getTitle());
+		product.setId(new Long(random.nextLong()).toString());
+		product.setRevision("1");
 		// Save it into the hashmaps
-		this.productsAllRevisions.put(newProduct.getId(), newProduct);
-		this.productsLatest.put(newProduct.getId(), newProduct);
+		this.productsAllRevisions.put(product.getId(), product);
+		this.productsLatest.put(product.getId(), product);
 
-		return newProduct;
+		return product;
 	}
 
 	@Override
@@ -76,25 +77,19 @@ public class ProductDAO implements IProductDAO {
 
 		Product updateProduct = this.productsAllRevisions.get(product.getId());
 		if (updateProduct == null) {
-			// ERROR
-			return product;
+			//ERROR
+			logger.log("unexpected error");
+			return null;
 		} else {
-			// else
-			// get product
-			// get latest revision
-			// compare revisionIds
+
 			updateProduct = product;
-			updateProduct.setRevision(updateProduct.getRevision() + 1);
-
-
+			updateProduct.setRevision(new Integer(Integer.parseInt(updateProduct.getRevision()) + 1).toString());
 			// find out if we have a new Package
-
-
 			this.productsAllRevisions.put(updateProduct.getId(), updateProduct);
 			this.productsLatest.put(updateProduct.getId(), updateProduct);
 		}
 
-		return product;
+		return updateProduct;
 	}
 
 	@Override
