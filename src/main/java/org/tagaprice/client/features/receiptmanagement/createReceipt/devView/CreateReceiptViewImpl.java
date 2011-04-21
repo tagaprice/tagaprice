@@ -48,9 +48,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Presenter _presenter;
 	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptViewImpl.class);
 	private VerticalPanel _shopSearchSuggestVePa = new VerticalPanel();
-	private PopupPanel _shopSearchSuggestPop = new PopupPanel();
+	private PopupPanel _shopSearchSuggestPop = new PopupPanel(true);
 	private VerticalPanel _productSearchSuggestVePa = new VerticalPanel();
-	private PopupPanel _productSearchSuggestPop = new PopupPanel();
+	private PopupPanel _productSearchSuggestPop = new PopupPanel(true);
 	private Map _osmMap;
 
 
@@ -97,6 +97,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_osmMap = omapWidget.getMap();
 		_osmMap.addLayer(osm_2);
 		omapWidget.setSize("100%", "150px");
+
 
 		_searchMapArea.setWidget(omapWidget);
 

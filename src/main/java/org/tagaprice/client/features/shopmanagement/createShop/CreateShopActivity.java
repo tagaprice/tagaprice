@@ -122,6 +122,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		} else {
 			// new product... reseting view
 			CreateShopActivity._logger.log("Create new shop");
+			updateView(_shop);
+			panel.setWidget(_createShopView);
 
 			if(_clientFactory.getAccountPersistor().getAddress()==null){
 				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
@@ -133,12 +135,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 				@Override
 				public void onAddressChanged(AddressChangedEvent event) {
-					_createShopView.setAddress(event.getAddress());
+					_createShopView.setAddress(_clientFactory.getAccountPersistor().getAddress());
+					//_createShopView.setAddress(event.getAddress());
 				}
 			});
 
-			updateView(_shop);
-			panel.setWidget(_createShopView);
+
 		}
 
 	}

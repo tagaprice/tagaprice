@@ -50,7 +50,7 @@ public class AccountPersistor {
 					Double.parseDouble(Cookies.getCookie("TAP_Lng")));
 		}
 
-		return new Address();
+		return I_ADDRESS;
 	}
 
 
@@ -59,6 +59,7 @@ public class AccountPersistor {
 	 * @param address setGlobalAddress
 	 */
 	public void setAddress(Address address) {
+		AccountPersistor._logger.log("setAddress: "+address);
 		if(I_ADDRESS==null)I_ADDRESS=new Address();
 		I_ADDRESS.setAddress(address.getAddress());
 		I_ADDRESS.setLat(address.getLat());
