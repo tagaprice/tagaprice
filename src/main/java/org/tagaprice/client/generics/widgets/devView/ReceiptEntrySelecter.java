@@ -105,6 +105,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 
 			productTextBox.setText(receiptEntry.getPackage().getProduct().getTitle());
 			quantitySelecter.setQuantity(receiptEntry.getPackage().getQuantity());
+			quantitySelecter.setRelatedUnit(receiptEntry.getPackage().getQuantity().getUnit());
 			priceTextBox.setText(""+receiptEntry.getPrice().getPrice());
 			currencySelecter.setCurrency(receiptEntry.getPrice().getCurrency());
 

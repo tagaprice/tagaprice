@@ -3,6 +3,9 @@ package org.tagaprice.client.features.receiptmanagement.createReceipt;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.generics.events.AddressChangedEvent;
+import org.tagaprice.client.generics.events.AddressChangedEventHandler;
+import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -55,7 +58,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		_receipt.setTitle(_createReceiptView.getTitle());
 		_receipt.setDate(_createReceiptView.getDate());
-		_receipt.setShop(_createReceiptView.getAddress());
+		_receipt.setShop(_createReceiptView.getShop());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
 
 
@@ -88,7 +91,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		_clientFactory.getSearchService().searchProduct(
 				productSearch,
-				_createReceiptView.getAddress(),
+				_createReceiptView.getShop(),
 				new AsyncCallback<List<Product>>() {
 
 					@Override
@@ -127,7 +130,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	}
 
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_receipt=new Receipt();
 		CreateReceiptActivity._logger.log("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
@@ -139,6 +142,16 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			CreateReceiptActivity._logger.log("Create new Receipt");
 
 			updateView(_receipt);
+			panel.setWidget(_createReceiptView);
+
+
+			if(_clientFactory.getAccountPersistor().getAddress()==null){
+				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
+			}else{
+				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
+			}
+
+
 		} else {
 			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
 
@@ -154,14 +167,23 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				public void onSuccess(Receipt response) {
 					CreateReceiptActivity._logger.log("Result: "+response);
 					updateView(_receipt);
+					panel.setWidget(_createReceiptView);
 				}
 			});
 		}
 
+		_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
+
+			@Override
+			public void onAddressChanged(AddressChangedEvent event) {
+				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
+				//_createReceiptView.setAddress(event.getAddress());
+			}
+
+		});
 
 
 
-		panel.setWidget(_createReceiptView);
 	}
 
 	private void updateView(Receipt receipt){
@@ -169,7 +191,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		_createReceiptView.setTitle(_receipt.getTitle());
 		_createReceiptView.setDate(_receipt.getDate());
-		_createReceiptView.setAddress(_receipt.getShop());
+		_createReceiptView.setShop(_receipt.getShop());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
@@ -29,9 +30,12 @@ public interface ICreateReceiptView extends IsWidget{
 
 	public void setDate(Date date);
 
-	public Shop getAddress();
+	public Shop getShop();
 
-	public void setAddress(Shop address);
+	public void setShop(Shop shop);
+
+	public void setAddress(Address address);
+
 
 	public BoundingBox getBoundingBox();
 
