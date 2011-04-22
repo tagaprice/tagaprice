@@ -6,7 +6,6 @@ import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.*;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
