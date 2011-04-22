@@ -34,14 +34,6 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public Receipt get(String id, String revision) {
-		/*
-		for (Receipt r:_receiptList) {
-			if(r.getId() == id) {
-				return r;
-			}
-		}
-		return null;
-		 */
 		return _receiptList.get(id);
 	}
 
@@ -52,16 +44,10 @@ public class ReceiptDAO implements IReceiptDAO {
 
 	@Override
 	public Receipt update(Receipt receipt) {
-		/*
-		for(Receipt ir:_receiptList){
-			if(ir.getId()==receipt.getId()){
-				ir=receipt;
-				ir.setRevision(ir.getRevision()+1);
-				return ir;
-			}
-		}
-		 */
-		return null;
+		receipt.setRevision(""+(Integer.parseInt(receipt.getRevision())+1));
+		_receiptList.put(receipt.getId(), receipt);
+
+		return receipt;
 	}
 
 	@Override

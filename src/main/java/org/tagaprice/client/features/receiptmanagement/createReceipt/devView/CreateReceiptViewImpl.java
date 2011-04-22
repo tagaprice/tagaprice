@@ -177,9 +177,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setShop(Shop shop) {
 		_currShop=shop;
 		_shopHolder.clear();
-		if(_currShop==null)
-			_shopHolder.clear();
-		else{
+		if(_currShop==null){
+			_shopSearch.setEnabled(true);
+
+			if(_shopHolder!=null)_shopHolder.clear();
+			if(_shopSearch!=null)_shopSearch.setText("");
+			if(_saveButton!=null)_saveButton.setEnabled(false);
+			if(_shopSearchSuggestPop!=null)_shopSearchSuggestPop.setAutoHideEnabled(true);
+
+			if(_searchMapArea!=null)_searchMapArea.setVisible(true);
+			if(_shopSearch!=null)_shopSearch.setEnabled(true);
+			_newAddressArea.setVisible(false);
+		}else{
 			_searchMapArea.setVisible(false);
 			_shopSearch.setEnabled(false);
 			_newAddressArea.setVisible(false);
@@ -210,6 +219,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
+		_searchProducts.setText("");
 		_receiptEntrySelecter.setReceiptEntries(receiptEntries);
 
 	}
