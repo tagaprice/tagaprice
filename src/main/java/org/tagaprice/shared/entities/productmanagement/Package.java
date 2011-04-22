@@ -1,7 +1,6 @@
 package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
-
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.Quantity;
 

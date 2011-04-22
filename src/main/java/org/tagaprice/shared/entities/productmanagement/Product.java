@@ -1,9 +1,9 @@
 package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
-
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
@@ -12,7 +12,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
  * 
  */
 public class Product extends AEntity {
-	private static final long serialVersionUID = 4858431133448109402L;
+	private static final long serialVersionUID = 1L;
 	private Category _category;
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
 	private Unit _unit;
@@ -60,7 +60,7 @@ public class Product extends AEntity {
 	public Category getCategory() {
 		return _category;
 	}
-	
+
 	@JSONProperty(value="categoryId", ignoreIfNull=true)
 	public String getCategoryId() {
 		String rc = null;
@@ -71,7 +71,7 @@ public class Product extends AEntity {
 	public void setCategoryId(String categoryId) {
 		setCategory(new Category(categoryId, null, null, null));
 	}
-	
+
 	public void addPackage(Package ipackage) {
 		ipackage.setProduct(this);
 		_iPackage.add(ipackage);
@@ -100,14 +100,14 @@ public class Product extends AEntity {
 	public Unit getUnit() {
 		return _unit;
 	}
-	
+
 	@JSONProperty(value="unitId", ignoreIfNull=true)
 	public String getUnitId() {
 		String rc = null;
 		if (getUnit() != null) rc = getUnit().getId();
 		return rc;
 	}
-	
+
 	public void setUnitId(String unitId) {
 		setUnit(new Unit(unitId, null, null));
 	}
@@ -120,9 +120,10 @@ public class Product extends AEntity {
 		return "Product ["+super.toString()+", category=" + _category + ", unit=" + _unit + "]";
 	}
 
+	@Override
 	public boolean equals(Object otherObject) {
 		boolean rc = true;
-		
+
 		if (otherObject instanceof Product) {
 			Product other = (Product) otherObject;
 			if (!super.equals(other)) rc = false;
@@ -131,7 +132,7 @@ public class Product extends AEntity {
 			else if (!_equals(_unit, other._unit)) rc = false;
 		}
 		else rc = false;
-		
+
 		return rc;
 	}
 

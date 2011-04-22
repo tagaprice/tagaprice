@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.AEntity;
 
 /**
  * A category describes which properties and dependencies a {@link Product} has.
