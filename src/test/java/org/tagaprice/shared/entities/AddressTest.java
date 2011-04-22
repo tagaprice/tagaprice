@@ -26,12 +26,6 @@ public class AddressTest {
 		Assert.assertEquals(addressEmpty.getLng(), 0.0, 0.0);
 	}
 
-	@Test
-	public void testAddressStringDoubleDouble() {
-		assertEquals(withConstructor.getAddress(), "address");
-		Assert.assertEquals(withConstructor.getLat(), 1.1, 0.0);
-		Assert.assertEquals(withConstructor.getLng(), 2.2, 0.0);
-	}
 
 	@Test
 	public void testGetLat() {
