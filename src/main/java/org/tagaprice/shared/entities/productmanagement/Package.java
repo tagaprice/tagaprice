@@ -3,7 +3,7 @@ package org.tagaprice.shared.entities.productmanagement;
 import java.util.ArrayList;
 
 import org.tagaprice.shared.entities.ASimpleEntity;
-import org.tagaprice.shared.entities.dump.Quantity;
+import org.tagaprice.shared.entities.Quantity;
 
 public class Package extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;

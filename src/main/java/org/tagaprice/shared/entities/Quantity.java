@@ -1,8 +1,7 @@
-package org.tagaprice.shared.entities.dump;
+package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
 
-import org.tagaprice.shared.entities.Unit;
 
 /**
  * A {@link Quantity} defines in which way a user can buy a {@link Product}.

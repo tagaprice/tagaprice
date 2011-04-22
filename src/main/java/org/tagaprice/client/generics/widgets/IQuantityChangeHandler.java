@@ -1,6 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
-import org.tagaprice.shared.entities.dump.Quantity;
+import org.tagaprice.shared.entities.Quantity;
 
 public interface IQuantityChangeHandler {
 
