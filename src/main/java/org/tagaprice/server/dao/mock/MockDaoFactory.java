@@ -1,5 +1,7 @@
 package org.tagaprice.server.dao.mock;
 
+import java.util.Date;
+
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDAO;
@@ -13,6 +15,10 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -64,16 +70,16 @@ public class MockDaoFactory implements IDaoFactory {
 		Product bergkasese = new Product("Bergkäse 4", vegetables, g);
 		bergkasese = m_productDAO.create(bergkasese);
 
-		{
-			Package tPackage=new Package(new Quantity(500, kg));
-			tPackage.setProduct(bergkasese);
-			bergkasese.addPackage(tPackage);
-		}
-		{
-			Package tPackage=new Package(new Quantity(750, g));
-			tPackage.setProduct(bergkasese);
-			bergkasese.addPackage(tPackage);
-		}
+
+		Package bergkasese1=new Package(new Quantity(500, kg));
+		bergkasese1.setProduct(bergkasese);
+		bergkasese.addPackage(bergkasese1);
+
+
+		Package bergkasese2=new Package(new Quantity(750, g));
+		bergkasese2.setProduct(bergkasese);
+		bergkasese.addPackage(bergkasese2);
+
 
 		m_productDAO.update(bergkasese);
 
@@ -107,14 +113,20 @@ public class MockDaoFactory implements IDaoFactory {
 		//Create address for Shop(bills)
 		//Create some Shop
 		Shop s2 = m_shopDAO.create(new Shop("Hofer"));
-		{
-			Shop is = m_shopDAO.create(new Shop("Hofer - Schüttelstraße 19A"));
-			is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
-			is.setParent(s2);
-			is=m_shopDAO.update(is);
-		}
+		Shop is = m_shopDAO.create(new Shop("Hofer - Schüttelstraße 19A"));
+		is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
+		is.setParent(s2);
+		is=m_shopDAO.update(is);
 
 
+
+		//Create Receipt
+		Receipt receipt = new Receipt("First Receipt", new Date(), is);
+
+		//Receipt Entry
+		ReceiptEntry recEnt = new ReceiptEntry(new Price(15, Currency.dkk), bergkasese1);
+		receipt.addReceiptEntriy(recEnt);
+		receipt=m_receiptDAO.create(receipt);
 
 
 	}

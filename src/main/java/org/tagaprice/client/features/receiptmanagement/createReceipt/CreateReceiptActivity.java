@@ -1,5 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
+import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
@@ -140,7 +141,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		if (_place.getId() == null) {
 			CreateReceiptActivity._logger.log("Create new Receipt");
-
+			_receipt.setDate(new Date());
 			updateView(_receipt);
 			panel.setWidget(_createReceiptView);
 
@@ -166,7 +167,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				@Override
 				public void onSuccess(Receipt response) {
 					CreateReceiptActivity._logger.log("Result: "+response);
-					updateView(_receipt);
+					updateView(response);
 					panel.setWidget(_createReceiptView);
 				}
 			});

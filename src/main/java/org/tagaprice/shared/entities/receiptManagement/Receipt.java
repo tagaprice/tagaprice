@@ -96,8 +96,10 @@ public class Receipt extends AEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Receipt";
+		return super.toString() + "Receipt [_shop=" + _shop.getTitle() + ", _date=" + _date + "]";
 	}
+
+
 
 
 

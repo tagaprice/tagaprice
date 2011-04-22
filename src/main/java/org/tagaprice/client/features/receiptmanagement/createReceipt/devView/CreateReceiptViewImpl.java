@@ -164,6 +164,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setDate(Date date) {
+		CreateReceiptViewImpl._logger.log("Date: "+date);
 		_date.setValue(date);
 	}
 
