@@ -25,12 +25,12 @@ import org.tagaprice.shared.logging.MyLogger;
 
 public class MockDaoFactory implements IDaoFactory {
 	MyLogger logger = LoggerFactory.getLogger(MockDaoFactory.class);
-	ICategoryDAO m_categoryDAO = new CategoryDAO(this);
-	IPackageDAO m_packageDAO = new PackageDAO();
-	IProductDAO m_productDAO = new ProductDAO(this);
-	IReceiptDAO m_receiptDAO = new ReceiptDAO(this);
-	IShopDAO m_shopDAO = new ShopDAO();
-	IUnitDAO m_unitDAO = new UnitDAO();
+	private final ICategoryDAO m_categoryDAO = new CategoryDAO(this);
+	private final IPackageDAO m_packageDAO = new PackageDAO();
+	private final IProductDAO m_productDAO = new ProductDAO(this);
+	private final IReceiptDAO m_receiptDAO = new ReceiptDAO(this);
+	private final IShopDAO m_shopDAO = new ShopDAO();
+	private final IUnitDAO m_unitDAO = new UnitDAO();
 
 	public MockDaoFactory() {
 		logger.log("Initialice Mock data");

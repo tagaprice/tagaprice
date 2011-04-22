@@ -6,6 +6,8 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
@@ -68,7 +70,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 			@Override
 			public void onFailure(Throwable e) {
-				CreateReceiptActivity._logger.log("ERROR at saving a Receipt");
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Save error: "+e, INFOTYPE.ERROR,0));
+
+				CreateReceiptActivity._logger.log("ERROR at saving a Receipt: "+e);
 			}
 
 			@Override

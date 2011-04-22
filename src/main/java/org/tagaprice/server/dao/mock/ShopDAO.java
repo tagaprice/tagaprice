@@ -18,10 +18,7 @@ public class ShopDAO implements IShopDAO {
 	HashMap<String, String> newestRev = new HashMap<String, String>();
 	Random random = new Random(1654196865);
 
-	public ShopDAO() {
 
-
-	}
 	@Override
 	public Shop create(Shop shop) {
 		logger.log("new Shop");
