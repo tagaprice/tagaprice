@@ -4,41 +4,48 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 
 public class PriceTest {
 
+	Price emptyPrice;
+	Price newPrice;
+	Price setterPrice;
+
 	@Before
 	public void setUp() throws Exception {
+		emptyPrice = new Price();
+		newPrice = new Price(15, Currency.dkk);
+		setterPrice = new Price();
 	}
 
 	@Test
 	public void testPrice() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPriceIntCurrency() {
-		fail("Not yet implemented");
+		assertEquals(emptyPrice.getPrice(), 0);
+		assertNull(emptyPrice.getCurrency());
 	}
 
 	@Test
 	public void testSetPrice() {
-		fail("Not yet implemented");
+		setterPrice.setPrice(18);
+		assertEquals(setterPrice.getPrice(), 18);
 	}
 
 	@Test
 	public void testSetCurrency() {
-		fail("Not yet implemented");
+		assertEquals(newPrice.getPrice(), 15);
 	}
 
 	@Test
 	public void testGetPrice() {
-		fail("Not yet implemented");
+		setterPrice.setCurrency(Currency.euro);
+		assertEquals(setterPrice.getCurrency(), Currency.euro);
 	}
 
 	@Test
 	public void testGetCurrency() {
-		fail("Not yet implemented");
+		assertEquals(newPrice.getCurrency(), Currency.dkk);
 	}
 
 }

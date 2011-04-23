@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class Quantity implements Serializable {
 
-	private static final long serialVersionUID = -8569323869233802603L;
+	private static final long serialVersionUID = 1L;
 
 	private double _quantity;
 	private Unit _unit;
@@ -52,7 +52,6 @@ public class Quantity implements Serializable {
 	public String toString() {
 		return "Quantity [_quantity=" + _quantity + ", _unit=" + _unit + "]";
 	}
-
 
 
 }
