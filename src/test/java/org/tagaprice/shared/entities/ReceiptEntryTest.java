@@ -19,7 +19,7 @@ public class ReceiptEntryTest {
 	@Before
 	public void setUp() throws Exception {
 		emptyReceipt = new ReceiptEntry();
-		Package p = new Package(new Quantity(5.5, new Unit("kg")));
+		Package p = new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg")));
 		newReceipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.dkk), p);
 		setterReceipt = new ReceiptEntry();
 	}
@@ -34,7 +34,7 @@ public class ReceiptEntryTest {
 	@Test
 	public void testGetPackage() {
 		assertNotNull(newReceipt.getPackage());
-		assertEquals(newReceipt.getPackage().getQuantity().getQuantity(),5.5, 0.0);
+		assertEquals(newReceipt.getPackage().getQuantity().getQuantity(), new BigDecimal("5.5"));
 		assertEquals(newReceipt.getPackage().getQuantity().getUnit().getTitle(), "kg");
 	}
 
@@ -49,11 +49,11 @@ public class ReceiptEntryTest {
 	@Test
 	public void testSetPackage() {
 		assertNull(setterReceipt.getPackage());
-		Package p2 = new Package(new Quantity(6.3, new Unit("g")));
+		Package p2 = new Package(new Quantity(new BigDecimal("6.3"), new Unit("g")));
 		setterReceipt.setPackage(p2);
 
 		assertNotNull(setterReceipt.getPackage());
-		assertEquals(setterReceipt.getPackage().getQuantity().getQuantity(), 6.3, 0.0);
+		assertEquals(setterReceipt.getPackage().getQuantity().getQuantity(), new BigDecimal("6.3"));
 		assertEquals(setterReceipt.getPackage().getQuantity().getUnit().getTitle(), "g");
 	}
 

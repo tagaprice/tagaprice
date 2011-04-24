@@ -57,13 +57,13 @@ public class ReceiptTest {
 	public void testAddReceiptEntriy() {
 		assertEquals(setterReceipt.getReceiptEntries().size(), 0);
 		setterReceipt.setTitle("setterTitle");
-		Package pack = new Package(new Quantity(15.3, new Unit("kg")));
+		Package pack = new Package(new Quantity(new BigDecimal("15.3"), new Unit("kg")));
 		ReceiptEntry receipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.euro), pack);
 		setterReceipt.addReceiptEntriy(receipt);
 		assertEquals(setterReceipt.getReceiptEntries().size(), 1);
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getPrice(), new BigDecimal(15));
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getCurrency(), Currency.euro);
-		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), 15.3, 0.0);
+		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), new BigDecimal("15.3"));
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getUnit().getTitle(), "kg");
 	}
 
@@ -97,11 +97,11 @@ public class ReceiptTest {
 		setterReceipt.setTitle("setterTitle");
 
 		ArrayList<ReceiptEntry> fullList = new ArrayList<ReceiptEntry>();
-		Package pack1 = new Package(new Quantity(15.3, new Unit("kg")));
+		Package pack1 = new Package(new Quantity(new BigDecimal("15.3"), new Unit("kg")));
 		ReceiptEntry receipt1 = new ReceiptEntry(new Price(new BigDecimal(15), Currency.euro), pack1);
 		fullList.add(receipt1);
 
-		Package pack2 = new Package(new Quantity(16.4, new Unit("g")));
+		Package pack2 = new Package(new Quantity(new BigDecimal("16.4"), new Unit("g")));
 		ReceiptEntry receipt2 = new ReceiptEntry(new Price(new BigDecimal(18), Currency.dkk), pack2);
 		fullList.add(receipt2);
 
@@ -110,13 +110,13 @@ public class ReceiptTest {
 
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getPrice(), new BigDecimal(15));
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getCurrency(), Currency.euro);
-		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), 15.3, 0.0);
+		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), new BigDecimal("15.3"));
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getUnit().getTitle(), "kg");
 
 
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPrice().getPrice(), new BigDecimal(18));
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPrice().getCurrency(), Currency.dkk);
-		assertEquals(setterReceipt.getReceiptEntries().get(1).getPackage().getQuantity().getQuantity(), 16.4, 0.0);
+		assertEquals(setterReceipt.getReceiptEntries().get(1).getPackage().getQuantity().getQuantity(), new BigDecimal("16.4"));
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPackage().getQuantity().getUnit().getTitle(), "g");
 
 

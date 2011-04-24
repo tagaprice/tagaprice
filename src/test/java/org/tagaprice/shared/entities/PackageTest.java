@@ -2,6 +2,8 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -18,8 +20,8 @@ public class PackageTest {
 	@Before
 	public void setUp() throws Exception {
 		emptyPackage = new Package();
-		newPackage = new Package(new Quantity(5.5, new Unit("kg")));
-		updatePackage = new Package("1", "2", new Quantity(12.5, new Unit("g")));
+		newPackage = new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg")));
+		updatePackage = new Package("1", "2", new Quantity(new BigDecimal("12.5"), new Unit("g")));
 		setterPackage = new Package();
 	}
 
@@ -33,7 +35,7 @@ public class PackageTest {
 
 	@Test
 	public void testPackageQuantity() {
-		assertEquals(newPackage.getQuantity().getQuantity(), 5.5, 0.0);
+		assertEquals(newPackage.getQuantity().getQuantity(), new BigDecimal("5.5"));
 		assertEquals(newPackage.getQuantity().getUnit().getTitle(), "kg");
 		assertNull(newPackage.getProduct());
 		assertNull(newPackage.getId());
@@ -48,7 +50,7 @@ public class PackageTest {
 
 	@Test
 	public void testGetQuantity() {
-		assertEquals(updatePackage.getQuantity().getQuantity(), 12.5, 0.0);
+		assertEquals(updatePackage.getQuantity().getQuantity(), new BigDecimal("12.5"));
 		assertEquals(updatePackage.getQuantity().getUnit().getTitle(), "g");
 	}
 
@@ -66,9 +68,9 @@ public class PackageTest {
 	@Test
 	public void testSetQuantity() {
 		assertNull(setterPackage.getQuantity());
-		setterPackage.setQuantity(new Quantity(5.6, new Unit("g")));
+		setterPackage.setQuantity(new Quantity(new BigDecimal("5.6"), new Unit("g")));
 		assertNotNull(setterPackage.getQuantity());
-		assertEquals(setterPackage.getQuantity().getQuantity(), 5.6, 0.0);
+		assertEquals(setterPackage.getQuantity().getQuantity(), new BigDecimal("5.6"));
 		assertEquals(setterPackage.getQuantity().getUnit().getTitle(), "g");
 	}
 

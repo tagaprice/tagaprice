@@ -72,12 +72,12 @@ public class MockDaoFactory implements IDaoFactory {
 		bergkasese = m_productDAO.create(bergkasese);
 
 
-		Package bergkasese1=new Package(new Quantity(500, kg));
+		Package bergkasese1=new Package(new Quantity(new BigDecimal("500.3"), kg));
 		bergkasese1.setProduct(bergkasese);
 		bergkasese.addPackage(bergkasese1);
 
 
-		Package bergkasese2=new Package(new Quantity(750, g));
+		Package bergkasese2=new Package(new Quantity(new BigDecimal("500.5"), g));
 		bergkasese2.setProduct(bergkasese);
 		bergkasese.addPackage(bergkasese2);
 

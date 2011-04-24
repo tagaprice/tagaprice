@@ -1,6 +1,7 @@
 package org.tagaprice.shared.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 /**
@@ -10,7 +11,7 @@ public class Quantity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private double _quantity;
+	private BigDecimal _quantity = new BigDecimal("0.0");
 	private Unit _unit;
 
 	/**
@@ -27,7 +28,7 @@ public class Quantity implements Serializable {
 	 *            the quantity
 	 * @param unit
 	 */
-	public Quantity(double quantity, Unit unit) {
+	public Quantity(BigDecimal quantity, Unit unit) {
 		this._quantity = quantity;
 		this._unit = unit;
 	}
@@ -38,7 +39,7 @@ public class Quantity implements Serializable {
 	 * @param quantity
 	 *            Sets the {@link Product} size.
 	 */
-	public void setQuantity(double quantity) {
+	public void setQuantity(BigDecimal quantity) {
 		this._quantity = quantity;
 	}
 
@@ -49,7 +50,7 @@ public class Quantity implements Serializable {
 	 * @return the size in which a {@link Product} can be
 	 *         bought
 	 */
-	public double getQuantity() {
+	public BigDecimal getQuantity() {
 		return this._quantity;
 	}
 

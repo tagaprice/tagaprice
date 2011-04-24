@@ -330,7 +330,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 				@Override
 				public void onClick(ClickEvent arg0) {
-					Package np = new Package(new Quantity(0, p.getUnit()));
+					Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
 					np.setProduct(p);
 
 					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));

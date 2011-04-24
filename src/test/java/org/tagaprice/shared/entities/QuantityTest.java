@@ -2,6 +2,8 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,26 +16,26 @@ public class QuantityTest {
 	@Before
 	public void setUp() throws Exception {
 		emptyQuantity = new Quantity();
-		newQuantity = new Quantity(15.3, new Unit("kg"));
+		newQuantity = new Quantity(new BigDecimal("15.3"), new Unit("kg"));
 		setterQuantity = new Quantity();
 	}
 
 	@Test
 	public void testQuantity() {
 		assertNull(emptyQuantity.getUnit());
-		assertEquals(emptyQuantity.getQuantity(), 0.0, 0.0);
+		assertEquals(emptyQuantity.getQuantity(), new BigDecimal("0.0"));
 	}
 
 
 	@Test
 	public void testSetQuantity() {
-		setterQuantity.setQuantity(19.3);
-		assertEquals(setterQuantity.getQuantity(), 19.3, 0.0);
+		setterQuantity.setQuantity(new BigDecimal("19.3"));
+		assertEquals(setterQuantity.getQuantity(), new BigDecimal("19.3"));
 	}
 
 	@Test
 	public void testGetQuantity() {
-		assertEquals(newQuantity.getQuantity(), 15.3, 0.0);
+		assertEquals(newQuantity.getQuantity(), new BigDecimal("15.3"));
 
 	}
 

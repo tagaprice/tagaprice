@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private BigDecimal _price;
+	private BigDecimal _price = new BigDecimal("0.0");
 	private Currency _currency;
 
 	/**

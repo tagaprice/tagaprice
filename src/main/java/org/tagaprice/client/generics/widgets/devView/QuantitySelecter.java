@@ -1,5 +1,7 @@
 package org.tagaprice.client.generics.widgets.devView;
 
+import java.math.BigDecimal;
+
 import org.tagaprice.client.generics.widgets.IQuantityChangeHandler;
 import org.tagaprice.client.generics.widgets.IQuantitySelecter;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
@@ -55,7 +57,7 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 
 	@Override
 	public Quantity getQuantity() {
-		return new Quantity(new Double(_quantity.getText()), _unitSelecter.getUnit());
+		return new Quantity(new BigDecimal(_quantity.getText()), _unitSelecter.getUnit());
 	}
 
 	@Override

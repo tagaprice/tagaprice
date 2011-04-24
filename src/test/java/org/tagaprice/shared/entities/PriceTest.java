@@ -24,7 +24,8 @@ public class PriceTest {
 
 	@Test
 	public void testPrice() {
-		assertNull(emptyPrice.getPrice());
+		assertNotNull(emptyPrice.getPrice());
+		assertEquals(emptyPrice.getPrice(), new BigDecimal("0.0"));
 		assertNull(emptyPrice.getCurrency());
 	}
 

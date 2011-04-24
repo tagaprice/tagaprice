@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -83,9 +84,9 @@ public class ProductTest {
 		assertNotNull(updateProduct.getPackages());
 		assertEquals(updateProduct.getPackages().size(), 0);
 
-		updateProduct.addPackage(new Package(new Quantity(9.9, new Unit("l"))));
+		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit("l"))));
 		assertEquals(updateProduct.getPackages().size(), 1);
-		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), 9.9, 0.0);
+		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), new BigDecimal("9.9"));
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getUnit().getTitle(),"l");
 
 	}
@@ -95,21 +96,21 @@ public class ProductTest {
 		assertNotNull(updateProduct.getPackages());
 		assertEquals(updateProduct.getPackages().size(), 0);
 
-		updateProduct.addPackage(new Package(new Quantity(9.9, new Unit("l"))));
+		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit("l"))));
 		assertEquals(updateProduct.getPackages().size(), 1);
-		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), 9.9, 0.0);
+		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), new BigDecimal("9.9"));
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getUnit().getTitle(),"l");
 
 		ArrayList<Package> plist = new ArrayList<Package>();
-		plist.add(new Package(new Quantity(5.5, new Unit("kg"))));
-		plist.add(new Package(new Quantity(4.2, new Unit("ml"))));
+		plist.add(new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg"))));
+		plist.add(new Package(new Quantity(new BigDecimal("4.2"), new Unit("ml"))));
 		updateProduct.setPackages(plist);
 		assertEquals(updateProduct.getPackages().size(), 2);
 
-		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), 5.5, 0.0);
+		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), new BigDecimal("5.5"));
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getUnit().getTitle(),"kg");
 
-		assertEquals(updateProduct.getPackages().get(1).getQuantity().getQuantity(), 4.2, 0.0);
+		assertEquals(updateProduct.getPackages().get(1).getQuantity().getQuantity(), new BigDecimal("4.2"));
 		assertEquals(updateProduct.getPackages().get(1).getQuantity().getUnit().getTitle(),"ml");
 
 	}
