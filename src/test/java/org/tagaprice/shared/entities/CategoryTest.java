@@ -2,12 +2,15 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
-public class CategoryTest {
+public class CategoryTest implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	Category emptyCategory;
 	Category newCategory;
 	Category updateCategory;

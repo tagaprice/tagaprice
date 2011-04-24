@@ -40,14 +40,17 @@ public class Package extends ASimpleEntity {
 		_iQuantity=quantity;
 	}
 
+	@Deprecated
 	public void addBarcode(int barcode) {
 		_barcode.add(barcode);
 	}
 
+	@Deprecated
 	public void addBarcodes(ArrayList<Integer> barcode) {
 		_barcode.addAll(barcode);
 	}
 
+	@Deprecated
 	public ArrayList<Integer> getBarcodes() {
 		return _barcode;
 	}

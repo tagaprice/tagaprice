@@ -80,7 +80,9 @@ public class Receipt extends AEntity {
 
 	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
 		_receiptEntries.clear();
-		_receiptEntries.addAll(receiptEntries);
+		for(ReceiptEntry r:receiptEntries){
+			addReceiptEntriy(r);
+		}
 	}
 
 	public void setDate(Date date) {

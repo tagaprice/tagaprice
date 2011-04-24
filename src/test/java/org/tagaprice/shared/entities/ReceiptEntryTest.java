@@ -2,73 +2,92 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ReceiptEntryTest {
 
+	ReceiptEntry emptyReceipt;
+	ReceiptEntry newReceipt;
+	ReceiptEntry setterReceipt;
+
 	@Before
 	public void setUp() throws Exception {
+		emptyReceipt = new ReceiptEntry();
+		Package p = new Package(new Quantity(5.5, new Unit("kg")));
+		newReceipt = new ReceiptEntry(new Price(15, Currency.dkk), p);
+		setterReceipt = new ReceiptEntry();
 	}
 
 	@Test
 	public void testReceiptEntry() {
-		fail("Not yet implemented");
+		assertNull(emptyReceipt.getPackage());
+		assertNull(emptyReceipt.getPrice());
+		assertNull(emptyReceipt.getReceipt());
 	}
 
-	@Test
-	public void testReceiptEntryPricePackage() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetPackage() {
-		fail("Not yet implemented");
+		assertNotNull(newReceipt.getPackage());
+		assertEquals(newReceipt.getPackage().getQuantity().getQuantity(),5.5, 0.0);
+		assertEquals(newReceipt.getPackage().getQuantity().getUnit().getTitle(), "kg");
 	}
 
 	@Test
 	public void testGetPrice() {
-		fail("Not yet implemented");
+		assertNotNull(newReceipt.getPrice());
+		assertEquals(newReceipt.getPrice().getPrice(), 15);
+		assertEquals(newReceipt.getPrice().getCurrency(), Currency.dkk);
 	}
 
 	@Test
 	public void testGetReceipt() {
-		fail("Not yet implemented");
+		assertNull(newReceipt.getReceipt());
 	}
 
 	@Test
 	public void testSetPackage() {
-		fail("Not yet implemented");
+		assertNull(setterReceipt.getPackage());
+		Package p2 = new Package(new Quantity(6.3, new Unit("g")));
+		setterReceipt.setPackage(p2);
+
+		assertNotNull(setterReceipt.getPackage());
+		assertEquals(setterReceipt.getPackage().getQuantity().getQuantity(), 6.3, 0.0);
+		assertEquals(setterReceipt.getPackage().getQuantity().getUnit().getTitle(), "g");
 	}
 
 	@Test
 	public void testSetPrice() {
-		fail("Not yet implemented");
+		assertNull(setterReceipt.getPrice());
+		setterReceipt.setPrice(new Price(55, Currency.euro));
+		assertNotNull(setterReceipt.getPrice());
+
+		assertEquals(setterReceipt.getPrice().getPrice(), 55);
+		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.euro);
+
+
+		setterReceipt.setPrice(new Price(58, Currency.dkk));
+
+		assertEquals(setterReceipt.getPrice().getPrice(), 58);
+		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.dkk);
+
 	}
 
 	@Test
 	public void testSetReceipt() {
-		fail("Not yet implemented");
+		assertNull(setterReceipt.getReceipt());
+		Receipt r = new Receipt("1", "2", "setterReceipt", new Date(1303525403414L), new Shop("setterShop"));
+		setterReceipt.setReceipt(r);
 	}
 
-	@Test
-	public void testGetRevision() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetRevision() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
 
 }

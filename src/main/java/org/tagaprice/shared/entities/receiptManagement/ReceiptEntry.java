@@ -1,9 +1,8 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry extends ASimpleEntity {
+public class ReceiptEntry {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;
@@ -13,7 +12,9 @@ public class ReceiptEntry extends ASimpleEntity {
 	/**
 	 * This constructor is used by the serialization algorithm
 	 */
-	public ReceiptEntry() {}
+	public ReceiptEntry() {
+		super();
+	}
 
 	/**
 	 * <b>NEW</b>
