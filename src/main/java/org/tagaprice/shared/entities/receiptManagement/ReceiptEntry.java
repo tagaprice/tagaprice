@@ -44,12 +44,6 @@ public class ReceiptEntry implements Serializable {
 		return _price;
 	}
 
-	/**
-	 * @return the related {@link IReceipt}
-	 */
-	public Receipt getReceipt() {
-		return _receipt;
-	}
 
 	/**
 	 * defines the {@link Package} (Product)
@@ -67,14 +61,6 @@ public class ReceiptEntry implements Serializable {
 		_price = price;
 	}
 
-	/**
-	 * The related receipt
-	 * @param receipt the related receipt
-	 */
-	public void setReceipt(Receipt receipt) {
-		_receipt = receipt;
-
-	}
 
 	/*
 	 * (non-Javadoc)
