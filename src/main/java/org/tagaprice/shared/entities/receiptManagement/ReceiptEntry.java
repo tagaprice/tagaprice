@@ -27,26 +27,48 @@ public class ReceiptEntry {
 		setPackage(ipackage);
 	}
 
+	/**
+	 * @return the related {@link IPackage}
+	 */
 	public Package getPackage() {
 		return _package;
 	}
 
+	/**
+	 * returns the price per {@link Currency} in cent
+	 * @return per {@link Currency}  in cent
+	 */
 	public Price getPrice() {
 		return _price;
 	}
 
+	/**
+	 * @return the related {@link IReceipt}
+	 */
 	public Receipt getReceipt() {
 		return _receipt;
 	}
 
+	/**
+	 * defines the {@link Package} (Product)
+	 * @param prackage the {@link Package} (Product)
+	 */
 	public void setPackage(Package ipackage) {
 		_package = ipackage;
 	}
 
+	/**
+	 * sets the price per {@link Currency}  in cent
+	 * @param price  per {@link Currency}  in cent
+	 */
 	public void setPrice(Price price) {
 		_price = price;
 	}
 
+	/**
+	 * The related receipt
+	 * @param receipt the related receipt
+	 */
 	public void setReceipt(Receipt receipt) {
 		_receipt = receipt;
 

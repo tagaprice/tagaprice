@@ -39,18 +39,37 @@ public class Package extends ASimpleEntity {
 	}
 
 
+	/**
+	 * Returns the related {@link IProduct}
+	 * @return the related {@link IProduct}
+	 */
 	public Product getProduct() {
 		return _product;
 	}
 
+	/**
+	 * Returns the {@link IQuantity} of an {@link IPackage}
+	 * 
+	 * @return the {@link IQuantity} of an {@link IPackage}
+	 */
 	public Quantity getQuantity() {
 		return _iQuantity;
 	}
 
+	/**
+	 * Set the related {@link Product}
+	 * @param product the related {@link Product}
+	 */
 	public void setProduct(Product product) {
 		_product=product;
 	}
 
+	/**
+	 * Set the {@link IQuantity} which is represented by an Quantity and an Unit.
+	 * 
+	 * @param qantity
+	 *            is represented by an Quantity and an Unit
+	 */
 	public void setQuantity(Quantity quantity) {
 		_iQuantity=quantity;
 	}

@@ -29,22 +29,38 @@ public class Price implements Serializable {
 		setCurrency(currency);
 	}
 
-	public void setPrice(int price) {
-		_price=price;
-
+	/**
+	 * The {@link Currency} in which this {@link IReceiptEntry} was bought.
+	 * @return {@link Currency} in which this {@link IReceiptEntry} was bought.
+	 */
+	public Currency getCurrency() {
+		return _currency;
 	}
 
+	/**
+	 * Returns the price in int.
+	 * @return the price in int.
+	 */
+	public int getPrice() {
+		return _price;
+	}
+
+	/**
+	 * Defines the {@link Currency} in which this {@link ReceiptEntry} was bought.
+	 * @param currency  the {@link Currency} in which this {@link ReceiptEntry} was bought.
+	 */
 	public void setCurrency(Currency currency) {
 		_currency=currency;
 
 	}
 
-	public int getPrice() {
-		return _price;
-	}
+	/**
+	 * Price is in int because javaScript has problems with floating points.
+	 * @param price the price of one {@link ReceiptEntry}
+	 */
+	public void setPrice(int price) {
+		_price=price;
 
-	public Currency getCurrency() {
-		return _currency;
 	}
 
 

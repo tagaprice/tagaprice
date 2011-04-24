@@ -40,11 +40,19 @@ public class Category extends AEntity   {
 		setParentCategory(parent);
 	}
 
+	/**
+	 * Returns the parent {@link Category}.
+	 * @return parent {@link Category}
+	 */
 	@JSONProperty(value="parent")
 	public Category getParentCategory() {
 		return this._parentCategory;
 	}
 
+	/**
+	 * Sets the parent {@link Category}.
+	 * @param category set parent {@link Category}
+	 */
 	public void setParentCategory(Category category) {
 		this._parentCategory = category;
 	}

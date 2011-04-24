@@ -57,20 +57,35 @@ public class Shop extends AEntity {
 		return "Shop";
 	}
 
+	/**
+	 * Set The parent {@link Shop}
+	 * @param parent the parent {@link Shop}
+	 */
 	public void setParent(Shop parent) {
 		_parent=parent;
 	}
 
+	/**
+	 * Returns the {@link Shop} parent
+	 * @return the parent. If null no parent.
+	 */
 	@JSONProperty(ignore=true)
 	public Shop getParent() {
 		return _parent;
 	}
 
 
+	/**
+	 * Set an {@link Address} to the {@link Shop}
+	 * @param address {@link Shop} address
+	 */
 	public void setAddress(Address address) {
 		_address=address;
 	}
 
+	/**
+	 * @return the address of the {@link Shop}
+	 */
 	public Address getAddress() {
 		return _address;
 	}

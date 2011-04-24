@@ -56,28 +56,55 @@ public class Receipt extends AEntity {
 	}
 
 
+	/**
+	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
+	 */
 	public void addReceiptEntriy(ReceiptEntry receiptEntry) {
 		receiptEntry.setReceipt(this);
 		_receiptEntries.add(receiptEntry);
 
 	}
 
-	public Shop getShop() {
-		return _shop;
+	/**
+	 * @return the date of the {@link Receipt}
+	 */
+	public Date getDate() {
+		return _date;
 	}
 
+	/**
+	 * @return all included {@link ReceiptEntry}
+	 */
 	public ArrayList<ReceiptEntry> getReceiptEntries() {
 		return _receiptEntries;
 	}
 
+	/**
+	 * @return the subsidiary where the user shopped
+	 */
+	public Shop getShop() {
+		return _shop;
+	}
+
+	/**
+	 * @return the current shopId or null
+	 */
 	public String getShopId(){
 		return _shop.getId();
 	}
 
-	public void setShop(Shop shop) {
-		_shop=shop;
+	/**
+	 * Set the {@link Receipt} date
+	 * @param date receipt date
+	 */
+	public void setDate(Date date) {
+		_date=date;
 	}
 
+	/**
+	 * Set a list of {@link ReceiptEntry}. All included {@link ReceiptEntry} will be overwritten!
+	 * @param receiptEntries the list of {@link ReceiptEntry}
+	 */
 	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
 		_receiptEntries.clear();
 		for(ReceiptEntry r:receiptEntries){
@@ -85,12 +112,12 @@ public class Receipt extends AEntity {
 		}
 	}
 
-	public void setDate(Date date) {
-		_date=date;
-	}
-
-	public Date getDate() {
-		return _date;
+	/**
+	 * Set the {@link shop} where the user bought the things.
+	 * @param subsidiary
+	 */
+	public void setShop(Shop shop) {
+		_shop=shop;
 	}
 
 	/* (non-Javadoc)
