@@ -14,7 +14,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceiptService {
 	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
-	private static final long serialVersionUID = 3420788026998858664L;
+	private static final long serialVersionUID = 1L;
 	IReceiptDAO receiptDAO;
 
 	public ReceiptServiceImpl() {

@@ -1,8 +1,10 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
+import java.io.Serializable;
+
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry {
+public class ReceiptEntry implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;
