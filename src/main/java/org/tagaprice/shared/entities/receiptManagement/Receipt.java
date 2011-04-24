@@ -60,7 +60,6 @@ public class Receipt extends AEntity {
 	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
 	 */
 	public void addReceiptEntriy(ReceiptEntry receiptEntry) {
-		receiptEntry.setReceipt(this);
 		_receiptEntries.add(receiptEntry);
 
 	}

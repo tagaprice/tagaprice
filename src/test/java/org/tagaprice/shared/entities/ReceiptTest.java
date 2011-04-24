@@ -64,7 +64,6 @@ public class ReceiptTest {
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getCurrency(), Currency.euro);
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), 15.3, 0.0);
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getUnit().getTitle(), "kg");
-		assertEquals(setterReceipt.getReceiptEntries().get(0).getReceipt().getTitle(), "setterTitle");
 	}
 
 	@Test
@@ -112,14 +111,12 @@ public class ReceiptTest {
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPrice().getCurrency(), Currency.euro);
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getQuantity(), 15.3, 0.0);
 		assertEquals(setterReceipt.getReceiptEntries().get(0).getPackage().getQuantity().getUnit().getTitle(), "kg");
-		assertEquals(setterReceipt.getReceiptEntries().get(0).getReceipt().getTitle(), "setterTitle");
 
 
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPrice().getPrice(), 18);
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPrice().getCurrency(), Currency.dkk);
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPackage().getQuantity().getQuantity(), 16.4, 0.0);
 		assertEquals(setterReceipt.getReceiptEntries().get(1).getPackage().getQuantity().getUnit().getTitle(), "g");
-		assertEquals(setterReceipt.getReceiptEntries().get(1).getReceipt().getTitle(), "setterTitle");
 
 
 		setterReceipt.setReceiptEntries(new ArrayList<ReceiptEntry>());

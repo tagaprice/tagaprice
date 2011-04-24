@@ -2,16 +2,12 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Price;
-import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ReceiptEntryTest {
 
@@ -31,7 +27,6 @@ public class ReceiptEntryTest {
 	public void testReceiptEntry() {
 		assertNull(emptyReceipt.getPackage());
 		assertNull(emptyReceipt.getPrice());
-		assertNull(emptyReceipt.getReceipt());
 	}
 
 
@@ -49,10 +44,6 @@ public class ReceiptEntryTest {
 		assertEquals(newReceipt.getPrice().getCurrency(), Currency.dkk);
 	}
 
-	@Test
-	public void testGetReceipt() {
-		assertNull(newReceipt.getReceipt());
-	}
 
 	@Test
 	public void testSetPackage() {
@@ -82,12 +73,6 @@ public class ReceiptEntryTest {
 
 	}
 
-	@Test
-	public void testSetReceipt() {
-		assertNull(setterReceipt.getReceipt());
-		Receipt r = new Receipt("1", "2", "setterReceipt", new Date(1303525403414L), new Shop("setterShop"));
-		setterReceipt.setReceipt(r);
-	}
 
 
 }
