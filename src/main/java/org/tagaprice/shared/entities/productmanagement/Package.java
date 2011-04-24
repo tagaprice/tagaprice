@@ -1,13 +1,11 @@
 package org.tagaprice.shared.entities.productmanagement;
 
-import java.util.ArrayList;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.Quantity;
 
 public class Package extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
 
-	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	Quantity _iQuantity;
 	Product _product;
 
@@ -40,20 +38,6 @@ public class Package extends ASimpleEntity {
 		_iQuantity=quantity;
 	}
 
-	@Deprecated
-	public void addBarcode(int barcode) {
-		_barcode.add(barcode);
-	}
-
-	@Deprecated
-	public void addBarcodes(ArrayList<Integer> barcode) {
-		_barcode.addAll(barcode);
-	}
-
-	@Deprecated
-	public ArrayList<Integer> getBarcodes() {
-		return _barcode;
-	}
 
 	public Product getProduct() {
 		return _product;
@@ -77,7 +61,7 @@ public class Package extends ASimpleEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + "]";
+		return "Package [_iQuantity=" + _iQuantity + "]";
 	}
 
 

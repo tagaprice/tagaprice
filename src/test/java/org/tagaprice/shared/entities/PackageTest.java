@@ -4,81 +4,94 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.productmanagement.Product;
 
 public class PackageTest {
 
+	Package emptyPackage;
+	Package newPackage;
+	Package updatePackage;
+	Package setterPackage;
+
 	@Before
 	public void setUp() throws Exception {
+		emptyPackage = new Package();
+		newPackage = new Package(new Quantity(5.5, new Unit("kg")));
+		updatePackage = new Package("1", "2", new Quantity(12.5, new Unit("g")));
+		setterPackage = new Package();
 	}
 
 	@Test
 	public void testPackage() {
-		fail("Not yet implemented");
+		assertNull(emptyPackage.getQuantity());
+		assertNull(emptyPackage.getProduct());
+		assertNull(emptyPackage.getId());
+		assertNull(emptyPackage.getRevision());
 	}
 
 	@Test
 	public void testPackageQuantity() {
-		fail("Not yet implemented");
+		assertEquals(newPackage.getQuantity().getQuantity(), 5.5, 0.0);
+		assertEquals(newPackage.getQuantity().getUnit().getTitle(), "kg");
+		assertNull(newPackage.getProduct());
+		assertNull(newPackage.getId());
+		assertNull(newPackage.getRevision());
 	}
 
-	@Test
-	public void testPackageStringStringQuantity() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddBarcode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddBarcodes() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetBarcodes() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetProduct() {
-		fail("Not yet implemented");
+		assertNull(updatePackage.getProduct());
 	}
 
 	@Test
 	public void testGetQuantity() {
-		fail("Not yet implemented");
+		assertEquals(updatePackage.getQuantity().getQuantity(), 12.5, 0.0);
+		assertEquals(updatePackage.getQuantity().getUnit().getTitle(), "g");
 	}
 
 	@Test
 	public void testSetProduct() {
-		fail("Not yet implemented");
+		assertNull(setterPackage.getProduct());
+		Product p = new Product("setterProduct", new Category("setterCategory", null), new Unit("kg"));
+		setterPackage.setProduct(p);
+		assertEquals(setterPackage.getProduct().getTitle(), "setterProduct");
+		assertEquals(setterPackage.getProduct().getCategory().getTitle(), "setterCategory");
+		assertNull(setterPackage.getProduct().getCategory().getParentCategory());
+		assertEquals(setterPackage.getProduct().getUnit().getTitle(), "kg");
 	}
 
 	@Test
 	public void testSetQuantity() {
-		fail("Not yet implemented");
+		assertNull(setterPackage.getQuantity());
+		setterPackage.setQuantity(new Quantity(5.6, new Unit("g")));
+		assertNotNull(setterPackage.getQuantity());
+		assertEquals(setterPackage.getQuantity().getQuantity(), 5.6, 0.0);
+		assertEquals(setterPackage.getQuantity().getUnit().getTitle(), "g");
 	}
 
 	@Test
 	public void testGetRevision() {
-		fail("Not yet implemented");
+		assertEquals(updatePackage.getRevision(),"2");
 	}
 
 	@Test
 	public void testSetRevision() {
-		fail("Not yet implemented");
+		setterPackage.setRevision("3");
+		assertEquals(setterPackage.getRevision(),"3");
 	}
 
 	@Test
 	public void testGetId() {
-		fail("Not yet implemented");
+		assertEquals(updatePackage.getId(),"1");
 	}
 
 	@Test
 	public void testSetId() {
-		fail("Not yet implemented");
+		setterPackage.setId("4");
+		assertEquals(setterPackage.getId(),"4");
 	}
 
 }
