@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -19,7 +20,7 @@ public class ReceiptEntryTest {
 	public void setUp() throws Exception {
 		emptyReceipt = new ReceiptEntry();
 		Package p = new Package(new Quantity(5.5, new Unit("kg")));
-		newReceipt = new ReceiptEntry(new Price(15, Currency.dkk), p);
+		newReceipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.dkk), p);
 		setterReceipt = new ReceiptEntry();
 	}
 
@@ -40,7 +41,7 @@ public class ReceiptEntryTest {
 	@Test
 	public void testGetPrice() {
 		assertNotNull(newReceipt.getPrice());
-		assertEquals(newReceipt.getPrice().getPrice(), 15);
+		assertEquals(newReceipt.getPrice().getPrice(), new BigDecimal(15));
 		assertEquals(newReceipt.getPrice().getCurrency(), Currency.dkk);
 	}
 
@@ -59,16 +60,16 @@ public class ReceiptEntryTest {
 	@Test
 	public void testSetPrice() {
 		assertNull(setterReceipt.getPrice());
-		setterReceipt.setPrice(new Price(55, Currency.euro));
+		setterReceipt.setPrice(new Price(new BigDecimal(55), Currency.euro));
 		assertNotNull(setterReceipt.getPrice());
 
-		assertEquals(setterReceipt.getPrice().getPrice(), 55);
+		assertEquals(setterReceipt.getPrice().getPrice(), new BigDecimal(55));
 		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.euro);
 
 
-		setterReceipt.setPrice(new Price(58, Currency.dkk));
+		setterReceipt.setPrice(new Price(new BigDecimal(58), Currency.dkk));
 
-		assertEquals(setterReceipt.getPrice().getPrice(), 58);
+		assertEquals(setterReceipt.getPrice().getPrice(), new BigDecimal(58));
 		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.dkk);
 
 	}

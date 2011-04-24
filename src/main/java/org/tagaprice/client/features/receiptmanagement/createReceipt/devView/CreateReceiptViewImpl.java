@@ -1,5 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt.devView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -319,7 +320,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 					@Override
 					public void onClick(ClickEvent arg0) {
-						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(0, Currency.dkk), pa));
+						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), pa));
 					}
 				});
 			}
@@ -332,7 +333,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					Package np = new Package(new Quantity(0, p.getUnit()));
 					np.setProduct(p);
 
-					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(0, Currency.dkk), np));
+					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
 				}
 			});
 		}

@@ -1,5 +1,6 @@
 package org.tagaprice.client.generics.widgets.devView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.tagaprice.client.generics.widgets.CurrencySelecter;
@@ -112,8 +113,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		}
 
 		public ReceiptEntry getReceiptEntry(){
-			_receiptEntry.setPrice(new Price(
-					Integer.parseInt(priceTextBox.getText()),
+			_receiptEntry.setPrice(new Price(new BigDecimal(priceTextBox.getText()),
 					currencySelecter.getCurrency()));
 
 			_receiptEntry.getPackage().setQuantity(quantitySelecter.getQuantity());

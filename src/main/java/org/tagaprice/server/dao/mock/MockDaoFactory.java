@@ -1,5 +1,6 @@
 package org.tagaprice.server.dao.mock;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.tagaprice.server.dao.ICategoryDAO;
@@ -124,7 +125,7 @@ public class MockDaoFactory implements IDaoFactory {
 		Receipt receipt = new Receipt("First Receipt", new Date(), is);
 
 		//Receipt Entry
-		ReceiptEntry recEnt = new ReceiptEntry(new Price(15, Currency.dkk), bergkasese1);
+		ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15"), Currency.dkk), bergkasese1);
 		receipt.addReceiptEntriy(recEnt);
 		receipt=m_receiptDAO.create(receipt);
 

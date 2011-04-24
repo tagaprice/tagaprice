@@ -1,6 +1,7 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Set the price of an {@link ReceiptEntry}
@@ -9,7 +10,7 @@ import java.io.Serializable;
 public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int _price;
+	private BigDecimal _price;
 	private Currency _currency;
 
 	/**
@@ -24,7 +25,7 @@ public class Price implements Serializable {
 	 * @param price the price
 	 * @param currency the currency
 	 */
-	public Price(int price, Currency currency){
+	public Price(BigDecimal price, Currency currency){
 		setPrice(price);
 		setCurrency(currency);
 	}
@@ -41,7 +42,7 @@ public class Price implements Serializable {
 	 * Returns the price in int.
 	 * @return the price in int.
 	 */
-	public int getPrice() {
+	public BigDecimal getPrice() {
 		return _price;
 	}
 
@@ -58,7 +59,7 @@ public class Price implements Serializable {
 	 * Price is in int because javaScript has problems with floating points.
 	 * @param price the price of one {@link ReceiptEntry}
 	 */
-	public void setPrice(int price) {
+	public void setPrice(BigDecimal price) {
 		_price=price;
 
 	}

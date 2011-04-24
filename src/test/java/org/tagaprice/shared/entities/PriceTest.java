@@ -2,6 +2,8 @@ package org.tagaprice.shared.entities;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
@@ -16,25 +18,25 @@ public class PriceTest {
 	@Before
 	public void setUp() throws Exception {
 		emptyPrice = new Price();
-		newPrice = new Price(15, Currency.dkk);
+		newPrice = new Price(new BigDecimal("15"), Currency.dkk);
 		setterPrice = new Price();
 	}
 
 	@Test
 	public void testPrice() {
-		assertEquals(emptyPrice.getPrice(), 0);
+		assertNull(emptyPrice.getPrice());
 		assertNull(emptyPrice.getCurrency());
 	}
 
 	@Test
 	public void testSetPrice() {
-		setterPrice.setPrice(18);
-		assertEquals(setterPrice.getPrice(), 18);
+		setterPrice.setPrice(new BigDecimal("18"));
+		assertEquals(setterPrice.getPrice(), new BigDecimal("18"));
 	}
 
 	@Test
 	public void testSetCurrency() {
-		assertEquals(newPrice.getPrice(), 15);
+		assertEquals(newPrice.getPrice(), new BigDecimal("15"));
 	}
 
 	@Test
