@@ -5,7 +5,7 @@
       "map": "function(doc) {
         if (doc.entityType == 'category') emit(null, doc);
       }"
-    }
+    },
     "queryChildren": {
       "map": "function(doc) {
         if (doc.entityType == 'category' && doc.parent) emit(doc.parent, null);
