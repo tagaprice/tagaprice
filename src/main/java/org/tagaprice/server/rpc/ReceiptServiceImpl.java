@@ -9,6 +9,7 @@ import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -39,7 +40,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public Receipt getReceipt(String receiptId) {
+	public Receipt getReceipt(String receiptId) throws DaoException {
 		logger.log("Receipt getReceipt: "+receiptId);
 		return receiptDAO.get(receiptId);
 	}
@@ -52,7 +53,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public List<Receipt> getReceipts() throws UserNotLoggedInException {
+	public List<Receipt> getReceipts() throws UserNotLoggedInException, DaoException {
 		return receiptDAO.list();
 	}
 

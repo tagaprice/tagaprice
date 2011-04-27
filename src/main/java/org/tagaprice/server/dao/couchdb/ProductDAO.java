@@ -10,6 +10,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 	ICategoryDAO m_categoryDAO;
@@ -22,7 +23,7 @@ public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 	}
 
 	@Override
-	public Product get(String id, String revision) {
+	public Product get(String id, String revision) throws DaoException {
 		Product rc = super.get(id, revision);
 		if (rc.getCategoryId() != null) {
 			rc.setCategory(m_categoryDAO.get(rc.getCategoryId()));
@@ -35,12 +36,11 @@ public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 	}
 	
 	@Override
-	public List<Product> find(Product searchPattern) {
+	public List<Product> find(Product searchPattern) throws DaoException {
 		/// TODO implement actual searching here
 		ViewResult<?> result = m_db.listDocuments(null, null);
 		List<Product> rc = new ArrayList<Product>();
 		
-		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
 			Product product = get(row.getId());
 			rc.add(product);

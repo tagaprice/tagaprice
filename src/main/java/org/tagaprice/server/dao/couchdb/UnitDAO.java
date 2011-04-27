@@ -13,30 +13,6 @@ public class UnitDAO extends DAOClass<Unit> implements IUnitDAO {
 	}
 
 	@Override
-	public Unit create(Unit entity) {
-		// TODO Auto-generated method stub
-		return super.create(entity);
-	}
-
-	@Override
-	public Unit update(Unit entity) {
-		// TODO Auto-generated method stub
-		return super.update(entity);
-	}
-
-	@Override
-	public Unit get(String id) {
-		// TODO Auto-generated method stub
-		return super.get(id);
-	}
-
-	@Override
-	public Unit get(String id, String revision) {
-		// TODO Auto-generated method stub
-		return super.get(id, revision);
-	}
-
-	@Override
 	public List<Unit> factorizedUnits(String id) {
 		// TODO Auto-generated method stub
 		return null;

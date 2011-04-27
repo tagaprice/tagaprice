@@ -9,6 +9,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 @RemoteServiceRelativePath("searchservice")
 public interface ISearchService extends RemoteService {
@@ -21,8 +22,9 @@ public interface ISearchService extends RemoteService {
 	 * @param bbox
 	 *            the area where to search for this shop
 	 * @return a list of shop results. (Is never null)
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	List<Shop> searchShop(String searchString, BoundingBox bbox);
+	List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException;
 
 	/**
 	 * Returns a list of {@link Product} sorted by {@link Shop} plus {@link IAddress}, than {@link Shop}, than
@@ -36,8 +38,9 @@ public interface ISearchService extends RemoteService {
 	 * @return a list of {@link Product} sorted by {@link IAddress} plus {@link IAddress}, than {@link IAddress}, than
 	 *         similar
 	 *         products.
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	List<Product> searchProduct(String searchString, Shop address);
+	List<Product> searchProduct(String searchString, Shop address) throws DaoException;
 
 	/**
 	 * Find the Address of the lat lng position

@@ -7,6 +7,7 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
 	public ReceiptDAO(String dbPrefix) {
@@ -14,7 +15,7 @@ public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
 	}
 	
 	@Override
-	public List<Receipt> list() {
+	public List<Receipt> list() throws DaoException {
 		ViewResult<?> result = m_db.listDocuments(null, null);
 		List<Receipt> rc = new ArrayList<Receipt>();
 		

@@ -10,7 +10,7 @@ import org.svenson.JSONProperty;
  * for FIND and one for CREATE an {@link ASimpleEntity}.
  * If you like to UPDATE a {@link ASimpleEntity} you have to FIND a {@link ASimpleEntity} first. The server will set the
  * {@link User} and the RevisionID.
- * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
+ * Don't change the RevisionID on the client (by hand). It is required for optimistic locking in the DAO layer.
  * 
  */
 public abstract class ASimpleEntity implements Serializable {
@@ -18,6 +18,7 @@ public abstract class ASimpleEntity implements Serializable {
 
 	private String _id = null;
 	private String _rev = null;
+	private String _type = null;
 
 	/**
 	 * <b>NEW</b>
@@ -29,6 +30,7 @@ public abstract class ASimpleEntity implements Serializable {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * This constructor is used by the server to fetch a {@link ASimpleEntity} after SAVING or FINDING a {@link ASimpleEntity}.
+	 * @param typeName Unique type name (e.g. 
 	 * @param revisionID
 	 */
 	public ASimpleEntity(String id, String revision){
@@ -69,7 +71,27 @@ public abstract class ASimpleEntity implements Serializable {
 	public void setId(String entityId) {
 		_id = entityId;
 	}
-
+	
+	/**
+	 * Get the type name of the entity. This is required for the CouchDB DAO to work.
+	 * Just ignore it anywhere else in the application.
+	 * @return
+	 */
+	@JSONProperty(value="entityType", ignoreIfNull = true)
+	public String getTypeName() {
+		return _type;
+	}
+	
+	/**
+	 * This method is required for the CouchDB JSON injector to work.
+	 * Just ignore it anywhere else in the application.
+	 * 
+	 * @param typeName Type name (e.g. "product" or "shop")
+	 */
+	public void setTypeName(String typeName) {
+		_type = typeName;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -93,6 +115,12 @@ public abstract class ASimpleEntity implements Serializable {
 		return rc;
 	}
 
+	/**
+	 * Convenience function that checks two objects for equality (and can handle null references)
+	 * @param a First object to compare
+	 * @param b Second object to compare
+	 * @return False if exactly one of them is null, true if both are null, a.equals(b) otherwise 
+	 */
 	protected static boolean _equals(Object a, Object b) {
 		boolean rc = false;
 		if (a == null) rc = b == null;

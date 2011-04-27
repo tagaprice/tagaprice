@@ -1,0 +1,11 @@
+{
+  "_id": "_design/category",
+  "views": {
+    "queryChildren": {
+      "map": "function(doc) {
+        if (doc.parent) emit(doc.parent, null);
+      }"
+    }
+  },
+  "language": "javascript"
+}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -24,12 +25,12 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 	}
 
 	@Override
-	public Category getCategory(String id, String revision) {
+	public Category getCategory(String id, String revision) throws DaoException {
 		return categoryDAO.get(id, revision);
 	}
 
 	@Override
-	public Category getCategory(String id) {
+	public Category getCategory(String id) throws DaoException {
 		return categoryDAO.get(id);
 	}
 

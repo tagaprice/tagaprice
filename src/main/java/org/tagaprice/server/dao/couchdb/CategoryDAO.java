@@ -7,6 +7,7 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	public CategoryDAO(String dbPrefix) {
@@ -19,7 +20,7 @@ public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 	}
 
 	@Override
-	public List<Category> list() {
+	public List<Category> list() throws DaoException {
 		ViewResult<?> result = m_db.listDocuments(null, null);
 		List<Category> rc = new ArrayList<Category>();
 

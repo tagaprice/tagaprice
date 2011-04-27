@@ -9,6 +9,7 @@ import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.productmanagement.IProductService;
@@ -36,12 +37,12 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public Product getProduct(String id, String revision) {
+	public Product getProduct(String id, String revision) throws DaoException {
 		return productDAO.get(id, revision);
 	}
 
 	@Override
-	public Product getProduct(String id) {
+	public Product getProduct(String id) throws DaoException {
 		return productDAO.get(id);
 	}
 
@@ -58,25 +59,25 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public List<Product> findProducts(Product searchCriteria) {
+	public List<Product> findProducts(Product searchCriteria) throws DaoException {
 		logger.log("findProducts... searchCriteria: " + searchCriteria);
 		return productDAO.find(searchCriteria);
 	}
 
 	@Override
-	public List<Category> getCategories() {
+	public List<Category> getCategories() throws DaoException {
 		logger.log("return categories");
 		return categoryDAO.list();
 	}
 
 
 	@Override
-	public Package getPackage(String id, String revision) {
+	public Package getPackage(String id, String revision) throws DaoException {
 		return packageDAO.get(id, revision);
 	}
 
 	@Override
-	public Package getPackage(String id) {
+	public Package getPackage(String id) throws DaoException {
 		return packageDAO.get(id);
 	}
 

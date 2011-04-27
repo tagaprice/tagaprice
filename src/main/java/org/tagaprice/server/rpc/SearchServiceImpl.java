@@ -14,6 +14,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
@@ -37,12 +38,12 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public List<Shop> searchShop(String searchString, BoundingBox bbox) {
+	public List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException {
 		return shopDAO.list();
 	}
 
 	@Override
-	public List<Product> searchProduct(String searchString, Shop shop) {
+	public List<Product> searchProduct(String searchString, Shop shop) throws DaoException {
 
 		//Returns all shops
 		Product _dumpProduct = new Product();

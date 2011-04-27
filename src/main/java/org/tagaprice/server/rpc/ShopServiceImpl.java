@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.shopmanagement.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -24,20 +25,20 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public List<Shop> getShops(Shop searchCriteria) {
+	public List<Shop> getShops(Shop searchCriteria) throws DaoException {
 		logger.log("getShops with Shop SearchCriteria ");
 
 		return shopDAO.list();
 	}
 
 	@Override
-	public Shop getShop(String id, String revision) {
+	public Shop getShop(String id, String revision) throws DaoException {
 		logger.log("getShop with id " + id+", rev "+revision);
 		return shopDAO.get(id, revision);
 	}
 
 	@Override
-	public Shop getShop(String id) {
+	public Shop getShop(String id) throws DaoException {
 		logger.log("getShop with id " + id);
 		return shopDAO.get(id);
 	}

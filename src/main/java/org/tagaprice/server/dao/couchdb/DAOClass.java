@@ -10,6 +10,8 @@ import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -22,10 +24,12 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	Properties m_properties;
 	
 	Class<? extends T> m_class;
-	String m_prefixedDBName;
+	String m_objectType;
 	
-	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String dbName) {
-		m_prefixedDBName = dbPrefix+dbName;
+	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String objectType) {
+		InitialInjector injector = new InitialInjector();
+		String dbName;
+
 		m_class = classObject;
 
 		try {
@@ -34,59 +38,37 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		catch (IOException e) {
 			m_logger.log("Error while reading couchdb.properties!");
 			e.printStackTrace();
+			return;
 		}
+		
+		dbName = m_properties.getProperty("database", "tagaprice");
 		
 		m_server = new ServerImpl(
 				m_properties.getProperty("host", "localhost"),
 				Integer.parseInt(m_properties.getProperty("port", "5984")),
 				Boolean.parseBoolean(m_properties.getProperty("ssl", "false"))); // we don't need ssl on localhost
 
-			
-		// TODO use server.setCredentials() to authenticate
-		createDB();
+		try {
+			injector.init(m_server, dbName);
+		} catch (IOException e) {
+			m_logger.log("Error while initializing CouchDB");
+			e.printStackTrace();
+		}
+		m_db = new Database(m_server, dbName);
 	}
 	
 	private Properties _readProperties(String filename) throws IOException {
 		Properties defaults = new Properties();
 		try {
 			InputStream stream = getClass().getResourceAsStream(filename+".default");
-			if (stream != null) defaults.load(stream);			
+			if (stream != null) defaults.load(stream);
 		}
 		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
 		Properties rc = new Properties(defaults);
-		InputStream stream = getClass().getResourceAsStream(filename); 
+		InputStream stream = getClass().getResourceAsStream("/"+filename); 
 		if (stream != null) rc.load(stream);
 		else throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
 		return rc;
-	}
-	
-	void createDB() {
-		if (!hasDB()) {
-			m_server.createDatabase(m_prefixedDBName);
-			m_db = new Database(m_server, m_prefixedDBName);
-			setupDB();
-		}
-		else {
-			m_db = new Database(m_server, m_prefixedDBName);
-		}
-	}
-	
-	void deleteDB() {
-		if (m_db != null) {
-			Server server = m_db.getServer();
-			server.deleteDatabase(m_prefixedDBName);
-			m_db = null;
-		}
-	}
-	
-	boolean hasDB() {
-		return m_server.listDatabases().contains(m_prefixedDBName);
-	}
-	
-	/**
-	 * Empty method (overload it if you want some injection-like stuff to be done upon DB creation) 
-	 */
-	protected void setupDB() {
 	}
 
 	@Override
@@ -96,12 +78,14 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	}
 
 	@Override
-	public T get(String id, String revision) {
-		return m_db.getDocument(m_class, id);
+	public T get(String id, String revision) throws DaoException {
+		T rc = m_db.getDocument(m_class, id);
+		if (!rc.getTypeName().equals(m_objectType)) throw new TypeMismatchException("Requested type ('"+m_objectType+"') doesn't match actual type: '"+rc.getTypeName()+"'");
+		return rc;
 	}
 	
 	@Override
-	public T get(String id) {
+	public T get(String id) throws DaoException {
 		return get(id, null);
 	}
 

@@ -6,6 +6,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -20,18 +21,20 @@ public interface IProductService extends RemoteService {
 	 *            The ID (and Revision) of the {@link Product} you want to find. The ID in {@link RevisionId} must not
 	 *            be null.
 	 * @return The {@link Product} corresponding to the {@link RevisionId}
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	public Product getProduct(String id, String revision);
+	public Product getProduct(String id, String revision) throws DaoException;
 
-	public Product getProduct(String id);
+	public Product getProduct(String id) throws DaoException;
 
 	/**
 	 * Depending on the search criterias returns the method a list with IProducts
 	 * 
 	 * @param searchCriteria
 	 * @return
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	public List<Product> findProducts(Product searchCriteria);
+	public List<Product> findProducts(Product searchCriteria) throws DaoException;
 
 
 	/**
@@ -50,9 +53,10 @@ public interface IProductService extends RemoteService {
 	 * Returns a list of all categories. TODO Return
 	 * 
 	 * @return
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
 	@Deprecated
-	public List<Category> getCategories();
+	public List<Category> getCategories() throws DaoException;
 
 
 	/**
@@ -82,10 +86,11 @@ public interface IProductService extends RemoteService {
 	 * @param revision {@link Package Package's} revision
 	 * @return a {@link Package} by the given {@link RevisionId}. The {@link Package} will also hold its parent
 	 *         {@link Product}
+	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	public Package getPackage(String id, String revision);
+	public Package getPackage(String id, String revision) throws DaoException;
 
-	public Package getPackage(String id);
+	public Package getPackage(String id) throws DaoException;
 
 
 	/**

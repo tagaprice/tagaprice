@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitService;
@@ -24,12 +25,12 @@ public class UnitServiceImpl extends RemoteServiceServlet implements IUnitServic
 	}
 
 	@Override
-	public Unit getUnit(String id) {
+	public Unit getUnit(String id) throws DaoException {
 		return unitDAO.get(id);
 	}
 
 	@Override
-	public Unit getUnit(String id, String revision) {
+	public Unit getUnit(String id, String revision) throws DaoException {
 		return unitDAO.get(id, revision);
 	}
 
