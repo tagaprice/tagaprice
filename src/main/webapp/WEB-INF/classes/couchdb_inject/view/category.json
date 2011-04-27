@@ -3,7 +3,7 @@
   "views": {
     "queryChildren": {
       "map": "function(doc) {
-        if (doc.parent) emit(doc.parent, null);
+        if (doc.entityType == 'category' && doc.parent) emit(doc.parent, null);
       }"
     }
   },
