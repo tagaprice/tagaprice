@@ -38,7 +38,7 @@ public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 	@Override
 	public List<Product> find(Product searchPattern) throws DaoException {
 		/// TODO implement actual searching here
-		ViewResult<?> result = m_db.listDocuments(null, null);
+		ViewResult<?> result = m_db.queryView("product/all", Product.class, null, null);
 		List<Product> rc = new ArrayList<Product>();
 		
 		for (ValueRow<?> row: result.getRows()) {
