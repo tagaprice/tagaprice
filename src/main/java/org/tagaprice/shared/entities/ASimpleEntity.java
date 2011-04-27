@@ -18,7 +18,7 @@ public abstract class ASimpleEntity implements Serializable {
 
 	private String _id = null;
 	private String _rev = null;
-	private String _type = null;
+	private String _entityType = null;
 
 	/**
 	 * <b>NEW</b>
@@ -77,9 +77,9 @@ public abstract class ASimpleEntity implements Serializable {
 	 * Just ignore it anywhere else in the application.
 	 * @return
 	 */
-	@JSONProperty(value="entityType", ignoreIfNull = true)
-	public String getTypeName() {
-		return _type;
+	@JSONProperty(value="entityType")
+	public String getEntityType() {
+		return _entityType;
 	}
 	
 	/**
@@ -88,8 +88,8 @@ public abstract class ASimpleEntity implements Serializable {
 	 * 
 	 * @param typeName Type name (e.g. "product" or "shop")
 	 */
-	public void setTypeName(String typeName) {
-		_type = typeName;
+	public void setEntityType(String typeName) {
+		_entityType = typeName;
 	}
 	
 	/* (non-Javadoc)
@@ -97,7 +97,6 @@ public abstract class ASimpleEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-
 		return "ASimpleEntity [id: " + _id + ", rev: "+_rev+"]";
 	}
 

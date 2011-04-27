@@ -31,6 +31,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		String dbName;
 
 		m_class = classObject;
+		m_objectType = objectType;
 
 		try {
 			m_properties = _readProperties("couchdb.properties");
@@ -73,6 +74,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 
 	@Override
 	public T create(T entity) {
+		entity.setEntityType(m_objectType);
 		m_db.createDocument(entity);
 		return entity;
 	}
@@ -80,7 +82,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	@Override
 	public T get(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
-		if (!rc.getTypeName().equals(m_objectType)) throw new TypeMismatchException("Requested type ('"+m_objectType+"') doesn't match actual type: '"+rc.getTypeName()+"'");
+		if (!rc.getEntityType().equals(m_objectType)) throw new TypeMismatchException("Requested type ('"+m_objectType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
 		return rc;
 	}
 	
@@ -91,6 +93,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 
 	@Override
 	public T update(T entity) {
+		entity.setEntityType(m_objectType);
 		m_db.updateDocument(entity);
 		return entity;
 	}
