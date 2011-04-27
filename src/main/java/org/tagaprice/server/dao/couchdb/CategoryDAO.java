@@ -21,7 +21,7 @@ public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
 
 	@Override
 	public List<Category> list() throws DaoException {
-		ViewResult<?> result = m_db.listDocuments(null, null);
+		ViewResult<?> result = m_db.queryView("category/all", Category.class, null, null);
 		List<Category> rc = new ArrayList<Category>();
 
 		System.out.println("CatList:");

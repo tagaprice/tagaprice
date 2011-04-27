@@ -16,7 +16,7 @@ public class ShopDAO extends DAOClass<Shop> implements IShopDAO {
 	
 	@Override
 	public List<Shop> list() throws DaoException {
-		ViewResult<?> result = m_db.listDocuments(null, null);
+		ViewResult<?> result = m_db.queryView("shop/all", Shop.class, null, null);
 		List<Shop> rc = new ArrayList<Shop>();
 		
 		System.out.println("CatList:");

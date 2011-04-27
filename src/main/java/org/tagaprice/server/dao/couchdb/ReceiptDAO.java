@@ -16,7 +16,7 @@ public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
 	
 	@Override
 	public List<Receipt> list() throws DaoException {
-		ViewResult<?> result = m_db.listDocuments(null, null);
+		ViewResult<?> result = m_db.queryView("receipt/all", Receipt.class, null, null);
 		List<Receipt> rc = new ArrayList<Receipt>();
 		
 		System.out.println("CatList:");
