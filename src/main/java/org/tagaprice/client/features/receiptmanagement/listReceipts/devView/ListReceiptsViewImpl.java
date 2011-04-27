@@ -1,5 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.listReceipts.devView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
@@ -52,20 +53,16 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 
 		nice+=receipt.getTitle()+" | ";
 
-		int money=0;
+		BigDecimal money = new BigDecimal("0");
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
-			money+=re.getPrice().getPrice();
+			money = money.add(re.getPrice().getPrice());
 		}
+
 		nice+="m: "+money;
 
 
 		return nice;
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

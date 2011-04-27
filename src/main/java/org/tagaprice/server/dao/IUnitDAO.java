@@ -6,12 +6,7 @@ import org.tagaprice.shared.entities.Unit;
 
 public interface IUnitDAO extends IDAOClass<Unit> {
 
-	/**
-	 * A list of all related units. e.g. g -> kg, g, mg
-	 * 
-	 * @param unit
-	 *            Unit for which you search realted units. If it is null you get all units.
-	 * @return A list of related units
-	 */
-	public List<Unit> relatedUnits(Unit unit);
+	public void setFactorizedUnit(String unit, String factorizedUnit, double factor);
+
+	public List<Unit> factorizedUnits(String id);
 }

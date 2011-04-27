@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -23,8 +22,6 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 	private static RegisterViewImplUiBinder uiBinder = GWT.create(RegisterViewImplUiBinder.class);
 	private Presenter _presenter;
 
-	@UiField
-	SimplePanel _recaptchPanel;
 
 
 	@UiField
@@ -33,8 +30,6 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 	@UiField
 	PasswordTextBox _password;
 
-	@UiField
-	PasswordTextBox _confirmPassword;
 
 	@UiField
 	CheckBox _terms;
@@ -46,8 +41,6 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 
 	public RegisterViewImpl() {
 		initWidget(RegisterViewImpl.uiBinder.createAndBindUi(this));
-
-		_recaptchPanel.setWidget(reWidget);
 
 	}
 
@@ -77,30 +70,11 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 		return _password.getText();
 	}
 
-	@Override
-	public String getConfirmPassword() {
-		return _confirmPassword.getText();
-	}
-
-	@Override
-	public String getChallenge() {
-		return reWidget.getChallenge();
-	}
-
-	@Override
-	public String getResponse() {
-		return reWidget.getResponse();
-	}
 
 	@Override
 	public boolean getAgreeTerms() {
 		return _terms.getValue();
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

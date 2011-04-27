@@ -1,7 +1,6 @@
 package org.tagaprice.client.features.productmanagement.listProducts;
 
-import java.util.HashMap;
-
+import org.tagaprice.client.generics.TokenCreator;
 import org.tagaprice.shared.logging.*;
 
 import com.google.gwt.place.shared.*;
@@ -10,17 +9,12 @@ public class ListProductsPlace extends Place {
 	private static final MyLogger logger = LoggerFactory
 	.getLogger(ListProductsPlace.class);
 
-	private HashMap<String, String> parameters = new HashMap<String, String>();
 	private String categoryfilter;
 
-	public ListProductsPlace(String categoryfilter) {
+	public ListProductsPlace() {
 		ListProductsPlace.logger.log("Empty ListProductPlace created");
-		this.categoryfilter = categoryfilter;
 	}
 
-	public ListProductsPlace(HashMap<String, String> parameters) {
-		this.parameters = parameters;
-	}
 
 	public String getCategoryfilter() {
 		return this.categoryfilter;
@@ -31,32 +25,28 @@ public class ListProductsPlace extends Place {
 
 		@Override
 		public ListProductsPlace getPlace(String token) {
-			if (token.equals("")) {
-				ListProductsPlace.logger.log("return ListProductsPlace");
-				return new ListProductsPlace(new HashMap<String, String>());
-			} else {
-				String separator = "&";
-				String sign = "=";
-				String[] values = token.split(separator);
-				HashMap<String, String> parameters = new HashMap<String, String>();
-				// TODO make it save...
-				for (String value : values) {
-					String[] pair = value.split(sign);
-					parameters.put(pair[0], pair[1]);
+			ListProductsPlace.logger.log("Tokenizer token " + token);
+			TokenCreator.Exploder e = TokenCreator.getExploder(token);
+			if(e.getRoot()!=null){
+				if(e.getRoot().equals("show")){
+					ListProductsPlace.logger.log("return ListProductPlace");
+					return new ListProductsPlace();
 				}
-				ListProductsPlace.logger.log("return other ListProductsPlace");
-				return new ListProductsPlace(token);
+				return null;
+
 			}
+			ListProductsPlace.logger.log("return null");
+			return null;
+
 		}
 
 		@Override
 		public String getToken(ListProductsPlace place) {
-			if (place.parameters.size() == 0) {
-				return "";
-			} else {
-				// TODO fill this with code...
-				return "";
-			}
+			String rc = null;
+			TokenCreator.Imploder t = TokenCreator.getImploder();
+			t.setRoot("show");
+			rc=t.getToken();
+			return rc;
 		}
 
 	}

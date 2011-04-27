@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.tagaprice.client.generics.IView;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ICreateReceiptView extends IView{
+public interface ICreateReceiptView extends IsWidget{
 
 	/**
 	 * Returns the Title of the {@link Receipt}, if Title is NULL you get NULL back
@@ -29,9 +30,12 @@ public interface ICreateReceiptView extends IView{
 
 	public void setDate(Date date);
 
-	public Shop getAddress();
+	public Shop getShop();
 
-	public void setAddress(Shop address);
+	public void setShop(Shop shop);
+
+	public void setAddress(Address address);
+
 
 	public BoundingBox getBoundingBox();
 

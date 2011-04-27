@@ -12,8 +12,8 @@ import org.tagaprice.shared.entities.Address;
 public class Shop extends AEntity {
 	private static final long serialVersionUID = 1L;
 
-	private Address _address = null;
-	private Shop _parent = null;
+	private Address _address = new Address();
+	private Shop _parent;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -57,31 +57,35 @@ public class Shop extends AEntity {
 		return "Shop";
 	}
 
+	/**
+	 * Set The parent {@link Shop}
+	 * @param parent the parent {@link Shop}
+	 */
 	public void setParent(Shop parent) {
 		_parent=parent;
 	}
 
+	/**
+	 * Returns the {@link Shop} parent
+	 * @return the parent. If null no parent.
+	 */
 	@JSONProperty(ignore=true)
 	public Shop getParent() {
 		return _parent;
 	}
-	
-	@JSONProperty(value="parentId", ignoreIfNull=true)
-	public String getParentId() {
-		String rc = null;
-		if (getParent() != null) rc = getParent().getId();
-		return rc;
-	}
-	
-	public void setParentId(String id) {
-		setParent(new Shop(id, null, null));
-	}
 
+
+	/**
+	 * Set an {@link Address} to the {@link Shop}
+	 * @param address {@link Shop} address
+	 */
 	public void setAddress(Address address) {
 		_address=address;
 	}
 
-	@JSONProperty(value="address", ignoreIfNull=true)
+	/**
+	 * @return the address of the {@link Shop}
+	 */
 	public Address getAddress() {
 		return _address;
 	}

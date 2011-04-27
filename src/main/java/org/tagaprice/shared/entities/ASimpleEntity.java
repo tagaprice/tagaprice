@@ -36,20 +36,36 @@ public abstract class ASimpleEntity implements Serializable {
 		setRevision(revision);
 	}
 
+	/**
+	 * Returns the Revision of the {@link ASimpleEntity} or null, if it wasn't yet set (e.g. for unsaved {@link ASimpleEntity})
+	 * @return Returns the Revision of the {@link ASimpleEntity} or null, if Revision is not set.
+	 */
 	@JSONProperty(value="_rev", ignoreIfNull = true)
 	public String getRevision() {
 		return _rev;
 	}
 
+	/**
+	 * Set the Entity revision
+	 * @param revision Revision ID
+	 */
 	public void setRevision(String revision) {
 		_rev=revision;
 	}
 
+	/**
+	 * Set the {@link ASimpleEntity} Id
+	 * @return  {@link ASimpleEntity} Id
+	 */
 	@JSONProperty(value="_id", ignoreIfNull = true)
 	public String getId() {
 		return _id;
 	}
 
+	/**
+	 * Set the Entity ID
+	 * @param entityId Entity ID
+	 */
 	public void setId(String entityId) {
 		_id = entityId;
 	}

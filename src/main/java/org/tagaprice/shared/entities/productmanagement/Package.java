@@ -1,14 +1,11 @@
 package org.tagaprice.shared.entities.productmanagement;
 
-import java.util.ArrayList;
-
 import org.tagaprice.shared.entities.ASimpleEntity;
-import org.tagaprice.shared.entities.dump.Quantity;
+import org.tagaprice.shared.entities.Quantity;
 
 public class Package extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
 
-	ArrayList<Integer> _barcode=new ArrayList<Integer>();
 	Quantity _iQuantity;
 	Product _product;
 
@@ -41,30 +38,38 @@ public class Package extends ASimpleEntity {
 		_iQuantity=quantity;
 	}
 
-	public void addBarcode(int barcode) {
-		_barcode.add(barcode);
-	}
 
-	public void addBarcodes(ArrayList<Integer> barcode) {
-		_barcode.addAll(barcode);
-	}
-
-	public ArrayList<Integer> getBarcodes() {
-		return _barcode;
-	}
-
+	/**
+	 * Returns the related {@link IProduct}
+	 * @return the related {@link IProduct}
+	 */
 	public Product getProduct() {
 		return _product;
 	}
 
+	/**
+	 * Returns the {@link IQuantity} of an {@link IPackage}
+	 * 
+	 * @return the {@link IQuantity} of an {@link IPackage}
+	 */
 	public Quantity getQuantity() {
 		return _iQuantity;
 	}
 
+	/**
+	 * Set the related {@link Product}
+	 * @param product the related {@link Product}
+	 */
 	public void setProduct(Product product) {
 		_product=product;
 	}
 
+	/**
+	 * Set the {@link IQuantity} which is represented by an Quantity and an Unit.
+	 * 
+	 * @param qantity
+	 *            is represented by an Quantity and an Unit
+	 */
 	public void setQuantity(Quantity quantity) {
 		_iQuantity=quantity;
 	}
@@ -75,7 +80,7 @@ public class Package extends ASimpleEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Package [_barcode=" + _barcode + ", _iQuantity=" + _iQuantity + "]";
+		return "Package [_iQuantity=" + _iQuantity + "]";
 	}
 
 

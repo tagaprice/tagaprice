@@ -12,10 +12,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface IShopService extends RemoteService {
 
 	public List<Shop> getShops(Shop searchCriteria);
-
 	public Shop getShop(String id, String revision);
 	public Shop getShop(String id);
-
 	public Shop saveShop(Shop shop) throws UserNotLoggedInException;
 
 

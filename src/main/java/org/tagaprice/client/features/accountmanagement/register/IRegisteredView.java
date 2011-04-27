@@ -1,8 +1,8 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
-import org.tagaprice.client.generics.IView;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface IRegisteredView extends IView {
+public interface IRegisteredView extends IsWidget {
 
 	public void setPresenter(Presenter presenter);
 

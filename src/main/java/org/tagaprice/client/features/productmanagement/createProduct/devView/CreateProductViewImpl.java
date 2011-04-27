@@ -1,16 +1,14 @@
 package org.tagaprice.client.features.productmanagement.createProduct.devView;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.entities.dump.*;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.core.client.GWT;
@@ -67,14 +65,23 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Set I18N
 		nameI18N.setText(I18N.I18N.name());
 		categoryI18N.setText(I18N.I18N.category());
+
+
+		_unit.addUnitChangedHandler(new IUnitChangedHandler() {
+
+			@Override
+			public void onChange(Unit unit) {
+				_presenter.onUnitSelectedEvent();
+				_packages.setRelatedUnit(_unit.getUnit());
+
+			}
+		});
 	}
 
 	@UiHandler("saveButton")
 	public void onSaveButtonClicked(ClickEvent event) {
 		_presenter.onSaveEvent();
 	}
-
-
 
 
 	@Override
@@ -97,10 +104,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		name.setText(title);
 	}
 
-	@Override
-	public void setAvailableCategories(List<Category> categories) {
-		this.category.setAvailableCategories(categories);
-	}
 
 	@Override
 	public String getProductTitle() {
@@ -118,9 +121,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setPackages(ArrayList<Package> iPackage) {
 		_iPackage.clear();
-
 		_iPackage.addAll(iPackage);
-
 		_packages.setPackages(_iPackage);
 	}
 
@@ -141,11 +142,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		return _unit.getUnit();
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
 
 
 

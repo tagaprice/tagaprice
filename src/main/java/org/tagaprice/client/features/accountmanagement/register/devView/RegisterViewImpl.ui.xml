@@ -27,19 +27,6 @@
 					</tr>
 					<tr>
 						<td>
-							<g:Label ui:field="confirmPasswordI18N">confirm password</g:Label>
-						</td>
-						<td>
-							<g:PasswordTextBox ui:field="_confirmPassword"></g:PasswordTextBox>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<g:SimplePanel ui:field="_recaptchPanel" />
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<g:Label>Read and agree with our terms and conditions!</g:Label>
 						</td>
 						<td>

@@ -1,10 +1,9 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
-import org.tagaprice.client.generics.IView;
-
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface IRegisterView extends IView {
+public interface IRegisterView extends IsWidget {
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IRegisterView} to control this view. It is also necessary
@@ -37,28 +36,7 @@ public interface IRegisterView extends IView {
 	 */
 	public String getPassword();
 
-	/**
-	 * Returns the Confirm Password. Must be the same as Password <a href="http://code.google.com/apis/recaptcha/docs/display.html" >ReCaptcha
-	 * Docu</a>
-	 * 
-	 * @return the Confirm Password. Must be the same as Password
-	 */
-	public String getConfirmPassword();
 
-	/**
-	 * Returns the ReCaptcha Challenge. <a href="http://code.google.com/apis/recaptcha/docs/display.html" >ReCaptcha
-	 * Docu</a>
-	 * 
-	 * @return the ReCaptcha Challenge
-	 */
-	public String getChallenge();
-
-	/**
-	 * Returns the ReCaptcha Response.
-	 * 
-	 * @return the ReCaptcha Response.
-	 */
-	public String getResponse();
 
 	/**
 	 * Returns true if user agree the Terms and Conditions

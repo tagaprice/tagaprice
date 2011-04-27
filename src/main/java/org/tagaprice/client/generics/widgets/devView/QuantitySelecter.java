@@ -1,11 +1,13 @@
 package org.tagaprice.client.generics.widgets.devView;
 
+import java.math.BigDecimal;
+
 import org.tagaprice.client.generics.widgets.IQuantityChangeHandler;
 import org.tagaprice.client.generics.widgets.IQuantitySelecter;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
+import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.*;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -55,7 +57,7 @@ public class QuantitySelecter extends Composite implements IQuantitySelecter {
 
 	@Override
 	public Quantity getQuantity() {
-		return new Quantity(new Double(_quantity.getText()), _unitSelecter.getUnit());
+		return new Quantity(new BigDecimal(_quantity.getText()), _unitSelecter.getUnit());
 	}
 
 	@Override

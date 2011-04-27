@@ -1,22 +1,57 @@
 package org.tagaprice.client.generics.widgets.devView;
 
+import java.util.List;
+
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.IUnitSelecter;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
+import org.tagaprice.shared.rpc.unitmanagement.IUnitService;
+import org.tagaprice.shared.rpc.unitmanagement.IUnitServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UnitSelecter extends Composite implements IUnitSelecter{
 
+	private Button _selectButton = new Button("^");
+	private PopupPanel _showUnits = new PopupPanel(true);
+	private VerticalPanel _unitList = new VerticalPanel();
+	private Unit _cUnit = new Unit();
 	private ListBox _listBoxUnit = new ListBox();
 	private IUnitChangedHandler _unitChangedHandler;
+	private MyLogger _logger = LoggerFactory.getLogger(UnitSelecter.class);
+	private IUnitServiceAsync _unitServiceAsync = GWT.create(IUnitService.class);
+	private String _allowId = null;
+
 
 	public UnitSelecter() {
-		initWidget(_listBoxUnit);
+		//initWidget(_listBoxUnit);
+		initWidget(_selectButton);
 		allowedUnit(null);
+
+		_selectButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_showUnits.setWidget(new Label("Loading..."));
+				_showUnits.showRelativeTo(_selectButton);
+				showFactorizedUnits();
+
+			}
+		});
+
 
 		//add Listener
 		_listBoxUnit.addChangeHandler(new ChangeHandler() {
@@ -31,25 +66,36 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 	@Override
 	public void setRelatedUnit(Unit unit) {
-		allowedUnit(unit);
+		_logger.log("RelativeUnit: "+unit);
+		if(unit!=null){
+			_allowId=unit.getId();
+		}
 	}
 
 	@Override
 	public void setUnit(Unit unit) {
-		int pos = 0;
+		if(unit!=null){
+			_logger.log("setUnit: "+unit.getTitle());
+			_selectButton.setText(unit.getTitle()+"^");
+			_cUnit=unit;
+			int pos = 0;
 
-		/// TODO fix me
-/*		for(int i= 0; i < Unit.values().length; i++ ) {
+			/// TODO fix me
+			/*		for(int i= 0; i < Unit.values().length; i++ ) {
 			if(Unit.values()[i].equals(unit)) {
 				pos=i;
 			}
 		}*/
-		_listBoxUnit.setSelectedIndex(pos);
+			_listBoxUnit.setSelectedIndex(pos);
+		}else{
+			_cUnit=new Unit();
+			_selectButton.setText("^");
+		}
 	}
 
 	@Override
 	public Unit getUnit() {
-		return null;
+		return _cUnit;
 		//return Unit.valueOf(_listBoxUnit.getItemText(_listBoxUnit.getSelectedIndex()));
 	}
 
@@ -59,18 +105,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	 * @param unit allowed unit. If null, all are displayed.
 	 */
 	private void allowedUnit(Unit unit){
-		_listBoxUnit.clear();
 
-		/*
-		if(unit==null){
-			for(Unit u: Unit.values()) {
-				_listBoxUnit.addItem(u.name(),u.name());
-			}
-		}else{
-			for(Unit u:unit.getRelativeTypes()){
-				_listBoxUnit.addItem(u.name(),u.name());
-			}
-		}*/
 
 	}
 
@@ -79,4 +114,42 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 		_unitChangedHandler=unitChangedHandler;
 	}
 
+
+	private void showFactorizedUnits(){
+
+		_unitServiceAsync.getFactorizedUnits(_allowId, new AsyncCallback<List<Unit>>() {
+
+			@Override
+			public void onSuccess(List<Unit> results) {
+				VerticalPanel vePa = new VerticalPanel();
+
+
+
+				for(final Unit u:results){
+					Label l = new Label(u.getTitle());
+					vePa.add(l);
+
+					l.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent arg0) {
+							setUnit(u);
+							if(_unitChangedHandler!=null)_unitChangedHandler.onChange(getUnit());
+						}
+					});
+				}
+
+				_showUnits.setWidget(vePa);
+				_showUnits.showRelativeTo(_selectButton);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				_logger.log("getCategoryProblem: "+e);
+			}
+		});
+
+
+	}
 }

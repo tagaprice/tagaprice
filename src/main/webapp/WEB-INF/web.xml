@@ -80,6 +80,16 @@
 		<url-pattern>/TagAPrice/categoryservice</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>unitService</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.UnitServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>unitService</servlet-name>
+		<url-pattern>/TagAPrice/unitservice</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- END: RPC-->
 	

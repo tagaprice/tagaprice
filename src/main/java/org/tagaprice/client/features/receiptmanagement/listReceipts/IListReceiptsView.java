@@ -3,10 +3,11 @@ package org.tagaprice.client.features.receiptmanagement.listReceipts;
 import java.util.List;
 
 import com.google.gwt.place.shared.Place;
-import org.tagaprice.client.generics.IView;
+import com.google.gwt.user.client.ui.IsWidget;
+
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
-public interface IListReceiptsView extends IView {
+public interface IListReceiptsView extends IsWidget {
 
 	/**
 	 * Display a receipt list

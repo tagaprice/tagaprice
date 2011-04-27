@@ -7,7 +7,6 @@ import java.util.Random;
 
 import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.server.rpc.ProductServiceImpl;
-import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -19,40 +18,11 @@ public class ShopDAO implements IShopDAO {
 	HashMap<String, String> newestRev = new HashMap<String, String>();
 	Random random = new Random(1654196865);
 
-	public ShopDAO() {
-		//Create address for Shop(bills)
-		String r45665 = new Long(random.nextLong()).toString();
-		newestRev.put(r45665, r45665);
 
-		String r1598 = new Long(random.nextLong()).toString();
-		newestRev.put(r1598, r1598);
-
-		//Create some Shops
-		String r1 = new Long(random.nextLong()).toString();
-		newestRev.put(r1, r1);
-		Shop s1 = new Shop(r1, "1", "Billa1");
-		s1.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
-		
-		shopsAllRevisions.put(r1, s1);
-
-
-		//2 shop
-		//Create address for Shop(bills)
-		String r798654 = new Long(random.nextLong()).toString();
-		newestRev.put(r798654, r798654);
-
-		//Create some Shop
-		String r8998 = new Long(random.nextLong()).toString();
-		newestRev.put(r8998, r8998);
-		Shop s8998 = new Shop(r8998, "1", "Hofer");
-		s8998.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
-
-		shopsAllRevisions.put(r8998, s8998);
-
-	}
 	@Override
 	public Shop create(Shop shop) {
 		logger.log("new Shop");
+
 
 		shop.setId(new Long(random.nextLong()).toString());
 		shop.setRevision("1");
@@ -100,6 +70,7 @@ public class ShopDAO implements IShopDAO {
 
 			shopsAllRevisions.put(updateShop.getId(), updateShop);
 			newestRev.put(updateShop.getId(), updateShop.getId());
+
 
 			return updateShop;
 		}

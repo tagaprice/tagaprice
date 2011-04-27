@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * 
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
-	private MyLogger logger = LoggerFactory.getLogger(CategorySelecter.class);
+	private MyLogger _logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	private ListBox _listBoxCategories = new ListBox();
 	private List<Category> _availableCategories = new ArrayList<Category>();
@@ -48,40 +48,30 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	@Override
 	public void setCategory(Category category) {
-		logger.log("set category " + category);
-
+		_logger.log("set category " + category);
+		_hoPa.clear();
 		if (category != null) {
-			_hoPa.clear();
+
 			Category newCat = category;
 
 			while(newCat!=null){
 				_hoPa.insert(new SimpleCategorySelecter(newCat), 0);
 				newCat = newCat.getParentCategory();
 			}
-			_hoPa.insert(new SimpleCategorySelecter(null), 0);
+
 
 		}
+		_hoPa.insert(new SimpleCategorySelecter(null), 0);
 	}
 
 	@Override
 	public Category getCategory() {
-		if(this._availableCategories != null && this._availableCategories.size() > 0) {
-			return this._availableCategories.get(this._listBoxCategories.getSelectedIndex());
-		} else {
-			return null;
-		}
+		if(_hoPa.getWidgetCount()>0)
+			return ((SimpleCategorySelecter)_hoPa.getWidget(_hoPa.getWidgetCount()-1)).getCategory();
+
+		return null;
 	}
 
-	@Override
-	public void setAvailableCategories(List<Category> categories) {
-		/*
-		this._availableCategories = categories;
-		this._listBoxCategories.clear();
-		for (Category c : this._availableCategories) {
-			this._listBoxCategories.addItem(c.getTitle(), c.toString());
-		}
-		 */
-	}
 
 	class SimpleCategorySelecter extends Composite{
 
@@ -94,7 +84,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
-			logger.log("CreateSimpleCategory " + category);
+			_logger.log("CreateSimpleCategory " + category);
 
 
 
@@ -117,7 +107,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 					String id=null;
 
 
-					logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
+					_logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
 
 					if(_myCat!=null)
 						id=_myCat.getId();
@@ -147,13 +137,17 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 						@Override
 						public void onFailure(Throwable e) {
-							logger.log("getCategoryProblem: "+e);
+							_logger.log("getCategoryProblem: "+e);
 						}
 					});
 
 				}
 			});
 
+		}
+
+		public Category getCategory(){
+			return _myCat;
 		}
 	}
 }

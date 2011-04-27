@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.*;
+import org.tagaprice.shared.entities.AEntity;
 
 /**
  * A category describes which properties and dependencies a {@link Product} has.
@@ -40,11 +40,19 @@ public class Category extends AEntity   {
 		setParentCategory(parent);
 	}
 
+	/**
+	 * Returns the parent {@link Category}.
+	 * @return parent {@link Category}
+	 */
 	@JSONProperty(value="parent")
 	public Category getParentCategory() {
 		return this._parentCategory;
 	}
 
+	/**
+	 * Sets the parent {@link Category}.
+	 * @param category set parent {@link Category}
+	 */
 	public void setParentCategory(Category category) {
 		this._parentCategory = category;
 	}

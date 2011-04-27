@@ -47,7 +47,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	@Override
 	public Product saveProduct(final Product product) {
-		return productDAO.update(product);
+		logger.log("save Product " + product);
+		Product rc = null;
+		if(product.getId() != null){
+			rc = productDAO.update(product);
+		}else{
+			rc = productDAO.create(product);
+		}
+		return rc;
 	}
 
 	@Override

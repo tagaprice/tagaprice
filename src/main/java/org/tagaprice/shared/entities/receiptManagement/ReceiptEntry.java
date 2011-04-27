@@ -1,9 +1,10 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import org.tagaprice.shared.entities.ASimpleEntity;
+import java.io.Serializable;
+
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry extends ASimpleEntity {
+public class ReceiptEntry implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;
@@ -13,7 +14,9 @@ public class ReceiptEntry extends ASimpleEntity {
 	/**
 	 * This constructor is used by the serialization algorithm
 	 */
-	public ReceiptEntry() {}
+	public ReceiptEntry() {
+		super();
+	}
 
 	/**
 	 * <b>NEW</b>
@@ -26,30 +29,38 @@ public class ReceiptEntry extends ASimpleEntity {
 		setPackage(ipackage);
 	}
 
+	/**
+	 * @return the related {@link IPackage}
+	 */
 	public Package getPackage() {
 		return _package;
 	}
 
+	/**
+	 * returns the price per {@link Currency} in cent
+	 * @return per {@link Currency}  in cent
+	 */
 	public Price getPrice() {
 		return _price;
 	}
 
-	public Receipt getReceipt() {
-		return _receipt;
-	}
 
+	/**
+	 * defines the {@link Package} (Product)
+	 * @param prackage the {@link Package} (Product)
+	 */
 	public void setPackage(Package ipackage) {
 		_package = ipackage;
 	}
 
+	/**
+	 * sets the price per {@link Currency}  in cent
+	 * @param price  per {@link Currency}  in cent
+	 */
 	public void setPrice(Price price) {
 		_price = price;
 	}
 
-	public void setReceipt(Receipt receipt) {
-		_receipt = receipt;
-
-	}
 
 	/*
 	 * (non-Javadoc)

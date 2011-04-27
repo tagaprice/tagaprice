@@ -54,14 +54,10 @@ public interface ILoginService extends RemoteService {
 	 * an auto generated password.
 	 * @param email that should be registered
 	 * @param password password
-	 * @param confirmPassword confirm password. Must be the same as password
-	 * @param reCaptchaChallange the Recaptcha Challange
-	 * @param reCaptchaResponse the Recaptche Respone (input)
 	 * @param agreeTerms if user agrees our terms and conditions
 	 * @return return a SessionKey if the registration was OK. If not NULL
 	 */
-	public String registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
-			String reCaptchaResponse, boolean agreeTerms);
+	public String registerUser(String email, String password, boolean agreeTerms);
 
 	/**
 	 * Set new password.

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -16,14 +17,9 @@ public class CategoryDAO implements ICategoryDAO {
 	Random rand = new Random(15645651);
 
 
-	CategoryDAO() {
-		Category food = create(new Category("food", null));
-		Category vegetables = create(new Category("vegetables", food));
-		Category beverages = create(new Category("beverages", null));
-		Category alcoholics = create(new Category("alcohol", beverages));
-		Category nonalcoholics = create(new Category("nonalcoholics", beverages));
-		Category softAlc = create(new Category("softalk", alcoholics));
-		Category hardAlc = create(new Category("hardalk", alcoholics));
+	CategoryDAO(IDaoFactory daoFactory) {
+		logger.log("Start CategoryDAO");
+
 
 	}
 

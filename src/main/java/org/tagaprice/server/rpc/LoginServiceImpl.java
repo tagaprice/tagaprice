@@ -28,7 +28,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	public LoginServiceImpl() {
 		//Is only to be sure that session has been created
-
+		userList.add(new AccountUser("a@a.a", "aaa"));
 	}
 
 	@Override
@@ -58,28 +58,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 		throw new WrongEmailOrPasswordException("Please controll user and password");
 
-		/*
-		if (email.equals("test"))
-			throw new WrongEmailOrPasswordException("Please controll user and password");
 
-		if (sessionId != null)
-			throw new UserAlreadyLoggedInException("User already logged in");
-		// impl UserAlreadyLoggedInException
-
-		sessionId = "" + Math.random();
-		// TODO Auto-generated method stub
-		return sessionId;
-		 */
 	}
 
 	@Override
 	public void setLogout() throws UserNotLoggedInException {
 
-
-
-		if(session.getAttribute("sid")==null){
-			throw new UserNotLoggedInException("User is not logged in.");
-		}
 
 		for(AccountUser au:userList){
 			if(au.getSessionId().equals(getSid())){
@@ -89,12 +73,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			}
 		}
 
-		/*
-		if (sessionId == null)
-			throw new UserNotLoggedInException("User is not logged in.");
-
-		sessionId = null;
-		 */
 	}
 
 	@Override
@@ -132,14 +110,11 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public String registerUser(String email, String password, String confirmPassword, String reCaptchaChallange,
-			String reCaptchaResponse, boolean agreeTerms) {
+	public String registerUser(String email, String password, boolean agreeTerms) {
 
-		_logger.log("Try to register: email: " + email + ", password: " + password + ", ConfirmPassword: "
-				+ confirmPassword + ", Challange: " + reCaptchaChallange + ", Response: "+reCaptchaResponse);
+		_logger.log("Try to register: email: " + email + ", password: " + password);
 
-		if (isEmailAvailable(email) == true && password.equals(confirmPassword)
-				&& isRecaptchaOK(reCaptchaChallange, reCaptchaResponse)
+		if (isEmailAvailable(email) == true && !password.isEmpty()
 				&& agreeTerms==true) {
 
 			// TODO Register User and send mail
@@ -162,17 +137,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		return null;
 	}
 
-	/**
-	 * Check if recaptche is ok
-	 * 
-	 * @param reCaptchaChallange
-	 * @param reCaptchaResponse
-	 * @return
-	 */
-	private boolean isRecaptchaOK(String reCaptchaChallange, String reCaptchaResponse) {
-
-		return true;
-	}
 
 	private String getSid(){
 		if(session==null)session = getThreadLocalRequest().getSession();

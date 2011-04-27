@@ -1,7 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 
@@ -20,12 +19,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	@Override
-	public void setAddress(Shop address) {
+	public void setAddress(Address address) {
 		addressSelecter.setAddress(address);
 	}
 
 	@Override
-	public Shop getAddress() {
+	public Address getAddress() {
 		return addressSelecter.getAddress();
 	}
 

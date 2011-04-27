@@ -1,11 +1,12 @@
 package org.tagaprice.client.generics.widgets.devView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.tagaprice.client.generics.widgets.IPackageSelecter;
 import org.tagaprice.client.generics.widgets.IQuantityChangeHandler;
+import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.dump.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -45,7 +46,7 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 				Package save = new Package(new Quantity(newQuant.getQuantity().getQuantity(), newQuant.getQuantity().getUnit()));
 				addPackage(save);
 				_iPackage.add(save);
-				newQuant.setQuantity(new Quantity(0.0, _relatedUnit));
+				newQuant.setQuantity(new Quantity(new BigDecimal("0.0"), _relatedUnit));
 			}
 		});
 
