@@ -1,24 +1,63 @@
 package org.tagaprice.server.dao.couchdb;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
+import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	private Server m_server;
 	protected Database m_db;
+	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+	
+	/// CouchDB connection properties
+	Properties m_properties;
+	
 	Class<? extends T> m_class;
 	String m_prefixedDBName;
 	
 	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String dbName) {
-		m_server = new ServerImpl("localhost");
 		m_prefixedDBName = dbPrefix+dbName;
 		m_class = classObject;
 
+		try {
+			m_properties = _readProperties("couchdb.properties");
+		}
+		catch (IOException e) {
+			m_logger.log("Error while reading couchdb.properties!");
+			e.printStackTrace();
+		}
+		
+		m_server = new ServerImpl(
+				m_properties.getProperty("host", "localhost"),
+				Integer.parseInt(m_properties.getProperty("port", "5984")),
+				Boolean.parseBoolean(m_properties.getProperty("ssl", "false"))); // we don't need ssl on localhost
+
+			
 		// TODO use server.setCredentials() to authenticate
 		createDB();
+	}
+	
+	private Properties _readProperties(String filename) throws IOException {
+		Properties defaults = new Properties();
+		try {
+			InputStream stream = getClass().getResourceAsStream(filename+".default");
+			if (stream != null) defaults.load(stream);			
+		}
+		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
+		Properties rc = new Properties(defaults);
+		InputStream stream = getClass().getResourceAsStream(filename); 
+		if (stream != null) rc.load(stream);
+		else throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
+		return rc;
 	}
 	
 	void createDB() {
