@@ -7,8 +7,8 @@ import org.tagaprice.shared.entities.Unit;
 
 public class UnitDAO extends DAOClass<Unit> implements IUnitDAO {
 
-	public UnitDAO(String dbPrefix) {
-		super(dbPrefix, Unit.class, "unit");
+	public UnitDAO() {
+		super(Unit.class, "unit");
 		// TODO Auto-generated constructor stub
 	}
 

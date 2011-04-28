@@ -15,23 +15,43 @@ import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
+/**
+ * Base class for all the other CouchDB DAO classes
+ * @param <T> Datatype of the entities that will be queried
+ */
 public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
+	/// JCouchDB server object
 	private Server m_server;
+	
+	/// JCouchDB database object
 	protected Database m_db;
+	
+	/// Logger instance
 	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	/// CouchDB connection properties
 	Properties m_properties;
 	
+	/// Metaclass object of the entities that will be queried
 	Class<? extends T> m_class;
-	String m_objectType;
 	
-	protected DAOClass(String dbPrefix, Class<? extends T> classObject, String objectType) {
+	/**
+	 * Entity type name (e.g. "product", "shop", ...)
+	 * This is stored in each CouchDB document so that we can find out of which type they are
+	 */
+	String m_entityType;
+	
+	/**
+	 * Constructor
+	 * @param classObject Class object necessary to instantiate new objects when get() gets called 
+	 * @param objectType type name (e.g. "product", "shop", ...)
+	 */
+	protected DAOClass(Class<? extends T> classObject, String objectType) {
 		InitialInjector injector = new InitialInjector();
 		String dbName;
 
 		m_class = classObject;
-		m_objectType = objectType;
+		m_entityType = objectType;
 
 		try {
 			m_properties = _readProperties("couchdb.properties");
@@ -58,6 +78,12 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		m_db = new Database(m_server, dbName);
 	}
 	
+	/**
+	 * Read the CouchDB connection configuration
+	 * @param filename file that should be read
+	 * @return Properties object containing the configuration
+	 * @throws IOException if the config file couldn't be read
+	 */
 	private Properties _readProperties(String filename) throws IOException {
 		Properties defaults = new Properties();
 		try {
@@ -72,32 +98,57 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		return rc;
 	}
 
+	/**
+	 * Create a new document in the CouchDB
+	 * @param entity Entity to be persisted
+	 * @return entity (the same object as passed in the parameter)
+	 */
 	@Override
 	public T create(T entity) {
-		entity.setEntityType(m_objectType);
+		entity.setEntityType(m_entityType);
 		m_db.createDocument(entity);
 		return entity;
 	}
 
+	/**
+	 * Request a specific revision of a document from the database
+	 * @param id Document ID
+	 * @param revision Document revision (if it's null, the current revision will be queried) 
+	 * @return Requested CouchDB document squeezed into a Entity object 
+	 */
 	@Override
 	public T get(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
-		if (!rc.getEntityType().equals(m_objectType)) throw new TypeMismatchException("Requested type ('"+m_objectType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
+		if (!rc.getEntityType().equals(m_entityType)) throw new TypeMismatchException("Requested type ('"+m_entityType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
 		return rc;
 	}
 	
+	/**
+	 * Request a document from the database
+	 * @param id Document ID
+	 * @return Requested CouchDB document squeezed into a Entity object 
+	 */
 	@Override
 	public T get(String id) throws DaoException {
 		return get(id, null);
 	}
 
+	/**
+	 * Update a CouchDB document
+	 * @param entity Entity to persist
+	 * @return entity (the same object as passed in the parameter)
+	 */
 	@Override
 	public T update(T entity) {
-		entity.setEntityType(m_objectType);
+		entity.setEntityType(m_entityType);
 		m_db.updateDocument(entity);
 		return entity;
 	}
 
+	/**
+	 * Delete an Entity from the database
+	 * @param entity Entity to remove
+	 */
 	@Override
 	public void delete(T entity) {
 		m_db.delete(entity);

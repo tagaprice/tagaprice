@@ -10,8 +10,8 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
-	public CategoryDAO(String dbPrefix) {
-		super(dbPrefix, Category.class, "category");
+	public CategoryDAO() {
+		super(Category.class, "category");
 	}
 
 	@Override

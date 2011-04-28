@@ -6,8 +6,6 @@ import org.tagaprice.server.dao.IDaoFactory;
  * IDaoFactory implementation providing a CouchDB persistence layer
  */
 public class CouchDBDaoFactory implements IDaoFactory {
-	String m_dbPrefix;
-	
 	CategoryDAO m_categoryDAO = null;
 	PackageDAO m_packageDAO = null;
 	ProductDAO m_productDAO = null;
@@ -16,30 +14,15 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	UnitDAO m_unitDAO = null;
 	
 	/**
-	 * DAO factory constructor that allows the caller to specify a prefix String that will
-	 * be used when connecting to databases.
-	 * 
-	 * This constructor comes in handy when writing DAO-Tests e.g.
-	 */
-	CouchDBDaoFactory(String dbPrefix) {
-		m_dbPrefix = dbPrefix;
-	}
-	
-	/**
 	 * Default DAO factory constructor
-	 * 
-	 * This Constructor is needed for the DAO Factory injection to work properly.
-	 * It simply sets the DB prefix to "". This may change in further versions where
-	 * the prefix might be read from a configuration file for example.
 	 */
 	public CouchDBDaoFactory() {
-		this("");
 	}
 	
 	@Override
 	public CategoryDAO getCategoryDAO() {
 		if (m_categoryDAO == null) {
-			m_categoryDAO = new CategoryDAO(m_dbPrefix);
+			m_categoryDAO = new CategoryDAO();
 		}
 		return m_categoryDAO;
 	}
@@ -47,7 +30,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public PackageDAO getPackageDAO() {
 		if (m_packageDAO == null) {
-			m_packageDAO = new PackageDAO(m_dbPrefix);
+			m_packageDAO = new PackageDAO();
 		}
 		return m_packageDAO;
 	}
@@ -55,7 +38,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public ProductDAO getProductDAO() {
 		if (m_productDAO == null) {
-			m_productDAO = new ProductDAO(this, m_dbPrefix);
+			m_productDAO = new ProductDAO(this);
 		}
 		return m_productDAO;
 	}
@@ -63,7 +46,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public ReceiptDAO getReceiptDAO() {
 		if (m_receiptDAO == null) {
-			m_receiptDAO = new ReceiptDAO(m_dbPrefix);
+			m_receiptDAO = new ReceiptDAO();
 		}
 		return m_receiptDAO;
 	}
@@ -71,7 +54,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public ShopDAO getShopDAO() {
 		if (m_shopDAO == null) {
-			m_shopDAO = new ShopDAO(m_dbPrefix);
+			m_shopDAO = new ShopDAO();
 		}
 		return m_shopDAO;
 	}
@@ -79,7 +62,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public UnitDAO getUnitDAO() {
 		if (m_unitDAO == null) {
-			m_unitDAO = new UnitDAO(m_dbPrefix);
+			m_unitDAO = new UnitDAO();
 		}
 		return m_unitDAO;
 	}

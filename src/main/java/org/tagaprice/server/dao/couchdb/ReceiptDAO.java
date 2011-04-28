@@ -10,8 +10,8 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
-	public ReceiptDAO(String dbPrefix) {
-		super(dbPrefix, Receipt.class, "receipt");
+	public ReceiptDAO() {
+		super(Receipt.class, "receipt");
 	}
 	
 	@Override
