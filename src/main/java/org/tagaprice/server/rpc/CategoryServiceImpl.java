@@ -35,8 +35,8 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 	}
 
 	@Override
-	public List<Category> getCategoryChildren(String id) {
-		return categoryDAO.children(id);
+	public List<Category> getCategoryChildren(String id) throws DaoException {
+		return categoryDAO.getChildren(id);
 	}
 
 }

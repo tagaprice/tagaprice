@@ -76,9 +76,14 @@ public class CategoryDAO implements ICategoryDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<Category> getChildren(Category parent){
+		return getChildren(parent.getId());
+	}
 
 	@Override
-	public List<Category> children(String id) {
+	public List<Category> getChildren(String id) {
 		logger.log("childs: "+id);
 
 		ArrayList<Category> rc = new ArrayList<Category>();

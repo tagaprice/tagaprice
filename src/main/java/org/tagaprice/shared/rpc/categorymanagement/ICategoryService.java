@@ -37,8 +37,9 @@ public interface ICategoryService extends RemoteService {
 	 * @param id
 	 *            of an {@link Category}
 	 * @return list of all children. Children will not hold there parents!
+	 * @throws DaoException 
 	 */
-	public List<Category> getCategoryChildren(String id);
+	public List<Category> getCategoryChildren(String id) throws DaoException;
 
 
 }
