@@ -2,25 +2,28 @@ package org.tagaprice.server.dao.couchdb;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.IProductDAO;
+import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDAOTest extends AbstractDAOTest {
-	CouchDBDaoFactory daoFactory = new CouchDBDaoFactory("test_");
-	ProductDAO productDAO = daoFactory.getProductDAO();
-	CategoryDAO categoryDAO = daoFactory.getCategoryDAO();
-	UnitDAO unitDAO = daoFactory.getUnitDAO();
+	CouchDBDaoFactory daoFactory = new CouchDBDaoFactory();
+	IProductDAO productDAO = daoFactory.getProductDAO();
+	ICategoryDAO categoryDAO = daoFactory.getCategoryDAO();
+	IUnitDAO unitDAO = daoFactory.getUnitDAO();
 	
 	Category m_testCategory;
 	Unit m_testUnit;
 
-	public ProductDAOTest() {
-		addDAOClass(productDAO);
-		addDAOClass(categoryDAO);
-		addDAOClass(unitDAO);
+	public ProductDAOTest() throws IOException {
 	}
 	
 	@Before
@@ -35,7 +38,7 @@ public class ProductDAOTest extends AbstractDAOTest {
 	}
 	
 	@Test
-	public void testCreateProduct() {
+	public void testCreateProduct() throws DaoException {
 		Product product = new Product("productTitle", m_testCategory, m_testUnit);
 		
 		productDAO.create(product);
@@ -48,7 +51,7 @@ public class ProductDAOTest extends AbstractDAOTest {
 	}
 	
 	@Test
-	public void testUpdateProduct() {
+	public void testUpdateProduct() throws DaoException {
 		Product product = new Product("productTitle", m_testCategory, m_testUnit);
 		productDAO.create(product);
 		
