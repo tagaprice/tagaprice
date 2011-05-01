@@ -1,12 +1,10 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
-import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.IDAOClass;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
@@ -54,7 +52,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		m_entityType = objectType;
 
 		try {
-			m_properties = _readProperties("couchdb.properties");
+			m_properties = CouchDBDaoFactory.getConfiguration();
 		}
 		catch (IOException e) {
 			m_logger.log("Error while reading couchdb.properties!");
@@ -64,10 +62,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		
 		dbName = m_properties.getProperty("database", "tagaprice");
 		
-		m_server = new ServerImpl(
-				m_properties.getProperty("host", "localhost"),
-				Integer.parseInt(m_properties.getProperty("port", "5984")),
-				Boolean.parseBoolean(m_properties.getProperty("ssl", "false"))); // we don't need ssl on localhost
+		m_server = CouchDBDaoFactory.getServerObject(m_properties);
 
 		try {
 			injector.init(m_server, dbName);
@@ -76,26 +71,6 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 			e.printStackTrace();
 		}
 		m_db = new Database(m_server, dbName);
-	}
-	
-	/**
-	 * Read the CouchDB connection configuration
-	 * @param filename file that should be read
-	 * @return Properties object containing the configuration
-	 * @throws IOException if the config file couldn't be read
-	 */
-	private Properties _readProperties(String filename) throws IOException {
-		Properties defaults = new Properties();
-		try {
-			InputStream stream = getClass().getResourceAsStream(filename+".default");
-			if (stream != null) defaults.load(stream);
-		}
-		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
-		Properties rc = new Properties(defaults);
-		InputStream stream = getClass().getResourceAsStream("/"+filename); 
-		if (stream != null) rc.load(stream);
-		else throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
-		return rc;
 	}
 
 	/**
@@ -152,5 +127,13 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	@Override
 	public void delete(T entity) {
 		m_db.delete(entity);
+	}
+	
+	/**
+	 * Returns the name of the CouchDB Database involved
+	 * @return
+	 */
+	public String getDbName() {
+		return m_db.getName();
 	}
 }
