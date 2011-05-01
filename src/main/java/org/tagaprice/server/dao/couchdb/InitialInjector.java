@@ -12,7 +12,6 @@ import java.util.Map;
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.svenson.JSONParser;
-import org.tagaprice.shared.logging.LoggerFactory;
 
 /**
  * This class reads the files in src/main/webapp/WEB-INF/couchdb_inject/ and applies them to the database if necessary.
@@ -50,30 +49,36 @@ public class InitialInjector {
 	}
 	
 	private String[] _allFilesIn(String path) {
-		URL url = getClass().getClassLoader().getResource(path);
+		File dirFile = _getDirFile(path);
 		String rc[] = new String[0];
 		
-		if (url == null) {
-			throw new NullPointerException("blubb");
+		String[] files = dirFile.list();
+		rc = new String[files.length];
+	
+		int i = 0;
+		for(String filename: files) {
+			rc[i++] = dirFile.getAbsolutePath()+"/"+filename;
 		}
-		else if (/* url == null && */ url.getProtocol().equals("file")) {
+		
+		return rc;
+	}
+	
+	protected File _getDirFile(String path) {
+		URL url = getClass().getClassLoader().getResource(path);
+		File rc = null;
+		if (url == null) {
+			throw new NullPointerException("Couldn't get directory listing of '"+path+"'");
+		}
+		else if (/* url != null && */ url.getProtocol().equals("file")) {
 			try {
-				System.out.println("URL: "+url.toURI());
-				File dirFile = new File(url.toURI());
-				String[] files = dirFile.list();
-				rc = new String[files.length];
-			
-				int i = 0;
-				for(String filename: files) {
-					rc[i++] = dirFile.getAbsolutePath()+"/"+filename;
-				}
+				rc = new File(url.toURI());
 			} catch (URISyntaxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		else {
-			LoggerFactory.getLogger(this.getClass()).log("asdf");
+			throw new IllegalArgumentException("Unsupported URL protocol");
 		}
 		
 		return rc;
