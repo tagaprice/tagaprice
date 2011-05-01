@@ -34,6 +34,10 @@ public class CouchDBDaoFactory implements IDaoFactory {
 		return m_dbConfig;
 	}
 	
+	static void _setConfiguration(Properties dbConfig) {
+		m_dbConfig = dbConfig;
+	}
+	
 	static Server getServerObject(Properties dbConfig) {
 		return new ServerImpl(
 				dbConfig.getProperty("host", "localhost"),
