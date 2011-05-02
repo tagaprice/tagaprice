@@ -99,11 +99,11 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		T rc = m_db.getDocument(m_class, id);
 		if (!rc.getEntityType().equals(m_entityType)) throw new TypeMismatchException("Requested type ('"+m_entityType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
 
-		// inject fields
-		DAOClass<? super T> superClassDao = m_superClassDao;
-		while (superClassDao != null) {
-			superClassDao._injectFields(rc);
-			superClassDao = superClassDao._getSuperClassDao();
+		// inject fields (recursively for all superClassDaos)
+		DAOClass<? super T> daoClass = this;
+		while (daoClass != null) {
+			daoClass._injectFields(rc);
+			daoClass = daoClass._getSuperClassDao();
 		}
 		
 		return rc;
