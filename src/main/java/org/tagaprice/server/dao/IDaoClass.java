@@ -8,6 +8,6 @@ public interface IDaoClass<T extends ASimpleEntity> {
 	public T get(String id) throws DaoException;
 	public T get(String id, String revision) throws DaoException;
 	public T update(final T entity) throws DaoException;
-	public void delete(T entity);
+	public void delete(T entity) throws DaoException;
 
 }

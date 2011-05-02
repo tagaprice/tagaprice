@@ -8,6 +8,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Address;
@@ -28,10 +29,11 @@ import org.tagaprice.shared.logging.MyLogger;
 
 public class MockDaoFactory implements IDaoFactory {
 	MyLogger logger = LoggerFactory.getLogger(MockDaoFactory.class);
-	private final ICategoryDao m_categoryDAO = new CategoryDao(this);
+	private final ICategoryDao m_categoryDAO = new CategoryDao();
 	private final IPackageDao m_packageDAO = new PackageDao();
 	private final IProductDao m_productDAO = new ProductDao(this);
 	private final IReceiptDao m_receiptDAO = new ReceiptDao(this);
+	private final ISessionDao m_sessionDAO = new SessionDao();
 	private final IShopDao m_shopDAO = new ShopDao();
 	private final IUnitDao m_unitDAO = new UnitDao();
 	
@@ -151,6 +153,11 @@ public class MockDaoFactory implements IDaoFactory {
 	@Override
 	public IReceiptDao getReceiptDao() {
 		return m_receiptDAO;
+	}
+
+	@Override
+	public ISessionDao getSessionDao() {
+		return m_sessionDAO;
 	}
 
 	@Override
