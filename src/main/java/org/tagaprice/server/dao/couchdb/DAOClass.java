@@ -28,28 +28,31 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	/// CouchDB connection properties
-	Properties m_properties;
+	private Properties m_properties;
 	
 	/// Metaclass object of the entities that will be queried
-	Class<? extends T> m_class;
+	private Class<? extends T> m_class;
+	
+	private DAOClass<? super T> m_superClassDao = null; 
 	
 	/**
 	 * Entity type name (e.g. "product", "shop", ...)
 	 * This is stored in each CouchDB document so that we can find out of which type they are
 	 */
-	String m_entityType;
+	private String m_entityType;
 	
 	/**
 	 * Constructor
 	 * @param classObject Class object necessary to instantiate new objects when get() gets called 
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
-	protected DAOClass(Class<? extends T> classObject, String objectType) {
+	protected DAOClass(Class<? extends T> classObject, String objectType, DAOClass<? super T> superClassDao) {
 		InitialInjector injector = new InitialInjector();
 		String dbName;
 
 		m_class = classObject;
 		m_entityType = objectType;
+		m_superClassDao = superClassDao;
 
 		try {
 			m_properties = CouchDBDaoFactory.getConfiguration();
@@ -95,6 +98,14 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	public T get(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
 		if (!rc.getEntityType().equals(m_entityType)) throw new TypeMismatchException("Requested type ('"+m_entityType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
+
+		// inject fields
+		DAOClass<? super T> superClassDao = m_superClassDao;
+		while (superClassDao != null) {
+			_injectFields(rc);
+			superClassDao = superClassDao._getSuperClassDao();
+		}
+		
 		return rc;
 	}
 	
@@ -135,5 +146,13 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	 */
 	public String getDbName() {
 		return m_db.getName();
+	}
+	
+	protected void _injectFields(T entity) throws DaoException {
+		// do nothing here
+	}
+	
+	private DAOClass<? super T> _getSuperClassDao() {
+		return m_superClassDao;
 	}
 }

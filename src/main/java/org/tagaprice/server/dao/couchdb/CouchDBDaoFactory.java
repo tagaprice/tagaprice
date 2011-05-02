@@ -20,12 +20,14 @@ import org.tagaprice.server.dao.IUnitDAO;
 public class CouchDBDaoFactory implements IDaoFactory {
 	static Properties m_dbConfig = null;
 	
-	ICategoryDAO m_categoryDAO = null;
-	IPackageDAO m_packageDAO = null;
-	IProductDAO m_productDAO = null;
-	IReceiptDAO m_receiptDAO = null;
-	IShopDAO m_shopDAO = null;
-	IUnitDAO m_unitDAO = null;
+	private ICategoryDAO m_categoryDAO = null;
+	private IPackageDAO m_packageDAO = null;
+	private IProductDAO m_productDAO = null;
+	private IReceiptDAO m_receiptDAO = null;
+	private IShopDAO m_shopDAO = null;
+	private IUnitDAO m_unitDAO = null;
+	
+	private EntityDao m_entityDAO = null;
 	
 	static Properties getConfiguration() throws IOException {
 		if (m_dbConfig == null) {
@@ -79,7 +81,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public ICategoryDAO getCategoryDAO() {
 		if (m_categoryDAO == null) {
-			m_categoryDAO = new CategoryDAO();
+			m_categoryDAO = new CategoryDAO(this);
 		}
 		return m_categoryDAO;
 	}
@@ -87,7 +89,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IPackageDAO getPackageDAO() {
 		if (m_packageDAO == null) {
-			m_packageDAO = new PackageDAO();
+			m_packageDAO = new PackageDAO(this);
 		}
 		return m_packageDAO;
 	}
@@ -103,7 +105,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IReceiptDAO getReceiptDAO() {
 		if (m_receiptDAO == null) {
-			m_receiptDAO = new ReceiptDAO();
+			m_receiptDAO = new ReceiptDAO(this);
 		}
 		return m_receiptDAO;
 	}
@@ -111,7 +113,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IShopDAO getShopDAO() {
 		if (m_shopDAO == null) {
-			m_shopDAO = new ShopDAO();
+			m_shopDAO = new ShopDAO(this);
 		}
 		return m_shopDAO;
 	}
@@ -119,8 +121,16 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IUnitDAO getUnitDAO() {
 		if (m_unitDAO == null) {
-			m_unitDAO = new UnitDAO();
+			m_unitDAO = new UnitDAO(this);
 		}
 		return m_unitDAO;
 	}
+	
+	EntityDao _getEntityDao() {
+		if (m_entityDAO == null) {
+			m_entityDAO = new EntityDao();
+		}
+		return m_entityDAO;
+	}
+
 }

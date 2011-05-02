@@ -6,8 +6,8 @@ import org.tagaprice.server.dao.IPackageDAO;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class PackageDAO extends DAOClass<Package> implements IPackageDAO {
-	public PackageDAO() {
-		super(Package.class, "package");
+	public PackageDAO(CouchDBDaoFactory daoFactory) {
+		super(Package.class, "package", daoFactory._getEntityDao());
 	}
 	
 	@Override

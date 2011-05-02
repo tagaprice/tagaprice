@@ -6,7 +6,6 @@ import java.util.List;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -16,25 +15,12 @@ public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 	ICategoryDAO m_categoryDAO;
 	IUnitDAO m_unitDAO;
 	
-	public ProductDAO(IDaoFactory daoFactory) {
-		super(Product.class, "product");
+	public ProductDAO(CouchDBDaoFactory daoFactory) {
+		super(Product.class, "product", daoFactory._getEntityDao());
 		m_categoryDAO = daoFactory.getCategoryDAO();
 		m_unitDAO = daoFactory.getUnitDAO();
 	}
 
-	@Override
-	public Product get(String id, String revision) throws DaoException {
-		Product rc = super.get(id, revision);
-		if (rc.getCategoryId() != null) {
-			rc.setCategory(m_categoryDAO.get(rc.getCategoryId()));
-		}
-		
-		if (rc.getUnitId() != null) {
-			rc.setUnit(m_unitDAO.get(rc.getUnitId()));
-		}
-		return rc;
-	}
-	
 	@Override
 	public List<Product> find(Product searchPattern) throws DaoException {
 		/// TODO implement actual searching here
@@ -48,5 +34,15 @@ public class ProductDAO extends DAOClass<Product> implements IProductDAO {
 		
 		return rc;
 
+	}
+	
+	protected void _injectFields(Product product) throws DaoException {
+		if (product.getCategoryId() != null) {
+			product.setCategory(m_categoryDAO.get(product.getCategoryId()));
+		}
+		
+		if (product.getUnitId() != null) {
+			product.setUnit(m_unitDAO.get(product.getUnitId()));
+		}
 	}
 }
