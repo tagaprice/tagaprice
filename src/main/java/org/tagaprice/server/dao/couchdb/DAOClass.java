@@ -102,7 +102,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		// inject fields
 		DAOClass<? super T> superClassDao = m_superClassDao;
 		while (superClassDao != null) {
-			_injectFields(rc);
+			superClassDao._injectFields(rc);
 			superClassDao = superClassDao._getSuperClassDao();
 		}
 		

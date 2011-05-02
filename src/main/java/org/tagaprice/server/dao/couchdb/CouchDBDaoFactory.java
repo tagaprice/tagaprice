@@ -26,6 +26,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	private IReceiptDAO m_receiptDAO = null;
 	private IShopDAO m_shopDAO = null;
 	private IUnitDAO m_unitDAO = null;
+	private UserDao m_userDao = null;
 	
 	private EntityDao m_entityDAO = null;
 	
@@ -126,9 +127,16 @@ public class CouchDBDaoFactory implements IDaoFactory {
 		return m_unitDAO;
 	}
 	
+	public UserDao getUserDao() {
+		if (m_userDao == null) {
+			m_userDao = new UserDao(this);
+		}
+		return m_userDao;
+	}
+	
 	EntityDao _getEntityDao() {
 		if (m_entityDAO == null) {
-			m_entityDAO = new EntityDao();
+			m_entityDAO = new EntityDao(this);
 		}
 		return m_entityDAO;
 	}
