@@ -279,7 +279,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 						_newAddressArea.add(new Button("Add Address", new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent e) {
-								Shop ia = new Shop(s.getTitle()+" - "+_addressSelecter.getAddress().getAddress());
+								Shop ia = new Shop(null, s.getTitle()+" - "+_addressSelecter.getAddress().getAddress());
 								ia.setAddress(_addressSelecter.getAddress());
 								ia.setParent(s);
 								setShop(ia);

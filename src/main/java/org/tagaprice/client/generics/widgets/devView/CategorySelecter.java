@@ -33,11 +33,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
 	private HorizontalPanel _hoPa = new HorizontalPanel();
 
-	Category food = (new Category("food", null));
-	Category vegetables = (new Category("vegetables", food));
-	Category beverages = (new Category("beverages", null));
-	Category alcoholics = (new Category("alcohol", beverages));
-	Category nonalcoholics = (new Category("nonalcoholics", beverages));
+	Category food = (new Category(null, "food", null));
+	Category vegetables = (new Category(null, "vegetables", food));
+	Category beverages = (new Category(null, "beverages", null));
+	Category alcoholics = (new Category(null, "alcohol", beverages));
+	Category nonalcoholics = (new Category(null, "nonalcoholics", beverages));
 
 	public CategorySelecter() {
 		initWidget(_hoPa);
