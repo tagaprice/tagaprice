@@ -20,12 +20,13 @@ import org.tagaprice.server.dao.IUnitDao;
 public class CouchDbDaoFactory implements IDaoFactory {
 	static Properties m_dbConfig = null;
 	
-	private ICategoryDao m_categoryDAO = null;
-	private IPackageDao m_packageDAO = null;
-	private IProductDao m_productDAO = null;
-	private IReceiptDao m_receiptDAO = null;
-	private IShopDao m_shopDAO = null;
-	private IUnitDao m_unitDAO = null;
+	private ICategoryDao m_categoryDao = null;
+	private IPackageDao m_packageDao = null;
+	private IProductDao m_productDao = null;
+	private IReceiptDao m_receiptDao = null;
+	private SessionDao m_sessionDao = null;
+	private IShopDao m_shopDao = null;
+	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	
 	private EntityDao m_entityDAO = null;
@@ -81,50 +82,57 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	
 	@Override
 	public ICategoryDao getCategoryDAO() {
-		if (m_categoryDAO == null) {
-			m_categoryDAO = new CategoryDao(this);
+		if (m_categoryDao == null) {
+			m_categoryDao = new CategoryDao(this);
 		}
-		return m_categoryDAO;
+		return m_categoryDao;
 	}
 
 	@Override
 	public IPackageDao getPackageDAO() {
-		if (m_packageDAO == null) {
-			m_packageDAO = new PackageDao(this);
+		if (m_packageDao == null) {
+			m_packageDao = new PackageDao(this);
 		}
-		return m_packageDAO;
+		return m_packageDao;
 	}
 
 	@Override
 	public IProductDao getProductDAO() {
-		if (m_productDAO == null) {
-			m_productDAO = new ProductDao(this);
+		if (m_productDao == null) {
+			m_productDao = new ProductDao(this);
 		}
-		return m_productDAO;
+		return m_productDao;
 	}
 
 	@Override
 	public IReceiptDao getReceiptDAO() {
-		if (m_receiptDAO == null) {
-			m_receiptDAO = new ReceiptDao(this);
+		if (m_receiptDao == null) {
+			m_receiptDao = new ReceiptDao(this);
 		}
-		return m_receiptDAO;
+		return m_receiptDao;
 	}
 
+	public SessionDao getSessionDao() {
+		if (m_sessionDao == null) {
+			m_sessionDao = new SessionDao(this);
+		}
+		return m_sessionDao;
+	}
+	
 	@Override
 	public IShopDao getShopDAO() {
-		if (m_shopDAO == null) {
-			m_shopDAO = new ShopDao(this);
+		if (m_shopDao == null) {
+			m_shopDao = new ShopDao(this);
 		}
-		return m_shopDAO;
+		return m_shopDao;
 	}
 
 	@Override
 	public IUnitDao getUnitDAO() {
-		if (m_unitDAO == null) {
-			m_unitDAO = new UnitDao(this);
+		if (m_unitDao == null) {
+			m_unitDao = new UnitDao(this);
 		}
-		return m_unitDAO;
+		return m_unitDao;
 	}
 	
 	public UserDao getUserDao() {
