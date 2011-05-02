@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -15,11 +16,13 @@ public class ReceiptEntryTest {
 	ReceiptEntry emptyReceipt;
 	ReceiptEntry newReceipt;
 	ReceiptEntry setterReceipt;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyReceipt = new ReceiptEntry();
-		Package p = new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg")));
+		Package p = new Package(new Quantity(new BigDecimal("5.5"), new Unit(testUser, "kg")));
 		newReceipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.dkk), p);
 		setterReceipt = new ReceiptEntry();
 	}
@@ -49,7 +52,7 @@ public class ReceiptEntryTest {
 	@Test
 	public void testSetPackage() {
 		assertNull(setterReceipt.getPackage());
-		Package p2 = new Package(new Quantity(new BigDecimal("6.3"), new Unit("g")));
+		Package p2 = new Package(new Quantity(new BigDecimal("6.3"), new Unit(testUser, "g")));
 		setterReceipt.setPackage(p2);
 
 		assertNotNull(setterReceipt.getPackage());

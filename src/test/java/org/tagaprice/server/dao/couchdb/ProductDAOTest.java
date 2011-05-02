@@ -10,6 +10,7 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -22,6 +23,8 @@ public class ProductDAOTest extends AbstractDAOTest {
 	
 	Category m_testCategory;
 	Unit m_testUnit;
+	User m_testUser;
+
 
 	public ProductDAOTest() throws IOException {
 	}
@@ -30,8 +33,9 @@ public class ProductDAOTest extends AbstractDAOTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		
-		m_testCategory = new Category("catTitle", null);
-		m_testUnit = new Unit("unitTitle");
+		m_testUser = new User("testUID", "testRev", "Test User");
+		m_testCategory = new Category(m_testUser, "catTitle", null);
+		m_testUnit = new Unit(m_testUser, "unitTitle");
 		
 		categoryDAO.create(m_testCategory);
 		unitDAO.create(m_testUnit);
@@ -39,7 +43,7 @@ public class ProductDAOTest extends AbstractDAOTest {
 	
 	@Test
 	public void testCreateProduct() throws DaoException {
-		Product product = new Product("productTitle", m_testCategory, m_testUnit);
+		Product product = new Product(m_testUser, "productTitle", m_testCategory, m_testUnit);
 		
 		productDAO.create(product);
 		assertNotNull(product.getId());
@@ -52,7 +56,7 @@ public class ProductDAOTest extends AbstractDAOTest {
 	
 	@Test
 	public void testUpdateProduct() throws DaoException {
-		Product product = new Product("productTitle", m_testCategory, m_testUnit);
+		Product product = new Product(m_testUser, "productTitle", m_testCategory, m_testUnit);
 		productDAO.create(product);
 		
 		String oldId = product.getId();

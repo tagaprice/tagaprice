@@ -8,9 +8,12 @@ import java.io.IOException;
 import org.junit.Test;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class UnitDAOTest extends AbstractDAOTest {
+	User testUser = new User("testUID", "testRev", "Test User");
+	
 	public UnitDAOTest() throws IOException {
 		super();
 	}
@@ -20,7 +23,7 @@ public class UnitDAOTest extends AbstractDAOTest {
 	
 	@Test
 	public void testCreateUnit() throws DaoException {
-		Unit unit = new Unit("unitName");
+		Unit unit = new Unit(testUser, "unitName");
 		
 		unitDAO.create(unit);
 		assertNotNull(unit.getId());

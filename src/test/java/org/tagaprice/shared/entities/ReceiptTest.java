@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -22,11 +23,13 @@ public class ReceiptTest {
 	Receipt updateReceipt;
 	Receipt setterReceipt;
 
+	User testUser = new User("testUID", "testRev", "Test User");
+	
 	@Before
 	public void setUp() throws Exception {
 		emptyReceipt = new Receipt();
-		newReceipt = new Receipt("newReceipt", new Date(1303575403414L), new Shop("shop"));
-		updateReceipt = new Receipt("1", "2", "updateReceipt", new Date(1303575403414L), new Shop("3", "4", "updateShop"));
+		newReceipt = new Receipt(testUser, "newReceipt", new Date(1303575403414L), new Shop(testUser, "shop"));
+		updateReceipt = new Receipt(testUser, "1", "2", "updateReceipt", new Date(1303575403414L), new Shop(testUser, "3", "4", "updateShop"));
 		setterReceipt = new Receipt();
 	}
 
@@ -57,7 +60,7 @@ public class ReceiptTest {
 	public void testAddReceiptEntriy() {
 		assertEquals(setterReceipt.getReceiptEntries().size(), 0);
 		setterReceipt.setTitle("setterTitle");
-		Package pack = new Package(new Quantity(new BigDecimal("15.3"), new Unit("kg")));
+		Package pack = new Package(new Quantity(new BigDecimal("15.3"), new Unit(testUser, "kg")));
 		ReceiptEntry receipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.euro), pack);
 		setterReceipt.addReceiptEntriy(receipt);
 		assertEquals(setterReceipt.getReceiptEntries().size(), 1);
@@ -87,7 +90,7 @@ public class ReceiptTest {
 
 	@Test
 	public void testSetShop() {
-		setterReceipt.setShop(new Shop("setterShop"));
+		setterReceipt.setShop(new Shop(testUser, "setterShop"));
 		assertEquals(setterReceipt.getShop().getTitle(), "setterShop");
 	}
 
@@ -97,11 +100,11 @@ public class ReceiptTest {
 		setterReceipt.setTitle("setterTitle");
 
 		ArrayList<ReceiptEntry> fullList = new ArrayList<ReceiptEntry>();
-		Package pack1 = new Package(new Quantity(new BigDecimal("15.3"), new Unit("kg")));
+		Package pack1 = new Package(new Quantity(new BigDecimal("15.3"), new Unit(testUser, "kg")));
 		ReceiptEntry receipt1 = new ReceiptEntry(new Price(new BigDecimal(15), Currency.euro), pack1);
 		fullList.add(receipt1);
 
-		Package pack2 = new Package(new Quantity(new BigDecimal("16.4"), new Unit("g")));
+		Package pack2 = new Package(new Quantity(new BigDecimal("16.4"), new Unit(testUser, "g")));
 		ReceiptEntry receipt2 = new ReceiptEntry(new Price(new BigDecimal(18), Currency.dkk), pack2);
 		fullList.add(receipt2);
 

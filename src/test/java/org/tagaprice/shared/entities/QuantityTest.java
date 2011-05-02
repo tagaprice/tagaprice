@@ -6,17 +6,20 @@ import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 public class QuantityTest {
 
 	Quantity emptyQuantity;
 	Quantity newQuantity;
 	Quantity setterQuantity;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyQuantity = new Quantity();
-		newQuantity = new Quantity(new BigDecimal("15.3"), new Unit("kg"));
+		newQuantity = new Quantity(new BigDecimal("15.3"), new Unit(testUser, "kg"));
 		setterQuantity = new Quantity();
 	}
 
@@ -41,7 +44,7 @@ public class QuantityTest {
 
 	@Test
 	public void testSetUnit() {
-		setterQuantity.setUnit(new Unit("g"));
+		setterQuantity.setUnit(new Unit(testUser, "g"));
 		assertNotNull(setterQuantity.getUnit());
 		assertEquals(setterQuantity.getUnit().getTitle(), "g");
 	}

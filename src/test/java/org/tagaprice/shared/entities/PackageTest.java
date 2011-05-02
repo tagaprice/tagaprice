@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -17,11 +18,13 @@ public class PackageTest {
 	Package updatePackage;
 	Package setterPackage;
 
+	User testUser = new User("testUID", "testRev", "Test User");
+
 	@Before
 	public void setUp() throws Exception {
 		emptyPackage = new Package();
-		newPackage = new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg")));
-		updatePackage = new Package("1", "2", new Quantity(new BigDecimal("12.5"), new Unit("g")));
+		newPackage = new Package(new Quantity(new BigDecimal("5.5"), new Unit(testUser, "kg")));
+		updatePackage = new Package(testUser, "1", "2", new Quantity(new BigDecimal("12.5"), new Unit(testUser, "g")));
 		setterPackage = new Package();
 	}
 
@@ -57,7 +60,7 @@ public class PackageTest {
 	@Test
 	public void testSetProduct() {
 		assertNull(setterPackage.getProduct());
-		Product p = new Product("setterProduct", new Category("setterCategory", null), new Unit("kg"));
+		Product p = new Product(testUser, "setterProduct", new Category(testUser, "setterCategory", null), new Unit(testUser, "kg"));
 		setterPackage.setProduct(p);
 		assertEquals(setterPackage.getProduct().getTitle(), "setterProduct");
 		assertEquals(setterPackage.getProduct().getCategory().getTitle(), "setterCategory");
@@ -68,7 +71,7 @@ public class PackageTest {
 	@Test
 	public void testSetQuantity() {
 		assertNull(setterPackage.getQuantity());
-		setterPackage.setQuantity(new Quantity(new BigDecimal("5.6"), new Unit("g")));
+		setterPackage.setQuantity(new Quantity(new BigDecimal("5.6"), new Unit(testUser, "g")));
 		assertNotNull(setterPackage.getQuantity());
 		assertEquals(setterPackage.getQuantity().getQuantity(), new BigDecimal("5.6"));
 		assertEquals(setterPackage.getQuantity().getUnit().getTitle(), "g");

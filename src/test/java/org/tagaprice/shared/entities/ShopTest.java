@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 public class ShopTest {
@@ -12,12 +13,14 @@ public class ShopTest {
 	Shop newShop;
 	Shop updateShop;
 	Shop setterShop;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyShop = new Shop();
-		newShop = new Shop("title");
-		updateShop = new Shop("1", "2", "title");
+		newShop = new Shop(testUser, "title");
+		updateShop = new Shop(testUser, "1", "2", "title");
 		setterShop = new Shop();
 
 	}
@@ -38,7 +41,7 @@ public class ShopTest {
 
 	@Test
 	public void testSetParent() {
-		Shop parent = new Shop("1", "2", "title");
+		Shop parent = new Shop(testUser, "1", "2", "title");
 		setterShop.setParent(parent);
 		assertNotNull(setterShop.getParent());
 		assertEquals(setterShop.getParent().getTitle(), "title");

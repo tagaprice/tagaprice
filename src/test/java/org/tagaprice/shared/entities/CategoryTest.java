@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 public class CategoryTest {
@@ -12,12 +13,14 @@ public class CategoryTest {
 	Category newCategory;
 	Category updateCategory;
 	Category setterCategory;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyCategory = new Category();
-		newCategory = new Category("title", new Category("parent", null));
-		updateCategory = new Category("1", "2", "update", new Category("updateparent", null));
+		newCategory = new Category(testUser, "title", new Category(testUser, "parent", null));
+		updateCategory = new Category(testUser, "1", "2", "update", new Category(testUser, "updateparent", null));
 		setterCategory = new Category();
 	}
 
@@ -47,7 +50,7 @@ public class CategoryTest {
 
 	@Test
 	public void testSetParentCategory() {
-		setterCategory.setParentCategory(new Category("parent", null));
+		setterCategory.setParentCategory(new Category(testUser, "parent", null));
 		assertNotNull(setterCategory.getParentCategory());
 		assertEquals(setterCategory.getParentCategory().getTitle(), "parent");
 		assertNull(setterCategory.getParentCategory().getParentCategory());

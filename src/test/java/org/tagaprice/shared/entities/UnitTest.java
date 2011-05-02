@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 public class UnitTest {
 
@@ -11,12 +12,14 @@ public class UnitTest {
 	Unit newUnit;
 	Unit updateUnit;
 	Unit setterUnit;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyUnit = new Unit();
-		newUnit = new Unit("title");
-		updateUnit = new Unit("1", "2", "title");
+		newUnit = new Unit(testUser, "title");
+		updateUnit = new Unit(testUser, "1", "2", "title");
 		setterUnit = new Unit();
 	}
 

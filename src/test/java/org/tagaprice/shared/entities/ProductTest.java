@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -17,12 +18,14 @@ public class ProductTest {
 	Product newProduct;
 	Product updateProduct;
 	Product setterProduct;
+	
+	User testUser = new User("testUID", "testRev", "Test User");
 
 	@Before
 	public void setUp() throws Exception {
 		emptyProduct = new Product();
-		newProduct = new Product("newProduct", new Category("newCategory", null), new Unit("kg"));
-		updateProduct = new Product("1", "2", "updateProduct", new Category("6","7","updateCategory", null), new Unit("4","5","g"));
+		newProduct = new Product(testUser, "newProduct", new Category(testUser, "newCategory", null), new Unit(testUser, "kg"));
+		updateProduct = new Product(testUser, "1", "2", "updateProduct", new Category(testUser, "6","7","updateCategory", null), new Unit(testUser, "4","5","g"));
 		setterProduct = new Product();
 	}
 
@@ -57,7 +60,7 @@ public class ProductTest {
 	@Test
 	public void testSetCategory() {
 		assertNull(setterProduct.getCategory());
-		setterProduct.setCategory(new Category("setterCategory", null));
+		setterProduct.setCategory(new Category(testUser, "setterCategory", null));
 		assertNotNull(setterProduct.getCategory());
 		assertEquals(setterProduct.getCategory().getTitle(), "setterCategory");
 		assertNull(setterProduct.getCategory().getParentCategory());
@@ -84,7 +87,7 @@ public class ProductTest {
 		assertNotNull(updateProduct.getPackages());
 		assertEquals(updateProduct.getPackages().size(), 0);
 
-		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit("l"))));
+		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit(testUser, "l"))));
 		assertEquals(updateProduct.getPackages().size(), 1);
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), new BigDecimal("9.9"));
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getUnit().getTitle(),"l");
@@ -96,14 +99,14 @@ public class ProductTest {
 		assertNotNull(updateProduct.getPackages());
 		assertEquals(updateProduct.getPackages().size(), 0);
 
-		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit("l"))));
+		updateProduct.addPackage(new Package(new Quantity(new BigDecimal("9.9"), new Unit(testUser, "l"))));
 		assertEquals(updateProduct.getPackages().size(), 1);
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getQuantity(), new BigDecimal("9.9"));
 		assertEquals(updateProduct.getPackages().get(0).getQuantity().getUnit().getTitle(),"l");
 
 		ArrayList<Package> plist = new ArrayList<Package>();
-		plist.add(new Package(new Quantity(new BigDecimal("5.5"), new Unit("kg"))));
-		plist.add(new Package(new Quantity(new BigDecimal("4.2"), new Unit("ml"))));
+		plist.add(new Package(new Quantity(new BigDecimal("5.5"), new Unit(testUser, "kg"))));
+		plist.add(new Package(new Quantity(new BigDecimal("4.2"), new Unit(testUser, "ml"))));
 		updateProduct.setPackages(plist);
 		assertEquals(updateProduct.getPackages().size(), 2);
 
@@ -123,7 +126,7 @@ public class ProductTest {
 
 	@Test
 	public void testSetUnit() {
-		updateProduct.setUnit(new Unit("updateTitle"));
+		updateProduct.setUnit(new Unit(testUser, "updateTitle"));
 		assertEquals(updateProduct.getUnit().getTitle(), "updateTitle");
 	}
 
