@@ -10,7 +10,6 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.server.dao.IProductDAO;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;

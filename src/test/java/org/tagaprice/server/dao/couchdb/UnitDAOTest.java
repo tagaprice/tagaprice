@@ -8,7 +8,6 @@ import java.io.IOException;
 import org.junit.Test;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class UnitDAOTest extends AbstractDAOTest {
