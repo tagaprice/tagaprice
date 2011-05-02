@@ -6,6 +6,7 @@ import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -47,9 +48,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public Product saveProduct(final Product product) throws DaoException {
+	public Product saveProduct(Session session, final Product product) throws DaoException {
 		logger.log("save Product " + product);
 		Product rc = null;
+		
+		// TODO check session validity
+		product.setCreator(session.getCreator());
+		
 		if(product.getId() != null){
 			rc = productDAO.update(product);
 		}else{

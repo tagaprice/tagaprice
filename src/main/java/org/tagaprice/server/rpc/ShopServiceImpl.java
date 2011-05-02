@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.*;
@@ -44,9 +45,13 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public Shop saveShop(Shop shop) throws DaoException {
+	public Shop saveShop(Session session, Shop shop) throws DaoException {
 		logger.log("save Shop " + shop);
 		Shop rc = null;
+		
+		// TODO check session validity 
+		shop.setCreator(session.getCreator());
+		
 		if (shop.getId() != null) {
 			rc = shopDAO.update(shop);
 		}

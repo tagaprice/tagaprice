@@ -2,6 +2,7 @@ package org.tagaprice.shared.rpc.receiptmanagement;
 
 import java.util.List;
 
+import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("receiptservice")
 public interface IReceiptService extends RemoteService {
 
-	Receipt saveReceipt(Receipt receipt)  throws UserNotLoggedInException, DaoException;
+	Receipt saveReceipt(Session session, Receipt receipt)  throws UserNotLoggedInException, DaoException;
 
 	Receipt getReceipt(String receiptid) throws UserNotLoggedInException, DaoException;
 
