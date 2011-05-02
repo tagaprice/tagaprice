@@ -9,7 +9,7 @@ import org.tagaprice.server.dao.IShopDAO;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ShopDAO extends DAOClass<Shop> implements IShopDAO {
+public class ShopDAO extends DaoClass<Shop> implements IShopDAO {
 	public ShopDAO(CouchDBDaoFactory daoFactory) {
 		super(Shop.class, "shop", daoFactory._getEntityDao());
 	}

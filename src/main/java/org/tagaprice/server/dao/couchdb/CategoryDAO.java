@@ -10,7 +10,7 @@ import org.tagaprice.server.dao.ICategoryDAO;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class CategoryDAO extends DAOClass<Category> implements ICategoryDAO {
+public class CategoryDAO extends DaoClass<Category> implements ICategoryDAO {
 	public CategoryDAO(CouchDBDaoFactory daoFactory) {
 		super(Category.class, "category", daoFactory._getEntityDao());
 	}

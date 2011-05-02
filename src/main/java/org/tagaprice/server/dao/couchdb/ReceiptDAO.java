@@ -9,7 +9,7 @@ import org.tagaprice.server.dao.IReceiptDAO;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ReceiptDAO extends DAOClass<Receipt> implements IReceiptDAO {
+public class ReceiptDAO extends DaoClass<Receipt> implements IReceiptDAO {
 	public ReceiptDAO(CouchDBDaoFactory daoFactory) {
 		super(Receipt.class, "receipt", daoFactory._getEntityDao());
 	}

@@ -17,7 +17,7 @@ import org.tagaprice.shared.logging.MyLogger;
  * Base class for all the other CouchDB DAO classes
  * @param <T> Datatype of the entities that will be queried
  */
-public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
+public class DaoClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	/// JCouchDB server object
 	private Server m_server;
 	
@@ -33,7 +33,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	/// Metaclass object of the entities that will be queried
 	private Class<? extends T> m_class;
 	
-	private DAOClass<? super T> m_superClassDao = null; 
+	private DaoClass<? super T> m_superClassDao = null; 
 	
 	/**
 	 * Entity type name (e.g. "product", "shop", ...)
@@ -46,7 +46,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	 * @param classObject Class object necessary to instantiate new objects when get() gets called 
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
-	protected DAOClass(Class<? extends T> classObject, String objectType, DAOClass<? super T> superClassDao) {
+	protected DaoClass(Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
 		InitialInjector injector = new InitialInjector();
 		String dbName;
 
@@ -100,7 +100,7 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		if (!rc.getEntityType().equals(m_entityType)) throw new TypeMismatchException("Requested type ('"+m_entityType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
 
 		// inject fields (recursively for all superClassDaos)
-		DAOClass<? super T> daoClass = this;
+		DaoClass<? super T> daoClass = this;
 		while (daoClass != null) {
 			daoClass._injectFields(rc);
 			daoClass = daoClass._getSuperClassDao();
@@ -158,10 +158,10 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 	}
 	
 	/**
-	 * Returns the super DAO class passed to the DAOClass' constructor
+	 * Returns the super DAO class passed to the DaoClass' constructor
 	 * @return super class' DAO or null
 	 */
-	private DAOClass<? super T> _getSuperClassDao() {
+	private DaoClass<? super T> _getSuperClassDao() {
 		return m_superClassDao;
 	}
 }

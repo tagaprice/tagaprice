@@ -5,7 +5,7 @@ import java.util.List;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
 
-public class UnitDAO extends DAOClass<Unit> implements IUnitDAO {
+public class UnitDAO extends DaoClass<Unit> implements IUnitDAO {
 
 	public UnitDAO(CouchDBDaoFactory daoFactory) {
 		super(Unit.class, "unit", daoFactory._getEntityDao());

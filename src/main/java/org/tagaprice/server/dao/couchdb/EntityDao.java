@@ -3,7 +3,7 @@ package org.tagaprice.server.dao.couchdb;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class EntityDao extends DAOClass<ASimpleEntity> {
+public class EntityDao extends DaoClass<ASimpleEntity> {
 	CouchDBDaoFactory m_daoFactory;
 	UserDao m_userDao = null;
 	public EntityDao(CouchDBDaoFactory daoFactory) {

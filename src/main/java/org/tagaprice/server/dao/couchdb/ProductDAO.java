@@ -11,7 +11,7 @@ import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ProductDAO extends DAOClass<Product> implements IProductDAO {
+public class ProductDAO extends DaoClass<Product> implements IProductDAO {
 	ICategoryDAO m_categoryDAO;
 	IUnitDAO m_unitDAO;
 	
