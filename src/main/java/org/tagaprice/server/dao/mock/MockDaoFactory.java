@@ -31,7 +31,7 @@ public class MockDaoFactory implements IDaoFactory {
 	MyLogger logger = LoggerFactory.getLogger(MockDaoFactory.class);
 	private final ICategoryDao m_categoryDAO = new CategoryDao();
 	private final IPackageDao m_packageDAO = new PackageDao();
-	private final IProductDao m_productDAO = new ProductDao(this);
+	private final IProductDao m_productDAO = new ProductDao();
 	private final IReceiptDao m_receiptDAO = new ReceiptDao(this);
 	private final ISessionDao m_sessionDAO = new SessionDao();
 	private final IShopDao m_shopDAO = new ShopDao();
