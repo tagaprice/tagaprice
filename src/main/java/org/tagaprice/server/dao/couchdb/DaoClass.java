@@ -55,7 +55,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		m_superClassDao = superClassDao;
 
 		try {
-			m_properties = CouchDBDaoFactory.getConfiguration();
+			m_properties = CouchDbDaoFactory.getConfiguration();
 		}
 		catch (IOException e) {
 			m_logger.log("Error while reading couchdb.properties!");
@@ -65,7 +65,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		
 		dbName = m_properties.getProperty("database", "tagaprice");
 		
-		m_server = CouchDBDaoFactory.getServerObject(m_properties);
+		m_server = CouchDbDaoFactory.getServerObject(m_properties);
 
 		try {
 			injector.init(m_server, dbName);

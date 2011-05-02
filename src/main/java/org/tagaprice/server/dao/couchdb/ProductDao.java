@@ -11,11 +11,11 @@ import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ProductDAO extends DaoClass<Product> implements IProductDAO {
+public class ProductDao extends DaoClass<Product> implements IProductDAO {
 	ICategoryDAO m_categoryDAO;
 	IUnitDAO m_unitDAO;
 	
-	public ProductDAO(CouchDBDaoFactory daoFactory) {
+	public ProductDao(CouchDbDaoFactory daoFactory) {
 		super(Product.class, "product", daoFactory._getEntityDao());
 		m_categoryDAO = daoFactory.getCategoryDAO();
 		m_unitDAO = daoFactory.getUnitDAO();

@@ -4,9 +4,9 @@ import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class EntityDao extends DaoClass<ASimpleEntity> {
-	CouchDBDaoFactory m_daoFactory;
+	CouchDbDaoFactory m_daoFactory;
 	UserDao m_userDao = null;
-	public EntityDao(CouchDBDaoFactory daoFactory) {
+	public EntityDao(CouchDbDaoFactory daoFactory) {
 		super(null, "entity", null);
 		m_daoFactory = daoFactory;
 	}

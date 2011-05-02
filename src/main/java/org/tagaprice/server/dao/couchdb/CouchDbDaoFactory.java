@@ -17,7 +17,7 @@ import org.tagaprice.server.dao.IUnitDAO;
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
  */
-public class CouchDBDaoFactory implements IDaoFactory {
+public class CouchDbDaoFactory implements IDaoFactory {
 	static Properties m_dbConfig = null;
 	
 	private ICategoryDAO m_categoryDAO = null;
@@ -61,13 +61,13 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	private static Properties _readProperties(String filename) throws IOException {
 		Properties defaults = new Properties();
 		try {
-			InputStream stream = CouchDBDaoFactory.class.getResourceAsStream("/"+filename+".default");
+			InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename+".default");
 			if (stream != null) defaults.load(stream);
 		}
 		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
 		
 		Properties rc = new Properties(defaults);
-		InputStream stream = CouchDBDaoFactory.class.getResourceAsStream("/"+filename); 
+		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
 		if (stream != null) rc.load(stream);
 		else throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
 		return rc;
@@ -76,13 +76,13 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	/**
 	 * Default DAO factory constructor
 	 */
-	public CouchDBDaoFactory() {
+	public CouchDbDaoFactory() {
 	}
 	
 	@Override
 	public ICategoryDAO getCategoryDAO() {
 		if (m_categoryDAO == null) {
-			m_categoryDAO = new CategoryDAO(this);
+			m_categoryDAO = new CategoryDao(this);
 		}
 		return m_categoryDAO;
 	}
@@ -90,7 +90,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IPackageDAO getPackageDAO() {
 		if (m_packageDAO == null) {
-			m_packageDAO = new PackageDAO(this);
+			m_packageDAO = new PackageDao(this);
 		}
 		return m_packageDAO;
 	}
@@ -98,7 +98,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IProductDAO getProductDAO() {
 		if (m_productDAO == null) {
-			m_productDAO = new ProductDAO(this);
+			m_productDAO = new ProductDao(this);
 		}
 		return m_productDAO;
 	}
@@ -106,7 +106,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IReceiptDAO getReceiptDAO() {
 		if (m_receiptDAO == null) {
-			m_receiptDAO = new ReceiptDAO(this);
+			m_receiptDAO = new ReceiptDao(this);
 		}
 		return m_receiptDAO;
 	}
@@ -114,7 +114,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IShopDAO getShopDAO() {
 		if (m_shopDAO == null) {
-			m_shopDAO = new ShopDAO(this);
+			m_shopDAO = new ShopDao(this);
 		}
 		return m_shopDAO;
 	}
@@ -122,7 +122,7 @@ public class CouchDBDaoFactory implements IDaoFactory {
 	@Override
 	public IUnitDAO getUnitDAO() {
 		if (m_unitDAO == null) {
-			m_unitDAO = new UnitDAO(this);
+			m_unitDAO = new UnitDao(this);
 		}
 		return m_unitDAO;
 	}

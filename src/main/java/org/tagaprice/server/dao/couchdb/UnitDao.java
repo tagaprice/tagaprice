@@ -5,9 +5,9 @@ import java.util.List;
 import org.tagaprice.server.dao.IUnitDAO;
 import org.tagaprice.shared.entities.Unit;
 
-public class UnitDAO extends DaoClass<Unit> implements IUnitDAO {
+public class UnitDao extends DaoClass<Unit> implements IUnitDAO {
 
-	public UnitDAO(CouchDBDaoFactory daoFactory) {
+	public UnitDao(CouchDbDaoFactory daoFactory) {
 		super(Unit.class, "unit", daoFactory._getEntityDao());
 		// TODO Auto-generated constructor stub
 	}

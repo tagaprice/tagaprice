@@ -19,7 +19,7 @@ public class AbstractDAOTest {
 	private String m_dbName;
 	private Server m_server;
 	
-	protected CouchDBDaoFactory m_daoFactory = new CouchDBDaoFactory();
+	protected CouchDbDaoFactory m_daoFactory = new CouchDbDaoFactory();
 	protected User m_testUser;
 	
 	public static class TestInjector extends InitialInjector {
@@ -33,8 +33,8 @@ public class AbstractDAOTest {
 		Properties dbConfig = _getConfiguration();
 		
 		m_dbName = dbConfig.getProperty("database", "tagaprice");
-		CouchDBDaoFactory._setConfiguration(dbConfig);
-		m_server = CouchDBDaoFactory.getServerObject();
+		CouchDbDaoFactory._setConfiguration(dbConfig);
+		m_server = CouchDbDaoFactory.getServerObject();
 		
 		_injectDB(); // make sure the TestInjector gets to do this instead of the original one
 	}

@@ -18,7 +18,7 @@ public class CategoryDAO implements ICategoryDAO {
 
 
 	CategoryDAO(IDaoFactory daoFactory) {
-		logger.log("Start CategoryDAO");
+		logger.log("Start CategoryDao");
 
 
 	}
