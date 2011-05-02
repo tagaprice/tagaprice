@@ -30,8 +30,8 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		shopDAO = daoFactory.getShopDAO();
-		productDAO = daoFactory.getProductDAO();
+		shopDAO = daoFactory.getShopDao();
+		productDAO = daoFactory.getProductDao();
 	}
 
 

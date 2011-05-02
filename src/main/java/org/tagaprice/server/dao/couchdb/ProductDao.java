@@ -17,8 +17,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 	
 	public ProductDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, Product.class, "product", daoFactory._getEntityDao());
-		m_categoryDAO = daoFactory.getCategoryDAO();
-		m_unitDAO = daoFactory.getUnitDAO();
+		m_categoryDAO = daoFactory.getCategoryDao();
+		m_unitDAO = daoFactory.getUnitDao();
 	}
 
 	@Override

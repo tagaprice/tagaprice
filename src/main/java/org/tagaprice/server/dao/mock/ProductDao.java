@@ -25,7 +25,7 @@ public class ProductDao implements IProductDao {
 	public ProductDao(IDaoFactory daoFactory) {
 		logger.log("Load mock.ProductDao...");
 
-		categoryDAO = daoFactory.getCategoryDAO();
+		categoryDAO = daoFactory.getCategoryDao();
 
 
 	}

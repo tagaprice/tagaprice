@@ -21,7 +21,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 
 	public CategoryServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		categoryDAO = daoFactory.getCategoryDAO();
+		categoryDAO = daoFactory.getCategoryDao();
 	}
 
 	@Override

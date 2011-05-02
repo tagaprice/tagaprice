@@ -134,32 +134,32 @@ public class MockDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public ICategoryDao getCategoryDAO() {
+	public ICategoryDao getCategoryDao() {
 		return m_categoryDAO;
 	}
 
 	@Override
-	public IPackageDao getPackageDAO() {
+	public IPackageDao getPackageDao() {
 		return m_packageDAO;
 	}
 
 	@Override
-	public IProductDao getProductDAO() {
+	public IProductDao getProductDao() {
 		return m_productDAO;
 	}
 
 	@Override
-	public IReceiptDao getReceiptDAO() {
+	public IReceiptDao getReceiptDao() {
 		return m_receiptDAO;
 	}
 
 	@Override
-	public IShopDao getShopDAO() {
+	public IShopDao getShopDao() {
 		return m_shopDAO;
 	}
 
 	@Override
-	public IUnitDao getUnitDAO() {
+	public IUnitDao getUnitDao() {
 		return m_unitDAO;
 	}
 }

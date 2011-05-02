@@ -21,7 +21,7 @@ public class UnitServiceImpl extends RemoteServiceServlet implements IUnitServic
 	public UnitServiceImpl() {
 		logger.log("Load servlet...");
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		unitDAO = daoFactory.getUnitDAO();
+		unitDAO = daoFactory.getUnitDao();
 	}
 
 	@Override

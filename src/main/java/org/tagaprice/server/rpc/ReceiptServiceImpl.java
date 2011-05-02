@@ -21,7 +21,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	public ReceiptServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		receiptDAO = daoFactory.getReceiptDAO();
+		receiptDAO = daoFactory.getReceiptDao();
 	}
 
 	@Override

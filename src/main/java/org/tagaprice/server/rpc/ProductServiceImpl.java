@@ -31,9 +31,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	 */
 	public ProductServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		packageDAO = daoFactory.getPackageDAO();
-		productDAO = daoFactory.getProductDAO();
-		categoryDAO = daoFactory.getCategoryDAO();
+		packageDAO = daoFactory.getPackageDao();
+		productDAO = daoFactory.getProductDao();
+		categoryDAO = daoFactory.getCategoryDao();
 	}
 
 

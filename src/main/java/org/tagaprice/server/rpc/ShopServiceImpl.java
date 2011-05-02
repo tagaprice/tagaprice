@@ -21,7 +21,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		logger.log("Load servlet...");
 
-		shopDAO = daoFactory.getShopDAO();
+		shopDAO = daoFactory.getShopDao();
 
 	}
 

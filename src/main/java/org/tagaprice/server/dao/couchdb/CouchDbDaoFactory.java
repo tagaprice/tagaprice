@@ -29,7 +29,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	
-	private EntityDao m_entityDAO = null;
+	private EntityDao m_entityDao = null;
 	
 	static Properties getConfiguration() throws IOException {
 		if (m_dbConfig == null) {
@@ -81,7 +81,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	@Override
-	public ICategoryDao getCategoryDAO() {
+	public ICategoryDao getCategoryDao() {
 		if (m_categoryDao == null) {
 			m_categoryDao = new CategoryDao(this);
 		}
@@ -89,7 +89,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public IPackageDao getPackageDAO() {
+	public IPackageDao getPackageDao() {
 		if (m_packageDao == null) {
 			m_packageDao = new PackageDao(this);
 		}
@@ -97,7 +97,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public IProductDao getProductDAO() {
+	public IProductDao getProductDao() {
 		if (m_productDao == null) {
 			m_productDao = new ProductDao(this);
 		}
@@ -105,7 +105,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public IReceiptDao getReceiptDAO() {
+	public IReceiptDao getReceiptDao() {
 		if (m_receiptDao == null) {
 			m_receiptDao = new ReceiptDao(this);
 		}
@@ -120,7 +120,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	@Override
-	public IShopDao getShopDAO() {
+	public IShopDao getShopDao() {
 		if (m_shopDao == null) {
 			m_shopDao = new ShopDao(this);
 		}
@@ -128,7 +128,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public IUnitDao getUnitDAO() {
+	public IUnitDao getUnitDao() {
 		if (m_unitDao == null) {
 			m_unitDao = new UnitDao(this);
 		}
@@ -143,10 +143,10 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	EntityDao _getEntityDao() {
-		if (m_entityDAO == null) {
-			m_entityDAO = new EntityDao(this);
+		if (m_entityDao == null) {
+			m_entityDao = new EntityDao(this);
 		}
-		return m_entityDAO;
+		return m_entityDao;
 	}
 
 }

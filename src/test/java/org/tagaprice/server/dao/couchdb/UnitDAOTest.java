@@ -15,7 +15,7 @@ public class UnitDAOTest extends AbstractDAOTest {
 		super();
 	}
 
-	IUnitDao unitDAO = m_daoFactory.getUnitDAO();
+	IUnitDao unitDAO = m_daoFactory.getUnitDao();
 	
 	@Test
 	public void testCreateUnit() throws DaoException {
