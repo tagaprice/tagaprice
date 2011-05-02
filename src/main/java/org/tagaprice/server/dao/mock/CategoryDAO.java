@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class CategoryDAO implements ICategoryDAO {
+public class CategoryDAO implements ICategoryDao {
 	HashMap<String, Category> categories = new HashMap<String, Category>();
 	MyLogger logger = LoggerFactory.getLogger(CategoryDAO.class);
 	Random rand = new Random(15645651);

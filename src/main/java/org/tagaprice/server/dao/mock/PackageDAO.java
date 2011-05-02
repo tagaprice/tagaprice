@@ -3,13 +3,13 @@ package org.tagaprice.server.dao.mock;
 import java.util.HashMap;
 import java.util.List;
 
-import org.tagaprice.server.dao.IPackageDAO;
+import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class PackageDAO implements IPackageDAO {
+public class PackageDAO implements IPackageDao {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	HashMap<String, Package> packageAllRevisions = new HashMap<String, Package>();
 	int revIdCounter = 0;

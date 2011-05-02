@@ -2,10 +2,10 @@ package org.tagaprice.server.rpc;
 
 import java.util.List;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IProductDAO;
+import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -21,9 +21,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-	IPackageDAO packageDAO;
-	IProductDAO productDAO;
-	ICategoryDAO categoryDAO;
+	IPackageDao packageDAO;
+	IProductDao productDAO;
+	ICategoryDao categoryDAO;
 
 	/**
 	 * Initialization with some products and Categories.

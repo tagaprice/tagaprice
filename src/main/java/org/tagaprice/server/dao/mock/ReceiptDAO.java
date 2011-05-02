@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Random;
 
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IReceiptDAO;
-import org.tagaprice.server.dao.IShopDAO;
+import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class ReceiptDAO implements IReceiptDAO {
+public class ReceiptDAO implements IReceiptDao {
 	MyLogger _logger = LoggerFactory.getLogger(ReceiptDAO.class);
-	IPackageDAO _packageDAO;
-	IShopDAO _shopDAO;
+	IPackageDao _packageDAO;
+	IShopDao _shopDAO;
 	Random random = new Random(99746776);
 	int productIdCounter = 1;
 	HashMap<String, Receipt> _receiptList = new HashMap<String, Receipt>();

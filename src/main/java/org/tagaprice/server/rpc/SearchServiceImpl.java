@@ -8,8 +8,8 @@ import java.net.URL;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IShopDAO;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -24,8 +24,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class SearchServiceImpl extends RemoteServiceServlet implements ISearchService {
 	private static final long serialVersionUID = 1L;
 
-	private IShopDAO shopDAO;
-	private IProductDAO productDAO;
+	private IShopDao shopDAO;
+	private IProductDao productDAO;
 	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	public SearchServiceImpl() {

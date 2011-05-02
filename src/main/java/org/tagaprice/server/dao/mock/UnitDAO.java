@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
 
-public class UnitDAO implements IUnitDAO {
+public class UnitDAO implements IUnitDao {
 	MyLogger logger = LoggerFactory.getLogger(UnitDAO.class);
 	private Random random = new Random(1654196865);
 	HashMap<String, Unit> _units = new HashMap<String, Unit>();

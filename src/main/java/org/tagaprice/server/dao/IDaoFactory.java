@@ -1,10 +1,10 @@
 package org.tagaprice.server.dao;
 
 public interface IDaoFactory {
-	ICategoryDAO getCategoryDAO();
-	IPackageDAO getPackageDAO();
-	IProductDAO getProductDAO();
-	IReceiptDAO getReceiptDAO();
-	IShopDAO getShopDAO();
-	IUnitDAO getUnitDAO();
+	ICategoryDao getCategoryDAO();
+	IPackageDao getPackageDAO();
+	IProductDao getProductDAO();
+	IReceiptDao getReceiptDAO();
+	IShopDao getShopDAO();
+	IUnitDao getUnitDAO();
 }

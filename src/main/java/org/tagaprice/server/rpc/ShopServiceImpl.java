@@ -3,7 +3,7 @@ package org.tagaprice.server.rpc;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IShopDAO;
+import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.*;
@@ -14,7 +14,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	private static final long serialVersionUID = 1L;
 	MyLogger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
-	IShopDAO shopDAO;
+	IShopDao shopDAO;
 
 	public ShopServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();

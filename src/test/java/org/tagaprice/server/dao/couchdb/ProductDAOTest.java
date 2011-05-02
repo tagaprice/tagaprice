@@ -6,18 +6,18 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.ICategoryDao;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDAOTest extends AbstractDAOTest {
-	IProductDAO productDAO = m_daoFactory.getProductDAO();
-	ICategoryDAO categoryDAO = m_daoFactory.getCategoryDAO();
-	IUnitDAO unitDAO = m_daoFactory.getUnitDAO();
+	IProductDao productDAO = m_daoFactory.getProductDAO();
+	ICategoryDao categoryDAO = m_daoFactory.getCategoryDAO();
+	IUnitDao unitDAO = m_daoFactory.getUnitDAO();
 	
 	Category m_testCategory;
 	Unit m_testUnit;

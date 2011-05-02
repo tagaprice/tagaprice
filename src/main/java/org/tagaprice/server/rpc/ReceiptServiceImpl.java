@@ -3,7 +3,7 @@ package org.tagaprice.server.rpc;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IReceiptDAO;
+import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -16,7 +16,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceiptService {
 	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 	private static final long serialVersionUID = 1L;
-	IReceiptDAO receiptDAO;
+	IReceiptDao receiptDAO;
 
 	public ReceiptServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();

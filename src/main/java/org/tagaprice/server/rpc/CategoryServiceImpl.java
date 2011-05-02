@@ -2,7 +2,7 @@ package org.tagaprice.server.rpc;
 
 import java.util.List;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -17,7 +17,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 	private static final long serialVersionUID = 1L;
 
 	MyLogger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
-	ICategoryDAO categoryDAO;
+	ICategoryDao categoryDAO;
 
 	public CategoryServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();

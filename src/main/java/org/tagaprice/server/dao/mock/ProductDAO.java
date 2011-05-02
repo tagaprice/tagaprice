@@ -5,21 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IProductDAO;
+import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class ProductDAO implements IProductDAO {
+public class ProductDAO implements IProductDao {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
 	HashMap<String, Product> productsAllRevisions = new HashMap<String, Product>();
 	HashMap<String, Product> productsLatest = new HashMap<String, Product>();
-	ICategoryDAO categoryDAO;
+	ICategoryDao categoryDAO;
 	Random random = new Random(7356783);
 
 	public ProductDAO(IDaoFactory daoFactory) {
