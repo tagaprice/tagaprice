@@ -13,8 +13,8 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class ReceiptDAO implements IReceiptDao {
-	MyLogger _logger = LoggerFactory.getLogger(ReceiptDAO.class);
+public class ReceiptDao implements IReceiptDao {
+	MyLogger _logger = LoggerFactory.getLogger(ReceiptDao.class);
 	IPackageDao _packageDAO;
 	IShopDao _shopDAO;
 	Random random = new Random(99746776);
@@ -22,7 +22,7 @@ public class ReceiptDAO implements IReceiptDao {
 	HashMap<String, Receipt> _receiptList = new HashMap<String, Receipt>();
 	//ArrayList<Receipt> _receiptList = new ArrayList<Receipt>();
 
-	public ReceiptDAO(IDaoFactory daoFactory) {
+	public ReceiptDao(IDaoFactory daoFactory) {
 	}
 
 	@Override

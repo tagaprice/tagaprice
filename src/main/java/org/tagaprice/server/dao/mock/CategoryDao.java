@@ -11,13 +11,13 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class CategoryDAO implements ICategoryDao {
+public class CategoryDao implements ICategoryDao {
 	HashMap<String, Category> categories = new HashMap<String, Category>();
-	MyLogger logger = LoggerFactory.getLogger(CategoryDAO.class);
+	MyLogger logger = LoggerFactory.getLogger(CategoryDao.class);
 	Random rand = new Random(15645651);
 
 
-	CategoryDAO(IDaoFactory daoFactory) {
+	CategoryDao(IDaoFactory daoFactory) {
 		logger.log("Start CategoryDao");
 
 

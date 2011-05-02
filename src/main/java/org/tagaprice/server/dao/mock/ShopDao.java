@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class ShopDAO implements IShopDao {
+public class ShopDao implements IShopDao {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	HashMap<String, Shop> shopsAllRevisions = new HashMap<String, Shop>();

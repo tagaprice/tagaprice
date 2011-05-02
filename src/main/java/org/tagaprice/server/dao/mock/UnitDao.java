@@ -13,13 +13,13 @@ import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
 
-public class UnitDAO implements IUnitDao {
-	MyLogger logger = LoggerFactory.getLogger(UnitDAO.class);
+public class UnitDao implements IUnitDao {
+	MyLogger logger = LoggerFactory.getLogger(UnitDao.class);
 	private Random random = new Random(1654196865);
 	HashMap<String, Unit> _units = new HashMap<String, Unit>();
 	HashMap<String, HashMap<String, Double>> _factoredUnits = new HashMap<String, HashMap<String,Double>>();
 
-	public UnitDAO() {
+	public UnitDao() {
 		// TODO Auto-generated constructor stub
 	}
 

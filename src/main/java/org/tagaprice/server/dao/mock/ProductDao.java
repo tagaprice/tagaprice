@@ -13,7 +13,7 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
-public class ProductDAO implements IProductDao {
+public class ProductDao implements IProductDao {
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	int productIdCounter = 1;
@@ -22,8 +22,8 @@ public class ProductDAO implements IProductDao {
 	ICategoryDao categoryDAO;
 	Random random = new Random(7356783);
 
-	public ProductDAO(IDaoFactory daoFactory) {
-		logger.log("Load mock.ProductDAO...");
+	public ProductDao(IDaoFactory daoFactory) {
+		logger.log("Load mock.ProductDao...");
 
 		categoryDAO = daoFactory.getCategoryDAO();
 
