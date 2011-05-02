@@ -66,13 +66,17 @@ public abstract class ASimpleEntity implements Serializable {
 	public String getCreatorId() {
 		return _creator != null ? _creator.getId() : null;
 	}
+	
+	public void setCreator(User creator) {
+		_creator = creator;
+	}
 
 	/**
 	 * Internal method necessary for CouchDB injection
 	 * @param creatorId UID of the current revision's creator
 	 */
 	public void setCreatorId(String creatorId) {
-		_creator = new User(creatorId, null, null);
+		setCreator(new User(creatorId, null, null));
 	}
 	/**
 	 * Set the Entity revision
