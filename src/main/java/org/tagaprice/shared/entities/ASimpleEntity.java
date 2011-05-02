@@ -54,10 +54,26 @@ public abstract class ASimpleEntity implements Serializable {
 	 * Returns the creator of the Entity's current revision
 	 * @return Entity creator
 	 */
+	@JSONProperty(ignore=true)
 	public User getCreator() {
 		return _creator;
 	}
+	
+	/**
+	 * Internal method necessary for CouchDB injection
+	 * @return This revision's creator UID
+	 */
+	public String getCreatorId() {
+		return _creator != null ? _creator.getId() : null;
+	}
 
+	/**
+	 * Internal method necessary for CouchDB injection
+	 * @param creatorId UID of the current revision's creator
+	 */
+	public void setCreatorId(String creatorId) {
+		_creator = new User(creatorId, null, null);
+	}
 	/**
 	 * Set the Entity revision
 	 * @param revision Revision ID
@@ -119,6 +135,7 @@ public abstract class ASimpleEntity implements Serializable {
 			ASimpleEntity other = (ASimpleEntity) otherObject;
 			if (!_equals(_id, other._id)) rc = false;
 			else if (!_equals(_rev, other._rev)) rc = false;
+			else if (!_equals(_creator, other._creator)) rc = false;
 		}
 		else rc = false;
 
