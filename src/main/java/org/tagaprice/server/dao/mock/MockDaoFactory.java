@@ -32,7 +32,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final ICategoryDao m_categoryDAO = new CategoryDao();
 	private final IPackageDao m_packageDAO = new PackageDao();
 	private final IProductDao m_productDAO = new ProductDao();
-	private final IReceiptDao m_receiptDAO = new ReceiptDao(this);
+	private final IReceiptDao m_receiptDAO = new ReceiptDao();
 	private final ISessionDao m_sessionDAO = new SessionDao();
 	private final IShopDao m_shopDAO = new ShopDao();
 	private final IUnitDao m_unitDAO = new UnitDao();
