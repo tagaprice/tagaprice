@@ -76,7 +76,7 @@ public abstract class ASimpleEntity implements Serializable {
 	 * @param creatorId UID of the current revision's creator
 	 */
 	public void setCreatorId(String creatorId) {
-		setCreator(new User(creatorId, null, null));
+		setCreator(creatorId != null ? new User(creatorId, null, null) : null);
 	}
 	/**
 	 * Set the Entity revision
