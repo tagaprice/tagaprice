@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities;
 
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 
 /**
@@ -27,13 +28,12 @@ public abstract class AEntity extends ASimpleEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * This constructor is used by the server to fetch a {@link AEntity} after SAVING or FINDING a {@link AEntity}.
-	 * 
-	 * @param id
-	 *            Unique EntityID
+	 * @param creator Creator of the current entity revision 
+	 * @param id Unique EntityID
 	 * @param title The title of the {@link AEntity}. It must not be null.
 	 */
-	public AEntity(String id, String revision, String title) {
-		super(id, revision);
+	public AEntity(User creator, String id, String revision, String title) {
+		super(creator, id, revision);
 		setTitle(title);
 	}
 
@@ -41,11 +41,12 @@ public abstract class AEntity extends ASimpleEntity {
 	 * <b>NEW</b>
 	 * Is used to create a new {@link AEntity}
 	 * 
+	 * @param creator Creator of the current entity revision 
 	 * @param title
 	 *            The title of the {@link AEntity}. Every {@link AEntity} needs a title. It must not be null.
 	 */
-	public AEntity(String title) {
-		this(null, null, title);
+	public AEntity(User creator, String title) {
+		this(creator, null, null, title);
 	}
 
 

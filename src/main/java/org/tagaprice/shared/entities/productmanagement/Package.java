@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities.productmanagement;
 
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 public class Package extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
@@ -30,11 +31,12 @@ public class Package extends ASimpleEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Get or Update Package.
+	 * @param creator Creator of the current entity revision 
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(String id, String revision, Quantity quantity){
-		super(id, revision);
+	public Package(User creator, String id, String revision, Quantity quantity){
+		super(creator, id, revision);
 		_iQuantity=quantity;
 	}
 

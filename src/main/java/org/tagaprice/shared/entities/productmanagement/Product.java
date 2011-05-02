@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
@@ -27,15 +28,13 @@ public class Product extends AEntity {
 	 * <b>NEW</b>
 	 * Constructor to create a new {@link Product}
 	 * 
-	 * @param title
-	 *            Product Title
-	 * @param category
-	 *            Product category
-	 * @param Unit
-	 *            Product unit
+	 * @param creator Creator of the current entity revision 
+	 * @param title Product Title
+	 * @param category Product category
+	 * @param unit Product unit
 	 */
-	public Product(String title, Category category, Unit unit) {
-		super(title);
+	public Product(User creator, String title, Category category, Unit unit) {
+		super(creator, title);
 		this._category = category;
 		this._unit = unit;
 
@@ -45,17 +44,14 @@ public class Product extends AEntity {
 	 * <b>UPDATE and GET</b>
 	 * Constructor to update and GET a {@link Product}
 	 * 
-	 * @param revisionId
-	 *            the product revision
-	 * @param title
-	 *            Product Title
-	 * @param category
-	 *            Product category
-	 * @param Unit
-	 *            Product unit
+	 * @param creator Creator of the current entity revision 
+	 * @param revision The product revision
+	 * @param title Product Title
+	 * @param category Product category
+	 * @param unit Product unit
 	 */
-	public Product(String productId, String revision, String title, Category category, Unit unit) {
-		super(productId, revision, title);
+	public Product(User creator, String productId, String revision, String title, Category category, Unit unit) {
+		super(creator, productId, revision, title);
 		this._category = category;
 		this._unit = unit;
 	}
@@ -160,11 +156,11 @@ public class Product extends AEntity {
 	}
 
 	/**
-	 * Set Category Id. If {@link Category} is null a new {@link Category}  will be created
-	 * @param categoryId
+	 * Internal method necessary for the CouchDB injection to work
+	 * @param categoryId Category ID
 	 */
 	public void setCategoryId(String categoryId) {
-		setCategory(new Category(categoryId, null, null, null));
+		setCategory(new Category(null, categoryId, null, null, null));
 	}
 
 	/**
@@ -194,11 +190,11 @@ public class Product extends AEntity {
 	}
 
 	/**
-	 * Set unit ID. If unit is null a {@link Unit} will be created.
+	 * Internal method necessary for the CouchDB injection to work 
 	 * @param unitId unit ID
 	 */
 	public void setUnitId(String unitId) {
-		setUnit(new Unit(unitId, null, null));
+		setUnit(new Unit(null, unitId, null, null));
 	}
 
 	/*

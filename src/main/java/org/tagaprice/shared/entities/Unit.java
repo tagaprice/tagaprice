@@ -1,5 +1,7 @@
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.shared.entities.accountmanagement.User;
+
 /**
  * Represents Units and converts between them.
  *
@@ -15,21 +17,23 @@ public class Unit extends AEntity {
 	/**
 	 * <b>NEW</b>
 	 * Create new Unit
-	 * @param title unit title
+	 * @param creator Creator of the current entity revision 
+	 * @param title Unit title
 	 */
-	public Unit(String title) {
-		this(null, null, title);
+	public Unit(User creator, String title) {
+		this(creator, null, null, title);
 	}
 
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or get unit from db
+	 * @param creator Creator of the current entity revision 
 	 * @param id
 	 * @param revision
 	 * @param title
 	 */
-	public Unit(String id, String revision, String title) {
-		super(id, revision, title);
+	public Unit(User creator, String id, String revision, String title) {
+		super(creator, id, revision, title);
 	}
 
 	/**

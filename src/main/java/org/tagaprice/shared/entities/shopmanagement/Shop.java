@@ -3,6 +3,7 @@ package org.tagaprice.shared.entities.shopmanagement;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * A shop contains a group of {@link ISubsidiary}. Eg. the shop is "Billa" and the subsidiary is
@@ -27,11 +28,11 @@ public class Shop extends AEntity {
 	 * <b>NEW</b>
 	 * Constructor to create a new {@link Shop}
 	 * 
-	 * @param title
-	 *            title of the shop
+	 * @param creator Creator of the current entity revision 
+	 * @param title Title of the shop
 	 */
-	public Shop(String title) {
-		super(title);
+	public Shop(User creator, String title) {
+		super(creator, title);
 	}
 
 
@@ -39,11 +40,12 @@ public class Shop extends AEntity {
 	 * <b>UPDATE and GET</b>
 	 * Constructor to update a {@link Shop}
 	 * 
+	 * @param creator Creator of the current entity revision 
 	 * @param revisionId
 	 * @param title
 	 */
-	public Shop(String shopId, String revision, String title) {
-		super(shopId, revision, title);
+	public Shop(User creator, String shopId, String revision, String title) {
+		super(creator, shopId, revision, title);
 	}
 
 

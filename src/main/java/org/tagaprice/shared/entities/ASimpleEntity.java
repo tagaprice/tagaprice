@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.svenson.JSONProperty;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * The {@link ASimpleEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
@@ -19,10 +20,10 @@ public abstract class ASimpleEntity implements Serializable {
 	private String _id = null;
 	private String _rev = null;
 	private String _entityType = null;
+	private User _creator = null;
 
 	/**
-	 * <b>NEW</b>
-	 * Is used to create a new {@link ASimpleEntity}
+	 * Default constructor (necessary for serialization)
 	 */
 	public ASimpleEntity() {
 	}
@@ -30,10 +31,12 @@ public abstract class ASimpleEntity implements Serializable {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * This constructor is used by the server to fetch a {@link ASimpleEntity} after SAVING or FINDING a {@link ASimpleEntity}.
+	 * @param creator Creator of the current entity revision
 	 * @param typeName Unique type name (e.g. 
 	 * @param revisionID
 	 */
-	public ASimpleEntity(String id, String revision){
+	public ASimpleEntity(User creator, String id, String revision){
+		_creator = creator;
 		setId(id);
 		setRevision(revision);
 	}
@@ -45,6 +48,14 @@ public abstract class ASimpleEntity implements Serializable {
 	@JSONProperty(value="_rev", ignoreIfNull = true)
 	public String getRevision() {
 		return _rev;
+	}
+	
+	/**
+	 * Returns the creator of the Entity's current revision
+	 * @return Entity creator
+	 */
+	public User getCreator() {
+		return _creator;
 	}
 
 	/**
