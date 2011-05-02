@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.jcouchdb.db.Server;
 import org.junit.After;
 import org.junit.Before;
+import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * Base class for CouchDB DAO unit tests that provides automatic DB cleanup
@@ -17,6 +18,9 @@ import org.junit.Before;
 public class AbstractDAOTest {
 	private String m_dbName;
 	private Server m_server;
+	
+	protected CouchDBDaoFactory m_daoFactory = new CouchDBDaoFactory();
+	protected User m_testUser;
 	
 	public static class TestInjector extends InitialInjector {
 		protected File _getDirFile(String path) {
@@ -57,6 +61,8 @@ public class AbstractDAOTest {
 		// recreate the database for every test
 		_dropDB();
 		_injectDB();
+		
+		m_testUser = m_daoFactory.getUserDao().create(new User("testUser"));
 	}
 
 	@After

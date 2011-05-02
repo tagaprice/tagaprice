@@ -16,14 +16,12 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDAOTest extends AbstractDAOTest {
-	CouchDBDaoFactory daoFactory = new CouchDBDaoFactory();
-	IProductDAO productDAO = daoFactory.getProductDAO();
-	ICategoryDAO categoryDAO = daoFactory.getCategoryDAO();
-	IUnitDAO unitDAO = daoFactory.getUnitDAO();
+	IProductDAO productDAO = m_daoFactory.getProductDAO();
+	ICategoryDAO categoryDAO = m_daoFactory.getCategoryDAO();
+	IUnitDAO unitDAO = m_daoFactory.getUnitDAO();
 	
 	Category m_testCategory;
 	Unit m_testUnit;
-	User m_testUser;
 
 
 	public ProductDAOTest() throws IOException {
@@ -33,7 +31,6 @@ public class ProductDAOTest extends AbstractDAOTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		
-		m_testUser = new User("testUID", "testRev", "Test User");
 		m_testCategory = new Category(m_testUser, "catTitle", null);
 		m_testUnit = new Unit(m_testUser, "unitTitle");
 		

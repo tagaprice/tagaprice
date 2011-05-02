@@ -12,18 +12,15 @@ import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class UnitDAOTest extends AbstractDAOTest {
-	User testUser = new User("testUID", "testRev", "Test User");
-	
 	public UnitDAOTest() throws IOException {
 		super();
 	}
 
-	CouchDBDaoFactory daoFactory = new CouchDBDaoFactory();
-	IUnitDAO unitDAO = daoFactory.getUnitDAO();
+	IUnitDAO unitDAO = m_daoFactory.getUnitDAO();
 	
 	@Test
 	public void testCreateUnit() throws DaoException {
-		Unit unit = new Unit(testUser, "unitName");
+		Unit unit = new Unit(m_testUser, "unitName");
 		
 		unitDAO.create(unit);
 		assertNotNull(unit.getId());
