@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
-import org.tagaprice.server.dao.IDAOClass;
+import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -17,7 +17,7 @@ import org.tagaprice.shared.logging.MyLogger;
  * Base class for all the other CouchDB DAO classes
  * @param <T> Datatype of the entities that will be queried
  */
-public class DaoClass<T extends ASimpleEntity> implements IDAOClass<T> {
+public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	/// JCouchDB server object
 	private Server m_server;
 	
