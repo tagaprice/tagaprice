@@ -148,10 +148,19 @@ public class DAOClass<T extends ASimpleEntity> implements IDAOClass<T> {
 		return m_db.getName();
 	}
 	
+	/**
+	 * Callback method that's called by get() for the class itself and its superclass hierarchy (using _getSuperClassDao()) 
+	 * @param entity Entity that wants its fields being injected
+	 * @throws DaoException if there was any problem when injecting the fields
+	 */
 	protected void _injectFields(T entity) throws DaoException {
 		// do nothing here
 	}
 	
+	/**
+	 * Returns the super DAO class passed to the DAOClass' constructor
+	 * @return super class' DAO or null
+	 */
 	private DAOClass<? super T> _getSuperClassDao() {
 		return m_superClassDao;
 	}
