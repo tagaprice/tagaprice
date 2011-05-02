@@ -47,7 +47,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public Product saveProduct(final Product product) {
+	public Product saveProduct(final Product product) throws DaoException {
 		logger.log("save Product " + product);
 		Product rc = null;
 		if(product.getId() != null){
@@ -83,7 +83,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public Package savePackage(Package pkg) {
+	public Package savePackage(Package pkg) throws DaoException {
 		return packageDAO.update(pkg);
 	}
 

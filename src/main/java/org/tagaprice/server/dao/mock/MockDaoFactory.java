@@ -22,6 +22,7 @@ import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
@@ -36,7 +37,7 @@ public class MockDaoFactory implements IDaoFactory {
 	
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
-	public MockDaoFactory() {
+	public MockDaoFactory() throws DaoException {
 		logger.log("Initialize Mock data");
 		// TODO Auto-generated constructor stub
 

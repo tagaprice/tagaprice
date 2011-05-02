@@ -11,7 +11,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	public ShopDao(CouchDbDaoFactory daoFactory) {
-		super(Shop.class, "shop", daoFactory._getEntityDao());
+		super(daoFactory, Shop.class, "shop", daoFactory._getEntityDao());
 	}
 	
 	@Override

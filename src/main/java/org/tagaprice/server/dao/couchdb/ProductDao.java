@@ -16,7 +16,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 	IUnitDao m_unitDAO;
 	
 	public ProductDao(CouchDbDaoFactory daoFactory) {
-		super(Product.class, "product", daoFactory._getEntityDao());
+		super(daoFactory, Product.class, "product", daoFactory._getEntityDao());
 		m_categoryDAO = daoFactory.getCategoryDAO();
 		m_unitDAO = daoFactory.getUnitDAO();
 	}
@@ -36,6 +36,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 	}
 	
+	@Override
 	protected void _injectFields(Product product) throws DaoException {
 		if (product.getCategoryId() != null) {
 			product.setCategory(m_categoryDAO.get(product.getCategoryId()));

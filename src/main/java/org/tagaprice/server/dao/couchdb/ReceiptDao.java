@@ -11,7 +11,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
-		super(Receipt.class, "receipt", daoFactory._getEntityDao());
+		super(daoFactory, Receipt.class, "receipt", daoFactory._getEntityDao());
 	}
 	
 	@Override

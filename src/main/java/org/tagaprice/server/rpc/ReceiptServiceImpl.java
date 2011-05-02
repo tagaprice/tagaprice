@@ -24,7 +24,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public Receipt saveReceipt(Receipt receipt) {
+	public Receipt saveReceipt(Receipt receipt) throws DaoException {
 		logger.log("Receipt saved: "+receipt);
 		Receipt rc=null;
 

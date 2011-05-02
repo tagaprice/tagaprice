@@ -44,7 +44,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public Shop saveShop(Shop shop) {
+	public Shop saveShop(Shop shop) throws DaoException {
 		logger.log("save Shop " + shop);
 		Shop rc = null;
 		if (shop.getId() != null) {

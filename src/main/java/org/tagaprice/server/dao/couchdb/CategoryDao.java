@@ -12,7 +12,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	public CategoryDao(CouchDbDaoFactory daoFactory) {
-		super(Category.class, "category", daoFactory._getEntityDao());
+		super(daoFactory, Category.class, "category", daoFactory._getEntityDao());
 	}
 
 	@Override
