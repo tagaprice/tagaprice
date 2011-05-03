@@ -20,7 +20,13 @@ public class UserDao extends DaoClass<User> implements IUserDao {
 	@Override
 	public User getByMail(String mail) {
 		ViewResult<User> result = m_db.queryView("user/byMail", User.class, new Options().key(mail), null);
-		ValueRow<User> firstRow = result.getRows().get(0);
-		return firstRow.getValue();
+		User rc = null;
+		
+		if (result.getRows().size() > 0) {
+			ValueRow<User> firstRow = result.getRows().get(0);
+			rc = firstRow.getValue();
+		}
+		
+		return rc;
 	}
 }
