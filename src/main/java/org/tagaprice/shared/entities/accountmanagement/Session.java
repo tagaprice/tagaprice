@@ -60,7 +60,7 @@ public class Session extends ASimpleEntity {
 	}
 	
 	/**
-	 * Internal Expiration Date method necessary for the CouchDB DAO to work
+	 * Internal expiration date getter necessary for the CouchDB DAO to work
 	 * @return Date string that was set by calling setExpiresAt(String)
 	 */
 	@JSONProperty(value="expiresAt")
@@ -68,7 +68,11 @@ public class Session extends ASimpleEntity {
 		return m_expirationString;
 	}
 	
-	public void setExpiresAt(String dateString) {
+	/**
+	 * Internal expiration date setter that's used by the CouchDB DAO
+	 * @param dateString New formatted date String
+	 */
+	public void setExpirationDateString(String dateString) {
 		m_expirationString = dateString;
 	}
 }
