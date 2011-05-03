@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -49,7 +48,7 @@ public interface IProductService extends RemoteService {
 	 * @return the SAVED or UPDATED {@link Product}
 	 * @throws DaoException when something went wrong while saving the Product
 	 */
-	public Product saveProduct(Session session, Product product) throws UserNotLoggedInException, DaoException;
+	public Product saveProduct(String sessionId, Product product) throws UserNotLoggedInException, DaoException;
 
 	/**
 	 * Returns a list of all categories. TODO Return

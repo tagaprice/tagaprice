@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.shopmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -11,5 +10,5 @@ public interface IShopServiceAsync {
 	void getShop(String id, String revision, AsyncCallback<Shop> callback);
 	void getShop(String id, AsyncCallback<Shop> callback);
 	void getShops(Shop searchCriteria, AsyncCallback<List<Shop>> callback);
-	void saveShop(Session session, Shop shop, AsyncCallback<Shop> callback);
+	void saveShop(String sessionId, Shop shop, AsyncCallback<Shop> callback);
 }

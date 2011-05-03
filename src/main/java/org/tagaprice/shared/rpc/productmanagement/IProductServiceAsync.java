@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -17,7 +16,7 @@ public interface IProductServiceAsync {
 
 	void findProducts(Product searchCriteria, AsyncCallback<List<Product>> callback);
 
-	void saveProduct(Session session, Product product, AsyncCallback<Product> callback);
+	void saveProduct(String sessionId, Product product, AsyncCallback<Product> callback);
 
 	@Deprecated
 	void getCategories(AsyncCallback<List<Category>> callback);
