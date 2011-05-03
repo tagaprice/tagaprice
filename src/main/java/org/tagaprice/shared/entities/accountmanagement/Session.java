@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities.accountmanagement;
 
 import java.util.Date;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.ASimpleEntity;
 
 /**
@@ -9,7 +10,8 @@ import org.tagaprice.shared.entities.ASimpleEntity;
  */
 public class Session extends ASimpleEntity {
 	private static final long serialVersionUID = 1L;
-	private Date m_expiresAt;
+	private Date m_expirationDate;
+	private String m_expirationString;
 	
 	/**
 	 * Default constructor (for serialization)
@@ -25,7 +27,7 @@ public class Session extends ASimpleEntity {
 	 */
 	public Session(User user, Date expiresAt) {
 		super(user, null, null);
-		m_expiresAt = expiresAt;
+		m_expirationDate = expiresAt;
 	}
 
 	/**
@@ -37,22 +39,36 @@ public class Session extends ASimpleEntity {
 	 */
 	public Session(User user, String id, String rev, Date expiresAt) {
 		super(user, id, rev);
-		m_expiresAt = expiresAt;
+		m_expirationDate = expiresAt;
 	}
 	
 	/**
 	 * Returns the current expiration date of this session
 	 * @return Session expiration date
 	 */
-	public Date getExpiresAt() {
-		return m_expiresAt;
+	@JSONProperty(ignore=true)
+	public Date getExpirationDate() {
+		return m_expirationDate;
 	}
 	
 	/**
 	 * Internal method (used by the injector only) that sets the Session's expiration date 
 	 * @param expiresAt Session expiration timestamp
 	 */
-	public void setExpiresAt(Date expiresAt) {
-		m_expiresAt = expiresAt;
+	public void setExpirationDate(Date expiresAt) {
+		m_expirationDate = expiresAt;
+	}
+	
+	/**
+	 * Internal Expiration Date method necessary for the CouchDB DAO to work
+	 * @return Date string that was set by calling setExpiresAt(String)
+	 */
+	@JSONProperty(value="expiresAt")
+	public String getExpirationDateString() {
+		return m_expirationString;
+	}
+	
+	public void setExpiresAt(String dateString) {
+		m_expirationString = dateString;
 	}
 }
