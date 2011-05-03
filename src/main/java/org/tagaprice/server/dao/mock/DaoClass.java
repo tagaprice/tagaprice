@@ -1,7 +1,9 @@
 package org.tagaprice.server.dao.mock;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -88,4 +90,11 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		
 	}
 
+	protected List<T> _getCurrentRevisions() {
+		List<T> rc = new ArrayList<T>();
+		for (Deque<T> deque: m_data.values()) {
+			rc.add(deque.peek());
+		}
+		return rc;
+	}
 }
