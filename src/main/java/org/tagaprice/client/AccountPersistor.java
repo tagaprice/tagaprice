@@ -34,6 +34,10 @@ public class AccountPersistor {
 	public void setClientFactory(ClientFactory clientFactory) {
 		_clientFactory=clientFactory;
 	}
+	
+	public String getSessionId() {
+		return Cookies.getCookie("TAP_SID");
+	}
 
 	/**
 	 * Returns global Address
@@ -74,7 +78,7 @@ public class AccountPersistor {
 	 * @return true if user is logged in.
 	 */
 	public boolean isLoggedIn() {
-		if(Cookies.getCookie("TAP_SID")==null)
+		if(getSessionId()==null)
 			return false;
 		else
 			return true;
