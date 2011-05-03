@@ -50,6 +50,8 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	@Override
 	public Shop saveShop(String sessionId, Shop shop) throws DaoException {
 		logger.log("save Shop " + shop);
+		
+		if (sessionId == null) throw new DaoException("Can't save a shop without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
 		Shop rc = null;
 		

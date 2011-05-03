@@ -53,6 +53,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	@Override
 	public Product saveProduct(String sessionId, final Product product) throws DaoException {
 		logger.log("save Product " + product);
+		if (sessionId == null) throw new DaoException("Can't save a product without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
 		Product rc = null;
 		
