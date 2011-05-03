@@ -1,7 +1,10 @@
 package org.tagaprice.server.rpc;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,10 +30,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	HttpSession session;
 
-	MyLogger _logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+	static MyLogger _logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	private ISessionDao _sessionDao;
 	private IUserDao _userDao;
+	
+	private static Random _random = _createPRNG();
 
 	public LoginServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
@@ -120,6 +125,62 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	private boolean _checkPassword(User user, String password) {
 		return password.equals(user.getPasswordHash()); // TODO implement password check
+	}
+	
+	/**
+	 * Use a Pseudo Random Number Generator to generate an arbitrary-length random String that
+	 * can be used as password hash salt (or for anything else)
+	 * 
+	 * @param len Desired length of the returned String
+	 * @return Random String with the given length 
+	 */
+	public static String generateSalt(int len) {
+		String rc = "";
+
+		for (int i = 0; i < len; i++) {
+			int n = _random.nextInt(62);
+			char c;
+			if (n < 26) c = (char)(n+(int)'a');
+			else if (n < 52) c = (char)(n-26+(int)'A');
+			else c = (char) (n-52+(int)'0');
+			rc += c;
+		}
+		return rc;
+	}
+
+
+	/**
+	 * Creates, initializes and returns a Pseudo Random Number Generator object
+	 * 
+	 * On UNIX-like systems this function initializes the PRNG using data read from
+	 * /dev/urandom to make sure the seed is less predictable.
+	 * @return PRNG object
+	 */
+	private static Random _createPRNG() {
+		Random rc = null;
+
+		try {
+			FileInputStream in = new FileInputStream("/dev/urandom");
+			int n;
+			long seed = 0;
+
+			// read 8 characters and put them in a long variable
+			for (int i = 0; i < 8; i++) {
+				n = in.read();
+				if(n >= 0) {
+					seed *= 256;
+					seed += n;
+				}
+			}
+
+			rc = new Random(seed);
+		}
+		catch (IOException e) { // /dev/urandom can't be read
+			_logger.log("Warning: using current time as random seed");
+			rc = new Random();
+		}
+
+		return rc;
 	}
 
 }
