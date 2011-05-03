@@ -191,9 +191,12 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>2.2.0</version>
 				<configuration>
-					<includes>**/*GwtTest.java</includes>
+					<includes>**/GwtTest*.java</includes>
+					
+
 				</configuration>
 				<executions>
+					
 					<execution>
 					<goals>
 						<goal>test</goal>
@@ -243,7 +246,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/Abstract*.java</exclude>
-						<exclude>**/*GwtTest.java</exclude>
+						<exclude>**/GwtTest*.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

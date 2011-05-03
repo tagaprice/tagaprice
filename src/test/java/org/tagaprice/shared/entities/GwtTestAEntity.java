@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
-public class AEntityGwtTest extends GWTTestCase {
+public class GwtTestAEntity extends GWTTestCase {
 
 	@Override
 	public String getModuleName() {
