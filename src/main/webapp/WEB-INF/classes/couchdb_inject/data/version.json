@@ -1,6 +1,5 @@
 {
   "_id": "version",
-  "_rev": "0.0",
   "entityType": "dbVersion",
   "major": "0",
   "minor": "0"
