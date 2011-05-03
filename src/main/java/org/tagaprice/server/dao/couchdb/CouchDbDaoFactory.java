@@ -6,13 +6,14 @@ import java.util.Properties;
 
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IReceiptDAO;
-import org.tagaprice.server.dao.IShopDAO;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISessionDao;
+import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.server.dao.IUnitDao;
 
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
@@ -20,15 +21,16 @@ import org.tagaprice.server.dao.IUnitDAO;
 public class CouchDbDaoFactory implements IDaoFactory {
 	static Properties m_dbConfig = null;
 	
-	private ICategoryDAO m_categoryDAO = null;
-	private IPackageDAO m_packageDAO = null;
-	private IProductDAO m_productDAO = null;
-	private IReceiptDAO m_receiptDAO = null;
-	private IShopDAO m_shopDAO = null;
-	private IUnitDAO m_unitDAO = null;
+	private ICategoryDao m_categoryDao = null;
+	private IPackageDao m_packageDao = null;
+	private IProductDao m_productDao = null;
+	private IReceiptDao m_receiptDao = null;
+	private ISessionDao m_sessionDao = null;
+	private IShopDao m_shopDao = null;
+	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	
-	private EntityDao m_entityDAO = null;
+	private EntityDao m_entityDao = null;
 	
 	static Properties getConfiguration() throws IOException {
 		if (m_dbConfig == null) {
@@ -80,51 +82,59 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	@Override
-	public ICategoryDAO getCategoryDAO() {
-		if (m_categoryDAO == null) {
-			m_categoryDAO = new CategoryDao(this);
+	public ICategoryDao getCategoryDao() {
+		if (m_categoryDao == null) {
+			m_categoryDao = new CategoryDao(this);
 		}
-		return m_categoryDAO;
+		return m_categoryDao;
 	}
 
 	@Override
-	public IPackageDAO getPackageDAO() {
-		if (m_packageDAO == null) {
-			m_packageDAO = new PackageDao(this);
+	public IPackageDao getPackageDao() {
+		if (m_packageDao == null) {
+			m_packageDao = new PackageDao(this);
 		}
-		return m_packageDAO;
+		return m_packageDao;
 	}
 
 	@Override
-	public IProductDAO getProductDAO() {
-		if (m_productDAO == null) {
-			m_productDAO = new ProductDao(this);
+	public IProductDao getProductDao() {
+		if (m_productDao == null) {
+			m_productDao = new ProductDao(this);
 		}
-		return m_productDAO;
+		return m_productDao;
 	}
 
 	@Override
-	public IReceiptDAO getReceiptDAO() {
-		if (m_receiptDAO == null) {
-			m_receiptDAO = new ReceiptDao(this);
+	public IReceiptDao getReceiptDao() {
+		if (m_receiptDao == null) {
+			m_receiptDao = new ReceiptDao(this);
 		}
-		return m_receiptDAO;
+		return m_receiptDao;
 	}
 
 	@Override
-	public IShopDAO getShopDAO() {
-		if (m_shopDAO == null) {
-			m_shopDAO = new ShopDao(this);
+	public ISessionDao getSessionDao() {
+		if (m_sessionDao == null) {
+			m_sessionDao = new SessionDao(this);
 		}
-		return m_shopDAO;
+		return m_sessionDao;
+	}
+	
+	@Override
+	public IShopDao getShopDao() {
+		if (m_shopDao == null) {
+			m_shopDao = new ShopDao(this);
+		}
+		return m_shopDao;
 	}
 
 	@Override
-	public IUnitDAO getUnitDAO() {
-		if (m_unitDAO == null) {
-			m_unitDAO = new UnitDao(this);
+	public IUnitDao getUnitDao() {
+		if (m_unitDao == null) {
+			m_unitDao = new UnitDao(this);
 		}
-		return m_unitDAO;
+		return m_unitDao;
 	}
 	
 	public UserDao getUserDao() {
@@ -135,10 +145,10 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	EntityDao _getEntityDao() {
-		if (m_entityDAO == null) {
-			m_entityDAO = new EntityDao(this);
+		if (m_entityDao == null) {
+			m_entityDao = new EntityDao(this);
 		}
-		return m_entityDAO;
+		return m_entityDao;
 	}
 
 }

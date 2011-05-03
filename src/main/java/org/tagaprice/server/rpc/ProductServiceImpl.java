@@ -2,10 +2,11 @@ package org.tagaprice.server.rpc;
 
 import java.util.List;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IProductDAO;
+import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -21,18 +22,18 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-	IPackageDAO packageDAO;
-	IProductDAO productDAO;
-	ICategoryDAO categoryDAO;
+	IPackageDao packageDAO;
+	IProductDao productDAO;
+	ICategoryDao categoryDAO;
 
 	/**
 	 * Initialization with some products and Categories.
 	 */
 	public ProductServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		packageDAO = daoFactory.getPackageDAO();
-		productDAO = daoFactory.getProductDAO();
-		categoryDAO = daoFactory.getCategoryDAO();
+		packageDAO = daoFactory.getPackageDao();
+		productDAO = daoFactory.getProductDao();
+		categoryDAO = daoFactory.getCategoryDao();
 	}
 
 
@@ -47,9 +48,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public Product saveProduct(final Product product) {
+	public Product saveProduct(Session session, final Product product) throws DaoException {
 		logger.log("save Product " + product);
 		Product rc = null;
+		
+		// TODO check session validity
+		product.setCreator(session.getCreator());
+		
 		if(product.getId() != null){
 			rc = productDAO.update(product);
 		}else{
@@ -83,7 +88,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 
 	@Override
-	public Package savePackage(Package pkg) {
+	public Package savePackage(Package pkg) throws DaoException {
 		return packageDAO.update(pkg);
 	}
 

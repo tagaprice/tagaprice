@@ -66,7 +66,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 
 
-		_clientFactory.getReceiptService().saveReceipt(_receipt, new AsyncCallback<Receipt>() {
+		_clientFactory.getReceiptService().saveReceipt(null, _receipt, new AsyncCallback<Receipt>() {
 
 			@Override
 			public void onFailure(Throwable e) {

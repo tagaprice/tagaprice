@@ -30,6 +30,8 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	/// CouchDB connection properties
 	private Properties m_properties;
 	
+	private CouchDbDaoFactory m_daoFactory;
+	
 	/// Metaclass object of the entities that will be queried
 	private Class<? extends T> m_class;
 	
@@ -46,13 +48,14 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * @param classObject Class object necessary to instantiate new objects when get() gets called 
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
-	protected DaoClass(Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
+	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
 		InitialInjector injector = new InitialInjector();
 		String dbName;
 
 		m_class = classObject;
 		m_entityType = objectType;
 		m_superClassDao = superClassDao;
+		m_daoFactory = daoFactory;
 
 		try {
 			m_properties = CouchDbDaoFactory.getConfiguration();
@@ -80,11 +83,18 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * Create a new document in the CouchDB
 	 * @param entity Entity to be persisted
 	 * @return entity (the same object as passed in the parameter)
+	 * @throws DaoException if anything went wrong while storing the Entity
 	 */
 	@Override
-	public T create(T entity) {
+	public T create(T entity) throws DaoException {
 		entity.setEntityType(m_entityType);
+		
+		// check if the creator exists
+		_checkCreatorId(entity.getCreatorId());
+		
+		// do the saving
 		m_db.createDocument(entity);
+		
 		return entity;
 	}
 
@@ -123,11 +133,18 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * Update a CouchDB document
 	 * @param entity Entity to persist
 	 * @return entity (the same object as passed in the parameter)
+	 * @throws DaoException if there was an error while savin the Entity
 	 */
 	@Override
-	public T update(T entity) {
+	public T update(T entity) throws DaoException {
 		entity.setEntityType(m_entityType);
+		
+		// check if the creator exists
+		_checkCreatorId(entity.getCreatorId());
+		
+		// do the saving
 		m_db.updateDocument(entity);
+		
 		return entity;
 	}
 
@@ -146,6 +163,21 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 */
 	public String getDbName() {
 		return m_db.getName();
+	}
+	
+	/**
+	 * Checks if the creatorId != null and if it's valid (by using UserDao.get())
+	 * 
+	 * This method is overloaded by UserDao because User objects <em>must</em> have a null creator
+	 * @param creatorId Creator UID to check
+	 * @throws DaoException if the creatorId is null or is no valid user ID
+	 */
+	protected void _checkCreatorId(String creatorId) throws DaoException {
+		// A valid creator is mandatory for all Entities except for User objects
+		if (creatorId == null) throw new DaoException("The creator must not be null when creating or updating an Entity!!!");
+	
+		// check if the creator exists
+		m_daoFactory.getUserDao().get(creatorId);
 	}
 	
 	/**

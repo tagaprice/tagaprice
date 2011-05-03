@@ -3,13 +3,15 @@ package org.tagaprice.server.dao.mock;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IPackageDAO;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IReceiptDAO;
-import org.tagaprice.server.dao.IShopDAO;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISessionDao;
+import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.server.dao.IUserDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
@@ -22,21 +24,24 @@ import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
 public class MockDaoFactory implements IDaoFactory {
 	MyLogger logger = LoggerFactory.getLogger(MockDaoFactory.class);
-	private final ICategoryDAO m_categoryDAO = new CategoryDAO(this);
-	private final IPackageDAO m_packageDAO = new PackageDAO();
-	private final IProductDAO m_productDAO = new ProductDAO(this);
-	private final IReceiptDAO m_receiptDAO = new ReceiptDAO(this);
-	private final IShopDAO m_shopDAO = new ShopDAO();
-	private final IUnitDAO m_unitDAO = new UnitDAO();
+	private final ICategoryDao m_categoryDAO = new CategoryDao();
+	private final IPackageDao m_packageDAO = new PackageDao();
+	private final IProductDao m_productDAO = new ProductDao();
+	private final IReceiptDao m_receiptDAO = new ReceiptDao();
+	private final ISessionDao m_sessionDAO = new SessionDao();
+	private final IShopDao m_shopDAO = new ShopDao();
+	private final IUnitDao m_unitDAO = new UnitDao();
+	private final IUserDao m_userDAO = new UserDao();
 	
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
-	public MockDaoFactory() {
+	public MockDaoFactory() throws DaoException {
 		logger.log("Initialize Mock data");
 		// TODO Auto-generated constructor stub
 
@@ -133,32 +138,42 @@ public class MockDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public ICategoryDAO getCategoryDAO() {
+	public ICategoryDao getCategoryDao() {
 		return m_categoryDAO;
 	}
 
 	@Override
-	public IPackageDAO getPackageDAO() {
+	public IPackageDao getPackageDao() {
 		return m_packageDAO;
 	}
 
 	@Override
-	public IProductDAO getProductDAO() {
+	public IProductDao getProductDao() {
 		return m_productDAO;
 	}
 
 	@Override
-	public IReceiptDAO getReceiptDAO() {
+	public IReceiptDao getReceiptDao() {
 		return m_receiptDAO;
 	}
 
 	@Override
-	public IShopDAO getShopDAO() {
+	public ISessionDao getSessionDao() {
+		return m_sessionDAO;
+	}
+
+	@Override
+	public IShopDao getShopDao() {
 		return m_shopDAO;
 	}
 
 	@Override
-	public IUnitDAO getUnitDAO() {
+	public IUnitDao getUnitDao() {
 		return m_unitDAO;
+	}
+
+	@Override
+	public IUserDao getUserDao() {
+		return m_userDAO;
 	}
 }

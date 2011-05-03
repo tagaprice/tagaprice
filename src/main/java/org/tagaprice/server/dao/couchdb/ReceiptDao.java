@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
-import org.tagaprice.server.dao.IReceiptDAO;
+import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDAO {
+public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
-		super(Receipt.class, "receipt", daoFactory._getEntityDao());
+		super(daoFactory, Receipt.class, "receipt", daoFactory._getEntityDao());
 	}
 	
 	@Override

@@ -6,13 +6,13 @@ import java.util.List;
 import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
-import org.tagaprice.server.dao.ICategoryDAO;
+import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class CategoryDao extends DaoClass<Category> implements ICategoryDAO {
+public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	public CategoryDao(CouchDbDaoFactory daoFactory) {
-		super(Category.class, "category", daoFactory._getEntityDao());
+		super(daoFactory, Category.class, "category", daoFactory._getEntityDao());
 	}
 
 	@Override

@@ -5,20 +5,20 @@ import java.util.List;
 
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
-import org.tagaprice.server.dao.ICategoryDAO;
-import org.tagaprice.server.dao.IProductDAO;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.ICategoryDao;
+import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class ProductDao extends DaoClass<Product> implements IProductDAO {
-	ICategoryDAO m_categoryDAO;
-	IUnitDAO m_unitDAO;
+public class ProductDao extends DaoClass<Product> implements IProductDao {
+	ICategoryDao m_categoryDAO;
+	IUnitDao m_unitDAO;
 	
 	public ProductDao(CouchDbDaoFactory daoFactory) {
-		super(Product.class, "product", daoFactory._getEntityDao());
-		m_categoryDAO = daoFactory.getCategoryDAO();
-		m_unitDAO = daoFactory.getUnitDAO();
+		super(daoFactory, Product.class, "product", daoFactory._getEntityDao());
+		m_categoryDAO = daoFactory.getCategoryDao();
+		m_unitDAO = daoFactory.getUnitDao();
 	}
 
 	@Override
@@ -36,6 +36,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDAO {
 
 	}
 	
+	@Override
 	protected void _injectFields(Product product) throws DaoException {
 		if (product.getCategoryId() != null) {
 			product.setCategory(m_categoryDAO.get(product.getCategoryId()));

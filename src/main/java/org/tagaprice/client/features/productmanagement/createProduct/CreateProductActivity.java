@@ -60,7 +60,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		_product.setUnit(_createProductView.getUnit());
 		_product.setPackages(_createProductView.getPackages());
 
-		this._clientFactory.getProductService().saveProduct(_product, new AsyncCallback<Product>() {
+		this._clientFactory.getProductService().saveProduct(null, _product, new AsyncCallback<Product>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

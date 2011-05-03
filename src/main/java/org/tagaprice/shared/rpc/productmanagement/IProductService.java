@@ -2,6 +2,7 @@ package org.tagaprice.shared.rpc.productmanagement;
 
 import java.util.List;
 
+import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -46,8 +47,9 @@ public interface IProductService extends RemoteService {
 	 * @param product
 	 *            The {@link Product} you want to UPDATE/CREATE
 	 * @return the SAVED or UPDATED {@link Product}
+	 * @throws DaoException when something went wrong while saving the Product
 	 */
-	public Product saveProduct(Product product) throws UserNotLoggedInException;
+	public Product saveProduct(Session session, Product product) throws UserNotLoggedInException, DaoException;
 
 	/**
 	 * Returns a list of all categories. TODO Return
@@ -100,7 +102,8 @@ public interface IProductService extends RemoteService {
 	 *            {@link Package} that should be created or saved.
 	 * @return return the new {@link Package} with {@link RevisionId}
 	 * @throws UserNotLoggedInException
+	 * @throws DaoException if something went wrong while saving the Package
 	 */
-	public Package savePackage(Package ipackage) throws UserNotLoggedInException;
+	public Package savePackage(Package ipackage) throws UserNotLoggedInException, DaoException;
 
 }

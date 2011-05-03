@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -15,7 +15,7 @@ public class UnitDAOTest extends AbstractDAOTest {
 		super();
 	}
 
-	IUnitDAO unitDAO = m_daoFactory.getUnitDAO();
+	IUnitDao unitDAO = m_daoFactory.getUnitDao();
 	
 	@Test
 	public void testCreateUnit() throws DaoException {

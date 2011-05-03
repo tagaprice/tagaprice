@@ -3,7 +3,7 @@ package org.tagaprice.server.rpc;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
-import org.tagaprice.server.dao.IUnitDAO;
+import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -16,12 +16,12 @@ public class UnitServiceImpl extends RemoteServiceServlet implements IUnitServic
 	private static final long serialVersionUID = 1L;
 	MyLogger logger = LoggerFactory.getLogger(UnitServiceImpl.class);
 
-	IUnitDAO unitDAO;
+	IUnitDao unitDAO;
 
 	public UnitServiceImpl() {
 		logger.log("Load servlet...");
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		unitDAO = daoFactory.getUnitDAO();
+		unitDAO = daoFactory.getUnitDao();
 	}
 
 	@Override

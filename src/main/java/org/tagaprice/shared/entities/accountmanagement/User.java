@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities.accountmanagement;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 
 /**
@@ -9,6 +10,8 @@ import org.tagaprice.shared.entities.AEntity;
  */
 public class User extends AEntity {
 	private static final long serialVersionUID = 1L;
+	
+	private String _mail = null;
 
 	/**
 	 * Default constuctor (necessary for serialization)
@@ -33,5 +36,14 @@ public class User extends AEntity {
 	 */
 	public User(String uid, String revision, String title) {
 		super(null, uid, revision, title);
+	}
+	
+	@JSONProperty(value="mail", ignoreIfNull=true)
+	public String getMail() {
+		return _mail;
+	}
+	
+	public void setMail(String mail) {
+		_mail = mail;
 	}
 }
