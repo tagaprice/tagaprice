@@ -1,5 +1,6 @@
 {
   "_id": "_design/shop",
+  "_rev": "0.0",
   "views": {
     "all": {
       "map": "function(doc) {

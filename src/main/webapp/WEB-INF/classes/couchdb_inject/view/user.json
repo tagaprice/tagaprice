@@ -1,5 +1,6 @@
 {
   "_id": "_design/user",
+  "_rev": "0.0",
   "views": {
     "byMail": {
       "map": "function(doc) {
