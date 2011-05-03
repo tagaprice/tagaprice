@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("receiptservice")
 public interface IReceiptService extends RemoteService {
 
-	Receipt saveReceipt(Session session, Receipt receipt)  throws UserNotLoggedInException, DaoException;
+	Receipt saveReceipt(String sessionId, Receipt receipt)  throws UserNotLoggedInException, DaoException;
 
 	Receipt getReceipt(String receiptid) throws UserNotLoggedInException, DaoException;
 

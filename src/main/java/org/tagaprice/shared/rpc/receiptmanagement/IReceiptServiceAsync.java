@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.receiptmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
@@ -17,6 +16,6 @@ public interface IReceiptServiceAsync {
 	@Deprecated
 	void getReceiptEntriesByProductId(long productid, AsyncCallback<List<ReceiptEntry>> callback);
 
-	void saveReceipt(Session session, Receipt receipt, AsyncCallback<Receipt> callback);
+	void saveReceipt(String sessionId, Receipt receipt, AsyncCallback<Receipt> callback);
 
 }

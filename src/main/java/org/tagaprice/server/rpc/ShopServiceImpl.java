@@ -3,6 +3,7 @@ package org.tagaprice.server.rpc;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -15,12 +16,14 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	private static final long serialVersionUID = 1L;
 	MyLogger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
+	ISessionDao sessionDAO;
 	IShopDao shopDAO;
 
 	public ShopServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		logger.log("Load servlet...");
 
+		sessionDAO = daoFactory.getSessionDao();
 		shopDAO = daoFactory.getShopDao();
 
 	}
@@ -45,8 +48,9 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public Shop saveShop(Session session, Shop shop) throws DaoException {
+	public Shop saveShop(String sessionId, Shop shop) throws DaoException {
 		logger.log("save Shop " + shop);
+		Session session = sessionDAO.get(sessionId);
 		Shop rc = null;
 		
 		// TODO check session validity 

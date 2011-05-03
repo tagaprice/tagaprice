@@ -6,6 +6,7 @@ import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -25,6 +26,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	IPackageDao packageDAO;
 	IProductDao productDAO;
 	ICategoryDao categoryDAO;
+	ISessionDao sessionDAO;
 
 	/**
 	 * Initialization with some products and Categories.
@@ -34,6 +36,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		packageDAO = daoFactory.getPackageDao();
 		productDAO = daoFactory.getProductDao();
 		categoryDAO = daoFactory.getCategoryDao();
+		sessionDAO = daoFactory.getSessionDao();
 	}
 
 
@@ -48,8 +51,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public Product saveProduct(Session session, final Product product) throws DaoException {
+	public Product saveProduct(String sessionId, final Product product) throws DaoException {
 		logger.log("save Product " + product);
+		Session session = sessionDAO.get(sessionId);
 		Product rc = null;
 		
 		// TODO check session validity

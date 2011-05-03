@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -18,15 +19,18 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 	private static final long serialVersionUID = 1L;
 	IReceiptDao receiptDAO;
+	ISessionDao sessionDAO;
 
 	public ReceiptServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		receiptDAO = daoFactory.getReceiptDao();
+		sessionDAO = daoFactory.getSessionDao();
 	}
 
 	@Override
-	public Receipt saveReceipt(Session session, Receipt receipt) throws DaoException {
+	public Receipt saveReceipt(String sessionId, Receipt receipt) throws DaoException {
 		logger.log("Receipt saved: "+receipt);
+		Session session = sessionDAO.get(sessionId);
 		Receipt rc=null;
 
 		// TODO check session validity
