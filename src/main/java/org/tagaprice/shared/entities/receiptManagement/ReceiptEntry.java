@@ -9,7 +9,6 @@ public class ReceiptEntry implements Serializable {
 
 	private Package _package;
 	private Price _price;
-	private Receipt _receipt;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -69,7 +68,7 @@ public class ReceiptEntry implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "ReceiptEntry [_package=" + _package + ", _receipt=" + _receipt + ", _price=" + _price + "]";
+		return "ReceiptEntry [_package=" + _package + ", _price=" + _price + "]";
 	}
 
 

@@ -20,7 +20,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	ArrayList<AccountUser> userList = new ArrayList<LoginServiceImpl.AccountUser>();
 
 
-	String sessionId = null; // is working for just one user ;-)
+	//String sessionId = null; // is working for just one user ;-)
 	HttpSession session;
 
 
