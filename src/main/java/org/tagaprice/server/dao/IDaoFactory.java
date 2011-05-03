@@ -8,4 +8,5 @@ public interface IDaoFactory {
 	ISessionDao getSessionDao();
 	IShopDao getShopDao();
 	IUnitDao getUnitDao();
+	IUserDao getUserDao();
 }

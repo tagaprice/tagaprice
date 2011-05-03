@@ -11,6 +11,7 @@ import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.server.dao.IUserDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
@@ -36,6 +37,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final ISessionDao m_sessionDAO = new SessionDao();
 	private final IShopDao m_shopDAO = new ShopDao();
 	private final IUnitDao m_unitDAO = new UnitDao();
+	private final IUserDao m_userDAO = new UserDao();
 	
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
@@ -168,5 +170,10 @@ public class MockDaoFactory implements IDaoFactory {
 	@Override
 	public IUnitDao getUnitDao() {
 		return m_unitDAO;
+	}
+
+	@Override
+	public IUserDao getUserDao() {
+		return m_userDAO;
 	}
 }
