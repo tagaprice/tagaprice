@@ -12,7 +12,8 @@ public class User extends AEntity {
 	private static final long serialVersionUID = 1L;
 	
 	private String _mail = null;
-	private String _password = null;
+	private String _passwordHash = null;
+	private String _passwordSalt = null;
 
 	/**
 	 * Default constuctor (necessary for serialization)
@@ -48,17 +49,22 @@ public class User extends AEntity {
 		_mail = mail;
 	}
 	
-	public boolean checkPassword(String password) {
-		return _password.equals(password);
+	@JSONProperty(value="passwordHash", ignoreIfNull=true)
+	public String getPasswordHash() {
+		return _passwordHash;
 	}
 	
-	@JSONProperty(value="password")
-	public String getPassword(String password) {
-		return _password;
+	@JSONProperty(value="passwordSalt", ignoreIfNull=true)
+	public String getPasswordSalt() {
+		return _passwordSalt;
 	}
 	
-	public void setPassword(String password) {
-		_password = password;
+	public void setPasswordHash(String passwordHash) {
+		_passwordHash = passwordHash;
+	}
+	
+	public void setPasswordSalt(String passwordSalt) {
+		_passwordSalt = passwordSalt;
 	}
 	
 	@Override
@@ -68,7 +74,8 @@ public class User extends AEntity {
 			User other = (User) otherObject;
 			if (!super.equals(other)) rc = false;
 			else if (!_equals(_mail, other._mail)) rc = false;
-			else if (!_equals(_password, other._password)) rc = false;
+			else if (!_equals(_passwordHash, other._passwordHash)) rc = false;
+			else if (!_equals(_passwordSalt, other._passwordSalt)) rc = false;
 		}
 		else rc = false;
 		

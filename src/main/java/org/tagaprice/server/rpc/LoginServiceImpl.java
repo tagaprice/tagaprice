@@ -44,7 +44,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		User user = _userDao.getByMail(email);
 		String rc = null;
 		
-		if (user.checkPassword(password)) {
+		if (_checkPassword(user, password)) {
 			// create Session (default expiration time: 1h)
 			Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
 			Session session = _sessionDao.create(new Session(user, expirationDate));
@@ -104,10 +104,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 		User user = new User(email); // TODO we need an actual user name here
 		user.setMail(email);
-		user.setPassword(password);
+		user.setPasswordHash(password);
 		_userDao.create(user);
 
-		return null; // I don't want a session to be returned that soon. There should be a mail verification before
+		return "successful"; // I don't want a session to be returned that soon. There should be a mail verification before
 	}
 
 
@@ -115,6 +115,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		if(session==null)session = getThreadLocalRequest().getSession();
 
 		return session.getId();
+	}
+	
+	private boolean _checkPassword(User user, String password) {
+		return password.equals(user.getPasswordHash()); // TODO implement password check
 	}
 
 }
