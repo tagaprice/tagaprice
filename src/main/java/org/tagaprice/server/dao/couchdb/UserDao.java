@@ -11,7 +11,7 @@ public class UserDao extends DaoClass<User> implements IUserDao {
 	public UserDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, User.class, "user", daoFactory._getEntityDao());
 	}
-	
+
 	@Override
 	protected void _checkCreatorId(String creatorId) throws DaoException {
 		if (creatorId != null) throw new DaoException("The creator ID of User objects has to be null!");
@@ -21,12 +21,12 @@ public class UserDao extends DaoClass<User> implements IUserDao {
 	public User getByMail(String mail) {
 		ViewResult<User> result = m_db.queryView("user/byMail", User.class, new Options().key(mail), null);
 		User rc = null;
-		
+
 		if (result.getRows().size() > 0) {
 			ValueRow<User> firstRow = result.getRows().get(0);
 			rc = firstRow.getValue();
 		}
-		
+
 		return rc;
 	}
 }
