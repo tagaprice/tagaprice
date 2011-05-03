@@ -3,6 +3,7 @@ package org.tagaprice.shared.rpc.accountmanagement;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -11,17 +12,15 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ILoginService extends RemoteService {
 
 	/**
-	 * Set email and password to server and get a Unique SessionId
-	 * 
-	 * @param email
-	 *            email (username)
-	 * @param password
-	 *            password (plane)
-	 * @return Unique SessionId (Must be saved on in browser as session)
+	 * Try to login using a unique mail address and a password
+	 * @param email User's mail address
+	 * @param password User's password
+	 * @return Session-ID
+	 * @throws WrongEmailOrPasswordException if the login failed
+	 * @throws DaoException if something went wrong at the database backend
 	 */
-
 	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
-	UserAlreadyLoggedInException;
+	UserAlreadyLoggedInException, DaoException;
 
 
 	/**
@@ -56,8 +55,9 @@ public interface ILoginService extends RemoteService {
 	 * @param password password
 	 * @param agreeTerms if user agrees our terms and conditions
 	 * @return return a SessionKey if the registration was OK. If not NULL
+	 * @throws DaoException 
 	 */
-	public String registerUser(String email, String password, boolean agreeTerms);
+	public String registerUser(String email, String password, boolean agreeTerms) throws DaoException;
 
 	/**
 	 * Set new password.
