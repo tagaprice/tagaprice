@@ -20,6 +20,11 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>initServlet</servlet-name>
+		<url-pattern>/TagAPrice/initservlet</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>productservice</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>

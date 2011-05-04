@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='TagAPrice'>
 
-  <servlet path="/unitService" class="org.tagaprice.server.rpc.UnitServiceImpl" />
+  <servlet path="/unitservice" class="org.tagaprice.server.rpc.UnitServiceImpl" />
 
   <!-- Google Maps script must before inherits --> 
   
