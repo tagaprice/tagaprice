@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
+import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONParser;
 
 /**
@@ -24,12 +25,33 @@ public class InitialInjector {
 	public void init(Server server, String dbName) throws IOException {
 		if (!server.listDatabases().contains(dbName)) {
 			server.createDatabase(dbName);
-			
+		}
+		
+		if (getDbVersion(server, dbName) == null) {
 			// perform a full injection
 			m_db = new Database(server, dbName);
 			_injectFolder("view");
 			_injectFolder("data");
 		}
+	}
+	
+	public static int[] getDbVersion(Server server, String dbName) {
+		int rc[] = null;
+		
+		if (server.listDatabases().contains(dbName)) {
+			Database db = new Database(server, dbName);
+			try {
+				Map<?,?> versionDoc = db.getDocument(Map.class, "version");
+				if (versionDoc.containsKey("major") && versionDoc.containsKey("minor")) {
+					rc = new int[2];
+					rc[0] = Integer.parseInt(versionDoc.get("major").toString());
+					rc[1] = Integer.parseInt(versionDoc.get("minor").toString());
+				}
+			}
+			catch (NotFoundException e) {/* we'll simply return null in this case */}
+		}
+		
+		return rc;
 	}
 	
 	private void _injectFolder(String folderName) throws IOException {
