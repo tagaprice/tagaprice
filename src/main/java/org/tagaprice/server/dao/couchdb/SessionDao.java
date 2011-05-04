@@ -29,13 +29,13 @@ public class SessionDao extends DaoClass<Session> implements ISessionDao {
 	
 	@Override
 	public Session create(Session session) throws DaoException {
-		session.setExpiresAt(m_dateFormatter.format(session.getExpirationDate()));
+		session.setExpirationDateString(m_dateFormatter.format(session.getExpirationDate()));
 		return super.create(session);
 	}
 	
 	@Override
 	public Session update(Session session) throws DaoException {		
-		session.setExpiresAt(m_dateFormatter.format(session.getExpirationDate()));
+		session.setExpirationDateString(m_dateFormatter.format(session.getExpirationDate()));
 		return super.create(session);
 	}
 }
