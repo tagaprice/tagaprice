@@ -2,6 +2,8 @@ package org.tagaprice.server.rpc;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -108,9 +110,21 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 		_logger.log("Try to register: email: " + email + ", password: " + password);
 
+
+		String salt = generateSalt(24);
+		String pwdHash;
+		
+		try {
+			pwdHash = md5(password+salt);
+		}
+		catch (NoSuchAlgorithmException e) {
+			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
+		}
+
 		User user = new User(email); // TODO we need an actual user name here
 		user.setMail(email);
-		user.setPasswordHash(password);
+		user.setPasswordSalt(salt);
+		user.setPasswordHash(pwdHash);
 		_userDao.create(user);
 
 		return "successful"; // I don't want a session to be returned that soon. There should be a mail verification before
@@ -123,8 +137,31 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		return session.getId();
 	}
 
-	private boolean _checkPassword(User user, String password) {
-		return password.equals(user.getPasswordHash()); // TODO implement password check
+	private boolean _checkPassword(User user, String password) throws DaoException {
+		String hash = user.getPasswordHash();
+		String salt = user.getPasswordSalt();
+		
+		try {
+			return hash.equals(md5(password+salt));
+		}
+		catch (NoSuchAlgorithmException e) {
+			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
+		}
+	}
+	
+	public String md5(String in) throws NoSuchAlgorithmException {
+		// calculate hash 
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+	    md5.update(in.getBytes());
+	    byte[] hash = md5.digest();
+	    StringBuffer rc = new StringBuffer();
+        for (int i=0; i<hash.length; i++) {
+        	String hex = "0"+Integer.toHexString(0xFF & hash[i]);
+        	if (hex.length()>2) hex = hex.substring(hex.length()-2);
+            rc.append(hex);
+        }
+        
+        return rc.toString();
 	}
 	
 	/**
