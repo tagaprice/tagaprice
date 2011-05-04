@@ -62,16 +62,26 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 */
 	private static Properties _readProperties(String filename) throws IOException {
 		Properties defaults = new Properties();
+		boolean propertiesRead = false;
+		
 		try {
 			InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename+".default");
-			if (stream != null) defaults.load(stream);
+			if (stream != null) {
+				defaults.load(stream);
+				propertiesRead = true;
+			}
 		}
 		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
 		
 		Properties rc = new Properties(defaults);
 		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
-		if (stream != null) rc.load(stream);
-		else throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
+		if (stream != null) {
+			rc.load(stream);
+			propertiesRead = true;
+		}
+		
+		if (!propertiesRead) throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
+		
 		return rc;
 	}
 
