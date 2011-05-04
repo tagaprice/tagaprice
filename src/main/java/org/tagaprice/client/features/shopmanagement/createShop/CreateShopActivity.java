@@ -61,7 +61,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop.setAddress(_createShopView.getAddress());
 		_shop.setParent(_createShopView.getBranding());
 
-		_clientFactory.getShopService().saveShop(null, _shop, new AsyncCallback<Shop>() {
+		_clientFactory.getShopService().saveShop(_clientFactory.getAccountPersistor().getSessionId(), _shop, new AsyncCallback<Shop>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

@@ -2,7 +2,6 @@ package org.tagaprice.shared.rpc.receiptmanagement;
 
 import java.util.List;
 
-import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.receiptManagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
