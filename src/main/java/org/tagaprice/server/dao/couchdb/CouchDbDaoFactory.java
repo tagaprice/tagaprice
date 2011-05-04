@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.ICategoryDao;
@@ -14,6 +17,8 @@ import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
@@ -32,6 +37,8 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	
 	private EntityDao m_entityDao = null;
 	
+	private static  MyLogger m_logger = LoggerFactory.getLogger(CouchDbDaoFactory.class);
+	
 	static Properties getConfiguration() throws IOException {
 		if (m_dbConfig == null) {
 			m_dbConfig = _readProperties("couchdb.properties");
@@ -44,10 +51,21 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	static Server getServerObject(Properties dbConfig) {
-		return new ServerImpl(
-				dbConfig.getProperty("host", "localhost"),
-				Integer.parseInt(dbConfig.getProperty("port", "5984")),
-				Boolean.parseBoolean(dbConfig.getProperty("ssl", "false"))); // we don't need ssl on localhost
+		String host = dbConfig.getProperty("host", "localhost");
+		int port = Integer.parseInt(dbConfig.getProperty("port", "5984"));
+		Server rc = new ServerImpl(host, port, Boolean.parseBoolean(dbConfig.getProperty("ssl", "false"))); // we don't need ssl on localhost
+		
+		if (dbConfig.containsKey("user") || dbConfig.containsKey("pwd")) {
+			String user = dbConfig.getProperty("user");
+			String password = dbConfig.getProperty("pwd");
+			AuthScope authScope = new AuthScope(host, port);
+			Credentials credentials = new UsernamePasswordCredentials(user, password);
+			m_logger.log("Connecting as '"+user+"' to the CouchDB server at '"+host+":"+port+"'");
+			rc.setCredentials(authScope, credentials);
+		}
+		else m_logger.log("Connecting anonymously to the CouchDB server at '"+host+":"+port+"'");
+
+		return rc;
 	}
 	
 	static Server getServerObject() throws IOException {
@@ -67,18 +85,23 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		try {
 			InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename+".default");
 			if (stream != null) {
+				m_logger.log("Reading default configuration file '"+filename+".default'");
 				defaults.load(stream);
 				propertiesRead = true;
 			}
+			else m_logger.log("Couldn't read default configuration file '"+filename+".default'");
+
 		}
 		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
 		
 		Properties rc = new Properties(defaults);
 		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
 		if (stream != null) {
+			m_logger.log("Reading configuration file '"+filename+"'");
 			rc.load(stream);
 			propertiesRead = true;
 		}
+		else  m_logger.log("Couldn't read configuration file '"+filename+"'");
 		
 		if (!propertiesRead) throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
 		

@@ -28,7 +28,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	/// CouchDB connection properties
-	private Properties m_properties;
+	private Properties m_dbConfig;
 	
 	private CouchDbDaoFactory m_daoFactory;
 	
@@ -58,7 +58,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		m_daoFactory = daoFactory;
 
 		try {
-			m_properties = CouchDbDaoFactory.getConfiguration();
+			m_dbConfig = CouchDbDaoFactory.getConfiguration();
 		}
 		catch (IOException e) {
 			m_logger.log("Error while reading couchdb.properties!");
@@ -66,9 +66,9 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			return;
 		}
 		
-		dbName = m_properties.getProperty("database", "tagaprice");
+		dbName = m_dbConfig.getProperty("database", "tagaprice");
 		
-		m_server = CouchDbDaoFactory.getServerObject(m_properties);
+		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 
 		try {
 			injector.init(m_server, dbName);
