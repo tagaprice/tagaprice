@@ -3,6 +3,7 @@ package org.tagaprice.server.dao.mock;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,7 +13,7 @@ import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
-	protected Map<String, Deque<T>> m_data;
+	protected Map<String, Deque<T>> m_data = new HashMap<String, Deque<T>>();
 	private Random random = new Random();
 	
 	@Override
