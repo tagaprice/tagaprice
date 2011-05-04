@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.ICategoryDao;
@@ -44,10 +47,18 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	static Server getServerObject(Properties dbConfig) {
-		return new ServerImpl(
+		Server rc = new ServerImpl(
 				dbConfig.getProperty("host", "localhost"),
 				Integer.parseInt(dbConfig.getProperty("port", "5984")),
 				Boolean.parseBoolean(dbConfig.getProperty("ssl", "false"))); // we don't need ssl on localhost
+		
+		if (dbConfig.contains("user") || dbConfig.contains("pwd")) {
+			AuthScope authScope = new AuthScope(dbConfig.getProperty("host", "localhost"), Integer.parseInt(dbConfig.getProperty("port", "5984")));
+			Credentials credentials = new UsernamePasswordCredentials(dbConfig.getProperty("user"), dbConfig.getProperty("pwd"));
+			rc.setCredentials(authScope, credentials);
+		}
+
+		return rc;
 	}
 	
 	static Server getServerObject() throws IOException {
