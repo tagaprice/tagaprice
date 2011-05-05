@@ -25,13 +25,21 @@ public class GwtTestMockUnitService  extends GWTTestCase {
 
 
 		async.getFactorizedUnits(null, new AsyncCallback<List<Unit>>() {
-
 			@Override
 			public void onSuccess(List<Unit> response) {
-				// TODO Auto-generated method stub
-				logger.log("onSuccess");
-				for(Unit r: response)
+				assertEquals(5,response.size());
+				for(Unit r: response){
+					assertEquals("testUser_id",r.getCreator().getId());
+					assertEquals("testRev",r.getCreator().getRevision());
+					assertEquals("Test User",r.getCreator().getTitle());
+					assertTrue(
+							r.getTitle().contains("st") ||
+							r.getTitle().contains("kg") ||
+							r.getTitle().contains("g") ||
+							r.getTitle().contains("l") ||
+							r.getTitle().contains("ml"));
 					logger.log("-Unit: "+r.getTitle());
+				}
 
 				assertTrue(true);
 				finishTest();
@@ -39,7 +47,62 @@ public class GwtTestMockUnitService  extends GWTTestCase {
 
 			@Override
 			public void onFailure(Throwable e) {
-				logger.log("error: at RPC");
+				assertTrue(false);
+				finishTest();
+
+			}
+		});
+
+		delayTestFinish(3000);
+	}
+
+	public void testLiterList(){
+		final IUnitServiceAsync async = GWT.create(IUnitService.class);
+
+
+
+		async.getFactorizedUnits(null, new AsyncCallback<List<Unit>>() {
+
+			@Override
+			public void onSuccess(List<Unit> response) {
+
+
+				assertEquals(5,response.size());
+
+				for(Unit u:response){
+					if(u.getTitle().equals("l"))
+						async.getFactorizedUnits(u.getId(), new AsyncCallback<List<Unit>>() {
+
+							@Override
+							public void onSuccess(List<Unit> response) {
+								assertEquals(2,response.size());
+
+								for(Unit u:response){
+									if(u.getFactor() == 1000 || u.getFactor() == 0.001){
+										assertTrue(true);
+									}else{
+										assertFalse(false);
+									}
+								}
+
+								finishTest();
+							}
+
+							@Override
+							public void onFailure(Throwable e) {
+								assertTrue(false);
+								finishTest();
+
+							}
+						});
+				}
+
+
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
 				assertTrue(false);
 				finishTest();
 
@@ -47,9 +110,7 @@ public class GwtTestMockUnitService  extends GWTTestCase {
 		});
 
 
-
-
-		delayTestFinish(60000);
+		delayTestFinish(3000);
 	}
 
 }

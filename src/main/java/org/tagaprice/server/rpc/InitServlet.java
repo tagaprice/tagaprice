@@ -57,11 +57,11 @@ public class InitServlet extends HttpServlet {
 	 * @return IDaoFactory singleton instance
 	 */
 	public static IDaoFactory getDaoFactory() {
+		//TODO maybe there is a more beautiful implementation. Because this is only important for testings.
 		if(InitServlet.m_daoFactory==null){
 			try {
 				InitServlet.m_daoFactory=new MockDaoFactory();
 			} catch (DaoException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
