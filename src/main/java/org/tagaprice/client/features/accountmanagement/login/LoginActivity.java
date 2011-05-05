@@ -1,7 +1,6 @@
 package org.tagaprice.client.features.accountmanagement.login;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.Config;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -25,7 +24,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 
 		_place = place;
 		_clientFactory = clientFactory;
-		_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
+		//_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
 
 
 	}

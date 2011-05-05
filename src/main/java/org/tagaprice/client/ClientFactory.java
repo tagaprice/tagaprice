@@ -117,6 +117,6 @@ public interface ClientFactory {
 	 * Returns Static {@link AccountPersistor}
 	 * @return {@link AccountPersistor}
 	 */
-	public AccountPersistor getAccountPersistor();
+	public IAccountPersistor getAccountPersistor();
 
 }
