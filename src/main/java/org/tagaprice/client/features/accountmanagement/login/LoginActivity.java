@@ -63,8 +63,6 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 			panel.setWidget(logoutView);
 		}
 
-
-
 	}
 
 	@Override
@@ -76,8 +74,8 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	public void onLoginEvent() {
 		LoginActivity._logger.log("Login Button clicked");
 		if (loginView != null) {
-			loginView.getEmail();
-			loginView.getPassword();
+			//loginView.getEmail();
+			//loginView.getPassword();
 
 			if (!loginView.getEmail().isEmpty() && !loginView.getPassword().isEmpty()) {
 
