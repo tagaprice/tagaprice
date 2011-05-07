@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.searchmanagement.StatiticResult;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -53,8 +53,8 @@ public interface ISearchService extends RemoteService {
 	Address searchAddress(double lat, double lng);
 
 
-	List<StatiticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end);
+	List<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end);
 
-	List<StatiticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end);
+	List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end);
 
 }

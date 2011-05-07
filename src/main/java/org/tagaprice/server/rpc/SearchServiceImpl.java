@@ -15,7 +15,7 @@ import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.searchmanagement.StatiticResult;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -87,7 +87,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public ArrayList<StatiticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
+	public ArrayList<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -96,7 +96,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public List<StatiticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
+	public List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
 		// TODO Auto-generated method stub
 		return null;
 	}
