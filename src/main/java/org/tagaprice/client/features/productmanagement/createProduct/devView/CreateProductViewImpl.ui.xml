@@ -47,6 +47,12 @@
 							<my:PackageSelecter ui:field="_packages"></my:PackageSelecter>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							<my:StatisticSelecter ui:field="_statistic"></my:StatisticSelecter>
+						</td>
+					</tr>
+					
 					
 					<tr>
 						<td colspan="2">

@@ -67,6 +67,10 @@
   	<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" /> 
   </replace-with>
   
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" /> 
+  </replace-with>
+  
 
   
 

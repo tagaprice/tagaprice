@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public class ShopSelecter extends Composite implements IShopSelecter {
 
-	IShopSelecter shopSelecter = GWT.create(IShopSelecter.class);
+	private IShopSelecter shopSelecter = GWT.create(IShopSelecter.class);
 
 	public ShopSelecter(){
 		initWidget(shopSelecter.asWidget());
