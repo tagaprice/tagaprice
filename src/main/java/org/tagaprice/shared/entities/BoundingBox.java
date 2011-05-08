@@ -23,8 +23,8 @@ public class BoundingBox implements Serializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 
-	private double x1, y1;
-	private double x2, y2;
+	private double _southWestLat, _southWestLng;
+	private double _northEastLat, _northEastLng;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -39,29 +39,29 @@ public class BoundingBox implements Serializable {
 	 * @param x2
 	 * @param y2
 	 */
-	public BoundingBox(double x1, double y1, double x2, double y2)
+	public BoundingBox(double southWestLat, double southWestLng, double northEastLat, double northEastLng)
 	{
 		//Make sure the the coordinates of (x1, y1) are lower than for the point (x2, y2).
-		if (x1 <= x2)
+		if (southWestLat <= northEastLat)
 		{
-			this.x1 = x1;
-			this.x2 = x2;
+			this._southWestLat = southWestLat;
+			this._northEastLat = northEastLat;
 		}
 		else
 		{
-			this.x1 = x2;
-			this.x2 = x1;
+			this._southWestLat = northEastLat;
+			this._northEastLat = southWestLat;
 		}
 
-		if (y1 <= y2)
+		if (southWestLng <= northEastLng)
 		{
-			this.y1 = y1;
-			this.y2 = y2;
+			this._southWestLng = southWestLng;
+			this._northEastLng = northEastLng;
 		}
 		else
 		{
-			this.y1 = y2;
-			this.y2 = y1;
+			this._southWestLng = northEastLng;
+			this._northEastLng = southWestLng;
 		}
 	}
 
@@ -69,41 +69,41 @@ public class BoundingBox implements Serializable {
 	 * Getter for x1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getX1()
+	public double getSouthWestLat()
 	{
-		return (x1);
+		return (_southWestLat);
 	}
 
 	/**
 	 * Getter for y1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getY1()
+	public double getSouthWestLng()
 	{
-		return (y1);
+		return (_southWestLng);
 	}
 
 	/**
 	 * Getter for x2. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getX2()
+	public double getNorthEastLat()
 	{
-		return (x2);
+		return (_northEastLat);
 	}
 
 	/**
 	 * Getter for y2. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getY2()
+	public double getNorthEastLng()
 	{
-		return (y2);
+		return (_northEastLng);
 	}
 
 	@Override
 	public String toString() {
-		return "x1: "+x1+", y1: "+y1+", x2: "+x2+", y2: "+y2;
+		return "_southWestLat: "+_southWestLat+", _southWestLng: "+_southWestLng+", _northEastLat: "+_northEastLat+", _northEastLng: "+_northEastLng;
 	}
 
 }
