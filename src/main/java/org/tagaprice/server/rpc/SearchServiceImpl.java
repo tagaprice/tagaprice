@@ -3,7 +3,6 @@ package org.tagaprice.server.rpc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,14 +11,13 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
-import org.tagaprice.shared.entities.Quantity;
-import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.Currency;
-import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -34,12 +32,14 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	private IShopDao shopDAO;
 	private IProductDao productDAO;
+	private IReceiptDao receiptDAO;
 	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		shopDAO = daoFactory.getShopDao();
 		productDAO = daoFactory.getProductDao();
+		receiptDAO = daoFactory.getReceiptDao();
 	}
 
 
@@ -95,21 +95,35 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	public ArrayList<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
 		//TODO search
 		//Test Data
+		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
 
-		ArrayList<StatisticResult> test = new ArrayList<StatisticResult>();
-		{
-			Shop s1 = new Shop(null, "Billa - Blumauergasse 1B");
-			s1.setAddress(new Address("Blumauergasse 1B", 48.21890, 16.38197));
-			test.add(new StatisticResult(
-					new Date(),
-					s1,
-					null,
-					new Quantity(new BigDecimal("500"),new Unit(null, "ml")),
-					new Price(new BigDecimal("20.3"), Currency.euro)));
+		try {
+			for(Receipt r:receiptDAO.list()){
+				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
+						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
+						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
+						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
+					for(ReceiptEntry re:r.getReceiptEntries()){
+						if(id.equals(re.getPackage().getProduct().getId())){
+							rc.add(new StatisticResult(
+									r.getDate(),
+									r.getShop(),
+									null,
+									re.getPackage().getQuantity(),
+									re.getPrice()));
+						}
 
+					}
+				}
 
-
+			}
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
+
+		/*
 		{
 			Shop s1 = new Shop(null, "Billa - Holzhausergasse 9");
 			s1.setAddress(new Address("Holzhausergasse 9", 48.21977, 16.38901));
@@ -120,7 +134,8 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 					new Quantity(new BigDecimal("200"),new Unit(null, "ml")),
 					new Price(new BigDecimal("15"), Currency.euro)));
 		}
-		return test;
+		 */
+		return rc;
 	}
 
 
