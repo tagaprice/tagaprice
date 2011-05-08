@@ -1,9 +1,14 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -88,6 +93,13 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public ArrayList<Package> getPackages();
 
+
+	/**
+	 * Set statistic results
+	 * @param results statistic results.
+	 */
+	public void setStatisticResults(List<StatisticResult> results);
+
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IProductView} to control this view. It is also necessary
 	 * for the {@link IProductView} to communicate with the {@link Presenter}
@@ -136,6 +148,14 @@ public interface ICreateProductView extends IsWidget {
 		 * TODO: Implement event
 		 */
 		public void onCategorySelectedEvent();
+
+		/**
+		 * 	This event is called when the user has changed something at the category widget
+		 * @param bbox BBox to search for Shop
+		 * @param begin start Date
+		 * @param end end Date
+		 */
+		public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end);
 	}
 
 }

@@ -1,7 +1,5 @@
 package org.tagaprice.client.generics.widgets.devView;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +12,12 @@ import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
+import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
-import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.Quantity;
-import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.receiptManagement.Currency;
-import org.tagaprice.shared.entities.receiptManagement.Price;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
-
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -38,8 +33,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	VerticalPanel resultList = new VerticalPanel();
 
 	//OSM
-	Map osmMap;
+	Map _osmMap;
 	Vector layer = new Vector("shops");
+	IStatisticChangeHandler _handler;
 
 	public StatisticSelecter() {
 		initWidget(vePa1);
@@ -49,14 +45,14 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		MapWidget omapWidget = new MapWidget("300px", "200px", defaultMapOptions);
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
 		osm_2.setIsBaseLayer(true);
-		osmMap = omapWidget.getMap();
-		osmMap.addLayer(osm_2);
+		_osmMap = omapWidget.getMap();
+		_osmMap.addLayer(osm_2);
 		vePa1.add(omapWidget);
 
 		LonLat lonLat = new LonLat(16.37692,48.21426);
 		lonLat.transform("EPSG:4326", "EPSG:900913");
-		osmMap.setCenter(lonLat, 15);
-		osmMap.addLayer(layer);
+		_osmMap.setCenter(lonLat, 15);
+		_osmMap.addLayer(layer);
 
 		//Datens
 		vePa1.add(new Label("Set date range"));
@@ -73,54 +69,47 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 
 
-		osmMap.addMapMoveEndListener(new MapMoveEndListener() {
+		_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
 
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				System.out.println("mapMoved: ");
+				sendSomethingChanged();
 			}
 		});
 
 
-		//Test Data
+		beginDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
 
-		ArrayList<StatisticResult> test = new ArrayList<StatisticResult>();
-		{
-			Shop s1 = new Shop(null, "Billa - Blumauergasse 1B");
-			s1.setAddress(new Address("Blumauergasse 1B", 48.21890, 16.38197));
-			test.add(new StatisticResult(
-					new Date(),
-					s1,
-					null,
-					new Quantity(new BigDecimal("500"),new Unit(null, "ml")),
-					new Price(new BigDecimal("20.3"), Currency.euro)));
+			@Override
+			public void onValueChange(ValueChangeEvent<Date> arg0) {
+				sendSomethingChanged();
+			}
+		});
+
+		endDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Date> arg0) {
+				sendSomethingChanged();
+			}
+		});
 
 
 
-		}
-		{
-			Shop s1 = new Shop(null, "Billa - Holzhausergasse 9");
-			s1.setAddress(new Address("Holzhausergasse 9", 48.21977, 16.38901));
-			test.add(new StatisticResult(
-					new Date(),
-					s1,
-					null,
-					new Quantity(new BigDecimal("200"),new Unit(null, "ml")),
-					new Price(new BigDecimal("15"), Currency.euro)));
-		}
-		setStatisticResults(test);
 
 	}
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
+		layer.destroyFeatures();
+		resultList.clear();
 		for(StatisticResult s:results){
 			resultList.add(new Label(
 					s.getPrice().getPrice().toString()+""+
 					s.getPrice().getCurrency()+" "+
 					s.getQuantity().getQuantity().toString()+""+
 					s.getQuantity().getUnit().getTitle()+" "+
-					s.getShop().getTitle()));
+					s.getShop().getTitle()+""+Math.random()));
 
 			LonLat l = new LonLat(s.getShop().getAddress().getLng(), s.getShop().getAddress().getLat());
 			l.transform("EPSG:4326", "EPSG:900913");
@@ -135,6 +124,28 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	public void setDate(Date begin, Date end) {
 		beginDate.setValue(begin);
 		endDate.setValue(end);
+	}
+
+	@Override
+	public void addStatisticChangeHandler(IStatisticChangeHandler handler) {
+		_handler=handler;
+	}
+
+	private void sendSomethingChanged(){
+		if(_handler!=null){
+
+			LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftY(), _osmMap.getExtent().getLowerLeftX());
+			LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightY(), _osmMap.getExtent().getUpperRightX());
+			southWest.transform("EPSG:900913","EPSG:4326");
+			northEast.transform("EPSG:900913","EPSG:4326");
+
+
+			_handler.onChange(new BoundingBox(
+					southWest.lat(),
+					southWest.lon(),
+					northEast.lat(),
+					northEast.lon()), beginDate.getValue(), endDate.getValue());
+		}
 	}
 
 }

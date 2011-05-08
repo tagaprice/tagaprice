@@ -3,6 +3,7 @@ package org.tagaprice.server.rpc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,7 +15,11 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -88,8 +93,34 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public ArrayList<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO search
+		//Test Data
+
+		ArrayList<StatisticResult> test = new ArrayList<StatisticResult>();
+		{
+			Shop s1 = new Shop(null, "Billa - Blumauergasse 1B");
+			s1.setAddress(new Address("Blumauergasse 1B", 48.21890, 16.38197));
+			test.add(new StatisticResult(
+					new Date(),
+					s1,
+					null,
+					new Quantity(new BigDecimal("500"),new Unit(null, "ml")),
+					new Price(new BigDecimal("20.3"), Currency.euro)));
+
+
+
+		}
+		{
+			Shop s1 = new Shop(null, "Billa - Holzhausergasse 9");
+			s1.setAddress(new Address("Holzhausergasse 9", 48.21977, 16.38901));
+			test.add(new StatisticResult(
+					new Date(),
+					s1,
+					null,
+					new Quantity(new BigDecimal("200"),new Unit(null, "ml")),
+					new Price(new BigDecimal("15"), Currency.euro)));
+		}
+		return test;
 	}
 
 

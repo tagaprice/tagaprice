@@ -12,4 +12,6 @@ public interface IStatisticSelecter extends IsWidget {
 	public void setStatisticResults(List<StatisticResult> results);
 
 	public void setDate(Date begin, Date end);
+
+	public void addStatisticChangeHandler(IStatisticChangeHandler handler);
 }

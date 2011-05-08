@@ -26,4 +26,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		statisticSelecter.setDate(begin, end);
 	}
 
+	@Override
+	public void addStatisticChangeHandler(IStatisticChangeHandler handler) {
+		statisticSelecter.addStatisticChangeHandler(handler);
+	}
+
 }
