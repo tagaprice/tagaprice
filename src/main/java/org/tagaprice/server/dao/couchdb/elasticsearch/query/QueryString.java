@@ -2,7 +2,7 @@ package org.tagaprice.server.dao.couchdb.elasticsearch.query;
 
 import org.svenson.JSONProperty;
 
-public class QueryString {
+public class QueryString implements Query {
 	private String m_query;
 	private QueryString.DefaultOperator m_defaultOperator;		
 	
@@ -36,6 +36,11 @@ public class QueryString {
 		public String value() {
 			return this.value;
 		}
+	}
+
+	@Override
+	public String queryType() {
+		return "query_string";
 	}
 
 }
