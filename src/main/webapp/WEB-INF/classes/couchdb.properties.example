@@ -17,3 +17,7 @@ port=5984
 
 #database=tagaprice
 #ssl=true
+
+#elasticSearch.host=localhost
+#elasticSearch.port=9200
+#elasticSearch.index=tagaprice
