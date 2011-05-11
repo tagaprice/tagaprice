@@ -30,12 +30,13 @@ public class InitServlet extends HttpServlet {
 				daoFactoryClassName = context.getInitParameter("daoFactoryClass");
 				if (daoFactoryClassName == null) throw new ServletException("No 'daoFactory' context parameter found!");
 			}
-			log("Blubb: "+daoFactoryClassName);
+			log("Using DAO factory '"+daoFactoryClassName+"'");
 			
 			// Then ask the ClassLoader to resolve it for us and create an instance
 			Object daoFactoryObject = Thread.currentThread().getContextClassLoader().loadClass(daoFactoryClassName).newInstance(); 
 			if (daoFactoryObject instanceof IDaoFactory) {
 				m_daoFactory = (IDaoFactory) daoFactoryObject;
+				m_daoFactory.init();
 			}
 		}
 		catch (ClassNotFoundException e) {

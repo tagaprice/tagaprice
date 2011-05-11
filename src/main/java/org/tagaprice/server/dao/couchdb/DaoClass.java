@@ -49,7 +49,6 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
 	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
-		InitialInjector injector = new InitialInjector();
 		String dbName;
 
 		m_class = classObject;
@@ -70,12 +69,6 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		
 		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 
-		try {
-			injector.init(m_server, dbName);
-		} catch (IOException e) {
-			m_logger.log("Error while initializing CouchDB");
-			e.printStackTrace();
-		}
 		m_db = new Database(m_server, dbName);
 	}
 

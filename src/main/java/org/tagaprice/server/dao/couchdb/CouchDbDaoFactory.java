@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.servlet.ServletException;
+
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -20,11 +22,18 @@ import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
+
 /**
  * IDaoFactory implementation providing a CouchDB persistence layer
  */
 public class CouchDbDaoFactory implements IDaoFactory {
-	static Properties m_dbConfig = null;
+	private static final String defaultHost = "localhost";
+	private static final String defaultPort = "5984";
+	private static final String defaultDatabase = "tagaprice";
+	private static final String defaultSsl = "false"; // defaulting to false (we don't need ssl on localhost)
+
+	private static Properties m_dbConfig = null;
+	private static Server m_server = null;
 	
 	private ICategoryDao m_categoryDao = null;
 	private IPackageDao m_packageDao = null;
@@ -51,21 +60,28 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 	
 	static Server getServerObject(Properties dbConfig) {
-		String host = dbConfig.getProperty("host", "localhost");
-		int port = Integer.parseInt(dbConfig.getProperty("port", "5984"));
-		Server rc = new ServerImpl(host, port, Boolean.parseBoolean(dbConfig.getProperty("ssl", "false"))); // we don't need ssl on localhost
-		
-		if (dbConfig.containsKey("user") || dbConfig.containsKey("pwd")) {
-			String user = dbConfig.getProperty("user");
-			String password = dbConfig.getProperty("pwd");
-			AuthScope authScope = new AuthScope(host, port);
-			Credentials credentials = new UsernamePasswordCredentials(user, password);
-			m_logger.log("Connecting as '"+user+"' to the CouchDB server at '"+host+":"+port+"'");
-			rc.setCredentials(authScope, credentials);
-		}
-		else m_logger.log("Connecting anonymously to the CouchDB server at '"+host+":"+port+"'");
+		if (m_server == null) {
+			String host = dbConfig.getProperty("host", defaultHost);
+			int port = Integer.parseInt(dbConfig.getProperty("port", defaultPort));
+			boolean useSsl = Boolean.parseBoolean(dbConfig.getProperty("ssl", defaultSsl));
+			m_server = new ServerImpl(host, port, useSsl);
 
-		return rc;
+			if (dbConfig.containsKey("user") || dbConfig.containsKey("password")) {
+				String user = dbConfig.getProperty("user");
+				String password = dbConfig.getProperty("password");
+	
+				AuthScope authScope = new AuthScope(host, port);
+				Credentials credentials = new UsernamePasswordCredentials(user, password);
+				m_logger.log("Connecting to the CouchDB server at '"+host+":"+port+"' as user '"+user+"'");
+				m_server.setCredentials(authScope, credentials);
+			}
+			else {
+				m_logger.log("Connecting anonymously to the CouchDB server at '"+host+":"+port+"'");
+			}
+	
+			if (useSsl) m_logger.log("using SSL");
+		}
+		return m_server;
 	}
 	
 	static Server getServerObject() throws IOException {
@@ -183,5 +199,18 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		}
 		return m_entityDao;
 	}
-
+	
+	@Override
+	public void init() throws ServletException {
+		InitialInjector injector = new InitialInjector();
+		String dbName;
+		try {
+			dbName = getConfiguration().getProperty("database", defaultDatabase);
+			injector.init(getServerObject(), dbName);
+		} catch (Exception e) {
+			m_logger.log("Error while initializing CouchDB");
+			e.printStackTrace();
+			throw new ServletException("Error while initializing CouchDB", e);
+		}
+	}
 }
