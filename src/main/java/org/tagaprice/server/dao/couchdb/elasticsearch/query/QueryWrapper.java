@@ -3,7 +3,6 @@ package org.tagaprice.server.dao.couchdb.elasticsearch.query;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.svenson.DynamicProperties;
 import org.svenson.JSONProperty;
 
@@ -21,7 +20,7 @@ public class QueryWrapper implements DynamicProperties {
 
 	@Override
 	public void setProperty(String name, Object value) {
-		throw new NotImplementedException("QueryWrapper can only be serialized (but not deserialized)");
+		// do nothing
 	}
 
 	@Override
