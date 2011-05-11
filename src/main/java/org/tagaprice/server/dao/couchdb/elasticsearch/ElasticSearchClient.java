@@ -8,7 +8,6 @@ import org.svenson.JSONParser;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
-import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryWrapper;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 
 public class ElasticSearchClient {
@@ -20,21 +19,17 @@ public class ElasticSearchClient {
     }
 
 	public SearchResult find(String query, int limit) {
-		QueryObject queryObject = new QueryObject(new QueryWrapper(new QueryString(query)), 0, limit);
+		QueryObject queryObject = new QueryObject(new QueryString(query), 0, limit);
 		return find(queryObject);
 	}
 	
 	public SearchResult find(String query, String entityType, int limit) {
 		QueryObject queryObject = new QueryObject(
-				new QueryWrapper(
-						new Filtered(
-								new TermFilter(
-										new Term("entityType", entityType)
-								),
-								new QueryWrapper(
-										new QueryString(query)
-								)
-						)
+				new Filtered(
+						new TermFilter(
+								new Term("entityType", entityType)
+						),
+						new QueryString(query)
 				), 0, limit
 		);
 		return find(queryObject);
