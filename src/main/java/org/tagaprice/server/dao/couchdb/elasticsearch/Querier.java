@@ -5,6 +5,8 @@ import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
+import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryObject;
+import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 
 public class Querier {
     // we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
@@ -15,7 +17,7 @@ public class Querier {
     }
 
 	public void find(String query, int limit) {
-		QueryObject queryObject = new QueryObject(new QueryObject.Query(new QueryObject.QueryString(query)), 0, limit);
+		QueryObject queryObject = new QueryObject(new QueryObject.Query(new QueryString(query)), 0, limit);
 		find(queryObject);
 	}
 	
