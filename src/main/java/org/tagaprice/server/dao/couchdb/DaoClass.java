@@ -101,7 +101,12 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 
 	public List<T> find(String query) throws DaoException {
 		if (m_searchClient == null) {
-			m_searchClient = new ElasticSearchClient();
+			try {
+				m_searchClient = new ElasticSearchClient(CouchDbDaoFactory.getConfiguration());
+			}
+			catch (IOException e) {
+				throw new DaoException("Error while fetching the database configuration!", e);
+			}
 		}
 		
 		SearchResult searchResult = m_searchClient.find(query, m_entityType, 50);
