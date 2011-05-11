@@ -13,7 +13,7 @@ port=5984
 # Further information can be found here:
 # https://issues.apache.org/jira/browse/COUCHDB-683?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel#issue-tabs
 #user=
-#pwd=
+#password=
 
 #database=tagaprice
 #ssl=true
