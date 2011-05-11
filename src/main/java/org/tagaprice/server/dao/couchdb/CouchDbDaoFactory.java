@@ -95,32 +95,17 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 * @throws IOException if the config file couldn't be read
 	 */
 	private static Properties _readProperties(String filename) throws IOException {
-		Properties defaults = new Properties();
-		boolean propertiesRead = false;
-		
-		try {
-			InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename+".default");
-			if (stream != null) {
-				m_logger.log("Reading default configuration file '"+filename+".default'");
-				defaults.load(stream);
-				propertiesRead = true;
-			}
-			else m_logger.log("Couldn't read default configuration file '"+filename+".default'");
-
-		}
-		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
-		
-		Properties rc = new Properties(defaults);
+		Properties rc = new Properties();
 		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
 		if (stream != null) {
 			m_logger.log("Reading configuration file '"+filename+"'");
 			rc.load(stream);
-			propertiesRead = true;
 		}
-		else  m_logger.log("Couldn't read configuration file '"+filename+"'");
-		
-		if (!propertiesRead) throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
-		
+		else  {
+			m_logger.log("Couldn't read configuration file '"+filename+"'");
+			throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
+		}
+
 		return rc;
 	}
 
