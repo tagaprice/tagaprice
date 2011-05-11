@@ -13,6 +13,8 @@ import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONParser;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 /**
  * This class reads the files in src/main/webapp/WEB-INF/couchdb_inject/ and applies them to the database if necessary.
@@ -21,6 +23,7 @@ import org.svenson.JSONParser;
  */
 public class InitialInjector {
 	Database m_db = null;
+	MyLogger m_logger = LoggerFactory.getLogger(InitialInjector.class);
 
 	public void init(Server server, String dbName) throws IOException {
 		if (!server.listDatabases().contains(dbName)) {
@@ -29,6 +32,7 @@ public class InitialInjector {
 		
 		if (getDbVersion(server, dbName) == null) {
 			// perform a full injection
+			m_logger.log("Injecting initial CouchDB documents");
 			m_db = new Database(server, dbName);
 			_injectFolder("view");
 			_injectFolder("data");
