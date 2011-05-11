@@ -31,8 +31,10 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	@Override
 	public List<Shop> getShops(Shop searchCriteria) throws DaoException {
 		logger.log("getShops with Shop SearchCriteria ");
-
-		return shopDAO.list();
+		if (searchCriteria != null) {
+			return shopDAO.find(searchCriteria.getTitle());
+		}
+		else return shopDAO.list();
 	}
 
 	@Override
