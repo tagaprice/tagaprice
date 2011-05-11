@@ -10,20 +10,25 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
+import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,11 +44,23 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	//OSM
 	Map _osmMap;
-	Vector layer = new Vector("shops");
+	VectorOptions vectorOptions = new VectorOptions();
+	Vector layer = new Vector("shops",vectorOptions);
 	IStatisticChangeHandler _handler;
 
 	public StatisticSelecter() {
 		initWidget(vePa1);
+
+		//******** INIT OSM Vector ************/
+		//Style
+		Style style = new Style();
+		style.setStrokeColor("#000000");
+		style.setStrokeWidth(2);
+		style.setFillColor("#00FF00");
+		style.setFillOpacity(0.5);
+		style.setPointRadius(8);
+		style.setStrokeOpacity(0.8);
+		vectorOptions.setStyle(style);
 
 		//inti Maps
 		HorizontalPanel hoPa1 = new HorizontalPanel();
@@ -117,20 +134,6 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			sortedByShopList.get(s.getShop()).add(s);
 
-			/*
-			resultList.add(new Label(
-					s.getPrice().getPrice().toString()+""+
-					s.getPrice().getCurrency()+" "+
-					s.getQuantity().getQuantity().toString()+""+
-					s.getQuantity().getUnit().getTitle()+" "+
-					s.getShop().getTitle()));
-
-			LonLat l = new LonLat(s.getShop().getAddress().getLng(), s.getShop().getAddress().getLat());
-			l.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(l.lon(), l.lat());
-			VectorFeature pointFeature = new VectorFeature(point);
-			layer.addFeature(pointFeature);
-			 */
 		}
 
 		//Draw List
@@ -138,31 +141,36 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			VerticalPanel vePa = new VerticalPanel();
 
 			BigDecimal cheapest = null;
+			Currency currency = Currency.dkk;;
+			Unit unit = new Unit();
 			for(StatisticResult sr: sortedByShopList.get(key)){
 				vePa.add(new Label(" - "+
 						sr.getPrice().getPrice().toString()+""+
-						sr.getPrice().getCurrency()+" "+
+						sr.getPrice().getCurrency()+"/"+
 						sr.getQuantity().getQuantity().toString()+""+
 						sr.getQuantity().getUnit().getTitle()));
 
 
 				if(cheapest==null)
 				{
-					cheapest=sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN);
+					currency=sr.getPrice().getCurrency();
+					unit = sr.getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 				}
 				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN);
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 					}
 
 			}
-			resultList.add(new Label(cheapest.toString()+" "+key.getTitle()));
+			resultList.add(new HTML("<a href=\"#CreateShop:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
 			l.transform("EPSG:4326", "EPSG:900913");
 			Point point = new Point(l.lon(), l.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
+
 			layer.addFeature(pointFeature);
 		}
 

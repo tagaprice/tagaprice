@@ -1,10 +1,15 @@
 package org.tagaprice.client.features.shopmanagement.createShop.devView;
 
+import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
+import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
+import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.core.client.GWT;
@@ -42,6 +47,9 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@UiField
 	FlexTable _receiptEntriesTable;
 
+	@UiField
+	StatisticSelecter _statisticSelecter;
+
 	PopupPanel _brandiPop = new PopupPanel(true);
 
 	Shop _brand;
@@ -56,6 +64,16 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			@Override
 			public void onKeyUp(KeyUpEvent arg0) {
 				_presenter.brandingSearch(_branding.getText());
+			}
+		});
+
+
+		//Add statistic change handler
+		_statisticSelecter.addStatisticChangeHandler(new IStatisticChangeHandler() {
+
+			@Override
+			public void onChange(BoundingBox bbox, Date begin, Date end) {
+				_presenter.onStatisticChangedEvent(bbox, begin, end);
 			}
 		});
 	}
@@ -152,6 +170,11 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		if(branding==null)_branding.setText("");
 		else _branding.setText(_brand.getTitle());
 		_brandiPop.hide();
+	}
+
+	@Override
+	public void setStatisticResults(List<StatisticResult> results) {
+		_statisticSelecter.setStatisticResults(results);
 	}
 
 
