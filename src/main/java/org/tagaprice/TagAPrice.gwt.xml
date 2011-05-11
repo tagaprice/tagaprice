@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='TagAPrice'>
 
+  <servlet path="/unitservice" class="org.tagaprice.server.rpc.UnitServiceImpl" />
+
   <!-- Google Maps script must before inherits --> 
   
   <inherits name='org.gwtopenmaps.openlayers.OpenLayers'/>
@@ -14,6 +16,7 @@
   <inherits name="com.google.gwt.i18n.I18N"/>
   <inherits name='com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha' />
   <inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
+  <inherits name="com.google.gwt.junit.JUnit"/>
   
   <replace-with class="org.tagaprice.client.ClientFactoryImpl">
   	<when-type-is class="org.tagaprice.client.ClientFactory" /> 
@@ -64,6 +67,10 @@
   	<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" /> 
   </replace-with>
   
+  <replace-with class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
+  	<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" /> 
+  </replace-with>
+  
 
   
 
@@ -83,4 +90,10 @@
   <source path="client" />
   <source path="shared" />
   <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  
+  
 </module>

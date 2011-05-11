@@ -5,6 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.mock.MockDaoFactory;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 /**
  * DAO Factory initialization servlet
@@ -17,10 +19,11 @@ import org.tagaprice.server.dao.IDaoFactory;
 public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static IDaoFactory m_daoFactory = null;
-	
+
 	/**
-	 * Read the daoFactory context-parameter from web.xml 
+	 * Read the daoFactory context-parameter from web.xml
 	 */
+	@Override
 	public void init() throws ServletException {
 		try {
 			// First get the class name
@@ -33,7 +36,7 @@ public class InitServlet extends HttpServlet {
 			log("Using DAO factory '"+daoFactoryClassName+"'");
 			
 			// Then ask the ClassLoader to resolve it for us and create an instance
-			Object daoFactoryObject = Thread.currentThread().getContextClassLoader().loadClass(daoFactoryClassName).newInstance(); 
+			Object daoFactoryObject = Thread.currentThread().getContextClassLoader().loadClass(daoFactoryClassName).newInstance();
 			if (daoFactoryObject instanceof IDaoFactory) {
 				m_daoFactory = (IDaoFactory) daoFactoryObject;
 				m_daoFactory.init();
@@ -49,12 +52,21 @@ public class InitServlet extends HttpServlet {
 			throw new ServletException("Failed to load DAO Factory", e);
 		}
 	}
-	
+
 	/**
 	 * Returns a singleton instance of the configured {@link IDaoFactory} implementation
 	 * @return IDaoFactory singleton instance
 	 */
 	public static IDaoFactory getDaoFactory() {
-		return m_daoFactory;
+		//TODO maybe there is a more beautiful implementation. Because this is only important for testings.
+		if(InitServlet.m_daoFactory==null){
+			try {
+				InitServlet.m_daoFactory=new MockDaoFactory();
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
+		}
+		return InitServlet.m_daoFactory;
 	}
+
 }

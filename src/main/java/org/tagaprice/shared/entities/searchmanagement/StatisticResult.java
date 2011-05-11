@@ -8,7 +8,7 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
-public class StatiticResult implements Serializable {
+public class StatisticResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,12 +19,12 @@ public class StatiticResult implements Serializable {
 	private Price _price;
 
 
-	public StatiticResult() {
+	public StatisticResult() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public StatiticResult(Date date, Shop shop, Product product, Quantity quantity, Price price) {
+	public StatisticResult(Date date, Shop shop, Product product, Quantity quantity, Price price) {
 		super();
 		_date = date;
 		_shop = shop;

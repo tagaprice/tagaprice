@@ -20,7 +20,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * 
  * 
  */
-public class AccountPersistor {
+public class AccountPersistor implements IAccountPersistor {
+
+
 	private static final MyLogger _logger = LoggerFactory.getLogger(AccountPersistor.class);
 	private Address I_ADDRESS;
 	private FBCore _fbCore = new FBCore();
@@ -31,10 +33,12 @@ public class AccountPersistor {
 		_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
 	}
 
+	@Override
 	public void setClientFactory(ClientFactory clientFactory) {
 		_clientFactory=clientFactory;
 	}
-	
+
+	@Override
 	public String getSessionId() {
 		return Cookies.getCookie("TAP_SID");
 	}
@@ -42,6 +46,7 @@ public class AccountPersistor {
 	/**
 	 * Returns global Address
 	 */
+	@Override
 	public Address getAddress() {
 
 		if(Cookies.getCookie("TAP_address")!=null &&
@@ -62,6 +67,7 @@ public class AccountPersistor {
 	 * Set Global Address. Saves it also in the cookies.
 	 * @param address setGlobalAddress
 	 */
+	@Override
 	public void setAddress(Address address) {
 		AccountPersistor._logger.log("setAddress: "+address);
 		if(I_ADDRESS==null)I_ADDRESS=new Address();
@@ -77,6 +83,7 @@ public class AccountPersistor {
 	/**
 	 * @return true if user is logged in.
 	 */
+	@Override
 	public boolean isLoggedIn() {
 		if(getSessionId()==null)
 			return false;
@@ -87,6 +94,7 @@ public class AccountPersistor {
 	/**
 	 * Logout user and remove sid
 	 */
+	@Override
 	public void logout() {
 		AccountPersistor._logger.log("LogOut Button clicked");
 		Cookies.removeCookie("TAP_SID");
@@ -123,6 +131,7 @@ public class AccountPersistor {
 	 * Log user in and set session id
 	 * @param sessionId new SessionId
 	 */
+	@Override
 	public void setSessionId(String sessionId) {
 		Cookies.setCookie("TAP_SID", sessionId);
 		checkLogin();
@@ -133,6 +142,7 @@ public class AccountPersistor {
 	 * @param email email
 	 * @param password Password
 	 */
+	@Override
 	public void login(String email, String password){
 		_clientFactory.getLoginService().setLogin(email, password, new AsyncCallback<String>() {
 
@@ -165,6 +175,7 @@ public class AccountPersistor {
 	/**
 	 * This method checks the login status and will fire all necessary events
 	 */
+	@Override
 	public void checkLogin(){
 
 		//Start Account Initialisation

@@ -55,14 +55,14 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 		//******** INIT OSM ************/
 		MapOptions defaultMapOptions = new MapOptions();
-		LonLat lonLat = new LonLat(16.37692,48.21426);
+		//LonLat lonLat = new LonLat(16.37692,48.21426);
 		MapWidget omapWidget = new MapWidget("200px", "200px", defaultMapOptions);
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
 		osm_2.setIsBaseLayer(true);
 		osmMap = omapWidget.getMap();
 		osmMap.addLayer(osm_2);
-		lonLat.transform("EPSG:4326", "EPSG:900913");
-		osmMap.setCenter(lonLat, 15);
+		//lonLat.transform("EPSG:4326", "EPSG:900913");
+		//osmMap.setCenter(lonLat, 15);
 
 		//******** INIT OSM Vector ************/
 		VectorOptions vectorOptions = new VectorOptions();
@@ -79,9 +79,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		// Create the layer
 		layer = new Vector("Marker", vectorOptions);
 
-		point = new Point(lonLat.lon(), lonLat.lat());
-		VectorFeature pointFeature = new VectorFeature(point);
-		layer.addFeature(pointFeature);
+		//point = new Point(lonLat.lon(), lonLat.lat());
+		//VectorFeature pointFeature = new VectorFeature(point);
+		//layer.addFeature(pointFeature);
 		DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
 
 		DragFeature dragFeature = new DragFeature(layer, dragFeatureOptions);
@@ -89,6 +89,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		dragFeature.activate();
 
 		osmMap.addLayer(layer);
+
 
 
 
@@ -171,12 +172,22 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	private void setLatLng(LonLat lonLat){
+		System.out.println("setLatLng: "+lonLat);
 		_lat.setText(""+lonLat.lat());
 		_lng.setText(""+lonLat.lon());
 
 		osmMap.setCenter(lonLat);
-		point.setXY(lonLat.lon(), lonLat.lat());
-		layer.redraw();
+
+		if(point==null){
+			point= new Point(lonLat.lon(), lonLat.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+			layer.addFeature(pointFeature);
+			//layer.redraw();
+		}else{
+			point.setXY(lonLat.lon(), lonLat.lat());
+
+		}
+		//layer.redraw();
 
 	}
 

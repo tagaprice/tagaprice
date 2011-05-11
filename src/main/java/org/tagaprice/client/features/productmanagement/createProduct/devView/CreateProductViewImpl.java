@@ -1,15 +1,22 @@
 package org.tagaprice.client.features.productmanagement.createProduct.devView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
+import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -52,6 +59,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@UiField
 	CategorySelecter category;
 
+	@UiField
+	StatisticSelecter _statistic;
 
 	@UiField
 	Button saveButton;
@@ -74,6 +83,14 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 				_presenter.onUnitSelectedEvent();
 				_packages.setRelatedUnit(_unit.getUnit());
 
+			}
+		});
+
+		//Add statistic change handler
+		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
+			@Override
+			public void onChange(BoundingBox bbox, Date begin, Date end) {
+				_presenter.onStatisticChangedEvent(bbox, begin, end);
 			}
 		});
 	}
@@ -140,6 +157,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public Unit getUnit() {
 		return _unit.getUnit();
+	}
+
+	@Override
+	public void setStatisticResults(List<StatisticResult> results) {
+		_statistic.setStatisticResults(results);
+
 	}
 
 

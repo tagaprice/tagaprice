@@ -4,6 +4,8 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 public class GwtTestAEntity extends GWTTestCase {
 
+
+
 	@Override
 	public String getModuleName() {
 		return "org.tagaprice.TagAPrice";

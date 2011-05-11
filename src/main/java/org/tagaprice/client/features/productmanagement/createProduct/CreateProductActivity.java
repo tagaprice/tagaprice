@@ -1,7 +1,15 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
+import java.util.Date;
+import java.util.List;
+
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.*;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
@@ -156,6 +164,28 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		view.setUnit(product.getUnit());
 
 		view.setPackages(product.getPackages());
+	}
+
+	@Override
+	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
+		CreateProductActivity._logger.log("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0));
+
+		_clientFactory.getSearchService().searchProductPrices(_product.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
+
+			@Override
+			public void onSuccess(List<StatisticResult> response) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class, INFOTYPE.INFO));
+				_createProductView.setStatisticResults(response);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "searchproblem: "+e, INFOTYPE.ERROR,0));
+				CreateProductActivity._logger.log("searchproblem: "+e);
+			}
+		});
+
 	}
 
 }

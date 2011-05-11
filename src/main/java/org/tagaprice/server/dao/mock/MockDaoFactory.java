@@ -38,7 +38,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final IShopDao m_shopDAO = new ShopDao();
 	private final IUnitDao m_unitDAO = new UnitDao();
 	private final IUserDao m_userDAO = new UserDao();
-	
+
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
 	public MockDaoFactory() throws DaoException {
@@ -77,7 +77,7 @@ public class MockDaoFactory implements IDaoFactory {
 		bergkasese = m_productDAO.create(bergkasese);
 
 
-		Package bergkasese1=new Package(new Quantity(new BigDecimal("500.3"), kg));
+		Package bergkasese1=new Package(new Quantity(new BigDecimal("500.3"), g));
 		bergkasese1.setProduct(bergkasese);
 		bergkasese.addPackage(bergkasese1);
 
@@ -97,20 +97,20 @@ public class MockDaoFactory implements IDaoFactory {
 		//Create address for Shop(bills)
 		//Create some Shops
 		Shop s1 = m_shopDAO.create(new Shop(m_testUser, "Billa"));
-		{
-			Shop is = m_shopDAO.create(new Shop(m_testUser, "Billa - Blumauergasse 1B"));
-			is.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
-			is.setParent(s1);
-			is=m_shopDAO.update(is);
-		}
+
+		Shop is2 = m_shopDAO.create(new Shop(m_testUser, "Billa - Blumauergasse 1B"));
+		is2.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
+		is2.setParent(s1);
+		is2=m_shopDAO.update(is2);
 
 
-		{
-			Shop is = m_shopDAO.create(new Shop(m_testUser, "Billa - Holzhausergasse 9"));
-			is.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-			is.setParent(s1);
-			is=m_shopDAO.update(is);
-		}
+
+
+		Shop is3 = m_shopDAO.create(new Shop(m_testUser, "Billa - Holzhausergasse 9"));
+		is3.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
+		is3.setParent(s1);
+		is3=m_shopDAO.update(is3);
+
 
 
 
@@ -125,14 +125,35 @@ public class MockDaoFactory implements IDaoFactory {
 		is=m_shopDAO.update(is);
 
 
+		{
+			//Create Receipt
+			Receipt receipt = new Receipt(m_testUser, "First Receipt", new Date(), is);
 
-		//Create Receipt
-		Receipt receipt = new Receipt(m_testUser, "First Receipt", new Date(), is);
+			//Receipt Entry
+			ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15.0"), Currency.dkk), bergkasese1);
+			receipt.addReceiptEntriy(recEnt);
+			receipt=m_receiptDAO.create(receipt);
+		}
 
-		//Receipt Entry
-		ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15"), Currency.dkk), bergkasese1);
-		receipt.addReceiptEntriy(recEnt);
-		receipt=m_receiptDAO.create(receipt);
+		{
+			//Create Receipt
+			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is3);
+
+			//Receipt Entry
+			receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("16.0"), Currency.dkk), bergkasese1));
+			receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("17.0"), Currency.dkk), bergkasese2));
+			receipt=m_receiptDAO.create(receipt);
+		}
+
+		{
+			//Create Receipt
+			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is2);
+
+			//Receipt Entry
+			receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("13.0"), Currency.dkk), bergkasese1));
+			receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("14.0"), Currency.dkk), bergkasese2));
+			receipt=m_receiptDAO.create(receipt);
+		}
 
 
 	}

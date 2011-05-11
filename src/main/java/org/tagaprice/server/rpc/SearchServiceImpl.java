@@ -11,11 +11,14 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.searchmanagement.StatiticResult;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.logging.LoggerFactory;
@@ -29,12 +32,14 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	private IShopDao shopDAO;
 	private IProductDao productDAO;
+	private IReceiptDao receiptDAO;
 	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		shopDAO = daoFactory.getShopDao();
 		productDAO = daoFactory.getProductDao();
+		receiptDAO = daoFactory.getReceiptDao();
 	}
 
 
@@ -87,16 +92,57 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public ArrayList<StatiticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
+		//TODO search
+		//Test Data
+		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
+
+		try {
+			for(Receipt r:receiptDAO.list()){
+				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
+						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
+						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
+						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
+					for(ReceiptEntry re:r.getReceiptEntries()){
+						if(id.equals(re.getPackage().getProduct().getId())){
+							rc.add(new StatisticResult(
+									r.getDate(),
+									r.getShop(),
+									null,
+									re.getPackage().getQuantity(),
+									re.getPrice()));
+						}
+
+					}
+				}
+
+			}
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
+		/*
+		{
+			Shop s1 = new Shop(null, "Billa - Holzhausergasse 9");
+			s1.setAddress(new Address("Holzhausergasse 9", 48.21977, 16.38901));
+			test.add(new StatisticResult(
+					new Date(),
+					s1,
+					null,
+					new Quantity(new BigDecimal("200"),new Unit(null, "ml")),
+					new Price(new BigDecimal("15"), Currency.euro)));
+		}
+		 */
+		return rc;
 	}
 
 
 
 
 	@Override
-	public List<StatiticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
+	public List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
 		// TODO Auto-generated method stub
 		return null;
 	}
