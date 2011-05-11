@@ -197,4 +197,9 @@ public class MockDaoFactory implements IDaoFactory {
 	public IUserDao getUserDao() {
 		return m_userDAO;
 	}
+
+	@Override
+	public void init() {
+		// nothing to do here
+	}
 }

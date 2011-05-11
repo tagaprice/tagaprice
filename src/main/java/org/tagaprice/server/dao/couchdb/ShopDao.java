@@ -19,7 +19,6 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 		ViewResult<?> result = m_db.queryView("shop/all", Shop.class, null, null);
 		List<Shop> rc = new ArrayList<Shop>();
 		
-		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
 			Shop shop = get(row.getId());
 			rc.add(shop);

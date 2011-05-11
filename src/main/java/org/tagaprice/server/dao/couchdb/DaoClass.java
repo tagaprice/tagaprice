@@ -1,11 +1,16 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.tagaprice.server.dao.IDaoClass;
+import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
+import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult;
+import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult.Hit;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -20,6 +25,9 @@ import org.tagaprice.shared.logging.MyLogger;
 public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	/// JCouchDB server object
 	private Server m_server;
+	
+	/// ElasticSearch client object
+	private ElasticSearchClient m_searchClient;
 	
 	/// JCouchDB database object
 	protected Database m_db;
@@ -49,7 +57,6 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
 	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
-		InitialInjector injector = new InitialInjector();
 		String dbName;
 
 		m_class = classObject;
@@ -70,12 +77,6 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		
 		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 
-		try {
-			injector.init(m_server, dbName);
-		} catch (IOException e) {
-			m_logger.log("Error while initializing CouchDB");
-			e.printStackTrace();
-		}
 		m_db = new Database(m_server, dbName);
 	}
 
@@ -98,6 +99,24 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		return entity;
 	}
 
+	public List<T> find(String query) throws DaoException {
+		if (m_searchClient == null) {
+			m_searchClient = new ElasticSearchClient();
+		}
+		
+		SearchResult searchResult = m_searchClient.find(query, 50);
+		List<T> rc = new ArrayList<T>();
+		
+		for (Hit hit: searchResult.getHits().getHits()) {
+			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
+			/// TODO do some type checking before calling get()
+			T item = get(hit.getId());
+			if (item != null) rc.add(item);
+		}
+		
+		return rc;
+	}
+	
 	/**
 	 * Request a specific revision of a document from the database
 	 * @param id Document ID

@@ -41,14 +41,7 @@ public class AbstractDAOTest {
 	
 	private static Properties _getConfiguration() throws IOException {
 		String pathPrefix = System.getProperty("user.dir")+"/src/test/resources/";
-		Properties defaults = new Properties();
-		try {
-			InputStream stream = new FileInputStream(new File(pathPrefix+"/couchdb.properties.default"));
-			if (stream.available() > 0) defaults.load(stream);
-		}
-		catch (IOException e) { /* ignore if we can't read the default config as long as we can read the specific one */ }
-		
-		Properties rc = new Properties(defaults);
+		Properties rc = new Properties();
 		InputStream stream = new FileInputStream(new File(pathPrefix+"/couchdb.properties")); 
 		if (stream.available() > 0) rc.load(stream);
 		else throw new IOException("Couldn't load resource file 'couchdb.properties'. Make sure it exists and is accessible");

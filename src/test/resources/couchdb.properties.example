@@ -1,6 +1,6 @@
 host=localhost
 port=5984
 #user=tagaprice
-#pwd=secret
+#password=secret
 database=tagaprice_test
 #ssl=true

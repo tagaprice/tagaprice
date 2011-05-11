@@ -1,0 +1,19 @@
+host=localhost
+port=5984
+
+# if you want to use password authentication, make sure your local.ini
+# (typically in /etc/couchdb) contains the following line:
+# WWW-Authenticate = Basic realm="administrator"
+# (without any ; or # before it)
+# Sending the authentication methods was disabled by CouchDB some time ago
+# to prevent HTTP password windows to pop up in the browser when using Futon.
+# This however violates the HTTP specification and causes the org.apache.http
+# library to refuse to send authentication data to the server, and therefore
+# prevents most JCouchDB write request from succeeding.
+# Further information can be found here:
+# https://issues.apache.org/jira/browse/COUCHDB-683?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel#issue-tabs
+#user=
+#password=
+
+#database=tagaprice
+#ssl=true

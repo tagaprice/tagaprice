@@ -20,6 +20,11 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	Random random = new Random(1654196865);
 
 	@Override
+	public List<Shop> find(String query) {
+		return list();
+	}
+	
+	@Override
 	public List<Shop> list() {
 		ArrayList<Shop> rc = new ArrayList<Shop>();
 
