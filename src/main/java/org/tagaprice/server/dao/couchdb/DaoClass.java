@@ -40,7 +40,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	
 	private CouchDbDaoFactory m_daoFactory;
 	
-	/// Metaclass object of the entities that will be queried
+	/// Meta class object of the entities that will be queried
 	private Class<? extends T> m_class;
 	
 	private DaoClass<? super T> m_superClassDao = null; 
@@ -104,12 +104,11 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			m_searchClient = new ElasticSearchClient();
 		}
 		
-		SearchResult searchResult = m_searchClient.find(query, 50);
+		SearchResult searchResult = m_searchClient.find(query, m_entityType, 50);
 		List<T> rc = new ArrayList<T>();
 		
 		for (Hit hit: searchResult.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
-			/// TODO do some type checking before calling get()
 			T item = get(hit.getId());
 			if (item != null) rc.add(item);
 		}
