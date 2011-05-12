@@ -11,7 +11,6 @@ import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
 import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult;
 import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult.Hit;
-import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
@@ -33,7 +32,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	protected Database m_db;
 	
 	/// Logger instance
-	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+	private MyLogger m_logger = LoggerFactory.getLogger(this.getClass());
 	
 	/// CouchDB connection properties
 	private Properties m_dbConfig;
