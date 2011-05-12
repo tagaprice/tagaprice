@@ -1,5 +1,8 @@
-host=localhost
-port=5984
+# This is the host name of the CouchDB server
+#couchdb.host=localhost
+
+# This is the port nr where the CouchDB server listens at
+#couchdb.port=5984
 
 # if you want to use password authentication, make sure your local.ini
 # (typically in /etc/couchdb) contains the following line:
@@ -10,13 +13,18 @@ port=5984
 # This however violates the HTTP specification and causes the org.apache.http
 # library to refuse to send authentication data to the server, and therefore
 # prevents most JCouchDB write request from succeeding.
-# Further information can be found here:
+# Further information can be found at this CouchDB issue page:
 # https://issues.apache.org/jira/browse/COUCHDB-683?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel#issue-tabs
-#user=
-#password=
+#couchdb.user=
+#couchdb.password=
 
-#database=tagaprice
-#ssl=true
+# Name of the CouchDB database where all our sweet entities will be persisted to
+#couchdb.database=tagaprice
+
+# SSL doesn't seem to work at the moment, although the CouchDB connection will
+# most likely happen in some protected network (e.g. lo, a private ethernet or
+# a VPN). 
+#couchdb.ssl=false
 
 #elasticSearch.host=localhost
 #elasticSearch.port=9200
