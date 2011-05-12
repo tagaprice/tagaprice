@@ -27,8 +27,8 @@ import org.tagaprice.shared.logging.MyLogger;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -105,18 +105,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 		//SearchShop
-		_shopSearch.addKeyPressHandler(new KeyPressHandler() {
+		_shopSearch.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
-			public void onKeyPress(KeyPressEvent e) {
+			public void onKeyUp(KeyUpEvent e) {
 				_presenter.shopSearchStringHasChanged(_shopSearch.getText());
 			}
 		});
 
-		_searchProducts.addKeyPressHandler(new KeyPressHandler() {
+		_searchProducts.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
-			public void onKeyPress(KeyPressEvent arg0) {
+			public void onKeyUp(KeyUpEvent arg0) {
 				_presenter.productSearchStringHasChanged(_searchProducts.getText());
 			}
 		});
