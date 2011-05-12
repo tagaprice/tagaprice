@@ -3,7 +3,6 @@ package org.tagaprice.server.dao.couchdb;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
@@ -35,7 +34,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	private MyLogger m_logger = LoggerFactory.getLogger(this.getClass());
 	
 	/// CouchDB connection properties
-	private Properties m_dbConfig;
+	private CouchDbConfig m_dbConfig;
 	
 	private CouchDbDaoFactory m_daoFactory;
 	
@@ -72,7 +71,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			return;
 		}
 		
-		dbName = m_dbConfig.getProperty("database", "tagaprice");
+		dbName = m_dbConfig.getCouchDatabase();
 		
 		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 

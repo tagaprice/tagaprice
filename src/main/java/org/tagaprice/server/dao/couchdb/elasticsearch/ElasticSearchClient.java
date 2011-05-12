@@ -1,12 +1,11 @@
 package org.tagaprice.server.dao.couchdb.elasticsearch;
 
-import java.util.Properties;
-
 import org.jcouchdb.db.Response;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
+import org.tagaprice.server.dao.couchdb.CouchDbConfig;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
@@ -15,10 +14,6 @@ import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
 public class ElasticSearchClient {
-	private static final String DEFAULT_HOST = "localhost";
-	private static final String DEFAULT_PORT = "9200";
-	private static final String DEFAULT_INDEXNAME = "tagaprice";
-	
 	/// Logger instance
 	private static MyLogger m_logger = LoggerFactory.getLogger(ElasticSearchClient.class);
 
@@ -27,10 +22,10 @@ public class ElasticSearchClient {
 
 	private String m_queryUrl;
 
-	public ElasticSearchClient(Properties configuration) {
-		String host = configuration.getProperty("elasticSearch.host", DEFAULT_HOST);
-		int port = Integer.parseInt(configuration.getProperty("elasticSearch.port", DEFAULT_PORT));
-		String indexName = configuration.getProperty("elasticSearch.index", DEFAULT_INDEXNAME);
+	public ElasticSearchClient(CouchDbConfig configuration) {
+		String host = configuration.getElasticSearchHost();
+		int port = configuration.getElasticSearchPort();
+		String indexName = configuration.getElasticSearchIndex();
 		m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
 		m_server = new ServerImpl(host, port);
 
@@ -43,7 +38,7 @@ public class ElasticSearchClient {
      * @param indexName elasticsearch index name
      * @param configuration the rest of the couchdb configuration
      */
-    private void _inject(String indexName, Properties configuration) {
+    private void _inject(String indexName, CouchDbConfig configuration) {
 		String indexMetaUrl = "/_river/"+indexName+"/_meta";
 		// first check if the index already exists:
 		Response response = m_server.get(indexMetaUrl);
@@ -51,9 +46,9 @@ public class ElasticSearchClient {
 			m_logger.log("Didn't find elasticsearch index, creating it...");
 			
 			/// TODO move this data to an external file
-			String couchHost = configuration.getProperty("couchdb.host", "localhost");
-			int couchPort = Integer.parseInt(configuration.getProperty("couchdb.port", "5984"));
-			String couchDb = configuration.getProperty("couchdb.database", "tagaprice");
+			String couchHost = configuration.getCouchHost();
+			int couchPort = configuration.getCouchPort();
+			String couchDb = configuration.getCouchDatabase();
 
 			String indexJson = "{\n"
 				+ "  \"type\": \"couchdb\",\n"

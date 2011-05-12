@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
 import org.jcouchdb.db.Server;
 import org.junit.After;
@@ -30,18 +29,18 @@ public class AbstractDAOTest {
 	}
 	
 	public AbstractDAOTest() throws IOException {
-		Properties dbConfig = _getConfiguration();
+		CouchDbConfig dbConfig = _getConfiguration();
 		
-		m_dbName = dbConfig.getProperty("database", "tagaprice");
+		m_dbName = dbConfig.getCouchDatabase();
 		CouchDbDaoFactory._setConfiguration(dbConfig);
 		m_server = CouchDbDaoFactory.getServerObject();
 		
 		_injectDB(); // make sure the TestInjector gets to do this instead of the original one
 	}
 	
-	private static Properties _getConfiguration() throws IOException {
+	private static CouchDbConfig _getConfiguration() throws IOException {
 		String pathPrefix = System.getProperty("user.dir")+"/src/test/resources/";
-		Properties rc = new Properties();
+		CouchDbConfig rc = new CouchDbConfig();
 		InputStream stream = new FileInputStream(new File(pathPrefix+"/couchdb.properties")); 
 		if (stream.available() > 0) rc.load(stream);
 		else throw new IOException("Couldn't load resource file 'couchdb.properties'. Make sure it exists and is accessible");
