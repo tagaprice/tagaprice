@@ -11,24 +11,66 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 public class ElasticSearchClient {
 	private static final String DEFAULT_HOST = "localhost";
 	private static final String DEFAULT_PORT = "9200";
 	private static final String DEFAULT_INDEXNAME = "tagaprice";
 	
-    // we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
-    private Server m_server;
-    
-    private String m_queryUrl;
+	/// Logger instance
+	private static MyLogger m_logger = LoggerFactory.getLogger(ElasticSearchClient.class);
 
-    public ElasticSearchClient(Properties configuration) {
-    	String host = configuration.getProperty("elasticSearch.host", DEFAULT_HOST);
-    	int port = Integer.parseInt(configuration.getProperty("elasticSearch.port", DEFAULT_PORT));
-    	String indexName = configuration.getProperty("elasticSearch.index", DEFAULT_INDEXNAME);
-    	m_server = new ServerImpl(host, port);
-    	
-    	m_queryUrl = "/"+indexName+"/_search";
+	// we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
+	private Server m_server;
+
+	private String m_queryUrl;
+
+	public ElasticSearchClient(Properties configuration) {
+		String host = configuration.getProperty("elasticSearch.host", DEFAULT_HOST);
+		int port = Integer.parseInt(configuration.getProperty("elasticSearch.port", DEFAULT_PORT));
+		String indexName = configuration.getProperty("elasticSearch.index", DEFAULT_INDEXNAME);
+		m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
+		m_server = new ServerImpl(host, port);
+
+		m_queryUrl = "/"+indexName+"/_search";
+		_inject(indexName, configuration);
+	}
+    
+    /**
+     * This method checks if the elasticsearch river-couchdb is set up properly and does that if necessary
+     * @param indexName elasticsearch index name
+     * @param configuration the rest of the couchdb configuration
+     */
+    private void _inject(String indexName, Properties configuration) {
+		String indexMetaUrl = "/_river/"+indexName+"/_meta";
+		// first check if the index already exists:
+		Response response = m_server.get(indexMetaUrl);
+		if (response.getCode() == 404) {
+			m_logger.log("Didn't find elasticsearch index, creating it...");
+			
+			/// TODO move this data to an external file
+			String couchHost = configuration.getProperty("couchdb.host", "localhost");
+			int couchPort = Integer.parseInt(configuration.getProperty("couchdb.port", "5984"));
+			String couchDb = configuration.getProperty("couchdb.database", "tagaprice");
+
+			String indexJson = "{\n"
+				+ "  \"type\": \"couchdb\",\n"
+				+ "  \"couchdb\": {\n"
+				+ "    \"host\": \""+couchHost+"\",\n"
+				+ "    \"port\": "+couchPort+",\n"
+				+ "    \"db\": \""+couchDb+"\",\n"
+				+ "    \"filter\": null\n"
+				+ "  }\n"
+				+ "}";
+
+			response = m_server.put(indexMetaUrl, indexJson);
+
+			int responseCode = response.getCode();
+			if (responseCode >= 200 && responseCode <= 299) m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
+			else m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+		}
     }
 
 	public SearchResult find(String query, int limit) {
