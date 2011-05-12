@@ -10,6 +10,7 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
+import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.logging.LoggerFactory;
 import org.tagaprice.shared.logging.MyLogger;
 
