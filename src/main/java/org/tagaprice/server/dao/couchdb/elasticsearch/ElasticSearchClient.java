@@ -5,30 +5,92 @@ import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
+import org.tagaprice.server.dao.couchdb.CouchDbConfig;
+import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
+import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
-import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryWrapper;
+import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
+import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
+import org.tagaprice.shared.logging.LoggerFactory;
+import org.tagaprice.shared.logging.MyLogger;
 
 public class ElasticSearchClient {
-    // we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
-    private Server m_server;
+	/// Logger instance
+	private static MyLogger m_logger = LoggerFactory.getLogger(ElasticSearchClient.class);
 
-    public ElasticSearchClient() {
-    	m_server = new ServerImpl("localhost", 9200);
+	// we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
+	private Server m_server;
+
+	private String m_queryUrl;
+
+	public ElasticSearchClient(CouchDbConfig configuration) {
+		String host = configuration.getElasticSearchHost();
+		int port = configuration.getElasticSearchPort();
+		String indexName = configuration.getElasticSearchIndex();
+		m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
+		m_server = new ServerImpl(host, port);
+
+		m_queryUrl = "/"+indexName+"/_search";
+		_inject(indexName, configuration);
+	}
+    
+    /**
+     * This method checks if the elasticsearch river-couchdb is set up properly and does that if necessary
+     * @param indexName elasticsearch index name
+     * @param configuration the rest of the couchdb configuration
+     */
+    private void _inject(String indexName, CouchDbConfig configuration) {
+		String indexMetaUrl = "/_river/"+indexName+"/_meta";
+		// first check if the index already exists:
+		Response response = m_server.get(indexMetaUrl);
+		if (response.getCode() == 404) {
+			m_logger.log("Didn't find elasticsearch index, creating it...");
+			
+			/// TODO move this data to an external file
+			String couchHost = configuration.getCouchHost();
+			int couchPort = configuration.getCouchPort();
+			String couchDb = configuration.getCouchDatabase();
+
+			String indexJson = "{\n"
+				+ "  \"type\": \"couchdb\",\n"
+				+ "  \"couchdb\": {\n"
+				+ "    \"host\": \""+couchHost+"\",\n"
+				+ "    \"port\": "+couchPort+",\n"
+				+ "    \"db\": \""+couchDb+"\",\n"
+				+ "    \"filter\": null\n"
+				+ "  }\n"
+				+ "}";
+
+			response = m_server.put(indexMetaUrl, indexJson);
+
+			int responseCode = response.getCode();
+			if (responseCode >= 200 && responseCode <= 299) m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
+			else m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+		}
     }
 
 	public SearchResult find(String query, int limit) {
-		QueryObject queryObject = new QueryObject(new QueryWrapper(new QueryString(query)), 0, limit);
+		QueryObject queryObject = new QueryObject(new QueryString(query), 0, limit);
+		return find(queryObject);
+	}
+	
+	public SearchResult find(String query, String entityType, int limit) {
+		QueryObject queryObject = new QueryObject(
+				new Filtered(
+						new TermFilter(
+								new Term("entityType", entityType)
+						),
+						new QueryString(query)
+				), 0, limit
+		);
 		return find(queryObject);
 	}
 	
 	public SearchResult find(QueryObject queryObject) {
 		String json = JSON.defaultJSON().forValue(queryObject);
-		System.out.println("JSON: "+json);
 		
-		Response response = m_server.post("/tagaprice/_search", json);
+		Response response = m_server.post(m_queryUrl, json);
 		String jsonResult = response.getContentAsString();
-		System.out.println("Response:");
-		System.out.println(jsonResult);
 		
 		return (SearchResult) JSONParser.defaultJSONParser().parse(SearchResult.class, jsonResult);
 	}

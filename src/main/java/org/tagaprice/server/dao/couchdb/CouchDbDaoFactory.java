@@ -2,7 +2,6 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 
@@ -27,12 +26,7 @@ import org.tagaprice.shared.logging.MyLogger;
  * IDaoFactory implementation providing a CouchDB persistence layer
  */
 public class CouchDbDaoFactory implements IDaoFactory {
-	private static final String defaultHost = "localhost";
-	private static final String defaultPort = "5984";
-	private static final String defaultDatabase = "tagaprice";
-	private static final String defaultSsl = "false"; // defaulting to false (we don't need ssl on localhost)
-
-	private static Properties m_dbConfig = null;
+	private static CouchDbConfig m_dbConfig = null;
 	private static Server m_server = null;
 	
 	private ICategoryDao m_categoryDao = null;
@@ -48,27 +42,27 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	
 	private static  MyLogger m_logger = LoggerFactory.getLogger(CouchDbDaoFactory.class);
 	
-	static Properties getConfiguration() throws IOException {
+	static CouchDbConfig getConfiguration() throws IOException {
 		if (m_dbConfig == null) {
 			m_dbConfig = _readProperties("couchdb.properties");
 		}
 		return m_dbConfig;
 	}
 	
-	static void _setConfiguration(Properties dbConfig) {
+	static void _setConfiguration(CouchDbConfig dbConfig) {
 		m_dbConfig = dbConfig;
 	}
 	
-	static Server getServerObject(Properties dbConfig) {
+	static Server getServerObject(CouchDbConfig dbConfig) {
 		if (m_server == null) {
-			String host = dbConfig.getProperty("host", defaultHost);
-			int port = Integer.parseInt(dbConfig.getProperty("port", defaultPort));
-			boolean useSsl = Boolean.parseBoolean(dbConfig.getProperty("ssl", defaultSsl));
+			String host = dbConfig.getCouchHost();
+			int port = dbConfig.getCouchPort();
+			boolean useSsl = dbConfig.getCouchSsl();
 			m_server = new ServerImpl(host, port, useSsl);
 
-			if (dbConfig.containsKey("user") || dbConfig.containsKey("password")) {
-				String user = dbConfig.getProperty("user");
-				String password = dbConfig.getProperty("password");
+			if (dbConfig.hasLoginData()) {
+				String user = dbConfig.getCouchUser();
+				String password = dbConfig.getCouchPassword();
 	
 				AuthScope authScope = new AuthScope(host, port);
 				Credentials credentials = new UsernamePasswordCredentials(user, password);
@@ -94,8 +88,8 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 * @return Properties object containing the configuration
 	 * @throws IOException if the config file couldn't be read
 	 */
-	private static Properties _readProperties(String filename) throws IOException {
-		Properties rc = new Properties();
+	private static CouchDbConfig _readProperties(String filename) throws IOException {
+		CouchDbConfig rc = new CouchDbConfig();
 		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
 		if (stream != null) {
 			m_logger.log("Reading configuration file '"+filename+"'");
@@ -190,7 +184,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		InitialInjector injector = new InitialInjector();
 		String dbName;
 		try {
-			dbName = getConfiguration().getProperty("database", defaultDatabase);
+			dbName = getConfiguration().getCouchDatabase();
 			injector.init(getServerObject(), dbName);
 		} catch (Exception e) {
 			m_logger.log("Error while initializing CouchDB");

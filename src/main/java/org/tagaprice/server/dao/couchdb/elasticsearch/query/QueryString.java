@@ -1,12 +1,14 @@
 package org.tagaprice.server.dao.couchdb.elasticsearch.query;
 
 import org.svenson.JSONProperty;
+import org.tagaprice.server.dao.couchdb.elasticsearch.exception.QueryException;
 
 public class QueryString implements Query {
 	private String m_query;
 	private QueryString.DefaultOperator m_defaultOperator;		
 	
 	public QueryString(String query, QueryString.DefaultOperator defaultOperator) {
+		if (query == null || query.isEmpty()) throw new QueryException("Query string must not be empty!");
 		m_query = query;
 		m_defaultOperator = defaultOperator;
 	}

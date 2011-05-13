@@ -3,15 +3,13 @@ package org.tagaprice.server.dao.couchdb;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
-import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult;
-import org.tagaprice.server.dao.couchdb.elasticsearch.SearchResult.Hit;
-import org.tagaprice.server.rpc.ProductServiceImpl;
+import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
+import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
@@ -33,14 +31,14 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	protected Database m_db;
 	
 	/// Logger instance
-	private MyLogger m_logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+	private MyLogger m_logger = LoggerFactory.getLogger(this.getClass());
 	
 	/// CouchDB connection properties
-	private Properties m_dbConfig;
+	private CouchDbConfig m_dbConfig;
 	
 	private CouchDbDaoFactory m_daoFactory;
 	
-	/// Metaclass object of the entities that will be queried
+	/// Meta class object of the entities that will be queried
 	private Class<? extends T> m_class;
 	
 	private DaoClass<? super T> m_superClassDao = null; 
@@ -73,7 +71,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			return;
 		}
 		
-		dbName = m_dbConfig.getProperty("database", "tagaprice");
+		dbName = m_dbConfig.getCouchDatabase();
 		
 		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 
@@ -101,15 +99,19 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 
 	public List<T> find(String query) throws DaoException {
 		if (m_searchClient == null) {
-			m_searchClient = new ElasticSearchClient();
+			try {
+				m_searchClient = new ElasticSearchClient(CouchDbDaoFactory.getConfiguration());
+			}
+			catch (IOException e) {
+				throw new DaoException("Error while fetching the database configuration!", e);
+			}
 		}
 		
-		SearchResult searchResult = m_searchClient.find(query, 50);
+		SearchResult searchResult = m_searchClient.find(query, m_entityType, 50);
 		List<T> rc = new ArrayList<T>();
 		
 		for (Hit hit: searchResult.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
-			/// TODO do some type checking before calling get()
 			T item = get(hit.getId());
 			if (item != null) rc.add(item);
 		}
