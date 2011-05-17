@@ -129,7 +129,51 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		resultList.clear();
 		HashMap<Product, ArrayList<StatisticResult>> sortedByProductList = new HashMap<Product, ArrayList<StatisticResult>>();
 		for(StatisticResult s:results){
-			resultList.add(new Label(s.getProduct().getTitle()+", "+s.getPrice().getPrice()+""+s.getPrice().getCurrency()));
+			if(!sortedByProductList.containsKey(s.getProduct())){
+				sortedByProductList.put(s.getProduct(), new ArrayList<StatisticResult>());
+			}
+
+			sortedByProductList.get(s.getProduct()).add(s);
+			//resultList.add(new Label(s.getProduct().getTitle()+", "+s.getPrice().getPrice()+""+s.getPrice().getCurrency()));
+		}
+
+		for(Product key: sortedByProductList.keySet()){
+			VerticalPanel vePa = new VerticalPanel();
+
+			BigDecimal cheapest = null;
+			Currency currency = Currency.dkk;;
+			Unit unit = new Unit();
+			for(StatisticResult sr: sortedByProductList.get(key)){
+				vePa.add(new Label(" - "+
+						sr.getPrice().getPrice().toString()+""+
+						sr.getPrice().getCurrency()+"/"+
+						sr.getQuantity().getQuantity().toString()+""+
+						sr.getQuantity().getUnit().getTitle()));
+
+
+				if(cheapest==null)
+				{
+					currency=sr.getPrice().getCurrency();
+					unit = sr.getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+				}
+				else
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					}
+
+			}
+			resultList.add(new HTML("<a href=\"#CreateProduct:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			resultList.add(vePa);
+
+			/* TODO Get data from child shops
+			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
+			l.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(l.lon(), l.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+
+			layer.addFeature(pointFeature);
+			 */
 		}
 	}
 
