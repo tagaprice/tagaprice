@@ -8,6 +8,7 @@ import org.tagaprice.client.features.productmanagement.createProduct.I18N;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
+import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
@@ -71,6 +72,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	public CreateProductViewImpl() {
 		this.initWidget(CreateProductViewImpl.uiBinder.createAndBindUi(this));
 
+
+
 		//Set I18N
 		nameI18N.setText(I18N.I18N.name());
 		categoryI18N.setText(I18N.I18N.category());
@@ -87,6 +90,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		});
 
 		//Add statistic change handler
+		_statistic.setType(TYPE.PRODUCT);
 		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
 			@Override
 			public void onChange(BoundingBox bbox, Date begin, Date end) {

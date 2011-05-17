@@ -9,6 +9,12 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IStatisticSelecter extends IsWidget {
 
+	public enum TYPE {
+		SHOP, PRODUCT,
+	}
+
+	public void setType(TYPE type);
+
 	public void setStatisticResults(List<StatisticResult> results);
 
 	public void setDate(Date begin, Date end);

@@ -31,4 +31,10 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		statisticSelecter.addStatisticChangeHandler(handler);
 	}
 
+	@Override
+	public void setType(TYPE type) {
+		statisticSelecter.setType(type);
+
+	}
+
 }

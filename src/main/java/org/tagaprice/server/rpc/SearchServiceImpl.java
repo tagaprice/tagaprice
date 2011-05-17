@@ -130,6 +130,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
+		_logger.log("searchShopPrice");
 		//TODO search
 		//Test Data
 		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
@@ -140,15 +141,19 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
 						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
 						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
-					for(ReceiptEntry re:r.getReceiptEntries()){
-						if(id.equals(re.getPackage().getProduct().getId())){
+
+					if(id.equals(r.getShop().getId())){
+						for(ReceiptEntry re:r.getReceiptEntries()){
 							rc.add(new StatisticResult(
 									r.getDate(),
-									r.getShop(),
 									null,
+									re.getPackage().getProduct(),
 									re.getPackage().getQuantity(),
 									re.getPrice()));
 						}
+
+
+
 
 					}
 				}

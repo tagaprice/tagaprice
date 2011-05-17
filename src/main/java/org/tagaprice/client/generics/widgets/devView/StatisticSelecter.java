@@ -21,6 +21,7 @@ import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -36,6 +37,7 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
+	TYPE _type = null;
 	VerticalPanel vePa1 = new VerticalPanel();
 	DatePicker beginDate = new DatePicker();
 	DatePicker endDate = new DatePicker();
@@ -122,8 +124,16 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	}
 
-	@Override
-	public void setStatisticResults(List<StatisticResult> results) {
+	private void setShopResults(List<StatisticResult> results){
+		layer.destroyFeatures();
+		resultList.clear();
+		HashMap<Product, ArrayList<StatisticResult>> sortedByProductList = new HashMap<Product, ArrayList<StatisticResult>>();
+		for(StatisticResult s:results){
+			resultList.add(new Label(s.getProduct().getTitle()+", "+s.getPrice().getPrice()+""+s.getPrice().getCurrency()));
+		}
+	}
+
+	public void setProductResults(List<StatisticResult> results){
 		layer.destroyFeatures();
 		resultList.clear();
 		HashMap<Shop, ArrayList<StatisticResult>> sortedByShopList = new HashMap<Shop, ArrayList<StatisticResult>>();
@@ -176,6 +186,21 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	}
 
+
+	@Override
+	public void setStatisticResults(List<StatisticResult> results) {
+
+		if(_type!=null){
+			if(_type==TYPE.PRODUCT){
+				setProductResults(results);
+			}else if(_type==TYPE.SHOP){
+				setShopResults(results);
+			}
+		}
+
+
+	}
+
 	@Override
 	public void setDate(Date begin, Date end) {
 		beginDate.setValue(begin);
@@ -202,6 +227,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					northEast.lat(),
 					northEast.lon()), beginDate.getValue(), endDate.getValue());
 		}
+	}
+
+	@Override
+	public void setType(TYPE type) {
+		_type=type;
 	}
 
 }

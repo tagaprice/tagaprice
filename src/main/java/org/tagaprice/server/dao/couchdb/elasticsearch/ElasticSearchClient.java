@@ -27,25 +27,25 @@ public class ElasticSearchClient {
 		String host = configuration.getElasticSearchHost();
 		int port = configuration.getElasticSearchPort();
 		String indexName = configuration.getElasticSearchIndex();
-		m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
+		ElasticSearchClient.m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
 		m_server = new ServerImpl(host, port);
 
 		m_queryUrl = "/"+indexName+"/_search";
 		_inject(indexName, configuration);
 	}
-    
-    /**
-     * This method checks if the elasticsearch river-couchdb is set up properly and does that if necessary
-     * @param indexName elasticsearch index name
-     * @param configuration the rest of the couchdb configuration
-     */
-    private void _inject(String indexName, CouchDbConfig configuration) {
+
+	/**
+	 * This method checks if the elasticsearch river-couchdb is set up properly and does that if necessary
+	 * @param indexName elasticsearch index name
+	 * @param configuration the rest of the couchdb configuration
+	 */
+	private void _inject(String indexName, CouchDbConfig configuration) {
 		String indexMetaUrl = "/_river/"+indexName+"/_meta";
 		// first check if the index already exists:
 		Response response = m_server.get(indexMetaUrl);
 		if (response.getCode() == 404) {
-			m_logger.log("Didn't find elasticsearch index, creating it...");
-			
+			ElasticSearchClient.m_logger.log("Didn't find elasticsearch index, creating it...");
+
 			/// TODO move this data to an external file
 			String couchHost = configuration.getCouchHost();
 			int couchPort = configuration.getCouchPort();
@@ -64,16 +64,20 @@ public class ElasticSearchClient {
 			response = m_server.put(indexMetaUrl, indexJson);
 
 			int responseCode = response.getCode();
-			if (responseCode >= 200 && responseCode <= 299) m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
-			else m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+			if (responseCode >= 200 && responseCode <= 299) ElasticSearchClient.m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
+			else {
+				ElasticSearchClient.m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+				ElasticSearchClient.m_logger.log("Error information: "+response.getContentAsString());
+
+			}
 		}
-    }
+	}
 
 	public SearchResult find(String query, int limit) {
 		QueryObject queryObject = new QueryObject(new QueryString(query), 0, limit);
 		return find(queryObject);
 	}
-	
+
 	public SearchResult find(String query, String entityType, int limit) {
 		QueryObject queryObject = new QueryObject(
 				new Filtered(
@@ -85,13 +89,13 @@ public class ElasticSearchClient {
 		);
 		return find(queryObject);
 	}
-	
+
 	public SearchResult find(QueryObject queryObject) {
 		String json = JSON.defaultJSON().forValue(queryObject);
-		
+
 		Response response = m_server.post(m_queryUrl, json);
 		String jsonResult = response.getContentAsString();
-		
-		return (SearchResult) JSONParser.defaultJSONParser().parse(SearchResult.class, jsonResult);
+
+		return JSONParser.defaultJSONParser().parse(SearchResult.class, jsonResult);
 	}
 }
