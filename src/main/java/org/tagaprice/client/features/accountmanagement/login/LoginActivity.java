@@ -2,16 +2,13 @@ package org.tagaprice.client.features.accountmanagement.login;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.facebook.FBCore;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presenter, Activity {
-	private static final MyLogger _logger = LoggerFactory.getLogger(LoginActivity.class);
 
 	private ILoginView loginView;
 	private ILogoutView logoutView;
@@ -20,7 +17,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 	private FBCore _fbCore = new FBCore();
 
 	public LoginActivity(LoginPlace place, ClientFactory clientFactory) {
-		LoginActivity._logger.log("LoginActivity created");
+		Log.debug("LoginActivity created");
 
 		_place = place;
 		_clientFactory = clientFactory;
@@ -49,7 +46,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		LoginActivity._logger.log("activity startet");
+		Log.debug("activity startet");
 
 
 		if (!_clientFactory.getAccountPersistor().isLoggedIn()) {
@@ -72,7 +69,7 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 
 	@Override
 	public void onLoginEvent() {
-		LoginActivity._logger.log("Login Button clicked");
+		Log.debug("Login Button clicked");
 		if (loginView != null) {
 			//loginView.getEmail();
 			//loginView.getPassword();

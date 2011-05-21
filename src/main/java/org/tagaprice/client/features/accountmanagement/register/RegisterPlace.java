@@ -1,16 +1,13 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class RegisterPlace extends Place {
 
-	private static final MyLogger _logger = LoggerFactory.getLogger(RegisterPlace.class);
 
 	enum RegisterType {REGISTER, THANKS};
 
@@ -33,7 +30,7 @@ public class RegisterPlace extends Place {
 
 		@Override
 		public RegisterPlace getPlace(String token) {
-			RegisterPlace._logger.log("Tokenizer token " + token);
+			Log.debug("Tokenizer token " + token);
 
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 
@@ -51,13 +48,13 @@ public class RegisterPlace extends Place {
 		@Override
 		public String getToken(RegisterPlace place) {
 			if(place.getRegisterType()==RegisterType.REGISTER){
-				RegisterPlace._logger.log("Tokenizer show "+RegisterType.REGISTER.name());
+				Log.debug("Tokenizer show "+RegisterType.REGISTER.name());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot(RegisterType.REGISTER.name());
 				return t.getToken();
 			}else if(place.getRegisterType()==RegisterType.THANKS){
-				RegisterPlace._logger.log("Tokenizer show "+RegisterType.THANKS.name());
+				Log.debug("Tokenizer show "+RegisterType.THANKS.name());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot(RegisterType.THANKS.name());
