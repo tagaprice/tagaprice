@@ -21,9 +21,7 @@ import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -48,7 +46,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	interface CreateReceiptViewImplUiBinder extends UiBinder<Widget, CreateReceiptViewImpl>{}
 	private static CreateReceiptViewImplUiBinder uiBinder = GWT.create(CreateReceiptViewImplUiBinder.class);
 	private Presenter _presenter;
-	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptViewImpl.class);
 	private VerticalPanel _shopSearchSuggestVePa = new VerticalPanel();
 	private PopupPanel _shopSearchSuggestPop = new PopupPanel(true);
 	private VerticalPanel _productSearchSuggestVePa = new VerticalPanel();
@@ -165,7 +162,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setDate(Date date) {
-		CreateReceiptViewImpl._logger.log("Date: "+date);
+		Log.debug("Date: "+date);
 		_date.setValue(date);
 	}
 
@@ -296,7 +293,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 
-			CreateReceiptViewImpl._logger.log("shopSearchResult: "+s.getTitle());
+			Log.debug("shopSearchResult: "+s.getTitle());
 		}
 
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
@@ -310,7 +307,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	public void setProductSearchResults(List<Product> productResults) {
 		_productSearchSuggestVePa.clear();
 		for(final Product p:productResults){
-			CreateReceiptViewImpl._logger.log("shopProductResult: "+p.getTitle());
+			Log.debug("shopProductResult: "+p.getTitle());
 			for(final Package pa: p.getPackages()){
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
 
@@ -344,29 +341,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setAddress(Address address) {
-		CreateReceiptViewImpl._logger.log("new Address: "+address);
+		Log.debug("new Address: "+address);
 		LonLat l = new LonLat(address.getLng(), address.getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
 		_osmMap.setCenter(l, 15);
 	}
-
-	/*
-	@Override
-	public void reset() {
-		if(_shopHolder!=null)_shopHolder.clear();
-		if(_shopSearch!=null)_shopSearch.setText("");
-		if(_saveButton!=null)_saveButton.setEnabled(false);
-		if(_shopSearchSuggestPop!=null)_shopSearchSuggestPop.setAutoHideEnabled(true);
-		if(_productSearchSuggestPop!=null)_productSearchSuggestPop.setAutoHideEnabled(true);
-		if(_currAddress!=null)_currAddress=null;
-
-		if(_searchMapArea!=null)_searchMapArea.setVisible(true);
-		if(_shopSearch!=null)_shopSearch.setEnabled(true);
-		//if(_addressSelecter!=null)_addressSelecter.setVisible(false);
-		if(_newAddressArea!=null)_newAddressArea.setVisible(false);
-
-	}
-	 */
 
 
 
