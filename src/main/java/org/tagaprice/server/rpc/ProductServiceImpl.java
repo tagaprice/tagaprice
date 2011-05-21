@@ -12,16 +12,13 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.productmanagement.IProductService;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ProductServiceImpl extends RemoteServiceServlet implements IProductService {
 	private static final long serialVersionUID = 1L;
-
-	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	IPackageDao packageDAO;
 	IProductDao productDAO;
@@ -52,14 +49,14 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	@Override
 	public Product saveProduct(String sessionId, final Product product) throws DaoException {
-		logger.log("save Product " + product);
+		Log.debug("save Product " + product);
 		if (sessionId == null) throw new DaoException("Can't save a product without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
 		Product rc = null;
-		
+
 		// TODO check session validity
 		product.setCreator(session.getCreator());
-		
+
 		if(product.getId() != null){
 			rc = productDAO.update(product);
 		}else{
@@ -70,13 +67,13 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 
 	@Override
 	public List<Product> findProducts(Product searchCriteria) throws DaoException {
-		logger.log("findProducts... searchCriteria: " + searchCriteria);
+		Log.debug("findProducts... searchCriteria: " + searchCriteria);
 		return productDAO.find(searchCriteria);
 	}
 
 	@Override
 	public List<Category> getCategories() throws DaoException {
-		logger.log("return categories");
+		Log.debug("return categories");
 		return categoryDAO.list();
 	}
 

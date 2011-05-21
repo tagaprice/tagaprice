@@ -7,16 +7,14 @@ import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.receiptManagement.*;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceiptService {
-	MyLogger logger = LoggerFactory.getLogger(ReceiptServiceImpl.class);
 	private static final long serialVersionUID = 1L;
 	IReceiptDao receiptDAO;
 	ISessionDao sessionDAO;
@@ -29,8 +27,8 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	@Override
 	public Receipt saveReceipt(String sessionId, Receipt receipt) throws DaoException {
-		logger.log("Receipt saved: "+receipt);
-		
+		Log.debug("Receipt saved: "+receipt);
+
 		if (sessionId == null) throw new DaoException("Can't save a receipt without having a valid session!");
 
 		Session session = sessionDAO.get(sessionId);
@@ -38,7 +36,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		// TODO check session validity
 		receipt.setCreator(session.getCreator());
-		
+
 		//Create or update Receipt
 		if (receipt.getId()==null){
 			rc = receiptDAO.create(receipt);
@@ -52,7 +50,7 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 	@Override
 	public Receipt getReceipt(String receiptId) throws DaoException {
-		logger.log("Receipt getReceipt: "+receiptId);
+		Log.debug("Receipt getReceipt: "+receiptId);
 		return receiptDAO.get(receiptId);
 	}
 

@@ -7,9 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-
 import javax.servlet.http.HttpSession;
-
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IUserDao;
@@ -19,10 +17,8 @@ import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements ILoginService {
@@ -32,7 +28,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	HttpSession session;
 
-	static MyLogger _logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	private ISessionDao _sessionDao;
 	private IUserDao _userDao;
@@ -113,7 +108,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		if (!isEmailAvailable(email)) return false;
 		if (password.length() < 6) return false;
 
-		LoginServiceImpl._logger.log("Try to register: email: " + email + ", password: " + password);
+		Log.debug("Try to register: email: " + email + ", password: " + password);
 
 
 		String salt = generateSalt(24);
@@ -218,7 +213,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			rc = new Random(seed);
 		}
 		catch (IOException e) { // /dev/urandom can't be read
-			LoginServiceImpl._logger.log("Warning: using current time as random seed");
+			Log.error("Warning: using current time as random seed");
 			rc = new Random();
 		}
 

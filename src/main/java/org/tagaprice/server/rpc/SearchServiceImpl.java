@@ -21,9 +21,9 @@ import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -33,7 +33,6 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	private IShopDao shopDAO;
 	private IProductDao productDAO;
 	private IReceiptDao receiptDAO;
-	private MyLogger _logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
@@ -62,7 +61,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	@Override
 	public Address searchAddress(double lat, double lng) {
 		try {
-			_logger.log("findService: "+lat+":"+lng);
+			Log.debug("findService: "+lat+":"+lng);
 			URL urlg = new URL("http://api.geonames.org/findNearbyStreetsOSMJSON?lat="+lat+"&lng="+lng+"&username=tagaprice");
 			InputStream isg = urlg.openStream();
 			//Geonames
@@ -70,19 +69,19 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 			GeoNamesJson g = gsonG.fromJson(new InputStreamReader(isg), GeoNamesJson.class);
 
 			if(g.getStreetSegment()!=null & g.getStreetSegment().length>0){
-				_logger.log("findService: found: "+g.getStreetSegment()[0].getName());
+				Log.debug("findService: found: "+g.getStreetSegment()[0].getName());
 				return new Address(g.getStreetSegment()[0].getName(), lat, lng);
 			}else{
-				_logger.log("Not Found");
+				Log.debug("Not Found");
 				return null;
 			}
 
 
 
 		} catch (MalformedURLException e) {
-			_logger.log(e.toString());
+			Log.warn(e.toString());
 		} catch (IOException e) {
-			_logger.log(e.toString());
+			Log.error(e.toString());
 		}
 
 		return null;
@@ -130,7 +129,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
-		_logger.log("searchShopPrice");
+		Log.debug("searchShopPrice");
 		//TODO search
 		//Test Data
 		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
