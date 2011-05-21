@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.shared.entities.shopmanagement.*;
-import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.shopmanagement.IShopServiceAsync;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
  * 
  */
 public class ListShopsActivity extends AbstractActivity implements org.tagaprice.client.features.shopmanagement.listShops.ListShopsView.Presenter {
-	private static MyLogger logger = LoggerFactory.getLogger(ListShopsActivity.class);
 
 	private ListShopsPlace place;
 	private ClientFactory clientFactory;
@@ -84,7 +83,7 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 	 */
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
-		ListShopsActivity.logger.log("Activity starts...");
+		Log.debug("Activity starts...");
 
 		listShopsView.setPresenter(this);
 
@@ -92,7 +91,7 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 			@Override
 			public void onSuccess(List<Shop> result) {
-				ListShopsActivity.logger.log("received results: " + result);
+				Log.debug("received results: " + result);
 				if(result != null) {
 					listShopsView.setData(result);
 				}
@@ -104,8 +103,7 @@ public class ListShopsActivity extends AbstractActivity implements org.tagaprice
 
 			@Override
 			public void onFailure(Throwable caught) {
-				ListShopsActivity.logger.log("got exception:");
-				ListShopsActivity.logger.log(caught.getLocalizedMessage());
+				Log.error(caught.getLocalizedMessage());
 
 			}
 		});

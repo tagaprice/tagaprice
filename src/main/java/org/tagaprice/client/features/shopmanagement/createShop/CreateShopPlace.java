@@ -1,15 +1,12 @@
 package org.tagaprice.client.features.shopmanagement.createShop;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class CreateShopPlace extends Place {
-	private static final MyLogger logger = LoggerFactory.getLogger(CreateShopPlace.class);
 
 	private String _id = null;
 	private String _rev = null;
@@ -41,7 +38,7 @@ public class CreateShopPlace extends Place {
 
 		@Override
 		public CreateShopPlace getPlace(String token) {
-			CreateShopPlace.logger.log("Tokenizer token " + token);
+			Log.debug("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
@@ -64,13 +61,13 @@ public class CreateShopPlace extends Place {
 			String rc = null;
 
 			if(place.getId()==null){
-				CreateShopPlace.logger.log("Tokenizer create product");
+				Log.debug("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				rc = t.getToken();
 			} else { // if(place.getRevisionId().getId()!=null)
-				CreateShopPlace.logger.log("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
+				Log.debug("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");

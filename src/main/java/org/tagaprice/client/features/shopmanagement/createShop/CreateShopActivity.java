@@ -14,9 +14,7 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -24,7 +22,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
-	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopActivity.class);
 
 	private Shop _shop;
 	private ICreateShopView _createShopView;
@@ -32,7 +29,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private ClientFactory _clientFactory;
 
 	public CreateShopActivity(CreateShopPlace place, ClientFactory clientFactory) {
-		CreateShopActivity._logger.log("CreateProductActivity created");
+		Log.debug("CreateProductActivity created");
 		_place = place;
 		_clientFactory = clientFactory;
 	}
@@ -57,7 +54,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onSaveEvent() {
-		CreateShopActivity._logger.log("Save Shop");
+		Log.debug("Save Shop");
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
 
 		//Get data from View
@@ -73,18 +70,17 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				try{
 					throw caught;
 				}catch (UserNotLoggedInException e){
-					CreateShopActivity._logger.log(e.getMessage());
+					Log.warn(e.getMessage());
 				}catch (Throwable e){
 					// last resort -- a very unexpected exception
-					CreateShopActivity._logger.log(e.getMessage());
+					Log.error(e.getMessage());
 				}
 
-				CreateShopActivity._logger.log("exception "+caught.getMessage());
 			}
 
 			@Override
 			public void onSuccess(Shop result) {
-				CreateShopActivity._logger.log("got updated shop: " + result);
+				Log.debug("got updated shop: " + result);
 				updateView(result);
 			}
 		});
@@ -99,7 +95,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_shop=new Shop();
-		CreateShopActivity._logger.log("activity startet");
+		Log.debug("activity startet");
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
@@ -111,12 +107,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				@Override
 				public void onFailure(Throwable caught) {
 
-					CreateShopActivity._logger.log(caught.getMessage());
+					Log.error(caught.getMessage());
 				}
 
 				@Override
 				public void onSuccess(Shop result) {
-					CreateShopActivity._logger.log("got shop: " + result);
+					Log.debug("got shop: " + result);
 					updateView(result);
 					panel.setWidget(_createShopView);
 				}
@@ -125,7 +121,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 		} else {
 			// new product... reseting view
-			CreateShopActivity._logger.log("Create new shop");
+			Log.debug("Create new shop");
 			updateView(_shop);
 			panel.setWidget(_createShopView);
 
@@ -167,12 +163,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 			@Override
 			public void onSuccess(List<Shop> results) {
+				Log.debug("search OK. Count: "+results.size());
 				_createShopView.setBrandingSearchResults(results);
 			}
 
 			@Override
 			public void onFailure(Throwable e) {
-				CreateShopActivity._logger.log("ShopSerachError: "+e);
+				Log.error("ShopSerachError: "+e);
 			}
 		});
 
@@ -184,7 +181,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
-		CreateShopActivity._logger.log("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0));
 
 		_clientFactory.getSearchService().searchShopPrices(_shop.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
@@ -199,7 +196,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			@Override
 			public void onFailure(Throwable e) {
 				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "searchproblem: "+e, INFOTYPE.ERROR,0));
-				CreateShopActivity._logger.log("searchproblem: "+e);
+				Log.error("searchproblem: "+e);
 			}
 		});
 	}

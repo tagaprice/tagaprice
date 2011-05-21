@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.*;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
@@ -19,7 +17,6 @@ import com.google.gwt.user.client.ui.*;
 public class ListShopsViewImpl extends Composite implements ListShopsView {
 
 	interface ListProductsViewImplUiBinder extends UiBinder<Widget, ListShopsViewImpl> {}
-	private static MyLogger logger = LoggerFactory.getLogger(ListShopsViewImpl.class);
 	private static ListProductsViewImplUiBinder uiBinder = GWT.create(ListProductsViewImplUiBinder.class);
 	Presenter presenter;
 

@@ -12,9 +12,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -28,7 +26,6 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	UiBinder<Widget, CreateShopViewImpl> {
 	}
 
-	private static final MyLogger _logger = LoggerFactory.getLogger(CreateShopViewImpl.class);
 
 	private static CreateShopViewImpleUiBinder uiBinder = GWT
 	.create(CreateShopViewImpleUiBinder.class);
@@ -181,7 +178,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
 		for(StatisticResult r:results){
-			CreateShopViewImpl._logger.log("res: "+r.getProduct().getTitle());
+			Log.debug("res: "+r.getProduct().getTitle());
 		}
 		_statisticSelecter.setStatisticResults(results);
 	}
