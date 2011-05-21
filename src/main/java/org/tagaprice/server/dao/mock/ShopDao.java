@@ -10,10 +10,8 @@ import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
-	MyLogger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	HashMap<String, Shop> shopsAllRevisions = new HashMap<String, Shop>();
 	HashMap<String, String> newestRev = new HashMap<String, String>();
@@ -23,7 +21,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	public List<Shop> find(String query) {
 		return list();
 	}
-	
+
 	@Override
 	public List<Shop> list() {
 		ArrayList<Shop> rc = new ArrayList<Shop>();

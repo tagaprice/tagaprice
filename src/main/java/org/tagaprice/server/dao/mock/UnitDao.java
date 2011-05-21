@@ -9,12 +9,10 @@ import java.util.Set;
 
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 
 public class UnitDao implements IUnitDao {
-	MyLogger logger = LoggerFactory.getLogger(UnitDao.class);
 	private Random random = new Random(1654196865);
 	HashMap<String, Unit> _units = new HashMap<String, Unit>();
 	HashMap<String, HashMap<String, Double>> _factoredUnits = new HashMap<String, HashMap<String,Double>>();
@@ -61,7 +59,7 @@ public class UnitDao implements IUnitDao {
 
 	@Override
 	public void setFactorizedUnit(String unit, String factorizedUnit, double factor) {
-		logger.log("set relativeUnits: Unit: "+unit + ", rel: "+factorizedUnit+", factor: "+factor);
+		Log.debug("set relativeUnits: Unit: "+unit + ", rel: "+factorizedUnit+", factor: "+factor);
 		if(_factoredUnits.get(unit)==null)
 			_factoredUnits.put(unit, new HashMap<String, Double>());
 
@@ -71,7 +69,7 @@ public class UnitDao implements IUnitDao {
 
 	@Override
 	public List<Unit> factorizedUnits(String id) {
-		logger.log("relativeUnits: "+id);
+		Log.debug("relativeUnits: "+id);
 		ArrayList<Unit> rc = new ArrayList<Unit>();
 
 		if(id==null){
@@ -80,7 +78,7 @@ public class UnitDao implements IUnitDao {
 		}else{
 			Set<String> keys = _factoredUnits.get(id).keySet();
 			for (String key:keys){
-				logger.log("key: "+key);
+				Log.debug("key: "+key);
 
 				_units.get(key).setFactor(_factoredUnits.get(id).get(key));
 				rc.add(_units.get(key));
