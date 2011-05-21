@@ -13,8 +13,7 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * Base class for all the other CouchDB DAO classes
@@ -23,35 +22,33 @@ import org.tagaprice.shared.logging.MyLogger;
 public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	/// JCouchDB server object
 	private Server m_server;
-	
+
 	/// ElasticSearch client object
 	private ElasticSearchClient m_searchClient;
-	
+
 	/// JCouchDB database object
 	protected Database m_db;
-	
-	/// Logger instance
-	private MyLogger m_logger = LoggerFactory.getLogger(this.getClass());
-	
+
+
 	/// CouchDB connection properties
 	private CouchDbConfig m_dbConfig;
-	
+
 	private CouchDbDaoFactory m_daoFactory;
-	
+
 	/// Meta class object of the entities that will be queried
 	private Class<? extends T> m_class;
-	
-	private DaoClass<? super T> m_superClassDao = null; 
-	
+
+	private DaoClass<? super T> m_superClassDao = null;
+
 	/**
 	 * Entity type name (e.g. "product", "shop", ...)
 	 * This is stored in each CouchDB document so that we can find out of which type they are
 	 */
 	private String m_entityType;
-	
+
 	/**
 	 * Constructor
-	 * @param classObject Class object necessary to instantiate new objects when get() gets called 
+	 * @param classObject Class object necessary to instantiate new objects when get() gets called
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
 	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
@@ -66,13 +63,13 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			m_dbConfig = CouchDbDaoFactory.getConfiguration();
 		}
 		catch (IOException e) {
-			m_logger.log("Error while reading couchdb.properties!");
+			Log.debug("Error while reading couchdb.properties!");
 			e.printStackTrace();
 			return;
 		}
-		
+
 		dbName = m_dbConfig.getCouchDatabase();
-		
+
 		m_server = CouchDbDaoFactory.getServerObject(m_dbConfig);
 
 		m_db = new Database(m_server, dbName);
@@ -87,13 +84,13 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	@Override
 	public T create(T entity) throws DaoException {
 		entity.setEntityType(m_entityType);
-		
+
 		// check if the creator exists
 		_checkCreatorId(entity.getCreatorId());
-		
+
 		// do the saving
 		m_db.createDocument(entity);
-		
+
 		return entity;
 	}
 
@@ -106,24 +103,24 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 				throw new DaoException("Error while fetching the database configuration!", e);
 			}
 		}
-		
+
 		SearchResult searchResult = m_searchClient.find(query, m_entityType, 50);
 		List<T> rc = new ArrayList<T>();
-		
+
 		for (Hit hit: searchResult.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
 			T item = get(hit.getId());
 			if (item != null) rc.add(item);
 		}
-		
+
 		return rc;
 	}
-	
+
 	/**
 	 * Request a specific revision of a document from the database
 	 * @param id Document ID
-	 * @param revision Document revision (if it's null, the current revision will be queried) 
-	 * @return Requested CouchDB document squeezed into a Entity object 
+	 * @param revision Document revision (if it's null, the current revision will be queried)
+	 * @return Requested CouchDB document squeezed into a Entity object
 	 */
 	@Override
 	public T get(String id, String revision) throws DaoException {
@@ -136,14 +133,14 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			daoClass._injectFields(rc);
 			daoClass = daoClass._getSuperClassDao();
 		}
-		
+
 		return rc;
 	}
-	
+
 	/**
 	 * Request a document from the database
 	 * @param id Document ID
-	 * @return Requested CouchDB document squeezed into a Entity object 
+	 * @return Requested CouchDB document squeezed into a Entity object
 	 */
 	@Override
 	public T get(String id) throws DaoException {
@@ -159,13 +156,13 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	@Override
 	public T update(T entity) throws DaoException {
 		entity.setEntityType(m_entityType);
-		
+
 		// check if the creator exists
 		_checkCreatorId(entity.getCreatorId());
-		
+
 		// do the saving
 		m_db.updateDocument(entity);
-		
+
 		return entity;
 	}
 
@@ -177,7 +174,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	public void delete(T entity) {
 		m_db.delete(entity);
 	}
-	
+
 	/**
 	 * Returns the name of the CouchDB Database involved
 	 * @return
@@ -185,7 +182,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	public String getDbName() {
 		return m_db.getName();
 	}
-	
+
 	/**
 	 * Checks if the creatorId != null and if it's valid (by using UserDao.get())
 	 * 
@@ -196,20 +193,20 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	protected void _checkCreatorId(String creatorId) throws DaoException {
 		// A valid creator is mandatory for all Entities except for User objects
 		if (creatorId == null) throw new DaoException("The creator must not be null when creating or updating an Entity!!!");
-	
+
 		// check if the creator exists
 		m_daoFactory.getUserDao().get(creatorId);
 	}
-	
+
 	/**
-	 * Callback method that's called by get() for the class itself and its superclass hierarchy (using _getSuperClassDao()) 
+	 * Callback method that's called by get() for the class itself and its superclass hierarchy (using _getSuperClassDao())
 	 * @param entity Entity that wants its fields being injected
 	 * @throws DaoException if there was any problem when injecting the fields
 	 */
 	protected void _injectFields(T entity) throws DaoException {
 		// do nothing here
 	}
-	
+
 	/**
 	 * Returns the super DAO class passed to the DaoClass' constructor
 	 * @return super class' DAO or null

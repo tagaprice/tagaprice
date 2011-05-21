@@ -11,12 +11,10 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 public class ElasticSearchClient {
 	/// Logger instance
-	private static MyLogger m_logger = LoggerFactory.getLogger(ElasticSearchClient.class);
 
 	// we'll simply use CouchDB's ServerImpl here (it provides a simple way to query via HTTP and fits our purpose)
 	private Server m_server;
@@ -27,7 +25,7 @@ public class ElasticSearchClient {
 		String host = configuration.getElasticSearchHost();
 		int port = configuration.getElasticSearchPort();
 		String indexName = configuration.getElasticSearchIndex();
-		ElasticSearchClient.m_logger.log("Connecting to ElasticSearch server at "+host+":"+port);
+		Log.debug("Connecting to ElasticSearch server at "+host+":"+port);
 		m_server = new ServerImpl(host, port);
 
 		m_queryUrl = "/"+indexName+"/_search";
@@ -44,7 +42,7 @@ public class ElasticSearchClient {
 		// first check if the index already exists:
 		Response response = m_server.get(indexMetaUrl);
 		if (response.getCode() == 404) {
-			ElasticSearchClient.m_logger.log("Didn't find elasticsearch index, creating it...");
+			Log.debug("Didn't find elasticsearch index, creating it...");
 
 			/// TODO move this data to an external file
 			String couchHost = configuration.getCouchHost();
@@ -64,10 +62,10 @@ public class ElasticSearchClient {
 			response = m_server.put(indexMetaUrl, indexJson);
 
 			int responseCode = response.getCode();
-			if (responseCode >= 200 && responseCode <= 299) ElasticSearchClient.m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
+			if (responseCode >= 200 && responseCode <= 299) Log.debug("Index successfully created (HTTP response code "+responseCode+")");
 			else {
-				ElasticSearchClient.m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
-				ElasticSearchClient.m_logger.log("Error information: "+response.getContentAsString());
+				Log.debug("Failed creating index (HTTP response code "+responseCode+")");
+				Log.debug("Error information: "+response.getContentAsString());
 
 			}
 		}

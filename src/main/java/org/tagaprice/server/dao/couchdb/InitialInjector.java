@@ -13,8 +13,7 @@ import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONParser;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * This class reads the files in src/main/webapp/WEB-INF/couchdb_inject/ and applies them to the database if necessary.
@@ -23,25 +22,24 @@ import org.tagaprice.shared.logging.MyLogger;
  */
 public class InitialInjector {
 	Database m_db = null;
-	MyLogger m_logger = LoggerFactory.getLogger(InitialInjector.class);
 
 	public void init(Server server, String dbName) throws IOException {
 		if (!server.listDatabases().contains(dbName)) {
 			server.createDatabase(dbName);
 		}
-		
+
 		if (getDbVersion(server, dbName) == null) {
 			// perform a full injection
-			m_logger.log("Injecting initial CouchDB documents");
+			Log.debug("Injecting initial CouchDB documents");
 			m_db = new Database(server, dbName);
 			_injectFolder("view");
 			_injectFolder("data");
 		}
 	}
-	
+
 	public static int[] getDbVersion(Server server, String dbName) {
 		int rc[] = null;
-		
+
 		if (server.listDatabases().contains(dbName)) {
 			Database db = new Database(server, dbName);
 			try {
@@ -54,10 +52,10 @@ public class InitialInjector {
 			}
 			catch (NotFoundException e) {/* we'll simply return null in this case */}
 		}
-		
+
 		return rc;
 	}
-	
+
 	private void _injectFolder(String folderName) throws IOException {
 		String path = "/couchdb_inject/"+folderName+"/";
 		String  files[] = _allFilesIn(path);
@@ -69,26 +67,26 @@ public class InitialInjector {
 				json += reader.readLine();
 			}
 			Map<?, ?> map = JSONParser.defaultJSONParser().parse(HashMap.class, json);
-			
+
 			m_db.createOrUpdateDocument(map);
 		}
 	}
-	
+
 	private String[] _allFilesIn(String path) {
 		File dirFile = _getDirFile(path);
 		String rc[] = new String[0];
-		
+
 		String[] files = dirFile.list();
 		rc = new String[files.length];
-	
+
 		int i = 0;
 		for(String filename: files) {
 			rc[i++] = dirFile.getAbsolutePath()+"/"+filename;
 		}
-		
+
 		return rc;
 	}
-	
+
 	protected File _getDirFile(String path) {
 		URL url = getClass().getClassLoader().getResource(path);
 		File rc = null;
@@ -106,7 +104,7 @@ public class InitialInjector {
 		else {
 			throw new IllegalArgumentException("Unsupported URL protocol");
 		}
-		
+
 		return rc;
 	}
 }
