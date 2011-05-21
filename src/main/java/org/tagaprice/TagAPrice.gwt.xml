@@ -22,6 +22,10 @@
 
 	<!-- For development, a default of `DEBUG` is recommended -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+	<!--  <set-property name="log_DivLogger" value="DISABLED" />-->
+	<!-- In gwt-log-3.0.3 or later -->
+	<!--<inherits name="com.allen_sauer.gwt.log.gwt-log-RemoteLogger" />-->
+
 
 
 	<replace-with class="org.tagaprice.client.ClientFactoryImpl">

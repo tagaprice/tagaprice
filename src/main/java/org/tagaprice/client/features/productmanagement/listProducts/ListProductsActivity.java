@@ -5,7 +5,6 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView.Presenter;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -22,7 +21,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
  * 
  */
 public class ListProductsActivity extends AbstractActivity implements Presenter {
-	private static MyLogger logger = LoggerFactory.getLogger(ListProductsActivity.class);
 
 	private ListProductsPlace place;
 	private ClientFactory clientFactory;
@@ -86,7 +84,6 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("Activity starts...");
-		ListProductsActivity.logger.log("Activity starts...");
 
 
 		listProductsView.setPresenter(this);
@@ -95,7 +92,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 			@Override
 			public void onSuccess(List<Product> result) {
-				ListProductsActivity.logger.log("RPC request successfull: " + result.size() + " items");
+				Log.debug("RPC request successfull: " + result.size() + " items");
 				products = result;
 				listProductsView.setData(result);
 				panel.setWidget(listProductsView.asWidget());
@@ -103,6 +100,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 
 			@Override
 			public void onFailure(Throwable caught) {
+				Log.error(caught.getMessage());
 				// TODO Auto-generated method stub
 
 			}
