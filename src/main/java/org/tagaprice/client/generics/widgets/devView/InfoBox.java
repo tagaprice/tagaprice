@@ -5,9 +5,7 @@ import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.widgets.IInfoBox;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
@@ -21,8 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class InfoBox extends Composite implements IInfoBox {
 
 	private VerticalPanel _infos = new VerticalPanel();
-	private static MyLogger _logger = LoggerFactory
-	.getLogger(InfoBox.class);
+
 	public InfoBox() {
 		initWidget(_infos);
 	}
@@ -34,7 +31,7 @@ public class InfoBox extends Composite implements IInfoBox {
 
 	@Override
 	public void removeInfoBoxEvent(InfoBoxDestroyEvent event) {
-		InfoBox._logger.log("destroy events");
+		Log.debug("destroy events");
 		// Destroy all from this class
 
 		if (event.getType() == null) {

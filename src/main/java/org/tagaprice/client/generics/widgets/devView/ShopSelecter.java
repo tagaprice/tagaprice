@@ -4,16 +4,13 @@ import java.util.ArrayList;
 
 import org.tagaprice.client.generics.widgets.IShopSelecter;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 
 public class ShopSelecter extends Composite implements IShopSelecter {
-	MyLogger logger = LoggerFactory.getLogger(ShopSelecter.class);
 
 	ListBox _listBoxShop = new ListBox();
 	ArrayList<Shop> _availableShops = new ArrayList<Shop>();
@@ -35,10 +32,10 @@ public class ShopSelecter extends Composite implements IShopSelecter {
 
 	@Override
 	public void setShop(Shop shop) {
-		logger.log("set shop " + shop);
+		Log.debug("set shop " + shop);
 		if(shop !=null){
 			for(int i = 0; i< this._listBoxShop.getItemCount(); i++){
-				logger.log("inverstigate" + this._listBoxShop.getValue(i));
+				Log.debug("inverstigate" + this._listBoxShop.getValue(i));
 				if(this._listBoxShop.getItemText(i).equals(shop.toString())){
 					this._listBoxShop.setSelectedIndex(i);
 					return;

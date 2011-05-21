@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryServiceAsync;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,7 +26,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * 
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
-	private MyLogger _logger = LoggerFactory.getLogger(CategorySelecter.class);
 
 	private ListBox _listBoxCategories = new ListBox();
 	private List<Category> _availableCategories = new ArrayList<Category>();
@@ -48,7 +47,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	@Override
 	public void setCategory(Category category) {
-		_logger.log("set category " + category);
+		Log.debug("set category " + category);
 		_hoPa.clear();
 		if (category != null) {
 
@@ -84,7 +83,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
-			_logger.log("CreateSimpleCategory " + category);
+			Log.debug("CreateSimpleCategory " + category);
 
 
 
@@ -107,7 +106,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 					String id=null;
 
 
-					_logger.log("getChildsFor: "+id+", _myCat: "+_myCat);
+					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
 
 					if(_myCat!=null)
 						id=_myCat.getId();
@@ -137,7 +136,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 						@Override
 						public void onFailure(Throwable e) {
-							_logger.log("getCategoryProblem: "+e);
+							Log.error("getCategoryProblem: "+e);
 						}
 					});
 
