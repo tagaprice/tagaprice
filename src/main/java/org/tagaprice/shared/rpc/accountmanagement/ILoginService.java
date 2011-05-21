@@ -49,15 +49,15 @@ public interface ILoginService extends RemoteService {
 
 
 	/**
-	 * Register a user with an email and controls if it is a human with a reCaptcha. The user will receive an email with
+	 * Register a user with an email. The user will receive an email with
 	 * an auto generated password.
 	 * @param email that should be registered
 	 * @param password password
 	 * @param agreeTerms if user agrees our terms and conditions
-	 * @return return a SessionKey if the registration was OK. If not NULL
-	 * @throws DaoException 
+	 * @return return true if everything was ok.
+	 * @throws DaoException
 	 */
-	public String registerUser(String email, String password, boolean agreeTerms) throws DaoException;
+	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException;
 
 	/**
 	 * Set new password.

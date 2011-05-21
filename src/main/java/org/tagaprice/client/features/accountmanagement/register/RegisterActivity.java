@@ -1,7 +1,7 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.features.accountmanagement.register.RegisterPlace.RegisterType;
+import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -107,16 +107,13 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 								_registerView.getEmail(),
 								_registerView.getPassword(),
 								_registerView.getAgreeTerms(),
-								new AsyncCallback<String>() {
+								new AsyncCallback<Boolean>() {
 
 									@Override
-									public void onSuccess(String sessionId) {
-										if(sessionId!=null){
-											_clientFactory.getAccountPersistor().setSessionId(sessionId);
-
-											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
-											goTo(new RegisterPlace(RegisterType.THANKS));
-											RegisterActivity._logger.log("Login OK. SessionId: " + sessionId);
+									public void onSuccess(Boolean isok) {
+										if(isok){
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!! Please login with email and password", INFOTYPE.INFO,0));
+											goTo(new LoginPlace());
 
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
