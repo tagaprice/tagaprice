@@ -15,8 +15,7 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceipts
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.features.shopmanagement.listShops.*;
-import org.tagaprice.shared.logging.*;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.place.shared.Place;
 
@@ -25,7 +24,6 @@ import com.google.gwt.place.shared.Place;
  * 
  */
 public class AppActivityMapper implements ActivityMapper {
-	MyLogger logger = LoggerFactory.getLogger(AppActivityMapper.class);
 
 	private ClientFactory clientFactory;
 
@@ -36,31 +34,31 @@ public class AppActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
-		logger.log("I was asked for an activity...");
+		Log.debug("I was asked for an activity...");
 		// TODO make this gin
 		if (place instanceof ListProductsPlace) {
-			logger.log("return new ListProductsActivity");
+			Log.debug("return new ListProductsActivity");
 			return new ListProductsActivity((ListProductsPlace) place, this.clientFactory);
 		} else if (place instanceof CreateProductPlace) {
-			logger.log("return new CreateProductActivity");
+			Log.debug("return new CreateProductActivity");
 			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
 		}else if(place instanceof LoginPlace){
-			logger.log("return new LoginActivity");
+			Log.debug("return new LoginActivity");
 			return new LoginActivity((LoginPlace)place, this.clientFactory);
 		}else if (place instanceof CreateShopPlace){
-			logger.log("return new CreateShopActivity");
+			Log.debug("return new CreateShopActivity");
 			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);
 		} else if(place instanceof ListShopsPlace) {
-			logger.log("return new ListShopsActivity");
+			Log.debug("return new ListShopsActivity");
 			return new ListShopsActivity((ListShopsPlace) place, this.clientFactory);
 		}else if(place instanceof CreateReceiptPlace){
-			logger.log("return new CreateReceiptActivity");
+			Log.debug("return new CreateReceiptActivity");
 			return new CreateReceiptActivity((CreateReceiptPlace)place, this.clientFactory);
 		}else if(place instanceof RegisterPlace){
-			logger.log("return new RegisterActivity");
+			Log.debug("return new RegisterActivity");
 			return new RegisterActivity((RegisterPlace)place, this.clientFactory);
 		}if(place instanceof ListReceiptsPlace){
-			logger.log("return new ListReceiptsActivity");
+			Log.debug("return new ListReceiptsActivity");
 			return new ListReceiptsActivity((ListReceiptsPlace)place, this.clientFactory);
 		}
 
