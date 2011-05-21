@@ -8,6 +8,7 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.logging.*;
 import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -84,6 +85,7 @@ public class ListProductsActivity extends AbstractActivity implements Presenter 
 	 */
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
+		Log.debug("Activity starts...");
 		ListProductsActivity.logger.log("Activity starts...");
 
 
