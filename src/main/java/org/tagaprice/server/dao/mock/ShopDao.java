@@ -5,11 +5,8 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
 import org.tagaprice.server.dao.IShopDao;
-import org.tagaprice.server.rpc.ProductServiceImpl;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.LoggerFactory;
 
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
 
