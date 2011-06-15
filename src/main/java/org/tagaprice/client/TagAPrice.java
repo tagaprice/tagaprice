@@ -42,6 +42,7 @@ public class TagAPrice implements EntryPoint {
 
 	private IUi _iui = new UIDesktop();
 	private FBCore _fbCore = new FBCore();
+	InfoBoxShowEvent infoBox;
 
 
 	/**

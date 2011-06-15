@@ -34,8 +34,15 @@ public class InfoBox extends Composite implements IInfoBox {
 		Log.debug("destroy events");
 		// Destroy all from this class
 
-		if (event.getType() == null) {
-			System.err.println("type=null");
+		if(event.getDesplayedEvent()!=null){
+			for (int i = 0; i < _infos.getWidgetCount(); i++) {
+				if(((SimpleInfo) _infos.getWidget(i)).getEvent().equals(event.getDesplayedEvent())){
+					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					i--;
+				}
+			}
+
+		}else if (event.getType() == null) {
 			for (int i = 0; i < _infos.getWidgetCount(); i++) {
 				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass()) {
 					((SimpleInfo) _infos.getWidget(i)).removeMe();
@@ -43,7 +50,6 @@ public class InfoBox extends Composite implements IInfoBox {
 				}
 			}
 		} else {
-			System.err.println("type=Notnull");
 			for (int i = 0; i < _infos.getWidgetCount(); i++) {
 				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass() &&
 						((SimpleInfo) _infos.getWidget(i)).getEvent().getType()==event.getType()) {
