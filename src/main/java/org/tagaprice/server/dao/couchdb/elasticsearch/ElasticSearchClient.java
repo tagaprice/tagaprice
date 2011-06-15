@@ -65,7 +65,10 @@ public class ElasticSearchClient {
 
 			int responseCode = response.getCode();
 			if (responseCode >= 200 && responseCode <= 299) m_logger.log("Index successfully created (HTTP response code "+responseCode+")");
-			else m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+			else {
+				m_logger.log("Failed creating index (HTTP response code "+responseCode+")");
+				m_logger.log("Error information: "+response.getContentAsString());
+			}
 		}
     }
 
