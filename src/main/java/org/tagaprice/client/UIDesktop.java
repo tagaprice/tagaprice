@@ -1,5 +1,6 @@
 package org.tagaprice.client;
 
+import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.generics.I18N;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
@@ -33,6 +34,8 @@ public class UIDesktop implements IUi {
 
 	ActivityManager _activityManager;
 	ClientFactory _clientFactory;
+
+	private PopupPanel loginPop = new PopupPanel(true);
 
 	private void init(){
 
@@ -79,17 +82,47 @@ public class UIDesktop implements IUi {
 		/******************** Login Links *****************/
 		this.leftPanel.add(new HTML("<hr />"));
 		final Label login = new Label("Login");
-		login.addClickHandler(new ClickHandler() {@Override
+		/*login.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("LogInOut:/login");}});
+		 */
+		login.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+				loginPop.setWidget(loginPres.getView());
+				loginPop.center();
+				loginPop.show();
+			}
+		});
 		this.leftPanel.add(login);
 
-		final Label logout = new Label("Logout");
+		final Label logout = new Label("Logout");/*
 		logout.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("LogInOut:/logout");}});
+		 */
+		logout.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+				loginPop.setWidget(loginPres.getView());
+				loginPop.center();
+				loginPop.show();
+			}
+		});
 		this.leftPanel.add(logout);
 		logout.setVisible(false);
+
+		//Set Popvisilb
+		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
+			@Override
+			public void onLoginChange(LoginChangeEvent event) {
+				loginPop.hide();
+			}
+		});
+
 
 		final Label register = new Label("Register");
 		register.addClickHandler(new ClickHandler() {@Override
