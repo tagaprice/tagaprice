@@ -45,7 +45,7 @@
 
 	<issueManagement>
 		<system>Trac</system>
-		<url>http://tagaprice.lighthouseapp.com/</url>
+		<url>https://github.com/tagaprice/tagaprice/issues</url>
 	</issueManagement>
 	<scm>
 		<url>http://github.com/tagaprice/tagaprice</url>
@@ -95,6 +95,12 @@
 			<version>1.4.3</version>
 		</dependency>
 		<!-- logging -->
+		<dependency>
+		  <groupId>com.google.code.gwt-log</groupId>
+		  <artifactId>gwt-log</artifactId>
+		  <version>3.1.0</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -158,6 +164,8 @@
 		    <artifactId>easymock</artifactId>
 		    <version>2.0</version>
 		</dependency>
+
+		
 	</dependencies>
 	<build>
 		<!-- jb -->
@@ -292,6 +300,7 @@
  					</additionalConfig>
 				</configuration>
 			</plugin>
+
 
 
 		</plugins>

@@ -1,15 +1,12 @@
 package org.tagaprice.client.features.productmanagement.createProduct;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class CreateProductPlace extends Place {
-	private static final MyLogger logger = LoggerFactory.getLogger(CreateProductPlace.class);
 
 
 	private String _id = null;
@@ -40,16 +37,16 @@ public class CreateProductPlace extends Place {
 
 		@Override
 		public CreateProductPlace getPlace(String token) {
-			CreateProductPlace.logger.log("Tokenizer token " + token);
+			Log.debug("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
-						CreateProductPlace.logger.log("return ProductPlace with it and Revision");
+						Log.debug("return ProductPlace with it and Revision");
 						return new CreateProductPlace(e.getNode("id"), e.getNode("rev"));
 					}else if(e.getNode("id")!=null){
-						CreateProductPlace.logger.log("return ProductPlace only with id");
+						Log.debug("return ProductPlace only with id");
 						return new CreateProductPlace(e.getNode("id"));
 					}
 					return null;
@@ -57,7 +54,7 @@ public class CreateProductPlace extends Place {
 					return new CreateProductPlace();
 				}
 			}
-			CreateProductPlace.logger.log("return null");
+			Log.debug("No token");
 			return null;
 		}
 
@@ -66,13 +63,13 @@ public class CreateProductPlace extends Place {
 			String rc = null;
 
 			if(place.getId()==null){
-				CreateProductPlace.logger.log("Tokenizer create product");
+				Log.debug("Tokenizer create product");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				rc = t.getToken();
 			} else { //if(place.getRevisionId().getId()!=null)
-				CreateProductPlace.logger.log("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
+				Log.debug("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");

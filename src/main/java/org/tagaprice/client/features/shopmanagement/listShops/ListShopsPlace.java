@@ -2,19 +2,15 @@ package org.tagaprice.client.features.shopmanagement.listShops;
 
 import java.util.HashMap;
 
-import org.tagaprice.shared.logging.*;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.*;
 
 public class ListShopsPlace extends Place {
-	private static final MyLogger logger = LoggerFactory
-	.getLogger(ListShopsPlace.class);
-
 	private HashMap<String, String> parameters = new HashMap<String, String>();
 	private String categoryfilter;
 
 	public ListShopsPlace(String categoryfilter) {
-		ListShopsPlace.logger.log("Empty ListShopsPlace created");
+		Log.debug("Empty ListShopsPlace created");
 		this.categoryfilter = categoryfilter;
 	}
 
@@ -31,7 +27,7 @@ public class ListShopsPlace extends Place {
 
 		@Override
 		public ListShopsPlace getPlace(String token) {
-			ListShopsPlace.logger.log("returning new ListShopsPlace");
+			Log.debug("returning new ListShopsPlace");
 			return new ListShopsPlace(new HashMap<String, String>());
 		}
 

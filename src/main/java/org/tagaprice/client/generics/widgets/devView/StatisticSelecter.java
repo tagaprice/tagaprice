@@ -10,20 +10,26 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
+import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -31,6 +37,7 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
+	TYPE _type = null;
 	VerticalPanel vePa1 = new VerticalPanel();
 	DatePicker beginDate = new DatePicker();
 	DatePicker endDate = new DatePicker();
@@ -39,11 +46,23 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	//OSM
 	Map _osmMap;
-	Vector layer = new Vector("shops");
+	VectorOptions vectorOptions = new VectorOptions();
+	Vector layer = new Vector("shops",vectorOptions);
 	IStatisticChangeHandler _handler;
 
 	public StatisticSelecter() {
 		initWidget(vePa1);
+
+		//******** INIT OSM Vector ************/
+		//Style
+		Style style = new Style();
+		style.setStrokeColor("#000000");
+		style.setStrokeWidth(2);
+		style.setFillColor("#00FF00");
+		style.setFillOpacity(0.5);
+		style.setPointRadius(8);
+		style.setStrokeOpacity(0.8);
+		vectorOptions.setStyle(style);
 
 		//inti Maps
 		HorizontalPanel hoPa1 = new HorizontalPanel();
@@ -105,8 +124,60 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	}
 
-	@Override
-	public void setStatisticResults(List<StatisticResult> results) {
+	private void setShopResults(List<StatisticResult> results){
+		layer.destroyFeatures();
+		resultList.clear();
+		HashMap<Product, ArrayList<StatisticResult>> sortedByProductList = new HashMap<Product, ArrayList<StatisticResult>>();
+		for(StatisticResult s:results){
+			if(!sortedByProductList.containsKey(s.getProduct())){
+				sortedByProductList.put(s.getProduct(), new ArrayList<StatisticResult>());
+			}
+
+			sortedByProductList.get(s.getProduct()).add(s);
+			//resultList.add(new Label(s.getProduct().getTitle()+", "+s.getPrice().getPrice()+""+s.getPrice().getCurrency()));
+		}
+
+		for(Product key: sortedByProductList.keySet()){
+			VerticalPanel vePa = new VerticalPanel();
+
+			BigDecimal cheapest = null;
+			Currency currency = Currency.dkk;;
+			Unit unit = new Unit();
+			for(StatisticResult sr: sortedByProductList.get(key)){
+				vePa.add(new Label(" - "+
+						sr.getPrice().getPrice().toString()+""+
+						sr.getPrice().getCurrency()+"/"+
+						sr.getQuantity().getQuantity().toString()+""+
+						sr.getQuantity().getUnit().getTitle()));
+
+
+				if(cheapest==null)
+				{
+					currency=sr.getPrice().getCurrency();
+					unit = sr.getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+				}
+				else
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					}
+
+			}
+			resultList.add(new HTML("<a href=\"#CreateProduct:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			resultList.add(vePa);
+
+			/* TODO Get data from child shops
+			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
+			l.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(l.lon(), l.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+
+			layer.addFeature(pointFeature);
+			 */
+		}
+	}
+
+	public void setProductResults(List<StatisticResult> results){
 		layer.destroyFeatures();
 		resultList.clear();
 		HashMap<Shop, ArrayList<StatisticResult>> sortedByShopList = new HashMap<Shop, ArrayList<StatisticResult>>();
@@ -117,20 +188,6 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			sortedByShopList.get(s.getShop()).add(s);
 
-			/*
-			resultList.add(new Label(
-					s.getPrice().getPrice().toString()+""+
-					s.getPrice().getCurrency()+" "+
-					s.getQuantity().getQuantity().toString()+""+
-					s.getQuantity().getUnit().getTitle()+" "+
-					s.getShop().getTitle()));
-
-			LonLat l = new LonLat(s.getShop().getAddress().getLng(), s.getShop().getAddress().getLat());
-			l.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(l.lon(), l.lat());
-			VectorFeature pointFeature = new VectorFeature(point);
-			layer.addFeature(pointFeature);
-			 */
 		}
 
 		//Draw List
@@ -138,33 +195,53 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			VerticalPanel vePa = new VerticalPanel();
 
 			BigDecimal cheapest = null;
+			Currency currency = Currency.dkk;;
+			Unit unit = new Unit();
 			for(StatisticResult sr: sortedByShopList.get(key)){
 				vePa.add(new Label(" - "+
 						sr.getPrice().getPrice().toString()+""+
-						sr.getPrice().getCurrency()+" "+
+						sr.getPrice().getCurrency()+"/"+
 						sr.getQuantity().getQuantity().toString()+""+
 						sr.getQuantity().getUnit().getTitle()));
 
 
 				if(cheapest==null)
 				{
-					cheapest=sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN);
+					currency=sr.getPrice().getCurrency();
+					unit = sr.getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 				}
 				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().multiply(new BigDecimal("1000")).divide(sr.getQuantity().getQuantity(), BigDecimal.ROUND_HALF_EVEN);
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 					}
 
 			}
-			resultList.add(new Label(cheapest.toString()+" "+key.getTitle()));
+			resultList.add(new HTML("<a href=\"#CreateShop:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
 			l.transform("EPSG:4326", "EPSG:900913");
 			Point point = new Point(l.lon(), l.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
+
 			layer.addFeature(pointFeature);
 		}
+
+	}
+
+
+	@Override
+	public void setStatisticResults(List<StatisticResult> results) {
+
+		if(_type!=null){
+			if(_type==TYPE.PRODUCT){
+				setProductResults(results);
+			}else if(_type==TYPE.SHOP){
+				setShopResults(results);
+			}
+		}
+
 
 	}
 
@@ -194,6 +271,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					northEast.lat(),
 					northEast.lon()), beginDate.getValue(), endDate.getValue());
 		}
+	}
+
+	@Override
+	public void setType(TYPE type) {
+		_type=type;
 	}
 
 }

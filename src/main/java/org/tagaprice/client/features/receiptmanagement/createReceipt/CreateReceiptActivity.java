@@ -12,9 +12,7 @@ import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -22,7 +20,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Activity {
-	private static final MyLogger _logger = LoggerFactory.getLogger(CreateReceiptActivity.class);
 
 	private CreateReceiptPlace _place;
 	private ClientFactory _clientFactory;
@@ -30,7 +27,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	private ICreateReceiptView _createReceiptView;
 
 	public CreateReceiptActivity(CreateReceiptPlace place, ClientFactory clientFactory) {
-		CreateReceiptActivity._logger.log("CreateProductActivity created");
+		Log.debug("CreateProductActivity created");
 		_place = place;
 		_clientFactory = clientFactory;
 	}
@@ -55,7 +52,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void onSaveEvent() {
-		CreateReceiptActivity._logger.log("Try Save Receipt");
+		Log.debug("Try Save Receipt");
 
 		//Get data from View
 
@@ -72,12 +69,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			public void onFailure(Throwable e) {
 				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Save error: "+e, INFOTYPE.ERROR,0));
 
-				CreateReceiptActivity._logger.log("ERROR at saving a Receipt: "+e);
+				Log.error("ERROR at saving a Receipt: "+e);
 			}
 
 			@Override
 			public void onSuccess(Receipt response) {
-				CreateReceiptActivity._logger.log("Receipt saved: "+_receipt);
+				Log.debug("Receipt saved: "+_receipt);
 				updateView(response);
 			}
 		});
@@ -92,7 +89,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void productSearchStringHasChanged(String productSearch) {
-		CreateReceiptActivity._logger.log("Start productSearch: "+productSearch);
+		Log.debug("Start productSearch: "+productSearch);
 
 		_clientFactory.getSearchService().searchProduct(
 				productSearch,
@@ -101,7 +98,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onFailure(Throwable e) {
-						CreateReceiptActivity._logger.log("productSearch ERROR: "+e);
+						Log.error("productSearch ERROR: "+e);
 					}
 
 					@Override
@@ -113,7 +110,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void shopSearchStringHasChanged(String shopSearch) {
-		CreateReceiptActivity._logger.log("Start shopSearch: "+shopSearch);
+		Log.debug("Start shopSearch: "+shopSearch);
 
 		_clientFactory.getSearchService().searchShop(
 				shopSearch,
@@ -122,12 +119,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onFailure(Throwable e) {
-						CreateReceiptActivity._logger.log("shopSearch ERROR: "+e);
+						Log.error("shopSearch ERROR: "+e);
 					}
 
 					@Override
 					public void onSuccess(List<Shop> response) {
-
+						Log.debug("ShopSearch successfull: count: "+response.size());
 						_createReceiptView.setShopSearchResults(response);
 					}
 				});
@@ -137,14 +134,14 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_receipt=new Receipt();
-		CreateReceiptActivity._logger.log("activity startet");
+		Log.debug("activity startet");
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
 
 
 
 		if (_place.getId() == null) {
-			CreateReceiptActivity._logger.log("Create new Receipt");
+			Log.debug("Create new Receipt");
 			_receipt.setDate(new Date());
 			updateView(_receipt);
 			panel.setWidget(_createReceiptView);
@@ -158,19 +155,19 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 
 		} else {
-			CreateReceiptActivity._logger.log("Get Receipt: id= "+_place.getId());
+			Log.debug("Get Receipt: id= "+_place.getId());
 
 			_clientFactory.getReceiptService().getReceipt(_place.getId(), new AsyncCallback<Receipt>() {
 
 				@Override
 				public void onFailure(Throwable e) {
-					CreateReceiptActivity._logger.log("ERROR AT Get Receipt: id= "+_place.getId()+"e:"+ e);
+					Log.error("ERROR AT Get Receipt: id= "+_place.getId()+"e:"+ e);
 
 				}
 
 				@Override
 				public void onSuccess(Receipt response) {
-					CreateReceiptActivity._logger.log("Result: "+response);
+					Log.debug("Result: "+response);
 					updateView(response);
 					panel.setWidget(_createReceiptView);
 				}

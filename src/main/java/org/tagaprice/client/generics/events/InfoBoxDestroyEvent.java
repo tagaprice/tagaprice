@@ -12,8 +12,10 @@ public class InfoBoxDestroyEvent extends GwtEvent<InfoBoxDestroyEventHandler> {
 
 	public static Type<InfoBoxDestroyEventHandler> TYPE = new Type<InfoBoxDestroyEventHandler>();
 
-	private final Class<?> _class;
+	private Class<?> _class=null;
 	private INFOTYPE _type=null;
+	private InfoBoxShowEvent _displayedInfo=null;
+
 
 	/**
 	 * Destroy all events from a specific class.
@@ -33,6 +35,14 @@ public class InfoBoxDestroyEvent extends GwtEvent<InfoBoxDestroyEventHandler> {
 		_type=type;
 	}
 
+	/**
+	 * Destroy only this info
+	 * @param displayedInfo a reference to a showed info
+	 */
+	public InfoBoxDestroyEvent(InfoBoxShowEvent displayedInfo){
+		_displayedInfo=displayedInfo;
+	}
+
 
 	/**
 	 * @return the class
@@ -47,6 +57,14 @@ public class InfoBoxDestroyEvent extends GwtEvent<InfoBoxDestroyEventHandler> {
 	 */
 	public INFOTYPE getType(){
 		return _type;
+	}
+
+	/**
+	 * The reference to a info that should be destroyed.
+	 * @return reference to a info that should be destroyed.
+	 */
+	public InfoBoxShowEvent getDesplayedEvent(){
+		return _displayedInfo;
 	}
 
 	@Override

@@ -8,9 +8,7 @@ import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -23,7 +21,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class AccountPersistor implements IAccountPersistor {
 
 
-	private static final MyLogger _logger = LoggerFactory.getLogger(AccountPersistor.class);
 	private Address I_ADDRESS;
 	private FBCore _fbCore = new FBCore();
 	private ClientFactory _clientFactory;
@@ -69,7 +66,7 @@ public class AccountPersistor implements IAccountPersistor {
 	 */
 	@Override
 	public void setAddress(Address address) {
-		AccountPersistor._logger.log("setAddress: "+address);
+		Log.debug("setAddress: "+address);
 		if(I_ADDRESS==null)I_ADDRESS=new Address();
 		I_ADDRESS.setAddress(address.getAddress());
 		I_ADDRESS.setLat(address.getLat());
@@ -96,7 +93,7 @@ public class AccountPersistor implements IAccountPersistor {
 	 */
 	@Override
 	public void logout() {
-		AccountPersistor._logger.log("LogOut Button clicked");
+		Log.debug("LogOut Button clicked");
 		Cookies.removeCookie("TAP_SID");
 		_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(false));
 
@@ -109,7 +106,7 @@ public class AccountPersistor implements IAccountPersistor {
 
 			@Override
 			public void onSuccess(Void value) {
-				AccountPersistor._logger.log("Logout was ok: " + value);
+				Log.debug("Logout was ok: " + value);
 				//Send User login event
 
 			}
@@ -119,9 +116,9 @@ public class AccountPersistor implements IAccountPersistor {
 				try {
 					throw caught;
 				} catch (UserNotLoggedInException e) {
-					AccountPersistor._logger.log("Login problem: " + e);
+					Log.warn("Login problem: " + e);
 				} catch (Throwable e) {
-					AccountPersistor._logger.log("Unexpected error: " + e);
+					Log.error("Unexpected error: " + e);
 				}
 			}
 		});
@@ -148,7 +145,7 @@ public class AccountPersistor implements IAccountPersistor {
 
 			@Override
 			public void onSuccess(String sessionId) {
-				AccountPersistor._logger.log("Login OK. SessionId: " + sessionId);
+				Log.debug("Login OK. SessionId: " + sessionId);
 				setSessionId(sessionId);
 
 				//Send User login event
@@ -162,10 +159,10 @@ public class AccountPersistor implements IAccountPersistor {
 				try {
 					throw caught;
 				} catch (WrongEmailOrPasswordException e) {
-					AccountPersistor._logger.log("Login problem: " + e);
+					Log.warn("Login problem: " + e);
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Login problem: " + e, INFOTYPE.ERROR));
 				} catch (Throwable e) {
-					AccountPersistor._logger.log("Unexpected error: " + e);
+					Log.error("Unexpected error: " + e);
 				}
 
 			}
@@ -188,10 +185,10 @@ public class AccountPersistor implements IAccountPersistor {
 
 		//Test if user is logged in
 		if(isLoggedIn()){
-			AccountPersistor._logger.log("User is loggedIn");
+			Log.debug("User is loggedIn");
 			_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 		}else{
-			AccountPersistor._logger.log("User is not loggedIn");
+			Log.debug("User is not loggedIn");
 			_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(false));
 			checkFB();
 		}
@@ -205,13 +202,13 @@ public class AccountPersistor implements IAccountPersistor {
 
 			@Override
 			public void onSuccess(JavaScriptObject result) {
-				AccountPersistor._logger.log("Findout the facebook login status");
+				Log.debug("Findout the facebook login status");
 				//myHellow(result);
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				AccountPersistor._logger.log("Facebook login Problem");
+				Log.error("Facebook login Problem");
 			}
 		});
 	}

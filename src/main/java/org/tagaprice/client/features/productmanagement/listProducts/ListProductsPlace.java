@@ -1,18 +1,16 @@
 package org.tagaprice.client.features.productmanagement.listProducts;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.logging.*;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.*;
 
 public class ListProductsPlace extends Place {
-	private static final MyLogger logger = LoggerFactory
-	.getLogger(ListProductsPlace.class);
+
 
 	private String categoryfilter;
 
 	public ListProductsPlace() {
-		ListProductsPlace.logger.log("Empty ListProductPlace created");
+		Log.debug("Empty ListProductPlace created");
 	}
 
 
@@ -25,17 +23,17 @@ public class ListProductsPlace extends Place {
 
 		@Override
 		public ListProductsPlace getPlace(String token) {
-			ListProductsPlace.logger.log("Tokenizer token " + token);
+			Log.debug("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
-					ListProductsPlace.logger.log("return ListProductPlace");
+					Log.debug("return ListProductPlace");
 					return new ListProductsPlace();
 				}
 				return null;
 
 			}
-			ListProductsPlace.logger.log("return null");
+			Log.debug("No token");
 			return null;
 
 		}

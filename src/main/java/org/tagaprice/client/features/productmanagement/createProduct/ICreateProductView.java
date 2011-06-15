@@ -150,7 +150,7 @@ public interface ICreateProductView extends IsWidget {
 		public void onCategorySelectedEvent();
 
 		/**
-		 * 	This event is called when the user has changed something at the category widget
+		 * 	This event is called when the user has changed something at the statistic widget
 		 * @param bbox BBox to search for Shop
 		 * @param begin start Date
 		 * @param end end Date

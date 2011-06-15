@@ -2,7 +2,6 @@ package org.tagaprice.server.dao.mock;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
@@ -25,11 +24,9 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 public class MockDaoFactory implements IDaoFactory {
-	MyLogger logger = LoggerFactory.getLogger(MockDaoFactory.class);
 	private final ICategoryDao m_categoryDAO = new CategoryDao();
 	private final IPackageDao m_packageDAO = new PackageDao();
 	private final IProductDao m_productDAO = new ProductDao();
@@ -42,7 +39,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
 	public MockDaoFactory() throws DaoException {
-		logger.log("Initialize Mock data");
+		Log.debug("Initialize Mock data");
 		// TODO Auto-generated constructor stub
 
 

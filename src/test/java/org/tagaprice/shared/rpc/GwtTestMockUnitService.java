@@ -3,8 +3,6 @@ package org.tagaprice.shared.rpc;
 import java.util.List;
 
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitService;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitServiceAsync;
 
@@ -13,7 +11,6 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class GwtTestMockUnitService  extends GWTTestCase {
-	MyLogger logger = LoggerFactory.getLogger(GwtTestMockUnitService.class);
 
 	@Override
 	public String getModuleName() {
@@ -38,7 +35,6 @@ public class GwtTestMockUnitService  extends GWTTestCase {
 							r.getTitle().contains("g") ||
 							r.getTitle().contains("l") ||
 							r.getTitle().contains("ml"));
-					logger.log("-Unit: "+r.getTitle());
 				}
 
 				assertTrue(true);

@@ -19,10 +19,8 @@ import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements ILoginService {
@@ -32,11 +30,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	HttpSession session;
 
-	static MyLogger _logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	private ISessionDao _sessionDao;
 	private IUserDao _userDao;
-	
+
 	private static Random _random = _createPRNG();
 
 	public LoginServiceImpl() {
@@ -48,17 +45,22 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	@Override
 	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
-	UserAlreadyLoggedInException, DaoException {
-		User user = _userDao.getByMail(email);
+	UserAlreadyLoggedInException {
 		String rc = null;
 
-		if (user != null && _checkPassword(user, password)) {
-			// create Session (default expiration time: 1h)
-			Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
-			Session session = _sessionDao.create(new Session(user, expirationDate));
-			rc = session.getId();
+		try {
+			User user = _userDao.getByMail(email);
+
+			if (_checkPassword(user, password)) {
+				// create Session (default expiration time: 1h)
+				Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
+				Session session = _sessionDao.create(new Session(user, expirationDate));
+				rc = session.getId();
+			}
+			else throw new WrongEmailOrPasswordException("Please controll user and password");
+		} catch (DaoException e) {
+			throw new WrongEmailOrPasswordException("Please controll user and password: "+e);
 		}
-		else throw new WrongEmailOrPasswordException("Please check your login data");
 
 		return rc;
 	}
@@ -102,18 +104,18 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public String registerUser(String email, String password, boolean agreeTerms) throws DaoException {
+	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException {
 		// TODO do some error handling here
-		if (!agreeTerms) return null;
-		if (!isEmailAvailable(email)) return null;
-		if (password.length() < 6) return null;
+		if (!agreeTerms) return false;
+		if (!isEmailAvailable(email)) return false;
+		if (password.length() < 6) return false;
 
-		_logger.log("Try to register: email: " + email + ", password: " + password);
+		Log.debug("Try to register: email: " + email + ", password: " + password);
 
 
 		String salt = generateSalt(24);
 		String pwdHash;
-		
+
 		try {
 			pwdHash = md5(password+salt);
 		}
@@ -127,7 +129,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		user.setPasswordHash(pwdHash);
 		_userDao.create(user);
 
-		return "successful"; // I don't want a session to be returned that soon. There should be a mail verification before
+		return true; // I don't want a session to be returned that soon. There should be a mail verification before
 	}
 
 
@@ -140,7 +142,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	private boolean _checkPassword(User user, String password) throws DaoException {
 		String hash = user.getPasswordHash();
 		String salt = user.getPasswordSalt();
-		
+
 		try {
 			return hash.equals(md5(password+salt));
 		}
@@ -148,28 +150,28 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
 		}
 	}
-	
+
 	public String md5(String in) throws NoSuchAlgorithmException {
-		// calculate hash 
+		// calculate hash
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
-	    md5.update(in.getBytes());
-	    byte[] hash = md5.digest();
-	    StringBuffer rc = new StringBuffer();
-        for (int i=0; i<hash.length; i++) {
-        	String hex = "0"+Integer.toHexString(0xFF & hash[i]);
-        	if (hex.length()>2) hex = hex.substring(hex.length()-2);
-            rc.append(hex);
-        }
-        
-        return rc.toString();
+		md5.update(in.getBytes());
+		byte[] hash = md5.digest();
+		StringBuffer rc = new StringBuffer();
+		for (int i=0; i<hash.length; i++) {
+			String hex = "0"+Integer.toHexString(0xFF & hash[i]);
+			if (hex.length()>2) hex = hex.substring(hex.length()-2);
+			rc.append(hex);
+		}
+
+		return rc.toString();
 	}
-	
+
 	/**
 	 * Use a Pseudo Random Number Generator to generate an arbitrary-length random String that
 	 * can be used as password hash salt (or for anything else)
 	 * 
 	 * @param len Desired length of the returned String
-	 * @return Random String with the given length 
+	 * @return Random String with the given length
 	 */
 	public static String generateSalt(int len) {
 		String rc = "";
@@ -177,9 +179,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		for (int i = 0; i < len; i++) {
 			int n = _random.nextInt(62);
 			char c;
-			if (n < 26) c = (char)(n+(int)'a');
-			else if (n < 52) c = (char)(n-26+(int)'A');
-			else c = (char) (n-52+(int)'0');
+			if (n < 26) c = (char)(n+'a');
+			else if (n < 52) c = (char)(n-26+'A');
+			else c = (char) (n-52+'0');
 			rc += c;
 		}
 		return rc;
@@ -213,7 +215,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			rc = new Random(seed);
 		}
 		catch (IOException e) { // /dev/urandom can't be read
-			_logger.log("Warning: using current time as random seed");
+			Log.error("Warning: using current time as random seed");
 			rc = new Random();
 		}
 

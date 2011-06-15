@@ -16,11 +16,9 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
-import org.tagaprice.shared.logging.LoggerFactory;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -32,7 +30,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {
-	private static MyLogger _logger = LoggerFactory.getLogger(AddressSelecter.class);
 	ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 	VerticalPanel vePaTemp = new VerticalPanel();
 
@@ -108,14 +105,14 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 					@Override
 					public void onSuccess(Address address) {
-						AddressSelecter._logger.log(address.getAddress());
+						Log.debug(address.getAddress());
 						_addressBox.setText(address.getAddress());
 
 					}
 
 					@Override
 					public void onFailure(Throwable e) {
-						AddressSelecter._logger.log(e.toString());
+						Log.error(e.toString());
 
 					}
 				});

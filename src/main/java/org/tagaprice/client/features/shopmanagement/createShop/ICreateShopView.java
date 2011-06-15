@@ -1,8 +1,11 @@
 package org.tagaprice.client.features.shopmanagement.createShop;
 
+import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.place.shared.Place;
@@ -37,6 +40,15 @@ public interface ICreateShopView extends IsWidget {
 		 *            shop.
 		 */
 		public void onSaveEvent();
+
+		/**
+		 * 	This event is called when the user has changed something at the statistic widget
+		 * @param bbox BBox to search for Shop
+		 * @param begin start Date
+		 * @param end end Date
+		 */
+		public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end);
+
 	}
 
 	public String getShopTitle();
@@ -66,5 +78,11 @@ public interface ICreateShopView extends IsWidget {
 	public void setPresenter(Presenter presenter);
 
 	public void setShopTitle(String title);
+
+	/**
+	 * Set statistic results
+	 * @param results statistic results.
+	 */
+	public void setStatisticResults(List<StatisticResult> results);
 
 }

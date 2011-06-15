@@ -11,20 +11,20 @@
 	<!-- Servlets -->
 
 
-	
-	
+
+
 	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>initServlet</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.InitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>initServlet</servlet-name>
 		<url-pattern>/TagAPrice/initservlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>productservice</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>
@@ -33,8 +33,8 @@
 	<servlet-mapping>
 		<servlet-name>productservice</servlet-name>
 		<url-pattern>/TagAPrice/productservice</url-pattern>
-	</servlet-mapping>	
-	
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>loginservice</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.LoginServiceImpl</servlet-class>
@@ -44,7 +44,7 @@
 		<servlet-name>loginservice</servlet-name>
 		<url-pattern>/TagAPrice/loginservice</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>shopService</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ShopServiceImpl</servlet-class>
@@ -54,7 +54,7 @@
 		<servlet-name>shopService</servlet-name>
 		<url-pattern>/TagAPrice/shopservice</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>receiptService</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ReceiptServiceImpl</servlet-class>
@@ -64,7 +64,7 @@
 		<servlet-name>receiptService</servlet-name>
 		<url-pattern>/TagAPrice/receiptservice</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>searchService</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.SearchServiceImpl</servlet-class>
@@ -74,7 +74,7 @@
 		<servlet-name>searchService</servlet-name>
 		<url-pattern>/TagAPrice/searchservice</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>categoryService</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.CategoryServiceImpl</servlet-class>
@@ -84,7 +84,7 @@
 		<servlet-name>categoryService</servlet-name>
 		<url-pattern>/TagAPrice/categoryservice</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>unitService</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.UnitServiceImpl</servlet-class>
@@ -94,22 +94,38 @@
 		<servlet-name>unitService</servlet-name>
 		<url-pattern>/TagAPrice/unitservice</url-pattern>
 	</servlet-mapping>
-	
-	
-	<!-- END: RPC-->
-	
-	<!--  JUNIT -->
-	
+
+
+	<!-- END: RPC -->
+
+	<!-- JUNIT -->
+
 	<servlet>
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
-	</servlet> 
-	
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<url-pattern>/TagAPrice/junithost/*</url-pattern>
 	</servlet-mapping>
-	
+
+	<servlet>
+		<servlet-name>gwt-log-remote-logger-servlet</servlet-name>
+		<servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
+		<!-- symbolMaps param provides for stack trace deobfuscation -->
+		<init-param>
+			<param-name>symbolMaps</param-name>
+			<!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
+			<param-value>WEB-INF/deploy/TagAPrice/symbolMaps/</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>gwt-log-remote-logger-servlet</servlet-name>
+		<url-pattern>/TagAPrice/gwt-log</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

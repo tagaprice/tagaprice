@@ -1,15 +1,12 @@
 package org.tagaprice.client.features.accountmanagement.login;
 
 import org.tagaprice.client.generics.TokenCreator;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class LoginPlace extends Place {
-	private static final MyLogger logger = LoggerFactory.getLogger(LoginPlace.class);
 
 	private String _sessionId;
 
@@ -35,7 +32,7 @@ public class LoginPlace extends Place {
 
 		@Override
 		public LoginPlace getPlace(String token) {
-			LoginPlace.logger.log("Tokenizer token " + token);
+			Log.debug("Tokenizer token " + token);
 
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 
@@ -58,13 +55,13 @@ public class LoginPlace extends Place {
 		@Override
 		public String getToken(LoginPlace place) {
 			if(place.getSessionId()==null){
-				LoginPlace.logger.log("Tokenizer show login");
+				Log.debug("Tokenizer show login");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("login");
 				return t.getToken();
 			}else if(place.getSessionId()!=null){
-				LoginPlace.logger.log("Tokenizer show logout");
+				Log.debug("Tokenizer show logout");
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("logout");

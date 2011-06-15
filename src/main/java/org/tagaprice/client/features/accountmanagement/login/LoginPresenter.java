@@ -2,69 +2,52 @@ package org.tagaprice.client.features.accountmanagement.login;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.facebook.FBCore;
-import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
-public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presenter, Activity {
+import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.SimplePanel;
+
+public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Presenter{
 
 	private ILoginView loginView;
 	private ILogoutView logoutView;
-	private LoginPlace _place;
 	private ClientFactory _clientFactory;
 	private FBCore _fbCore = new FBCore();
+	private SimplePanel _view = new SimplePanel();
 
-	public LoginActivity(LoginPlace place, ClientFactory clientFactory) {
-		Log.debug("LoginActivity created");
-
-		_place = place;
+	public LoginPresenter(ClientFactory clientFactory) {
+		Log.debug("LoginPresenter created");
 		_clientFactory = clientFactory;
-		//_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
 
 
-	}
-
-	@Override
-	public String mayStop() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onCancel() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		Log.debug("activity startet");
-
+		Log.debug("init");
 
 		if (!_clientFactory.getAccountPersistor().isLoggedIn()) {
 			loginView = _clientFactory.getLoginView();
 			loginView.setPresenter(this);
-
-			panel.setWidget(loginView);
+			_view.setWidget(loginView);
 		} else {
 			logoutView = _clientFactory.getLogoutView();
 			logoutView.setPresenter(this);
-			panel.setWidget(logoutView);
+			_view.setWidget(logoutView);
 		}
+	}
 
+	public IsWidget getView(){
+		return _view;
+	}
+
+
+
+	@Override
+	public void onLogOutEvent() {
+		_clientFactory.getAccountPersistor().logout();
 	}
 
 	@Override
 	public void goTo(Place place) {
-		this._clientFactory.getPlaceController().goTo(place);
+		_clientFactory.getPlaceController().goTo(place);
 	}
 
 	@Override
@@ -73,18 +56,12 @@ public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presente
 		if (loginView != null) {
 			//loginView.getEmail();
 			//loginView.getPassword();
-
 			if (!loginView.getEmail().isEmpty() && !loginView.getPassword().isEmpty()) {
 
 				_clientFactory.getAccountPersistor().login(loginView.getEmail(), loginView.getPassword());
 
 			}
 		}
-	}
-
-	@Override
-	public void onLogOutEvent() {
-		_clientFactory.getAccountPersistor().logout();
 	}
 
 }

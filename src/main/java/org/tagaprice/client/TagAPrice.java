@@ -14,8 +14,7 @@ import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.client.mvp.AppActivityMapper;
 import org.tagaprice.client.mvp.AppPlaceHistoryMapper;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
@@ -36,7 +35,6 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
  *
  */
 public class TagAPrice implements EntryPoint {
-	private static MyLogger _logger = LoggerFactory.getLogger(TagAPrice.class);
 
 	private ClientFactory clientFactory;
 	private EventBus eventBus;
@@ -44,6 +42,7 @@ public class TagAPrice implements EntryPoint {
 
 	private IUi _iui = new UIDesktop();
 	private FBCore _fbCore = new FBCore();
+	InfoBoxShowEvent infoBox;
 
 
 	/**
@@ -52,7 +51,8 @@ public class TagAPrice implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		TagAPrice._logger.log("EntryPoint startet");
+		//Log.debug("This is a 'DEBUG' test message");
+		Log.debug("EntryPoint startet");
 		clientFactory = GWT.create(ClientFactory.class);
 		eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
@@ -87,7 +87,7 @@ public class TagAPrice implements EntryPoint {
 
 			@Override
 			public void onDestroyInfo(InfoBoxDestroyEvent event) {
-				TagAPrice._logger.log("Destroy event:");
+				Log.debug("Destroy event:");
 				_iui.getInfoBox().removeInfoBoxEvent(event);
 			}
 		});

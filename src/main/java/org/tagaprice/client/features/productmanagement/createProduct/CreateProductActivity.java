@@ -11,9 +11,7 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.*;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -21,7 +19,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class CreateProductActivity implements ICreateProductView.Presenter, Activity {
-	private static final MyLogger _logger = LoggerFactory.getLogger(CreateProductActivity.class);
 
 	private CreateProductPlace _place;
 	private ClientFactory _clientFactory;
@@ -29,7 +26,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	private ICreateProductView _createProductView;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
-		CreateProductActivity._logger.log("CreateProductActivity created");
+		Log.debug("CreateProductActivity created");
 		_place = place;
 		_clientFactory = clientFactory;
 	}
@@ -59,7 +56,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onSaveEvent() {
-		CreateProductActivity._logger.log("Save Product");
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "saving...", INFOTYPE.INFO));
+		Log.debug("Save Product");
 
 
 		//Get data from View
@@ -75,19 +73,18 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 				try{
 					throw caught;
 				}catch (UserNotLoggedInException e){
-					CreateProductActivity._logger.log(e.getMessage());
+					Log.warn(e.getMessage());
 				}catch (Throwable e){
-					// last resort -- a very unexpected exception
-					CreateProductActivity._logger.log(e.getMessage());
-					e.printStackTrace();
+					Log.error(e.getMessage());
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
 				}
-
-				CreateProductActivity._logger.log(caught.getLocalizedMessage());
 
 			}
 
 			@Override
 			public void onSuccess(Product result) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
+				Log.debug("Product save successfull");
 				updateView(result);
 			}
 		});
@@ -108,44 +105,45 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onUnitSelectedEvent() {
-		CreateProductActivity._logger.log("Unit has changed");
+		Log.debug("Unit has changed");
 
 	}
 
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_product = new Product();
-		CreateProductActivity._logger.log("activity startet");
+		Log.debug("activity startet");
 
 		_createProductView = _clientFactory.getCreateProductView();
 		_createProductView.setPresenter(this);
 
 
 		if (_place.getId() == null) {
-			CreateProductActivity._logger.log("Create new Product");
+			Log.debug("Create new Product");
 
 			updateView(_product);
 			panel.setWidget(_createProductView);
 			// panel.setWidget(new Label("Create new Product"));
 		} else {
-			CreateProductActivity._logger.log("Get Product: id=" + _place.getId() + ", rev: "
+			Log.debug("Get Product: id=" + _place.getId() + ", rev: "
 					+ _place.getRevision());
 			// panel.setWidget(new
 			// Label("Get Product: id="+_place.getRevisionId().getId()+", rev: "+_place.getRevisionId().getRevision()));
 
 
-			CreateProductActivity._logger.log("Load Categories...");
+			Log.debug("Load Categories...");
 
 
 			this._clientFactory.getProductService().getProduct(_place.getId(), _place.getRevision(), new AsyncCallback<Product>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					CreateProductActivity._logger.log("ERROR at getProduct");
+					Log.error("ERROR at getProduct: "+caught.getMessage());
 				}
 
 				@Override
 				public void onSuccess(Product result) {
+					Log.debug("Get Product sucessfull id: "+result.getId());
 					updateView(result);
 					panel.setWidget(_createProductView);
 				}
@@ -168,7 +166,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
-		CreateProductActivity._logger.log("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0));
 
 		_clientFactory.getSearchService().searchProductPrices(_product.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
@@ -182,7 +180,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			@Override
 			public void onFailure(Throwable e) {
 				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "searchproblem: "+e, INFOTYPE.ERROR,0));
-				CreateProductActivity._logger.log("searchproblem: "+e);
+				Log.error("searchproblem: "+e);
 			}
 		});
 

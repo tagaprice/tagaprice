@@ -11,35 +11,44 @@
 		<g:DecoratorPanel>
 			<g:HTMLPanel>
 				<table>
-				
 					<tr>
-						<td>
-							<g:Label ui:field="_nameI18N">Name</g:Label>
+						<td valign="top">
+							<table>
+								<tr>
+									<td>
+										<g:Label ui:field="_nameI18N">Name</g:Label>
+									</td>
+									<td>
+										<g:TextBox ui:field="_name"></g:TextBox>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<g:Label ui:field="_brandinI18N">Branding</g:Label>
+									</td>
+									<td>
+										<g:TextBox ui:field="_branding"></g:TextBox>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<my:AddressSelecter ui:field="_address"></my:AddressSelecter>
+									</td>
+								</tr>				
+								<tr>
+									<td colspan="2">
+										<g:Button ui:field="_cancelButton">cancel</g:Button>
+										<g:Button ui:field="_saveButton">save shop</g:Button>
+									</td>
+								</tr>
+							</table>
 						</td>
-						<td>
-							<g:TextBox ui:field="_name"></g:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<g:Label ui:field="_brandinI18N">Branding</g:Label>
-						</td>
-						<td>
-							<g:TextBox ui:field="_branding"></g:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<my:AddressSelecter ui:field="_address"></my:AddressSelecter>
-						</td>
-					</tr>				
-					<tr>
-						<td colspan="2">
-							<g:Button ui:field="_cancelButton">cancel</g:Button>
-							<g:Button ui:field="_saveButton">save shop</g:Button>
+						<td valign="top">
+							<my:StatisticSelecter ui:field="_statisticSelecter"></my:StatisticSelecter>
 						</td>
 					</tr>
 				</table>
+				
 			</g:HTMLPanel>
 
 		</g:DecoratorPanel>

@@ -1,13 +1,11 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.features.accountmanagement.register.RegisterPlace.RegisterType;
+import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
-
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -15,14 +13,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class RegisterActivity implements IRegisterView.Presenter, Activity {
-	private static final MyLogger _logger = LoggerFactory.getLogger(RegisterActivity.class);
 
 	private RegisterPlace _place;
 	private ClientFactory _clientFactory;
 	private IRegisterView _registerView;
 
 	public RegisterActivity(RegisterPlace place, ClientFactory clientFactory) {
-		RegisterActivity._logger.log("RegisterActivity created");
+		Log.debug("RegisterActivity created");
 
 		_place = place;
 		_clientFactory = clientFactory;
@@ -48,7 +45,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		RegisterActivity._logger.log("activity startet");
+		Log.debug("activity startet");
 
 		if(_place.getRegisterType()==RegisterPlace.RegisterType.REGISTER){
 			if (_registerView == null)
@@ -75,11 +72,9 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 	public void onRegisterButtonEvent() {
 		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(RegisterActivity.class));
 
-		RegisterActivity._logger.log("Register Button Pressed");
-
-
-		RegisterActivity._logger.log("Email: "+_registerView.getEmail());
-		RegisterActivity._logger.log("PW: "+_registerView.getPassword());
+		Log.debug("Register Button Pressed");
+		Log.debug("Email: "+_registerView.getEmail());
+		Log.debug("PW: "+_registerView.getPassword());
 
 		if(_registerView.getEmail().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Email is empty", INFOTYPE.ERROR,0));
@@ -107,16 +102,14 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 								_registerView.getEmail(),
 								_registerView.getPassword(),
 								_registerView.getAgreeTerms(),
-								new AsyncCallback<String>() {
+								new AsyncCallback<Boolean>() {
 
 									@Override
-									public void onSuccess(String sessionId) {
-										if(sessionId!=null){
-											_clientFactory.getAccountPersistor().setSessionId(sessionId);
-
-											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
-											goTo(new RegisterPlace(RegisterType.THANKS));
-											RegisterActivity._logger.log("Login OK. SessionId: " + sessionId);
+									public void onSuccess(Boolean isok) {
+										Log.debug("registration successful");
+										if(isok){
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!! Please login with email and password", INFOTYPE.INFO,0));
+											goTo(new LoginPlace());
 
 										}else{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
@@ -127,18 +120,21 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 
 									@Override
 									public void onFailure(Throwable e) {
+										Log.error(e.getMessage());
 										_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Exception: "+e, INFOTYPE.ERROR,0));
 
 									}
 								});
-					}else
+					}else{
+						Log.debug("Email not available");
 						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Email not available ", INFOTYPE.ERROR,0));
-
+					}
 
 				}
 
 				@Override
 				public void onFailure(Throwable e) {
+					Log.error(e.getMessage());
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Exception: "+e, INFOTYPE.ERROR,0));
 
 				}

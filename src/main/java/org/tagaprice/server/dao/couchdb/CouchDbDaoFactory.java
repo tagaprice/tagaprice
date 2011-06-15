@@ -18,8 +18,7 @@ import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IUnitDao;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
+import com.allen_sauer.gwt.log.client.Log;
 
 
 /**
@@ -28,7 +27,7 @@ import org.tagaprice.shared.logging.MyLogger;
 public class CouchDbDaoFactory implements IDaoFactory {
 	private static CouchDbConfig m_dbConfig = null;
 	private static Server m_server = null;
-	
+
 	private ICategoryDao m_categoryDao = null;
 	private IPackageDao m_packageDao = null;
 	private IProductDao m_productDao = null;
@@ -37,51 +36,50 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IShopDao m_shopDao = null;
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
-	
+
 	private EntityDao m_entityDao = null;
-	
-	private static  MyLogger m_logger = LoggerFactory.getLogger(CouchDbDaoFactory.class);
-	
+
+
 	static CouchDbConfig getConfiguration() throws IOException {
-		if (m_dbConfig == null) {
-			m_dbConfig = _readProperties("couchdb.properties");
+		if (CouchDbDaoFactory.m_dbConfig == null) {
+			CouchDbDaoFactory.m_dbConfig = _readProperties("couchdb.properties");
 		}
-		return m_dbConfig;
+		return CouchDbDaoFactory.m_dbConfig;
 	}
-	
+
 	static void _setConfiguration(CouchDbConfig dbConfig) {
-		m_dbConfig = dbConfig;
+		CouchDbDaoFactory.m_dbConfig = dbConfig;
 	}
-	
+
 	static Server getServerObject(CouchDbConfig dbConfig) {
-		if (m_server == null) {
+		if (CouchDbDaoFactory.m_server == null) {
 			String host = dbConfig.getCouchHost();
 			int port = dbConfig.getCouchPort();
 			boolean useSsl = dbConfig.getCouchSsl();
-			m_server = new ServerImpl(host, port, useSsl);
+			CouchDbDaoFactory.m_server = new ServerImpl(host, port, useSsl);
 
 			if (dbConfig.hasLoginData()) {
 				String user = dbConfig.getCouchUser();
 				String password = dbConfig.getCouchPassword();
-	
+
 				AuthScope authScope = new AuthScope(host, port);
 				Credentials credentials = new UsernamePasswordCredentials(user, password);
-				m_logger.log("Connecting to the CouchDB server at '"+host+":"+port+"' as user '"+user+"'");
-				m_server.setCredentials(authScope, credentials);
+				Log.debug("Connecting to the CouchDB server at '"+host+":"+port+"' as user '"+user+"'");
+				CouchDbDaoFactory.m_server.setCredentials(authScope, credentials);
 			}
 			else {
-				m_logger.log("Connecting anonymously to the CouchDB server at '"+host+":"+port+"'");
+				Log.debug("Connecting anonymously to the CouchDB server at '"+host+":"+port+"'");
 			}
-	
-			if (useSsl) m_logger.log("using SSL");
+
+			if (useSsl) Log.debug("using SSL");
 		}
-		return m_server;
+		return CouchDbDaoFactory.m_server;
 	}
-	
+
 	static Server getServerObject() throws IOException {
 		return getServerObject(getConfiguration());
 	}
-	
+
 	/**
 	 * Read a CouchDB connection configuration file
 	 * @param filename file that should be read
@@ -90,13 +88,13 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 */
 	private static CouchDbConfig _readProperties(String filename) throws IOException {
 		CouchDbConfig rc = new CouchDbConfig();
-		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename); 
+		InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+filename);
 		if (stream != null) {
-			m_logger.log("Reading configuration file '"+filename+"'");
+			Log.debug("Reading configuration file '"+filename+"'");
 			rc.load(stream);
 		}
 		else  {
-			m_logger.log("Couldn't read configuration file '"+filename+"'");
+			Log.error("Couldn't read configuration file '"+filename+"'");
 			throw new IOException("Couldn't load resource file '"+filename+"'. Make sure it exists and is accessible");
 		}
 
@@ -108,7 +106,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 */
 	public CouchDbDaoFactory() {
 	}
-	
+
 	@Override
 	public ICategoryDao getCategoryDao() {
 		if (m_categoryDao == null) {
@@ -148,7 +146,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		}
 		return m_sessionDao;
 	}
-	
+
 	@Override
 	public IShopDao getShopDao() {
 		if (m_shopDao == null) {
@@ -164,21 +162,22 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		}
 		return m_unitDao;
 	}
-	
+
+	@Override
 	public UserDao getUserDao() {
 		if (m_userDao == null) {
 			m_userDao = new UserDao(this);
 		}
 		return m_userDao;
 	}
-	
+
 	EntityDao _getEntityDao() {
 		if (m_entityDao == null) {
 			m_entityDao = new EntityDao(this);
 		}
 		return m_entityDao;
 	}
-	
+
 	@Override
 	public void init() throws ServletException {
 		InitialInjector injector = new InitialInjector();
@@ -187,7 +186,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 			dbName = getConfiguration().getCouchDatabase();
 			injector.init(getServerObject(), dbName);
 		} catch (Exception e) {
-			m_logger.log("Error while initializing CouchDB");
+			Log.error("Error while initializing CouchDB");
 			e.printStackTrace();
 			throw new ServletException("Error while initializing CouchDB", e);
 		}

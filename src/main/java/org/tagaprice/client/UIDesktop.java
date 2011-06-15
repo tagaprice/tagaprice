@@ -1,10 +1,12 @@
 package org.tagaprice.client;
 
+import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.generics.I18N;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.widgets.InfoBox;
+
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,8 +16,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -26,27 +26,29 @@ public class UIDesktop implements IUi {
 
 
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
-	private HorizontalPanel topPanel = new HorizontalPanel();
+	//private HorizontalPanel topPanel = new HorizontalPanel();
 	private VerticalPanel leftPanel = new VerticalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
 	private InfoBox _infoBox = new InfoBox();
-
-	DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
-
+	private DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
 
 	ActivityManager _activityManager;
 	ClientFactory _clientFactory;
 
+	private PopupPanel loginPop = new PopupPanel(true);
+
 	private void init(){
 
+		//Widget divLogger = Log.getLogger(DivLogger.class).getWidget();
 		//LAYOUT
-		completeScreen.addNorth(this.topPanel, 80);
+		//completeScreen.addSouth(divLogger, 120);
+		//completeScreen.addNorth(this.topPanel, 80);
 		completeScreen.addWest(this.leftPanel, 150);
 		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
-		this.topPanel.add(new Image("TagaAPriceLogo.png"));
-		this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
+		//this.topPanel.add(new Image("TagaAPriceLogo.png"));
+		//this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
 		//This is quite a mess...
 
 		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
@@ -80,17 +82,45 @@ public class UIDesktop implements IUi {
 		/******************** Login Links *****************/
 		this.leftPanel.add(new HTML("<hr />"));
 		final Label login = new Label("Login");
-		login.addClickHandler(new ClickHandler() {@Override
+		/*login.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("LogInOut:/login");}});
+		 */
+		login.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+				loginPop.setWidget(loginPres.getView());
+				loginPop.showRelativeTo(login);
+			}
+		});
 		this.leftPanel.add(login);
 
-		final Label logout = new Label("Logout");
+		final Label logout = new Label("Logout");/*
 		logout.addClickHandler(new ClickHandler() {@Override
 			public void onClick(ClickEvent arg0) {
 			History.newItem("LogInOut:/logout");}});
+		 */
+		logout.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+				loginPop.setWidget(loginPres.getView());
+				loginPop.showRelativeTo(logout);
+			}
+		});
 		this.leftPanel.add(logout);
 		logout.setVisible(false);
+
+		//Set Popvisilb
+		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
+			@Override
+			public void onLoginChange(LoginChangeEvent event) {
+				loginPop.hide();
+			}
+		});
+
 
 		final Label register = new Label("Register");
 		register.addClickHandler(new ClickHandler() {@Override

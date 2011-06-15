@@ -5,11 +5,10 @@ import java.util.List;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.IUnitSelecter;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.logging.LoggerFactory;
-import org.tagaprice.shared.logging.MyLogger;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitService;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitServiceAsync;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -31,7 +30,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	private Unit _cUnit = new Unit();
 	private ListBox _listBoxUnit = new ListBox();
 	private IUnitChangedHandler _unitChangedHandler;
-	private MyLogger _logger = LoggerFactory.getLogger(UnitSelecter.class);
 	private IUnitServiceAsync _unitServiceAsync = GWT.create(IUnitService.class);
 	private String _allowId = null;
 
@@ -66,7 +64,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 	@Override
 	public void setRelatedUnit(Unit unit) {
-		_logger.log("RelativeUnit: "+unit);
+		Log.debug("RelativeUnit: "+unit);
 		if(unit!=null){
 			_allowId=unit.getId();
 		}
@@ -75,7 +73,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	@Override
 	public void setUnit(Unit unit) {
 		if(unit!=null){
-			_logger.log("setUnit: "+unit.getTitle());
+			Log.debug("setUnit: "+unit.getTitle());
 			_selectButton.setText(unit.getTitle()+"^");
 			_cUnit=unit;
 			int pos = 0;
@@ -121,6 +119,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 			@Override
 			public void onSuccess(List<Unit> results) {
+				Log.debug("get factorizedUnits successfull. count: "+results.size());
 				VerticalPanel vePa = new VerticalPanel();
 
 
@@ -146,7 +145,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 			@Override
 			public void onFailure(Throwable e) {
-				_logger.log("getCategoryProblem: "+e);
+				Log.error("getCategoryProblem: "+e);
 			}
 		});
 
