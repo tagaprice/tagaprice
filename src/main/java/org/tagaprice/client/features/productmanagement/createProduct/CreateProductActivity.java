@@ -11,6 +11,8 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.*;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -138,7 +140,16 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 				@Override
 				public void onFailure(Throwable caught) {
-					Log.error("ERROR at getProduct: "+caught.getMessage());
+					try{
+						throw caught;
+					}catch (DaoException e){
+						Log.error("DaoException at getProduct: "+caught.getMessage());
+					}catch (Throwable e){
+						Log.error("Unexpected exception: "+caught.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+					}
+
+
 				}
 
 				@Override
