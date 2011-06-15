@@ -28,7 +28,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	private ICreateProductView _createProductView;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
-		Log.debug("CreateProductActivity created");
+		Log.debug("create class");
 		_place = place;
 		_clientFactory = clientFactory;
 	}
@@ -77,7 +77,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			_clientFactory.getEventBus().fireEvent(trySaving);
 
 
-			this._clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
+			_clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -97,7 +97,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 				public void onSuccess(Product result) {
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
-					Log.debug("Product save successfull");
+					Log.debug("Product save successful");
 					updateView(result);
 				}
 			});

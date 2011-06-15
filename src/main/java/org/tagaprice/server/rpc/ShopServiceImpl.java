@@ -7,6 +7,7 @@ import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.rpc.shopmanagement.*;
 
@@ -50,10 +51,10 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	}
 
 	@Override
-	public Shop saveShop(String sessionId, Shop shop) throws DaoException {
+	public Shop saveShop(String sessionId, Shop shop) throws DaoException, UserNotLoggedInException {
 		Log.debug("save Shop " + shop);
 
-		if (sessionId == null) throw new DaoException("Can't save a shop without having a valid session!");
+		if (sessionId == null) throw new UserNotLoggedInException("Can't save a shop without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
 		Shop rc = null;
 
