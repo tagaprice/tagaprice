@@ -20,7 +20,7 @@ public interface ILoginService extends RemoteService {
 	 * @throws DaoException if something went wrong at the database backend
 	 */
 	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
-	UserAlreadyLoggedInException;
+	UserAlreadyLoggedInException, DaoException;
 
 
 	/**

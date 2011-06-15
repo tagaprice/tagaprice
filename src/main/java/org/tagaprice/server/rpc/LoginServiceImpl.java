@@ -44,23 +44,17 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
-	UserAlreadyLoggedInException {
+	public String setLogin(String email, String password) throws DaoException, UserAlreadyLoggedInException, WrongEmailOrPasswordException {
 		String rc = null;
 
-		try {
-			User user = _userDao.getByMail(email);
+		User user = _userDao.getByMail(email);
 
-			if (_checkPassword(user, password)) {
-				// create Session (default expiration time: 1h)
-				Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
-				Session session = _sessionDao.create(new Session(user, expirationDate));
-				rc = session.getId();
-			}
-			else throw new WrongEmailOrPasswordException("Please controll user and password");
-		} catch (DaoException e) {
-			throw new WrongEmailOrPasswordException("Please controll user and password: "+e);
-		}
+		if (user == null || !_checkPassword(user, password)) throw new WrongEmailOrPasswordException("Please check your login credentials"); 
+
+		// create Session (default expiration time: 1h)
+		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
+		Session session = _sessionDao.create(new Session(user, expirationDate));
+		rc = session.getId();
 
 		return rc;
 	}
