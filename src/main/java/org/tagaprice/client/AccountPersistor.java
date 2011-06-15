@@ -160,7 +160,7 @@ public class AccountPersistor implements IAccountPersistor {
 					throw caught;
 				} catch (WrongEmailOrPasswordException e) {
 					Log.warn("Login problem: " + e);
-					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Login problem: " + e, INFOTYPE.ERROR));
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Your email and password is incorrect. Register or try again. ", INFOTYPE.ERROR));
 				} catch (Throwable e) {
 					Log.error("Unexpected error: " + e);
 				}

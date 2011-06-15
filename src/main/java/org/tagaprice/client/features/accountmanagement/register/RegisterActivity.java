@@ -82,15 +82,19 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 		if(_registerView.getPassword().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Password is empty", INFOTYPE.ERROR,0));
 
+		if(!_registerView.getPassword().isEmpty() && _registerView.getPassword().length()<6)
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Password must have more than 6 characters", INFOTYPE.ERROR,0));
+
 		if(!_registerView.getAgreeTerms())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Please aggree our terms and conditions!", INFOTYPE.ERROR,0));
 
 
 		if(
 				!_registerView.getEmail().isEmpty() &&
-				!_registerView.getPassword().isEmpty() &&
+				_registerView.getPassword().length()>=6 &&
 				_registerView.getAgreeTerms()){
-			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Register...", INFOTYPE.INFO));
+			final InfoBoxShowEvent registerShow = new InfoBoxShowEvent(RegisterActivity.class, "Try to register...", INFOTYPE.INFO);
+			_clientFactory.getEventBus().fireEvent(registerShow);
 
 			_clientFactory.getLoginService().isEmailAvailable(_registerView.getEmail(), new AsyncCallback<Boolean>() {
 
@@ -108,11 +112,13 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 									public void onSuccess(Boolean isok) {
 										Log.debug("registration successful");
 										if(isok){
-											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!! Please login with email and password", INFOTYPE.INFO,0));
+											_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.INFO));
 											goTo(new LoginPlace());
 
 										}else{
-											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Oooops but there is a problem with your registration ;-(", INFOTYPE.ERROR,0));
+											Log.error("Unexpected registration problem");
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Unexpacted problem", INFOTYPE.ERROR,0));
 
 										}
 
@@ -121,11 +127,12 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 									@Override
 									public void onFailure(Throwable e) {
 										Log.error(e.getMessage());
-										_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Exception: "+e, INFOTYPE.ERROR,0));
 
 									}
 								});
 					}else{
+						_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
+
 						Log.debug("Email not available");
 						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Email not available ", INFOTYPE.ERROR,0));
 					}
@@ -135,8 +142,6 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 				@Override
 				public void onFailure(Throwable e) {
 					Log.error(e.getMessage());
-					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Exception: "+e, INFOTYPE.ERROR,0));
-
 				}
 			});
 		}
