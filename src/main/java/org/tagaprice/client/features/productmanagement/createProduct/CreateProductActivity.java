@@ -58,38 +58,55 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onSaveEvent() {
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "saving...", INFOTYPE.INFO));
 		Log.debug("Save Product");
-
-
 		//Get data from View
 		_product.setTitle(_createProductView.getProductTitle());
 		_product.setCategory(_createProductView.getCategory());
 		_product.setUnit(_createProductView.getUnit());
 		_product.setPackages(_createProductView.getPackages());
 
-		this._clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
+		//infox
+		//destroy all
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class));
+		InfoBoxShowEvent emptyTitleInfo = new InfoBoxShowEvent(CreateProductActivity.class, "Title must not be empty", INFOTYPE.ERROR);
 
-			@Override
-			public void onFailure(Throwable caught) {
-				try{
-					throw caught;
-				}catch (UserNotLoggedInException e){
-					Log.warn(e.getMessage());
-				}catch (Throwable e){
-					Log.error(e.getMessage());
-					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
+		if(!_product.getTitle().isEmpty() && !_product.getTitle().trim().equals("")){
+
+
+			final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateProductActivity.class, "saving...", INFOTYPE.INFO,0);
+			_clientFactory.getEventBus().fireEvent(trySaving);
+
+
+			this._clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+					try{
+						throw caught;
+					}catch (UserNotLoggedInException e){
+						Log.warn(e.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
+					}catch (Throwable e){
+						Log.error(e.getMessage());
+					}
+
 				}
 
-			}
+				@Override
+				public void onSuccess(Product result) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
+					Log.debug("Product save successfull");
+					updateView(result);
+				}
+			});
+		}else{
+			_clientFactory.getEventBus().fireEvent(emptyTitleInfo);
+		}
 
-			@Override
-			public void onSuccess(Product result) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
-				Log.debug("Product save successfull");
-				updateView(result);
-			}
-		});
+
+
 
 	}
 
@@ -190,7 +207,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 			@Override
 			public void onFailure(Throwable e) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "searchproblem: "+e, INFOTYPE.ERROR,0));
 				Log.error("searchproblem: "+e);
 			}
 		});
