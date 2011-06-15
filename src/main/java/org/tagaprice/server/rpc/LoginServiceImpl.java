@@ -52,13 +52,13 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		User user = _userDao.getByMail(email);
 		String rc = null;
 
-		if (_checkPassword(user, password)) {
+		if (user != null && _checkPassword(user, password)) {
 			// create Session (default expiration time: 1h)
 			Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
 			Session session = _sessionDao.create(new Session(user, expirationDate));
 			rc = session.getId();
 		}
-		else throw new WrongEmailOrPasswordException("Please controll user and password");
+		else throw new WrongEmailOrPasswordException("Please check your login data");
 
 		return rc;
 	}
