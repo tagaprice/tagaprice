@@ -92,8 +92,7 @@ public class UIDesktop implements IUi {
 			public void onClick(ClickEvent arg0) {
 				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 				loginPop.setWidget(loginPres.getView());
-				loginPop.center();
-				loginPop.show();
+				loginPop.showRelativeTo(login);
 			}
 		});
 		this.leftPanel.add(login);
@@ -108,8 +107,7 @@ public class UIDesktop implements IUi {
 			public void onClick(ClickEvent arg0) {
 				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 				loginPop.setWidget(loginPres.getView());
-				loginPop.center();
-				loginPop.show();
+				loginPop.showRelativeTo(logout);
 			}
 		});
 		this.leftPanel.add(logout);

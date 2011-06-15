@@ -56,6 +56,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public void onSaveEvent() {
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "saving...", INFOTYPE.INFO));
 		Log.debug("Save Product");
 
 
@@ -75,12 +76,14 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					Log.warn(e.getMessage());
 				}catch (Throwable e){
 					Log.error(e.getMessage());
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
 				}
 
 			}
 
 			@Override
 			public void onSuccess(Product result) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
 				Log.debug("Product save successfull");
 				updateView(result);
 			}
