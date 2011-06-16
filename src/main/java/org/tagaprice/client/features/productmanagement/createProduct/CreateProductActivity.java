@@ -195,18 +195,21 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0));
+
+		final InfoBoxShowEvent loadingInfo = new InfoBoxShowEvent(CreateProductActivity.class, "Getting statistic data... ", INFOTYPE.INFO,0);
+		_clientFactory.getEventBus().fireEvent(loadingInfo);
 
 		_clientFactory.getSearchService().searchProductPrices(_product.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
 
 			@Override
 			public void onSuccess(List<StatisticResult> response) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class, INFOTYPE.INFO));
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
 				_createProductView.setStatisticResults(response);
 			}
 
 			@Override
 			public void onFailure(Throwable e) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class, INFOTYPE.INFO));
 				Log.error("searchproblem: "+e);
 			}
 		});
