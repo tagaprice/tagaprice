@@ -1,6 +1,7 @@
 package org.tagaprice.client;
 
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 public interface IAccountPersistor {
 	public void setClientFactory(ClientFactory clientFactory);
@@ -46,5 +47,17 @@ public interface IAccountPersistor {
 	 * This method checks the login status and will fire all necessary events
 	 */
 	public void checkLogin();
+
+	/**
+	 * Set a receipt draft. (only one i possible)
+	 * @param draft
+	 */
+	public void setReceiptDraft(Receipt draft);
+
+	/**
+	 * Returns the receipt draft or null
+	 * @return receipt draft or null
+	 */
+	public Receipt getReceiptDraft();
 
 }

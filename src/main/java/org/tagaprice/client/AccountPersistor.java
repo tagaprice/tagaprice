@@ -6,6 +6,7 @@ import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import com.allen_sauer.gwt.log.client.Log;
@@ -24,6 +25,7 @@ public class AccountPersistor implements IAccountPersistor {
 	private Address I_ADDRESS;
 	private FBCore _fbCore = new FBCore();
 	private ClientFactory _clientFactory;
+	private Receipt _receipt=null;
 
 	public AccountPersistor() {
 		//Start Facebook
@@ -211,5 +213,16 @@ public class AccountPersistor implements IAccountPersistor {
 				Log.error("Facebook login Problem");
 			}
 		});
+	}
+
+	@Override
+	public void setReceiptDraft(Receipt draft) {
+		Log.debug("set Receipt draft: ");
+		_receipt=draft;
+	}
+
+	@Override
+	public Receipt getReceiptDraft() {
+		return _receipt;
 	}
 }

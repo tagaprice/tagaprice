@@ -42,6 +42,20 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void goTo(Place place) {
+
+		//Check if this is a draft or existing receipt and save before change view
+		if((_place.getId()!=null && _place.getId().equals("draft")) || _place.getId()==null){
+			//Get data from View
+			_receipt.setTitle(_createReceiptView.getTitle());
+			_receipt.setDate(_createReceiptView.getDate());
+			_receipt.setShop(_createReceiptView.getShop());
+			_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
+			_clientFactory.getAccountPersistor().setReceiptDraft(_receipt);
+		}else{
+			onSaveEvent();
+		}
+
+
 		this._clientFactory.getPlaceController().goTo(place);
 	}
 
@@ -63,7 +77,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		Log.debug("Try Save Receipt");
 
 		//Get data from View
-
 		_receipt.setTitle(_createReceiptView.getTitle());
 		_receipt.setDate(_createReceiptView.getDate());
 		_receipt.setShop(_createReceiptView.getShop());
@@ -84,6 +97,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			public void onSuccess(Receipt response) {
 				Log.debug("Receipt saved: "+_receipt);
 				updateView(response);
+
+				//delete draft
+				_clientFactory.getAccountPersistor().setReceiptDraft(null);
 			}
 		});
 
@@ -146,11 +162,49 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
 
+		if((_place.getId() == null || (_place.getId()!=null && _place.getId().equals("draft")))  && _clientFactory.getAccountPersistor().getReceiptDraft()!=null){
+			Log.debug("Create start with draft");
+			_receipt=_clientFactory.getAccountPersistor().getReceiptDraft();
+			updateView(_receipt);
+			panel.setWidget(_createReceiptView);
+
+			//get from database
+			_clientFactory.getShopService().getShop(_place.getAddId(), new AsyncCallback<Shop>() {
+
+				@Override
+				public void onSuccess(Shop result) {
+					_receipt.setShop(result);
+					updateView(_receipt);
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					try{
+						throw caught;
+					}catch (DaoException e){
+						Log.error("DaoException at getShop: "+caught.getMessage());
+					}catch (Throwable e){
+						Log.error("Unexpected exception: "+caught.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+					}
+
+				}
+			});
 
 
-		if (_place.getId() == null) {
+			if(_clientFactory.getAccountPersistor().getAddress()==null){
+				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
+			}else{
+				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
+			}
+
+		}else if (_place.getId() == null && _clientFactory.getAccountPersistor().getReceiptDraft()==null) {
 			Log.debug("Create new Receipt");
 			_receipt.setDate(new Date());
+
+			//create Draft
+			_clientFactory.getAccountPersistor().setReceiptDraft(_receipt);
+
 			updateView(_receipt);
 			panel.setWidget(_createReceiptView);
 
