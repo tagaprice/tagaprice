@@ -11,6 +11,7 @@ public class CreateProductPlace extends Place {
 
 	private String _id = null;
 	private String _rev = null;
+	private boolean _redirect = false;
 
 	public CreateProductPlace() {
 	}
@@ -24,12 +25,21 @@ public class CreateProductPlace extends Place {
 		_rev=revision;
 	}
 
+	public CreateProductPlace(String redirectId, boolean redirect){
+		_redirect=redirect;
+		_id=redirectId;
+	}
+
 	public String getRevision() {
 		return _rev;
 	}
 
 	public String getId() {
 		return _id;
+	}
+
+	public boolean isRedirect(){
+		return _redirect;
 	}
 
 	@Prefix("CreateProduct")
@@ -51,7 +61,10 @@ public class CreateProductPlace extends Place {
 					}
 					return null;
 				}else if(e.getRoot().equals("create")){
-					return new CreateProductPlace();
+					if(e.getNode("redirect")!=null){
+						return new CreateProductPlace(e.getNode("redirect"), true);
+					}else
+						return new CreateProductPlace();
 				}
 			}
 			Log.debug("No token");
@@ -68,7 +81,14 @@ public class CreateProductPlace extends Place {
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
 				rc = t.getToken();
-			} else { //if(place.getRevisionId().getId()!=null)
+			} else if(place.getId()!=null && place.isRedirect()){
+				Log.debug("Tokenizer create with redirect: id="+place.getId()+", redir="+place.isRedirect());
+				TokenCreator.Imploder t = TokenCreator.getImploder();
+				t.setRoot("create");
+				t.addNode("redirect", ""+place.getId());
+				rc = t.getToken();
+			}
+			else { //if(place.getRevisionId().getId()!=null)
 				Log.debug("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();

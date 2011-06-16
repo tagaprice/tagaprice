@@ -137,13 +137,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		_createProductView.setPresenter(this);
 
 
-		if (_place.getId() == null) {
-			Log.debug("Create new Product");
 
-			updateView(_product);
-			panel.setWidget(_createProductView);
-			// panel.setWidget(new Label("Create new Product"));
-		} else {
+		if (_place.getId() != null && _place.isRedirect()==false) {
 			Log.debug("Get Product: id=" + _place.getId() + ", rev: "
 					+ _place.getRevision());
 			// panel.setWidget(new
@@ -153,7 +148,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			Log.debug("Load Categories...");
 
 
-			this._clientFactory.getProductService().getProduct(_place.getId(), _place.getRevision(), new AsyncCallback<Product>() {
+			_clientFactory.getProductService().getProduct(_place.getId(), _place.getRevision(), new AsyncCallback<Product>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -178,6 +173,12 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			});
 
 
+		}else {
+			Log.debug("Create new Product");
+
+			updateView(_product);
+			panel.setWidget(_createProductView);
+			// panel.setWidget(new Label("Create new Product"));
 		}
 
 	}
