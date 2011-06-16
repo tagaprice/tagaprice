@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
@@ -98,6 +99,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
 
 					Log.debug("Shop save successful" + result);
+
+					//redirect
+					if(_place.isRedirect()==true){
+						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "shop"));
+					}
+
 					updateView(result);
 				}
 			});
