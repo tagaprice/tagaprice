@@ -7,6 +7,7 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
@@ -18,6 +19,7 @@ import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -82,19 +84,34 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_receipt.setShop(_createReceiptView.getShop());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
 
+		//infox
+		//destroy all
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateReceiptActivity.class));
 
+
+		final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateReceiptActivity.class, "saving...", INFOTYPE.INFO,0);
+		_clientFactory.getEventBus().fireEvent(trySaving);
 
 		_clientFactory.getReceiptService().saveReceipt(_clientFactory.getAccountPersistor().getSessionId(), _receipt, new AsyncCallback<Receipt>() {
 
 			@Override
-			public void onFailure(Throwable e) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Save error: "+e, INFOTYPE.ERROR,0));
-
-				Log.error("ERROR at saving a Receipt: "+e);
+			public void onFailure(Throwable caught) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+				try{
+					throw caught;
+				}catch (UserNotLoggedInException e){
+					Log.warn(e.getMessage());
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
+				}catch (Throwable e){
+					Log.error(e.getMessage());
+				}
 			}
 
 			@Override
 			public void onSuccess(Receipt response) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Receipt saved successful", INFOTYPE.SUCCESS));
+
 				Log.debug("Receipt saved: "+_receipt);
 				updateView(response);
 
@@ -121,8 +138,14 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				new AsyncCallback<List<Product>>() {
 
 					@Override
-					public void onFailure(Throwable e) {
-						Log.error("productSearch ERROR: "+e);
+					public void onFailure(Throwable caught) {
+						try{
+							throw caught;
+						}catch (DaoException e){
+							Log.warn(e.getMessage());
+						}catch (Throwable e){
+							Log.error(e.getMessage());
+						}
 					}
 
 					@Override
@@ -142,8 +165,14 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				new AsyncCallback<List<Shop>>() {
 
 					@Override
-					public void onFailure(Throwable e) {
-						Log.error("shopSearch ERROR: "+e);
+					public void onFailure(Throwable caught) {
+						try{
+							throw caught;
+						}catch (DaoException e){
+							Log.warn(e.getMessage());
+						}catch (Throwable e){
+							Log.error(e.getMessage());
+						}
 					}
 
 					@Override
@@ -203,6 +232,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			_receipt.setDate(new Date());
 
 			//create Draft
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Draft created.", INFOTYPE.INFO));
+
 			_clientFactory.getAccountPersistor().setReceiptDraft(_receipt);
 
 			updateView(_receipt);
