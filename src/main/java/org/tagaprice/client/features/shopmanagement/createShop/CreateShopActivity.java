@@ -121,7 +121,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
-		if (_place.getId() != null) {
+		if (_place.getId() != null && _place.isRedirect()==false) {
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(_place.getId(), _place.getRevision(),
 					new AsyncCallback<Shop>() {
@@ -150,7 +150,34 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		} else {
 			// new product... reseting view
 			Log.debug("Create new shop");
+
+			//Get Branding data from server and add it to the shop
+			if(_place.isRedirect()==true && _place.getBrand()!=null){
+				_clientFactory.getShopService().getShop(_place.getBrand(), new AsyncCallback<Shop>() {
+
+					@Override
+					public void onSuccess(Shop result) {
+						_shop.setParent(result);
+						updateView(_shop);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						try{
+							throw caught;
+						}catch (DaoException e){
+							Log.error("DaoException at getShop: "+caught.getMessage());
+						}catch (Throwable e){
+							Log.error("Unexpected exception: "+caught.getMessage());
+							_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+						}
+					}
+
+				});
+			}
 			updateView(_shop);
+
+
 			panel.setWidget(_createShopView);
 
 			if(_clientFactory.getAccountPersistor().getAddress()==null){
