@@ -12,6 +12,8 @@ import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -167,6 +169,38 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 				@Override
 				public void onSuccess(Receipt response) {
+
+					//Add Shop or Product
+					if(_place.getAddType()!=null && _place.getAddType().equals("shop") && _place.getAddId()!=null){
+						//get from database
+						_clientFactory.getShopService().getShop(_place.getAddId(), new AsyncCallback<Shop>() {
+
+							@Override
+							public void onSuccess(Shop result) {
+								_receipt.setShop(result);
+								updateView(_receipt);
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								try{
+									throw caught;
+								}catch (DaoException e){
+									Log.error("DaoException at getShop: "+caught.getMessage());
+								}catch (Throwable e){
+									Log.error("Unexpected exception: "+caught.getMessage());
+									_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+								}
+
+							}
+						});
+
+					}else if(_place.getAddType()!=null && _place.getAddType().equals("product") && _place.getAddId()!=null){
+
+					}
+
+
+
 					Log.debug("Result: "+response);
 					updateView(response);
 					panel.setWidget(_createReceiptView);
@@ -195,6 +229,11 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_createReceiptView.setDate(_receipt.getDate());
 		_createReceiptView.setShop(_receipt.getShop());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
+	}
+
+	@Override
+	public String getId() {
+		return _receipt.getId();
 	}
 
 }

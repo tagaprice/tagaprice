@@ -84,5 +84,11 @@ public interface ICreateReceiptView extends IsWidget{
 		 * Call if savebutton has been clicked
 		 */
 		public void onSaveEvent();
+
+		/**
+		 * Get the current id of the receipt or null
+		 * @return
+		 */
+		public String getId();
 	}
 }
