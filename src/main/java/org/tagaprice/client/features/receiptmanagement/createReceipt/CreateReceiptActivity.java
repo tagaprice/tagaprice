@@ -1,5 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +10,13 @@ import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
+import org.tagaprice.shared.entities.Quantity;
+import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -196,7 +202,31 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 						});
 
 					}else if(_place.getAddType()!=null && _place.getAddType().equals("product") && _place.getAddId()!=null){
+						_clientFactory.getProductService().getProduct(_place.getAddId(), new AsyncCallback<Product>() {
 
+							@Override
+							public void onSuccess(Product result) {
+								Log.debug("Get Product sucessfull id: "+result.getId());
+								Package np = new Package(new Quantity(new BigDecimal("0.0"), result.getUnit()));
+								np.setProduct(result);
+								_receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
+								updateView(_receipt);
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								try{
+									throw caught;
+								}catch (DaoException e){
+									Log.error("DaoException at getProduct: "+caught.getMessage());
+								}catch (Throwable e){
+									Log.error("Unexpected exception: "+caught.getMessage());
+									_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+								}
+
+
+							}
+						});
 					}
 
 

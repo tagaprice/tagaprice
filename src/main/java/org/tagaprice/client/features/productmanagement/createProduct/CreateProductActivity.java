@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -98,7 +99,14 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
 					Log.debug("Product save successful");
-					updateView(result);
+
+					//redirect
+					if(_place.isRedirect()==true){
+						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "product"));
+					}else{
+						updateView(result);
+					}
+
 				}
 			});
 		}else{

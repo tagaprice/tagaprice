@@ -103,9 +103,9 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					//redirect
 					if(_place.isRedirect()==true){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "shop"));
+					}else{
+						updateView(result);
 					}
-
-					updateView(result);
 				}
 			});
 		}else{
