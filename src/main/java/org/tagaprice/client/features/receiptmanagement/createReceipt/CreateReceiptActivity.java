@@ -184,19 +184,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	}
 
-	@Override
-	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
-		_receipt=new Receipt();
-		Log.debug("activity startet");
-		_createReceiptView = _clientFactory.getCreateReceiptView();
-		_createReceiptView.setPresenter(this);
 
-		if((_place.getId() == null || (_place.getId()!=null && _place.getId().equals("draft")))  && _clientFactory.getAccountPersistor().getReceiptDraft()!=null){
-			Log.debug("Create start with draft");
-			_receipt=_clientFactory.getAccountPersistor().getReceiptDraft();
-			updateView(_receipt);
-			panel.setWidget(_createReceiptView);
-
+	private void addShopOrProduct(){
+		//Add Shop or Product
+		if(_place.getAddType()!=null && _place.getAddType().equals("shop") && _place.getAddId()!=null){
 			//get from database
 			_clientFactory.getShopService().getShop(_place.getAddId(), new AsyncCallback<Shop>() {
 
@@ -219,6 +210,51 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 				}
 			});
+
+		}else if(_place.getAddType()!=null && _place.getAddType().equals("product") && _place.getAddId()!=null){
+			_clientFactory.getProductService().getProduct(_place.getAddId(), new AsyncCallback<Product>() {
+
+				@Override
+				public void onSuccess(Product result) {
+					Log.debug("Get Product sucessfull id: "+result.getId());
+					Package np = new Package(new Quantity(new BigDecimal("0.0"), result.getUnit()));
+					np.setProduct(result);
+					_receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
+					updateView(_receipt);
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					try{
+						throw caught;
+					}catch (DaoException e){
+						Log.error("DaoException at getProduct: "+caught.getMessage());
+					}catch (Throwable e){
+						Log.error("Unexpected exception: "+caught.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+					}
+
+
+				}
+			});
+		}
+	}
+
+	@Override
+	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
+		_receipt=new Receipt();
+		Log.debug("activity startet");
+		_createReceiptView = _clientFactory.getCreateReceiptView();
+		_createReceiptView.setPresenter(this);
+
+		if((_place.getId() == null || (_place.getId()!=null && _place.getId().equals("draft")))  && _clientFactory.getAccountPersistor().getReceiptDraft()!=null){
+			Log.debug("Create start with draft: ");
+			_receipt=_clientFactory.getAccountPersistor().getReceiptDraft();
+			updateView(_receipt);
+			panel.setWidget(_createReceiptView);
+
+			//Add Shop or Product
+			addShopOrProduct();
 
 
 			if(_clientFactory.getAccountPersistor().getAddress()==null){
@@ -262,58 +298,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				public void onSuccess(Receipt response) {
 
 					//Add Shop or Product
-					if(_place.getAddType()!=null && _place.getAddType().equals("shop") && _place.getAddId()!=null){
-						//get from database
-						_clientFactory.getShopService().getShop(_place.getAddId(), new AsyncCallback<Shop>() {
-
-							@Override
-							public void onSuccess(Shop result) {
-								_receipt.setShop(result);
-								updateView(_receipt);
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								try{
-									throw caught;
-								}catch (DaoException e){
-									Log.error("DaoException at getShop: "+caught.getMessage());
-								}catch (Throwable e){
-									Log.error("Unexpected exception: "+caught.getMessage());
-									_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
-								}
-
-							}
-						});
-
-					}else if(_place.getAddType()!=null && _place.getAddType().equals("product") && _place.getAddId()!=null){
-						_clientFactory.getProductService().getProduct(_place.getAddId(), new AsyncCallback<Product>() {
-
-							@Override
-							public void onSuccess(Product result) {
-								Log.debug("Get Product sucessfull id: "+result.getId());
-								Package np = new Package(new Quantity(new BigDecimal("0.0"), result.getUnit()));
-								np.setProduct(result);
-								_receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
-								updateView(_receipt);
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								try{
-									throw caught;
-								}catch (DaoException e){
-									Log.error("DaoException at getProduct: "+caught.getMessage());
-								}catch (Throwable e){
-									Log.error("Unexpected exception: "+caught.getMessage());
-									_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
-								}
-
-
-							}
-						});
-					}
-
+					addShopOrProduct();
 
 
 					Log.debug("Result: "+response);
