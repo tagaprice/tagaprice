@@ -41,7 +41,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	
 	@Override
 	public List<Category> getChildren(String id) throws DaoException {
-		ViewResult<?> result = m_db.queryView("category/children", Category.class, new Options().key(id), null);
+		ViewResult<?> result = m_db.queryView("category/childrenOf", Category.class, new Options().key(id), null);
 		List<Category> rc = new ArrayList<Category>();
 
 		System.out.println("CatList:");
