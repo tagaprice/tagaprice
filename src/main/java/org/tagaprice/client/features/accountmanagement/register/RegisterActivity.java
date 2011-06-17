@@ -1,7 +1,7 @@
 package org.tagaprice.client.features.accountmanagement.register;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -114,7 +114,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 										if(isok){
 											_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.INFO));
-											goTo(new LoginPlace());
+											goTo(new StartPlace());
 
 										}else{
 											Log.error("Unexpected registration problem");

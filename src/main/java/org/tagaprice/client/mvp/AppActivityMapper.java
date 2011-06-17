@@ -1,8 +1,6 @@
 package org.tagaprice.client.mvp;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.features.accountmanagement.login.LoginActivity;
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
 import org.tagaprice.client.features.accountmanagement.register.RegisterActivity;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
@@ -45,9 +43,6 @@ public class AppActivityMapper implements ActivityMapper {
 		} else if (place instanceof CreateProductPlace) {
 			Log.debug("return new CreateProductActivity");
 			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
-		}else if(place instanceof LoginPlace){
-			Log.debug("return new LoginActivity");
-			return new LoginActivity((LoginPlace)place, this.clientFactory);
 		}else if (place instanceof CreateShopPlace){
 			Log.debug("return new CreateShopActivity");
 			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);

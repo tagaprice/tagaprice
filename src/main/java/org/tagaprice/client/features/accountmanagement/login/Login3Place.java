@@ -6,15 +6,15 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class LoginPlace extends Place {
+public class Login3Place extends Place {
 
 	private String _sessionId;
 
-	public LoginPlace() {
+	public Login3Place() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LoginPlace(String sessionId){
+	public Login3Place(String sessionId){
 		_sessionId=sessionId;
 	}
 
@@ -27,11 +27,11 @@ public class LoginPlace extends Place {
 	}
 
 	@Prefix("LogInOut")
-	public static class Tokenizer implements PlaceTokenizer<LoginPlace>{
+	public static class Tokenizer implements PlaceTokenizer<Login3Place>{
 
 
 		@Override
-		public LoginPlace getPlace(String token) {
+		public Login3Place getPlace(String token) {
 			Log.debug("Tokenizer token " + token);
 
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
@@ -39,13 +39,13 @@ public class LoginPlace extends Place {
 			//At the moment the rootToken will always be NULL. so the method will return a new LoginPlace
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("login")){
-					return new LoginPlace();
+					return new Login3Place();
 				}else if(e.getRoot().equals("logout")){
 					//TODO get SessionID on this place
 					//return new LoginPlace();
-					return new LoginPlace();
+					return new Login3Place();
 				}else{
-					return new LoginPlace();
+					return new Login3Place();
 				}
 			}
 
@@ -53,7 +53,7 @@ public class LoginPlace extends Place {
 		}
 
 		@Override
-		public String getToken(LoginPlace place) {
+		public String getToken(Login3Place place) {
 			if(place.getSessionId()==null){
 				Log.debug("Tokenizer show login");
 

@@ -1,6 +1,5 @@
 package org.tagaprice.client.mvp;
 
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsPlace;
@@ -20,7 +19,6 @@ import com.google.gwt.place.shared.*;
 @WithTokenizers({
 	ListProductsPlace.Tokenizer.class,
 	CreateProductPlace.Tokenizer.class,
-	LoginPlace.Tokenizer.class,
 	CreateShopPlace.Tokenizer.class,
 	ListShopsPlace.Tokenizer.class,
 	CreateReceiptPlace.Tokenizer.class,

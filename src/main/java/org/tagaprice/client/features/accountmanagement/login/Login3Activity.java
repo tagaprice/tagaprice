@@ -9,15 +9,15 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 @Deprecated
-public class LoginActivity implements ILoginView.Presenter, ILogoutView.Presenter, Activity {
+public class Login3Activity implements ILoginView.Presenter, ILogoutView.Presenter, Activity {
 
 	private ILoginView loginView;
 	private ILogoutView logoutView;
-	private LoginPlace _place;
+	private Login3Place _place;
 	private ClientFactory _clientFactory;
 	private FBCore _fbCore = new FBCore();
 
-	public LoginActivity(LoginPlace place, ClientFactory clientFactory) {
+	public Login3Activity(Login3Place place, ClientFactory clientFactory) {
 		Log.debug("LoginActivity created");
 
 		_place = place;
