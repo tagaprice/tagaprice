@@ -20,6 +20,8 @@ import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
+import org.tagaprice.client.features.startmanagement.IStartView;
+import org.tagaprice.client.features.startmanagement.devView.StartViewImpl;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -62,6 +64,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final IRegisterView registerView = new RegisterViewImpl();
 	private static final IRegisteredView registeredView = new RegisteredViewImpl();
 	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
+	private static final IStartView startView = new StartViewImpl();
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -173,6 +176,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public AccountPersistor getAccountPersistor() {
 		return ClientFactoryImpl.s_accountPersistor;
+	}
+
+	@Override
+	public IStartView getStartView() {
+		return ClientFactoryImpl.startView;
 	}
 
 

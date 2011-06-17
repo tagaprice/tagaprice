@@ -1,8 +1,6 @@
 package org.tagaprice.client.mvp;
 
 import org.tagaprice.client.ClientFactory;
-import org.tagaprice.client.features.accountmanagement.login.LoginActivity;
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
 import org.tagaprice.client.features.accountmanagement.register.RegisterActivity;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
@@ -15,6 +13,9 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceipts
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.features.shopmanagement.listShops.*;
+import org.tagaprice.client.features.startmanagement.StartActivity;
+import org.tagaprice.client.features.startmanagement.StartPlace;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.place.shared.Place;
@@ -42,9 +43,6 @@ public class AppActivityMapper implements ActivityMapper {
 		} else if (place instanceof CreateProductPlace) {
 			Log.debug("return new CreateProductActivity");
 			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
-		}else if(place instanceof LoginPlace){
-			Log.debug("return new LoginActivity");
-			return new LoginActivity((LoginPlace)place, this.clientFactory);
 		}else if (place instanceof CreateShopPlace){
 			Log.debug("return new CreateShopActivity");
 			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);
@@ -60,6 +58,9 @@ public class AppActivityMapper implements ActivityMapper {
 		}if(place instanceof ListReceiptsPlace){
 			Log.debug("return new ListReceiptsActivity");
 			return new ListReceiptsActivity((ListReceiptsPlace)place, this.clientFactory);
+		}if(place instanceof StartPlace){
+			Log.debug("return new StartActivity");
+			return new StartActivity((StartPlace)place, clientFactory);
 		}
 
 		else {

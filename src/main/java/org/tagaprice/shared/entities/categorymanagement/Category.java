@@ -22,7 +22,7 @@ public class Category extends AEntity   {
 	/**
 	 * <b>NEW</b>
 	 * Create a new Category
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param title the title of the category
 	 * @param parent the parent of the category.
 	 */
@@ -33,7 +33,7 @@ public class Category extends AEntity   {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or fetch an category
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param revisionId the revision and id of the category
 	 * @param title the title of the category
 	 * @param parent the parent of the category
@@ -65,7 +65,7 @@ public class Category extends AEntity   {
 	 */
 	@Override
 	public String toString() {
-		return "Category [_parentCategory=" + _parentCategory + "]";
+		return "Category: "+getId()+" [_parentCategory=" + _parentCategory + "]";
 	}
 
 

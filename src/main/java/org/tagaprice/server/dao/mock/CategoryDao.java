@@ -7,6 +7,8 @@ import java.util.List;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 
 	@Override
@@ -20,7 +22,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public List<Category> getChildren(Category parent){
 		return getChildren(parent.getId());
@@ -29,12 +31,18 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	@Override
 	public List<Category> getChildren(String id) {
 		ArrayList<Category> rc = new ArrayList<Category>();
+		Log.debug("parentid: "+id);
 
 		for (Deque<Category> deque: m_data.values()) {
+
 			Category category = deque.peek();
-			if (category.getParentCategory().getId().equals(id)) {
+
+			if(id==null && category.getParentCategory()==null){
+				rc.add(category);
+			}else if (id!=null && category.getParentCategory()!=null && category.getParentCategory().getId().equals(id)) {
 				rc.add(category);
 			}
+
 		}
 
 		return rc;

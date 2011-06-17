@@ -1,6 +1,5 @@
 package org.tagaprice.client.generics.widgets.devView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
@@ -17,7 +16,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -27,16 +25,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class CategorySelecter extends Composite implements ICategorySelecter {
 
-	private ListBox _listBoxCategories = new ListBox();
-	private List<Category> _availableCategories = new ArrayList<Category>();
+
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
 	private HorizontalPanel _hoPa = new HorizontalPanel();
 
-	Category food = (new Category(null, "food", null));
-	Category vegetables = (new Category(null, "vegetables", food));
-	Category beverages = (new Category(null, "beverages", null));
-	Category alcoholics = (new Category(null, "alcohol", beverages));
-	Category nonalcoholics = (new Category(null, "nonalcoholics", beverages));
 
 	public CategorySelecter() {
 		initWidget(_hoPa);
@@ -106,10 +98,12 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 					String id=null;
 
 
-					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
+
 
 					if(_myCat!=null)
 						id=_myCat.getId();
+
+					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
 					_categoryServiceAsync.getCategoryChildren(id, new AsyncCallback<List<Category>>() {
 
 

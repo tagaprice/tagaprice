@@ -9,7 +9,9 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
+import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
+import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.shared.entities.Address;
@@ -262,6 +264,17 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 					@Override
 					public void onClick(ClickEvent arg0) {
+						if(_presenter.getId()!=null)
+							_presenter.goTo(new CreateShopPlace(_presenter.getId(), s.getId(), true));
+						else _presenter.goTo(new CreateShopPlace("draft", s.getId(), true));
+					}
+				});
+
+				/*
+				foundAddress.addClickHandler(new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent arg0) {
 						_newAddressArea.clear();
 						_searchMapArea.setVisible(false);
 						_shopSearch.setEnabled(false);
@@ -287,15 +300,27 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 
 					}
-				});
+				});*/
 				_shopSearchSuggestVePa.add(foundAddress);
 			}
 
 
 
+
 			Log.debug("shopSearchResult: "+s.getTitle());
 		}
+		//new shop
+		Label foundAddress = new Label("New Shop");
+		foundAddress.addClickHandler(new ClickHandler() {
 
+			@Override
+			public void onClick(ClickEvent arg0) {
+				if(_presenter.getId()!=null)
+					_presenter.goTo(new CreateShopPlace(_presenter.getId(), null, true));
+				else _presenter.goTo(new CreateShopPlace("draft", null, true));
+			}
+		});
+		_shopSearchSuggestVePa.add(foundAddress);
 		_shopSearchSuggestPop.showRelativeTo(_shopSearch);
 
 		//_shopSearchSuggestPop.setPopupPosition( _shopSearch.getAbsoluteLeft()+300,_shopSearch.getAbsoluteTop());
@@ -334,6 +359,19 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				}
 			});
 		}
+
+		//new shop
+		Label newShop = new Label("New Product");
+		newShop.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				if(_presenter.getId()!=null)
+					_presenter.goTo(new CreateProductPlace(_presenter.getId(), true));
+				else _presenter.goTo(new CreateProductPlace("draft", true));
+			}
+		});
+		_productSearchSuggestVePa.add(newShop);
 		_productSearchSuggestPop.showRelativeTo(_searchProducts);
 
 

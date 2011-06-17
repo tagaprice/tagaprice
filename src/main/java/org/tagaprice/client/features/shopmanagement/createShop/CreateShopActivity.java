@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
@@ -14,6 +15,8 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.*;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -29,7 +32,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private ClientFactory _clientFactory;
 
 	public CreateShopActivity(CreateShopPlace place, ClientFactory clientFactory) {
-		Log.debug("CreateProductActivity created");
+		Log.debug("create class");
 		_place = place;
 		_clientFactory = clientFactory;
 	}
@@ -55,35 +58,61 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void onSaveEvent() {
 		Log.debug("Save Shop");
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Try to save shop", INFOTYPE.INFO));
 
 		//Get data from View
 		_shop.setTitle(_createShopView.getShopTitle());
 		_shop.setAddress(_createShopView.getAddress());
 		_shop.setParent(_createShopView.getBranding());
 
-		_clientFactory.getShopService().saveShop(_clientFactory.getAccountPersistor().getSessionId(), _shop, new AsyncCallback<Shop>() {
+		//infox
+		//destroy all
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateShopActivity.class));
+		InfoBoxShowEvent emptyTitleInfo = new InfoBoxShowEvent(CreateShopActivity.class, "Title must not be empty", INFOTYPE.ERROR);
 
-			@Override
-			public void onFailure(Throwable caught) {
 
-				try{
-					throw caught;
-				}catch (UserNotLoggedInException e){
-					Log.warn(e.getMessage());
-				}catch (Throwable e){
-					// last resort -- a very unexpected exception
-					Log.error(e.getMessage());
+		if(!_shop.getTitle().isEmpty() && !_shop.getTitle().trim().equals("")){
+
+			final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateShopActivity.class, "saving...", INFOTYPE.INFO,0);
+			_clientFactory.getEventBus().fireEvent(trySaving);
+
+
+			_clientFactory.getShopService().saveShop(_clientFactory.getAccountPersistor().getSessionId(), _shop, new AsyncCallback<Shop>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+
+					try{
+						throw caught;
+					}catch (UserNotLoggedInException e){
+						Log.warn(e.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
+					}catch (Throwable e){
+						Log.error(e.getMessage());
+					}
+
 				}
 
-			}
+				@Override
+				public void onSuccess(Shop result) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Product save successfull.", INFOTYPE.SUCCESS));
 
-			@Override
-			public void onSuccess(Shop result) {
-				Log.debug("got updated shop: " + result);
-				updateView(result);
-			}
-		});
+					Log.debug("Shop save successful" + result);
+
+					//redirect
+					if(_place.isRedirect()==true){
+						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "shop"));
+					}else{
+						updateView(result);
+					}
+				}
+			});
+		}else{
+			_clientFactory.getEventBus().fireEvent(emptyTitleInfo);
+		}
+
+
 	}
 
 	@Override
@@ -99,15 +128,21 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
-		if (_place.getId() != null) {
+		if (_place.getId() != null && _place.isRedirect()==false) {
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(_place.getId(), _place.getRevision(),
 					new AsyncCallback<Shop>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
-
-					Log.error(caught.getMessage());
+					try{
+						throw caught;
+					}catch (DaoException e){
+						Log.error("DaoException at getShop: "+caught.getMessage());
+					}catch (Throwable e){
+						Log.error("Unexpected exception: "+caught.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+					}
 				}
 
 				@Override
@@ -122,7 +157,34 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		} else {
 			// new product... reseting view
 			Log.debug("Create new shop");
+
+			//Get Branding data from server and add it to the shop
+			if(_place.isRedirect()==true && _place.getBrand()!=null){
+				_clientFactory.getShopService().getShop(_place.getBrand(), new AsyncCallback<Shop>() {
+
+					@Override
+					public void onSuccess(Shop result) {
+						_shop.setParent(result);
+						updateView(_shop);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						try{
+							throw caught;
+						}catch (DaoException e){
+							Log.error("DaoException at getShop: "+caught.getMessage());
+						}catch (Throwable e){
+							Log.error("Unexpected exception: "+caught.getMessage());
+							_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Unexpected exception: "+caught.getMessage(), INFOTYPE.ERROR,0));
+						}
+					}
+
+				});
+			}
 			updateView(_shop);
+
+
 			panel.setWidget(_createShopView);
 
 			if(_clientFactory.getAccountPersistor().getAddress()==null){
@@ -182,20 +244,21 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0));
+		final InfoBoxShowEvent loadingInfo = new InfoBoxShowEvent(CreateShopActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0);
+		_clientFactory.getEventBus().fireEvent(loadingInfo);
 
 		_clientFactory.getSearchService().searchShopPrices(_shop.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
 
 			@Override
 			public void onSuccess(List<StatisticResult> response) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateShopActivity.class, INFOTYPE.INFO));
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
 				_createShopView.setStatisticResults(response);
 
 			}
 
 			@Override
 			public void onFailure(Throwable e) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateShopActivity.class, "searchproblem: "+e, INFOTYPE.ERROR,0));
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateShopActivity.class));
 				Log.error("searchproblem: "+e);
 			}
 		});

@@ -1,6 +1,6 @@
 package org.tagaprice.client;
 
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
@@ -26,7 +26,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 /**
@@ -66,7 +65,7 @@ public class TagAPrice implements EntryPoint {
 		.create(AppPlaceHistoryMapper.class);
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
-		historyHandler.register(placeController, eventBus, new LoginPlace());
+		historyHandler.register(placeController, eventBus, new StartPlace());
 
 
 		//RootLayoutPanel.get().add(completeScreen);
@@ -99,7 +98,6 @@ public class TagAPrice implements EntryPoint {
 			@Override
 			public void onAddressChanged(AddressChangedEvent event) {
 				clientFactory.getAccountPersistor().setAddress(event.getAddress());
-				_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Address Updated: "+event.getAddress(), INFOTYPE.SUCCESS));
 			}
 		});
 
@@ -158,15 +156,21 @@ public class TagAPrice implements EntryPoint {
 	}
 
 	private void locateMe(){
-		_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Try to update address", INFOTYPE.INFO));
+		final InfoBoxShowEvent tryPositionInfo = new InfoBoxShowEvent(TagAPrice.class, "Try to update address", INFOTYPE.INFO,0);
+		_iui.getInfoBox().addInfoBoxEvent(tryPositionInfo);
 
 
 		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 
 			@Override
 			public void onSuccess(final Position position) {
+				eventBus.fireEvent(new InfoBoxDestroyEvent(tryPositionInfo));
+				Log.debug("FoundPosition: lat: " + position.getCoords().getLatitude() +", Lng: "+position.getCoords().getLongitude());
+				Address address = new Address(null, position.getCoords().getLatitude(), position.getCoords().getLongitude());
+				eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "FoundPosition: lat: " + position.getCoords().getLatitude() +", Lng: "+position.getCoords().getLongitude(), INFOTYPE.SUCCESS));
+				eventBus.fireEvent(new AddressChangedEvent(address));
 
-
+				/*
 				//user OSM
 				clientFactory.getSearchService().searchAddress(position.getCoords().getLatitude(), position.getCoords().getLongitude(),
 						new AsyncCallback<Address>() {
@@ -184,13 +188,16 @@ public class TagAPrice implements EntryPoint {
 						_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
 					}
 				});
+				 */
 
 
 			}
 
 			@Override
 			public void onFailure(PositionError error) {
-				_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
+				eventBus.fireEvent(new InfoBoxDestroyEvent(tryPositionInfo));
+				Log.error("Could not find position:" + error);
+				_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Could not find position", INFOTYPE.ERROR));
 
 			}
 		});

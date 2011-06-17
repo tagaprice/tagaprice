@@ -8,6 +8,8 @@ import com.google.gwt.place.shared.Prefix;
 
 public class CreateReceiptPlace extends Place {
 	private String _id = null;
+	private String _addId = null;
+	private String _addType = null;
 
 	public CreateReceiptPlace() {
 	}
@@ -16,9 +18,33 @@ public class CreateReceiptPlace extends Place {
 		_id=id;
 	}
 
+	public CreateReceiptPlace(String id, String addId, String addType){
+		_id=id;
+		_addId=addId;
+		_addType=addType;
+	}
+
 	public String getId(){
 		return _id;
 	}
+
+
+
+	/**
+	 * @return the addId
+	 */
+	public String getAddId() {
+		return _addId;
+	}
+
+	/**
+	 * @return the addType
+	 */
+	public String getAddType() {
+		return _addType;
+	}
+
+
 
 	@Prefix("CreateReceipt")
 	public static class Tokenizer implements PlaceTokenizer<CreateReceiptPlace>{
@@ -32,9 +58,12 @@ public class CreateReceiptPlace extends Place {
 				if(e.getRoot().equals("create")){
 					return new CreateReceiptPlace();
 				}else if(e.getRoot().equals("show")){
-					if(e.getNode("id")!=null){
+					if(e.getNode("id")!=null && e.getNode("addid")!=null && e.getNode("addtype")!=null){
+						return new CreateReceiptPlace(e.getNode("id"), e.getNode("addid"), e.getNode("addtype"));
+					}else if(e.getNode("id")!=null){
 						return new CreateReceiptPlace(e.getNode("id"));
 					}
+					return null;
 				}
 				return null;
 			}
@@ -58,6 +87,11 @@ public class CreateReceiptPlace extends Place {
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("show");
 				t.addNode("id", ""+place.getId());
+
+				if(place.getAddId()!=null && place.getAddType()!=null){
+					t.addNode("addid", place.getAddId());
+					t.addNode("addtype", place.getAddType());
+				}
 
 				rc = t.getToken();
 			}

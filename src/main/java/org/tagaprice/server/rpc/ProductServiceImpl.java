@@ -11,6 +11,7 @@ import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.rpc.productmanagement.IProductService;
 
@@ -48,9 +49,9 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public Product saveProduct(String sessionId, final Product product) throws DaoException {
+	public Product saveProduct(String sessionId, final Product product) throws DaoException, UserNotLoggedInException {
 		Log.debug("save Product " + product);
-		if (sessionId == null) throw new DaoException("Can't save a product without having a valid session!");
+		if (sessionId == null) throw new UserNotLoggedInException("Can't save a product without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
 		Product rc = null;
 
