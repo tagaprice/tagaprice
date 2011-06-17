@@ -13,6 +13,10 @@ import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONParser;
+import org.svenson.JSONParseException;
+
+import sun.org.mozilla.javascript.json.JsonParser;
+
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
@@ -66,9 +70,15 @@ public class InitialInjector {
 			while (reader.ready()) {
 				json += reader.readLine();
 			}
-			Map<?, ?> map = JSONParser.defaultJSONParser().parse(HashMap.class, json);
-
-			m_db.createOrUpdateDocument(map);
+			try {
+				Map<?, ?> map = JSONParser.defaultJSONParser().parse(HashMap.class, json);
+				m_db.createOrUpdateDocument(map);
+			}
+			catch (JSONParseException e) {
+				JSONParseException newE = new JSONParseException(e.getMessage()+" (in "+file.getPath()+")");
+				newE.setStackTrace(e.getStackTrace());
+				throw newE;
+			}
 		}
 	}
 

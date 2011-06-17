@@ -6,9 +6,9 @@
         if (doc.entityType == 'category') emit(null, doc);
       }"
     },
-    "children": {
+    "childrenOf": {
       "map": "function(doc) {
-        if (doc.entityType == 'category' && doc.parent) emit(doc.parent, null);
+        if (doc.entityType == 'category') emit(doc.parent, null);
       }"
     }
   },
