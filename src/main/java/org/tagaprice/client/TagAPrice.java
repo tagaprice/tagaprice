@@ -1,6 +1,6 @@
 package org.tagaprice.client;
 
-import org.tagaprice.client.features.accountmanagement.login.LoginPlace;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
@@ -65,7 +65,7 @@ public class TagAPrice implements EntryPoint {
 		.create(AppPlaceHistoryMapper.class);
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
-		historyHandler.register(placeController, eventBus, new LoginPlace());
+		historyHandler.register(placeController, eventBus, new StartPlace());
 
 
 		//RootLayoutPanel.get().add(completeScreen);

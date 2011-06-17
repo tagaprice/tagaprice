@@ -1,0 +1,24 @@
+# turn on mail debugging
+!mail.debug=true
+
+# mail server
+mail.smtp.host=localhost
+
+# sender address
+mail.from=no-reply@tagaprice.org
+
+# use TLS encryption
+!mail.smtp.starttls.required=true
+
+# trust all SSL/TLS certificates (insecure!)
+!mail.smtp.ssl.trust=*
+
+# use SMTP authentication
+!mail.smtp.auth=true
+
+# SMTP user
+!mail.user=tagaprice
+
+# SMTP password
+!mail.password=password
+

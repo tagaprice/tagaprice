@@ -1,0 +1,7 @@
+host=localhost
+port=5432
+db=tagaprice
+user=tagaprice
+pwd=secret
+ssl=true
+sslFactory=org.postgresql.ssl.NonValidatingFactory

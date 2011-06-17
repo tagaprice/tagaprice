@@ -1,0 +1,58 @@
+body {
+	margin: 1em;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.withPadding {
+	padding: 1em;
+}
+
+.withMargin {
+	margin: 0.5em;
+}
+
+.gwt-DecoratorPanel {
+	margin: 0.5em;
+}
+
+.mainPanel {
+	width: 100%;
+	height: 100%;
+	border: 3px solid #BCF;
+	padding: 0.5em;
+	overflow-y: scroll;
+}
+
+.FlexTable-Body tr {
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+}
+
+.FlexTable-Header {
+	background-color: #A794E3;
+}
+
+.Success{
+	background-color: #beffb5;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+}
+
+.Info{
+	background-color: #b5daff;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+  	margin-top: 2px;
+  	margin-bottom: 2px;
+}
+
+.Error{	
+	background-color: #ff676e;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+  	font-size: small;
+  	
+}
