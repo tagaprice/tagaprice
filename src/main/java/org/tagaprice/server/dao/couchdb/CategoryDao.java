@@ -10,6 +10,8 @@ import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	public CategoryDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, Category.class, "category", daoFactory._getEntityDao());
@@ -38,14 +40,16 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	public List<Category> getChildren(Category parent) throws DaoException {
 		return getChildren(parent.getId());
 	}
-	
+
 	@Override
 	public List<Category> getChildren(String id) throws DaoException {
+		Log.debug("getChildren: "+id);
 		ViewResult<?> result = m_db.queryView("category/childrenOf", Category.class, new Options().key(id), null);
 		List<Category> rc = new ArrayList<Category>();
+		Log.debug("listSize: "+result.getRows().size());
 
-		System.out.println("CatList:");
 		for (ValueRow<?> row: result.getRows()) {
+			Log.debug("addChildren to List: "+row.getId());
 			Category category = get(row.getId());
 			rc.add(category);
 		}
