@@ -15,8 +15,6 @@ import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONParser;
 import org.svenson.JSONParseException;
 
-import sun.org.mozilla.javascript.json.JsonParser;
-
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
