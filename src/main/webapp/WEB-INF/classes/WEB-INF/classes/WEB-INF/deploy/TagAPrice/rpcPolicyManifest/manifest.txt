@@ -1,2 +1,0 @@
-# Module TagAPrice
-# RPC service class, partial path of RPC policy file
