@@ -149,7 +149,6 @@ public class Product extends AEntity {
 	 * @param category
 	 *            Is the depending {@link Category} for a product
 	 */
-	@JSONProperty(ignore = true)
 	public void setCategory(Category category) {
 		_category = category;
 
