@@ -2,6 +2,8 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -30,7 +32,7 @@ public class Receipt extends AEntity {
 	/**
 	 * <b>NEW</b>
 	 * Create new Receipt. Used on the Client
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param title the title of the receipt
 	 * @param date date of the receipt
 	 * @param subsidiary the subsidiary
@@ -45,7 +47,7 @@ public class Receipt extends AEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or select Receipt. Used on Client and Server
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param revisionId the revision of the receipt. (it is not really necessary to save the revision)
 	 * @param title the title of the receipt
 	 * @param date the date and time when a receipt was created
@@ -69,8 +71,17 @@ public class Receipt extends AEntity {
 	/**
 	 * @return the date of the {@link Receipt}
 	 */
+	@JSONProperty(ignore = true)
 	public Date getDate() {
 		return _date;
+	}
+
+	public Long getTimeStamp(){
+		return _date.getTime();
+	}
+
+	public void setTimeStamp(Long timestamp){
+		_date=new Date(timestamp);
 	}
 
 	/**
@@ -87,17 +98,13 @@ public class Receipt extends AEntity {
 		return _shop;
 	}
 
-	/**
-	 * @return the current shopId or null
-	 */
-	public String getShopId(){
-		return _shop.getId();
-	}
+
 
 	/**
 	 * Set the {@link Receipt} date
 	 * @param date receipt date
 	 */
+	@JSONProperty(ignore = true)
 	public void setDate(Date date) {
 		_date=date;
 	}
