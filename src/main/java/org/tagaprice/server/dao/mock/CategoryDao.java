@@ -37,9 +37,9 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 
 			Category category = deque.peek();
 
-			if(id==null && category.getParentCategory()==null){
+			if(id==null && category.getParent()==null){
 				rc.add(category);
-			}else if (id!=null && category.getParentCategory()!=null && category.getParentCategory().getId().equals(id)) {
+			}else if (id!=null && category.getParent()!=null && category.getParent().getId().equals(id)) {
 				rc.add(category);
 			}
 

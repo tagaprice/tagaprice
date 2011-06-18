@@ -47,7 +47,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 			while(newCat!=null){
 				_hoPa.insert(new SimpleCategorySelecter(newCat), 0);
-				newCat = newCat.getParentCategory();
+				newCat = newCat.getParent();
 			}
 
 
