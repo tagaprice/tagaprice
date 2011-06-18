@@ -8,6 +8,7 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
@@ -51,6 +52,14 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 		}
 
 		return rc;
+	}
+
+	
+	@Override
+	protected void _injectFields(Category category) throws DaoException {
+		if (category.getParent() != null) {
+			category.setParent(get(category.getParent().getId()));
+		}
 	}
 
 }
