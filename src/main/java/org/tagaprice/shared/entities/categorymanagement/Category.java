@@ -76,7 +76,8 @@ public class Category extends AEntity   {
 	 * @param parentId New parent Category ID
 	 */
 	public void setParentId(String parentId) {
-		setParent(new Category(null, parentId, null, null, null));
+		if (parentId != null) setParent(new Category(null, parentId, null, null, null));
+		else setParent(null);
 	}
 
 	/* (non-Javadoc)
