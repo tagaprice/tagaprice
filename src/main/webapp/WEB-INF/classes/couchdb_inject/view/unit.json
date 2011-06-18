@@ -1,0 +1,20 @@
+{
+  "_id": "_design/unit",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.entityType == 'unit') emit(null, doc);
+      }"
+    },
+    "similar": {
+      "map": "function(doc) {
+        if (doc.entityType == 'unit') {
+          parentId = doc.parentId;
+          if (parentId == null) parentId = doc._id
+          emit(parentId, null);
+        }
+      }"
+    }
+  },
+  "language": "javascript"
+}
