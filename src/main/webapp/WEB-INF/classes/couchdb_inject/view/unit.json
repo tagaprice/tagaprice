@@ -1,0 +1,11 @@
+{
+  "_id": "_design/unit",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.entityType == 'unit') emit(null, doc);
+      }"
+    }
+  },
+  "language": "javascript"
+}

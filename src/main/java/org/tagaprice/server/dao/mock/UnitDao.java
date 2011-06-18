@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
 import com.allen_sauer.gwt.log.client.Log;
@@ -76,14 +74,27 @@ public class UnitDao implements IUnitDao {
 			for (String key:_units.keySet())
 				rc.add(_units.get(key));
 		}else{
-			Set<String> keys = _factoredUnits.get(id).keySet();
-			for (String key:keys){
-				Log.debug("key: "+key);
+			//Add self
+			String parentId=null;
+			if(_units.get(id).getParent()==null){
+				parentId=_units.get(id).getId();
+			}else{
+				parentId=_units.get(id).getParent().getId();
+			}
 
-				_units.get(key).setFactor(_factoredUnits.get(id).get(key));
-				rc.add(_units.get(key));
+			//add Parent
+			rc.add(_units.get(parentId));
+
+
+			for (String key:_units.keySet()){
+				//all with parent == parentId
+				if(_units.get(key).getParent()!=null && _units.get(key).getParent().getId().equals(parentId)){
+					Log.debug("key: "+key);
+					rc.add(_units.get(key));
+				}
 			}
 		}
+
 		return rc;
 	}
 

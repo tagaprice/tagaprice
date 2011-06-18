@@ -28,7 +28,7 @@ public class Product extends AEntity {
 	 * <b>NEW</b>
 	 * Constructor to create a new {@link Product}
 	 * 
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param title Product Title
 	 * @param category Product category
 	 * @param unit Product unit
@@ -44,7 +44,7 @@ public class Product extends AEntity {
 	 * <b>UPDATE and GET</b>
 	 * Constructor to update and GET a {@link Product}
 	 * 
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param revision The product revision
 	 * @param title Product Title
 	 * @param category Product category
@@ -189,11 +189,11 @@ public class Product extends AEntity {
 	}
 
 	/**
-	 * Internal method necessary for the CouchDB injection to work 
+	 * Internal method necessary for the CouchDB injection to work
 	 * @param unitId unit ID
 	 */
 	public void setUnitId(String unitId) {
-		setUnit(new Unit(null, unitId, null, null));
+		setUnit(new Unit(null, unitId, null, null, null,1.0));
 	}
 
 	/*
