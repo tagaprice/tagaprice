@@ -145,7 +145,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 			@Override
 			public void onFailure(Throwable e) {
-				Log.error("getCategoryProblem: "+e);
+				Log.error("showFactorizedUnitsProblem: "+e);
 			}
 		});
 

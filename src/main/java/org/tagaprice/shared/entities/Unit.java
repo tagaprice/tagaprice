@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
@@ -57,8 +58,29 @@ public class Unit extends AEntity {
 		_parent = parent;
 	}
 
+	@JSONProperty(ignore = true)
 	public Unit getParent(){
 		return _parent;
+	}
+
+	/**
+	 * Returns the ID of the parent category
+	 * (CouchDB helper method)
+	 * @return Parent Category's ID
+	 */
+	@JSONProperty(value="parentId")
+	public String getParentId() {
+		return getParent() != null ? getParent().getId() : null;
+	}
+
+	/**
+	 * Sets a new Parent category ID
+	 * (CouchDB helper method)
+	 * @param parentId New parent Category ID
+	 */
+	public void setParentId(String parentId) {
+		if (parentId != null) setParent(new Unit(null, parentId, null, null, null, _factor));
+		else setParent(null);
 	}
 
 

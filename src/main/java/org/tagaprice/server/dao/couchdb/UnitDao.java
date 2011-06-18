@@ -1,9 +1,13 @@
 package org.tagaprice.server.dao.couchdb;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jcouchdb.document.ValueRow;
+import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -15,10 +19,19 @@ public class UnitDao extends DaoClass<Unit> implements IUnitDao {
 	}
 
 	@Override
-	public List<Unit> factorizedUnits(String id) {
+	public List<Unit> factorizedUnits(String id) throws DaoException {
 		Log.debug("get FactorizedUnit: "+id);
-		// TODO Auto-generated method stub
-		return null;
+		List<Unit> rc = new ArrayList<Unit>();
+
+		ViewResult<?> result = m_db.queryView("unit/all", Unit.class, null, null);
+
+		for (ValueRow<?> row: result.getRows()) {
+			Unit unit = get(row.getId());
+			rc.add(unit);
+		}
+
+
+		return rc;
 	}
 
 	@Override

@@ -13,5 +13,5 @@ public interface IUnitService extends RemoteService {
 
 	public Unit getUnit(String id) throws DaoException;
 	public Unit getUnit(String id, String revision) throws DaoException;
-	public List<Unit> getFactorizedUnits(String id);
+	public List<Unit> getFactorizedUnits(String id) throws DaoException;
 }

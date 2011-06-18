@@ -33,7 +33,7 @@ public class UnitServiceImpl extends RemoteServiceServlet implements IUnitServic
 	}
 
 	@Override
-	public List<Unit> getFactorizedUnits(String id) {
+	public List<Unit> getFactorizedUnits(String id) throws DaoException {
 		return unitDAO.factorizedUnits(id);
 	}
 
