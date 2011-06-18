@@ -56,6 +56,7 @@ public class Category extends AEntity   {
 	 * Sets the parent {@link Category}.
 	 * @param category New parent {@link Category}
 	 */
+	@JSONProperty(ignore = true)
 	public void setParent(Category parent) {
 		this._parent = parent;
 	}
