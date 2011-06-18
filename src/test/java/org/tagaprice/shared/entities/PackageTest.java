@@ -64,7 +64,7 @@ public class PackageTest {
 		setterPackage.setProduct(p);
 		assertEquals(setterPackage.getProduct().getTitle(), "setterProduct");
 		assertEquals(setterPackage.getProduct().getCategory().getTitle(), "setterCategory");
-		assertNull(setterPackage.getProduct().getCategory().getParentCategory());
+		assertNull(setterPackage.getProduct().getCategory().getParent());
 		assertEquals(setterPackage.getProduct().getUnit().getTitle(), "kg");
 	}
 

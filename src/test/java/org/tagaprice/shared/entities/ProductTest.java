@@ -49,7 +49,7 @@ public class ProductTest {
 		assertNull(newProduct.getRevision());
 		assertNotNull(newProduct.getCategory());
 		assertEquals(newProduct.getCategory().getTitle(), "newCategory");
-		assertNull(newProduct.getCategory().getParentCategory());
+		assertNull(newProduct.getCategory().getParent());
 		assertNotNull(newProduct.getUnit());
 		assertEquals(newProduct.getUnit().getTitle(), "kg");
 		assertNotNull(newProduct.getPackages());
@@ -63,7 +63,7 @@ public class ProductTest {
 		setterProduct.setCategory(new Category(testUser, "setterCategory", null));
 		assertNotNull(setterProduct.getCategory());
 		assertEquals(setterProduct.getCategory().getTitle(), "setterCategory");
-		assertNull(setterProduct.getCategory().getParentCategory());
+		assertNull(setterProduct.getCategory().getParent());
 	}
 
 	@Test

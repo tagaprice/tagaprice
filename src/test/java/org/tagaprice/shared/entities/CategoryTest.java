@@ -26,7 +26,7 @@ public class CategoryTest {
 
 	@Test
 	public void testCategory() {
-		assertNull(emptyCategory.getParentCategory());
+		assertNull(emptyCategory.getParent());
 		assertNull(emptyCategory.getTitle());
 		assertNull(emptyCategory.getId());
 		assertNull(emptyCategory.getRevision());
@@ -35,8 +35,8 @@ public class CategoryTest {
 	@Test
 	public void testCategoryStringCategory() {
 		assertEquals(newCategory.getTitle(), "title");
-		assertNotNull(newCategory.getParentCategory());
-		assertEquals(newCategory.getParentCategory().getTitle(), "parent");
+		assertNotNull(newCategory.getParent());
+		assertEquals(newCategory.getParent().getTitle(), "parent");
 		assertNull(newCategory.getId());
 		assertNull(newCategory.getRevision());
 	}
@@ -44,16 +44,16 @@ public class CategoryTest {
 
 	@Test
 	public void testGetParentCategory() {
-		assertNotNull(updateCategory.getParentCategory());
-		assertEquals(updateCategory.getParentCategory().getTitle(), "updateparent");
+		assertNotNull(updateCategory.getParent());
+		assertEquals(updateCategory.getParent().getTitle(), "updateparent");
 	}
 
 	@Test
 	public void testSetParentCategory() {
-		setterCategory.setParentCategory(new Category(testUser, "parent", null));
-		assertNotNull(setterCategory.getParentCategory());
-		assertEquals(setterCategory.getParentCategory().getTitle(), "parent");
-		assertNull(setterCategory.getParentCategory().getParentCategory());
+		setterCategory.setParent(new Category(testUser, "parent", null));
+		assertNotNull(setterCategory.getParent());
+		assertEquals(setterCategory.getParent().getTitle(), "parent");
+		assertNull(setterCategory.getParent().getParent());
 
 	}
 
