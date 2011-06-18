@@ -19,6 +19,8 @@
 	<inherits name='com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha' />
 	<inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
 	<inherits name="com.google.gwt.junit.JUnit" />
+	<inherits name='com.google.gwt.query.Query'/>
+	<inherits name='gwtquery.plugins.UiEmbedded' />
 
 	<!-- For development, a default of `DEBUG` is recommended -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />

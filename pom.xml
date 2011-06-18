@@ -32,16 +32,26 @@
 			<layout>default</layout>
 		</repository>
 		<repository>
-		      <id>gson</id>
-		      <url>http://google-gson.googlecode.com/svn/mavenrepo</url>
-		      <snapshots>
-			<enabled>true</enabled>
-		      </snapshots>
-		      <releases>
-			<enabled>true</enabled>
-		      </releases>
-		    </repository>
-		</repositories>
+			<id>gson</id>
+			<url>http://google-gson.googlecode.com/svn/mavenrepo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+		<repository>
+			<id>gwtquery-ui-repository</id>
+			<url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
+		</repository>
+
+	</repositories>
+
+		
+			
+		
 
 	<issueManagement>
 		<system>Trac</system>
@@ -165,6 +175,28 @@
 		    <version>2.0</version>
 		</dependency>
 
+		<!-- GwtQuery -->
+		
+		<dependency>
+			<groupId>com.googlecode.gwtquery</groupId>
+			<artifactId>gwtquery</artifactId>
+			<version>1.0.0</version>
+			<!-- Uncomment the appropriate line -->
+			<!-- <classifier>2.3.0</classifier> -->
+			<classifier>2.2.0</classifier>
+			<!-- <classifier>2.1.0</classifier> -->
+			<!-- <classifier>2.0.1</classifier> -->
+			<scope>provided</scope>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwtquery-ui</artifactId>
+			<version>r127</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		
 	</dependencies>
 	<build>
