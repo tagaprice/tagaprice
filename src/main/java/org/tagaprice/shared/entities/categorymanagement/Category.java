@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
 public class Category extends AEntity   {
 	private static final long serialVersionUID = 1L;
 
-	private Category _parentCategory;
+	private Category _parent;
 
 
 	/**
@@ -40,24 +40,43 @@ public class Category extends AEntity   {
 	 */
 	public Category(User creator, String id, String revision, String title, Category parent){
 		super(creator, id, revision, title);
-		setParentCategory(parent);
+		setParent(parent);
 	}
 
 	/**
 	 * Returns the parent {@link Category}.
-	 * @return parent {@link Category}
+	 * @return parent Parent {@link Category}
 	 */
-	@JSONProperty(value="parent")
-	public Category getParentCategory() {
-		return this._parentCategory;
+	@JSONProperty(ignore = true)
+	public Category getParent() {
+		return this._parent;
 	}
 
 	/**
 	 * Sets the parent {@link Category}.
-	 * @param category set parent {@link Category}
+	 * @param category New parent {@link Category}
 	 */
-	public void setParentCategory(Category category) {
-		this._parentCategory = category;
+	public void setParent(Category parent) {
+		this._parent = parent;
+	}
+	
+	/**
+	 * Returns the ID of the parent category
+	 * (CouchDB helper method)
+	 * @return Parent Category's ID
+	 */
+	@JSONProperty(value="parent")
+	public String getParentId() {
+		return getParent() != null ? getParent().getId() : null;
+	}
+	
+	/**
+	 * Sets a new Parent category ID
+	 * (CouchDB helper method)
+	 * @param parentId New parent Category ID
+	 */
+	public void setParentId(String parentId) {
+		setParent(new Category(null, parentId, null, null, null));
 	}
 
 	/* (non-Javadoc)
@@ -65,7 +84,7 @@ public class Category extends AEntity   {
 	 */
 	@Override
 	public String toString() {
-		return "Category: "+getId()+" [_parentCategory=" + _parentCategory + "]";
+		return "Category: "+getId()+" [_parentCategory=" + _parent + "]";
 	}
 
 
