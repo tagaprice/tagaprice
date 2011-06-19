@@ -153,6 +153,11 @@ public class TagAPrice implements EntryPoint {
 		 */
 
 
+
+
+
+
+
 	}
 
 	private void locateMe(){

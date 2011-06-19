@@ -20,7 +20,9 @@
 	<inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
 	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name='com.google.gwt.query.Query'/>
-	<inherits name='gwtquery.plugins.UiEmbedded' />
+	<inherits name='gwtquery.plugins.UiGoogleCdn' />
+	 <script src="http://jqueryui.com/themeroller/themeswitchertool/"/>
+  	<stylesheet src="themes/base/jquery.ui.all.css" />
 
 	<!-- For development, a default of `DEBUG` is recommended -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
@@ -106,7 +108,7 @@
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
-	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<!-- <inherits name='com.google.gwt.user.theme.standard.Standard' /> -->
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
@@ -118,10 +120,6 @@
 	<!-- Specify the paths for translatable code -->
 	<source path="client" />
 	<source path="shared" />
-	<inherits name="com.google.gwt.junit.JUnit" />
-	<inherits name="com.google.gwt.junit.JUnit" />
-	<inherits name="com.google.gwt.junit.JUnit" />
-	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name="com.google.gwt.junit.JUnit" />
 
 
