@@ -69,9 +69,26 @@ public class StartViewImpl extends Composite implements IStartView {
 
 
 
-		Button buttonj = new Button("Jbutton");
+		final Button buttonj = new Button("FadeOut-In");
 		vePa.add(buttonj);
 		$(buttonj).as(gwtquery.plugins.ui.Ui.Ui).button();
+
+		buttonj.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				$(buttonj)
+				.slideUp()
+				.slideDown()
+				.delay(2000)
+				.fadeOut()
+				.delay(2000)
+				.fadeIn(3000)
+				.slideToggle(1000)
+				.slideToggle(1000);
+
+			}
+		});
 
 		final Label label2 = new Label("should slide");
 		vePa.add(label2);
@@ -87,8 +104,21 @@ public class StartViewImpl extends Composite implements IStartView {
 		});
 
 
+		//Button with icons
+		Button button1 = new Button("Button with icon only");
+		Button button2 = new Button("Button with icon on the left");
+		Button button3 = new Button("Button with two icons");
+		Button button4 = new Button("Button with two icons and no text");
 
+		$(button1).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().primary("ui-icon-locked")).text(false)); //
+		$(button2).as(gwtquery.plugins.ui.Ui.Ui).button("{icons: {primary: 'ui-icon-locked'}}"); //
+		$(button3).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().primary("ui-icon-gear").secondary("ui-icon-triangle-1-s"))); //
+		$(button4).as(gwtquery.plugins.ui.Ui.Ui).button("{icons: {primary: 'ui-icon-gear',secondary: 'ui-icon-triangle-1-s'}, text: false}");
 
+		vePa.add(button1);
+		vePa.add(button2);
+		vePa.add(button3);
+		vePa.add(button4);
 
 	}
 
