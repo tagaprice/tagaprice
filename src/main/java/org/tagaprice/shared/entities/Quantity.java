@@ -3,6 +3,8 @@ package org.tagaprice.shared.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.svenson.JSONProperty;
+
 
 /**
  * A {@link Quantity} defines in which way a user can buy a {@link Product}.
@@ -71,6 +73,7 @@ public class Quantity implements Serializable {
 	 * @return the {@link Unit} in which a {@link Product} can be
 	 *         bought
 	 */
+	@JSONProperty(ignore = true)
 	public Unit getUnit() {
 		return this._unit;
 	}

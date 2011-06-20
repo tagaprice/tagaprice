@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities.productmanagement;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.ASimpleEntity;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.accountmanagement.User;
@@ -31,7 +32,7 @@ public class Package extends ASimpleEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Get or Update Package.
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current entity revision
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
@@ -45,8 +46,14 @@ public class Package extends ASimpleEntity {
 	 * Returns the related {@link IProduct}
 	 * @return the related {@link IProduct}
 	 */
+	@JSONProperty(ignore = true)
 	public Product getProduct() {
 		return _product;
+	}
+
+	public String getProductId(){
+		if(_product!=null)return _product.getId();
+		return null;
 	}
 
 	/**
@@ -54,6 +61,7 @@ public class Package extends ASimpleEntity {
 	 * 
 	 * @return the {@link IQuantity} of an {@link IPackage}
 	 */
+
 	public Quantity getQuantity() {
 		return _iQuantity;
 	}

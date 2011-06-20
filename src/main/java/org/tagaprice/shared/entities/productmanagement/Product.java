@@ -62,6 +62,7 @@ public class Product extends AEntity {
 	 * @param ipackage
 	 *            that will be added to the {@link Product}
 	 */
+	@JSONProperty(ignore = true)
 	public void addPackage(Package ipackage) {
 		ipackage.setProduct(this);
 		_iPackage.add(ipackage);

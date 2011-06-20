@@ -1,0 +1,18 @@
+{
+  "_id": "_design/package",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.entityType == 'package') emit(null, doc);
+      }"
+    },
+    "toproduct": {
+      "map": "function(doc){
+        if (doc.entityType == 'package'){
+          emit(doc.productId, doc);
+        }
+      }"
+    }
+  },
+  "language": "javascript"
+}
