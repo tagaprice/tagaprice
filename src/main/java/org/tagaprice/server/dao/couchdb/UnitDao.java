@@ -20,10 +20,10 @@ public class UnitDao extends DaoClass<Unit> implements IUnitDao {
 
 	@Override
 	public List<Unit> factorizedUnits(String id) throws DaoException {
-		Log.debug("get FactorizedUnit: "+id);
+		Log.debug("get getSimilar: "+id);
 		List<Unit> rc = new ArrayList<Unit>();
 
-		ViewResult<?> result = m_db.queryView("unit/all", Unit.class, null, null);
+		ViewResult<?> result = m_db.queryView("unit/similar", Unit.class, new Options().key(id), null);
 
 		for (ValueRow<?> row: result.getRows()) {
 			Unit unit = get(row.getId());
