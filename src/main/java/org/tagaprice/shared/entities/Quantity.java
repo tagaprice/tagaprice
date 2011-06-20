@@ -78,6 +78,14 @@ public class Quantity implements Serializable {
 		return this._unit;
 	}
 
+	public String getUnitId(){
+		return _unit.getId();
+	}
+
+	public void setUnitId(String unitId){
+		_unit=new Unit(null, unitId, null, null, null, 1.0);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -334,6 +334,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		for(final Product p:productResults){
 			Log.debug("shopProductResult: "+p.getTitle());
 			for(final Package pa: p.getPackages()){
+				//Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
+
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
 
 				_productSearchSuggestVePa.add(clickProduct);
@@ -346,7 +348,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					}
 				});
 			}
-			Label newPackage = new Label(p.getTitle()+" - x "+p.getUnit().getTitle());
+			//Label newPackage = new Label(p.getTitle()+" - x "+p.getUnit().getTitle());
+			Label newPackage = new Label(p.getTitle()+" - x ");
 			_productSearchSuggestVePa.add(newPackage);
 			newPackage.addClickHandler(new ClickHandler() {
 
