@@ -86,5 +86,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 		if (product.getUnitId() != null) {
 			product.setUnit(m_unitDAO.get(product.getUnitId()));
 		}
+
+		//Add packages
+		product.setPackages(m_packageDAO.findPackageByProduct(product.getId()));
 	}
 }

@@ -1,6 +1,8 @@
 package org.tagaprice.shared.entities.productmanagement;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.Unit;
@@ -169,7 +171,7 @@ public class Product extends AEntity {
 	 * @param ipackage
 	 *            that will be set to the {@link Product}
 	 */
-	public void setPackages(ArrayList<Package> iPackage) {
+	public void setPackages(List<Package> iPackage) {
 		_iPackage.clear();
 		for (Package p : iPackage) {
 			p.setProduct(this);

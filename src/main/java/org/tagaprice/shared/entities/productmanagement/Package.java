@@ -56,6 +56,10 @@ public class Package extends ASimpleEntity {
 		return null;
 	}
 
+	public void setProductId(String productId){
+		setProduct(new Product(null, productId, null, null, null, null));
+	}
+
 	/**
 	 * Returns the {@link IQuantity} of an {@link IPackage}
 	 * 

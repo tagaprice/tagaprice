@@ -13,4 +13,10 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 		return null;
 	}
 
+	@Override
+	public List<Package> findPackageByProduct(String productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
