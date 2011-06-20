@@ -3,6 +3,7 @@ package org.tagaprice.server.dao.couchdb;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IUnitDao;
