@@ -10,5 +10,11 @@ public interface IUnitDao extends IDaoClass<Unit> {
 	@Deprecated
 	public void setFactorizedUnit(String unit, String factorizedUnit, double factor);
 
+	/**
+	 * Returns similar Unit, or all if id = NULL
+	 * @param id
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Unit> factorizedUnits(String id)throws DaoException;
 }

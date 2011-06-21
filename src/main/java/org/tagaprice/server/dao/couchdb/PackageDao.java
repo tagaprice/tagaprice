@@ -1,9 +1,9 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IPackageDao;
@@ -29,7 +29,9 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	@Override
 	public List<Package> findPackageByProduct(String productId) throws DaoException{
 
-		ViewResult<?> result = m_db.queryViewByKeys("package/toproduct", Package.class, Arrays.asList(productId), null, null);
+		//ViewResult<?> result = m_db.queryViewByKeys("package/toproduct", Package.class, Arrays.asList(productId), null, null);
+		ViewResult<?> result = m_db.queryView("package/toproduct", Package.class, new Options().key(productId), null);
+
 		List<Package> rc = new ArrayList<Package>();
 
 		for (ValueRow<?> row: result.getRows()) {
