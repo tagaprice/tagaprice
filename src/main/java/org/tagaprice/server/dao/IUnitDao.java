@@ -12,9 +12,9 @@ public interface IUnitDao extends IDaoClass<Unit> {
 
 	/**
 	 * Returns similar Unit, or all if id = NULL
-	 * @param id
+	 * @param id This must be the parent id not the unit it
 	 * @return
 	 * @throws DaoException
 	 */
-	public List<Unit> factorizedUnits(String id)throws DaoException;
+	public List<Unit> factorizedUnits(String parentId)throws DaoException;
 }
