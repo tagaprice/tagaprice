@@ -127,14 +127,10 @@ public class Receipt extends AEntity {
 	}
 
 
-	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(List<ReceiptEntry> rc) {
-
-	}
 
 	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(ReceiptEntry[] rc) {
-
+	public void addReceiptEntries(ReceiptEntry rc) {
+		_receiptEntries.add(rc);
 	}
 
 	/**

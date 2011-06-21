@@ -38,6 +38,7 @@ public class ReceiptEntry implements Serializable {
 	}
 
 	public String getPackageId(){
+		if(_package==null)return null;
 		return _package.getId();
 	}
 
@@ -45,7 +46,6 @@ public class ReceiptEntry implements Serializable {
 	 * returns the price per {@link Currency} in cent
 	 * @return per {@link Currency}  in cent
 	 */
-	@JSONProperty(ignore = true)
 	public Price getPrice() {
 		return _price;
 	}
@@ -68,7 +68,6 @@ public class ReceiptEntry implements Serializable {
 	 * sets the price per {@link Currency}  in cent
 	 * @param price  per {@link Currency}  in cent
 	 */
-	@JSONProperty(ignore = true)
 	public void setPrice(Price price) {
 		_price = price;
 	}
