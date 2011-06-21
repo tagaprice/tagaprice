@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.io.Serializable;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class ReceiptEntry implements Serializable {
@@ -31,14 +32,20 @@ public class ReceiptEntry implements Serializable {
 	/**
 	 * @return the related {@link IPackage}
 	 */
+	@JSONProperty(ignore = true)
 	public Package getPackage() {
 		return _package;
+	}
+
+	public String getPackageId(){
+		return _package.getId();
 	}
 
 	/**
 	 * returns the price per {@link Currency} in cent
 	 * @return per {@link Currency}  in cent
 	 */
+	@JSONProperty(ignore = true)
 	public Price getPrice() {
 		return _price;
 	}
@@ -48,14 +55,20 @@ public class ReceiptEntry implements Serializable {
 	 * defines the {@link Package} (Product)
 	 * @param prackage the {@link Package} (Product)
 	 */
+	@JSONProperty(ignore = true)
 	public void setPackage(Package ipackage) {
 		_package = ipackage;
+	}
+
+	public void setPackageId(String packageId){
+		_package = new Package(null, packageId, null, null);
 	}
 
 	/**
 	 * sets the price per {@link Currency}  in cent
 	 * @param price  per {@link Currency}  in cent
 	 */
+	@JSONProperty(ignore = true)
 	public void setPrice(Price price) {
 		_price = price;
 	}
@@ -70,6 +83,7 @@ public class ReceiptEntry implements Serializable {
 	public String toString() {
 		return "ReceiptEntry [_package=" + _package + ", _price=" + _price + "]";
 	}
+
 
 
 

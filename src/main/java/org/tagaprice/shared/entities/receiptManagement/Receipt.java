@@ -2,8 +2,10 @@ package org.tagaprice.shared.entities.receiptManagement;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.svenson.JSONProperty;
+import org.svenson.JSONTypeHint;
 import org.tagaprice.shared.entities.AEntity;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -63,9 +65,9 @@ public class Receipt extends AEntity {
 	/**
 	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
 	 */
+	@JSONProperty(ignore = true)
 	public void addReceiptEntriy(ReceiptEntry receiptEntry) {
 		_receiptEntries.add(receiptEntry);
-
 	}
 
 	/**
@@ -109,15 +111,30 @@ public class Receipt extends AEntity {
 		_date=date;
 	}
 
+
+
 	/**
 	 * Set a list of {@link ReceiptEntry}. All included {@link ReceiptEntry} will be overwritten!
 	 * @param receiptEntries the list of {@link ReceiptEntry}
 	 */
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
+	@JSONTypeHint(ReceiptEntry.class)
+	public void setReceiptEntries(List<ReceiptEntry> rc) {
+
 		_receiptEntries.clear();
-		for(ReceiptEntry r:receiptEntries){
+		for(ReceiptEntry r:rc){
 			addReceiptEntriy(r);
 		}
+	}
+
+
+	@JSONTypeHint(ReceiptEntry.class)
+	public void addReceiptEntries(List<ReceiptEntry> rc) {
+
+	}
+
+	@JSONTypeHint(ReceiptEntry.class)
+	public void addReceiptEntries(ReceiptEntry[] rc) {
+
 	}
 
 	/**

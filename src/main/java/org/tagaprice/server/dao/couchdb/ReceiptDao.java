@@ -23,11 +23,13 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		List<Receipt> rc = new ArrayList<Receipt>();
 
 		Log.debug("Listsize: "+result.getRows().size());
+
 		for (ValueRow<?> row: result.getRows()) {
 			Log.debug("rowId: "+row.getId());
 			Receipt receipt = get(row.getId());
 			rc.add(receipt);
 		}
+
 
 		return rc;
 	}
