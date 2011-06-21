@@ -65,9 +65,9 @@ public class Receipt extends AEntity {
 	/**
 	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
 	 */
-	@JSONProperty(ignore = true)
-	public void addReceiptEntriy(ReceiptEntry receiptEntry) {
-		_receiptEntries.add(receiptEntry);
+	@JSONTypeHint(ReceiptEntry.class)
+	public void addReceiptEntries(ReceiptEntry rc) {
+		_receiptEntries.add(rc);
 	}
 
 	/**
@@ -122,16 +122,13 @@ public class Receipt extends AEntity {
 
 		_receiptEntries.clear();
 		for(ReceiptEntry r:rc){
-			addReceiptEntriy(r);
+			addReceiptEntries(r);
 		}
 	}
 
 
 
-	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(ReceiptEntry rc) {
-		_receiptEntries.add(rc);
-	}
+
 
 	/**
 	 * Set the {@link shop} where the user bought the things.

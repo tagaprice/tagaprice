@@ -219,7 +219,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 					Log.debug("Get Product sucessfull id: "+result.getId());
 					Package np = new Package(new Quantity(new BigDecimal("0.0"), result.getUnit()));
 					np.setProduct(result);
-					_receipt.addReceiptEntriy(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
+					_receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
 					updateView(_receipt);
 				}
 
