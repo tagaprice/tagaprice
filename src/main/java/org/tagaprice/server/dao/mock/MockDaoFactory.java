@@ -9,6 +9,7 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.server.dao.IUserDao;
 import org.tagaprice.shared.entities.Address;
@@ -35,6 +36,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final IShopDao m_shopDAO = new ShopDao();
 	private final IUnitDao m_unitDAO = new UnitDao();
 	private final IUserDao m_userDAO = new UserDao();
+	private final IStatisticDao m_statisticDAO = new StatisticDao();
 
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
@@ -205,5 +207,10 @@ public class MockDaoFactory implements IDaoFactory {
 	@Override
 	public void init() {
 		// nothing to do here
+	}
+
+	@Override
+	public IStatisticDao getStatisticDao() {
+		return m_statisticDAO;
 	}
 }

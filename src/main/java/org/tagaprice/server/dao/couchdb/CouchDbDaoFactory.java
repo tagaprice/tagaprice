@@ -17,6 +17,7 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -36,6 +37,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IShopDao m_shopDao = null;
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
+	private StatisticDao m_statisticDao = null;
 
 	private EntityDao m_entityDao = null;
 
@@ -190,5 +192,13 @@ public class CouchDbDaoFactory implements IDaoFactory {
 			e.printStackTrace();
 			throw new ServletException("Error while initializing CouchDB", e);
 		}
+	}
+
+	@Override
+	public IStatisticDao getStatisticDao() {
+		if(m_statisticDao == null){
+			m_statisticDao = new StatisticDao(this);
+		}
+		return m_statisticDao;
 	}
 }
