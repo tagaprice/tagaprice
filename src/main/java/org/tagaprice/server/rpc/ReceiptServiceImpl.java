@@ -37,6 +37,12 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		// TODO check session validity
 		receipt.setCreator(session.getCreator());
 
+		//check if a package is new
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
+			if(re.getPackageId()==null)
+				re.getPackage().setCreator(session.getCreator());
+		}
+
 		//Create or update Receipt
 		if (receipt.getId()==null){
 			rc = receiptDAO.create(receipt);
