@@ -248,61 +248,30 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_shopSearchSuggestVePa.clear();
 		for(final Shop s:shopResults){
 
-			if(s.getParent()!=null){
-				Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
-				foundAddress.addClickHandler(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent arg0) {
-						setShop(s);
-					}
-				});
-				_shopSearchSuggestVePa.add(foundAddress);
-			}else{
-				Label foundAddress = new Label(s.getTitle()+" (Add Address)");
-				foundAddress.addClickHandler(new ClickHandler() {
+			Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
+			foundAddress.addClickHandler(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent arg0) {
-						if(_presenter.getId()!=null)
-							_presenter.goTo(new CreateShopPlace(_presenter.getId(), s.getId(), true));
-						else _presenter.goTo(new CreateShopPlace("draft", s.getId(), true));
-					}
-				});
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setShop(s);
+				}
+			});
+			_shopSearchSuggestVePa.add(foundAddress);
 
-				/*
-				foundAddress.addClickHandler(new ClickHandler() {
+			Label newAddress = new Label(s.getTitle()+" (Add Address)");
+			newAddress.addClickHandler(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent arg0) {
-						_newAddressArea.clear();
-						_searchMapArea.setVisible(false);
-						_shopSearch.setEnabled(false);
+				@Override
+				public void onClick(ClickEvent arg0) {
+					if(_presenter.getId()!=null)
+						_presenter.goTo(new CreateShopPlace(_presenter.getId(), s.getId(), true));
+					else _presenter.goTo(new CreateShopPlace("draft", s.getId(), true));
+				}
+			});
 
-						if(_addressSelecter==null)_addressSelecter = new AddressSelecter();
-						LonLat t = _osmMap.getCenter();
-						t.transform("EPSG:900913","EPSG:4326");
-						_addressSelecter.setAddress(new Address("", t.lat(), t.lon()));
+			_shopSearchSuggestVePa.add(newAddress);
 
-						_newAddressArea.add(new Label("Shop: "+s.getTitle()));
-						_newAddressArea.add(_addressSelecter);
-						_newAddressArea.add(new Button("Add Address", new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent e) {
-								Shop ia = new Shop(null, s.getTitle()+" - "+_addressSelecter.getAddress().getAddress());
-								ia.setAddress(_addressSelecter.getAddress());
-								ia.setParent(s);
-								setShop(ia);
-							}
-						}));
-						_newAddressArea.setVisible(true);
-
-
-
-					}
-				});*/
-				_shopSearchSuggestVePa.add(foundAddress);
-			}
 
 
 

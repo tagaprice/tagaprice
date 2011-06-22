@@ -9,7 +9,7 @@
     "toproduct": {
       "map": "function(doc){
         if (doc.entityType == 'package'){
-          emit(doc.productId, doc);
+          emit(doc.productId, null);
         }
       }"
     }

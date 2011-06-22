@@ -11,6 +11,7 @@ public interface IDaoFactory {
 	IShopDao getShopDao();
 	IUnitDao getUnitDao();
 	IUserDao getUserDao();
+	IStatisticDao getStatisticDao();
 
 	void init() throws ServletException;
 }

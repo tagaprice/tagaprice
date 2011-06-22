@@ -11,13 +11,11 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDao;
-import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -32,13 +30,13 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	private IShopDao shopDAO;
 	private IProductDao productDAO;
-	private IReceiptDao receiptDAO;
+	private IStatisticDao statisticDao;
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		shopDAO = daoFactory.getShopDao();
 		productDAO = daoFactory.getProductDao();
-		receiptDAO = daoFactory.getReceiptDao();
+		statisticDao = daoFactory.getStatisticDao();
 	}
 
 
@@ -91,79 +89,13 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public ArrayList<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) {
-		//TODO search
-		//Test Data
-		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
-
-		try {
-			for(Receipt r:receiptDAO.list()){
-				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
-						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
-						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
-						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
-					for(ReceiptEntry re:r.getReceiptEntries()){
-						if(id.equals(re.getPackage().getProduct().getId())){
-							rc.add(new StatisticResult(
-									r.getDate(),
-									r.getShop(),
-									null,
-									re.getPackage().getQuantity(),
-									re.getPrice()));
-						}
-
-					}
-				}
-
-			}
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		return rc;
+	public ArrayList<StatisticResult> searchProductPrices(String productId, BoundingBox bbox, Date begin, Date end) {
+		return statisticDao.searchPricesViaProduct(productId, bbox, begin, end);
 	}
 
-
-
-
 	@Override
-	public List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end) {
-		Log.debug("searchShopPrice");
-		//TODO search
-		//Test Data
-		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
-
-		try {
-			for(Receipt r:receiptDAO.list()){
-				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
-						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
-						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
-						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
-
-					if(id.equals(r.getShop().getId())){
-						for(ReceiptEntry re:r.getReceiptEntries()){
-							rc.add(new StatisticResult(
-									r.getDate(),
-									null,
-									re.getPackage().getProduct(),
-									re.getPackage().getQuantity(),
-									re.getPrice()));
-						}
-
-
-
-
-					}
-				}
-
-			}
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		return rc;
+	public List<StatisticResult> searchShopPrices(String shopId, BoundingBox bbox, Date begin, Date end) {
+		return statisticDao.searchPricesViaShop(shopId, bbox, begin, end);
 	}
 
 }
