@@ -3,6 +3,11 @@
 USERSCRIPT=./.post_compile.sh
 
 mvn -D maven.test.skip=true package
+rc="$?"
+if [ "$rc" -ne 0 ]; then
+	echo "Build failed :(" >&2
+	exit "$rc"
+fi
 
 if [ -x "$USERSCRIPT" ]; then
 	$USERSCRIPT
