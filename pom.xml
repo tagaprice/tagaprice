@@ -186,7 +186,7 @@
 			<classifier>2.2.0</classifier>
 			<!-- <classifier>2.1.0</classifier> -->
 			<!-- <classifier>2.0.1</classifier> -->
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		
 		
