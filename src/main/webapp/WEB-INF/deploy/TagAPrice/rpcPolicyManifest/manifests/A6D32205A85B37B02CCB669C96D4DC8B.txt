@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.accountmanagement.ILoginService
+path: E60CBC590B5B0B939A68EB5D1E043A70.gwt.rpc

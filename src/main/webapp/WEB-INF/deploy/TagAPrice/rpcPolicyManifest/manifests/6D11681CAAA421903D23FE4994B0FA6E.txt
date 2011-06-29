@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.searchmanagement.ISearchService
+path: 5D590F3A4A32D24A7A1F92EF1EF9B2F0.gwt.rpc

@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.categorymanagement.ICategoryService
+path: 854F840B26BF548237851F84BE1FB394.gwt.rpc

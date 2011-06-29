@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.unitmanagement.IUnitService
+path: F2C148A0713D4500F02901331E1C5AB3.gwt.rpc

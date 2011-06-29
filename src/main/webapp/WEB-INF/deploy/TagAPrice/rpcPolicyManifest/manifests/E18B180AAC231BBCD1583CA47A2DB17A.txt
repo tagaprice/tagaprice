@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.shopmanagement.IShopService
+path: AB205414C3B47A2C4F54558188A8F059.gwt.rpc

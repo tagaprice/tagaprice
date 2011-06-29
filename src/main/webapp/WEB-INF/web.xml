@@ -4,16 +4,13 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+
 	<context-param>
 		<param-name>daoFactoryClass</param-name>
 		<param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value>
 	</context-param>
 	<!-- Servlets -->
 
-
-
-
-	<!-- BEGIN: RPC -->
 	<servlet>
 		<servlet-name>initServlet</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.InitServlet</servlet-class>
@@ -24,6 +21,20 @@
 		<servlet-name>initServlet</servlet-name>
 		<url-pattern>/TagAPrice/initservlet</url-pattern>
 	</servlet-mapping>
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>org.tagaprice.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/TagAPrice/greet</url-pattern>
+  </servlet-mapping>
+
+<!-- BEGIN: RPC -->
+
 
 	<servlet>
 		<servlet-name>productservice</servlet-name>
@@ -95,10 +106,7 @@
 		<url-pattern>/TagAPrice/unitservice</url-pattern>
 	</servlet-mapping>
 
-
-	<!-- END: RPC -->
-
-	<!-- JUNIT -->
+<!-- JUNIT -->
 
 	<servlet>
 		<servlet-name>jUnitHostImpl</servlet-name>
@@ -126,9 +134,11 @@
 		<url-pattern>/TagAPrice/gwt-log</url-pattern>
 	</servlet-mapping>
 
+	<!-- END: RPC -->
 
-	<!-- Default page to serve -->
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>TagAPrice.html</welcome-file>
+  </welcome-file-list>
+
 </web-app>

@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.receiptmanagement.IReceiptService
+path: AE96544618A348EDE6A9C999B0939BB5.gwt.rpc

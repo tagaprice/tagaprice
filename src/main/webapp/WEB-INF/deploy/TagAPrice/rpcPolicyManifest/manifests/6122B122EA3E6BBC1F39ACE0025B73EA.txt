@@ -1,0 +1,2 @@
+serviceClass: org.tagaprice.shared.rpc.productmanagement.IProductService
+path: 5B61B602CD84AC21E76A1F09ADA67AF5.gwt.rpc

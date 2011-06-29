@@ -1,387 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.tagaprice</groupId>
-	<artifactId>tagaprice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>tagAprice</name>
-	<url>http://www.tagaprice.org</url>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+  <!-- POM file generated with GWT webAppCreator -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.tagaprice</groupId>
+  <artifactId>tagaprice</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>GWT Maven Archetype</name>
 
-	<repositories>
-		<repository>
-			<id>tagaprice-repo</id>
-			<name>tagaprice maven repository</name>
-			<layout>default</layout>
-			<url>http://mvnrepo.tagaprice.org/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>public</id>
-			<name>Public Repository Group</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>gson</id>
-			<url>http://google-gson.googlecode.com/svn/mavenrepo</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
+  <properties>
+    <!-- Convenience property to set the GWT version -->
+    <gwtVersion>2.1.0</gwtVersion>
+    <!-- GWT needs at least java 1.5 -->
+    <maven.compiler.source>1.5</maven.compiler.source>
+    <maven.compiler.target>1.5</maven.compiler.target>
+    <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+  </properties>
 
-		<repository>
-			<id>gwtquery-ui-repository</id>
-			<url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
-		</repository>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <version>2.2.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>2.2.0</version>
+      <scope>provided</scope>
+    </dependency>  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+		<groupId>com.google.gwt</groupId>
+		<artifactId>gwt-html5</artifactId>
+		<version>0.1_20100803</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.claudiushauptmann</groupId>
+	    <artifactId>gwt-recaptcha</artifactId>
+	    <version>1.0.0.Beta2</version>
+	</dependency>
 
-	</repositories>
+	<!--  Gson: Java to Json conversion -->
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>1.6</version>
+		<scope>compile</scope>
+	</dependency>
+	<!-- mail -->
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.3</version>
+	</dependency>
+	<!-- logging -->
+	<dependency>
+	  <groupId>com.google.code.gwt-log</groupId>
+	  <artifactId>gwt-log</artifactId>
+	  <version>3.1.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.16</version>
+		<!-- <scope>compile</scope> -->
+		<scope>runtime</scope>			
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>1.5.6</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.5.6</version>
+	</dependency>			
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>1.5.6</version>
+		<scope>runtime</scope>			
+	</dependency>
+	<!-- mocking -->
 
-		
-			
-		
-
-	<issueManagement>
-		<system>Trac</system>
-		<url>https://github.com/tagaprice/tagaprice/issues</url>
-	</issueManagement>
-	<scm>
-		<url>http://github.com/tagaprice/tagaprice</url>
-	</scm>
-	<dependencies>
-		<!-- google web toolkit -->
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>2.2.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>2.2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-html5</artifactId>
-			<version>0.1_20100803</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.claudiushauptmann</groupId>
-		    <artifactId>gwt-recaptcha</artifactId>
-		    <version>1.0.0.Beta2</version>
-		</dependency>
-
-		<!--  Gson: Java to Json conversion -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>1.6</version>
-			<scope>compile</scope>
-		</dependency>
-		<!-- junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
-		</dependency>
-		<!-- mail -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.3</version>
-		</dependency>
-		<!-- logging -->
-		<dependency>
-		  <groupId>com.google.code.gwt-log</groupId>
-		  <artifactId>gwt-log</artifactId>
-		  <version>3.1.0</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
-			<!-- <scope>compile</scope> -->
-			<scope>runtime</scope>			
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.5.6</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
-		</dependency>			
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
-			<scope>runtime</scope>			
-		</dependency>
-		<!-- mocking -->
-
-		<dependency>
-			<groupId>emma</groupId>
-			<artifactId>maven-emma-plugin</artifactId>
-			<version>0.5</version>
-		</dependency>
+	<dependency>
+		<groupId>emma</groupId>
+		<artifactId>maven-emma-plugin</artifactId>
+		<version>0.5</version>
+	</dependency>
 
 
 
-		<!-- connection pool / BasicDataSource from apach -->
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
+	<!-- connection pool / BasicDataSource from apach -->
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>1.4</version>
+	</dependency>
 
 
-		<!-- OSM -->
-		<dependency>
-			<groupId>org.gwtopenmaps.openlayers</groupId>
-			<artifactId>gwt-openlayers-client</artifactId>
-			<version>0.5</version>
-		</dependency>
+	<!-- OSM -->
+	<dependency>
+		<groupId>org.gwtopenmaps.openlayers</groupId>
+		<artifactId>gwt-openlayers-client</artifactId>
+		<version>0.5</version>
+	</dependency>
 
-		<dependency>
-			<groupId>com.google.code.jcouchdb</groupId>
-			<artifactId>jcouchdb</artifactId>
-			<version>1.0.1-1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
+	<dependency>
+		<groupId>com.google.code.jcouchdb</groupId>
+		<artifactId>jcouchdb</artifactId>
+		<version>1.0.1-1</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
 
-		<!-- mocking -->
-		<dependency>
-		    <groupId>easymock</groupId>
-		    <artifactId>easymock</artifactId>
-		    <version>2.0</version>
-		</dependency>
+	<!-- mocking -->
+	<dependency>
+	    <groupId>easymock</groupId>
+	    <artifactId>easymock</artifactId>
+	    <version>2.0</version>
+	</dependency>
 
-		<!-- GwtQuery -->
-		
-		<dependency>
-			<groupId>com.googlecode.gwtquery</groupId>
-			<artifactId>gwtquery</artifactId>
-			<version>1.0.0</version>
-			<!-- Uncomment the appropriate line -->
-			<!-- <classifier>2.3.0</classifier> -->
-			<classifier>2.2.0</classifier>
-			<!-- <classifier>2.1.0</classifier> -->
-			<!-- <classifier>2.0.1</classifier> -->
-			<scope>compile</scope>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwtquery-ui</artifactId>
-			<version>r127</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		
-	</dependencies>
-	<build>
-		<!-- jb -->
-		<pluginManagement>
+	<!-- GwtQuery -->
+	
+	<dependency>
+		<groupId>com.googlecode.gwtquery</groupId>
+		<artifactId>gwtquery</artifactId>
+		<version>1.0.0</version>
+		<!-- Uncomment the appropriate line -->
+		<!-- <classifier>2.3.0</classifier> -->
+		<classifier>2.2.0</classifier>
+		<!-- <classifier>2.1.0</classifier> -->
+		<!-- <classifier>2.0.1</classifier> -->
+		<scope>compile</scope>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>com.google.gwt</groupId>
+		<artifactId>gwtquery-ui</artifactId>
+		<version>r127</version>
+		<scope>provided</scope>
+	</dependency>
+	
+  </dependencies>
 
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>emma-maven-plugin</artifactId>
-					<version>1.0-alpha-2</version>
-				</plugin>
-			</plugins>
+  <build>
+    <!-- Generate compiled stuff in the folder used for developing mode -->
+    <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
 
-		</pluginManagement>
-		<!-- jb / -->
-		<plugins>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<additionalClasspathElements>
-					<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
-					<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
-					</additionalClasspathElements>
-					<useManifestOnlyJar>false</useManifestOnlyJar>
-					<forkMode>always</forkMode>
-					<systemProperties>
-						<property>
-						  <name>gwt.args</name>
-						  <value>-out \${webAppDirectory}</value>
-						</property>
-					</systemProperties>
-				</configuration>
-			</plugin>
+    <plugins>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.2.0</version>
-				<configuration>
-					<includes>**/GwtTest*.java</includes>
-					
+      <!-- GWT Maven Plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>test</goal>
+              <goal>i18n</goal>
+              <goal>generateAsync</goal>
+            </goals>
+          </execution>
+        </executions>
+        <!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+          documentation at codehaus.org -->
+        <configuration>
+          <runTarget>TagAPrice.html</runTarget>
+          <hostedWebapp>${webappDirectory}</hostedWebapp>
+          <i18nMessagesBundle>org.tagaprice.client.Messages</i18nMessagesBundle>
+        </configuration>
+      </plugin>
 
-				</configuration>
-				<executions>
-					
-					<execution>
-					<goals>
-						<goal>test</goal>
-					</goals>
-					</execution>
-				</executions>
-			</plugin>
+      <!-- Copy static web files before executing gwt:run -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.1.1</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>exploded</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <webappDirectory>${webappDirectory}</webappDirectory>
+        </configuration>
+      </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<buildOutputDirectory>target/WEB-INF/classes</buildOutputDirectory>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.2.0</version>
-				<configuration>
-					<runTarget>index.html</runTarget>
-					<hostedWebapp>target/classes</hostedWebapp>
-					<testTimeOut>600</testTimeOut> 
-                                        <mode>htmlunit</mode> 
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- jb -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<exclude>**/Abstract*.java</exclude>
-						<exclude>**/GwtTest*.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<!-- jb / -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>emma-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
-			</plugin>
+    </plugins>
+  </build>
 
-			<!-- maven eclipse integration configuration -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<!-- load additional config files for eclipse (code style, formatter,...) -->
- 					<additionalConfig>
-  						<file>
-							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.core.resources.prefs</name>
-							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.core.resources.prefs</url>
-  						</file>
-  						<file>
-							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.jdt.core.prefs</name>
-							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.jdt.core.prefs</url>
-  						</file>
-  						<file>
-							<name>${project-eclipse-mavenIntegration-settingsPath}org.eclipse.jdt.ui.prefs</name>
-							<url>${project-eclipse-mavenIntegration-settingsUrl}org.eclipse.jdt.ui.prefs</url>
-  						</file>
-						<!-- i think this is not needed...
-						<file>
-							<name>${project-eclipse-mavenIntegration-settingsPath}org.maven.ide.eclipse.prefs</name>
-							<url>${project-eclipse-mavenIntegration-settingsUrl}org.maven.ide.eclipse.prefs</url>
-  						</file>
-						-->
- 					</additionalConfig>
-				</configuration>
-			</plugin>
+<repositories>
+	<repository>
+		<id>tagaprice-repo</id>
+		<name>tagaprice maven repository</name>
+		<layout>default</layout>
+		<url>http://mvnrepo.tagaprice.org/</url>
+		<snapshots>
+			<enabled>false</enabled>
+		</snapshots>
+	</repository>
+	<repository>
+		<id>maven2-repository.dev.java.net</id>
+		<name>Java.net Repository for Maven</name>
+		<url>http://download.java.net/maven/2/</url>
+		<layout>default</layout>
+	</repository>
+	<repository>
+		<id>public</id>
+		<name>Public Repository Group</name>
+		<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		<layout>default</layout>
+	</repository>
+	<repository>
+		<id>gson</id>
+		<url>http://google-gson.googlecode.com/svn/mavenrepo</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+		<releases>
+			<enabled>true</enabled>
+		</releases>
+	</repository>
 
+	<repository>
+		<id>gwtquery-ui-repository</id>
+		<url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
+	</repository>
 
+</repositories>
 
-		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/webapp</directory>
-			</resource>
-			<resource>
-				<!-- sever ressource setup -->
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<!-- TODO this might not be good
-			<testResource>
-				<directory>src/test/resources/WEB-INF/conf</directory>
-			</testResource>
-			-->
-			<testResource>
-				<!-- sever test ressource setup -->
-				<directory>src/test/resources</directory>
-			</testResource>
-		</testResources>
-	</build>
-	<!-- jb -->
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<exclude>**/Abstract*.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>emma-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
-			</plugin>
-		</plugins>
-	</reporting>
-	<!-- jb / -->
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project-eclipse-mavenIntegration-settingsUrl>https://github.com/tagaprice/tagaprice/wiki/developement/eclipse_settings/</project-eclipse-mavenIntegration-settingsUrl>
-		<project-eclipse-mavenIntegration-settingsPath>.settings/</project-eclipse-mavenIntegration-settingsPath>
-	</properties>
 </project>

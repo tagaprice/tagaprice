@@ -27,6 +27,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * GWT STARTPOINT - This is the class with the EntryPoint.
@@ -69,7 +70,9 @@ public class TagAPrice implements EntryPoint {
 
 
 		//RootLayoutPanel.get().add(completeScreen);
+		//RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
 		RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
+		RootPanel.get().add(RootLayoutPanel.get());
 		historyHandler.handleCurrentHistory();
 
 
