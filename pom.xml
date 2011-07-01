@@ -26,13 +26,13 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>2.2.0</version>
+			<version>2.3.0</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>2.2.0</version>
+			<version>2.3.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -143,8 +143,8 @@
 			<artifactId>gwtquery</artifactId>
 			<version>1.0.0</version>
 			<!-- Uncomment the appropriate line -->
-			<!-- <classifier>2.3.0</classifier> -->
-			<classifier>2.2.0</classifier>
+			<classifier>2.3.0</classifier>
+			<!-- <classifier>2.2.0</classifier> -->
 			<!-- <classifier>2.1.0</classifier> -->
 			<!-- <classifier>2.0.1</classifier> -->
 			<scope>compile</scope>
@@ -170,7 +170,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.2.0</version>
+				<version>2.3.0</version>
 				<executions>
 					<execution>
 						<goals>
