@@ -12,5 +12,6 @@ fi
 if [ -x "$USERSCRIPT" ]; then
 	$USERSCRIPT
 else
-	cp target/tagaprice-0.0.1-SNAPSHOT.war /var/lib/tomcat6/webapps/tagaprice.war
+	webappDir=`ls -1d /var/lib/tomcat?/webapps|sort -gr|head -n1`
+	cp -v target/tagaprice-0.0.1-SNAPSHOT.war $webappDir/tagaprice.war
 fi
