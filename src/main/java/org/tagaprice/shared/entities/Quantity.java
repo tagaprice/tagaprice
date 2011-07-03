@@ -1,15 +1,16 @@
 package org.tagaprice.shared.entities;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.svenson.JSONProperty;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 /**
  * A {@link Quantity} defines in which way a user can buy a {@link Product}.
  */
-public class Quantity implements Serializable {
+public class Quantity implements IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

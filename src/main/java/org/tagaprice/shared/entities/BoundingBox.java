@@ -14,12 +14,12 @@
  */
 package org.tagaprice.shared.entities;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * This class implements a rectangular BoundingBox.
  */
-public class BoundingBox implements Serializable {
+public class BoundingBox implements IsSerializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 

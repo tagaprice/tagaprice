@@ -1,13 +1,14 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * Set the price of an {@link ReceiptEntry}
  *
  */
-public class Price implements Serializable {
+public class Price implements IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	private BigDecimal _price = new BigDecimal("0.0");

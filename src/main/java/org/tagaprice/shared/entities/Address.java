@@ -1,8 +1,8 @@
 package org.tagaprice.shared.entities;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class Address implements Serializable {
+public class Address implements IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

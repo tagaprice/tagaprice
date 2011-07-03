@@ -1,10 +1,11 @@
 package org.tagaprice.shared.entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.accountmanagement.User;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * The {@link ASimpleEntity} class is used to FIND, CREATE and UPDATE different entities. It contains two constructors, one
@@ -14,7 +15,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
  * Don't change the RevisionID on the client (by hand). It is required for optimistic locking in the DAO layer.
  * 
  */
-public abstract class ASimpleEntity implements Serializable {
+public abstract class ASimpleEntity implements IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	private String _id = null;

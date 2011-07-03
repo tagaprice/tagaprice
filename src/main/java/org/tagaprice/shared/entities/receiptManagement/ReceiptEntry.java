@@ -1,11 +1,11 @@
 package org.tagaprice.shared.entities.receiptManagement;
 
-import java.io.Serializable;
-
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.productmanagement.Package;
 
-public class ReceiptEntry implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class ReceiptEntry implements IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	private Package _package;

@@ -1,6 +1,8 @@
 package org.tagaprice.shared.exceptions.dao;
 
-public class DaoException extends Exception {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class DaoException extends Exception implements IsSerializable {
 	/// Default serial version ID
 	private static final long serialVersionUID = 1L;
 

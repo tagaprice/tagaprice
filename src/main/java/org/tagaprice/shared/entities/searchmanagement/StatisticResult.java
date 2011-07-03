@@ -1,6 +1,5 @@
 package org.tagaprice.shared.entities.searchmanagement;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.tagaprice.shared.entities.ASimpleEntity;
@@ -9,7 +8,9 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
-public class StatisticResult extends ASimpleEntity implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class StatisticResult extends ASimpleEntity implements IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 
