@@ -22,7 +22,8 @@
 	<inherits name='com.google.gwt.query.Query'/>
 	<inherits name='gwtquery.plugins.UiGoogleCdn' />
 	<!--  <script src="http://jqueryui.com/themeroller/themeswitchertool/"/> -->
-  	<stylesheet src="themes/smoothness/jquery.ui.all.css" />
+	<stylesheet src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" />
+  	<!--  <stylesheet src="themes/smoothness/jquery.ui.all.css" /> -->
 
 	<!-- For development, a default of `DEBUG` is recommended -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
