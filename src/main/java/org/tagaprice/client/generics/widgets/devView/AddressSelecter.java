@@ -127,7 +127,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private void setLatLng(LonLat lonLat){
 		Log.debug("setLatLng: " + lonLat.lat() + ", " + lonLat.lon());
 		osmMap.removeOverlayLayers();
-		if(layer!=null)layer.destroyFeatures();
+		//if(layer!=null)layer.destroyFeatures();
 		
 		
 
