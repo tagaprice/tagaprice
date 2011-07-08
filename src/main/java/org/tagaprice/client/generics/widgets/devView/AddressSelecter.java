@@ -42,9 +42,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	//OSM
 	Map osmMap;
 	//Point point;
-	VectorOptions vectorOptions = new VectorOptions();
-	Vector layer = new Vector("Marker", vectorOptions);
-	DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
+	Vector layer;
+	
 
 	public AddressSelecter() {
 
@@ -61,19 +60,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		osmMap = omapWidget.getMap();
 		osmMap.addLayer(osm_2);
 		//lonLat.transform("EPSG:4326", "EPSG:900913");
-		//osmMap.setCenter(lonLat, 15);
 
-		//******** INIT OSM Vector ************/
 		
-		//Style
-		Style style = new Style();
-		style.setStrokeColor("#000000");
-		style.setStrokeWidth(3);
-		style.setFillColor("#FF0000");
-		style.setFillOpacity(0.5);
-		style.setPointRadius(10);
-		style.setStrokeOpacity(1.0);
-		vectorOptions.setStyle(style);
 
 		// Create the layer
 		
@@ -82,46 +70,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		//VectorFeature pointFeature = new VectorFeature(point);
 		//layer.addFeature(pointFeature);
 		
-
-		DragFeature dragFeature = new DragFeature(layer, dragFeatureOptions);
-		osmMap.addControl(dragFeature);
-		dragFeature.activate();
-
-		osmMap.addLayer(layer);
+		
 
 
 
 
-		dragFeatureOptions.onComplete(new DragFeatureListener() {
-
-			@Override
-			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
-				LonLat l = vectorFeature.getCenterLonLat();
-				setLatLng(l);
-				l.transform("EPSG:900913","EPSG:4326");
-
-				System.out.println("dragEnd: lat: "+vectorFeature.getCenterLonLat().lat()+", lng: "+vectorFeature.getCenterLonLat().lon());
-
-
-				I_SEARCH_SERVICE_ASYNC.searchAddress(l.lat(), l.lon(), new AsyncCallback<Address>() {
-
-					@Override
-					public void onSuccess(Address address) {
-						Log.debug(address.getAddress());
-						_addressBox.setText(address.getAddress());
-
-					}
-
-					@Override
-					public void onFailure(Throwable e) {
-						Log.error(e.toString());
-
-					}
-				});
-
-
-			}
-		});
+		
 
 		//*********** END *******
 
@@ -171,30 +125,68 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	private void setLatLng(LonLat lonLat){
-		layer.destroyFeatures();
-		System.out.println("setLatLng: "+lonLat);
-		_lat.setText(""+lonLat.lat());
-		_lng.setText(""+lonLat.lon());
+		Log.debug("setLatLng: " + lonLat.lat() + ", " + lonLat.lon());
+		osmMap.removeOverlayLayers();
+		if(layer!=null)layer.destroyFeatures();
+		
+		
 
+		DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
+		dragFeatureOptions.onComplete(new DragFeatureListener() {
+
+			@Override
+			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
+				LonLat l = vectorFeature.getCenterLonLat();
+				setLatLng(l);
+				/*
+				l.transform("EPSG:900913","EPSG:4326");
+
+				I_SEARCH_SERVICE_ASYNC.searchAddress(l.lat(), l.lon(), new AsyncCallback<Address>() {
+
+					@Override
+					public void onSuccess(Address address) {
+						Log.debug(address.getAddress());
+						_addressBox.setText(address.getAddress());
+
+					}
+
+					@Override
+					public void onFailure(Throwable e) {
+						Log.error(e.toString());
+
+					}
+				});
+				*/
+			}
+		});
+		
+		//******** INIT OSM Vector ************/
+		VectorOptions vectorOptions = new VectorOptions();
+		//Style
+		Style style = new Style();
+		style.setStrokeColor("#000000");
+		style.setStrokeWidth(3);
+		style.setFillColor("#FF0000");
+		style.setFillOpacity(0.5);
+		style.setPointRadius(10);
+		style.setStrokeOpacity(1.0);
+		vectorOptions.setStyle(style);
+		layer = new Vector("Marker", vectorOptions);
+		DragFeature dragFeature = new DragFeature(layer, dragFeatureOptions);
+		osmMap.addControl(dragFeature);
+		dragFeature.activate();
+		osmMap.addLayer(layer);
+		
 		osmMap.setCenter(lonLat);
-
-		
-		
 		VectorFeature pointFeature = new VectorFeature(new Point(lonLat.lon(), lonLat.lat()));
 		layer.addFeature(pointFeature);
 		
-		/*
-		if(point==null){
-			point= new Point(lonLat.lon(), lonLat.lat());
-			VectorFeature pointFeature = new VectorFeature(point);
-			layer.addFeature(pointFeature);
-			//layer.redraw();
-		}else{
-			point.setXY(lonLat.lon(), lonLat.lat());
-
-		}
-		*/
-		//layer.redraw();
+		
+		LonLat l = lonLat;
+		l.transform("EPSG:900913","EPSG:4326");
+		_lat.setText(""+l.lat());
+		_lng.setText(""+l.lon());
+		
 
 	}
 
