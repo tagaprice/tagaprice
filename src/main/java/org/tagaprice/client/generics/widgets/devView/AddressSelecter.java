@@ -41,8 +41,10 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	//OSM
 	Map osmMap;
-	Point point;
-	final Vector layer;
+	//Point point;
+	VectorOptions vectorOptions = new VectorOptions();
+	Vector layer = new Vector("Marker", vectorOptions);
+	DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
 
 	public AddressSelecter() {
 
@@ -62,7 +64,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		//osmMap.setCenter(lonLat, 15);
 
 		//******** INIT OSM Vector ************/
-		VectorOptions vectorOptions = new VectorOptions();
+		
 		//Style
 		Style style = new Style();
 		style.setStrokeColor("#000000");
@@ -74,12 +76,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		vectorOptions.setStyle(style);
 
 		// Create the layer
-		layer = new Vector("Marker", vectorOptions);
+		
 
 		//point = new Point(lonLat.lon(), lonLat.lat());
 		//VectorFeature pointFeature = new VectorFeature(point);
 		//layer.addFeature(pointFeature);
-		DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();
+		
 
 		DragFeature dragFeature = new DragFeature(layer, dragFeatureOptions);
 		osmMap.addControl(dragFeature);
@@ -169,12 +171,19 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	}
 
 	private void setLatLng(LonLat lonLat){
+		layer.destroyFeatures();
 		System.out.println("setLatLng: "+lonLat);
 		_lat.setText(""+lonLat.lat());
 		_lng.setText(""+lonLat.lon());
 
 		osmMap.setCenter(lonLat);
 
+		
+		
+		VectorFeature pointFeature = new VectorFeature(new Point(lonLat.lon(), lonLat.lat()));
+		layer.addFeature(pointFeature);
+		
+		/*
 		if(point==null){
 			point= new Point(lonLat.lon(), lonLat.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
@@ -184,6 +193,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			point.setXY(lonLat.lon(), lonLat.lat());
 
 		}
+		*/
 		//layer.redraw();
 
 	}
