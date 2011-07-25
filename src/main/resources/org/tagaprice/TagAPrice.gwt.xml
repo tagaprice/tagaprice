@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='TagAPrice'>
 
+
 	<servlet path="/unitservice" class="org.tagaprice.server.rpc.UnitServiceImpl" />
 
-
-
 	<!-- Google Maps script must before inherits -->
-
+	
 	<inherits name='org.gwtopenmaps.openlayers.OpenLayers' />
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.core.Core' />
 	<inherits name="com.google.gwt.json.JSON" />
 	<inherits name="com.google.gwt.resources.Resources" />
 	<inherits name="com.google.gwt.logging.LogImpl" />
@@ -21,6 +21,8 @@
 	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name='com.google.gwt.query.Query'/>
 	<inherits name='gwtquery.plugins.UiGoogleCdn' />
+	<inherits name='org.tagaprice.FormFactor'/>
+	
 	<!--  <script src="http://jqueryui.com/themeroller/themeswitchertool/"/> -->
 	<stylesheet src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" />
   	<!--  <stylesheet src="themes/smoothness/jquery.ui.all.css" /> -->
@@ -32,7 +34,6 @@
 	<!--<inherits name="com.allen_sauer.gwt.log.gwt-log-RemoteLogger" />-->
 
 
-
 	<replace-with class="org.tagaprice.client.devView.ClientFactoryImpl">
 		<when-type-is class="org.tagaprice.client.ClientFactory" />
 	</replace-with>
@@ -40,6 +41,12 @@
 	<replace-with class="org.tagaprice.client.devView.UIDesktop">
 		<when-type-is class="org.tagaprice.client.IUi" />
 	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.desktopView.UIDesktop">
+		<when-type-is class="org.tagaprice.client.IUi" />
+		<when-property-is name="formfactor" value="desktop"/>
+	</replace-with>
+	
 	
 
 	<!-- Widgets -->
