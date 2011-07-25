@@ -23,6 +23,9 @@
 	<inherits name='gwtquery.plugins.UiGoogleCdn' />
 	<inherits name='org.tagaprice.FormFactor'/>
 	
+	
+	
+	
 	<!--  <script src="http://jqueryui.com/themeroller/themeswitchertool/"/> -->
 	<stylesheet src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" />
   	<!--  <stylesheet src="themes/smoothness/jquery.ui.all.css" /> -->
@@ -46,6 +49,7 @@
 		<when-type-is class="org.tagaprice.client.IUi" />
 		<when-property-is name="formfactor" value="desktop"/>
 	</replace-with>
+	
 	
 	
 
@@ -122,7 +126,7 @@
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
 	<!-- <inherits name='com.google.gwt.user.theme.standard.Standard' /> -->
-	<inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
+	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
 

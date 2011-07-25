@@ -1,0 +1,42 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-image: url("header.png");
+	background-repeat:repeat-x;
+	background-color: #ebe9e1;
+	font-size: small;
+}
+
+body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
+{
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+}
+
+.center {
+	text-align:left;
+	width: 800px;
+	background-color: white;
+	border-color: #c7c5be;
+	border-style: solid;
+	border-width: 2px;
+	
+	padding: 4px;
+	padding-bottom: 20px;
+	
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.bottom {
+	background-color: #2c2d25;
+	width: 100%;
+	height: 300px;
+	margin-top: 40px;
+	
+	box-shadow: inset 0px 10px 10px black;
+}

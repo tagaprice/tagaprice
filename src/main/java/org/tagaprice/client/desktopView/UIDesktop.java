@@ -17,6 +17,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -25,10 +26,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UIDesktop implements IUi {
 
-
+	private VerticalPanel vePa1 = new VerticalPanel();
+	private HorizontalPanel menu = new HorizontalPanel();
+	private SimplePanel center = new SimplePanel();
+	private SimplePanel bottom = new SimplePanel();
+	
+	
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	//private HorizontalPanel topPanel = new HorizontalPanel();
-	private VerticalPanel leftPanel = new VerticalPanel();
+	private HorizontalPanel leftPanel = new HorizontalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
 	private InfoBox _infoBox = new InfoBox();
 	private DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
@@ -40,11 +46,37 @@ public class UIDesktop implements IUi {
 
 	private void init(){
 
+		vePa1.setWidth("100%");
+		
+		//menu
+		//menu.setSize("100%", "30px");
+		menu.setStyleName("header");
+		vePa1.add(menu);
+		
+		//center
+		center.setStyleName("center");
+		vePa1.add(center);
+		vePa1.setCellHorizontalAlignment(center, VerticalPanel.ALIGN_CENTER);
+		
+		
+		
+		//bottom
+		bottom.setStyleName("bottom");
+		vePa1.add(bottom);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//Widget divLogger = Log.getLogger(DivLogger.class).getWidget();
 		//LAYOUT
 		//completeScreen.addSouth(divLogger, 120);
 		//completeScreen.addNorth(this.topPanel, 80);
-		completeScreen.addWest(this.leftPanel, 150);
+		completeScreen.addNorth(this.leftPanel,30);
 		completeScreen.add(this.mainPanel);
 
 		//Configure Logo
@@ -180,7 +212,7 @@ public class UIDesktop implements IUi {
 
 
 		mainPanel.addStyleName("mainPanel");
-		_activityManager.setDisplay(mainPanel);
+		_activityManager.setDisplay(center);
 
 
 		//Add InfoBox Popup
@@ -219,8 +251,8 @@ public class UIDesktop implements IUi {
 		_clientFactory=clientFactory;
 		init();
 
-
-		return completeScreen;
+		return vePa1;
+		//return completeScreen;
 	}
 
 
