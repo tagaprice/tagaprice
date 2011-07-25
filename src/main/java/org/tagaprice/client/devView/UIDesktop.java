@@ -1,5 +1,7 @@
-package org.tagaprice.client;
+package org.tagaprice.client.devView;
 
+import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.generics.I18N;
 import org.tagaprice.client.generics.events.LoginChangeEvent;

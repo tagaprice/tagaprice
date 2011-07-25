@@ -33,9 +33,14 @@
 
 
 
-	<replace-with class="org.tagaprice.client.ClientFactoryImpl">
+	<replace-with class="org.tagaprice.client.devView.ClientFactoryImpl">
 		<when-type-is class="org.tagaprice.client.ClientFactory" />
 	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.devView.UIDesktop">
+		<when-type-is class="org.tagaprice.client.IUi" />
+	</replace-with>
+	
 
 	<!-- Widgets -->
 	<replace-with

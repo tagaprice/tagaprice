@@ -1,5 +1,6 @@
 package org.tagaprice.client;
 
+import org.tagaprice.client.devView.UIDesktop;
 import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
@@ -40,7 +41,7 @@ public class TagAPrice implements EntryPoint {
 	private EventBus eventBus;
 
 
-	private IUi _iui = new UIDesktop();
+	private IUi _iui = GWT.create(IUi.class);
 	private FBCore _fbCore = new FBCore();
 	InfoBoxShowEvent infoBox;
 

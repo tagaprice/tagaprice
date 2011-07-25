@@ -1,5 +1,7 @@
-package org.tagaprice.client;
+package org.tagaprice.client.devView;
 
+import org.tagaprice.client.AccountPersistor;
+import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.devView.LoginViewImpl;
