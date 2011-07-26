@@ -41,6 +41,12 @@
 		<when-type-is class="org.tagaprice.client.ClientFactory" />
 	</replace-with>
 	
+	<replace-with class="org.tagaprice.client.desktopView.ClientFactoryImpl">
+		<when-type-is class="org.tagaprice.client.ClientFactory" />
+		<when-property-is name="formfactor" value="desktop"/>
+	</replace-with>
+	
+	
 	<replace-with class="org.tagaprice.client.devView.UIDesktop">
 		<when-type-is class="org.tagaprice.client.IUi" />
 	</replace-with>

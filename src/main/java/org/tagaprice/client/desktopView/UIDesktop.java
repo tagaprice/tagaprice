@@ -99,18 +99,18 @@ public class UIDesktop implements IUi {
 		bottomText.setStyleName("bottom-text");
 		HTML lefthtml = new HTML("" +
 				"<h2>Licence</h2> " +
-				"Data License: Creative Commons Attribution-ShareAlike 3.0 Unported License <br /> " +
-				"Code License: AGPLv3 " +
+				"<a href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> <br /> " +
+				"<a href=\"http://www.gnu.org/licenses/agpl.html\">AGPLv3</a> " +
 				"<h2>Blog</h2> " +
-				"blog.tagaprice.org " +
+				"<a href=\"http://blog.tagaprice.org/\">blog.tagaprice.org</a> " +
 				"<h2>Development</h2> " +
-				"api.tagaprice.org <br /> " +
-				"github.com/tagaprice");
+				"<a href=\"http://github.com/tagaprice\">api.tagaprice.org</a> <br /> " +
+				"<a href=\"http://github.com/tagaprice\">http://github.com/tagaprice</a>");
 		HTML righthtml = new HTML("" +
 				"<h2>Email</h2> " +
 				"team[at]tagaprice[dot]org " +
 				"<h2>Twitter</h2> " +
-				"@tagaprice");
+				"<a href=\"http://twitter.com/tagaprice\">@tagaprice</a>");
 		bottomText.add(lefthtml);
 		bottomText.add(righthtml);
 		bottom.add(bottomText);
