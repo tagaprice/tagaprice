@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -21,6 +22,16 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	public LoginViewImpl() {
 		initWidget(vePa);
 		setStyleName("loginView");
+		
+		//facebook
+		Image fb = new Image("desktopView/fb-login-button.png");
+		fb.setStyleName("loginView-pic");
+		vePa.add(fb);
+		
+		//twitter
+		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
+		vePa.add(tw);
+		vePa.add(new HTML("<br />"));
 		
 		//Username
 		Label emailText = new Label("Email");
