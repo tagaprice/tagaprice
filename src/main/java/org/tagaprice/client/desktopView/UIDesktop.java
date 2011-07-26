@@ -27,7 +27,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import static com.google.gwt.query.client.GQuery.*;
 
 public class UIDesktop implements IUi {
 

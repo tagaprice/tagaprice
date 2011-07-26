@@ -1,6 +1,5 @@
 package org.tagaprice.client;
 
-import org.tagaprice.client.devView.UIDesktop;
 import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.AddressChangedEvent;
 import org.tagaprice.client.generics.events.AddressChangedEventHandler;
@@ -73,6 +72,7 @@ public class TagAPrice implements EntryPoint {
 		//RootLayoutPanel.get().add(completeScreen);
 		//RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
 		//RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
+		//RootPanel.get().add(RootLayoutPanel.get());
 		RootPanel.get().add(_iui.getUI(activityManager, clientFactory));
 		historyHandler.handleCurrentHistory();
 

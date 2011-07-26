@@ -2,6 +2,10 @@ package org.tagaprice.client.features.accountmanagement.login.desktopView;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -18,7 +22,8 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private TextBox email = new TextBox();
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button signInButton = new Button("Sign in");
-	
+	private Presenter _presenter;
+
 	public LoginViewImpl() {
 		initWidget(vePa);
 		setStyleName("loginView");
@@ -42,34 +47,50 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		vePa.add(passwordText);
 		vePa.add(password);
 		
+		//sign in button
 		vePa.add(signInButton);
 		vePa.setCellHorizontalAlignment(signInButton, HorizontalPanel.ALIGN_RIGHT);
+		signInButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onLoginEvent();				
+			}
+		});
+		
+		password.addKeyDownHandler(new KeyDownHandler() {
+			
+			@Override
+			public void onKeyDown(KeyDownEvent key) {
+				if(key.getNativeKeyCode() == 13){
+					_presenter.onLoginEvent();
+				}
+				
+			}
+		});
 		
 		
 		//forgot Password
 		HTML passwordForgotText = new HTML("<a href=\"\">Forgot password?</a>");
 		vePa.add(passwordForgotText);
 		vePa.add(new HTML("<hr />"));
-		HTML noUser = new HTML("<a href=\"\">Don't havean account? Sign up!</a>");
+		HTML noUser = new HTML("<a href=\"#Register:/REGISTER\">Don't havean account? Sign up!</a>");
 		vePa.add(noUser);
 	}
 	
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
-		
+		_presenter=presenter;		
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return email.getText();
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password.getText();
 	}
 
 }
