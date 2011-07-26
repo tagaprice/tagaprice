@@ -29,7 +29,7 @@ public class UIDesktop implements IUi {
 	private VerticalPanel vePa1 = new VerticalPanel();
 	private HorizontalPanel menu = new HorizontalPanel();
 	private SimplePanel center = new SimplePanel();
-	private SimplePanel bottom = new SimplePanel();
+	private HorizontalPanel bottom = new HorizontalPanel();
 	
 	
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
@@ -58,13 +58,37 @@ public class UIDesktop implements IUi {
 		vePa1.add(center);
 		vePa1.setCellHorizontalAlignment(center, VerticalPanel.ALIGN_CENTER);
 		
+		//center.setHeight((Window.getClientHeight()-240-120)+"px");
+		//vePa1.setCellHeight(center, "100%");
+		
 		
 		
 		//bottom
 		bottom.setStyleName("bottom");
 		vePa1.add(bottom);
 		
-		
+		//bottom Text
+		HorizontalPanel bottomText = new HorizontalPanel();
+		bottomText.setStyleName("bottom-text");
+		HTML lefthtml = new HTML("" +
+				"<h2>Licence</h2> " +
+				"Data License: Creative Commons Attribution-ShareAlike 3.0 Unported License <br /> " +
+				"Code License: AGPLv3 " +
+				"<h2>Blog</h2> " +
+				"blog.tagaprice.org " +
+				"<h2>Development</h2> " +
+				"api.tagaprice.org <br /> " +
+				"github.com/tagaprice");
+		HTML righthtml = new HTML("" +
+				"<h2>Email</h2> " +
+				"team[at]tagaprice[dot]org " +
+				"<h2>Twitter</h2> " +
+				"@tagaprice");
+		bottomText.add(lefthtml);
+		bottomText.add(righthtml);
+		bottom.add(bottomText);
+		bottom.setCellHorizontalAlignment(bottomText, HorizontalPanel.ALIGN_CENTER);
+				
 		
 		
 		

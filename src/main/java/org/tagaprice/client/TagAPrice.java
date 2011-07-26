@@ -72,8 +72,8 @@ public class TagAPrice implements EntryPoint {
 
 		//RootLayoutPanel.get().add(completeScreen);
 		//RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
-		RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
-		RootPanel.get().add(RootLayoutPanel.get());
+		//RootLayoutPanel.get().add(_iui.getUI(activityManager, clientFactory));
+		RootPanel.get().add(_iui.getUI(activityManager, clientFactory));
 		historyHandler.handleCurrentHistory();
 
 
