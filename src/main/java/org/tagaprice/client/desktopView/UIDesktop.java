@@ -1,5 +1,7 @@
 package org.tagaprice.client.desktopView;
 
+import gwtquery.plugins.ui.widgets.Button.Icons;
+
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
@@ -12,6 +14,8 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -23,6 +27,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import static com.google.gwt.query.client.GQuery.*;
 
 public class UIDesktop implements IUi {
 
@@ -45,13 +50,35 @@ public class UIDesktop implements IUi {
 	private PopupPanel loginPop = new PopupPanel(true);
 
 	private void init(){
-
+		{
 		vePa1.setWidth("100%");
 		
 		//menu
 		//menu.setSize("100%", "30px");
 		menu.setStyleName("header");
 		vePa1.add(menu);
+		
+		//login
+		final Label login = new Label("Sign in");
+		login.setStyleName("login");
+		//Button login = new Button("Sign in");
+		//$(login).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().secondary("ui-icon-triangle-1-s"))); //
+		menu.add(login);
+		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
+		
+		login.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+				loginPop.setWidget(loginPres.getView());
+				loginPop.showRelativeTo(login);				
+			}
+		});
+		
+		
+		
+		
 		
 		//center
 		center.setStyleName("center");
@@ -89,7 +116,7 @@ public class UIDesktop implements IUi {
 		bottom.add(bottomText);
 		bottom.setCellHorizontalAlignment(bottomText, HorizontalPanel.ALIGN_CENTER);
 				
-		
+	}
 		
 		
 		

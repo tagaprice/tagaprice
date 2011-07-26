@@ -4,12 +4,12 @@ body {
 	background-image: url("header.png");
 	background-repeat:repeat-x;
 	background-color: #ebe9e1;
+	font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 	font-size: small;
 }
 
 body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
 {
-	font-family:verdana,helvetica,arial,sans-serif;
 }
 
 .header {
@@ -19,18 +19,16 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
 
 .center {
 	text-align:left;
-	width: 800px;
-	height: 6	00px;
+	width: 870px;
 	background-color: white;
-	border-color: #c7c5be;
-	border-style: solid;
-	border-width: 2px;
 	
 	padding: 4px;
 	padding-bottom: 20px;
 	
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+	border-radius: 5px;
+	
+	
+	box-shadow:  0px 0px 0 10px rgba(255,255,255,0.7);
 }
 
 .bottom {
@@ -46,11 +44,26 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
 }
 
 .bottom-text{
-	text-align: left;;
+	text-align: left;
 	width: 800px;
 }
 
 .bottom-text h2{
 	color: #bfd255;
 	margin-bottom: 2px;
+}
+
+.login{
+	width: 50px;
+	color: #2c2d25;
+	font-weight: bold;
+	margin: 0px;
+	padding: 7px;
+	background-color: rgba(255,255,255,0.2);
+	cursor: pointer;
+}
+
+.login:HOVER {
+	color: #ebe9e1;
+	cursor: pointer;
 }
