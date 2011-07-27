@@ -122,7 +122,7 @@ public class InfoBox extends Composite implements IInfoBox {
 		public void removeMe() {
 			$(this)
 			.slideUp();
-			//removeFromParent();
+			removeFromParent();
 		}
 
 		public InfoBoxShowEvent getEvent() {
