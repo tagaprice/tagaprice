@@ -36,14 +36,14 @@ public class UIDesktop implements IUi {
 	private HorizontalPanel menu = new HorizontalPanel();
 	private SimplePanel center = new SimplePanel();
 	private HorizontalPanel bottom = new HorizontalPanel();
-	
+	private InfoBox _infoBox = new InfoBox();
 	
 	private TextBox search = new TextBox();
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	//private HorizontalPanel topPanel = new HorizontalPanel();
 	private HorizontalPanel leftPanel = new HorizontalPanel();
 	private SimplePanel mainPanel = new SimplePanel();
-	private InfoBox _infoBox = new InfoBox();
+	
 	private DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
 
 	ActivityManager _activityManager;
@@ -54,6 +54,19 @@ public class UIDesktop implements IUi {
 	private void init(){
 		{
 		vePa1.setWidth("100%");
+		
+		//infobox
+		//Add InfoBox Popup
+		_infoBoxPopUp.setWidget(_infoBox);
+		_infoBoxPopUp.show();
+
+
+		//INfo test
+		//TODO Find out why setWidth(100%) is not working
+		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
+		
+		
+		
 		
 		//menu
 		//menu.setSize("100%", "30px");
@@ -284,14 +297,7 @@ public class UIDesktop implements IUi {
 		_activityManager.setDisplay(center);
 
 
-		//Add InfoBox Popup
-		_infoBoxPopUp.setWidget(_infoBox);
-		_infoBoxPopUp.show();
-
-
-		//INfo test
-		//TODO Find out why setWidth(100%) is not working
-		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
+		
 
 
 		//User loggedInHandler

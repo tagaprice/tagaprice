@@ -167,3 +167,34 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
 .loginView-pic {
 	margin-bottom: 4px;
 }
+
+.infoBox{
+    font-size: 14px;
+    background-color: #2c2d25;
+    margin: 0px;
+    padding: 0px;
+    font-weight: bold;
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+}
+
+.infoBox .success{
+    border-bottom:solid 3px #72aa00;
+    color: #72aa00;
+    padding: 3px;
+    padding-left: 15px;
+    
+}
+
+.infoBox .info{
+    color: yellow;
+    border-bottom:solid 3px yellow;
+    padding: 3px;
+    padding-left: 15px;
+}
+
+.infoBox .error{
+    border-bottom:solid 3px red;
+    padding: 3px;
+    color: red;
+    padding-left: 15px;
+}

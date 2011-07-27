@@ -60,6 +60,15 @@
 	
 
 	<!-- Widgets -->
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
+	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.InfoBox">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
+		<when-property-is name="formfactor" value="desktop"/>
+	</replace-with>
+	
 	<replace-with
 		class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
 		<when-type-is
@@ -115,9 +124,7 @@
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICountrySelecter" />
 	</replace-with>
 
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
-		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
-	</replace-with>
+	
 
 	<replace-with
 		class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">

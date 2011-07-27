@@ -4,6 +4,6 @@ background: ebe9e1
 red: top-gradient-dark:  900203
 red: top-gradient-bright: ce0709
  
-green: top-gradient-dark:  bfd255
-green: top-gradient-bright: 72aa00 	
+green: top-gradient-bright:  bfd255
+green: top-gradient-dark: 72aa00 	
 http://www.colorzilla.com/gradient-editor/
