@@ -159,9 +159,9 @@ public class TagAPrice implements EntryPoint {
 
 
 		//test info box
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "success", INFOTYPE.SUCCESS,0));
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "error", INFOTYPE.ERROR,0));
-		eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Info", INFOTYPE.INFO,0));
+		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "success", INFOTYPE.SUCCESS,0));
+		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "error", INFOTYPE.ERROR,0));
+		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Info", INFOTYPE.INFO,0));
 
 
 

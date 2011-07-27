@@ -2,6 +2,8 @@ package org.tagaprice.client.features.startmanagement.devView;
 
 import static com.google.gwt.query.client.GQuery.*;
 import org.tagaprice.client.features.startmanagement.IStartView;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -119,6 +121,19 @@ public class StartViewImpl extends Composite implements IStartView {
 		vePa.add(button2);
 		vePa.add(button3);
 		vePa.add(button4);
+		
+		
+		Button showeven = new Button("popup fadein and out after 5sec");
+		vePa.add(showeven);
+		
+		showeven.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.fireEventTest(new InfoBoxShowEvent(StartViewImpl.class, "Info", INFOTYPE.INFO,5000));
+				
+			}
+		});
 
 	}
 
@@ -128,5 +143,6 @@ public class StartViewImpl extends Composite implements IStartView {
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;
 	}
+	
 
 }

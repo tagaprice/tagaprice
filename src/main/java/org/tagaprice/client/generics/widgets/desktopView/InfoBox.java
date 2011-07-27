@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import static com.google.gwt.query.client.GQuery.*;
 
 public class InfoBox extends Composite implements IInfoBox {
 
@@ -27,7 +28,10 @@ public class InfoBox extends Composite implements IInfoBox {
 
 	@Override
 	public void addInfoBoxEvent(InfoBoxShowEvent event) {
-		_infos.add(new SimpleInfo(event));
+		SimpleInfo s = new SimpleInfo(event);
+		$(s).hide();
+		_infos.add(s);
+		$(s).as(Effects).slideDown();
 	}
 
 	@Override
@@ -109,11 +113,16 @@ public class InfoBox extends Composite implements IInfoBox {
 				_hoPa.setCellWidth(x, "1%");
 
 				setWidget(_hoPa);
+				
 			}
+			
+			
 		}
 
 		public void removeMe() {
-			removeFromParent();
+			$(this)
+			.slideUp();
+			//removeFromParent();
 		}
 
 		public InfoBoxShowEvent getEvent() {

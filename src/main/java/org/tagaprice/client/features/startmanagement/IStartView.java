@@ -1,5 +1,7 @@
 package org.tagaprice.client.features.startmanagement;
 
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -31,5 +33,7 @@ public interface IStartView extends IsWidget {
 		 *            The {@link Place} which should be displayed next.
 		 */
 		public void goTo(Place place);
+		
+		public void fireEventTest(InfoBoxShowEvent event);
 	}
 }

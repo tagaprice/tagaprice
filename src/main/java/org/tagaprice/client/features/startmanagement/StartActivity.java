@@ -2,6 +2,7 @@ package org.tagaprice.client.features.startmanagement;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.startmanagement.IStartView.Presenter;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -53,6 +54,11 @@ public class StartActivity implements Activity, Presenter {
 	@Override
 	public void goTo(Place place) {
 		_clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
+	public void fireEventTest(InfoBoxShowEvent event) {
+		_clientFactory.getEventBus().fireEvent(event);
 	}
 
 }
