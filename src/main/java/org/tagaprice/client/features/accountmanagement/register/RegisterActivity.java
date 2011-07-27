@@ -113,7 +113,7 @@ public class RegisterActivity implements IRegisterView.Presenter, Activity {
 										Log.debug("registration successful");
 										if(isok){
 											_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
-											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.INFO));
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(RegisterActivity.class, "Juhu. You are registered!!!", INFOTYPE.SUCCESS));
 											goTo(new StartPlace());
 
 										}else{

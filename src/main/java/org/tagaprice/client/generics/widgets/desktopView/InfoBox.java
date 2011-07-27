@@ -8,6 +8,8 @@ import org.tagaprice.client.generics.widgets.IInfoBox;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.query.client.Function;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -42,7 +44,7 @@ public class InfoBox extends Composite implements IInfoBox {
 		if(event.getDesplayedEvent()!=null){
 			for (int i = 0; i < _infos.getWidgetCount(); i++) {
 				if(((SimpleInfo) _infos.getWidget(i)).getEvent().equals(event.getDesplayedEvent())){
-					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					((SimpleInfo) _infos.getWidget(i)).removeNoSlideMe();
 					i--;
 				}
 			}
@@ -50,7 +52,7 @@ public class InfoBox extends Composite implements IInfoBox {
 		}else if (event.getType() == null) {
 			for (int i = 0; i < _infos.getWidgetCount(); i++) {
 				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass()) {
-					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					((SimpleInfo) _infos.getWidget(i)).removeNoSlideMe();
 					i--;
 				}
 			}
@@ -58,7 +60,7 @@ public class InfoBox extends Composite implements IInfoBox {
 			for (int i = 0; i < _infos.getWidgetCount(); i++) {
 				if (((SimpleInfo) _infos.getWidget(i)).getEvent().getSenderClass() == event.getDestroyerClass() &&
 						((SimpleInfo) _infos.getWidget(i)).getEvent().getType()==event.getType()) {
-					((SimpleInfo) _infos.getWidget(i)).removeMe();
+					((SimpleInfo) _infos.getWidget(i)).removeNoSlideMe();
 					i--;
 				}
 			}
@@ -121,8 +123,18 @@ public class InfoBox extends Composite implements IInfoBox {
 
 		public void removeMe() {
 			$(this)
-			.slideUp();
+			.slideUp(new Function(){
+				public void f() {
+					removeNoSlideMe();
+				}
+			})
+			;
+			//removeFromParent();
+		}
+		
+		public void removeNoSlideMe(){
 			removeFromParent();
+			System.out.println("removed from parent");
 		}
 
 		public InfoBoxShowEvent getEvent() {
