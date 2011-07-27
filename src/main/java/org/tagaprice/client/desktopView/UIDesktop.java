@@ -22,10 +22,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UIDesktop implements IUi {
@@ -36,6 +38,7 @@ public class UIDesktop implements IUi {
 	private HorizontalPanel bottom = new HorizontalPanel();
 	
 	
+	private TextBox search = new TextBox();
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	//private HorizontalPanel topPanel = new HorizontalPanel();
 	private HorizontalPanel leftPanel = new HorizontalPanel();
@@ -57,6 +60,21 @@ public class UIDesktop implements IUi {
 		menu.setStyleName("header");
 		vePa1.add(menu);
 		
+		//search
+		SimplePanel nothing = new SimplePanel();
+		menu.add(nothing);
+		menu.setCellWidth(nothing, "50%");
+		
+		search.setText("Search...");
+		menu.add(search);
+		menu.setCellHorizontalAlignment(search, HorizontalPanel.ALIGN_CENTER);
+		
+		
+		//position
+		Image position = new Image("desktopView/location.png");
+		position.setStyleName("location");
+		menu.add(position);
+		
 		//login
 		final Label login = new Label("Sign in");
 		login.setStyleName("login");
@@ -64,6 +82,7 @@ public class UIDesktop implements IUi {
 		//$(login).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().secondary("ui-icon-triangle-1-s"))); //
 		menu.add(login);
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
+		menu.setCellWidth(login, "50%");
 		
 		login.addClickHandler(new ClickHandler() {
 			
