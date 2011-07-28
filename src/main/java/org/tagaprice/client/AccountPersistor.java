@@ -154,6 +154,8 @@ public class AccountPersistor implements IAccountPersistor {
 				_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 
 				//Go to user Area
+				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "You are logged in.", INFOTYPE.SUCCESS));
+
 			}
 
 			@Override

@@ -1,11 +1,14 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	background-image: url("header.png");
-	background-repeat:repeat-x;
-	background-color: #ebe9e1;
+	background-color: #bfd255;
 	font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 	font-size: small;
+	background: -webkit-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* Safari 5.1+, Chrome 10+ */  
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #bfd255), color-stop(140px, #72aa00), color-stop(140px, #ebe9e1)); /* Safari 4+, Chrome 2+ */   
+	background: -moz-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* FF 3.6+ */  
+	background: -ms-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* IE10 */  
+	background: linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* the standard */
 }
 
 body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
