@@ -23,7 +23,7 @@ import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateSho
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.features.startmanagement.IStartView;
-import org.tagaprice.client.features.startmanagement.devView.StartViewImpl;
+import org.tagaprice.client.features.startmanagement.desktopView.StartViewImpl;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;

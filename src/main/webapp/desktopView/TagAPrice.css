@@ -1,14 +1,14 @@
 body {
-	margin: 0px;
-	padding: 0px;
-	background-color: #bfd255;
-	font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
-	font-size: small;
-	background: -webkit-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* Safari 5.1+, Chrome 10+ */  
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #bfd255), color-stop(140px, #72aa00), color-stop(140px, #ebe9e1)); /* Safari 4+, Chrome 2+ */   
-	background: -moz-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* FF 3.6+ */  
-	background: -ms-linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* IE10 */  
-	background: linear-gradient(#bfd255 10px, #72aa00 140px, #ebe9e1 140px); /* the standard */
+    margin: 0px;
+    padding: 0px;
+    background-color: #bfd255;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    font-size: small;
+    background: -webkit-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px); /* Safari 5.1+, Chrome 10+ */  
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #bfd255), color-stop(150px, #72aa00), color-stop(150px, #ebe9e1)); /* Safari 4+, Chrome 2+ */   
+    background: -moz-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px); /* FF 3.6+ */  
+    background: -ms-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px); /* IE10 */  
+    background: linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px); /* the standard */
 }
 
 body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
@@ -16,159 +16,174 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input
 }
 
 .header {
-	width: 100%;
-	height: 80px;
+    width: 100%;
+    height: 60px;
 }
 
 
 .header input{
-	color: #2c2d25;
-	font-weight: bold;
-	width: 600px;
-	background-color: rgba(255,255,255,0.3);
-	margin: 0px;
-	padding: 5px;
-	border-radius: 2px;
-	border-top-right-radius: 0px;
-	border-top-left-radius: 0px;
-	border: solid 2px #ebe9e1;
-	border-top-width: 0px;
-	/*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
-	box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    color: #2c2d25;
+    font-weight: bold;
+    width: 600px;
+    background-color: rgba(255,255,255,0.3);
+    margin: 0px;
+    padding: 5px;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border: solid 2px #ebe9e1;
+    border-top-width: 0px;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
 }
 
 .header input:HOVER{
-	color: #ebe9e1;
-	background-color: #2c2d25;
-	/*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
-	box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    color: #ebe9e1;
+    background-color: #2c2d25;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
 }
 
 .header input:FOCUS {
-	color: #2c2d25;
-	background-color: white;
-	/*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
-	box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    color: #2c2d25;
+    background-color: white;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
 }
 
 
 .center {
-	text-align:left;
-	width: 870px;
-	background-color: white;
-	padding: 4px;
-	padding-bottom: 20px;
-	border-radius: 2px;
-	/*box-shadow:  0px 0px 0 10px rgba(255,255,255,0.7);*/
-	box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    text-align:left;
+    width: 870px;    
+    padding: 4px;
+    padding-bottom: 20px;
+}
+
+.stdframe .head{
+    background-color: #2c2d25;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 5px;
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    border-radius: 2px;
+}
+
+.stdframe .body{
+    background-color: white;
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    padding: 5px;
+    padding-bottom: 30px;
+    border-radius: 2px;
 }
 
 .bottom {
-	padding-top: 10px;
-	color: #c7c5be;
-	background-color: #2c2d25;
-	width: 100%;
-	height: 240px;
-	margin-top: 40px;
-	box-shadow: inset 0px 10px 10px black;
-	
-	
+    padding-top: 10px;
+    color: #c7c5be;
+    background-color: #2c2d25;
+    width: 100%;
+    height: 240px;
+    margin-top: 40px;
+    box-shadow: inset 0px 10px 10px black;
+    
+    
 }
 
 .bottom-text{
-	text-align: left;
-	width: 800px;
+    text-align: left;
+    width: 800px;
 }
 
 .bottom-text h2{
-	color: #bfd255;
-	margin-bottom: 2px;
+    color: #bfd255;
+    margin-bottom: 2px;
 }
 
 .bottom-text a {
-	color: #c7c5be;
-	text-decoration: none;
+    color: #c7c5be;
+    text-decoration: none;
 }
 
 .bottom-text a:HOVER{
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .login{
-	width: 50px;
-	color: #2c2d25;
-	font-weight: bold;
-	margin: 0px;
-	padding: 7px;
-	background-color: rgba(255,255,255,0.2);
-	cursor: pointer;
+    width: 50px;
+    color: #2c2d25;
+    font-weight: bold;
+    margin: 0px;
+    padding: 7px;
+    background-color: rgba(255,255,255,0.2);
+    cursor: pointer;
 }
 
 .login:HOVER {
-	color: #ebe9e1;
-	cursor: pointer;
-	background-color: #2c2d25;
+    color: #ebe9e1;
+    cursor: pointer;
+    background-color: #2c2d25;
 }
 
 .loginView{
-	color: #ebe9e1;
-	background-color: #2c2d25;
-	padding: 10px;
-	border-radius: 5px;
-	border-top-right-radius: 0px;
-	box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+    color: #ebe9e1;
+    background-color: #2c2d25;
+    padding: 10px;
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
 }
 
 .loginView input {
-	width: 200px;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #bfd255;
-	border-radius: 3px;
-	background-color: #ebe9e1;
-	padding: 3px;
-	margin-bottom: 6px;
+    width: 200px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #bfd255;
+    border-radius: 3px;
+    background-color: #ebe9e1;
+    padding: 3px;
+    margin-bottom: 6px;
 }
 
 .loginView input:HOVER, input:FOCUS {
-	box-shadow:  0px 0px 2px 2px rgba(255,255,255,0.5);
+    box-shadow:  0px 0px 2px 2px rgba(255,255,255,0.5);
 }
 
 .loginView button {
-	cursor: pointer;
-	font-weight: bold;
-	color: #2c2d25;
-	border-radius: 3px;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #bfd255;
-	padding: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #2c2d25;
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #bfd255;
+    padding: 3px;
 }
 
 .loginView button:HOVER, button:FOCUS  {
-	box-shadow:  0px 0px 2px 2px rgba(255,255,255,0.5);
+    box-shadow:  0px 0px 2px 2px rgba(255,255,255,0.5);
 }
 
 .loginView a {
-	color: #bfd255;
-	text-decoration: none;
+    color: #bfd255;
+    text-decoration: none;
 }
 
 .loginView a:HOVER{
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .loginView hr {
-	margin-top: 15px;
-	margin-bottom: 3px;
-	color: rgba(255,255,255,0.4);
-	background-color: rgba(255,255,255,0.4);
-	height: 1px;
-	border: 0;
+    margin-top: 15px;
+    margin-bottom: 3px;
+    color: rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.4);
+    height: 1px;
+    border: 0;
 }
 
 .loginView-pic {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 .infoBox{

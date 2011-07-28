@@ -59,6 +59,7 @@ public class UIDesktop implements IUi {
 		//Add InfoBox Popup
 		_infoBoxPopUp.setWidget(_infoBox);
 		_infoBoxPopUp.show();
+		
 
 
 		//INfo test
