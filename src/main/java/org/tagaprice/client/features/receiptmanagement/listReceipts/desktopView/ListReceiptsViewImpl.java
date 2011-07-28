@@ -18,7 +18,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListReceiptsViewImpl extends Composite implements IListReceiptsView {
 
-	private VerticalPanel _receiptList3 = new VerticalPanel();
 	private Presenter _presenter;
 	private StdFrame _frame = new StdFrame();
 	private Label _header = new Label("My Receipts");
@@ -32,7 +31,6 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 
 	@Override
 	public void setReceipts(List<Receipt> receipts) {
-		_receiptList3.clear();
 
 		_receiptList.clear();
 		_receiptList.resize(receipts.size()+1, 3);
@@ -44,15 +42,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		
 		int i=1;
 		for(final Receipt r:receipts){
-			Label ml = new Label(createNiceReceiptLine(r));
-			ml.addClickHandler(new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent e) {
-					_presenter.goTo(new CreateReceiptPlace(r.getId()));
-				}
-			});
-			//_receiptList3.add(ml);
 			Label date = new Label(r.getDate().toString());
 			date.addClickHandler(new ClickHandler() {
 
@@ -103,24 +93,6 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	@Override
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;
-	}
-
-	private String createNiceReceiptLine(Receipt receipt){
-		String nice="";
-
-		if (receipt.getId() != null) nice+="Id: "+receipt.getId()+" | ";
-
-		nice+=receipt.getTitle()+" | ";
-		/*
-		BigDecimal money = new BigDecimal("0");
-		for(ReceiptEntry re: receipt.getReceiptEntries()){
-			money = money.add(re.getPrice().getPrice());
-		}
-
-		nice+="m: "+money;
-		 */
-
-		return nice;
 	}
 
 

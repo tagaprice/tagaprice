@@ -55,6 +55,7 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
 		_listReceiptsView.setPresenter(this);
 		panel.setWidget(_listReceiptsView);
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(ListReceiptsActivity.class, "Loading...", INFOTYPE.INFO));
 
 
 		_clientFactory.getReceiptService().getReceipts(new AsyncCallback<List<Receipt>>() {
