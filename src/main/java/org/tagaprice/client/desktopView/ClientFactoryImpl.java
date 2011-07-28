@@ -8,7 +8,7 @@ import org.tagaprice.client.features.accountmanagement.login.desktopView.LoginVi
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
 import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
-import org.tagaprice.client.features.accountmanagement.register.devView.RegisterViewImpl;
+import org.tagaprice.client.features.accountmanagement.register.desktopView.RegisterViewImpl;
 import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.devView.*;
