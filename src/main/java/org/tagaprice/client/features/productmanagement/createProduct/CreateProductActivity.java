@@ -61,7 +61,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	public void onSaveEvent() {
 		Log.debug("Save Product");
 		//Get data from View
-		_product.setTitle(_createProductView.getProductTitle());
+		_product.setTitle(_createProductView.getTitle());
 		_product.setCategory(_createProductView.getCategory());
 		_product.setUnit(_createProductView.getUnit());
 		_product.setPackages(_createProductView.getPackages());

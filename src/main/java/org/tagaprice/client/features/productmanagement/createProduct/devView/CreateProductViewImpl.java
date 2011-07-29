@@ -127,7 +127,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 
 	@Override
-	public String getProductTitle() {
+	public String getTitle() {
 		return this.name.getText();
 	}
 

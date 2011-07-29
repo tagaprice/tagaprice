@@ -33,7 +33,7 @@ public interface ICreateProductView extends IsWidget {
 	 * 
 	 * @return the currently displayed title
 	 */
-	public String getProductTitle();
+	public String getTitle();
 
 
 

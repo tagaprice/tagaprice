@@ -1,17 +1,28 @@
 package org.tagaprice.client.features.productmanagement.createProduct.desktopView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView.Presenter;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
+import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
+import org.tagaprice.client.generics.widgets.PackageSelecter;
+import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
+import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,16 +31,19 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateProductViewImpl extends Composite implements ICreateProductView {
-
+	private Presenter _presenter;
 	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _productFrame = new StdFrame();
 	private StdFrame _statisticFrame = new StdFrame();
-	private TextBox _productName = new TextBox();
+	private TextBox _productTitle = new TextBox();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
 	private Label _statisticHead = new Label("Statistic");
+	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private UnitSelecter _unit = new UnitSelecter();
 	private VerticalPanel _productBodyPanel = new VerticalPanel();
 	private CategorySelecter _category = new CategorySelecter();
+	private StatisticSelecter _statistic = new StatisticSelecter();
+	private PackageSelecter _packages = new PackageSelecter();
 	
 	public CreateProductViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -38,20 +52,37 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_hoPa1.add(_productFrame);
 		
 		//product Name
-		_productName.setText("Product Name");
-		_productHeadPanel.add(_productName);
-		_productHeadPanel.setCellWidth(_productName, "100%");
+		_productTitle.setText("Product Name");
+		_productHeadPanel.add(_productTitle);
+		_productHeadPanel.setCellWidth(_productTitle, "100%");
 		
 		//product unit
 		_productHeadPanel.add(_unit);
 		_productHeadPanel.setWidth("100%");
 		_productFrame.setHeader(_productHeadPanel);
 		_hoPa1.setCellWidth(_productFrame, "300px");
+		_unit.addUnitChangedHandler(new IUnitChangedHandler() {
+
+			@Override
+			public void onChange(Unit unit) {
+				_presenter.onUnitSelectedEvent();
+				_packages.setRelatedUnit(_unit.getUnit());
+
+			}
+		});
 		
 		//product Body
 		_productBodyPanel.setWidth("100%");
 		_productFrame.setBody(_productBodyPanel);
 		_productBodyPanel.add(_category);
+		
+		
+		//package sizes
+		Label _packageHead = new Label("Package sizes");
+		_packageHead.setStyleName("propertyHeader");
+		_productBodyPanel.add(_packageHead);
+		_productBodyPanel.add(_packages);
+		
 		
 		//TODO implement Properties 
 		//Mock properties
@@ -121,7 +152,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			_mockProperites.setWidget(3, 1, new Label("10h-18h"));
 			_mockProperites.setWidget(4, 1, new Label("10h-18h"));
 			_mockProperites.setWidget(5, 1, new Label("6h-24h"));
-			_mockProperites.setWidget(6, 1, new Label("Cloesed"));
+			_mockProperites.setWidget(6, 1, new Label("Closed"));
 			
 			
 			//style name
@@ -146,72 +177,98 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			_productBodyPanel.add(_mockProperites);
 			}
 		
+		
+		//Save button
+		//TODO show save only if something has changed
+		//TODO create abort button
+		Button _saveButton = new Button("save");
+		_saveButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onSaveEvent();				
+			}
+		});
+		_productBodyPanel.add(_saveButton);
+		
+		
 		//Statistic
 		_hoPa1.add(_statisticFrame);
 		_statisticFrame.setHeader(_statisticHead);
+		
+		//Statistic Results
+		_statisticBodyPanel.setWidth("100%");
+		_statistic.setType(TYPE.PRODUCT);
+		_statisticBodyPanel.add(_statistic);
+		_statisticFrame.setBody(_statisticBodyPanel);
+		
+		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
+			@Override
+			public void onChange(BoundingBox bbox, Date begin, Date end) {
+				_presenter.onStatisticChangedEvent(bbox, begin, end);
+			}
+		});
+				
 		
 		
 		initWidget(_hoPa1);
 	}
 	
 	@Override
-	public String getProductTitle() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setTitle(String title) {
+		_productTitle.setText(title);
+	}
+	
+	@Override
+	public String getTitle() {
+		return _productTitle.getText();
 	}
 
 	@Override
 	public void setUnit(Unit unit) {
-		// TODO Auto-generated method stub
-		
+		_unit.setUnit(unit);		
+		_packages.setRelatedUnit(unit);
 	}
 
 	@Override
 	public Unit getUnit() {
-		// TODO Auto-generated method stub
-		return null;
+		return _unit.getUnit();
 	}
 
 	@Override
 	public void setCategory(Category category) {
-		// TODO Auto-generated method stub
-		
+		_category.setCategory(category);
 	}
 
 	@Override
 	public Category getCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return _category.getCategory();
 	}
 
 	@Override
 	public void addPackage(Package ipackage) {
-		// TODO Auto-generated method stub
-		
+		_packages.getPackages().add(ipackage);
+		_packages.setPackages(_packages.getPackages());
 	}
 
 	@Override
 	public void setPackages(ArrayList<Package> iPackage) {
-		// TODO Auto-generated method stub
-		
+		_packages.setPackages(iPackage);		
 	}
 
 	@Override
 	public ArrayList<Package> getPackages() {
-		// TODO Auto-generated method stub
-		return null;
+		return _packages.getPackages();
 	}
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
-		// TODO Auto-generated method stub
-		
+		_statistic.setStatisticResults(results);		
 	}
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
-		
+		_presenter=presenter;		
 	}
 
 }

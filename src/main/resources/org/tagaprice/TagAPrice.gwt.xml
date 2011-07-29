@@ -16,7 +16,6 @@
 	<inherits name="com.google.gwt.place.Place" />
 	<inherits name="com.google.gwt.activity.Activity" />
 	<inherits name="com.google.gwt.i18n.I18N" />
-	<inherits name='com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha' />
 	<inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
 	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name='com.google.gwt.query.Query'/>
@@ -60,6 +59,7 @@
 	
 
 	<!-- Widgets -->
+	<!-- InfoBox -->
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
 	</replace-with>
@@ -69,6 +69,7 @@
 		<when-property-is name="formfactor" value="desktop"/>
 	</replace-with>
 	
+	<!-- StdFrame -->
 	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.StdFrame">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IStdFrame" />
 	</replace-with>
@@ -77,6 +78,23 @@
 		<when-type-is class="org.tagaprice.client.generics.widgets.IStdFrame" />
 		<when-property-is name="formfactor" value="desktop"/>
 	</replace-with>
+	
+	<!-- StatisticSelecter -->
+	<replace-with
+		class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" />
+	</replace-with>
+	
+	<replace-with
+		class="org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" />
+		<when-property-is name="formfactor" value="desktop"/>
+	</replace-with>
+	
+	
+	
+	
+	
 	
 	<replace-with
 		class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
@@ -135,11 +153,7 @@
 
 	
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.IStatisticSelecter" />
-	</replace-with>
+	
 
 
 
