@@ -1,29 +1,18 @@
 package org.tagaprice.client.desktopView;
 
-import gwtquery.plugins.ui.widgets.Button.Icons;
-
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
-import org.tagaprice.client.generics.I18N;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
-import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.widgets.InfoBox;
 import com.google.gwt.activity.shared.ActivityManager;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -41,14 +30,9 @@ public class UIDesktop implements IUi {
 	
 	private TextBox search = new TextBox();
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
-	//private HorizontalPanel topPanel = new HorizontalPanel();
-	private HorizontalPanel leftPanel = new HorizontalPanel();
-	private SimplePanel mainPanel = new SimplePanel();
 	
-	private DockLayoutPanel completeScreen = new DockLayoutPanel(Unit.PX);
-
-	ActivityManager _activityManager;
-	ClientFactory _clientFactory;
+	private ActivityManager _activityManager;
+	private ClientFactory _clientFactory;
 
 	private PopupPanel loginPop = new PopupPanel(true);
 
@@ -164,84 +148,7 @@ public class UIDesktop implements IUi {
 	}
 		
 		
-		
-		
-		
-		
-		//Widget divLogger = Log.getLogger(DivLogger.class).getWidget();
-		//LAYOUT
-		//completeScreen.addSouth(divLogger, 120);
-		//completeScreen.addNorth(this.topPanel, 80);
-		completeScreen.addNorth(this.leftPanel,30);
-		completeScreen.add(this.mainPanel);
-
-		//Configure Logo
-		//this.topPanel.add(new Image("TagaAPriceLogo.png"));
-		//this.topPanel.add(new HTML("<h1>TagAPrice</h1>"));
-		//This is quite a mess...
-
-		this.leftPanel.add(new HTML("<h3>"+I18N.I18N.testmenu()+"</h3>"));
-
-		/******************** Product Links *****************/
-		this.leftPanel.add(new Button("Locate", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-			}
-		}));
-
-
-		this.leftPanel.add(new HTML("<hr />"));
-		Label createProduct = new Label("Create Product2");
-		createProduct.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateProduct:/create");}});
-
-		Label getProduct = new Label("List Products");
-		getProduct.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("ListProducts:/show");}});
-
-
-		this.leftPanel.add(createProduct);
-		this.leftPanel.add(getProduct);
-
-
-		/******************** Login Links *****************/
-		this.leftPanel.add(new HTML("<hr />"));
-		final Label login = new Label("Login");
-		/*login.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("LogInOut:/login");}});
-		 */
-		login.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
-				loginPop.setWidget(loginPres.getView());
-				loginPop.showRelativeTo(login);
-			}
-		});
-		this.leftPanel.add(login);
-
-		final Label logout = new Label("Logout");/*
-		logout.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("LogInOut:/logout");}});
-		 */
-		logout.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent arg0) {
-				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
-				loginPop.setWidget(loginPres.getView());
-				loginPop.showRelativeTo(logout);
-			}
-		});
-		this.leftPanel.add(logout);
-		logout.setVisible(false);
-
+	
 		//Set Popvisilb
 		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
 			@Override
@@ -251,63 +158,6 @@ public class UIDesktop implements IUi {
 		});
 
 
-		final Label register = new Label("Register");
-		register.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("Register:/REGISTER");}});
-		this.leftPanel.add(register);
-
-		/******************** Shop Links ******************/
-		this.leftPanel.add(new HTML("<hr />"));
-
-		Label createShop = new Label("Create Shop");
-		createShop.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("CreateShop:/create");}});
-
-		Label getShop = new Label("list Shops");
-		getShop.addClickHandler(new ClickHandler() {@Override
-			public void onClick(ClickEvent arg0) {
-			History.newItem("ListShops:/show");}});
-
-
-		this.leftPanel.add(createShop);
-		this.leftPanel.add(getShop);
-
-		/******************** Shop Links ******************/
-		this.leftPanel.add(new HTML("<hr />"));
-
-		{
-			Label createReceipt = new Label("Create Receipt");
-			createReceipt.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					History.newItem("CreateReceipt:/create");
-
-				}
-			});
-
-			this.leftPanel.add(createReceipt);
-		}
-
-		{
-			Label listReceipt = new Label("List Receipts");
-			listReceipt.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					History.newItem("ListReceipts:/show");
-
-				}
-			});
-
-			this.leftPanel.add(listReceipt);
-		}
-
-
-
-		mainPanel.addStyleName("mainPanel");
 		_activityManager.setDisplay(center);
 
 
@@ -319,6 +169,8 @@ public class UIDesktop implements IUi {
 
 			@Override
 			public void onLoginChange(LoginChangeEvent event) {
+				//TODO Set SignIn invisible and add User plus name and so on.
+				/*
 				if(event.isLoggedIn()){
 					login.setVisible(false);
 					register.setVisible(false);
@@ -327,7 +179,7 @@ public class UIDesktop implements IUi {
 					login.setVisible(true);
 					register.setVisible(true);
 					logout.setVisible(false);
-				}
+				}*/
 
 			}
 		});
