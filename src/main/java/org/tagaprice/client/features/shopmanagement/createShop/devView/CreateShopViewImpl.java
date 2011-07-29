@@ -177,9 +177,6 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
-		for(StatisticResult r:results){
-			Log.debug("res: "+r.getProduct().getTitle());
-		}
 		_statisticSelecter.setStatisticResults(results);
 	}
 

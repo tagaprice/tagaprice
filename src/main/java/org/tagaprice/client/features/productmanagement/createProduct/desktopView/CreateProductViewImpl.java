@@ -52,7 +52,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_hoPa1.add(_productFrame);
 		
 		//product Name
-		_productTitle.setText("Product Name");
+		_productTitle.setText("New Product");
 		_productHeadPanel.add(_productTitle);
 		_productHeadPanel.setCellWidth(_productTitle, "100%");
 		

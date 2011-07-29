@@ -19,7 +19,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.devView.Cre
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.desktopView.ListReceiptsViewImpl;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
+import org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.features.startmanagement.IStartView;
