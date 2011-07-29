@@ -19,8 +19,8 @@ public class StdFrame extends Composite implements IStdFrame{
 		vePa.add(bodyPa);
 		initWidget(vePa);
 		setStyleName("stdframe");
-		headPa.setStyleName("head");
-		bodyPa.setStyleName("body");
+		setHeadStyleName("head");
+		setBodyStyleName("body");
 	}
 	
 	public void setHeader(IsWidget header){
@@ -31,4 +31,16 @@ public class StdFrame extends Composite implements IStdFrame{
 		bodyPa.setWidget(body);
 	}
 	
+	@Override
+	public void setStyleName(String style) {
+		vePa.setStyleName("stdframe");
+	}
+	
+	public void setHeadStyleName(String style){
+		headPa.setStyleName(style);
+	}
+	
+	public void setBodyStyleName(String style){
+		bodyPa.setStyleName(style);
+	}
 }

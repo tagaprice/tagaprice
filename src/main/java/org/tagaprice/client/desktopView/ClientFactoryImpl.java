@@ -11,7 +11,7 @@ import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
 import org.tagaprice.client.features.accountmanagement.register.desktopView.RegisterViewImpl;
 import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
-import org.tagaprice.client.features.productmanagement.createProduct.devView.CreateProductViewImpl;
+import org.tagaprice.client.features.productmanagement.createProduct.desktopView.CreateProductViewImpl;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.features.productmanagement.listProducts.devView.ListProductsViewImpl;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;

@@ -38,7 +38,7 @@ a:HOVER{
     color: #2c2d25;
     font-weight: bold;
     width: 600px;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.0);
     margin: 0px;
     padding: 5px;
     border-radius: 2px;
@@ -70,6 +70,11 @@ a:HOVER{
     width: 870px;    
 }
 
+.stdframe{
+    padding-right: 2px;
+    padding-left: 2px
+}
+
 .stdframe .head{
     background-color: #2c2d25;
     margin-bottom: 15px;
@@ -79,12 +84,13 @@ a:HOVER{
     padding: 5px;
     box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
     border-radius: 2px;
+font-family: Times;
 }
 
 .stdframe .body{
     background-color: white;
     box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
-    padding: 15px;
+    padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
 }
@@ -266,4 +272,35 @@ table.stdgrid th{
 .stdgrid .namecell{
     text-align: right;
     font-weight: bold;
+}
+
+.propertyHeader{
+    margin-top: 13px;
+    font-weight:bold;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.propertyGrid{
+    border-spacing: 0px;
+}
+
+.propertyGrid .namecell{
+    /*font-weight: bold;*/
+    
+}
+
+.propertyGrid .valuecell{
+    text-align: right;
+    font-family: Times;
+}
+
+table.propertyGrid{
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+table.propertyGrid td{
+    border-bottom: 1px solid #bfd255;
+    padding-top: 2px;
 }
