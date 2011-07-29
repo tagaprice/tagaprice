@@ -2,8 +2,6 @@ package org.tagaprice.client.features.accountmanagement.register.devView;
 
 import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.Config;
-
-import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -36,8 +34,6 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 
 	@UiField
 	Button registerButton;
-
-	RecaptchaWidget reWidget = new RecaptchaWidget(Config.CONFIG.recaptchaPuplicKey());
 
 	public RegisterViewImpl() {
 		initWidget(RegisterViewImpl.uiBinder.createAndBindUi(this));

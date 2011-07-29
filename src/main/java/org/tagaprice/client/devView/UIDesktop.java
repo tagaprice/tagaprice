@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -214,13 +215,13 @@ public class UIDesktop implements IUi {
 
 
 	@Override
-	public IsWidget getUI(ActivityManager activityManager, ClientFactory clientFactory) {
+	public void initUI(ActivityManager activityManager, ClientFactory clientFactory) {
 		_activityManager=activityManager;
 		_clientFactory=clientFactory;
 		init();
 
+		RootLayoutPanel.get().add(completeScreen);
 
-		return completeScreen;
 	}
 
 

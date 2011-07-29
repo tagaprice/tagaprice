@@ -8,12 +8,12 @@ import com.google.gwt.user.client.ui.IsWidget;
 public interface IUi {
 
 	/**
-	 * Returns the screen ui widget
+	 * Initializes the UI to the rootpanel
 	 * @param activityManager is responsible for ui change
 	 * @param clientFactory
 	 * @return screen ui widget
 	 */
-	public IsWidget getUI(ActivityManager activityManager, ClientFactory clientFactory);
+	public void initUI(ActivityManager activityManager, ClientFactory clientFactory);
 
 	/**
 	 * Returns the current infoBox
