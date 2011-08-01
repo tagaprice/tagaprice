@@ -57,7 +57,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	}
 
 	@Override
-	public ArrayList<Address> searchAddress(double lat, double lng) {
+	public List<Address> searchAddress(double lat, double lng) {
 		try {
 			ArrayList<Address> posibleAddresses = new ArrayList<Address>();
 			Log.debug("findService: "+lat+":"+lng);

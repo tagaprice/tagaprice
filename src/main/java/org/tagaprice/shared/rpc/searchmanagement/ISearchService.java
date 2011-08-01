@@ -1,5 +1,6 @@
 package org.tagaprice.shared.rpc.searchmanagement;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

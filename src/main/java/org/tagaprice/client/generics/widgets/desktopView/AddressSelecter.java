@@ -1,5 +1,8 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -16,8 +19,14 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
+import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -25,6 +34,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {
+
+	private ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 
 	private VerticalPanel _vePa1 = new VerticalPanel();
 	private MapOptions _defaultMapOptions = new MapOptions();
@@ -76,16 +87,35 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 				LonLat l = vectorFeature.getCenterLonLat();
 				l.transform("EPSG:900913","EPSG:4326");
 				Log.debug("Drag Marker: "+l.lat()+", "+l.lon());
-				//test
-				Address mock = new Address("Flossgasse 1A", l.lat(), l.lon());
-				setAddress(mock);
 				
 				//get Possible streetnames
 				_addressListPanel.clear();
-				_addressListPanel.add(new Label("Elfriede-Gerstl-Steg"));
-				_addressListPanel.add(new Label("Kleine Ungarbrücke"));
-				_addressListPanel.add(new Label("Zedlitzgasse"));
-				_addressListPanel.add(new Label("Weiskirchnerstraße"));
+				
+				I_SEARCH_SERVICE_ASYNC.searchAddress(l.lat(), l.lon(), new AsyncCallback<List<Address>>() {
+					
+					@Override
+					public void onSuccess(List<Address> r) {
+						for(final Address a:r){
+							Label _ad = new Label(a.getAddress());
+							
+							_ad.addClickHandler(new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent arg0) {
+									setAddress(a);									
+								}
+							});
+							_addressListPanel.add(_ad);
+						}
+						
+					}
+					
+					@Override
+					public void onFailure(Throwable e) {
+						Log.error(e.toString());						
+					}
+				});
+				
 				
 				_addressListPop.showRelativeTo(_osmWidget);
 			}
@@ -128,6 +158,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_osmMap.setCenter(_lonLat);
 		
 		_point.setXY(_lonLat.lon(), _lonLat.lat());
+		
+		_addressBox.setText(address.getAddress());
 		
 	}
 
