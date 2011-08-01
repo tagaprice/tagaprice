@@ -30,7 +30,7 @@
       //define here ui design. 
   	  //This is only for development. The next (one) line must be removed in productive mod. 
   	  //falues for the formfactor are: desktop,tablet,mobile,dev
-  	  return "dev"; 
+  	  return "desktop"; 
 
       // Detect form factor from user agent.
       var ua = navigator.userAgent.toLowerCase();

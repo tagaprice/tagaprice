@@ -50,7 +50,7 @@ public interface ISearchService extends RemoteService {
 	 * @param lng longitutde position
 	 * @return Address (Normaly a streetname)
 	 */
-	Address searchAddress(double lat, double lng);
+	List<Address> searchAddress(double lat, double lng);
 
 
 	List<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end);

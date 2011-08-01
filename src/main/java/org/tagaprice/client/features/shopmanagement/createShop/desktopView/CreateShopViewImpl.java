@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView.Presenter;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
+import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
@@ -15,6 +16,7 @@ import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -31,6 +33,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private Label _statisticHead = new Label("Statistic");
+	private AddressSelecter _address = new AddressSelecter();
 	
 	public CreateShopViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -49,7 +52,63 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		//shop body
 		_shopBodyPanel.setWidth("100%");
 		_shopFrame.setBody(_shopBodyPanel);
-		_shopBodyPanel.add(new Label("bla bal"));
+		
+		
+		//Address Selecter
+		_shopBodyPanel.add(_address);
+		
+		
+		//TODO implement Properties 
+		//Mock properties
+		
+		{//Openeing Hours
+			Label _mockPropertieHead = new Label("Opening Hours");
+			_mockPropertieHead.setStyleName("propertyHeader");
+			_shopBodyPanel.add(_mockPropertieHead);
+			
+			Grid _mockProperites = new Grid(7,2);
+			_mockProperites.setStyleName("propertyGrid");
+			_mockProperites.setWidth("100%");
+			_mockProperites.setWidget(0, 0, new Label("Moday"));
+			_mockProperites.setWidget(1, 0, new Label("Thuesday"));
+			_mockProperites.setWidget(2, 0, new Label("Wednesday"));
+			_mockProperites.setWidget(3, 0, new Label("Thirthday"));
+			_mockProperites.setWidget(4, 0, new Label("Friday"));
+			_mockProperites.setWidget(5, 0, new Label("Saturday"));
+			_mockProperites.setWidget(6, 0, new Label("Sunday"));
+			
+			_mockProperites.setWidget(0, 1, new Label("10h-18h"));
+			_mockProperites.setWidget(1, 1, new Label("10h-18h"));
+			_mockProperites.setWidget(2, 1, new Label("10h-18h"));
+			_mockProperites.setWidget(3, 1, new Label("10h-18h"));
+			_mockProperites.setWidget(4, 1, new Label("10h-18h"));
+			_mockProperites.setWidget(5, 1, new Label("6h-24h"));
+			_mockProperites.setWidget(6, 1, new Label("Closed"));
+			
+			
+			//style name
+			_mockProperites.getCellFormatter().setStyleName(0, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(1, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(2, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(3, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(4, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(5, 0, "namecell");
+			_mockProperites.getCellFormatter().setStyleName(6, 0, "namecell");
+			
+			
+			//stlye value
+			_mockProperites.getCellFormatter().setStyleName(0, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(1, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(2, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(3, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(4, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(5, 1, "valuecell");
+			_mockProperites.getCellFormatter().setStyleName(6, 1, "valuecell");
+			
+			_shopBodyPanel.add(_mockProperites);
+		}
+		
+		
 		
 		
 		
