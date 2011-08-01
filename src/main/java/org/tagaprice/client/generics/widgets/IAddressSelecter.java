@@ -5,11 +5,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IAddressSelecter extends IsWidget {
 
-	/**
-	 * Set current address (position) of the user
-	 * @param address current address (position) of the user
-	 */
-	public void setCurrentAddress(Address address);
+
 
 	/**
 	 * Set an address

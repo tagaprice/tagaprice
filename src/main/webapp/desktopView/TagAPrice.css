@@ -84,7 +84,7 @@ a:HOVER{
     padding: 5px;
     box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
     border-radius: 2px;
-font-family: Times;
+	font-family: Times;
 }
 
 .stdframe .body{
@@ -303,4 +303,16 @@ table.propertyGrid{
 table.propertyGrid td{
     border-bottom: 1px solid #bfd255;
     padding-top: 2px;
+}
+
+.searchPopup{
+    background-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #bfd255;
+    border-top:none;
+}
+
+.searchPopup .entry{
+    cursor: pointer;
 }

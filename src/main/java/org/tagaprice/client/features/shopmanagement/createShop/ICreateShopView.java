@@ -51,7 +51,6 @@ public interface ICreateShopView extends IsWidget {
 
 	}
 
-	public String getShopTitle();
 
 	public Address getAddress();
 
@@ -77,12 +76,15 @@ public interface ICreateShopView extends IsWidget {
 	 */
 	public void setPresenter(Presenter presenter);
 
-	public void setShopTitle(String title);
 
 	/**
 	 * Set statistic results
 	 * @param results statistic results.
 	 */
 	public void setStatisticResults(List<StatisticResult> results);
+
+	public void setTitle(String title);
+
+	public String getTitle();
 
 }

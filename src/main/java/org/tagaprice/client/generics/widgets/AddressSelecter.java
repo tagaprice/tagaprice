@@ -28,9 +28,5 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		return addressSelecter.getAddress();
 	}
 
-	@Override
-	public void setCurrentAddress(Address address) {
-		addressSelecter.setCurrentAddress(address);
-	}
 
 }

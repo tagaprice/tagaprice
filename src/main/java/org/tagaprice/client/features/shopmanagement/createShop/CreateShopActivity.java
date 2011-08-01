@@ -60,7 +60,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		Log.debug("Save Shop");
 
 		//Get data from View
-		_shop.setTitle(_createShopView.getShopTitle());
+		_shop.setTitle(_createShopView.getTitle());
 		_shop.setAddress(_createShopView.getAddress());
 		_shop.setParent(_createShopView.getBranding());
 
@@ -212,7 +212,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	private void updateView(Shop shop){
 		_shop = shop;
-		_createShopView.setShopTitle(shop.getTitle());
+		_createShopView.setTitle(shop.getTitle());
 		_createShopView.setAddress(shop.getAddress());
 		_createShopView.setBranding(shop.getParent());
 	}

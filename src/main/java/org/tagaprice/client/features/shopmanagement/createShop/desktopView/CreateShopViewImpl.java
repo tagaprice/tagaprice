@@ -132,16 +132,16 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		initWidget(_hoPa1);
 	}
 	
+	
+	
 	@Override
-	public String getShopTitle() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTitle() {
+		return _shopTitle.getText();
 	}
 
 	@Override
 	public Address getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return _address.getAddress();
 	}
 
 	@Override
@@ -152,8 +152,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setAddress(Address address) {
-		// TODO Auto-generated method stub
-		
+		_address.setAddress(address);
 	}
 
 	@Override
@@ -174,9 +173,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	}
 
 	@Override
-	public void setShopTitle(String title) {
-		// TODO Auto-generated method stub
-		
+	public void setTitle(String title) {
+		_shopTitle.setText(title);		
 	}
 
 	@Override

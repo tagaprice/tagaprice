@@ -1,8 +1,6 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -21,12 +19,12 @@ import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -48,8 +46,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private Point _point = new Point(_lonLat.lon(), _lonLat.lat());
 	private PopupPanel _addressListPop = new PopupPanel(true);
 	private VerticalPanel _addressListPanel = new VerticalPanel();
+	private Button _edit = new Button("Edit");
+	private DragFeature _dragFeature;
+	private boolean _editAbel=false;
 
 	public AddressSelecter() {
+		Log.debug("Start AddressSelecter");
 		_vePa1.setWidth("100%");
 		initWidget(_vePa1);
 		
@@ -60,6 +62,41 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_osmMap = _osmWidget.getMap();
 		_osmMap.addLayer(osmLayler);
 		
+		
+		_vePa1.add(_osmWidget);
+		
+		//Add address text
+		_vePa1.add(_addressBox);
+		
+		
+		
+		
+		//Init address list popup
+		_addressListPanel.setWidth("100%");
+		_addressListPanel.setStyleName("searchPopup");
+		_addressListPop.setWidget(_addressListPanel);
+		
+		
+		
+		//Add edit button
+		_vePa1.add(_edit);
+		_addressBox.setReadOnly(true);
+		_edit.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setEditAble(!_editAbel);				
+			}
+		});
+	}
+	
+
+	@Override
+	public void setAddress(Address address) {
+		_osmMap.removeOverlayLayers();
+		
+		_lonLat = new LonLat(address.getLng(), address.getLat());
+
 		//set Pos
 		_lonLat.transform("EPSG:4326", "EPSG:900913");
 		_osmMap.setCenter(_lonLat, 16);
@@ -84,7 +121,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			
 			@Override
 			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
-				LonLat l = vectorFeature.getCenterLonLat();
+				final LonLat l = vectorFeature.getCenterLonLat();
 				l.transform("EPSG:900913","EPSG:4326");
 				Log.debug("Drag Marker: "+l.lat()+", "+l.lon());
 				
@@ -97,16 +134,30 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					public void onSuccess(List<Address> r) {
 						for(final Address a:r){
 							Label _ad = new Label(a.getAddress());
+							_ad.setStyleName("entry");
 							
 							_ad.addClickHandler(new ClickHandler() {
 								
 								@Override
 								public void onClick(ClickEvent arg0) {
+									_addressListPop.hide();
 									setAddress(a);									
 								}
 							});
 							_addressListPanel.add(_ad);
 						}
+						
+						Label _ad = new Label("Can't find streetname");
+						_ad.setStyleName("entry");
+						_ad.addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent arg0) {
+								_addressListPop.hide();
+								setAddress(new Address("Add street name", l.lat(), l.lon()));									
+							}
+						});
+						_addressListPanel.add(_ad);
 						
 					}
 					
@@ -116,57 +167,45 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					}
 				});
 				
-				
+				_addressListPop.setWidth(_osmWidget.getOffsetWidth()+"px");
 				_addressListPop.showRelativeTo(_osmWidget);
 			}
 		});
 		
 		
 		
-		DragFeature dragFeature = new DragFeature(_layer, dragFeatureOptions);
-		_osmMap.addControl(dragFeature);
-		dragFeature.activate();
+		_dragFeature = new DragFeature(_layer, dragFeatureOptions);
+		_osmMap.addControl(_dragFeature);
+		//dragFeature.activate();
 		_osmMap.addLayer(_layer);
 		_pointFeature = new VectorFeature(new Point(_lonLat.lon(), _lonLat.lat()));
 		
 		_layer.addFeature(_pointFeature);
-		_vePa1.add(_osmWidget);
 		
-		//Add address text
-		_vePa1.add(_addressBox);
-		
-		
-		
-		
-		//Init address list popup
-		_addressListPanel.setWidth("100%");
-		_addressListPop.setWidget(_addressListPanel);
-		
-	}
-	
-	@Override
-	public void setCurrentAddress(Address address) {
-		
-		
-		
-	}
+		setEditAble(_editAbel);
 
-	@Override
-	public void setAddress(Address address) {
-		_lonLat = new LonLat(address.getLng(), address.getLat());
-		_lonLat.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(_lonLat);
-		
-		_point.setXY(_lonLat.lon(), _lonLat.lat());
-		
 		_addressBox.setText(address.getAddress());
 		
 	}
 
 	@Override
 	public Address getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		LonLat l = _osmMap.getCenter();
+		l.transform("EPSG:900913","EPSG:4326");
+		return new Address(_addressBox.getText(), l.lat(), l.lon());
+	}
+	
+	public void setEditAble(boolean edit){
+		_editAbel=edit;
+		if(edit){
+			_addressBox.setReadOnly(false);
+			_dragFeature.activate();
+			_edit.setText("ready");
+		}else{
+			_addressBox.setReadOnly(true);
+			_dragFeature.deactivate();
+			_edit.setText("edit");
+		}
 	}
 
 }

@@ -108,6 +108,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		l.transform("EPSG:4326", "EPSG:900913");
 		setLatLng(l);
 	}
+	
+
 
 	@Override
 	public Address getAddress(){
@@ -190,15 +192,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	}
 
-	@Override
-	public void setCurrentAddress(Address address) {
-		_addressBox.setText(address.getAddress());
-
-		LonLat l = new LonLat(address.getLng(),address.getLat());
-		l.transform("EPSG:4326", "EPSG:900913");
-		setLatLng(l);
-
-	}
+	
 
 
 }

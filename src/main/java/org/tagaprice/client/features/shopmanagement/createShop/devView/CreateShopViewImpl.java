@@ -89,14 +89,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_presenter = presenter;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.features.shopmanagement.createShop.devView.ICreateShopView#setTitle(java.lang.String)
-	 */
-	@Override
-	public void setTitle(String title) {
-		_name.setText(title);
-
-	}
+	
 
 	@UiHandler("_saveButton")
 	public void onSaveEvent(ClickEvent event) {
@@ -104,23 +97,22 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see org.tagaprice.client.features.shopmanagement.createShop.devView.ICreateShopView#getTitle()
-	 */
 	@Override
-	public String getShopTitle() {
+	public String getTitle() {
 		return _name.getText();
 	}
 
 	@Override
-	public void setShopTitle(String title) {
+	public void setTitle(String title) {
 		_name.setText(title);
+
 	}
+	
 
 
 	@Override
 	public void setAddress(Address address) {
-		_address.setCurrentAddress(address);
+		_address.setAddress(address);
 	}
 
 	@Override
