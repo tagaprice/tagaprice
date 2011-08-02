@@ -36,130 +36,115 @@
 	<!--<inherits name="com.allen_sauer.gwt.log.gwt-log-RemoteLogger" />-->
 
 
-	<replace-with class="org.tagaprice.client.devView.ClientFactoryImpl">
-		<when-type-is class="org.tagaprice.client.ClientFactory" />
-	</replace-with>
-	
+	<!-- ClientFactory -->
 	<replace-with class="org.tagaprice.client.desktopView.ClientFactoryImpl">
 		<when-type-is class="org.tagaprice.client.ClientFactory" />
-		<when-property-is name="formfactor" value="desktop"/>
 	</replace-with>
 	
+	<replace-with class="org.tagaprice.client.devView.ClientFactoryImpl">
+		<when-type-is class="org.tagaprice.client.ClientFactory" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
+	
+	<!-- UIDesktop -->
+	<replace-with class="org.tagaprice.client.desktopView.UIDesktop">
+		<when-type-is class="org.tagaprice.client.IUi" />
+	</replace-with>
 	
 	<replace-with class="org.tagaprice.client.devView.UIDesktop">
 		<when-type-is class="org.tagaprice.client.IUi" />
+		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
 	
-	<replace-with class="org.tagaprice.client.desktopView.UIDesktop">
-		<when-type-is class="org.tagaprice.client.IUi" />
-		<when-property-is name="formfactor" value="desktop"/>
-	</replace-with>
+	
 	
 	
 	
 
 	<!-- Widgets -->
 	<!-- InfoBox -->
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.InfoBox">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
 	</replace-with>
 	
-	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.InfoBox">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.InfoBox">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IInfoBox" />
-		<when-property-is name="formfactor" value="desktop"/>
+		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
+	
+	
 	
 	<!-- StdFrame -->
 	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.StdFrame">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IStdFrame" />
 	</replace-with>
 	
-	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.StdFrame">
-		<when-type-is class="org.tagaprice.client.generics.widgets.IStdFrame" />
-		<when-property-is name="formfactor" value="desktop"/>
-	</replace-with>
+	
 	
 	<!-- StatisticSelecter -->
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" />
 	</replace-with>
 	
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.StatisticSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IStatisticSelecter" />
-		<when-property-is name="formfactor" value="desktop"/>
+		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
+	
 	
 	<!-- AddressSelecter -->
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.AddressSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.AddressSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IAddressSelecter" />
 	</replace-with>
 	
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.desktopView.AddressSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.AddressSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IAddressSelecter" />
-		<when-property-is name="formfactor" value="desktop"/>
+		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
+	
+
 	
 	<!-- MorphWidget -->
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.desktopView.MorphWidget">
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.MorphWidget">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IMorphWidget" />
 	</replace-with>
 	
 	
 	
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.ICategorySelecter" />
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.ICategorySelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.IQuantitySelecter" />
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IQuantitySelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.ShopSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.ShopSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IShopSelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.UnitSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.UnitSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IUnitSelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.MultipleAddressSelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.IMultipleAddressSelecter" />
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.MultipleAddressSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IMultipleAddressSelecter" />
 	</replace-with>
 
-	
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.ReceiptEntrySelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" />
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.ReceiptEntrySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
-		<when-type-is
-			class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />
 	</replace-with>
 
-	<replace-with
-		class="org.tagaprice.client.generics.widgets.devView.CountrySelecter">
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.CountrySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICountrySelecter" />
 	</replace-with>
 
