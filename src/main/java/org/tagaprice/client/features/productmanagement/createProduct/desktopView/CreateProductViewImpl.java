@@ -9,10 +9,12 @@ import org.tagaprice.client.features.productmanagement.createProduct.ICreateProd
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
+import org.tagaprice.client.generics.widgets.MorphWidget;
 import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
+import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
@@ -26,6 +28,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -35,7 +38,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _productFrame = new StdFrame();
 	private StdFrame _statisticFrame = new StdFrame();
-	private TextBox _productTitle = new TextBox();
+	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
 	private Label _statisticHead = new Label("Statistic");
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
@@ -44,6 +47,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private CategorySelecter _category = new CategorySelecter();
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private PackageSelecter _packages = new PackageSelecter();
+	private boolean _readonly = true;
+	
+	//This is a mock. We must replace it later
+	private Image _editImage = new Image("desktopView/187-pencil_n.png");
+	MorphWidget _brenn = new MorphWidget();
 	
 	public CreateProductViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -51,8 +59,21 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Product
 		_hoPa1.add(_productFrame);
 		
+		//Edit button
+		_editImage.setSize("18px", "18px");
+		_productHeadPanel.add(_editImage);
+		_editImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setReadOnly(!_readonly);
+			}
+		});
+		
+		
 		//product Name
-		_productTitle.setText("New Product");
+		_productTitle.configMorph(Type.STRING, true, "Coca Cola Light", false, true);
+		_productTitle.setValue("New Product");
 		_productHeadPanel.add(_productTitle);
 		_productHeadPanel.setCellWidth(_productTitle, "100%");
 		
@@ -102,7 +123,9 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			_mockProperites.setWidget(4, 0, new Label("Ballaststoffe"));
 			_mockProperites.setWidget(5, 0, new Label("Natrium"));
 			
-			_mockProperites.setWidget(0, 1, new Label("1490kJ"));
+			_brenn.configMorph(Type.STRING, false, "", true, false);
+			_brenn.setValue("1490kJ");
+			_mockProperites.setWidget(0, 1, _brenn);
 			_mockProperites.setWidget(1, 1, new Label("12,4g"));
 			_mockProperites.setWidget(2, 1, new Label("72,2g"));
 			_mockProperites.setWidget(3, 1, new Label("1,4g"));
@@ -171,12 +194,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	
 	@Override
 	public void setTitle(String title) {
-		_productTitle.setText(title);
+		_productTitle.setValue(title);
 	}
 	
 	@Override
 	public String getTitle() {
-		return _productTitle.getText();
+		return _productTitle.getValue();
 	}
 
 	@Override
@@ -224,6 +247,13 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;		
+	}
+	
+	
+	private void setReadOnly(boolean read){
+		_readonly=read;
+		_productTitle.setReadOnly(_readonly);
+		_brenn.setReadOnly(_readonly);
 	}
 
 }

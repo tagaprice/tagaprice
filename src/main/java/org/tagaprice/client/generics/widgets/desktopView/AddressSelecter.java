@@ -26,6 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -41,7 +42,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private Map _osmMap;
 	private Vector _layer;
 	private LonLat _lonLat = new LonLat(16.37692,48.21426);
-	private TextBox _addressBox = new TextBox();
+	private Label _addressBox = new Label();
 	private VectorFeature _pointFeature;
 	private Point _point = new Point(_lonLat.lon(), _lonLat.lat());
 	private PopupPanel _addressListPop = new PopupPanel(true);
@@ -49,6 +50,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private Button _edit = new Button("Edit");
 	private DragFeature _dragFeature;
 	private boolean _editAbel=false;
+	private Grid _addressGrid = new Grid(1, 2);
 
 	public AddressSelecter() {
 		Log.debug("Start AddressSelecter");
@@ -66,7 +68,13 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_vePa1.add(_osmWidget);
 		
 		//Add address text
-		_vePa1.add(_addressBox);
+		_addressGrid.setWidth("100%");
+		_addressGrid.setStyleName("propertyGrid");
+		_addressGrid.setWidget(0, 0, new Label("Street"));
+		_addressGrid.getCellFormatter().setStyleName(0, 0, "namecell");
+		_addressGrid.getCellFormatter().setStyleName(0, 1, "valuecell");
+		_addressGrid.setWidget(0, 1, _addressBox);
+		_vePa1.add(_addressGrid);
 		
 		
 		
@@ -80,7 +88,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		
 		//Add edit button
 		_vePa1.add(_edit);
-		_addressBox.setReadOnly(true);
+		//_addressBox.setReadOnly(true);
 		_edit.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -198,11 +206,11 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	public void setEditAble(boolean edit){
 		_editAbel=edit;
 		if(edit){
-			_addressBox.setReadOnly(false);
+			//_addressBox.setReadOnly(false);
 			_dragFeature.activate();
 			_edit.setText("ready");
 		}else{
-			_addressBox.setReadOnly(true);
+			//_addressBox.setReadOnly(true);
 			_dragFeature.deactivate();
 			_edit.setText("edit");
 		}

@@ -103,6 +103,11 @@
 		<when-property-is name="formfactor" value="desktop"/>
 	</replace-with>
 	
+	<!-- MorphWidget -->
+	<replace-with
+		class="org.tagaprice.client.generics.widgets.desktopView.MorphWidget">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IMorphWidget" />
+	</replace-with>
 	
 	
 	
