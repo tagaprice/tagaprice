@@ -121,10 +121,17 @@
 	</replace-with>
 	
 	
+	<!-- CategorySelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.CategorySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.ICategorySelecter" />
+	</replace-with>
 	
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICategorySelecter" />
+		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
+	
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IQuantitySelecter" />

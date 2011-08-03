@@ -19,4 +19,8 @@ public interface ICategorySelecter extends IsWidget {
 
 	public Category getCategory();
 
+	boolean isReadOnly();
+
+	void setReadOnly(boolean read);
+
 }

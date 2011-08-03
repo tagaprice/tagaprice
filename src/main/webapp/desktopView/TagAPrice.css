@@ -405,3 +405,22 @@ input.morphWidget{
     padding: 3px;
     cursor: pointer;
 }
+
+.categorySelecter{
+}
+
+.categorySelecter .arrow{
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.categorySelecter .text{
+    /*cursor: pointer;*/
+}
+
+.categorySelecter .arrow.edit{
+    padding-right: 2px;
+    padding-left: 2px;
+    border: solid 1px #bfd255;
+    cursor: pointer;
+}

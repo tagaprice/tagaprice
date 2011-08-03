@@ -261,6 +261,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_brenn.setReadOnly(_readonly);
 		_unit.setReadOnly(_readonly);
 		_brennUnit.setReadOnly(_readonly);
+		_category.setReadOnly(_readonly);
 	}
 
 }

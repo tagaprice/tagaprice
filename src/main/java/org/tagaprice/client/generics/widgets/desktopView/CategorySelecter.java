@@ -1,4 +1,4 @@
-package org.tagaprice.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.desktopView;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -28,13 +29,16 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
 	private HorizontalPanel _hoPa = new HorizontalPanel();
+	private boolean _readonly = true;
 
 
 	public CategorySelecter() {
+		_hoPa.setStyleName("categorySelecter");
 		initWidget(_hoPa);
 
-
-		_hoPa.add(new SimpleCategorySelecter(null));
+		SimpleCategorySelecter c = new SimpleCategorySelecter(null);
+		c.setReadOnly(_readonly);
+		_hoPa.add(c);
 	}
 
 	@Override
@@ -46,13 +50,17 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 			Category newCat = category;
 
 			while(newCat!=null){
-				_hoPa.insert(new SimpleCategorySelecter(newCat), 0);
+				SimpleCategorySelecter c = new SimpleCategorySelecter(newCat);
+				c.setReadOnly(_readonly);
+				_hoPa.insert(c, 0);
 				newCat = newCat.getParent();
 			}
 
 
 		}
-		_hoPa.insert(new SimpleCategorySelecter(null), 0);
+		SimpleCategorySelecter c = new SimpleCategorySelecter(null);
+		c.setReadOnly(_readonly);
+		_hoPa.insert(c, 0);
 	}
 
 	@Override
@@ -62,16 +70,35 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 		return null;
 	}
+	
+	@Override
+	public boolean isReadOnly() {
+		return _readonly;
+	}
+	
+	@Override
+	public void setReadOnly(boolean read) {
+		if(read){
+			_readonly=true;
+		}else{
+			_readonly=false;
+		}
+		
+		for(int i=0;i<_hoPa.getWidgetCount();i++){
+			((SimpleCategorySelecter)_hoPa.getWidget(i)).setReadOnly(_readonly);
+		}
+	}
 
 
 	class SimpleCategorySelecter extends Composite{
 
 
 		private HorizontalPanel hoPa1 = new HorizontalPanel();
-		private Button arrow = new Button("->");
+		private Image arrow = new Image("desktopView/arrowBlackRight.png");
 		private Label text = new Label("");
-		Category _myCat = null;
+		private Category _myCat = null;
 		private PopupPanel showCats = new PopupPanel(true);
+		private boolean _readonly = true;
 
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
@@ -83,6 +110,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 				text.setText(_myCat.getTitle());
 			}
 
+			arrow.setStyleName("arrow");
+			text.setStyleName("text");
+			showCats.setStyleName("popBackground");
+			
 			hoPa1.add(text);
 			hoPa1.add(arrow);
 			initWidget(hoPa1);
@@ -92,48 +123,49 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 				@Override
 				public void onClick(ClickEvent arg0) {
-					showCats.setWidget(new Label("loading..."));
-					showCats.showRelativeTo(arrow);
-
-					String id=null;
-
-
-
-
-					if(_myCat!=null)
-						id=_myCat.getId();
-
-					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
-					_categoryServiceAsync.getCategoryChildren(id, new AsyncCallback<List<Category>>() {
-
-
-						@Override
-						public void onSuccess(List<Category> results) {
-							VerticalPanel vePa = new VerticalPanel();
-
-							for(final Category c: results){
-								Label catText = new Label(c.getTitle());
-								vePa.add(catText);
-
-								catText.addClickHandler(new ClickHandler() {
-
-									@Override
-									public void onClick(ClickEvent arg0) {
-										setCategory(c);
-
-									}
-								});
+					
+					if(!_readonly){
+					
+						showCats.setWidget(new Label("loading..."));
+						showCats.showRelativeTo(arrow);
+	
+						String id=null;
+	
+						if(_myCat!=null)
+							id=_myCat.getId();
+	
+						Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
+						_categoryServiceAsync.getCategoryChildren(id, new AsyncCallback<List<Category>>() {
+	
+	
+							@Override
+							public void onSuccess(List<Category> results) {
+								VerticalPanel vePa = new VerticalPanel();
+	
+								for(final Category c: results){
+									Label catText = new Label(c.getTitle());
+									vePa.add(catText);
+	
+									catText.addClickHandler(new ClickHandler() {
+	
+										@Override
+										public void onClick(ClickEvent arg0) {
+											setCategory(c);
+											showCats.hide();
+										}
+									});
+								}
+								showCats.setWidget(vePa);
+								showCats.showRelativeTo(arrow);
 							}
-							showCats.setWidget(vePa);
-							showCats.showRelativeTo(arrow);
-						}
-
-						@Override
-						public void onFailure(Throwable e) {
-							Log.error("getCategoryProblem: "+e);
-						}
-					});
-
+	
+							@Override
+							public void onFailure(Throwable e) {
+								Log.error("getCategoryProblem: "+e);
+							}
+						});
+	
+					}
 				}
 			});
 
@@ -142,18 +174,16 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		public Category getCategory(){
 			return _myCat;
 		}
-	}
-
-
-	@Override
-	public boolean isReadOnly() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setReadOnly(boolean read) {
-		// TODO Auto-generated method stub
+		
+		public void setReadOnly(boolean read){
+			if(read){
+				_readonly=true;
+				arrow.setStyleName("arrow");
+			}else{
+				_readonly=false;
+				arrow.setStyleName("arrow edit");
+			}
+		}
 		
 	}
 }
