@@ -192,6 +192,18 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	}
 
+	@Override
+	public void setReadOnly(boolean read) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isReadOnly() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 
 

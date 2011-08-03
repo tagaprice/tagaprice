@@ -24,12 +24,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {
@@ -42,14 +40,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private Map _osmMap;
 	private Vector _layer;
 	private LonLat _lonLat = new LonLat(16.37692,48.21426);
-	private Label _addressBox = new Label();
+	private MorphWidget _addressBox = new MorphWidget();
 	private VectorFeature _pointFeature;
-	private Point _point = new Point(_lonLat.lon(), _lonLat.lat());
 	private PopupPanel _addressListPop = new PopupPanel(true);
 	private VerticalPanel _addressListPanel = new VerticalPanel();
-	private Button _edit = new Button("Edit");
 	private DragFeature _dragFeature;
-	private boolean _editAbel=false;
+	private boolean _readonly = true;
 	private Grid _addressGrid = new Grid(1, 2);
 
 	public AddressSelecter() {
@@ -63,6 +59,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		osmLayler.setIsBaseLayer(true);
 		_osmMap = _osmWidget.getMap();
 		_osmMap.addLayer(osmLayler);
+		
+		_osmMap.zoomTo(16);
 		
 		
 		_vePa1.add(_osmWidget);
@@ -86,16 +84,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		
 		
 		
-		//Add edit button
-		_vePa1.add(_edit);
-		//_addressBox.setReadOnly(true);
-		_edit.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				setEditAble(!_editAbel);				
-			}
-		});
 	}
 	
 
@@ -107,7 +95,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 		//set Pos
 		_lonLat.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(_lonLat, 16);
+		_osmMap.setCenter(_lonLat);
 		
 		
 		//Create Moveable marker
@@ -190,9 +178,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		
 		_layer.addFeature(_pointFeature);
 		
-		setEditAble(_editAbel);
+		setReadOnly(_readonly);
 
-		_addressBox.setText(address.getAddress());
+		_addressBox.setValue(address.getAddress());
 		
 	}
 
@@ -200,20 +188,28 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	public Address getAddress() {
 		LonLat l = _osmMap.getCenter();
 		l.transform("EPSG:900913","EPSG:4326");
-		return new Address(_addressBox.getText(), l.lat(), l.lon());
+		return new Address(_addressBox.getValue(), l.lat(), l.lon());
 	}
 	
-	public void setEditAble(boolean edit){
-		_editAbel=edit;
-		if(edit){
-			//_addressBox.setReadOnly(false);
-			_dragFeature.activate();
-			_edit.setText("ready");
-		}else{
-			//_addressBox.setReadOnly(true);
+
+	@Override
+	public void setReadOnly(boolean read) {
+		if(read){
+			_readonly=true;
 			_dragFeature.deactivate();
-			_edit.setText("edit");
+		}else{
+			_readonly=false;
+			_dragFeature.activate();
 		}
+		
+		_addressBox.setReadOnly(_readonly);
+		
+	}
+
+
+	@Override
+	public boolean isReadOnly() {
+		return _readonly;
 	}
 
 }

@@ -28,5 +28,15 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		return addressSelecter.getAddress();
 	}
 
+	@Override
+	public void setReadOnly(boolean read) {
+		addressSelecter.setReadOnly(read);
+	}
+
+	@Override
+	public boolean isReadOnly() {
+		return addressSelecter.isReadOnly();
+	}
+
 
 }

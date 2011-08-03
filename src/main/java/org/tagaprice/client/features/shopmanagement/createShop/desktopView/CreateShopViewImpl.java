@@ -2,11 +2,11 @@ package org.tagaprice.client.features.shopmanagement.createShop.desktopView;
 
 import java.util.Date;
 import java.util.List;
-
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView.Presenter;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
+import org.tagaprice.client.generics.widgets.MorphWidget;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
@@ -14,10 +14,13 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-
+import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -28,12 +31,17 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _shopFrame = new StdFrame();
 	private StdFrame _statisticFrame = new StdFrame();
-	private TextBox _shopTitle = new TextBox();
+	private HorizontalPanel _shopHeadPanel = new HorizontalPanel();
+	private MorphWidget _shopTitle = new MorphWidget();
 	private VerticalPanel _shopBodyPanel = new VerticalPanel();
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private Label _statisticHead = new Label("Statistic");
 	private AddressSelecter _address = new AddressSelecter();
+	private boolean _readonly = true;
+	
+	//This is a mock. We must replace it later
+	private Image _editImage = new Image("desktopView/187-pencil_n.png");
 	
 	public CreateShopViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -41,9 +49,25 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		//Shop
 		_hoPa1.add(_shopFrame);
 		
+		
+		//Edit button
+		_editImage.setSize("18px", "18px");
+		_shopHeadPanel.add(_editImage);
+		_editImage.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setReadOnly(!_readonly);
+			}
+		});
+		
 		//shop name
-		_shopTitle.setText("New Shop");
-		_shopFrame.setHeader(_shopTitle);
+		_shopTitle.setValue("New Shop");
+		_shopTitle.config(Type.STRING, true, "Billa - Blumenauergasse 1B", false, true);
+		_shopHeadPanel.add(_shopTitle);
+		
+		_shopHeadPanel.setWidth("100%");
+		_shopFrame.setHeader(_shopHeadPanel);
 		
 		//Shop Size
 		_hoPa1.setCellWidth(_shopFrame, "300px");
@@ -136,7 +160,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	
 	@Override
 	public String getTitle() {
-		return _shopTitle.getText();
+		return _shopTitle.getValue();
 	}
 
 	@Override
@@ -174,12 +198,18 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setTitle(String title) {
-		_shopTitle.setText(title);		
+		_shopTitle.setValue(title);		
 	}
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
 		_statistic.setStatisticResults(results);		
+	}
+	
+	private void setReadOnly(boolean read){
+		_readonly=read;
+		_shopTitle.setReadOnly(_readonly);
+		_address.setReadOnly(_readonly);
 	}
 
 }

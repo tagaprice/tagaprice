@@ -18,4 +18,8 @@ public interface IAddressSelecter extends IsWidget {
 	 * @return the selected {@link IAddress}
 	 */
 	public Address getAddress();
+	
+	public void setReadOnly(boolean read);
+	
+	public boolean isReadOnly();
 }
