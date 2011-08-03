@@ -110,6 +110,17 @@
 	</replace-with>
 	
 	
+	<!-- UnitSelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.UnitSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IUnitSelecter" />
+	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.UnitSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IUnitSelecter" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
+	
+	
 	
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.CategorySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICategorySelecter" />
@@ -123,9 +134,7 @@
 		<when-type-is class="org.tagaprice.client.generics.widgets.IShopSelecter" />
 	</replace-with>
 
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.UnitSelecter">
-		<when-type-is class="org.tagaprice.client.generics.widgets.IUnitSelecter" />
-	</replace-with>
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" />

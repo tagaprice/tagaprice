@@ -35,5 +35,11 @@ public interface IUnitSelecter extends IsWidget {
 	 */
 	void addUnitChangedHandler(IUnitChangedHandler unitChangedHandler);
 
+	
+	public void setReadOnly(boolean read);
+	
+	public boolean isReadOnly();
+	
+	public void config(boolean isHeadline);
 
 }

@@ -3,9 +3,7 @@ package org.tagaprice.client.features.productmanagement.createProduct.desktopVie
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
-import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView.Presenter;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
@@ -21,7 +19,6 @@ import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -30,7 +27,6 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateProductViewImpl extends Composite implements ICreateProductView {
@@ -52,6 +48,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	//This is a mock. We must replace it later
 	private Image _editImage = new Image("desktopView/187-pencil_n.png");
 	MorphWidget _brenn = new MorphWidget();
+	UnitSelecter _brennUnit = new UnitSelecter();
 	
 	public CreateProductViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -72,12 +69,16 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		
 		
 		//product Name
-		_productTitle.configMorph(Type.STRING, true, "Coca Cola Light", false, true);
+		_productTitle.config(Type.STRING, true, "Coca Cola Light", false, true);
 		_productTitle.setValue("New Product");
 		_productHeadPanel.add(_productTitle);
 		_productHeadPanel.setCellWidth(_productTitle, "100%");
 		
+		// [
+		//_productHeadPanel.add(new Label("["));
+		
 		//product unit
+		_unit.config(true);
 		_productHeadPanel.add(_unit);
 		_productHeadPanel.setWidth("100%");
 		_productFrame.setHeader(_productHeadPanel);
@@ -91,6 +92,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 			}
 		});
+		//_productHeadPanel.add(new Label("]"));
 		
 		//product Body
 		_productBodyPanel.setWidth("100%");
@@ -116,6 +118,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			Grid _mockProperites = new Grid(6,2);
 			_mockProperites.setStyleName("propertyGrid");
 			_mockProperites.setWidth("100%");
+			_mockProperites.getCellFormatter().setWidth(0, 0, "100%");
 			_mockProperites.setWidget(0, 0, new Label("Brennwert"));
 			_mockProperites.setWidget(1, 0, new Label("Eiweiss"));
 			_mockProperites.setWidget(2, 0, new Label("Kohlenhydrate"));
@@ -123,10 +126,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			_mockProperites.setWidget(4, 0, new Label("Ballaststoffe"));
 			_mockProperites.setWidget(5, 0, new Label("Natrium"));
 			
-			_brenn.configMorph(Type.STRING, false, "", true, false);
+			
+			_brennUnit.config(false);
+			_brenn.config(Type.STRING, false, "", true, false);
 			_brenn.setValue("1490kJ");
 			_mockProperites.setWidget(0, 1, _brenn);
-			_mockProperites.setWidget(1, 1, new Label("12,4g"));
+			_mockProperites.setWidget(1, 1, _brennUnit);
 			_mockProperites.setWidget(2, 1, new Label("72,2g"));
 			_mockProperites.setWidget(3, 1, new Label("1,4g"));
 			_mockProperites.setWidget(4, 1, new Label("3,6g"));
@@ -254,6 +259,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_readonly=read;
 		_productTitle.setReadOnly(_readonly);
 		_brenn.setReadOnly(_readonly);
+		_unit.setReadOnly(_readonly);
+		_brennUnit.setReadOnly(_readonly);
 	}
 
 }

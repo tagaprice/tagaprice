@@ -38,4 +38,19 @@ public class UnitSelecter extends Composite implements IUnitSelecter {
 		unitSelecter.addUnitChangedHandler(unitChangedHandler);
 	}
 
+	@Override
+	public void setReadOnly(boolean read) {
+		unitSelecter.setReadOnly(read);
+	}
+
+	@Override
+	public boolean isReadOnly() {
+		return unitSelecter.isReadOnly();
+	}
+
+	@Override
+	public void config(boolean isHeadline) {
+		unitSelecter.config(isHeadline);
+	}
+
 }

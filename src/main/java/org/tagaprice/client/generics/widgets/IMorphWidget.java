@@ -20,7 +20,7 @@ public interface IMorphWidget extends IsWidget {
 	 * 
 	 * Config the widget
 	 */
-	public void configMorph(Type type, boolean notNull, String exampleText, boolean alignRight, boolean isHeadline);
+	public void config(Type type, boolean notNull, String exampleText, boolean alignRight, boolean isHeadline);
 	
 	/**
 	 * Set morphwidget readonly

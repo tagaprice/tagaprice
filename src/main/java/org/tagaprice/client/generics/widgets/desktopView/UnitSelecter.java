@@ -1,13 +1,11 @@
-package org.tagaprice.client.generics.widgets.devView;
+package org.tagaprice.client.generics.widgets.desktopView;
 
 import java.util.List;
-
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
 import org.tagaprice.client.generics.widgets.IUnitSelecter;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitService;
 import org.tagaprice.shared.rpc.unitmanagement.IUnitServiceAsync;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -15,7 +13,6 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -24,29 +21,34 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UnitSelecter extends Composite implements IUnitSelecter{
 
-	private Button _selectButton = new Button("^");
+	private Label _selectButton = new Label("St");
 	private PopupPanel _showUnits = new PopupPanel(true);
-	private VerticalPanel _unitList = new VerticalPanel();
 	private Unit _cUnit = new Unit();
 	private ListBox _listBoxUnit = new ListBox();
 	private IUnitChangedHandler _unitChangedHandler;
 	private IUnitServiceAsync _unitServiceAsync = GWT.create(IUnitService.class);
 	private String _allowId = null;
 
-
+	private boolean _readonly = true;
+	private boolean _isHeadline = false;
+	
 	public UnitSelecter() {
-		//initWidget(_listBoxUnit);
+		
+		_selectButton.setStyleName("unitSelecter");
+		_showUnits.setStyleName("popBackground");
+		
 		initWidget(_selectButton);
-		allowedUnit(null);
+		setRelatedUnit(null);
 
 		_selectButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				_showUnits.setWidget(new Label("Loading..."));
-				_showUnits.showRelativeTo(_selectButton);
-				showFactorizedUnits();
-
+				if(!_readonly){
+					_showUnits.setWidget(new Label("Loading..."));
+					_showUnits.showRelativeTo(_selectButton);
+					showFactorizedUnits();
+				}
 			}
 		});
 
@@ -77,7 +79,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 	public void setUnit(Unit unit) {
 		if(unit!=null){
 			Log.debug("setUnit: "+unit.getTitle());
-			_selectButton.setText(unit.getTitle()+"^");
+			_selectButton.setText(unit.getTitle());
 			_cUnit=unit;
 			int pos = 0;
 
@@ -90,7 +92,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 			_listBoxUnit.setSelectedIndex(pos);
 		}else{
 			_cUnit=new Unit();
-			_selectButton.setText("^");
+			_selectButton.setText("St");
 		}
 	}
 
@@ -100,15 +102,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 		//return Unit.valueOf(_listBoxUnit.getItemText(_listBoxUnit.getSelectedIndex()));
 	}
 
-
-	/**
-	 * This method will set the display part to allowed {@link Unit}s
-	 * @param unit allowed unit. If null, all are displayed.
-	 */
-	private void allowedUnit(Unit unit){
-
-
-	}
 
 	@Override
 	public void addUnitChangedHandler(IUnitChangedHandler unitChangedHandler) {
@@ -136,6 +129,7 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 						@Override
 						public void onClick(ClickEvent arg0) {
 							setUnit(u);
+							_showUnits.hide();
 							if(_unitChangedHandler!=null)_unitChangedHandler.onChange(getUnit());
 						}
 					});
@@ -157,19 +151,30 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 	@Override
 	public void setReadOnly(boolean read) {
-		// TODO Auto-generated method stub
+		if(read){
+			_readonly=true;
+			
+			if(_isHeadline)_selectButton.setStyleName("unitSelecter headline");
+			else _selectButton.setStyleName("unitSelecter");
+			
+		}else{
+			_readonly=false;
+			if(_isHeadline)_selectButton.setStyleName("unitSelecter edit headline");
+			else _selectButton.setStyleName("unitSelecter edit");
+		}
 		
 	}
 
 	@Override
 	public boolean isReadOnly() {
-		// TODO Auto-generated method stub
-		return false;
+		return _readonly;
 	}
 
 	@Override
 	public void config(boolean isHeadline) {
-		// TODO Auto-generated method stub
+		_isHeadline=isHeadline;
+
 		
+		setReadOnly(_readonly);
 	}
 }
