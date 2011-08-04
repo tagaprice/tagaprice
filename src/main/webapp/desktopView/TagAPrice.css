@@ -48,6 +48,12 @@ a:HOVER{
     border-top-width: 0px;
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
     box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+
+    
+    background-image:url('06-magnify.png');
+    background-repeat:no-repeat;
+    background-position:left center;
+    padding-left: 28px;
 }
 
 .header input:HOVER{
@@ -423,4 +429,21 @@ input.morphWidget{
     padding-left: 2px;
     border: solid 1px #bfd255;
     cursor: pointer;
+}
+
+.receiptSearchBox{
+    font-weight: bold; 
+    width: 500px;
+    margin: 0px;
+    padding: 5px;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border: solid 2px #bfd255;
+
+    background-image:url('06-magnify.png');
+    background-repeat:no-repeat;
+    background-position:left center;
+    padding-left: 28px;
+    
 }
