@@ -447,3 +447,23 @@ input.morphWidget{
     padding-left: 28px;
     
 }
+
+.previewWidget{
+    border: solid 2px #ebe9e1;
+}
+
+.previewWidget:hover{
+    box-shadow: 0px 10px 8px rgba(0,0,0,0.5);
+}
+
+.previewWidget .logo{
+    width: 35px;
+    margin: 2px;
+    background-color: #ebe9e1;
+}
+
+.previewWidget .headline{
+    font-family: times;
+    font-size: 13px;
+    font-weight: bold;
+}

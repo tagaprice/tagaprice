@@ -15,6 +15,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
+import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Quantity;
@@ -151,7 +152,10 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 	
 	private void drawShopSelected(){
-		_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
+		ShopPreview _preview = new ShopPreview(_currShop);
+		_preview.setWidth("500px");
+		_shopPanel.setWidget(_preview);
+		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
 	private void drawShopSearch(){
