@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public abstract class APreviewWidget extends Composite {
 
-	private HorizontalPanel _hoPa1 = new HorizontalPanel();
+	protected HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private VerticalPanel _vePaTitleRate = new VerticalPanel();
 	private Image _rating = new Image("desktopView/rating3.png");
 	private Label _title = new Label();

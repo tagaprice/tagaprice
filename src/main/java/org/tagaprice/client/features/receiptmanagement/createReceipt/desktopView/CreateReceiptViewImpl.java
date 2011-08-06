@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -15,6 +14,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
+import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
@@ -33,6 +33,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -146,15 +147,31 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		_productSearchPopup.setStyleName("popBackground");
+		_productSearchResultPanel.setWidth("500px");
 		_productSearchPopup.setWidget(_productSearchResultPanel);
 		
 		initWidget(_frame);
 	}
 	
 	private void drawShopSelected(){
+		HorizontalPanel dHoPa = new HorizontalPanel();
+		dHoPa.setWidth("100%");
 		ShopPreview _preview = new ShopPreview(_currShop);
 		_preview.setWidth("500px");
-		_shopPanel.setWidget(_preview);
+		dHoPa.add(_preview);
+		
+		//Del button
+		Button delShop = new Button("-", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setShop(null);				
+			}
+		});
+		dHoPa.add(delShop);
+		
+		
+		_shopPanel.setWidget(dHoPa);
 		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
@@ -266,9 +283,14 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_shopSearchResultPanel.clear();
 		
 		for(final Shop s:shopResults){
-
-
+			HorizontalPanel takeShop = new HorizontalPanel();
+			takeShop.setWidth("100%");
+			
+			
 			Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
+			ShopPreview foundShops = new ShopPreview(s);
+			takeShop.add(foundShops);
+			/*
 			foundAddress.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -277,7 +299,19 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				}
 			});
 			_shopSearchResultPanel.add(foundAddress);
-
+			*/
+			
+			Button addAsShop = new Button("+");
+			addAsShop.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setShop(s);					
+				}
+			});
+			takeShop.add(addAsShop);
+			takeShop.setCellWidth(addAsShop, "30px");
+			/*
 			Label newAddress = new Label(s.getTitle()+" (Add Address)");
 			newAddress.addClickHandler(new ClickHandler() {
 
@@ -290,8 +324,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			});
 
 			_shopSearchResultPanel.add(newAddress);
-
-
+			 */
+			
+			_shopSearchResultPanel.add(takeShop);
 
 
 
@@ -324,12 +359,30 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		for(final Product p:productResults){
 			Log.debug("shopProductResult: "+p.getTitle());
 			for(final Package pa: p.getPackages()){
-				//Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
-
+				HorizontalPanel hoPaFoundPackage = new HorizontalPanel();
+				hoPaFoundPackage.setWidth("100%");
+				
+				PackagePreview foundProduct = new PackagePreview(pa.getProduct(), pa);
+				hoPaFoundPackage.add(foundProduct);
+				
+				
+				//add button
+				Button addButton = new Button("+",new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), pa));
+						_productSearchPopup.hide();
+						_productSearchText.setText("");						
+					}
+				});
+				hoPaFoundPackage.add(addButton);
+				hoPaFoundPackage.setCellWidth(addButton, "25px");
+				_productSearchResultPanel.add(hoPaFoundPackage);
+				
+				/*
 				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
-
 				_productSearchResultPanel.add(clickProduct);
-
 				clickProduct.addClickHandler(new ClickHandler() {
 
 					@Override
@@ -339,7 +392,34 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 						_productSearchText.setText("");
 					}
 				});
+				*/
 			}
+			
+			HorizontalPanel hoPaFoundPackage = new HorizontalPanel();
+			hoPaFoundPackage.setWidth("100%");
+			
+			PackagePreview foundProduct = new PackagePreview(p, null);
+			hoPaFoundPackage.add(foundProduct);
+			
+			
+			//add button
+			Button addButton = new Button("+",new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
+					np.setProduct(p);
+
+					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
+					_productSearchPopup.hide();
+					_productSearchText.setText("");						
+				}
+			});
+			hoPaFoundPackage.add(addButton);
+			hoPaFoundPackage.setCellWidth(addButton, "25px");
+			_productSearchResultPanel.add(hoPaFoundPackage);
+			
+			/*
 			//Label newPackage = new Label(p.getTitle()+" - x "+p.getUnit().getTitle());
 			Label newPackage = new Label(p.getTitle()+" - x ");
 			_productSearchResultPanel.add(newPackage);
@@ -355,6 +435,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_productSearchText.setText("");
 				}
 			});
+			*/
 		}
 
 		//new shop

@@ -458,6 +458,7 @@ input.morphWidget{
 
 .previewWidget .logo{
     width: 35px;
+    height: 35px;
     margin: 2px;
     background-color: #ebe9e1;
 }
