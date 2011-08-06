@@ -141,7 +141,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			VerticalPanel vePa = new VerticalPanel();
 
 			BigDecimal cheapest = null;
-			Currency currency = Currency.dkk;;
+			Currency currency = Currency.euro;
 			Unit unit = new Unit();
 			for(StatisticResult sr: sortedByProductList.get(key)){
 				vePa.add(new Label(" - "+
@@ -195,7 +195,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			VerticalPanel vePa = new VerticalPanel();
 
 			BigDecimal cheapest = null;
-			Currency currency = Currency.dkk;;
+			Currency currency = Currency.euro;
 			Unit unit = new Unit();
 			for(StatisticResult sr: sortedByShopList.get(key)){
 				vePa.add(new Label(" - "+

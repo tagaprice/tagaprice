@@ -132,6 +132,18 @@
 	</replace-with>
 	
 	
+	<!-- ReceiptEntrySelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.ReceiptEntrySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" />
+	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.ReceiptEntrySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
+	
+	
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IQuantitySelecter" />
@@ -152,9 +164,7 @@
 	</replace-with>
 
 
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.ReceiptEntrySelecter">
-		<when-type-is class="org.tagaprice.client.generics.widgets.IReceiptEntrySelecter" />
-	</replace-with>
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />

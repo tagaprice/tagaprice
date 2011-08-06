@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public abstract class APreviewWidget extends Composite {
 
-	protected HorizontalPanel _hoPa1 = new HorizontalPanel();
+	protected HorizontalPanel _mainHoPa = new HorizontalPanel();
 	private VerticalPanel _vePaTitleRate = new VerticalPanel();
 	private Image _rating = new Image("desktopView/rating3.png");
 	private Label _title = new Label();
@@ -20,12 +20,12 @@ public abstract class APreviewWidget extends Composite {
 	public APreviewWidget(String title, String imgUrl) {
 		
 		//style
-		_hoPa1.setStyleName("previewWidget");
+		_mainHoPa.setStyleName("previewWidget");
 		
 		//Add image
 		//_img.setSize("25px", "25px");
 		_img.setStyleName("logo");
-		_hoPa1.add(_img);
+		_mainHoPa.add(_img);
 		
 		//title and rating
 		_title.setText(title);
@@ -33,10 +33,10 @@ public abstract class APreviewWidget extends Composite {
 		_vePaTitleRate.setWidth("100%");
 		_vePaTitleRate.add(_title);
 		_vePaTitleRate.add(_rating);
-		_hoPa1.add(_vePaTitleRate);
-		_hoPa1.setCellWidth(_vePaTitleRate, "100%");
+		_mainHoPa.add(_vePaTitleRate);
+		_mainHoPa.setCellWidth(_vePaTitleRate, "100%");
 		
-		_hoPa1.setWidth("100%");
-		initWidget(_hoPa1);
+		_mainHoPa.setWidth("100%");
+		initWidget(_mainHoPa);
 	}
 }

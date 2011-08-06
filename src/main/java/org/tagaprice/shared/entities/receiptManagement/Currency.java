@@ -4,9 +4,5 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 //TODO create exchange course
 public enum Currency implements IsSerializable {
-
-	euro,
-
-	//Danish krone
-	dkk
+	euro
 }

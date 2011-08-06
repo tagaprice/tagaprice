@@ -136,7 +136,7 @@ public class MockDaoFactory implements IDaoFactory {
 			Receipt receipt = new Receipt(m_testUser, "First Receipt", new Date(), is);
 
 			//Receipt Entry
-			ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15.0"), Currency.dkk), bergkasese1);
+			ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15.0"), Currency.euro), bergkasese1);
 			receipt.addReceiptEntries(recEnt);
 			receipt=m_receiptDAO.create(receipt);
 		}
@@ -146,8 +146,8 @@ public class MockDaoFactory implements IDaoFactory {
 			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is3);
 
 			//Receipt Entry
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("16.0"), Currency.dkk), bergkasese1));
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("17.0"), Currency.dkk), bergkasese2));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("16.0"), Currency.euro), bergkasese1));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("17.0"), Currency.euro), bergkasese2));
 			receipt=m_receiptDAO.create(receipt);
 		}
 
@@ -156,8 +156,8 @@ public class MockDaoFactory implements IDaoFactory {
 			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is2);
 
 			//Receipt Entry
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("13.0"), Currency.dkk), bergkasese1));
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("14.0"), Currency.dkk), bergkasese2));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("13.0"), Currency.euro), bergkasese1));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("14.0"), Currency.euro), bergkasese2));
 			receipt=m_receiptDAO.create(receipt);
 		}
 
