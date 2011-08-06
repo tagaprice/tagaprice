@@ -143,6 +143,18 @@
 	</replace-with>
 	
 	
+	<!-- CurrencySelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.CurrencySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />
+	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
+	
+	
+	
 	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
@@ -166,9 +178,7 @@
 
 	
 
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.CurrencySelecter">
-		<when-type-is class="org.tagaprice.client.generics.widgets.ICurrencySelecter" />
-	</replace-with>
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.CountrySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICountrySelecter" />
