@@ -111,7 +111,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_cancelButton.setStyleName("stdButton cancel");
 		_statisticHeadPanel.add(_cancelButton);
 		_statisticHeadPanel.setCellHorizontalAlignment(_cancelButton, HorizontalPanel.ALIGN_RIGHT);
-		_cancelButton.setVisible(_readonly);
+		_cancelButton.setVisible(!_readonly);
 		_cancelButton.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -148,7 +148,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				//setReadOnly(false);
 			}
 		});
-		_editButton.setVisible(false);
+		_editButton.setVisible(!_readonly);
+		
 		
 		HorizontalPanel justDoRight = new HorizontalPanel();
 		justDoRight.setWidth("100%");
@@ -286,8 +287,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public Shop getShop() {
-		// TODO Auto-generated method stub
-		return null;
+		return _currShop;
 	}
 
 	@Override

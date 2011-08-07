@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.tagaprice.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
@@ -47,7 +48,12 @@ public class ReceiptEntryPreview extends PackagePreview {
 			super.setReadOnly(_readonly);
 		}
 		
+	}
+	
+	public ReceiptEntry getReceiptEntry(){
+		_receiptEntry.setPrice(new Price(new BigDecimal(_price.getValue()), _currency.getCurrency()));
+		_receiptEntry.getPackage().setQuantity(getPackage().getQuantity());
 		
-		
+		return _receiptEntry;
 	}
 }

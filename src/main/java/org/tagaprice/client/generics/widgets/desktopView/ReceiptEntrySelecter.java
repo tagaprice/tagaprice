@@ -53,8 +53,13 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 
 	@Override
 	public ArrayList<ReceiptEntry> getReceiptEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReceiptEntry> returnList = new ArrayList<ReceiptEntry> ();
+		
+		for(int i=0;i<_vePa1.getWidgetCount();i++){
+			returnList.add(((ReceiptEntryPreview)((HorizontalPanel)_vePa1.getWidget(i)).getWidget(0)).getReceiptEntry());
+		}
+		
+		return returnList;
 	}
 	
 	
