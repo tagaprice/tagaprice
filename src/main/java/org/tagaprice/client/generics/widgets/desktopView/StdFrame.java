@@ -2,8 +2,15 @@ package org.tagaprice.client.generics.widgets.desktopView;
 
 import org.tagaprice.client.generics.widgets.IStdFrame;
 
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -21,6 +28,7 @@ public class StdFrame extends Composite implements IStdFrame{
 		setStyleName("stdframe");
 		setHeadStyleName("head");
 		setBodyStyleName("body");
+		
 	}
 	
 	public void setHeader(IsWidget header){

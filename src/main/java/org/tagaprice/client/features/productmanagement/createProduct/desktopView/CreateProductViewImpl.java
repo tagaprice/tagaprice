@@ -36,6 +36,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private StdFrame _statisticFrame = new StdFrame();
 	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
+	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
 	private Label _statisticHead = new Label("Statistic");
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private UnitSelecter _unit = new UnitSelecter();
@@ -44,6 +45,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private PackageSelecter _packages = new PackageSelecter();
 	private boolean _readonly = true;
+	
+
+	final Button _cancelButton = new Button("cancel");
+	final Button _saveButton = new Button("save");
+	final Button _editButton = new Button("edit");
 	
 	//This is a mock. We must replace it later
 	private Image _editImage = new Image("desktopView/187-pencil_n.png");
@@ -56,16 +62,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Product
 		_hoPa1.add(_productFrame);
 		
-		//Edit button
-		_editImage.setSize("18px", "18px");
-		_productHeadPanel.add(_editImage);
-		_editImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				setReadOnly(!_readonly);
-			}
-		});
+		
 		
 		
 		//product Name
@@ -161,23 +158,59 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		
 		
 		
-		//Save button
-		//TODO show save only if something has changed
-		//TODO create abort button
-		Button _saveButton = new Button("save");
+		//Save Buttons
+		_hoPa1.add(_statisticFrame);
+		
+		
+		//cancel button
+		_cancelButton.setStyleName("stdButton cancel");
+		_statisticHeadPanel.add(_cancelButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_cancelButton, HorizontalPanel.ALIGN_RIGHT);
+		_cancelButton.setVisible(!_readonly);
+		_cancelButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				//TODO implement cancel
+				setReadOnly(true);
+			}
+		});
+		
+		
+		//saveButton
+		_saveButton.setStyleName("stdButton save");
+		_statisticHeadPanel.add(_saveButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_saveButton, HorizontalPanel.ALIGN_RIGHT);
+		_saveButton.setVisible(!_readonly);
 		_saveButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				_presenter.onSaveEvent();				
+				_presenter.onSaveEvent();		
 			}
 		});
-		_productBodyPanel.add(_saveButton);
 		
 		
-		//Statistic
-		_hoPa1.add(_statisticFrame);
-		_statisticFrame.setHeader(_statisticHead);
+		//editButton
+		_editButton.setStyleName("stdButton");
+		//_statisticHeadPanel.setWidth("100%");
+		_editImage.setSize("18px", "18px");
+		_statisticHeadPanel.add(_editButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_editButton, HorizontalPanel.ALIGN_RIGHT);
+		_editButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setReadOnly(false);
+			}
+		});
+		
+		HorizontalPanel justDoRight = new HorizontalPanel();
+		justDoRight.setWidth("100%");
+		justDoRight.add(_statisticHeadPanel);
+		justDoRight.setCellHorizontalAlignment(_statisticHeadPanel, HorizontalPanel.ALIGN_RIGHT);
+		_statisticFrame.setHeader(justDoRight);
+		
 		
 		//Statistic Results
 		_statisticBodyPanel.setWidth("100%");
@@ -262,6 +295,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_unit.setReadOnly(_readonly);
 		_brennUnit.setReadOnly(_readonly);
 		_category.setReadOnly(_readonly);
+		
+
+		_cancelButton.setVisible(!_readonly);
+		_saveButton.setVisible(!_readonly);
+		_editButton.setVisible(_readonly);
 	}
 
 }

@@ -1,15 +1,28 @@
 package org.tagaprice.client.desktopView;
 
+import java.util.List;
+
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
+import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
+import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -27,14 +40,16 @@ public class UIDesktop implements IUi {
 	private SimplePanel center = new SimplePanel();
 	private HorizontalPanel bottom = new HorizontalPanel();
 	private InfoBox _infoBox = new InfoBox();
-	
 	private TextBox search = new TextBox();
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
-	
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
-
 	private PopupPanel loginPop = new PopupPanel(true);
+	
+	private PopupPanel _searchPopup = new PopupPanel(true);
+	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
+	private VerticalPanel _shopSearchPanel = new VerticalPanel();
+	private VerticalPanel _productSearchPanel = new VerticalPanel();
 
 	private void init(){
 		{
@@ -64,9 +79,32 @@ public class UIDesktop implements IUi {
 		menu.add(nothing);
 		menu.setCellWidth(nothing, "50%");
 		
-		search.setText("Search...");
+		search.setText("");
 		menu.add(search);
 		menu.setCellHorizontalAlignment(search, HorizontalPanel.ALIGN_CENTER);
+		
+		
+		_shopProductSearchPanel.setStyleName("popBackground");
+		_shopProductSearchPanel.setWidth("500px");
+		
+		_productSearchPanel.setWidth("100%");
+		_shopProductSearchPanel.add(_productSearchPanel);
+		_shopSearchPanel.setWidth("100%");
+		_shopProductSearchPanel.add(_shopSearchPanel);
+		
+		_searchPopup.setWidget(_shopProductSearchPanel);
+		
+		//Implement Searching
+		search.addKeyUpHandler(new KeyUpHandler() {
+			
+			@Override
+			public void onKeyUp(KeyUpEvent arg0) {
+				search(search.getText());
+			}
+		});
+		
+		
+		
 		
 		
 		//position
@@ -200,5 +238,64 @@ public class UIDesktop implements IUi {
 	@Override
 	public InfoBox getInfoBox() {
 		return _infoBox;
+	}
+	
+	private void search(String searchCritera){
+		_clientFactory.getSearchService().searchShop(searchCritera, 
+				new BoundingBox(90.0, 90.0, -90.0, -90.0), 
+				new AsyncCallback<List<Shop>>() {
+			
+			@Override
+			public void onSuccess(List<Shop> response) {
+				Log.debug("ShopSearch successfull: count: "+response.size());
+				_shopSearchPanel.clear();
+				
+				for(Shop s:response){
+					_shopSearchPanel.add(new ShopPreview(s));
+				}	
+				
+				
+				_searchPopup.showRelativeTo(search);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				try{
+					throw caught;
+				}catch (DaoException e){
+					Log.warn(e.getMessage());
+				}catch (Throwable e){
+					Log.error(e.getMessage());
+				}				
+			}
+		});
+		
+		_clientFactory.getSearchService().searchProduct(searchCritera, 
+				null, 
+				new AsyncCallback<List<Product>>() {
+					
+					@Override
+					public void onSuccess(List<Product> response) {
+						Log.debug("ShopSearch successfull: count: "+response.size());
+						_productSearchPanel.clear();
+						
+						for(Product pr:response){
+							_productSearchPanel.add(new PackagePreview(pr, null));
+						}
+						
+						_searchPopup.showRelativeTo(search);
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						try{
+							throw caught;
+						}catch (DaoException e){
+							Log.warn(e.getMessage());
+						}catch (Throwable e){
+							Log.error(e.getMessage());
+						}				
+					}
+				});
 	}
 }
