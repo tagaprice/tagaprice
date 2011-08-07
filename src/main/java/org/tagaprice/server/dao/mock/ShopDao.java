@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
 
@@ -14,10 +15,6 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	HashMap<String, String> newestRev = new HashMap<String, String>();
 	Random random = new Random(1654196865);
 
-	@Override
-	public List<Shop> find(String query) {
-		return list();
-	}
 
 	@Override
 	public List<Shop> list() {
@@ -29,5 +26,25 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 
 		return rc;
 	}
+
+	@Override
+	public List<Shop> find(String searchPattern) throws DaoException {
+		ArrayList<Shop> rc = new ArrayList<Shop>();
+		
+		for(Deque<Shop> deque: m_data.values()){
+			Shop shop = deque.peek();
+			
+			if (searchPattern != null
+					&& shop.getTitle().toLowerCase().contains((searchPattern))) {
+				rc.add(shop);
+			} else if (searchPattern == null) {
+				rc.add(shop);
+			}
+		}
+		
+		
+		return rc;
+	}
+
 
 }
