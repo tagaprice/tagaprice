@@ -61,6 +61,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Map _osmMap;
 	private Label _receiptEntriesLabel = new Label("Receiptentries");
 	
+	//edit buttons
+	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
+	private Button _cancelButton = new Button("cancel");
+	private Button _saveButton = new Button("save");
+	private Button _editButton = new Button("edit");
 	
 	//search
 	private TextBox _shopSearchText = new TextBox();
@@ -100,6 +105,57 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		});
 
 		_headPanel.add(_fullPrice);
+		
+		//Add Save button
+		//cancel button
+		_cancelButton.setStyleName("stdButton cancel");
+		_statisticHeadPanel.add(_cancelButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_cancelButton, HorizontalPanel.ALIGN_RIGHT);
+		_cancelButton.setVisible(_readonly);
+		_cancelButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				//TODO implement cancel
+				//setReadOnly(true);
+			}
+		});
+		
+		
+		//saveButton
+		_saveButton.setStyleName("stdButton save");
+		_statisticHeadPanel.add(_saveButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_saveButton, HorizontalPanel.ALIGN_RIGHT);
+		_saveButton.setVisible(_readonly);
+		_saveButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onSaveEvent();		
+			}
+		});
+		
+		
+		//editButton
+		_editButton.setStyleName("stdButton");
+		//_statisticHeadPanel.setWidth("100%");
+		_statisticHeadPanel.add(_editButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_editButton, HorizontalPanel.ALIGN_RIGHT);
+		_editButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				//setReadOnly(false);
+			}
+		});
+		_editButton.setVisible(false);
+		
+		HorizontalPanel justDoRight = new HorizontalPanel();
+		justDoRight.setWidth("100%");
+		justDoRight.add(_statisticHeadPanel);
+		justDoRight.setCellHorizontalAlignment(_statisticHeadPanel, HorizontalPanel.ALIGN_RIGHT);
+		_headPanel.add(justDoRight);
+		
 		_frame.setHeader(_headPanel);
 		
 		
