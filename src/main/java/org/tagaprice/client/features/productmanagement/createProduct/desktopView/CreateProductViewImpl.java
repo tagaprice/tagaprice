@@ -36,8 +36,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private StdFrame _statisticFrame = new StdFrame();
 	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
-	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
-	private Label _statisticHead = new Label("Statistic");
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private UnitSelecter _unit = new UnitSelecter();
 	private VerticalPanel _productBodyPanel = new VerticalPanel();
@@ -46,13 +44,13 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private PackageSelecter _packages = new PackageSelecter();
 	private boolean _readonly = true;
 	
-
-	final Button _cancelButton = new Button("cancel");
-	final Button _saveButton = new Button("save");
-	final Button _editButton = new Button("edit");
+	//edit buttons
+	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
+	private Button _cancelButton = new Button("cancel");
+	private Button _saveButton = new Button("save");
+	private Button _editButton = new Button("edit");
 	
 	//This is a mock. We must replace it later
-	private Image _editImage = new Image("desktopView/187-pencil_n.png");
 	MorphWidget _brenn = new MorphWidget();
 	UnitSelecter _brennUnit = new UnitSelecter();
 	
@@ -194,7 +192,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//editButton
 		_editButton.setStyleName("stdButton");
 		//_statisticHeadPanel.setWidth("100%");
-		_editImage.setSize("18px", "18px");
 		_statisticHeadPanel.add(_editButton);
 		_statisticHeadPanel.setCellHorizontalAlignment(_editButton, HorizontalPanel.ALIGN_RIGHT);
 		_editButton.addClickHandler(new ClickHandler() {
