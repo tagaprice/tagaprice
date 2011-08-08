@@ -35,7 +35,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 			Shop shop = deque.peek();
 			
 			if (searchPattern != null
-					&& shop.getTitle().toLowerCase().contains((searchPattern))) {
+					&& shop.getTitle().toLowerCase().contains((searchPattern.toLowerCase()))) {
 				rc.add(shop);
 			} else if (searchPattern == null) {
 				rc.add(shop);

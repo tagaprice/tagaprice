@@ -1,5 +1,6 @@
 package org.tagaprice.server.rpc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDao;
@@ -72,7 +73,11 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	@Override
 	public List<Product> findProducts(Product searchCriteria) throws DaoException {
 		Log.debug("findProducts... searchCriteria: " + searchCriteria);
-		return productDAO.find(searchCriteria);
+		if(searchCriteria != null){
+			return productDAO.find("*"+searchCriteria.getTitle().trim()+"*");
+		}
+		
+		return productDAO.list();
 	}
 
 	@Override

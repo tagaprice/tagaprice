@@ -52,11 +52,9 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<Product> searchProduct(String searchString, Shop shop) throws DaoException {
-
-		//Returns all shops
-		Product _dumpProduct = new Product();
-		_dumpProduct.setTitle(searchString);
-		return productDAO.find(_dumpProduct);
+		if(!searchString.trim().isEmpty())
+			return productDAO.find("*"+searchString.trim()+"*");
+		return new ArrayList<Product>();
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDao extends DaoClass<Product> implements IProductDao {
@@ -24,20 +25,6 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 		m_packageDAO = daoFactory.getPackageDao();
 	}
 
-	@Override
-	public List<Product> find(Product searchPattern) throws DaoException {
-		/// TODO implement actual searching here
-		ViewResult<?> result = m_db.queryView("product/all", Product.class, null, null);
-		List<Product> rc = new ArrayList<Product>();
-
-		for (ValueRow<?> row: result.getRows()) {
-			Product product = get(row.getId());
-			rc.add(product);
-		}
-
-		return rc;
-
-	}
 
 
 	@Override
@@ -89,5 +76,20 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 		//Add packages
 		product.setPackages(m_packageDAO.findPackageByProduct(product.getId()));
+	}
+
+
+
+	@Override
+	public List<Product> list() throws DaoException {
+		ViewResult<?> result = m_db.queryView("product/all", Product.class, null, null);
+		List<Product> rc = new ArrayList<Product>();
+		
+		for (ValueRow<?> row: result.getRows()) {
+			Product product = get(row.getId());
+			rc.add(product);
+		}
+		
+		return rc;
 	}
 }
