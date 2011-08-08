@@ -8,6 +8,7 @@ import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -17,10 +18,12 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 	IPackageDao m_packageDAO;
 	IProductDao m_productDAO;
+	IShopDao m_shopDAO;
 
 
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, Receipt.class, "receipt", daoFactory._getEntityDao());
+		m_shopDAO = daoFactory.getShopDao();
 		m_packageDAO = daoFactory.getPackageDao();
 		m_productDAO = daoFactory.getProductDao();
 	}
@@ -70,7 +73,11 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 	@Override
 	protected void _injectFields(Receipt entity) throws DaoException {
-
+		if(entity.getShopId() != null){
+			entity.setShop(m_shopDAO.get(entity.getShopId()));
+		}
+		
+		
 		for(ReceiptEntry re:entity.getReceiptEntries()){
 			if(re.getPackageId()!=null){
 				re.setPackage(m_packageDAO.get(re.getPackageId()));

@@ -96,8 +96,20 @@ public class Receipt extends AEntity {
 	/**
 	 * @return the subsidiary where the user shopped
 	 */
+	@JSONProperty(ignore = true)
 	public Shop getShop() {
 		return _shop;
+	}
+	
+	public String getShopId(){
+		String rc = null;
+		if(getShop() != null)
+			rc = getShop().getId();
+		return rc;
+	}
+	
+	public void setShopId(String shopId){
+		setShop(new Shop(null, shopId, null, null));
 	}
 
 
