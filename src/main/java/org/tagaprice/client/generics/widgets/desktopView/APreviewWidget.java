@@ -1,15 +1,17 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
-import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
-import org.tagaprice.client.generics.widgets.MorphWidget;
-
+import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public abstract class APreviewWidget extends Composite {
+public abstract class APreviewWidget extends Composite implements HasClickHandlers {
 
 	protected HorizontalPanel _mainHoPa = new HorizontalPanel();
 	private VerticalPanel _vePaTitleRate = new VerticalPanel();
@@ -38,5 +40,12 @@ public abstract class APreviewWidget extends Composite {
 		
 		_mainHoPa.setWidth("100%");
 		initWidget(_mainHoPa);
+		
+	}
+	
+	
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return addDomHandler(handler, ClickEvent.getType());
 	}
 }

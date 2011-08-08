@@ -21,6 +21,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
@@ -250,8 +251,16 @@ public class UIDesktop implements IUi {
 				Log.debug("ShopSearch successfull: count: "+response.size());
 				_shopSearchPanel.clear();
 				
-				for(Shop s:response){
-					_shopSearchPanel.add(new ShopPreview(s));
+				for(final Shop s:response){
+					ShopPreview dumpShop = new ShopPreview(s);
+					dumpShop.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							History.newItem("CreateShop:/show/id/"+s.getId());
+						}
+					});
+					_shopSearchPanel.add(dumpShop);
 				}	
 				
 				
@@ -279,8 +288,16 @@ public class UIDesktop implements IUi {
 						Log.debug("ShopSearch successfull: count: "+response.size());
 						_productSearchPanel.clear();
 						
-						for(Product pr:response){
-							_productSearchPanel.add(new PackagePreview(pr, null));
+						for(final Product pr:response){
+							PackagePreview packDump = new PackagePreview(pr, null);
+							packDump.addClickHandler(new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent arg0) {
+									History.newItem("CreateProduct:/show/id/"+pr.getId());									
+								}
+							});
+							_productSearchPanel.add(packDump);
 						}
 						
 						_searchPopup.showRelativeTo(search);

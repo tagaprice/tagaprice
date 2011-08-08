@@ -8,6 +8,8 @@ import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
+
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -61,4 +63,5 @@ public class PackagePreview extends APreviewWidget {
 		
 		return _pack;
 	}
+
 }

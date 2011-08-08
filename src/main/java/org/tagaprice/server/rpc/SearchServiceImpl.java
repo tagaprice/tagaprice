@@ -44,7 +44,10 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException {
-		return shopDAO.find(searchString);
+		if(!searchString.trim().isEmpty())
+			return shopDAO.find("*"+searchString.trim()+"*");
+		
+		return new ArrayList<Shop>();
 	}
 
 	@Override
