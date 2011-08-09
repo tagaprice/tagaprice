@@ -93,6 +93,7 @@ public class UIDesktop implements IUi {
 		_shopSearchPanel.setWidth("100%");
 		_shopProductSearchPanel.add(_shopSearchPanel);
 		
+		_searchPopup.getElement().getStyle().setZIndex(2000);
 		_searchPopup.setWidget(_shopProductSearchPanel);
 		
 		//Implement Searching
@@ -122,6 +123,8 @@ public class UIDesktop implements IUi {
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
 		menu.setCellWidth(login, "50%");
 		
+		
+		loginPop.getElement().getStyle().setZIndex(2000);
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override

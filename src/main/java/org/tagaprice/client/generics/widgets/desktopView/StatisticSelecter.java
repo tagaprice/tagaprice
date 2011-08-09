@@ -11,6 +11,7 @@ import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.ZIndexBase;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
@@ -72,6 +73,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		
 		MapOptions defaultMapOptions = new MapOptions();
 		MapWidget omapWidget = new MapWidget("100%", "140px", defaultMapOptions);
+		
+		omapWidget.setStyleName("osmMap");
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
 		osm_2.setIsBaseLayer(true);
 		_osmMap = omapWidget.getMap();

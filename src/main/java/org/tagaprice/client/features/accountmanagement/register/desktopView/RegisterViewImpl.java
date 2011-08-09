@@ -54,6 +54,7 @@ public class RegisterViewImpl extends Composite implements IRegisterView {
 		loginGrid.setWidget(2, 1, _terms);
 		
 		//sign up button
+		_signUpButton.setStyleName("stdButton");
 		vePa1.add(_signUpButton);
 		_signUpButton.addClickHandler(new ClickHandler() {
 			

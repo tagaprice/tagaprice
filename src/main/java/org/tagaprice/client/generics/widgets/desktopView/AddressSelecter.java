@@ -7,6 +7,7 @@ import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Pixel;
 import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.ZIndexBase;
 import org.gwtopenmaps.openlayers.client.control.DragFeature;
 import org.gwtopenmaps.openlayers.client.control.DragFeature.DragFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.DragFeatureOptions;
@@ -36,7 +37,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	private VerticalPanel _vePa1 = new VerticalPanel();
 	private MapOptions _defaultMapOptions = new MapOptions();
-	private MapWidget _osmWidget = new MapWidget("100%", "140px", _defaultMapOptions); 
+	private MapWidget _osmWidget; 
 	private Map _osmMap;
 	private Vector _layer;
 	private LonLat _lonLat = new LonLat(16.37692,48.21426);
@@ -57,6 +58,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		//Init Maps
 		OSM osmLayler = OSM.Mapnik("Mapnik");
 		osmLayler.setIsBaseLayer(true);
+		_osmWidget = new MapWidget("100%", "140px", _defaultMapOptions);
 		_osmMap = _osmWidget.getMap();
 		_osmMap.addLayer(osmLayler);
 		
