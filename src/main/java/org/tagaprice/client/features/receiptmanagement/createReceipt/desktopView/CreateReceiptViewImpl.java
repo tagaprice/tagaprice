@@ -211,24 +211,31 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 	
 	private void drawShopSelected(){
-		HorizontalPanel dHoPa = new HorizontalPanel();
-		dHoPa.setWidth("100%");
+		//HorizontalPanel dHoPa = new HorizontalPanel();
+		//dHoPa.setWidth("100%");
 		ShopPreview _preview = new ShopPreview(_currShop);
-		_preview.setWidth("500px");
-		dHoPa.add(_preview);
+		
 		
 		//Del button
-		Button delShop = new Button("-", new ClickHandler() {
+		Button delShop = new Button("remove", new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				setShop(null);				
 			}
 		});
-		dHoPa.add(delShop);
+		delShop.setStyleName("stdButton cancel");
+		_preview.addHoverWidget(delShop);
 		
 		
-		_shopPanel.setWidget(dHoPa);
+		_preview.setWidth("500px");
+		//dHoPa.add(_preview);
+		
+		
+		//dHoPa.add(delShop);
+		
+		
+		_shopPanel.setWidget(_preview);
 		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
@@ -345,6 +352,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			
 			Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
 			ShopPreview foundShops = new ShopPreview(s);
+			
+			//add addButton
+			Button addButton = new Button("use",new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setShop(s);					
+				}
+			} );
+			addButton.setStyleName("stdButton save");
+			foundShops.addHoverWidget(addButton);
+			
 			takeShop.add(foundShops);
 			/*
 			foundAddress.addClickHandler(new ClickHandler() {
@@ -356,7 +375,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			});
 			_shopSearchResultPanel.add(foundAddress);
 			*/
-			
+			/*
 			Button addAsShop = new Button("+");
 			addAsShop.addClickHandler(new ClickHandler() {
 				
@@ -367,6 +386,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			});
 			takeShop.add(addAsShop);
 			takeShop.setCellWidth(addAsShop, "30px");
+			*/
 			/*
 			Label newAddress = new Label(s.getTitle()+" (Add Address)");
 			newAddress.addClickHandler(new ClickHandler() {
@@ -382,7 +402,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			_shopSearchResultPanel.add(newAddress);
 			 */
 			
-			_shopSearchResultPanel.add(takeShop);
+			_shopSearchResultPanel.add(foundShops);
 
 
 
