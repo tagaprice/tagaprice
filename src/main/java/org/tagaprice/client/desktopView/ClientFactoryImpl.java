@@ -56,17 +56,17 @@ public class ClientFactoryImpl implements ClientFactory {
 
 
 	//VIEWS
-	private static final CreateShopViewImpl createShopview = new CreateShopViewImpl();
-	private static final ListShopsViewImpl listShopsView = new ListShopsViewImpl();
-	private static final ILoginView loginView = new LoginViewImpl();
-	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
-	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
-	private static final ListProductsViewImpl productListView = new ListProductsViewImpl();
-	private static final ICreateProductView createProductView = new CreateProductViewImpl();
-	private static final IRegisterView registerView = new RegisterViewImpl();
-	private static final IRegisteredView registeredView = new RegisteredViewImpl();
-	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
-	private static final IStartView startView = new StartViewImpl();
+	private static CreateShopViewImpl createShopview;
+	private static ListShopsViewImpl listShopsView;
+	private static ILoginView loginView;
+	private static ILogoutView LOGOUT_VIEW;
+	private static ICreateReceiptView CREATE_RECEIPT_VIEW;
+	private static ListProductsViewImpl productListView;
+	private static ICreateProductView createProductView;
+	private static IRegisterView registerView;
+	private static IRegisteredView registeredView;
+	private static IListReceiptsView listReceiptView;
+	private static IStartView startView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -94,48 +94,90 @@ public class ClientFactoryImpl implements ClientFactory {
 	
 	@Override
 	public ListProductsView getListProductsView() {
+		if(productListView==null)productListView = new ListProductsViewImpl();
 		return ClientFactoryImpl.productListView;
 	}
 	@Override
 	public ICreateProductView getCreateProductView() {
+		if(createProductView==null)createProductView = new CreateProductViewImpl();
 		return ClientFactoryImpl.createProductView;
 	}
 
 	@Override
 	public ILoginView getLoginView() {
+		if(loginView==null)loginView = new LoginViewImpl();
 		return ClientFactoryImpl.loginView;
 	}
 
 	@Override
 	public ICreateShopView getCreateShopView() {
+		if(createShopview==null)createShopview = new CreateShopViewImpl();
 		return ClientFactoryImpl.createShopview;
 	}
 
-	@Override
-	public ILoginServiceAsync getLoginService() {
-		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
-	}
+	
 
 	@Override
 	public ILogoutView getLogoutView() {
+		if(LOGOUT_VIEW==null)LOGOUT_VIEW = new LogoutViewImpl();
 		return ClientFactoryImpl.LOGOUT_VIEW;
 	}
 
-	@Override
-	public IShopServiceAsync getShopService() {
-		return ClientFactoryImpl.I_SHOP_SERVICE_ASYNC;
-	}
+	
 
 	@Override
 	public ListShopsView getListShopsView() {
+		if(listShopsView==null)listShopsView = new ListShopsViewImpl();
 		return ClientFactoryImpl.listShopsView;
 	}
 
 	@Override
 	public ICreateReceiptView getCreateReceiptView() {
+		if(CREATE_RECEIPT_VIEW==null)CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 		return ClientFactoryImpl.CREATE_RECEIPT_VIEW;
 	}
 
+
+
+	@Override
+	public IRegisterView getRegisterView() {
+		if(registerView==null)registerView = new RegisterViewImpl();
+		return ClientFactoryImpl.registerView;
+	}
+
+	@Override
+	public IRegisteredView getRegisteredView() {
+		if(registeredView==null)registeredView = new RegisteredViewImpl();
+		return ClientFactoryImpl.registeredView;
+	}
+
+	@Override
+	public IListReceiptsView getListReceiptsView() {
+		if(listReceiptView==null)listReceiptView = new ListReceiptsViewImpl();
+		return ClientFactoryImpl.listReceiptView;
+	}
+
+	@Override
+	public IStartView getStartView() {
+		if(startView==null)startView = new StartViewImpl();
+		return ClientFactoryImpl.startView;
+	}
+	
+	@Override
+	public ILoginServiceAsync getLoginService() {
+		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
+	}
+	
+	@Override
+	public AccountPersistor getAccountPersistor() {
+		return ClientFactoryImpl.s_accountPersistor;
+	}
+	
+	@Override
+	public IShopServiceAsync getShopService() {
+		return ClientFactoryImpl.I_SHOP_SERVICE_ASYNC;
+	}
+	
 	@Override
 	public IReceiptServiceAsync getReceiptService() {
 		return ClientFactoryImpl.I_RECEIPT_SERVICE_ASYNC;
@@ -155,32 +197,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ISearchServiceAsync getSearchService() {
 		// TODO Auto-generated method stub
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
-	}
-
-
-	@Override
-	public IRegisterView getRegisterView() {
-		return ClientFactoryImpl.registerView;
-	}
-
-	@Override
-	public IRegisteredView getRegisteredView() {
-		return ClientFactoryImpl.registeredView;
-	}
-
-	@Override
-	public IListReceiptsView getListReceiptsView() {
-		return ClientFactoryImpl.listReceiptView;
-	}
-
-	@Override
-	public AccountPersistor getAccountPersistor() {
-		return ClientFactoryImpl.s_accountPersistor;
-	}
-
-	@Override
-	public IStartView getStartView() {
-		return ClientFactoryImpl.startView;
 	}
 
 
