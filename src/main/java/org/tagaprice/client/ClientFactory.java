@@ -73,12 +73,6 @@ public interface ClientFactory {
 	 */
 	ICreateProductView getCreateProductView();
 
-	/**
-	 * Singleton for EditProductView
-	 * 
-	 * @return
-	 */
-	ICreateProductView getEditProductView();
 
 
 	/**

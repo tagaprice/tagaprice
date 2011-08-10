@@ -193,7 +193,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	private void updateView(Product product) {
 		_product = product;
-		ICreateProductView view = this._clientFactory.getEditProductView();
+		ICreateProductView view = this._clientFactory.getCreateProductView();
 		view.setTitle(product.getTitle());
 		view.setCategory(product.getCategory());
 		view.setUnit(product.getUnit());

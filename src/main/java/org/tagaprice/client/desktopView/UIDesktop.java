@@ -86,12 +86,13 @@ public class UIDesktop implements IUi {
 		
 		
 		_shopProductSearchPanel.setStyleName("popBackground");
-		_shopProductSearchPanel.setWidth("500px");
+		_shopProductSearchPanel.setWidth("630px");
 		
 		_productSearchPanel.setWidth("100%");
 		_shopProductSearchPanel.add(_productSearchPanel);
 		_shopSearchPanel.setWidth("100%");
 		_shopProductSearchPanel.add(_shopSearchPanel);
+		
 		
 		_searchPopup.getElement().getStyle().setZIndex(2000);
 		_searchPopup.setWidget(_shopProductSearchPanel);

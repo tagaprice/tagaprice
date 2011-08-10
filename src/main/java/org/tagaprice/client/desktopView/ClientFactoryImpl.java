@@ -90,10 +90,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	public PlaceController getPlaceController() {
 		return ClientFactoryImpl.placeController;
 	}
-	@Override
-	public ICreateProductView getEditProductView() {
-		return ClientFactoryImpl.createProductView;
-	}
+
+	
 	@Override
 	public ListProductsView getListProductsView() {
 		return ClientFactoryImpl.productListView;

@@ -48,6 +48,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		vePa.add(password);
 		
 		//sign in button
+		
 		vePa.add(signInButton);
 		vePa.setCellHorizontalAlignment(signInButton, HorizontalPanel.ALIGN_RIGHT);
 		signInButton.addClickHandler(new ClickHandler() {
