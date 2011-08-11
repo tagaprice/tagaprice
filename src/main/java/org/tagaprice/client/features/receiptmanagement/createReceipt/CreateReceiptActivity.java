@@ -36,6 +36,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	private Receipt _receipt;
 	private ICreateReceiptView _createReceiptView;
 
+	private int _productSearchCount=0;
+	private int _shopSearchCount=0;
+
 	public CreateReceiptActivity(CreateReceiptPlace place, ClientFactory clientFactory) {
 		Log.debug("CreateProductActivity created");
 		_place = place;
@@ -130,6 +133,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void productSearchStringHasChanged(String productSearch) {
+		_productSearchCount++;
+		final int curProductSearchCount=_productSearchCount;
+		
 		Log.debug("Start productSearch: "+productSearch);
 
 		_clientFactory.getSearchService().searchProduct(
@@ -150,7 +156,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onSuccess(List<Product> response) {
-						_createReceiptView.setProductSearchResults(response);
+						if(curProductSearchCount==_productSearchCount)
+							_createReceiptView.setProductSearchResults(response);
 					}
 				});
 	}
@@ -158,7 +165,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	@Override
 	public void shopSearchStringHasChanged(String shopSearch) {
 		Log.debug("Start shopSearch: "+shopSearch);
-
+		_shopSearchCount++;
+		final int curShopSearchCount=_shopSearchCount;
+		
 		_clientFactory.getSearchService().searchShop(
 				shopSearch,
 				_createReceiptView.getBoundingBox(),
@@ -177,8 +186,10 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 					@Override
 					public void onSuccess(List<Shop> response) {
-						Log.debug("ShopSearch successfull: count: "+response.size());
-						_createReceiptView.setShopSearchResults(response);
+						if(curShopSearchCount==_shopSearchCount){
+							Log.debug("ShopSearch successfull: count: "+response.size());
+							_createReceiptView.setShopSearchResults(response);
+						}
 					}
 				});
 

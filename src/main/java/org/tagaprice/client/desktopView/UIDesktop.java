@@ -251,7 +251,7 @@ public class UIDesktop implements IUi {
 		_productSearchCount++;
 		_shopSearchCount++;
 		
-		final int curProductSearchCount=_productSearchCount;;
+		final int curProductSearchCount=_productSearchCount;
 		final int curShopSearchCount=_shopSearchCount;
 		
 		_clientFactory.getSearchService().searchShop(searchCritera, 
