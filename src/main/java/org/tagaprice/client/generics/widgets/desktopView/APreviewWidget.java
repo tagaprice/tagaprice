@@ -1,7 +1,6 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -11,19 +10,15 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public abstract class APreviewWidget extends Composite implements HasClickHandlers, HasMouseOverHandlers, HasMouseOutHandlers {
 
@@ -40,7 +35,8 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	private Button _plusRating = new Button("0");
 	private Button _minusRating = new Button("0");
 	
-		
+	private VerticalPanel _imgRatingVePa = new VerticalPanel();
+	
 	public APreviewWidget(String title, String imgUrl) {
 		
 		//style
@@ -69,26 +65,26 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 		
 		
 		_mainHoverHoPa.setWidth("100%");
-		_absolutePa.add(_mainHoverHoPa);		
+		_absolutePa.add(_mainHoverHoPa);	
 		_absolutePa.setWidgetPosition(_mainHoverHoPa, 0, 0);
 		
 		//image
-		VerticalPanel imgRatingVePa = new VerticalPanel();
-		imgRatingVePa.setStyleName("rating");
+		_imgRatingVePa.setStyleName("previewHoverWidget rating");
 		
 		_plusRating.setStyleName("plusRating");
-		imgRatingVePa.add(_plusRating);
+		_imgRatingVePa.add(_plusRating);
 		_minusRating.setStyleName("minusRating");
-		imgRatingVePa.add(_minusRating);
-		_mainHoverHoPa.add(imgRatingVePa);
+		_imgRatingVePa.add(_minusRating);
+		_absolutePa.add(_imgRatingVePa);
+		_absolutePa.setWidgetPosition(_imgRatingVePa, 0, 0);
+		_imgRatingVePa.setVisible(false);
+		//_mainHoverHoPa.add(imgRatingVePa);
 		//_mainMouseHoPa.setCellWidth(imgRatingVePa, "38px");
 		
 		//title
-		//_mainMouseHoPa.setBorderWidth(1);
-		_clickArea.setSize("100%","100%");
+		//_mainHoverHoPa.setBorderWidth(1);
+		_clickArea.setWidth("100%");
 		_clickArea.setStyleName("clickArea");
-		_mainHoverHoPa.add(_clickArea);
-		_mainHoverHoPa.setCellWidth(_clickArea, "100%");
 		
 		
 		_mainHoverHoPa.setVisible(false);
@@ -100,7 +96,8 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			
 			@Override
 			public void onMouseOver(MouseOverEvent arg0) {
-				_mainHoverHoPa.setVisible(true);				
+				_mainHoverHoPa.setVisible(true);
+				_imgRatingVePa.setVisible(true);
 			}
 		});
 		
@@ -109,13 +106,21 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			
 			@Override
 			public void onMouseOut(MouseOutEvent arg0) {
-				_mainHoverHoPa.setVisible(false);					
+				_mainHoverHoPa.setVisible(false);
+				_imgRatingVePa.setVisible(false);
 			}
 		});
 		
 		
+	}
+	
+	public void addHoverWidget(IsWidget widget){
 
-		
+		if(_mainHoverHoPa.getWidgetCount()==0){
+		_mainHoverHoPa.add(_clickArea);
+		_mainHoverHoPa.setCellWidth(_clickArea, "100%");
+		}
+		_mainHoverHoPa.add(widget);
 	}
 	
 	@Override
@@ -131,9 +136,8 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		
-		
-		return _clickArea.addClickHandler(handler);
-		//return addDomHandler(handler, ClickEvent.getType());
+		_clickArea.addClickHandler(handler);
+		return _mainHoPa.addDomHandler(handler, ClickEvent.getType());
+		//return _clickArea.addClickHandler(handler);
 	}
 }

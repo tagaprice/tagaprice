@@ -203,16 +203,17 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				_presenter.productSearchStringHasChanged(_productSearchText.getText());				
 			}
 		});
+
+		_productSearchPopup.setWidth("520px");
 		_productSearchPopup.setStyleName("popBackground");
-		_productSearchResultPanel.setWidth("500px");
 		_productSearchPopup.setWidget(_productSearchResultPanel);
 		
 		initWidget(_frame);
 	}
 	
 	private void drawShopSelected(){
-		//HorizontalPanel dHoPa = new HorizontalPanel();
-		//dHoPa.setWidth("100%");
+		HorizontalPanel dHoPa = new HorizontalPanel();
+		//dHoPa.setWidth("600px");
 		ShopPreview _preview = new ShopPreview(_currShop);
 		
 		
@@ -225,28 +226,27 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		delShop.setStyleName("stdButton cancel");
-		_preview.addHoverWidget(delShop);
+		//_preview.addHoverWidget(delShop);
 		
 		
 		_preview.setWidth("500px");
-		//dHoPa.add(_preview);
+		dHoPa.add(_preview);
 		
 		
-		//dHoPa.add(delShop);
+		dHoPa.add(delShop);
 		
 		
-		_shopPanel.setWidget(_preview);
+		_shopPanel.setWidget(dHoPa);
 		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
 	private void drawShopSearch(){
-		//TODO Make this nice late ;-)
 		HorizontalPanel searchShopHoPa = new HorizontalPanel();
 		searchShopHoPa.setWidth("100%");	
 		
 		//SearchPart
 		VerticalPanel searchBoxVePa = new VerticalPanel();
-		searchBoxVePa.setWidth("100%");
+		searchBoxVePa.setWidth("500px");
 		
 		
 		//SearchPart TextBox
@@ -350,7 +350,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			takeShop.setWidth("100%");
 			
 			
-			Label foundAddress = new Label(s.getTitle()+" "+s.getAddress().getAddress());
 			ShopPreview foundShops = new ShopPreview(s);
 			
 			//add addButton
@@ -429,21 +428,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setProductSearchResults(List<Product> productResults) {
 		
-		// TODO Auto-generated method stub
 		
 		_productSearchResultPanel.clear();
 		for(final Product p:productResults){
 			Log.debug("shopProductResult: "+p.getTitle());
 			for(final Package pa: p.getPackages()){
-				HorizontalPanel hoPaFoundPackage = new HorizontalPanel();
-				hoPaFoundPackage.setWidth("100%");
+				//HorizontalPanel hoPaFoundPackage = new HorizontalPanel();
+				//hoPaFoundPackage.setWidth("100%");
 				
 				PackagePreview foundProduct = new PackagePreview(pa.getProduct(), pa);
-				hoPaFoundPackage.add(foundProduct);
-				
 				
 				//add button
-				Button addButton = new Button("+",new ClickHandler() {
+				Button addButton = new Button("use",new ClickHandler() {
 					
 					@Override
 					public void onClick(ClickEvent arg0) {
@@ -452,66 +448,57 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 						_productSearchText.setText("");						
 					}
 				});
-				hoPaFoundPackage.add(addButton);
-				hoPaFoundPackage.setCellWidth(addButton, "25px");
-				_productSearchResultPanel.add(hoPaFoundPackage);
+				addButton.setStyleName("stdButton save");
+				foundProduct.addHoverWidget(addButton);
 				
-				/*
-				Label clickProduct = new Label(pa.getProduct().getTitle()+" - "+pa.getQuantity().getQuantity()+""+pa.getQuantity().getUnit().getTitle());
-				_productSearchResultPanel.add(clickProduct);
-				clickProduct.addClickHandler(new ClickHandler() {
-
+				//add new package
+				Button addPackageButton = new Button("new package", new ClickHandler() {
+					
 					@Override
 					public void onClick(ClickEvent arg0) {
-						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), pa));
+
+						Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
+						np.setProduct(p);
+
+						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.euro), np));
 						_productSearchPopup.hide();
-						_productSearchText.setText("");
+						_productSearchText.setText("");	
+						
 					}
 				});
-				*/
+				addPackageButton.setStyleName("stdButton save");
+				foundProduct.addHoverWidget(addPackageButton);
+				
+				_productSearchResultPanel.add(foundProduct);
+				
 			}
 			
-			HorizontalPanel hoPaFoundPackage = new HorizontalPanel();
-			hoPaFoundPackage.setWidth("100%");
-			
-			PackagePreview foundProduct = new PackagePreview(p, null);
-			hoPaFoundPackage.add(foundProduct);
-			
-			
-			//add button
-			Button addButton = new Button("+",new ClickHandler() {
+			if(p.getPackages().size()==0){
 				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
-					np.setProduct(p);
-
-					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.euro), np));
-					_productSearchPopup.hide();
-					_productSearchText.setText("");						
-				}
-			});
-			hoPaFoundPackage.add(addButton);
-			hoPaFoundPackage.setCellWidth(addButton, "25px");
-			_productSearchResultPanel.add(hoPaFoundPackage);
+				PackagePreview foundProduct = new PackagePreview(p, null);
+				
 			
-			/*
-			//Label newPackage = new Label(p.getTitle()+" - x "+p.getUnit().getTitle());
-			Label newPackage = new Label(p.getTitle()+" - x ");
-			_productSearchResultPanel.add(newPackage);
-			newPackage.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent arg0) {
-					Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
-					np.setProduct(p);
-
-					_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.dkk), np));
-					_productSearchPopup.hide();
-					_productSearchText.setText("");
-				}
-			});
-			*/
+				
+				
+				//add button
+				Button addButton = new Button("new package",new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						Package np = new Package(new Quantity(new BigDecimal("0.0"), p.getUnit()));
+						np.setProduct(p);
+	
+						_receiptEntrySelecter.addReceiptEntrie(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.euro), np));
+						_productSearchPopup.hide();
+						_productSearchText.setText("");						
+					}
+				});
+				addButton.setStyleName("stdButton save");
+				foundProduct.addHoverWidget(addButton);
+				
+				_productSearchResultPanel.add(foundProduct);
+			}
+			
 		}
 
 		//new shop

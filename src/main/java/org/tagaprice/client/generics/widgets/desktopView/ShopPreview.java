@@ -11,8 +11,6 @@ public class ShopPreview extends APreviewWidget {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void addHoverWidget(IsWidget widget){
-		_mainHoverHoPa.add(widget);
-	}
+	
 
 }

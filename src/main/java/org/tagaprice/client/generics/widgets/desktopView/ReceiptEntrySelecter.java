@@ -15,7 +15,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	private VerticalPanel _vePa1 = new VerticalPanel();
 	
 	public ReceiptEntrySelecter() {
-		_vePa1.setWidth("500px");
+		//_vePa1.setWidth("500px");
 		initWidget(_vePa1);
 	}
 	
@@ -36,15 +36,17 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		_hoPaRe.setWidth("100%");
 		ReceiptEntryPreview reEnt = new ReceiptEntryPreview(receiptEntry);
 		reEnt.setReadOnly(false);
+		reEnt.setWidth("500px");
 		_hoPaRe.add(reEnt);
 		
-		Button min = new Button("-", new ClickHandler() {
+		Button min = new Button("remove", new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				_hoPaRe.removeFromParent();
 			}
 		});
+		min.setStyleName("stdButton cancel");
 		_hoPaRe.add(min);
 		_hoPaRe.setCellWidth(min, "30px");
 		
