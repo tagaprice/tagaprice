@@ -51,6 +51,8 @@ public class UIDesktop implements IUi {
 	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
 	private VerticalPanel _shopSearchPanel = new VerticalPanel();
 	private VerticalPanel _productSearchPanel = new VerticalPanel();
+	private int _productSearchCount=0;
+	private int _shopSearchCount=0;
 
 	private void init(){
 		{
@@ -246,29 +248,40 @@ public class UIDesktop implements IUi {
 	}
 	
 	private void search(String searchCritera){
+		_productSearchCount++;
+		_shopSearchCount++;
+		
+		final int curProductSearchCount=_productSearchCount;;
+		final int curShopSearchCount=_shopSearchCount;
+		
 		_clientFactory.getSearchService().searchShop(searchCritera, 
 				new BoundingBox(90.0, 90.0, -90.0, -90.0), 
 				new AsyncCallback<List<Shop>>() {
 			
 			@Override
 			public void onSuccess(List<Shop> response) {
-				Log.debug("ShopSearch successfull: count: "+response.size());
-				_shopSearchPanel.clear();
+				if(curShopSearchCount==_shopSearchCount){
+					Log.debug("ShopSearch successfull: count: "+response.size());
+					_shopSearchPanel.clear();
+					
+					for(final Shop s:response){
+						ShopPreview dumpShop = new ShopPreview(s);
+						dumpShop.addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent arg0) {
+								History.newItem("CreateShop:/show/id/"+s.getId());
+								_searchPopup.hide();
+								search.setText("");
+							}
+						});
+						_shopSearchPanel.add(dumpShop);
+					}	
+					
+					if(response.size()>0)
+						_searchPopup.showRelativeTo(search);
 				
-				for(final Shop s:response){
-					ShopPreview dumpShop = new ShopPreview(s);
-					dumpShop.addClickHandler(new ClickHandler() {
-						
-						@Override
-						public void onClick(ClickEvent arg0) {
-							History.newItem("CreateShop:/show/id/"+s.getId());
-						}
-					});
-					_shopSearchPanel.add(dumpShop);
-				}	
-				
-				
-				_searchPopup.showRelativeTo(search);
+				}
 			}
 			
 			@Override
@@ -289,22 +302,29 @@ public class UIDesktop implements IUi {
 					
 					@Override
 					public void onSuccess(List<Product> response) {
-						Log.debug("ShopSearch successfull: count: "+response.size());
-						_productSearchPanel.clear();
+						if(curProductSearchCount==_productSearchCount){
 						
-						for(final Product pr:response){
-							PackagePreview packDump = new PackagePreview(pr, null);
-							packDump.addClickHandler(new ClickHandler() {
-								
-								@Override
-								public void onClick(ClickEvent arg0) {
-									History.newItem("CreateProduct:/show/id/"+pr.getId());									
-								}
-							});
-							_productSearchPanel.add(packDump);
+							Log.debug("ShopSearch successfull: count: "+response.size());
+							_productSearchPanel.clear();
+							
+							for(final Product pr:response){
+								PackagePreview packDump = new PackagePreview(pr, null);
+								packDump.addClickHandler(new ClickHandler() {
+									
+									@Override
+									public void onClick(ClickEvent arg0) {
+										History.newItem("CreateProduct:/show/id/"+pr.getId());	
+										_searchPopup.hide();
+										search.setText("");
+									}
+								});
+								_productSearchPanel.add(packDump);
+							}
+							
+							if(response.size()>0)
+								_searchPopup.showRelativeTo(search);
+						
 						}
-						
-						_searchPopup.showRelativeTo(search);
 					}
 					
 					@Override
