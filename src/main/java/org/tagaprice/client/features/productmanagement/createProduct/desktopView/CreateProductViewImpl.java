@@ -285,7 +285,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 	
 	
-	private void setReadOnly(boolean read){
+	public void setReadOnly(boolean read){
 		_readonly=read;
 		_productTitle.setReadOnly(_readonly);
 		_brenn.setReadOnly(_readonly);

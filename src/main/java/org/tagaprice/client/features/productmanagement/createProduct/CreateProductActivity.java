@@ -106,6 +106,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					}else{
 						updateView(result);
 					}
+					
+					//setReadable
+					_createProductView.setReadOnly(true);
 
 				}
 			});
@@ -177,6 +180,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					Log.debug("Get Product sucessfull id: "+result.getId());
 					updateView(result);
 					panel.setWidget(_createProductView);
+					_createProductView.setReadOnly(true);
 				}
 			});
 
@@ -186,7 +190,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 			updateView(_product);
 			panel.setWidget(_createProductView);
-			// panel.setWidget(new Label("Create new Product"));
+			
+			//setReadable
+			_createProductView.setReadOnly(false);
 		}
 
 	}

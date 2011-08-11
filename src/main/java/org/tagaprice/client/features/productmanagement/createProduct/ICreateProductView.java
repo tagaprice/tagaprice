@@ -111,6 +111,12 @@ public interface ICreateProductView extends IsWidget {
 
 
 	/**
+	 * Set the readmode of the view
+	 * @param read
+	 */
+	public void setReadOnly(boolean read);
+	
+	/**
 	 * 
 	 *
 	 */

@@ -169,6 +169,12 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 	}
 
+	@Override
+	public void setReadOnly(boolean read) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

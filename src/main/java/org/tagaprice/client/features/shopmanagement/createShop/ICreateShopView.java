@@ -87,6 +87,10 @@ public interface ICreateShopView extends IsWidget {
 
 	public String getTitle();
 	
+	/**
+	 * Set the readmode of the view
+	 * @param read
+	 */
 	public void setReadOnly(boolean read);
 
 }
