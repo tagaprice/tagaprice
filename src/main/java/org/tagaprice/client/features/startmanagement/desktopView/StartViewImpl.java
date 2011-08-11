@@ -1,13 +1,7 @@
 package org.tagaprice.client.features.startmanagement.desktopView;
 
-import static com.google.gwt.query.client.GQuery.*;
 import org.tagaprice.client.features.startmanagement.IStartView;
-import org.tagaprice.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.widgets.StdFrame;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -21,117 +15,11 @@ public class StartViewImpl extends Composite implements IStartView {
 	VerticalPanel vePa = new VerticalPanel();
 	Label normalhtml = new Label("so hald");
 	private StdFrame frame = new StdFrame();
-	private Label title = new Label("Welcome to TagAPrice (beta)");
+	private Label title = new Label("TagAPrice (beta): The consumer-created location-aware price comparison site.");
 	public StartViewImpl() {
 		initWidget(frame);
 		frame.setHeader(title);
-		frame.setBody(vePa);
-
-		//vePa.add(fileGwtQuery);
-
-		normalhtml.setTitle("uniqutitle");
-		normalhtml.setStyleName("uniqustyle");
-		vePa.add(normalhtml);
-
-		final HTML button = new HTML("<div id=\"text2\">text2</div>");
-		vePa.add(button);
-
-		Button hide = new Button("Do some fancy ui-stuff", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				System.out.println("press");
-
-
-				$(button).animate("color:'red'", 2000)
-				.delay(1000)
-				.animate("backgroundColor:'rgb(0, 128, 0)'", 1000)
-				.delay(1000)
-				.animate("borderColor:'#0000ff'", 2000);
-
-
-				//$("uniqustyle").animate("color:'red', backgroundColor:'rgb(000, 000, 128)', borderColor:'#0000ff'");
-				//$("#uniqustyle").animate("color:'red', backgroundColor:'rgb(000, 000, 128)', borderColor:'#0000ff'");
-				$(".uniqustyle").animate("color:'red', backgroundColor:'rgb(000, 000, 128)', borderColor:'#0000ff'");
-			}
-		});
-		vePa.add(hide);
-
-
-
-
-		HTML test = new HTML("<div id=\"text\">text</div>");
-		vePa.add(test);
-
-		$(test).hide()
-		.css("width", "400px")
-		.prepend("<h1>GwtQuery Rocks !</h1>");
-
-
-
-		final Button buttonj = new Button("FadeOut-In");
-		vePa.add(buttonj);
-		$(buttonj).as(gwtquery.plugins.ui.Ui.Ui).button();
-
-		buttonj.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				$(buttonj)
-				.slideUp()
-				.slideDown()
-				.delay(2000)
-				.fadeOut()
-				.delay(2000)
-				.fadeIn(3000)
-				.slideToggle(1000)
-				.slideToggle(1000);
-
-			}
-		});
-
-		final Label label2 = new Label("should slide");
-		vePa.add(label2);
-		Label label = new Label("Click on me and I will disappear");
-		vePa.add(label);
-		label.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				$((Label)arg0.getSource()).fadeOut(1000);
-				$(label2).fadeOut(1000);
-			}
-		});
-
-
-		//Button with icons
-		Button button1 = new Button("Button with icon only");
-		Button button2 = new Button("Button with icon on the left");
-		Button button3 = new Button("Button with two icons");
-		Button button4 = new Button("Button with two icons and no text");
-
-		$(button1).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().primary("ui-icon-locked")).text(false)); //
-		$(button2).as(gwtquery.plugins.ui.Ui.Ui).button("{icons: {primary: 'ui-icon-locked'}}"); //
-		$(button3).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().primary("ui-icon-gear").secondary("ui-icon-triangle-1-s"))); //
-		$(button4).as(gwtquery.plugins.ui.Ui.Ui).button("{icons: {primary: 'ui-icon-gear',secondary: 'ui-icon-triangle-1-s'}, text: false}");
-
-		vePa.add(button1);
-		vePa.add(button2);
-		vePa.add(button3);
-		vePa.add(button4);
-		
-		
-		Button showeven = new Button("popup fadein and out after 5sec");
-		vePa.add(showeven);
-		
-		showeven.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.fireEventTest(new InfoBoxShowEvent(StartViewImpl.class, "Info", INFOTYPE.INFO,5000));
-				
-			}
-		});
+		frame.setBody(new HTML("<h1>The Idea</h1>A consumer-created location-aware price comparison site.<h1>Why do we need that?</h1><ul>	<li>There is no transparent market for food.</li>	<li>The prices between shops and bars are drifting apart.</li>	<li>Extreme price differences between bars (even those close to each other)</li>	<li>The EU stopped package size standards, causing some producers to try to sell smaller packages for the same price.</li></ul><h1>What's your benefit?</h1><ul>	<li>compare prices and save money</li>	<li>finding menus for restaurants that don't put them online themselves.</li>	<li>a transparent market</li>	<li>quality and quantity comparison of shops and product. (price, ingredients, pics, user comments, labels...)</li>	<li>free household account management</li>	<li>open shop database (location-aware)</li>	<li>open product database</li>	<li>open bar code and ISBN database</li>	<li>everything has a history (it's possible to compare prices not only between shops but also over time)</li></ul><h1>How can we implement this vision?</h1><h2>You</h2><ul>	<li>enter and update products, shops</li>	<li>enter prices<ul>	<li>by typing in your receipt and add it to your household accounts</li>	<li>by taking a picture of your receipt with your mobile phone and TagAPrice will automatically add it to your household accounts</li></ul></li>	<li><strong>Donate</strong></li></ul><h2>Open Source</h2><ul>	<li>Working togehter to make TagAPrice more comfortable and feature-rich.</li>	<li>Code License: AGPLv3</li></ul><h2>Open Data</h2><ul>	<li>Create mashups and mobile apps<ul>	<li>by download a full dump of the DB</li>	<li>by using the API (json, xml, ...)</li></ul></li>	<li>Use the API to find shops (we have all shops from OpenStreetMap and maybe more)</li>	<li>Use the API to find a product at the nearest shop</li>	<li>Use the API to find the price of a product at the nearest shop</li>	<li>Use the API to find a menu and the price in a special restaurante</li>	<li>Use the API to insert the menu in your restaurant</li>	<li>Share products, shops, prices via twitter, facebook, ...</li>	<li>Data License: <a href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike 3.0 Unported License</a></li></ul><h2>The Team</h2><ul>	<li>We are a team of students at Technical University of Vienna, and University Copenhagen</li>	<li>contributors from all over the world.</li></ul>"));
 
 	}
 

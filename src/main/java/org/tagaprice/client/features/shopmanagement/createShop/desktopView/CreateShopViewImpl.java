@@ -247,7 +247,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_statistic.setStatisticResults(results);		
 	}
 	
-	private void setReadOnly(boolean read){
+	public void setReadOnly(boolean read){
 		_readonly=read;
 		_shopTitle.setReadOnly(_readonly);
 		_address.setReadOnly(_readonly);

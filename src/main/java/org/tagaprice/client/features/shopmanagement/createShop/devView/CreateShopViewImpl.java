@@ -172,5 +172,11 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_statisticSelecter.setStatisticResults(results);
 	}
 
+	@Override
+	public void setReadOnly(boolean read) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

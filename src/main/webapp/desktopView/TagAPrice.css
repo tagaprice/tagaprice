@@ -476,8 +476,8 @@ input.morphWidget {
 .previewWidget .logo {
     padding: 2px;
     border: 1px solid #ebe9e1;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     margin: 2px;
     background-color: #ebe9e1;
     box-shadow: inset 0px 0px 0px 3px white;
@@ -503,9 +503,9 @@ input.morphWidget {
 .previewHoverWidget.rating {
     padding: 2px;
     /*border: 1px solid #ebe9e1;*/
-    width: 35px;
-    height: 35px;
-    margin: 2px;
+    width: 25px;
+    height: 25px;
+    margin: 0px;
     /*background-color: #ebe9e1;*/
     /*box-shadow: inset 0px 0px 0px 0px white;*/
 }
@@ -535,7 +535,8 @@ input.morphWidget {
     padding: 0;
     text-align: center;
     text-shadow: 0 -1px 0 #4c9021;
-    min-width: 35px;
+    min-width: 29px;
+    margin: 1px;
 }
 
 .previewHoverWidget .minusRating {
@@ -561,7 +562,8 @@ input.morphWidget {
     font-size: 11px;
     padding: 0;
     text-align: center;
-    min-width: 35px;
+    min-width: 29px;
+    margin: 1px;
 }
 
 .stdButton {

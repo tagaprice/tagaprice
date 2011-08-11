@@ -86,5 +86,7 @@ public interface ICreateShopView extends IsWidget {
 	public void setTitle(String title);
 
 	public String getTitle();
+	
+	public void setReadOnly(boolean read);
 
 }

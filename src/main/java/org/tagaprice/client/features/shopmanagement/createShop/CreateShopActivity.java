@@ -106,6 +106,9 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					}else{
 						updateView(result);
 					}
+
+					//setReadable
+					_createShopView.setReadOnly(true);
 				}
 			});
 		}else{
@@ -150,6 +153,9 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					Log.debug("got shop: " + result);
 					updateView(result);
 					panel.setWidget(_createShopView);
+
+					//setReadable
+					_createShopView.setReadOnly(true);
 				}
 			});
 
@@ -158,6 +164,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			// new product... reseting view
 			Log.debug("Create new shop");
 
+			
 			//Get Branding data from server and add it to the shop
 			if(_place.isRedirect()==true && _place.getBrand()!=null){
 				_clientFactory.getShopService().getShop(_place.getBrand(), new AsyncCallback<Shop>() {
@@ -165,6 +172,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					@Override
 					public void onSuccess(Shop result) {
 						_shop.setParent(result);
+						
 						updateView(_shop);
 					}
 
@@ -201,6 +209,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					//_createShopView.setAddress(event.getAddress());
 				}
 			});
+			
+
+			//setReadable
+			_createShopView.setReadOnly(false);
 
 
 		}
