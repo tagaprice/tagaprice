@@ -40,7 +40,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	private int _shopSearchCount=0;
 
 	public CreateReceiptActivity(CreateReceiptPlace place, ClientFactory clientFactory) {
-		Log.debug("CreateProductActivity created");
+		Log.debug("CreateReceiptActivity created");
 		_place = place;
 		_clientFactory = clientFactory;
 	}

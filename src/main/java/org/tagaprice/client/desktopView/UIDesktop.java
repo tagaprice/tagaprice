@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
+import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
@@ -21,6 +22,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -80,7 +85,7 @@ public class UIDesktop implements IUi {
 		//search
 		SimplePanel nothing = new SimplePanel();
 		menu.add(nothing);
-		menu.setCellWidth(nothing, "50%");
+		menu.setCellWidth(nothing, "1%");
 		
 		search.setText("");
 		menu.add(search);
@@ -117,6 +122,23 @@ public class UIDesktop implements IUi {
 		position.setStyleName("location");
 		menu.add(position);
 		
+		
+		//final Label add Receipt
+		final Label addReceipt = new Label("add Receipt");
+		addReceipt.setStyleName("login");
+		menu.add(addReceipt);
+		menu.setCellHorizontalAlignment(addReceipt, HorizontalPanel.ALIGN_RIGHT);
+		menu.setCellWidth(addReceipt, "1%");
+		addReceipt.setVisible(false);
+		addReceipt.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_clientFactory.getPlaceController().goTo(new CreateReceiptPlace());
+			}
+		});
+		
+		
 		//login
 		final Label login = new Label("Sign in");
 		login.setStyleName("login");
@@ -124,19 +146,56 @@ public class UIDesktop implements IUi {
 		//$(login).as(gwtquery.plugins.ui.Ui.Ui).button(gwtquery.plugins.ui.widgets.Button.Options.create().icons(gwtquery.plugins.ui.widgets.Button.Icons.create().secondary("ui-icon-triangle-1-s"))); //
 		menu.add(login);
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
-		menu.setCellWidth(login, "50%");
+		menu.setCellWidth(login, "1%");
 		
 		
 		loginPop.getElement().getStyle().setZIndex(2000);
+
+		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+		
+		final VerticalPanel vePaLoggedIn = new VerticalPanel();
+		vePaLoggedIn.setStyleName("loginView");
+		vePaLoggedIn.add(new HTML("<a href=\"#ListReceipts:/show\">My Receipts</a>"));
+		vePaLoggedIn.add(new HTML("<a href=\"#CreateReceipt:/create\">add Receipts</a>"));
+		HTML logout = new HTML("<a>Logout</a>");
+		logout.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_clientFactory.getAccountPersistor().logout();						
+			}
+		});
+		vePaLoggedIn.add(logout);
+		
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				LoginPresenter loginPres = new LoginPresenter(_clientFactory);
-				loginPop.setWidget(loginPres.getView());
+				if(_clientFactory.getAccountPersistor().isLoggedIn()){
+					loginPop.setWidget(vePaLoggedIn);
+				}else{
+					loginPop.setWidget(loginPres.getView());
+				}
 				loginPop.showRelativeTo(login);				
 			}
 		});
+		
+		
+		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE , 
+				new LoginChangeEventHandler() {
+					
+					@Override
+					public void onLoginChange(LoginChangeEvent event) {
+						if(_clientFactory.getAccountPersistor().isLoggedIn()){
+							login.setText("Budget Book");
+							addReceipt.setVisible(true);
+						}else{
+							login.setText("Sign in");
+							addReceipt.setVisible(false);
+						}
+						
+					}
+				});
 		
 		
 		
