@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
+import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
@@ -373,7 +374,7 @@ public class UIDesktop implements IUi {
 									
 									@Override
 									public void onClick(ClickEvent arg0) {
-										History.newItem("CreateProduct:/show/id/"+pr.getId());	
+										_clientFactory.getPlaceController().goTo(new CreateProductPlace(pr.getId(), null, null, null));
 										_searchPopup.hide();
 										search.setText("");
 									}
@@ -381,10 +382,30 @@ public class UIDesktop implements IUi {
 								_productSearchPanel.add(packDump);
 							}
 							
-							if(response.size()>0)
-								_searchPopup.showRelativeTo(search);
+							//if(response.size()>0)
 						
+							
+							//new Product
+							Product pr = new Product(null, "(new Product) "+search.getText(), null, null);
+							PackagePreview newPackDump = new PackagePreview(pr, null);
+							newPackDump.addClickHandler(new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent arg0) {
+									_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, search.getText()));
+									_searchPopup.hide();
+									search.setText("");
+									
+								}
+							});
+							
+							_productSearchPanel.add(newPackDump);
+							
+
+							_searchPopup.showRelativeTo(search);
 						}
+						
+						
 					}
 					
 					@Override

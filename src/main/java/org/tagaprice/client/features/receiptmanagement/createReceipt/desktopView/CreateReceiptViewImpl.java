@@ -504,21 +504,27 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			
 		}
 
-		//new shop
-		Label newShop = new Label("New Product");
-		newShop.addClickHandler(new ClickHandler() {
-
+		
+		//new Product
+		Product pr = new Product(null, "(new Product) "+_productSearchText.getText(), null, null);
+		PackagePreview newPackDump = new PackagePreview(pr, null);
+		newPackDump.addClickHandler(new ClickHandler() {
+			
 			@Override
-			public void onClick(ClickEvent arg0) {
+			public void onClick(ClickEvent arg0) {				
 				if(_presenter.getId()!=null)
 					_presenter.goTo(new CreateProductPlace(null, null, _presenter.getId(), _productSearchText.getText()));
 				else _presenter.goTo(new CreateProductPlace(null, null, "draft", _productSearchText.getText()));
 				
 				_productSearchPopup.hide();
 				_productSearchText.setText("");
+				
 			}
 		});
-		_productSearchResultPanel.add(newShop);
+		
+		_productSearchResultPanel.add(newPackDump);
+		
+
 		_productSearchPopup.showRelativeTo(_productSearchText);		
 	}
 
