@@ -63,16 +63,21 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		this._clientFactory.getPlaceController().goTo(place);
 	}
+	
+	@Override
+	public void checkSave() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String mayStop() {
-		// TODO Auto-generated method stub
+		Log.debug("May stop");
 		return null;
 	}
 
 	@Override
 	public void onCancel() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -346,5 +351,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	public String getId() {
 		return _receipt.getId();
 	}
+
+	
 
 }

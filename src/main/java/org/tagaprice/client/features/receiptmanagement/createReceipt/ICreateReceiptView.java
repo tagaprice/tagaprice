@@ -90,5 +90,8 @@ public interface ICreateReceiptView extends IsWidget{
 		 * @return
 		 */
 		public String getId();
+		
+		
+		public void checkSave();
 	}
 }

@@ -222,7 +222,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				setShop(null);				
+				setShop(null);	
 			}
 		});
 		delShop.setStyleName("stdButton cancel");
@@ -309,6 +309,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			setProductSearchVisible(true);
 		}
 		
+
+		_presenter.checkSave();
 		
 	}
 	
@@ -357,7 +359,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				
 				@Override
 				public void onClick(ClickEvent arg0) {
-					setShop(s);					
+					setShop(s);		
+					
 				}
 			} );
 			addButton.setStyleName("stdButton save");
