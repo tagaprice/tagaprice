@@ -19,7 +19,7 @@
 	<inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
 	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name='com.google.gwt.query.Query'/>
-	<inherits name='gwtquery.plugins.UiGoogleCdn' />
+	<!-- <inherits name='gwtquery.plugins.UiGoogleCdn' /> -->
 	<inherits name='org.tagaprice.FormFactor'/>
 	
 	
