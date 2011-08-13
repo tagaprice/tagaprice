@@ -167,14 +167,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		//Select Shop
 		Label _shopLabel = new Label("Shop");
-		_shopLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.goTo(new CreateShopPlace(null, null, false));
-				
-			}
-		});
 		_shopLabel.setStyleName("propertyHeader");
 		_bodyPanel.add(_shopLabel);
 		
@@ -410,21 +402,24 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 			Log.debug("shopSearchResult: "+s.getTitle());
 		}
+		
 		//new shop
-		Label foundAddress = new Label("New Shop");
-		foundAddress.addClickHandler(new ClickHandler() {
-
+		Shop ns = new Shop(null, null, null, "(new Shop)"+_shopSearchText.getText());
+		ShopPreview dumpShop = new ShopPreview(ns);
+		dumpShop.addClickHandler(new ClickHandler() {
+			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_presenter.getId()!=null)
-					_presenter.goTo(new CreateShopPlace(_presenter.getId(), null, true));
-				else _presenter.goTo(new CreateShopPlace("draft", null, true));
+					_presenter.goTo(new CreateShopPlace(null, null, _presenter.getId(), _shopSearchText.getText(), null));
+				else _presenter.goTo(new CreateShopPlace(null, null, "draft", _shopSearchText.getText(), null));
+				
+				_shopSearchText.setText("");							
 			}
 		});
-		_shopSearchResultPanel.add(foundAddress);
-
-		//_shopSearchSuggestPop.setPopupPosition( _shopSearch.getAbsoluteLeft()+300,_shopSearch.getAbsoluteTop());
-		//_shopSearchSuggestPop.setPopupPosition(50, 50);
+		_shopSearchResultPanel.add(dumpShop);
+		
+		
 		
 	}
 

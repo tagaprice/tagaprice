@@ -101,7 +101,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					Log.debug("Shop save successful" + result);
 
 					//redirect
-					if(_place.isRedirect()==true){
+					if(_place.getRedirectId()!=null){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "shop"));
 					}else{
 						updateView(result);
@@ -131,7 +131,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
-		if (_place.getId() != null && _place.isRedirect()==false) {
+		if (_place.getId() != null && _place.getRedirectId()==null) {
 			// Existing product... trying to load
 			_clientFactory.getShopService().getShop(_place.getId(), _place.getRevision(),
 					new AsyncCallback<Shop>() {
@@ -164,10 +164,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			// new product... reseting view
 			Log.debug("Create new shop");
 
+			//setTitle
+			_shop.setTitle(_place.getTitle());
 			
 			//Get Branding data from server and add it to the shop
-			if(_place.isRedirect()==true && _place.getBrand()!=null){
-				_clientFactory.getShopService().getShop(_place.getBrand(), new AsyncCallback<Shop>() {
+			if(_place.getRedirectId()!=null && _place.getBrandId()!=null){
+				_clientFactory.getShopService().getShop(_place.getBrandId(), new AsyncCallback<Shop>() {
 
 					@Override
 					public void onSuccess(Shop result) {

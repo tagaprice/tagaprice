@@ -10,31 +10,40 @@ public class CreateShopPlace extends Place {
 
 	private String _id = null;
 	private String _rev = null;
-	private boolean _redirect = false;
-	private String _brandinId = null;
+	//private boolean _redirect = false;
+	private String _brandId = null;
+	private String _title = null;
+	private String _redirectId=null;
 
 	public CreateShopPlace() {
 	}
 
+	/*
 	public CreateShopPlace(String id) {
 		_id=id;
 	}
+	*/
 
+	/*
 	public CreateShopPlace(String id, String revision) {
 		_id=id;
 		_rev=revision;
 	}
 
-	/**
-	 * Redirect a new shop back to a receipt or receipt draft
-	 * @param redirectId receipt id
-	 * @param brandingId create shop with known branding
-	 * @param redirect should be redirected
-	 */
-	public CreateShopPlace(String redirectId, String brandingId, boolean redirect){
+	
+	public CreateShopPlace(String redirectId, String brandId, boolean redirect){
 		_id=redirectId;
-		_brandinId = brandingId;
+		_brandId = brandId;
 		_redirect=redirect;
+	}
+	*/
+	
+	public CreateShopPlace(String id, String revision, String redirectId, String title, String brandId){
+		_id=id;
+		_rev=revision;
+		_redirectId=redirectId;
+		_title=title;
+		_brandId=brandId;
 	}
 
 	public String getRevision() {
@@ -45,16 +54,20 @@ public class CreateShopPlace extends Place {
 		return _id;
 	}
 
-	public boolean isRedirect(){
-		return _redirect;
+
+	public String getBrandId(){
+		return _brandId;
 	}
 
-	public String getBrand(){
-		return _brandinId;
+	public String getRedirectId(){
+		return _redirectId;
+	}
+	
+	public String getTitle(){
+		return _title;
 	}
 
-
-	@Prefix("CreateShop")
+	@Prefix("shop")
 	public static class Tokenizer implements PlaceTokenizer<CreateShopPlace>{
 
 
@@ -62,6 +75,11 @@ public class CreateShopPlace extends Place {
 		public CreateShopPlace getPlace(String token) {
 			Log.debug("Tokenizer token " + token);
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
+			
+			
+			return new CreateShopPlace(e.getNode("id"), e.getNode("rev"), e.getNode("redirectid"), e.getNode("title"), e.getNode("brandid"));
+			
+			/*
 			if(e.getRoot()!=null){
 				if(e.getRoot().equals("show")){
 					if(e.getNode("id")!=null && e.getNode("rev")!=null){
@@ -82,12 +100,45 @@ public class CreateShopPlace extends Place {
 			}
 
 			return null;
+			*/
 		}
 
 		@Override
 		public String getToken(CreateShopPlace place) {
 			String rc = null;
 
+			if(place.getId()==null && place.getRedirectId()==null){
+				Log.debug("Tokenizer create shop");
+
+				TokenCreator.Imploder t = TokenCreator.getImploder();
+				t.addNode("title", place.getTitle());
+				rc = t.getToken();
+			}else if(place.getId()==null && place.getRedirectId()!=null){
+				Log.debug("Tokenizer create with redirect: redirid="+place.getRedirectId()+", brand="+place.getBrandId());
+
+				TokenCreator.Imploder t = TokenCreator.getImploder();
+				t.addNode("redirectid", ""+place.getRedirectId());
+				t.addNode("title", place.getTitle());
+				
+				if(place.getBrandId()!=null){
+					t.addNode("brandid", ""+place.getBrandId());
+				}
+
+				rc = t.getToken();
+			}else if(place.getId()!=null){
+				Log.debug("Tokenizer show product: id="+place.getId()+", rev="+place.getRevision());
+
+				TokenCreator.Imploder t = TokenCreator.getImploder();
+				t.addNode("id", ""+place.getId());
+
+				if (place.getRevision() != null) {
+					t.addNode("rev", ""+place.getRevision());
+				}
+
+				rc = t.getToken();
+			}
+			
+			/*
 			if(place.getId()==null){
 				Log.debug("Tokenizer create shop");
 
@@ -95,14 +146,14 @@ public class CreateShopPlace extends Place {
 				t.setRoot("create");
 				rc = t.getToken();
 			}else if (place.getId()!=null && place.isRedirect()){
-				Log.debug("Tokenizer create with redirect: id="+place.getId()+", redir="+place.isRedirect()+", brand="+place.getBrand());
+				Log.debug("Tokenizer create with redirect: id="+place.getId()+", redir="+place.isRedirect()+", brand="+place.getBrandId());
 
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.setRoot("create");
-				t.addNode("redirect", ""+place.getId());
+				t.addNode("redirectid", ""+place.getId());
 
-				if(place.getBrand()!=null){
-					t.addNode("brand", ""+place.getBrand());
+				if(place.getBrandId()!=null){
+					t.addNode("brandid", ""+place.getBrandId());
 				}
 
 				rc = t.getToken();
@@ -120,6 +171,7 @@ public class CreateShopPlace extends Place {
 
 				rc = t.getToken();
 			}
+			*/
 			return rc;
 		}
 

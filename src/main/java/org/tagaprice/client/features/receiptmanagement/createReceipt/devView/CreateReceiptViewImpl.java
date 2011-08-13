@@ -265,8 +265,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				@Override
 				public void onClick(ClickEvent arg0) {
 					if(_presenter.getId()!=null)
-						_presenter.goTo(new CreateShopPlace(_presenter.getId(), s.getId(), true));
-					else _presenter.goTo(new CreateShopPlace("draft", s.getId(), true));
+						_presenter.goTo(new CreateShopPlace(null, null, _presenter.getId(), _shopSearch.getTitle(), s.getId()));
+					else _presenter.goTo(new CreateShopPlace(null, null, "draft", _shopSearch.getTitle(), s.getId()));
 				}
 			});
 
@@ -285,8 +285,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_presenter.getId()!=null)
-					_presenter.goTo(new CreateShopPlace(_presenter.getId(), null, true));
-				else _presenter.goTo(new CreateShopPlace("draft", null, true));
+					_presenter.goTo(new CreateShopPlace(null, null, _presenter.getId(), _shopSearch.getTitle(), null));
+				else _presenter.goTo(new CreateShopPlace(null, null, "draft", _shopSearch.getTitle(), null));
 			}
 		});
 		_shopSearchSuggestVePa.add(foundAddress);

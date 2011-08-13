@@ -7,6 +7,7 @@ import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
@@ -331,7 +332,7 @@ public class UIDesktop implements IUi {
 							
 							@Override
 							public void onClick(ClickEvent arg0) {
-								History.newItem("CreateShop:/show/id/"+s.getId());
+								_clientFactory.getPlaceController().goTo(new CreateShopPlace(s.getId(), null, null, null, null));
 								_searchPopup.hide();
 								search.setText("");
 							}
@@ -339,8 +340,21 @@ public class UIDesktop implements IUi {
 						_shopSearchPanel.add(dumpShop);
 					}	
 					
-					if(response.size()>0)
-						_searchPopup.showRelativeTo(search);
+					Shop ns = new Shop(null, null, null, "(new Shop)"+search.getText());
+					ShopPreview dumpShop = new ShopPreview(ns);
+					dumpShop.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							_clientFactory.getPlaceController().goTo(new CreateShopPlace(null, null, null, search.getText(), null));
+							_searchPopup.hide();
+							search.setText("");							
+						}
+					});
+					_shopSearchPanel.add(dumpShop);
+					
+					//if(response.size()>0)
+					_searchPopup.showRelativeTo(search);
 				
 				}
 			}
