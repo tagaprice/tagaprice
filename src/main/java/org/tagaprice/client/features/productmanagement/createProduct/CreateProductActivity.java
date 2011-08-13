@@ -101,7 +101,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					Log.debug("Product save successful");
 
 					//redirect
-					if(_place.isRedirect()==true){
+					if(_place.getRedirectId()!=null){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "product"));
 					}else{
 						updateView(result);
@@ -149,7 +149,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 
 
-		if (_place.getId() != null && _place.isRedirect()==false) {
+		if (_place.getId() != null && _place.getRedirectId()==null) {
 			Log.debug("Get Product: id=" + _place.getId() + ", rev: "
 					+ _place.getRevision());
 			// panel.setWidget(new
@@ -188,6 +188,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		}else {
 			Log.debug("Create new Product");
 
+			_product.setTitle(_place.getTitle());
 			updateView(_product);
 			panel.setWidget(_createProductView);
 			
