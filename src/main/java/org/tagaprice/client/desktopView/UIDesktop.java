@@ -245,13 +245,14 @@ public class UIDesktop implements IUi {
 				"<h2>Debug</h2> " + 
 				"<a href=\"#Start:null\">home</a> <br /> "
 				//+ "<a href=\"#CreateProduct:/create\">New Product</a> <br /> "
-				//+ "<a href=\"#ListProducts:/show\">List Products</a> <br /> "
-				+ "<a href=\"#CreateShop:/create\">New Shop</a> <br /> "
-				//+ "<a href=\"#ListShops:\">List Shops</a> <br /> "
+				+ "<a href=\"#ListProducts:/show\">List Products</a> <br /> "
+				//+ "<a href=\"#CreateShop:/create\">New Shop</a> <br /> "
+				+ "<a href=\"#ListShops:\">List Shops</a> <br /> "
 				//+ "<a href=\"#CreateReceipt:/create\">New Receipt</a> <br /> "
 				//+ "<a href=\"#ListReceipts:/show\">List Receipts</a> <br /> "
 				//+ "<a href=\"#Register:/REGISTER\">Sign Up</a> <br /> "
 				));
+				
 	}
 		
 		
