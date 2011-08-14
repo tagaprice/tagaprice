@@ -2,9 +2,12 @@ package org.tagaprice.client.features.shopmanagement.listShops.devView;
 
 import java.util.List;
 
+import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -44,8 +47,17 @@ public class ListShopsViewImpl extends Composite implements ListShopsView {
 		_table.clear();
 
 
-		for(Shop s: data)
-			_table.add(new HTML("<a href=\"#CreateShop:/show/id/"+s.getId()+"\">"+s.getTitle()+"</a>"));
+		for(final Shop s: data){
+			Label text = new Label(s.getTitle());
+			text.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					presenter.goTo(new CreateShopPlace(s.getId(), null, null, null, null));
+				}
+			});
+			_table.add(text);
+		}
 
 	}
 

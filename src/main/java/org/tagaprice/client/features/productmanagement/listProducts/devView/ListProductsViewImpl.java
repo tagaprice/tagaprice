@@ -2,9 +2,12 @@ package org.tagaprice.client.features.productmanagement.listProducts.devView;
 
 import java.util.List;
 
+import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.*;
 
@@ -42,8 +45,18 @@ public class ListProductsViewImpl extends Composite implements ListProductsView 
 	public void setData(List<Product> data) {
 		_table.clear();
 
-		for(Product p:data)
-			_table.add(new HTML("<a href=\"#CreateProduct:/show/id/"+p.getId()+"\">"+p.getTitle()+"</a>"));
+		for(final Product p:data){
+			Label text = new Label(p.getTitle());
+			text.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+
+					presenter.goTo(new CreateProductPlace(p.getId(), null, null, null));					
+				}
+			});
+			_table.add(text);
+		}
 
 	}
 
