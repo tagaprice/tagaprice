@@ -76,7 +76,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 		LonLat lonLat = new LonLat(16.37692,48.21426);
 		lonLat.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(lonLat, 15);
+		_osmMap.setCenter(lonLat, 14);
 		_osmMap.addLayer(layer);
 
 		//Datens
@@ -163,7 +163,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					}
 
 			}
-			resultList.add(new HTML("<a href=\"#CreateProduct:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			resultList.add(new HTML("<a href=\"#product:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			/* TODO Get data from child shops
@@ -217,7 +217,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					}
 
 			}
-			resultList.add(new HTML("<a href=\"#CreateShop:/show/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
