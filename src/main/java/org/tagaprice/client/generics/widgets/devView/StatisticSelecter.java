@@ -74,9 +74,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		_osmMap.addLayer(osm_2);
 		hoPa1.add(omapWidget);
 
-		LonLat lonLat = new LonLat(16.37692,48.21426);
-		lonLat.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(lonLat, 14);
+		_osmMap.zoomTo(14);
 		_osmMap.addLayer(layer);
 
 		//Datens
@@ -98,7 +96,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				sendSomethingChanged();
+				sendChangeRequest();
 			}
 		});
 
@@ -107,7 +105,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				sendSomethingChanged();
+				sendChangeRequest();
 			}
 		});
 
@@ -115,7 +113,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				sendSomethingChanged();
+				sendChangeRequest();
 			}
 		});
 
@@ -256,26 +254,49 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		_handler=handler;
 	}
 
-	private void sendSomethingChanged(){
+	private void sendChangeRequest(){
 		if(_handler!=null){
 
-			LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftX(), _osmMap.getExtent().getLowerLeftY());
-			LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightX(), _osmMap.getExtent().getUpperRightY());
-			southWest.transform("EPSG:900913","EPSG:4326");
-			northEast.transform("EPSG:900913","EPSG:4326");
 
-
-			_handler.onChange(new BoundingBox(
-					southWest.lat(),
-					southWest.lon(),
-					northEast.lat(),
-					northEast.lon()), beginDate.getValue(), endDate.getValue());
+			_handler.onChange(getBoundingBox(), getBeginDate(), getEndDate());
 		}
 	}
 
 	@Override
 	public void setType(TYPE type) {
 		_type=type;
+	}
+
+	@Override
+	public BoundingBox getBoundingBox() {
+		LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftX(), _osmMap.getExtent().getLowerLeftY());
+		LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightX(), _osmMap.getExtent().getUpperRightY());
+		southWest.transform("EPSG:900913","EPSG:4326");
+		northEast.transform("EPSG:900913","EPSG:4326");
+		
+		
+		return new BoundingBox(
+				southWest.lat(),
+				southWest.lon(),
+				northEast.lat(),
+				northEast.lon());
+	}
+
+	@Override
+	public Date getBeginDate() {
+		return beginDate.getValue();
+	}
+
+	@Override
+	public Date getEndDate() {
+		return endDate.getValue();
+	}
+
+	@Override
+	public void setLatLng(double lat, double lng) {
+		LonLat lonLat = new LonLat(lng,lat);
+		lonLat.transform("EPSG:4326", "EPSG:900913");	
+		_osmMap.setCenter(lonLat);
 	}
 
 }

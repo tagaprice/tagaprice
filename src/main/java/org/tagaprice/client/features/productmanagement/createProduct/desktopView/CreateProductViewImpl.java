@@ -299,4 +299,24 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_editButton.setVisible(_readonly);
 	}
 
+	@Override
+	public BoundingBox getStatisticBoundingBox() {
+		return _statistic.getBoundingBox();
+	}
+
+	@Override
+	public Date getStatisticBeginDate() {
+		return _statistic.getBeginDate();
+	}
+
+	@Override
+	public Date getStatisticEndDate() {
+		return _statistic.getEndDate();
+	}
+
+	@Override
+	public void setStatisticLatLng(double lat, double lng) {
+		_statistic.setLatLng(lat, lng);		
+	}
+
 }

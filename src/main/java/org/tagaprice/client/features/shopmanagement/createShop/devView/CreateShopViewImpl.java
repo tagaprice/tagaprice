@@ -178,5 +178,19 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		
 	}
 
+	@Override
+	public BoundingBox getStatisticBoundingBox() {
+		return _statisticSelecter.getBoundingBox();
+	}
+
+	@Override
+	public Date getStatisticBeginDate() {
+		return _statisticSelecter.getBeginDate();
+	}
+
+	@Override
+	public Date getStatisticEndDate() {
+		return _statisticSelecter.getEndDate();
+	}
 
 }

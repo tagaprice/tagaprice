@@ -26,6 +26,8 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -81,9 +83,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		_osmMap.addLayer(osm_2);
 		vePa1.add(omapWidget);
 
-		LonLat lonLat = new LonLat(16.37692,48.21426);
-		lonLat.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(lonLat, 12);
+		_osmMap.zoomTo(12);
 		_osmMap.addLayer(layer);
 
 		//Datens
@@ -119,7 +119,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				sendSomethingChanged();
+				Log.debug("MoveMapEndHandler");
+				sendChangeRequest();
 			}
 		});
 
@@ -128,7 +129,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				sendSomethingChanged();
+				Log.debug("setBeginDate");
+				sendChangeRequest();
 			}
 		});
 
@@ -136,7 +138,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				sendSomethingChanged();
+				Log.debug("setEndDate");
+				sendChangeRequest();
 			}
 		});
 
@@ -277,26 +280,48 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		_handler=handler;
 	}
 
-	private void sendSomethingChanged(){
+	
+	private void sendChangeRequest(){
+		Log.debug("sendChangeRequest");
 		if(_handler!=null){
 
-			LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftX(), _osmMap.getExtent().getLowerLeftY());
-			LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightX(), _osmMap.getExtent().getUpperRightY());
-			southWest.transform("EPSG:900913","EPSG:4326");
-			northEast.transform("EPSG:900913","EPSG:4326");
-
-
-			_handler.onChange(new BoundingBox(
-					southWest.lat(),
-					southWest.lon(),
-					northEast.lat(),
-					northEast.lon()), beginDate.getValue(), endDate.getValue());
+			_handler.onChange(getBoundingBox(), getBeginDate(), getEndDate());
 		}
 	}
 
 	@Override
 	public void setType(TYPE type) {
 		_type=type;
+	}
+
+	@Override
+	public BoundingBox getBoundingBox() {
+		LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftX(), _osmMap.getExtent().getLowerLeftY());
+		LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightX(), _osmMap.getExtent().getUpperRightY());
+		southWest.transform("EPSG:900913","EPSG:4326");
+		northEast.transform("EPSG:900913","EPSG:4326");
+		return new BoundingBox(
+				southWest.lat(),
+				southWest.lon(),
+				northEast.lat(),
+				northEast.lon());
+	}
+
+	@Override
+	public Date getBeginDate() {
+		return beginDate.getValue();
+	}
+
+	@Override
+	public Date getEndDate() {
+		return endDate.getValue();
+	}
+
+	@Override
+	public void setLatLng(double lat, double lng) {
+		LonLat lonLat = new LonLat(lng,lat);
+		lonLat.transform("EPSG:4326", "EPSG:900913");	
+		_osmMap.setCenter(lonLat);
 	}
 
 }

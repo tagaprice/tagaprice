@@ -93,4 +93,22 @@ public interface ICreateShopView extends IsWidget {
 	 */
 	public void setReadOnly(boolean read);
 
+	
+	/**
+	 * 
+	 * @return Returns the bounding box of the Statistic map
+	 */
+	public BoundingBox getStatisticBoundingBox();
+	
+	/**
+	 * 
+	 * @return The selected begin date. Is current date if nothing has been selected.
+	 */
+	public Date getStatisticBeginDate();
+	
+	/**
+	 * 
+	 * @return The selected end date. Is current date if nothing has been selected.
+	 */
+	public Date getStatisticEndDate();
 }

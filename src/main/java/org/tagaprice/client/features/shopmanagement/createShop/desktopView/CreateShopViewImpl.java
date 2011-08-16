@@ -257,4 +257,20 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_editButton.setVisible(_readonly);
 	}
 
+	
+	@Override
+	public BoundingBox getStatisticBoundingBox() {
+		return _statistic.getBoundingBox();
+	}
+
+	@Override
+	public Date getStatisticBeginDate() {
+		return _statistic.getBeginDate();
+	}
+
+	@Override
+	public Date getStatisticEndDate() {
+		return _statistic.getEndDate();
+	}
+	
 }

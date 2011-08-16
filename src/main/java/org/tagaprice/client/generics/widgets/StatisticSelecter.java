@@ -3,6 +3,7 @@ package org.tagaprice.client.generics.widgets;
 import java.util.Date;
 import java.util.List;
 
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 
 import com.google.gwt.core.client.GWT;
@@ -35,6 +36,26 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	public void setType(TYPE type) {
 		statisticSelecter.setType(type);
 
+	}
+
+	@Override
+	public BoundingBox getBoundingBox() {
+		return statisticSelecter.getBoundingBox();
+	}
+
+	@Override
+	public Date getBeginDate() {
+		return statisticSelecter.getBeginDate();
+	}
+
+	@Override
+	public Date getEndDate() {
+		return statisticSelecter.getEndDate();
+	}
+
+	@Override
+	public void setLatLng(double lat, double lng) {
+		statisticSelecter.setLatLng(lat, lng);
 	}
 
 }

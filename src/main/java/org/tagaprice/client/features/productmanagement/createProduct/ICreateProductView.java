@@ -116,6 +116,32 @@ public interface ICreateProductView extends IsWidget {
 	 */
 	public void setReadOnly(boolean read);
 	
+	
+	/**
+	 * 
+	 * @return Returns the bounding box of the Statistic map
+	 */
+	public BoundingBox getStatisticBoundingBox();
+	
+	/**
+	 * 
+	 * @return The selected begin date. Is current date if nothing has been selected.
+	 */
+	public Date getStatisticBeginDate();
+	
+	/**
+	 * 
+	 * @return The selected end date. Is current date if nothing has been selected.
+	 */
+	public Date getStatisticEndDate();
+	
+	/**
+	 * Set the center of the statistic Widget. Should be the current position of the user.
+	 * @param lat
+	 * @param lng
+	 */
+	public void setStatisticLatLng(double lat, double lng);
+	
 	/**
 	 * 
 	 *

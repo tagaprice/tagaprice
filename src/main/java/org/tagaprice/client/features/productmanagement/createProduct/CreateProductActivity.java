@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.generics.events.AddressChangedEvent;
+import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.*;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
@@ -27,11 +30,29 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	private ClientFactory _clientFactory;
 	private Product _product;
 	private ICreateProductView _createProductView;
+	private static AddressChangedEventHandler _addressChangedEventHandler;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
 		Log.debug("create class");
 		_place = place;
 		_clientFactory = clientFactory;
+		
+		if(_addressChangedEventHandler==null){
+			_addressChangedEventHandler = new AddressChangedEventHandler(){
+	
+				@Override
+				public void onAddressChanged(AddressChangedEvent event) {
+					_createProductView.setStatisticLatLng(
+							_clientFactory.getAccountPersistor().getAddress().getLat(), 
+							_clientFactory.getAccountPersistor().getAddress().getLng());				
+				}
+				
+			};
+			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, _addressChangedEventHandler);
+
+		}
+		
+		
 	}
 
 	@Override
@@ -181,6 +202,16 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					updateView(result);
 					panel.setWidget(_createProductView);
 					_createProductView.setReadOnly(true);
+					
+					
+					if(_clientFactory.getAccountPersistor().getAddress()==null)
+						_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
+					else{
+						_createProductView.setStatisticLatLng(
+								_clientFactory.getAccountPersistor().getAddress().getLat(), 
+								_clientFactory.getAccountPersistor().getAddress().getLng());
+					}
+					
 				}
 			});
 
@@ -194,6 +225,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			
 			//setReadable
 			_createProductView.setReadOnly(false);
+		
+			
 		}
 
 	}

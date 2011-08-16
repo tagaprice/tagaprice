@@ -156,6 +156,11 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 					//setReadable
 					_createShopView.setReadOnly(true);
+					
+					onStatisticChangedEvent(
+							_createShopView.getStatisticBoundingBox(), 
+							_createShopView.getStatisticBeginDate(), 
+							_createShopView.getStatisticEndDate());
 				}
 			});
 
