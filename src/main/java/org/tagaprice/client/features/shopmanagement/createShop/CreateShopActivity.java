@@ -30,7 +30,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private ICreateShopView _createShopView;
 	private CreateShopPlace _place;
 	private ClientFactory _clientFactory;
-
+	private int _statisticDebounce = 0;
+	
 	public CreateShopActivity(CreateShopPlace place, ClientFactory clientFactory) {
 		Log.debug("create class");
 		_place = place;
@@ -263,6 +264,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+		_statisticDebounce++;
+		final int curDebounce=_statisticDebounce;
+		
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateShopActivity.class));
 		final InfoBoxShowEvent loadingInfo = new InfoBoxShowEvent(CreateShopActivity.class, "Getting statistic data: ", INFOTYPE.INFO,0);
 		_clientFactory.getEventBus().fireEvent(loadingInfo);
 
@@ -270,9 +275,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 			@Override
 			public void onSuccess(List<StatisticResult> response) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
-				_createShopView.setStatisticResults(response);
-
+				if(curDebounce==_statisticDebounce){
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
+					_createShopView.setStatisticResults(response);
+				}
 			}
 
 			@Override
