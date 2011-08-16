@@ -31,6 +31,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	private Product _product;
 	private ICreateProductView _createProductView;
 	private static AddressChangedEventHandler _addressChangedEventHandler;
+	private int _statisticDebounce = 0;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
 		Log.debug("create class");
@@ -244,16 +245,25 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
-
+		
+		_statisticDebounce++;
+		final int curDebounce=_statisticDebounce;
+		
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class));
+		
 		final InfoBoxShowEvent loadingInfo = new InfoBoxShowEvent(CreateProductActivity.class, "Getting statistic data... ", INFOTYPE.INFO,0);
 		_clientFactory.getEventBus().fireEvent(loadingInfo);
 
+		
+		
 		_clientFactory.getSearchService().searchProductPrices(_product.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
 
 			@Override
 			public void onSuccess(List<StatisticResult> response) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
-				_createProductView.setStatisticResults(response);
+				if(curDebounce==_statisticDebounce){
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
+					_createProductView.setStatisticResults(response);
+				}
 			}
 
 			@Override
