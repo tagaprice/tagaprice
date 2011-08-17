@@ -6,8 +6,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpSession;
 
 import org.tagaprice.server.dao.IDaoFactory;
@@ -25,7 +29,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements ILoginService {
 
-	private static final long serialVersionUID = 2766434026811432034L;
+	private static final long serialVersionUID = 1L;
 
 
 	HttpSession session;
@@ -84,6 +88,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	@Override
 	public Boolean isEmailAvailable(String email) {
+		if(!email.toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")) {
+			return false;
+		}
 		User user = _userDao.getByMail(email);
 		return user == null;
 	}
@@ -121,7 +128,29 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		user.setMail(email);
 		user.setPasswordSalt(salt);
 		user.setPasswordHash(pwdHash);
-		_userDao.create(user);
+		user = _userDao.create(user);
+		
+		
+		
+		// send confirmation mail
+		
+		try {
+			HashMap<String, String> replacements = new HashMap<String, String>();
+			replacements.put("confirmId", generateSalt(24));
+			replacements.put("mail", user.getMail());
+			replacements.put("host", "tagaprice");
+			replacements.put("link", "conf");
+			Mail.getInstance().send("regConfirm", new InternetAddress(user.getMail()),  replacements);
+		} catch (AddressException e) {
+			throw new DaoException("AddressException: "+e.getMessage(), e);
+		} catch (MessagingException e) {
+			throw new DaoException("MessagingException: "+e.getMessage(), e);
+		} catch (IOException e) {
+			throw new DaoException("IOException: "+e.getMessage(), e);
+		}
+		
+		
+		
 
 		return true; // I don't want a session to be returned that soon. There should be a mail verification before
 	}

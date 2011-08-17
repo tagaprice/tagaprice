@@ -1,5 +1,7 @@
 package org.tagaprice.server.rpc;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +42,13 @@ public class InitServlet extends HttpServlet {
 			if (daoFactoryObject instanceof IDaoFactory) {
 				InitServlet.m_daoFactory = (IDaoFactory) daoFactoryObject;
 				InitServlet.m_daoFactory.init();
+			}
+			
+			//Initialization of the mail class
+			try {
+				Mail.init();
+			} catch (IOException e) {
+				throw new ServletException("mailing subsystem init failed: "+e.getMessage(), e);
 			}
 		}
 		catch (ClassNotFoundException e) {
