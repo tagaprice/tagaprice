@@ -185,7 +185,6 @@ a:HOVER {
 }
 
 .loginView input {
-    width: 200px;
     border-width: 2px;
     border-style: solid;
     border-color: #bfd255;
@@ -274,7 +273,6 @@ a:HOVER {
 }
 
 .stdgrid input {
-    width: 200px;
     border-width: 2px;
     border-style: solid;
     border-color: #bfd255;

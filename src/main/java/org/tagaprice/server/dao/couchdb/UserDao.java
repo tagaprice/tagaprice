@@ -29,4 +29,6 @@ public class UserDao extends DaoClass<User> implements IUserDao {
 
 		return rc;
 	}
+	
+	
 }

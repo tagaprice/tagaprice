@@ -6,6 +6,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -13,6 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -21,8 +24,13 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private VerticalPanel vePa = new VerticalPanel();
 	private TextBox email = new TextBox();
 	private PasswordTextBox password = new PasswordTextBox();
-	private Button signInButton = new Button("Sign in");
+	private Button signInButton = new Button("Log in");
+	private Button signUpButton = new Button("Sign up!");
 	private Presenter _presenter;
+	private RadioButton signInRadio = new RadioButton("blabla","I have an account.");
+	private RadioButton signUpRadio = new RadioButton("blabla","I'm new!");
+	private HTML passwordForgotText = new HTML("<a >Forgot your password?</a>");
+	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a>terms of service</a>.");
 
 	public LoginViewImpl() {
 		initWidget(vePa);
@@ -44,13 +52,21 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		vePa.add(emailText);
 		vePa.add(email);
+		
+		//radio
+		vePa.add(signInRadio);
+		signInRadio.setValue(true);
+		vePa.add(signUpRadio);
+		
+		
 		vePa.add(passwordText);
 		vePa.add(password);
 		
 		//sign in button
 		
 		vePa.add(signInButton);
-		vePa.setCellHorizontalAlignment(signInButton, HorizontalPanel.ALIGN_RIGHT);
+		vePa.add(signUpButton);
+		signUpButton.setVisible(false);
 		signInButton.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -72,11 +88,41 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		
 		//forgot Password
-		HTML passwordForgotText = new HTML("<a href=\"\">Forgot password?</a>");
 		vePa.add(passwordForgotText);
+		vePa.add(terms);
+		terms.setVisible(false);
 		vePa.add(new HTML("<hr />"));
 		HTML noUser = new HTML("<a href=\"#Register:/REGISTER\">Don't havean account? Sign up!</a>");
 		vePa.add(noUser);
+		
+		
+		//sign in/up select
+		signInRadio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> value) {
+				if(value.getValue()){
+					signInButton.setVisible(true);
+					signUpButton.setVisible(false);
+					passwordForgotText.setVisible(true);
+					terms.setVisible(false);
+				}
+			}
+		});
+		
+		signUpRadio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> value) {
+				if(value.getValue()){
+					signUpButton.setVisible(true);
+					signInButton.setVisible(false);
+					passwordForgotText.setVisible(false);
+					terms.setVisible(true);
+				}				
+			}
+		});
+		
 	}
 	
 	@Override

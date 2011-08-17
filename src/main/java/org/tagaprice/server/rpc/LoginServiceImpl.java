@@ -132,13 +132,21 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		
 		
 		
-		// send confirmation mail
 		
 		try {
+			user.setConfirmSalt(generateSalt(24));
+			user.setConfirm(md5(user.getId()+user.getConfirmSalt()));
+			
+			//save conf
+			user = _userDao.update(user);
+			
+			// send confirmation mail
 			HashMap<String, String> replacements = new HashMap<String, String>();
-			replacements.put("confirmId", generateSalt(24));
+			
+			replacements.put("conf", user.getConfirm());
+			replacements.put("userid", user.getId());
 			replacements.put("mail", user.getMail());
-			replacements.put("host", "tagaprice");
+			replacements.put("host", "tagaprice.org");
 			replacements.put("link", "conf");
 			Mail.getInstance().send("regConfirm", new InternetAddress(user.getMail()),  replacements);
 		} catch (AddressException e) {
@@ -147,6 +155,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			throw new DaoException("MessagingException: "+e.getMessage(), e);
 		} catch (IOException e) {
 			throw new DaoException("IOException: "+e.getMessage(), e);
+		}catch (NoSuchAlgorithmException e) {
+			throw new DaoException("IOException: "+e.getMessage(), e);	
 		}
 		
 		

@@ -9,4 +9,7 @@ public interface IUserDao extends IDaoClass<User> {
 	 * @return User object (if the mail address wasn't found in the database, null is returned)
 	 */
 	User getByMail(String mail);
+	
+	
+	
 }

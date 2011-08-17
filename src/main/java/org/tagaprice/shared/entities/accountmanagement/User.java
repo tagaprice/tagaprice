@@ -14,6 +14,37 @@ public class User extends AEntity {
 	private String _mail = null;
 	private String _passwordHash = null;
 	private String _passwordSalt = null;
+	private boolean _confirmed = true;
+	private String _confirm = null;
+	private String _confirmSalt = null;
+
+	/**
+	 * @return the confirm
+	 */
+	public String getConfirm() {
+		return _confirm;
+	}
+
+	/**
+	 * @param confirm the confirm to set
+	 */
+	public void setConfirm(String confirm) {
+		_confirm = confirm;
+	}
+
+	/**
+	 * @return the confirmSalt
+	 */
+	public String getConfirmSalt() {
+		return _confirmSalt;
+	}
+
+	/**
+	 * @param confirmSalt the confirmSalt to set
+	 */
+	public void setConfirmSalt(String confirmSalt) {
+		_confirmSalt = confirmSalt;
+	}
 
 	/**
 	 * Default constuctor (necessary for serialization)
@@ -67,6 +98,21 @@ public class User extends AEntity {
 		_passwordSalt = passwordSalt;
 	}
 	
+	
+	/**
+	 * @return the confirmed
+	 */
+	public boolean isConfirmed() {
+		return _confirmed;
+	}
+
+	/**
+	 * @param confirmed the confirmed to set
+	 */
+	public void setConfirmed(boolean confirmed) {
+		_confirmed = confirmed;
+	}
+
 	@Override
 	public boolean equals(Object otherObject) {
 		boolean rc = true;
