@@ -29,7 +29,8 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private static CouchDbConfig m_dbConfig = null;
 	private static Server m_server = null;
 
-	private ICategoryDao m_categoryDao = null;
+	private ICategoryDao m_productCategoryDao = null;
+	private ICategoryDao m_shopCategoryDao = null;
 	private IPackageDao m_packageDao = null;
 	private IProductDao m_productDao = null;
 	private IReceiptDao m_receiptDao = null;
@@ -110,11 +111,11 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public ICategoryDao getCategoryDao() {
-		if (m_categoryDao == null) {
-			m_categoryDao = new CategoryDao(this);
+	public ICategoryDao getProductCategoryDao() {
+		if (m_productCategoryDao == null) {
+			m_productCategoryDao = new CategoryDao(this,"productCategory");
 		}
-		return m_categoryDao;
+		return m_productCategoryDao;
 	}
 
 	@Override
@@ -200,5 +201,12 @@ public class CouchDbDaoFactory implements IDaoFactory {
 			m_statisticDao = new StatisticDao(this);
 		}
 		return m_statisticDao;
+	}
+
+	@Override
+	public ICategoryDao getShopCategoryDao() {
+		if(m_shopCategoryDao == null)
+			m_shopCategoryDao = new CategoryDao(this, "shopCategory");
+		return m_shopCategoryDao;
 	}
 }

@@ -14,26 +14,48 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 
 	private static final long serialVersionUID = 1L;
 
-	ICategoryDao categoryDAO;
+	ICategoryDao productCategoryDAO;
+	ICategoryDao shopCategoryDAO;
 
 	public CategoryServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
-		categoryDAO = daoFactory.getCategoryDao();
+		productCategoryDAO = daoFactory.getProductCategoryDao();
+		shopCategoryDAO = daoFactory.getShopCategoryDao();
 	}
 
 	@Override
-	public Category getCategory(String id, String revision) throws DaoException {
-		return categoryDAO.get(id, revision);
+	public Category getProductCategory(String id, String revision) throws DaoException {
+		return productCategoryDAO.get(id, revision);
 	}
 
 	@Override
-	public Category getCategory(String id) throws DaoException {
-		return categoryDAO.get(id);
+	public Category getProductCategory(String id) throws DaoException {
+		return productCategoryDAO.get(id);
 	}
 
 	@Override
-	public List<Category> getCategoryChildren(String id) throws DaoException {
-		return categoryDAO.getChildren(id);
+	public List<Category> getProductCategoryChildren(String id) throws DaoException {
+		return productCategoryDAO.getChildren(id);
 	}
 
+	@Override
+	public Category getShopCategory(String id, String revision)
+			throws DaoException {
+		return shopCategoryDAO.get(id, revision);
+	}
+
+	@Override
+	public Category getShopCategory(String id) throws DaoException {
+		return shopCategoryDAO.get(id);
+	}
+
+	@Override
+	public List<Category> getShopCategoryChildren(String id)
+			throws DaoException {
+		return shopCategoryDAO.getChildren(id);
+	}
+
+	
+	
+	
 }

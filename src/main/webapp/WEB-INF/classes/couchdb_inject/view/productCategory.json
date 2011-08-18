@@ -1,0 +1,16 @@
+{
+  "_id": "_design/productCategory",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.entityType == 'productCategory') emit(null, doc);
+      }"
+    },
+    "childrenOf": {
+      "map": "function(doc) {
+        if (doc.entityType == 'productCategory') emit(doc.parentId, null);
+      }"
+    }
+  },
+  "language": "javascript"
+}

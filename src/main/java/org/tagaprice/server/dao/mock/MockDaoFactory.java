@@ -165,7 +165,7 @@ public class MockDaoFactory implements IDaoFactory {
 	}
 
 	@Override
-	public ICategoryDao getCategoryDao() {
+	public ICategoryDao getProductCategoryDao() {
 		return m_categoryDAO;
 	}
 

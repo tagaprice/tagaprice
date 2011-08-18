@@ -3,7 +3,8 @@ package org.tagaprice.server.dao;
 import javax.servlet.ServletException;
 
 public interface IDaoFactory {
-	ICategoryDao getCategoryDao();
+	ICategoryDao getProductCategoryDao();
+	ICategoryDao getShopCategoryDao();
 	IPackageDao getPackageDao();
 	IProductDao getProductDao();
 	IReceiptDao getReceiptDao();

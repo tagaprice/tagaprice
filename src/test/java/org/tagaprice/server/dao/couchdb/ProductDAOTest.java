@@ -16,7 +16,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDAOTest extends AbstractDAOTest {
 	IProductDao productDAO = m_daoFactory.getProductDao();
-	ICategoryDao categoryDAO = m_daoFactory.getCategoryDao();
+	ICategoryDao categoryDAO = m_daoFactory.getProductCategoryDao();
 	IUnitDao unitDAO = m_daoFactory.getUnitDao();
 	
 	Category m_testCategory;

@@ -14,8 +14,11 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 import com.allen_sauer.gwt.log.client.Log;
 
 public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
-	public CategoryDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Category.class, "category", daoFactory._getEntityDao());
+	private  String _objectType;
+	
+	public CategoryDao(CouchDbDaoFactory daoFactory, String objectType) {
+		super(daoFactory, Category.class, objectType, daoFactory._getEntityDao());
+		_objectType=objectType;
 	}
 
 	@Override
@@ -25,7 +28,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 
 	@Override
 	public List<Category> list() throws DaoException {
-		ViewResult<?> result = m_db.queryView("category/all", Category.class, null, null);
+		ViewResult<?> result = m_db.queryView(_objectType+"/all", Category.class, null, null);
 		List<Category> rc = new ArrayList<Category>();
 
 		System.out.println("CatList:");
@@ -45,7 +48,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	@Override
 	public List<Category> getChildren(String id) throws DaoException {
 		Log.debug("getChildren: "+id);
-		ViewResult<?> result = m_db.queryView("category/childrenOf", Category.class, new Options().key(id), null);
+		ViewResult<?> result = m_db.queryView(_objectType+"/childrenOf", Category.class, new Options().key(id), null);
 		List<Category> rc = new ArrayList<Category>();
 		Log.debug("listSize: "+result.getRows().size());
 
