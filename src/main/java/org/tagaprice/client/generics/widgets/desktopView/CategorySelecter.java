@@ -30,6 +30,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
 	private HorizontalPanel _hoPa = new HorizontalPanel();
 	private boolean _readonly = true;
+	private boolean _categoryTypeIsProduct = true;
 
 
 	public CategorySelecter() {
@@ -135,28 +136,17 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 							id=_myCat.getId();
 	
 						Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
+						
+						
+						if(_categoryTypeIsProduct){
+						
+						
 						_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
 	
 	
 							@Override
 							public void onSuccess(List<Category> results) {
-								VerticalPanel vePa = new VerticalPanel();
-	
-								for(final Category c: results){
-									Label catText = new Label(c.getTitle());
-									vePa.add(catText);
-	
-									catText.addClickHandler(new ClickHandler() {
-	
-										@Override
-										public void onClick(ClickEvent arg0) {
-											setCategory(c);
-											showCats.hide();
-										}
-									});
-								}
-								showCats.setWidget(vePa);
-								showCats.showRelativeTo(arrow);
+								drawCategories(results);
 							}
 	
 							@Override
@@ -164,6 +154,20 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 								Log.error("getCategoryProblem: "+e);
 							}
 						});
+						}else if(!_categoryTypeIsProduct){
+							_categoryServiceAsync.getShopCategoryChildren(id, new AsyncCallback<List<Category>>() {
+								
+								@Override
+								public void onSuccess(List<Category> results) {
+									drawCategories(results);									
+								}
+								
+								@Override
+								public void onFailure(Throwable e) {
+									Log.error("getCategoryProblem: "+e);
+								}
+							});
+						}
 	
 					}
 				}
@@ -185,5 +189,33 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 			}
 		}
 		
+		private void drawCategories(List<Category> results){
+			VerticalPanel vePa = new VerticalPanel();
+			
+			for(final Category c: results){
+				Label catText = new Label(c.getTitle());
+				vePa.add(catText);
+
+				catText.addClickHandler(new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent arg0) {
+						setCategory(c);
+						showCats.hide();
+					}
+				});
+			}
+			showCats.setWidget(vePa);
+			showCats.showRelativeTo(arrow);
+		}
+		
 	}
+
+
+	@Override
+	public void setCategoryTypeIsProduct(boolean isProduct) {
+		_categoryTypeIsProduct=isProduct;		
+	}
+	
+	
 }

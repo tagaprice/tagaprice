@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
@@ -13,49 +14,28 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface ICreateShopView extends IsWidget {
 
-	/**
-	 * 
-	 *
-	 */
-	public interface Presenter {
-		public void brandingSearch(String search);
-
-
-		/**
-		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
-		 * browser window.
-		 * 
-		 * @param place
-		 *            The {@link Place} which should be displayed next.
-		 */
-		public void goTo(Place place);
-
-
-		/**
-		 * This event is called when the user has CHANGED/CREATED a
-		 * shop.
-		 * 
-		 * @param event
-		 *            is called when the user has CHANGED/CREATED a
-		 *            shop.
-		 */
-		public void onSaveEvent();
-
-		/**
-		 * 	This event is called when the user has changed something at the statistic widget
-		 * @param bbox BBox to search for Shop
-		 * @param begin start Date
-		 * @param end end Date
-		 */
-		public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end);
-
-	}
-
-
 	public Address getAddress();
 
 	public Shop getBranding();
 
+	
+	/**
+	 * Sets the depending {@link Category} for a
+	 * {@link Product}
+	 * 
+	 * @param category
+	 *            the depending {@link Category} for a
+	 *            {@link Product}
+	 */
+	public void setCategory(Category category);
+
+	/**
+	 * Returns the depending {@link Category}
+	 * 
+	 * @return Returns the depending {@link Category}
+	 */
+	public Category getCategory();
+	
 	/**
 	 * Set current address (Position of the user)
 	 * @param address address (position) of the user
@@ -111,4 +91,50 @@ public interface ICreateShopView extends IsWidget {
 	 * @return The selected end date. Is current date if nothing has been selected.
 	 */
 	public Date getStatisticEndDate();
+	
+	/**
+	 * 
+	 *
+	 */
+	public interface Presenter {
+		public void brandingSearch(String search);
+
+
+		/**
+		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
+		 * browser window.
+		 * 
+		 * @param place
+		 *            The {@link Place} which should be displayed next.
+		 */
+		public void goTo(Place place);
+
+
+		/**
+		 * This event is called when the user has CHANGED/CREATED a
+		 * shop.
+		 * 
+		 * @param event
+		 *            is called when the user has CHANGED/CREATED a
+		 *            shop.
+		 */
+		public void onSaveEvent();
+
+		/**
+		 * 	This event is called when the user has changed something at the statistic widget
+		 * @param bbox BBox to search for Shop
+		 * @param begin start Date
+		 * @param end end Date
+		 */
+		public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end);
+
+		/**
+		 * This event is called when the user has CHANGED the Category
+		 * TODO: Implement event
+		 */
+		public void onCategorySelectedEvent();
+	}
+
+
+	
 }

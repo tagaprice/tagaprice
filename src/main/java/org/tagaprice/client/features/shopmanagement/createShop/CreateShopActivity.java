@@ -64,6 +64,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_shop.setTitle(_createShopView.getTitle());
 		_shop.setAddress(_createShopView.getAddress());
 		_shop.setParent(_createShopView.getBranding());
+		_shop.setCategory(_createShopView.getCategory());
 
 		//infox
 		//destroy all
@@ -235,6 +236,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setTitle(shop.getTitle());
 		_createShopView.setAddress(shop.getAddress());
 		_createShopView.setBranding(shop.getParent());
+		_createShopView.setCategory(shop.getCategory());
 	}
 
 
@@ -287,6 +289,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				Log.error("searchproblem: "+e);
 			}
 		});
+	}
+
+
+	@Override
+	public void onCategorySelectedEvent() {
+		Log.debug("Unit has changed");		
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView.Presenter;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
+import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.MorphWidget;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
@@ -12,6 +13,7 @@ import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
@@ -40,6 +42,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private Label _statisticHead = new Label("Statistic");
 	private AddressSelecter _address = new AddressSelecter();
 	private boolean _readonly = true;
+	private CategorySelecter _category = new CategorySelecter();
 	
 	//edit buttons
 	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
@@ -73,9 +76,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_shopFrame.setBody(_shopBodyPanel);
 		
 		
+		
 		//Address Selecter
 		_shopBodyPanel.add(_address);
 		
+		//add Category Selecter
+		_category.setCategoryTypeIsProduct(false);
+		_shopBodyPanel.add(_category);
 		
 		//TODO implement Properties 
 		//Mock properties
@@ -251,7 +258,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_readonly=read;
 		_shopTitle.setReadOnly(_readonly);
 		_address.setReadOnly(_readonly);
-		
+		_category.setReadOnly(_readonly);
 		_cancelButton.setVisible(!_readonly);
 		_saveButton.setVisible(!_readonly);
 		_editButton.setVisible(_readonly);
@@ -271,6 +278,18 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public Date getStatisticEndDate() {
 		return _statistic.getEndDate();
+	}
+
+
+
+	@Override
+	public void setCategory(Category category) {
+		_category.setCategory(category);
+	}
+
+	@Override
+	public Category getCategory() {
+		return _category.getCategory();
 	}
 	
 }

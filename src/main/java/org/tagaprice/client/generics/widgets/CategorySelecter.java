@@ -40,5 +40,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		categorySelecter.setReadOnly(read);
 	}
 
+	@Override
+	public void setCategoryTypeIsProduct(boolean isProduct) {
+		categorySelecter.setCategoryTypeIsProduct(isProduct);		
+	}
+
 
 }

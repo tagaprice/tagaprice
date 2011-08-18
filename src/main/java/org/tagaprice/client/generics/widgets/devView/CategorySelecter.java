@@ -28,6 +28,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 	private ICategoryServiceAsync _categoryServiceAsync = GWT.create(ICategoryService.class);
 	private HorizontalPanel _hoPa = new HorizontalPanel();
+	private boolean _categoryTypeIsProduct = true;
 
 
 	public CategorySelecter() {
@@ -104,35 +105,36 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 						id=_myCat.getId();
 
 					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
-					_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
-
-
-						@Override
-						public void onSuccess(List<Category> results) {
-							VerticalPanel vePa = new VerticalPanel();
-
-							for(final Category c: results){
-								Label catText = new Label(c.getTitle());
-								vePa.add(catText);
-
-								catText.addClickHandler(new ClickHandler() {
-
-									@Override
-									public void onClick(ClickEvent arg0) {
-										setCategory(c);
-
-									}
-								});
+					if(_categoryTypeIsProduct){
+						
+						
+						_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
+	
+	
+							@Override
+							public void onSuccess(List<Category> results) {
+								drawCategories(results);
 							}
-							showCats.setWidget(vePa);
-							showCats.showRelativeTo(arrow);
+	
+							@Override
+							public void onFailure(Throwable e) {
+								Log.error("getCategoryProblem: "+e);
+							}
+						});
+						}else if(!_categoryTypeIsProduct){
+							_categoryServiceAsync.getShopCategoryChildren(id, new AsyncCallback<List<Category>>() {
+								
+								@Override
+								public void onSuccess(List<Category> results) {
+									drawCategories(results);									
+								}
+								
+								@Override
+								public void onFailure(Throwable e) {
+									Log.error("getCategoryProblem: "+e);
+								}
+							});
 						}
-
-						@Override
-						public void onFailure(Throwable e) {
-							Log.error("getCategoryProblem: "+e);
-						}
-					});
 
 				}
 			});
@@ -141,6 +143,26 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 		public Category getCategory(){
 			return _myCat;
+		}
+		
+		private void drawCategories(List<Category> results){
+			VerticalPanel vePa = new VerticalPanel();
+			
+			for(final Category c: results){
+				Label catText = new Label(c.getTitle());
+				vePa.add(catText);
+
+				catText.addClickHandler(new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent arg0) {
+						setCategory(c);
+						showCats.hide();
+					}
+				});
+			}
+			showCats.setWidget(vePa);
+			showCats.showRelativeTo(arrow);
 		}
 	}
 
@@ -155,5 +177,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	public void setReadOnly(boolean read) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setCategoryTypeIsProduct(boolean isProduct) {
+		_categoryTypeIsProduct=isProduct;		
 	}
 }

@@ -23,4 +23,5 @@ public interface ICategorySelecter extends IsWidget {
 
 	void setReadOnly(boolean read);
 
+	void setCategoryTypeIsProduct(boolean isProduct);
 }

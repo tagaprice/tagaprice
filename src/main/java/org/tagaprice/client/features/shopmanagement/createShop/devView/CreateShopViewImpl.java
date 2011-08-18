@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
+import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
@@ -31,6 +33,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	.create(CreateShopViewImpleUiBinder.class);
 
 	private Presenter _presenter;
+	private CategorySelecter _category = new CategorySelecter();
 
 
 	@UiField
@@ -191,6 +194,16 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public Date getStatisticEndDate() {
 		return _statisticSelecter.getEndDate();
+	}
+
+	@Override
+	public void setCategory(Category category) {
+		_category.setCategory(category);		
+	}
+
+	@Override
+	public Category getCategory() {
+		return _category.getCategory();
 	}
 
 }
