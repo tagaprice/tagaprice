@@ -114,6 +114,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException {
 		Log.debug("Try to register: email: " + email + ", password: " + password);
 
+		password=password.trim();
+		email=email.trim();
+		
 		// TODO do some error handling here
 		if (!isEmailAvailable(email)) return false;
 		if (password.length() < 6) return false;
@@ -130,30 +133,26 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
 		}
 
-		User user = new User(email); // TODO we need an actual user name here
-		user.setMail(email);
-		user.setPasswordSalt(salt);
-		user.setPasswordHash(pwdHash);
-		user = _userDao.create(user);
-		
-		
-		
 		
 		try {
+			User user = new User(email); // TODO we need an actual user name here
+			user.setMail(email);
+			user.setPasswordSalt(salt);
+			user.setPasswordHash(pwdHash);
+			
 			user.setConfirmSalt(generateSalt(24));
-			user.setConfirm(md5(user.getId()+user.getConfirmSalt()));
+			user.setConfirm(md5(user.getMail()+user.getConfirmSalt()));
 			
 			//save conf
-			user = _userDao.update(user);
+			user = _userDao.create(user);
 			
 			// send confirmation mail
 			HashMap<String, String> replacements = new HashMap<String, String>();
 			
 			replacements.put("conf", user.getConfirm());
-			replacements.put("userid", user.getId());
 			replacements.put("mail", user.getMail());
-			replacements.put("host", "tagaprice");
-			replacements.put("link", "conf");
+			replacements.put("host", "beta.tagaprice.org");
+			replacements.put("link", "TagAPrice/confirmservice");
 			Mail.getInstance().send("regConfirm", new InternetAddress(user.getMail()),  replacements);
 		} catch (AddressException e) {
 			throw new DaoException("AddressException: "+e.getMessage(), e);

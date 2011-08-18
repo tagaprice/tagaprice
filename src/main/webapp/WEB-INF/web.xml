@@ -108,6 +108,18 @@
 		<servlet-name>unitService</servlet-name>
 		<url-pattern>/TagAPrice/unitservice</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- Confirmation -->
+	<servlet>
+		<servlet-name>confirmService</servlet-name>
+		<servlet-class>org.tagaprice.server.ConfirmServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>confirmService</servlet-name>
+		<url-pattern>/TagAPrice/confirmservice</url-pattern>
+	</servlet-mapping>
 
 <!-- JUNIT -->
 
