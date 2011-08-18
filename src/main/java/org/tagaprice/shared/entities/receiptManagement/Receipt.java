@@ -109,7 +109,7 @@ public class Receipt extends AEntity {
 	}
 	
 	public void setShopId(String shopId){
-		setShop(new Shop(null, shopId, null, null));
+		setShop(new Shop(null, shopId, null, null, null));
 	}
 
 

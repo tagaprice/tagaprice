@@ -104,7 +104,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 						id=_myCat.getId();
 
 					Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
-					_categoryServiceAsync.getCategoryChildren(id, new AsyncCallback<List<Category>>() {
+					_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
 
 
 						@Override

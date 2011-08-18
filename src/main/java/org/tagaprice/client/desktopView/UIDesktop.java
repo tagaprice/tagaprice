@@ -341,7 +341,7 @@ public class UIDesktop implements IUi {
 						_shopSearchPanel.add(dumpShop);
 					}	
 					
-					Shop ns = new Shop(null, null, null, "(new Shop)"+search.getText());
+					Shop ns = new Shop(null, null, null, "(new Shop)"+search.getText(), null);
 					ShopPreview dumpShop = new ShopPreview(ns);
 					dumpShop.addClickHandler(new ClickHandler() {
 						

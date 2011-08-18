@@ -404,7 +404,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		}
 		
 		//new shop
-		Shop ns = new Shop(null, null, null, "(new Shop)"+_shopSearchText.getText());
+		Shop ns = new Shop(null, null, null, "(new Shop)"+_shopSearchText.getText(), null);
 		ShopPreview dumpShop = new ShopPreview(ns);
 		dumpShop.addClickHandler(new ClickHandler() {
 			
