@@ -32,10 +32,6 @@ public interface ILoginView extends IsWidget {
 	 */
 	public void showWaitForConfirmation();
 	
-	/**
-	 * Displays the user has confirmed ready
-	 */
-	public void showConfirmed();
 	
 	/**
 	 * Displays the SignIn/Up view. 

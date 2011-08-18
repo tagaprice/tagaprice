@@ -67,11 +67,6 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 	}
 
-	@Override
-	public void showConfirmed() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void showSignInUp(boolean showSingIn) {

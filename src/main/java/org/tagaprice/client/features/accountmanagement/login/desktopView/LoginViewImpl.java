@@ -95,11 +95,6 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 	}
 
-	@Override
-	public void showConfirmed() {
-		panel.setWidget(new Label("Well done. you can login now"));
-		
-	}
 
 	@Override
 	public void showSignInUp(boolean showSingIn) {
@@ -142,9 +137,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		vePaSignInUp.add(passwordForgotText);
 		vePaSignInUp.add(terms);
 		terms.setVisible(false);
-		vePaSignInUp.add(new HTML("<hr />"));
-		HTML noUser = new HTML("<a href=\"#Register:/REGISTER\">Don't havean account? Sign up!</a>");
-		vePaSignInUp.add(noUser);
+
 		
 		
 		//sign in/up select
