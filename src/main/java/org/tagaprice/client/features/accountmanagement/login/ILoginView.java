@@ -26,6 +26,22 @@ public interface ILoginView extends IsWidget {
 	 * @return password in the passwordTextBox
 	 */
 	public String getPassword();
+	
+	/**
+	 * Displays the wait for confirmation view.
+	 */
+	public void showWaitForConfirmation();
+	
+	/**
+	 * Displays the user has confirmed ready
+	 */
+	public void showConfirmed();
+	
+	/**
+	 * Displays the SignIn/Up view. 
+	 * @param showSingIn radio button is set to 'I have an account' or 'I'm new!'
+	 */
+	public void showSignInUp(boolean showSingIn);
 
 	public interface Presenter {
 		/**
@@ -43,5 +59,9 @@ public interface ILoginView extends IsWidget {
 		 */
 		public void onLoginEvent();
 
+		/**
+		 * This method signals that the user has clicked the sign up button.
+		 */
+		public void onRegisterButtonEvent();
 	}
 }

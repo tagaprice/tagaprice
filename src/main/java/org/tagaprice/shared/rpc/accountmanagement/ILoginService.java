@@ -72,4 +72,11 @@ public interface ILoginService extends RemoteService {
 	 */
 	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
 	throws UserNotLoggedInException;
+	
+	/**
+	 * Returns true/false if this email has been confirmed. But false if not, or not available. 
+	 * @param email email to check
+	 * @return true/false if this email has been confirmed. But false if not, or not available. 
+	 */
+	public Boolean isEmailConfirmed(String email);
 }

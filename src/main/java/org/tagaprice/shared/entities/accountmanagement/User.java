@@ -14,7 +14,7 @@ public class User extends AEntity {
 	private String _mail = null;
 	private String _passwordHash = null;
 	private String _passwordSalt = null;
-	private boolean _confirmed = true;
+	private boolean _confirmed = false;
 	private String _confirm = null;
 	private String _confirmSalt = null;
 

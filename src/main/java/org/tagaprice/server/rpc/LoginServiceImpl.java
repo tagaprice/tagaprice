@@ -95,7 +95,13 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		return user == null;
 	}
 
-
+	@Override
+	public Boolean isEmailConfirmed(String email){
+		User user = _userDao.getByMail(email);
+		if(user == null) return false;
+		
+		return user.isConfirmed();
+	}
 
 	@Override
 	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
@@ -106,12 +112,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	@Override
 	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException {
+		Log.debug("Try to register: email: " + email + ", password: " + password);
+
 		// TODO do some error handling here
-		if (!agreeTerms) return false;
 		if (!isEmailAvailable(email)) return false;
 		if (password.length() < 6) return false;
 
-		Log.debug("Try to register: email: " + email + ", password: " + password);
 
 
 		String salt = generateSalt(24);
@@ -146,7 +152,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 			replacements.put("conf", user.getConfirm());
 			replacements.put("userid", user.getId());
 			replacements.put("mail", user.getMail());
-			replacements.put("host", "tagaprice.org");
+			replacements.put("host", "tagaprice");
 			replacements.put("link", "conf");
 			Mail.getInstance().send("regConfirm", new InternetAddress(user.getMail()),  replacements);
 		} catch (AddressException e) {

@@ -4,7 +4,6 @@ import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
