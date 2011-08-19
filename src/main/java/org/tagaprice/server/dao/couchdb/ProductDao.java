@@ -10,7 +10,6 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ProductDao extends DaoClass<Product> implements IProductDao {
@@ -19,7 +18,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 	IPackageDao m_packageDAO;
 
 	public ProductDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Product.class, "product", daoFactory._getEntityDao());
+		super(daoFactory, Product.class, "product", daoFactory._getDocumentDao());
 		m_categoryDAO = daoFactory.getProductCategoryDao();
 		m_unitDAO = daoFactory.getUnitDao();
 		m_packageDAO = daoFactory.getPackageDao();
@@ -28,8 +27,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 
 	@Override
-	public Product create(Product entity) throws DaoException {
-		Product rc = super.create(entity);
+	public Product create(Product product) throws DaoException {
+		Product rc = super.create(product);
 
 		//create Packages
 		ArrayList<Package> pl = new ArrayList<Package>();
@@ -43,8 +42,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 	}
 
 	@Override
-	public Product update(Product entity) throws DaoException {
-		Product rc = super.update(entity);
+	public Product update(Product product) throws DaoException {
+		Product rc = super.update(product);
 
 		//create Packages
 		ArrayList<Package> pl = new ArrayList<Package>();

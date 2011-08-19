@@ -40,7 +40,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
 
-	private EntityDao m_entityDao = null;
+	private DocumentDao m_documentDao = null;
 
 
 	static CouchDbConfig getConfiguration() throws IOException {
@@ -174,11 +174,11 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		return m_userDao;
 	}
 
-	EntityDao _getEntityDao() {
-		if (m_entityDao == null) {
-			m_entityDao = new EntityDao(this);
+	DocumentDao _getDocumentDao() {
+		if (m_documentDao == null) {
+			m_documentDao = new DocumentDao(this);
 		}
-		return m_entityDao;
+		return m_documentDao;
 	}
 
 	@Override

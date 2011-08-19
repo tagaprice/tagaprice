@@ -2,7 +2,7 @@ package org.tagaprice.shared.entities.searchmanagement;
 
 import java.util.Date;
 
-import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class StatisticResult extends ASimpleEntity implements IsSerializable {
+public class StatisticResult extends ADocument implements IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -7,7 +7,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
  * Represents Units and converts between them.
  *
  */
-public class Unit extends AEntity {
+public class Unit extends ADocument {
 	private static final long serialVersionUID = 1L;
 	private double _factor = 1.0;
 	private Unit _parent=null;
@@ -19,7 +19,7 @@ public class Unit extends AEntity {
 	/**
 	 * <b>NEW</b>
 	 * Create new Unit
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param title Unit title
 	 */
 	public Unit(User creator, String title, Unit parent, double factor) {
@@ -29,7 +29,7 @@ public class Unit extends AEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or get unit from db
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param id
 	 * @param revision
 	 * @param title

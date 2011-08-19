@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.svenson.JSONProperty;
 import org.svenson.JSONTypeHint;
-import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
@@ -17,7 +17,7 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
  * and all {@link ReceiptEntry} of a receipt.
  * 
  */
-public class Receipt extends AEntity {
+public class Receipt extends ADocument {
 	private static final long serialVersionUID = 1L;
 
 	private Shop _shop;
@@ -34,7 +34,7 @@ public class Receipt extends AEntity {
 	/**
 	 * <b>NEW</b>
 	 * Create new Receipt. Used on the Client
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param title the title of the receipt
 	 * @param date date of the receipt
 	 * @param subsidiary the subsidiary
@@ -49,7 +49,7 @@ public class Receipt extends AEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or select Receipt. Used on Client and Server
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param revisionId the revision of the receipt. (it is not really necessary to save the revision)
 	 * @param title the title of the receipt
 	 * @param date the date and time when a receipt was created

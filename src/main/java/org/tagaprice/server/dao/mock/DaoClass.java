@@ -9,29 +9,29 @@ import java.util.Map;
 import java.util.Random;
 
 import org.tagaprice.server.dao.IDaoClass;
-import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
+public class DaoClass<T extends ADocument> implements IDaoClass<T> {
 	protected Map<String, Deque<T>> m_data = new HashMap<String, Deque<T>>();
 	private Random random = new Random();
 	
 	@Override
-	public T create(T entity) throws DaoException {
-		if (entity.getId() != null) throw new DaoException("Newly created entities must not have an ID!");
+	public T create(T document) throws DaoException {
+		if (document.getId() != null) throw new DaoException("Newly created Documents must not have an ID!");
 
 		String id = new Long(random.nextLong()).toString();
 		String rev = "1";
 		
-		entity.setId(id);
-		entity.setRevision(rev);
+		document.setId(id);
+		document.setRevision(rev);
 		
 		Deque<T> deque = new ArrayDeque<T>();
-		deque.push(entity);
+		deque.push(document);
 		
 		m_data.put(id, deque);
 		
-		return entity;
+		return document;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	public T get(String id, String revision) throws DaoException {
 		T rc = null;
 	
-		if (!m_data.containsKey(id)) throw new DaoException("Entity not found (id: '"+id+"')!");
+		if (!m_data.containsKey(id)) throw new DaoException("Document not found (id: '"+id+"')!");
 	
 		if (revision == null) {
 			// get the last revision
@@ -51,9 +51,9 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		}
 		else {
 			// find a specific revision
-			for(T entity: m_data.get(id)) {
-				if (entity.getRevision().equals(revision)) {
-					rc = entity;
+			for(T document: m_data.get(id)) {
+				if (document.getRevision().equals(revision)) {
+					rc = document;
 					break;
 				}
 			}
@@ -63,31 +63,31 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	}
 
 	@Override
-	public T update(T entity) throws DaoException {
-		if (entity.getId() == null) throw new DaoException("Entities must have an ID when you update them!");
-		if (!m_data.containsKey(entity.getId())) throw new DaoException("Entity not found! (id: '"+entity.getId()+"')");
+	public T update(T document) throws DaoException {
+		if (document.getId() == null) throw new DaoException("Documents must have an ID when you update them!");
+		if (!m_data.containsKey(document.getId())) throw new DaoException("Document not found! (id: '"+document.getId()+"')");
 	
-		Deque<T> deque = m_data.get(entity.getId());
+		Deque<T> deque = m_data.get(document.getId());
 		T currentRevision = deque.peek();
 		
-		if (!currentRevision.getRevision().equals(entity.getRevision())) {
-			throw new DaoException("Entity revision don't match ('"+entity.getRevision()+"' and '"+currentRevision.getRevision()+"')");
+		if (!currentRevision.getRevision().equals(document.getRevision())) {
+			throw new DaoException("Document revisions don't match ('"+document.getRevision()+"' and '"+currentRevision.getRevision()+"')");
 		}
 
-		String rev = new Integer(m_data.get(entity.getId()).size()+1).toString();
-		entity.setRevision(rev);
+		String rev = new Integer(m_data.get(document.getId()).size()+1).toString();
+		document.setRevision(rev);
 		
-		deque.push(entity);
+		deque.push(document);
 		
-		return entity;
+		return document;
 	}
 
 	@Override
-	public void delete(T entity) throws DaoException {
-		if (m_data.containsKey(entity.getId())) {
-			m_data.remove(entity.getId());
+	public void delete(T document) throws DaoException {
+		if (m_data.containsKey(document.getId())) {
+			m_data.remove(document.getId());
 		}
-		else throw new DaoException("Entity not found: '"+entity.getId()+"'");
+		else throw new DaoException("Document not found: '"+document.getId()+"'");
 		
 	}
 

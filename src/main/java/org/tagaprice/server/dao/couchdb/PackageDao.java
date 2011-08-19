@@ -16,7 +16,7 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	IUnitDao m_unitDAO;
 
 	public PackageDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Package.class, "package", daoFactory._getEntityDao());
+		super(daoFactory, Package.class, "package", daoFactory._getDocumentDao());
 		m_unitDAO = daoFactory.getUnitDao();
 	}
 
@@ -44,10 +44,10 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	}
 
 	@Override
-	protected void _injectFields(Package entity) throws DaoException {
+	protected void _injectFields(Package document) throws DaoException {
 
-		if(entity.getQuantity().getUnitId()!=null){
-			entity.getQuantity().setUnit(m_unitDAO.get(entity.getQuantity().getUnitId()));
+		if(document.getQuantity().getUnitId()!=null){
+			document.getQuantity().setUnit(m_unitDAO.get(document.getQuantity().getUnitId()));
 		}
 	}
 

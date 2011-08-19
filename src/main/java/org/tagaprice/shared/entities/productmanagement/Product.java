@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -14,7 +14,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
  * as model. (Read MVP pattern on <a href="http://code.google.com/webtoolkit/articles/mvp-architecture.html#model" />)
  * 
  */
-public class Product extends AEntity {
+public class Product extends ADocument {
 	private static final long serialVersionUID = 1L;
 	private Category _category;
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
@@ -30,7 +30,7 @@ public class Product extends AEntity {
 	 * <b>NEW</b>
 	 * Constructor to create a new {@link Product}
 	 * 
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param title Product Title
 	 * @param category Product category
 	 * @param unit Product unit
@@ -46,7 +46,7 @@ public class Product extends AEntity {
 	 * <b>UPDATE and GET</b>
 	 * Constructor to update and GET a {@link Product}
 	 * 
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param revision The product revision
 	 * @param title Product Title
 	 * @param category Product category

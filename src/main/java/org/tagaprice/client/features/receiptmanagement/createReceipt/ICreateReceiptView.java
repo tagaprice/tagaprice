@@ -21,8 +21,8 @@ public interface ICreateReceiptView extends IsWidget{
 	public String getTitle();
 
 	/**
-	 * Sets the entity title
-	 * @param title Sets the entity title
+	 * Sets the document title
+	 * @param title Sets the document title
 	 */
 	public void setTitle(String title);
 

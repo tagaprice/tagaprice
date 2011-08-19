@@ -3,12 +3,12 @@ package org.tagaprice.shared.entities.accountmanagement;
 import java.util.Date;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.entities.ADocument;
 
 /**
  * Entity class representing a logged in user
  */
-public class Session extends ASimpleEntity {
+public class Session extends ADocument {
 	private static final long serialVersionUID = 1L;
 	private Date m_expirationDate;
 	private String m_expirationString;
@@ -26,7 +26,7 @@ public class Session extends ASimpleEntity {
 	 * @param expiresAt Session expiration time
 	 */
 	public Session(User user, Date expiresAt) {
-		super(user, null, null);
+		super(user, null);
 		m_expirationDate = expiresAt;
 	}
 
@@ -38,7 +38,7 @@ public class Session extends ASimpleEntity {
 	 * @param expiresAt Session expiration time
 	 */
 	public Session(User user, String id, String rev, Date expiresAt) {
-		super(user, id, rev);
+		super(user, id, rev, null);
 		m_expirationDate = expiresAt;
 	}
 	

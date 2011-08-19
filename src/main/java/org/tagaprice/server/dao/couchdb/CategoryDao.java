@@ -8,7 +8,6 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.shared.entities.categorymanagement.Category;
-import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -17,7 +16,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	private  String _objectType;
 	
 	public CategoryDao(CouchDbDaoFactory daoFactory, String objectType) {
-		super(daoFactory, Category.class, objectType, daoFactory._getEntityDao());
+		super(daoFactory, Category.class, objectType, daoFactory._getDocumentDao());
 		_objectType=objectType;
 	}
 

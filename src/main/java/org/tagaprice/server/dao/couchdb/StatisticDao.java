@@ -17,7 +17,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	private IReceiptDao m_receiptDao;
 
 	public StatisticDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, StatisticResult.class, "statistic", daoFactory._getEntityDao());
+		super(daoFactory, StatisticResult.class, "statistic", daoFactory._getDocumentDao());
 		m_receiptDao = daoFactory.getReceiptDao();
 	}
 

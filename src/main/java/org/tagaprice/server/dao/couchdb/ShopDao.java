@@ -7,7 +7,6 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IShopDao;
-import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -16,7 +15,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	private ICategoryDao m_shopCategoryDAO;;
 	
 	public ShopDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Shop.class, "shop", daoFactory._getEntityDao());
+		super(daoFactory, Shop.class, "shop", daoFactory._getDocumentDao());
 		m_shopCategoryDAO = daoFactory.getShopCategoryDao();
 	}
 	

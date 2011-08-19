@@ -1,14 +1,14 @@
 package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * A category describes which properties and dependencies a {@link Product} has.
  *
  */
-public class Category extends AEntity   {
+public class Category extends ADocument   {
 	private static final long serialVersionUID = 1L;
 
 	private Category _parent;
@@ -22,7 +22,7 @@ public class Category extends AEntity   {
 	/**
 	 * <b>NEW</b>
 	 * Create a new Category
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param title the title of the category
 	 * @param parent the parent of the category.
 	 */
@@ -33,7 +33,7 @@ public class Category extends AEntity   {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Update or fetch an category
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param revisionId the revision and id of the category
 	 * @param title the title of the category
 	 * @param parent the parent of the category

@@ -11,7 +11,7 @@ public class SessionDao extends DaoClass<Session> implements ISessionDao {
 	SimpleDateFormat m_dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	
 	public SessionDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Session.class, "session", daoFactory._getEntityDao());
+		super(daoFactory, Session.class, "session", daoFactory._getDocumentDao());
 	}
 	
 	@Override

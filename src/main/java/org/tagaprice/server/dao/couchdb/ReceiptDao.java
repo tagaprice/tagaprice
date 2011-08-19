@@ -22,7 +22,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Receipt.class, "receipt", daoFactory._getEntityDao());
+		super(daoFactory, Receipt.class, "receipt", daoFactory._getDocumentDao());
 		m_shopDAO = daoFactory.getShopDao();
 		m_packageDAO = daoFactory.getPackageDao();
 		m_productDAO = daoFactory.getProductDao();
@@ -30,27 +30,27 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 
 	@Override
-	public Receipt create(Receipt entity) throws DaoException {
+	public Receipt create(Receipt receipt) throws DaoException {
 
-		for(ReceiptEntry re: entity.getReceiptEntries()){
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				re.setPackage(m_packageDAO.create(re.getPackage()));
 			}
 		}
 
-		Receipt rc = super.create(entity);
+		Receipt rc = super.create(receipt);
 		return rc;
 
 	}
 
 	@Override
-	public Receipt update(Receipt entity) throws DaoException {
-		for(ReceiptEntry re: entity.getReceiptEntries()){
+	public Receipt update(Receipt receipt) throws DaoException {
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				re.setPackage(m_packageDAO.create(re.getPackage()));
 			}
 		}
-		return super.update(entity);
+		return super.update(receipt);
 	}
 
 	@Override
@@ -72,13 +72,13 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	}
 
 	@Override
-	protected void _injectFields(Receipt entity) throws DaoException {
-		if(entity.getShopId() != null){
-			entity.setShop(m_shopDAO.get(entity.getShopId()));
+	protected void _injectFields(Receipt receipt) throws DaoException {
+		if(receipt.getShopId() != null){
+			receipt.setShop(m_shopDAO.get(receipt.getShopId()));
 		}
 		
 		
-		for(ReceiptEntry re:entity.getReceiptEntries()){
+		for(ReceiptEntry re:receipt.getReceiptEntries()){
 			if(re.getPackageId()!=null){
 				re.setPackage(m_packageDAO.get(re.getPackageId()));
 				re.getPackage().setProduct(m_productDAO.get(re.getPackage().getProductId()));

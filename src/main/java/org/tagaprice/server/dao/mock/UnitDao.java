@@ -50,7 +50,7 @@ public class UnitDao implements IUnitDao {
 	}
 
 	@Override
-	public void delete(Unit entity) {
+	public void delete(Unit document) {
 		// TODO Auto-generated method stub
 
 	}

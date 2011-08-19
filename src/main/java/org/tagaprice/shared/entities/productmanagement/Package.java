@@ -1,11 +1,11 @@
 package org.tagaprice.shared.entities.productmanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ASimpleEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
-public class Package extends ASimpleEntity {
+public class Package extends ADocument {
 	private static final long serialVersionUID = 1L;
 
 	Quantity _iQuantity;
@@ -32,12 +32,12 @@ public class Package extends ASimpleEntity {
 	/**
 	 * <b>UPDATE and GET</b>
 	 * Get or Update Package.
-	 * @param creator Creator of the current entity revision
+	 * @param creator Creator of the current document revision
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
 	public Package(User creator, String id, String revision, Quantity quantity){
-		super(creator, id, revision);
+		super(creator, id, revision, null);
 		_iQuantity=quantity;
 	}
 

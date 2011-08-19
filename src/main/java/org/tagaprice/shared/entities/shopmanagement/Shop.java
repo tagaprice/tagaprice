@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities.shopmanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.AEntity;
+import org.tagaprice.shared.entities.ADocument;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
  * "Karlsplatz 14, 1050 Wien"
  * 
  */
-public class Shop extends AEntity {
+public class Shop extends ADocument {
 	private static final long serialVersionUID = 1L;
 	private Category _category;
 	private Address _address = new Address();
@@ -29,7 +29,7 @@ public class Shop extends AEntity {
 	 * <b>NEW</b>
 	 * Constructor to create a new {@link Shop}
 	 * 
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current document revision 
 	 * @param title Title of the shop
 	 */
 	public Shop(User creator, String title, Category category) {
@@ -42,7 +42,7 @@ public class Shop extends AEntity {
 	 * <b>UPDATE and GET</b>
 	 * Constructor to update a {@link Shop}
 	 * 
-	 * @param creator Creator of the current entity revision 
+	 * @param creator Creator of the current document revision 
 	 * @param revisionId
 	 * @param title
 	 */
