@@ -5,6 +5,7 @@ import org.svenson.JSONProperty;
 
 public class SearchResult {
 	private int m_took = -1;
+	private String m_error = null;
 	private boolean m_timedOut = false;
 	private Shards m_shards = null;
 	private Hits m_hits = null;
@@ -49,6 +50,7 @@ public class SearchResult {
 	
 	public static class Shards {
 		private int m_total, m_successful, m_failed;
+		private int m_failures;
 		
 		public int getTotal() {
 			return m_total;
@@ -73,5 +75,26 @@ public class SearchResult {
 		public void setFailed(int failed) {
 			m_failed = failed;
 		}
+
+		public int getFailures() {
+			return m_failures;
+		}
+
+		public void setFailures(int failures) {
+			m_failures = failures;
+		}
+	}
+
+	@JSONProperty(value="error", ignoreIfNull=true)
+	public String getError() {
+		return m_error;
+	}
+
+	public boolean hasError() {
+		return m_error != null;
+	}
+
+	public void setError(String error) {
+		m_error = error;
 	}
 }
