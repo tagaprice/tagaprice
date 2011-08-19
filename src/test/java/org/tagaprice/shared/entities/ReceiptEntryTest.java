@@ -23,7 +23,7 @@ public class ReceiptEntryTest {
 	public void setUp() throws Exception {
 		emptyReceipt = new ReceiptEntry();
 		Package p = new Package(new Quantity(new BigDecimal("5.5"), new Unit(testUser, "kg")));
-		newReceipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.dkk), p);
+		newReceipt = new ReceiptEntry(new Price(new BigDecimal(15), Currency.euro), p);
 		setterReceipt = new ReceiptEntry();
 	}
 
@@ -45,7 +45,7 @@ public class ReceiptEntryTest {
 	public void testGetPrice() {
 		assertNotNull(newReceipt.getPrice());
 		assertEquals(newReceipt.getPrice().getPrice(), new BigDecimal(15));
-		assertEquals(newReceipt.getPrice().getCurrency(), Currency.dkk);
+		assertEquals(newReceipt.getPrice().getCurrency(), Currency.euro);
 	}
 
 
@@ -70,10 +70,10 @@ public class ReceiptEntryTest {
 		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.euro);
 
 
-		setterReceipt.setPrice(new Price(new BigDecimal(58), Currency.dkk));
+		setterReceipt.setPrice(new Price(new BigDecimal(58), Currency.euro));
 
 		assertEquals(setterReceipt.getPrice().getPrice(), new BigDecimal(58));
-		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.dkk);
+		assertEquals(setterReceipt.getPrice().getCurrency(), Currency.euro);
 
 	}
 

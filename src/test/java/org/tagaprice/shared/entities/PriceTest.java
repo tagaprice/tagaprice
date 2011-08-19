@@ -18,7 +18,7 @@ public class PriceTest {
 	@Before
 	public void setUp() throws Exception {
 		emptyPrice = new Price();
-		newPrice = new Price(new BigDecimal("15"), Currency.dkk);
+		newPrice = new Price(new BigDecimal("15"), Currency.euro);
 		setterPrice = new Price();
 	}
 
@@ -48,7 +48,7 @@ public class PriceTest {
 
 	@Test
 	public void testGetCurrency() {
-		assertEquals(newPrice.getCurrency(), Currency.dkk);
+		assertEquals(newPrice.getCurrency(), Currency.euro);
 	}
 
 }
