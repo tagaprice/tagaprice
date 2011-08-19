@@ -3,7 +3,7 @@
   "views": {
     "byMail": {
       "map": "function(doc) {
-        if (doc.entityType == 'user' && doc.mail != null) emit(doc.mail, doc);
+        if (doc.docType == 'user' && doc.mail != null) emit(doc.mail, doc);
       }"
     }
   },

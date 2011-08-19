@@ -1,6 +1,6 @@
 {
   "_id": "version",
-  "entityType": "dbVersion",
+  "docType": "dbVersion",
   "major": "0",
   "minor": "0"
 }

@@ -76,11 +76,11 @@ public class ElasticSearchClient {
 		return find(queryObject);
 	}
 
-	public SearchResult find(String query, String entityType, int limit) {
+	public SearchResult find(String query, String docType, int limit) {
 		QueryObject queryObject = new QueryObject(
 				new Filtered(
 						new TermFilter(
-								new Term("entityType", entityType)
+								new Term("docType", docType)
 						),
 						new QueryString(query)
 				), 0, limit

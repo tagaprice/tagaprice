@@ -44,7 +44,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 * Entity type name (e.g. "product", "shop", ...)
 	 * This is stored in each CouchDB document so that we can find out of which type they are
 	 */
-	private String m_entityType;
+	private String m_docType;
 
 	/**
 	 * Constructor
@@ -55,7 +55,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 		String dbName;
 
 		m_class = classObject;
-		m_entityType = objectType;
+		m_docType = objectType;
 		m_superClassDao = superClassDao;
 		m_daoFactory = daoFactory;
 
@@ -83,7 +83,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 */
 	@Override
 	public T create(T entity) throws DaoException {
-		entity.setEntityType(m_entityType);
+		entity.setDocType(m_docType);
 
 		// check if the creator exists
 		_checkCreatorId(entity.getCreatorId());
@@ -104,7 +104,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 			}
 		}
 
-		SearchResult searchResult = m_searchClient.find(query, m_entityType, 50);
+		SearchResult searchResult = m_searchClient.find(query, m_docType, 50);
 		List<T> rc = new ArrayList<T>();
 
 		for (Hit hit: searchResult.getHits().getHits()) {
@@ -125,7 +125,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	@Override
 	public T get(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
-		if (!rc.getEntityType().equals(m_entityType)) throw new TypeMismatchException("Requested type ('"+m_entityType+"') doesn't match actual type: '"+rc.getEntityType()+"'");
+		if (!rc.getDocType().equals(m_docType)) throw new TypeMismatchException("Requested type ('"+m_docType+"') doesn't match actual type: '"+rc.getDocType()+"'");
 
 		// inject fields (recursively for all superClassDaos)
 		DaoClass<? super T> daoClass = this;
@@ -155,7 +155,7 @@ public class DaoClass<T extends ASimpleEntity> implements IDaoClass<T> {
 	 */
 	@Override
 	public T update(T entity) throws DaoException {
-		entity.setEntityType(m_entityType);
+		entity.setDocType(m_docType);
 
 		// check if the creator exists
 		_checkCreatorId(entity.getCreatorId());

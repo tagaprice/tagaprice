@@ -3,12 +3,12 @@
   "views": {
     "all": {
       "map": "function(doc) {
-        if (doc.entityType == 'package') emit(null, doc);
+        if (doc.docType == 'package') emit(null, doc);
       }"
     },
     "toproduct": {
       "map": "function(doc){
-        if (doc.entityType == 'package'){
+        if (doc.docType == 'package'){
           emit(doc.productId, null);
         }
       }"

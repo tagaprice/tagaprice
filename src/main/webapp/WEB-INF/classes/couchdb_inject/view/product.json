@@ -3,7 +3,7 @@
   "views": {
     "all": {
       "map": "function(doc) {
-        if (doc.entityType == 'product') emit(null, doc);
+        if (doc.docType == 'product') emit(null, doc);
       }"
     }
   },

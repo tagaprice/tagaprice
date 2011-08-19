@@ -20,7 +20,7 @@ public abstract class ASimpleEntity implements IsSerializable {
 
 	private String _id = null;
 	private String _rev = null;
-	private String _entityType = null;
+	private String _docType = null;
 	private User _creator = null;
 
 	/**
@@ -109,9 +109,9 @@ public abstract class ASimpleEntity implements IsSerializable {
 	 * Just ignore it anywhere else in the application.
 	 * @return
 	 */
-	@JSONProperty(value="entityType")
-	public String getEntityType() {
-		return _entityType;
+	@JSONProperty(value="docType")
+	public String getDocType() {
+		return _docType;
 	}
 	
 	/**
@@ -120,8 +120,8 @@ public abstract class ASimpleEntity implements IsSerializable {
 	 * 
 	 * @param typeName Type name (e.g. "product" or "shop")
 	 */
-	public void setEntityType(String typeName) {
-		_entityType = typeName;
+	public void setDocType(String typeName) {
+		_docType = typeName;
 	}
 	
 	/* (non-Javadoc)

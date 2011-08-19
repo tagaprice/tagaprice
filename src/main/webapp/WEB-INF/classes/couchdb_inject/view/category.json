@@ -3,12 +3,12 @@
   "views": {
     "all": {
       "map": "function(doc) {
-        if (doc.entityType == 'category') emit(null, doc);
+        if (doc.docType == 'category') emit(null, doc);
       }"
     },
     "childrenOf": {
       "map": "function(doc) {
-        if (doc.entityType == 'category') emit(doc.parentId, null);
+        if (doc.docType == 'category') emit(doc.parentId, null);
       }"
     }
   },
