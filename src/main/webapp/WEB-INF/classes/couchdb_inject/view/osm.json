@@ -1,0 +1,11 @@
+{
+  "_id": "_design/osm",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.osm) emit(doc.osm._id, doc.osm._rev);
+      }"
+    }
+  },
+  "language": "javascript"
+}
