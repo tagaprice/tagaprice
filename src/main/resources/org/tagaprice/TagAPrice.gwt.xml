@@ -19,6 +19,7 @@
 	<inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
 	<inherits name="com.google.gwt.junit.JUnit" />
 	<inherits name='com.google.gwt.query.Query'/>
+	<inherits name='org.svenson' />
 	<inherits name='org.tagaprice.FormFactor'/>
 	
 	

@@ -1,7 +1,11 @@
 package org.tagaprice.shared.entities;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.svenson.DynamicProperties;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
@@ -16,13 +20,14 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class ADocument implements IsSerializable {
+public abstract class ADocument implements IsSerializable, DynamicProperties {
 	private static final long serialVersionUID = 1L;
 
 	private String _id = null;
 	private String _rev = null;
 	private String _docType = null;
 	private User _creator = null;
+	private Map<String, Object> _properties = new HashMap<String, Object>();
 
 	private String _title;
 
@@ -94,6 +99,10 @@ public abstract class ADocument implements IsSerializable {
 	public String getId() {
 		return _id;
 	}
+	
+	public Object getProperty(String name) {
+		return _properties.get(name);
+	}
 
 	/**
 	 * Returns the Revision of the {@link ASimpleEntity} or null, if it wasn't yet set (e.g. for unsaved {@link ASimpleEntity})
@@ -113,6 +122,9 @@ public abstract class ADocument implements IsSerializable {
 		return _title;
 	}
 
+	public Set<String> propertyNames() {
+		return _properties.keySet();
+	}
 
 	public void setCreator(User creator) {
 		_creator = creator;
@@ -142,6 +154,10 @@ public abstract class ADocument implements IsSerializable {
 	 */
 	public void setId(String entityId) {
 		_id = entityId;
+	}
+
+	public void setProperty(String name, Object value) {
+		_properties.put(name, value);
 	}
 
 	/**
