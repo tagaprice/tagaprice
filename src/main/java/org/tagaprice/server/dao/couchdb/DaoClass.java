@@ -104,7 +104,7 @@ public class DaoClass<T extends ADocument> implements IDaoClass<T> {
 			}
 		}
 
-		SearchResult searchResult = m_searchClient.find(query, m_docType, 50);
+		SearchResult searchResult = m_searchClient.find(query, m_docType, 10);
 		List<T> rc = new ArrayList<T>();
 
 		for (Hit hit: searchResult.getHits().getHits()) {
