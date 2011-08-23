@@ -1,11 +1,11 @@
 package org.tagaprice.shared.entities.productmanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
-public class Package extends ADocument {
+public class Package extends Document {
 	private static final long serialVersionUID = 1L;
 
 	Quantity _iQuantity;

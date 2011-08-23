@@ -1,14 +1,14 @@
 package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * A category describes which properties and dependencies a {@link Product} has.
  *
  */
-public class Category extends ADocument   {
+public class Category extends Document   {
 	private static final long serialVersionUID = 1L;
 
 	private Category _parent;

@@ -1,14 +1,14 @@
 package org.tagaprice.shared.entities.accountmanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 
 /**
  * Simple class that represents any kind of document-creating user.
  * A User is identified by it's UID (see {@link AEntity.getId()}.
  * The UI will display the user name returned by {@link ASimpleEntity.getId()}
  */
-public class User extends ADocument {
+public class User extends Document {
 	private static final long serialVersionUID = 1L;
 	
 	private String _mail = null;

@@ -3,12 +3,12 @@ package org.tagaprice.shared.entities.accountmanagement;
 import java.util.Date;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 
 /**
  * Entity class representing a logged in user
  */
-public class Session extends ADocument {
+public class Session extends Document {
 	private static final long serialVersionUID = 1L;
 	private Date m_expirationDate;
 	private String m_expirationString;

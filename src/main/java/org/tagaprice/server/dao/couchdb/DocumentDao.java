@@ -1,9 +1,9 @@
 package org.tagaprice.server.dao.couchdb;
 
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class DocumentDao extends DaoClass<ADocument> {
+public class DocumentDao extends DaoClass<Document> {
 	CouchDbDaoFactory m_daoFactory;
 	UserDao m_userDao = null;
 	public DocumentDao(CouchDbDaoFactory daoFactory) {
@@ -12,7 +12,7 @@ public class DocumentDao extends DaoClass<ADocument> {
 	}
 
 	@Override
-	protected void _injectFields(ADocument document) throws DaoException {
+	protected void _injectFields(Document document) throws DaoException {
 		if (m_userDao == null) {
 			// m_userDao initialization (can't be done in the constructor (endless recursion))
 			m_userDao = m_daoFactory.getUserDao();

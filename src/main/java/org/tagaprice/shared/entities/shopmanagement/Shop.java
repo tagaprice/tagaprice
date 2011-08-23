@@ -1,7 +1,7 @@
 package org.tagaprice.shared.entities.shopmanagement;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -11,7 +11,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
  * "Karlsplatz 14, 1050 Wien"
  * 
  */
-public class Shop extends ADocument {
+public class Shop extends Document {
 	private static final long serialVersionUID = 1L;
 	private Category _category;
 	private Address _address = new Address();

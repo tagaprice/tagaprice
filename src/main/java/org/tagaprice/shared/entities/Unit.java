@@ -7,7 +7,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
  * Represents Units and converts between them.
  *
  */
-public class Unit extends ADocument {
+public class Unit extends Document {
 	private static final long serialVersionUID = 1L;
 	private double _factor = 1.0;
 	private Unit _parent=null;

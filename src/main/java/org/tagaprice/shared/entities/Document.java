@@ -1,5 +1,6 @@
 package org.tagaprice.shared.entities;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +14,14 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 /**
- * The {@link ADocument} class is used to FIND, CREATE and UPDATE different documents. It contains two constructors, one
- * for FIND and one for CREATE an {@link ADocument}.
- * If you like to UPDATE a {@link ADocument} you have to FIND a {@link ADocument} first. The server will set the
+ * The {@link Document} class is used to FIND, CREATE and UPDATE different documents. It contains two constructors, one
+ * for FIND and one for CREATE an {@link Document}.
+ * If you like to UPDATE a {@link Document} you have to FIND a {@link Document} first. The server will set the
  * {@link User} and the RevisionID.
  * Don't change the RevisionID on the client (by hand). Only the server will change it by an UPDATE.
  * 
  */
-public abstract class ADocument implements IsSerializable, DynamicProperties {
+public class Document implements IsSerializable, DynamicProperties {
 	private static final long serialVersionUID = 1L;
 
 	private String _id = null;
@@ -31,21 +32,27 @@ public abstract class ADocument implements IsSerializable, DynamicProperties {
 
 	private String _title;
 
+	/// TODO make a dummy RPC class to cover all those types
+	@SuppressWarnings("unused")
+	private Long _unusedLong = null; // required to allow Long serialization with GWT-RPC
+	@SuppressWarnings("unused")
+	private BigDecimal _unusedBigDecimal = null;
+
 
 	/**
 	 * This constructor is used by the serialization algorithm
 	 */
-	public ADocument() {
+	public Document() {
 	}
 
 	/**
 	 * <b>UPDATE and GET</b>
-	 * This constructor is used by the server to fetch a {@link ADocument} after SAVING or FINDING a {@link ADocument}.
+	 * This constructor is used by the server to fetch a {@link Document} after SAVING or FINDING a {@link Document}.
 	 * @param creator Creator of the current document revision 
 	 * @param id Unique EntityID
-	 * @param title The title of the {@link ADocument}. It must not be null.
+	 * @param title The title of the {@link Document}. It must not be null.
 	 */
-	public ADocument(User creator, String id, String revision, String title) {
+	public Document(User creator, String id, String revision, String title) {
 		_creator = creator;
 		setId(id);
 		setRevision(revision);
@@ -54,13 +61,13 @@ public abstract class ADocument implements IsSerializable, DynamicProperties {
 
 	/**
 	 * <b>NEW</b>
-	 * Is used to create a new {@link ADocument}
+	 * Is used to create a new {@link Document}
 	 * 
 	 * @param creator Creator of the current document revision 
 	 * @param title
-	 *            The title of the {@link ADocument}. Every {@link ADocument} needs a title. It must not be null.
+	 *            The title of the {@link Document}. Every {@link Document} needs a title. It must not be null.
 	 */
-	public ADocument(User creator, String title) {
+	public Document(User creator, String title) {
 		this(creator, null, null, title);
 	}
 
@@ -189,8 +196,8 @@ public abstract class ADocument implements IsSerializable, DynamicProperties {
 	public boolean equals(Object otherObject) {
 		boolean rc = true;
 
-		if (otherObject instanceof ADocument) {
-			ADocument other = (ADocument) otherObject;
+		if (otherObject instanceof Document) {
+			Document other = (Document) otherObject;
 			if (!_equals(_id, other._id)) rc = false;
 			else if (!_equals(_rev, other._rev)) rc = false;
 			else if (!_equals(_creator, other._creator)) rc = false;

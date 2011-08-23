@@ -10,7 +10,7 @@ import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
 import com.allen_sauer.gwt.log.client.Log;
@@ -19,7 +19,7 @@ import com.allen_sauer.gwt.log.client.Log;
  * Base class for all the other CouchDB DAO classes
  * @param <T> Datatype of the documents that will be queried
  */
-public class DaoClass<T extends ADocument> implements IDaoClass<T> {
+public class DaoClass<T extends Document> implements IDaoClass<T> {
 	/// JCouchDB server object
 	private Server m_server;
 

@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.Random;
 
 import org.tagaprice.server.dao.IDaoClass;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-public class DaoClass<T extends ADocument> implements IDaoClass<T> {
+public class DaoClass<T extends Document> implements IDaoClass<T> {
 	protected Map<String, Deque<T>> m_data = new HashMap<String, Deque<T>>();
 	private Random random = new Random();
 	

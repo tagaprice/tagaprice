@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.svenson.JSONProperty;
 import org.svenson.JSONTypeHint;
-import org.tagaprice.shared.entities.ADocument;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
@@ -17,7 +17,7 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
  * and all {@link ReceiptEntry} of a receipt.
  * 
  */
-public class Receipt extends ADocument {
+public class Receipt extends Document {
 	private static final long serialVersionUID = 1L;
 
 	private Shop _shop;
