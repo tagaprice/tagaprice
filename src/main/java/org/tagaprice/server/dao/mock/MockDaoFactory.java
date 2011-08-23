@@ -7,6 +7,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISearchDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
@@ -182,6 +183,11 @@ public class MockDaoFactory implements IDaoFactory {
 	@Override
 	public IReceiptDao getReceiptDao() {
 		return m_receiptDAO;
+	}
+	
+	@Override
+	public ISearchDao getSearchDao() {
+		throw new RuntimeException("MockDaoFactory.getSearchDao() not implemented!");
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.server.dao.ISearchDao;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
@@ -34,6 +35,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IPackageDao m_packageDao = null;
 	private IProductDao m_productDao = null;
 	private IReceiptDao m_receiptDao = null;
+	private ISearchDao m_searchDao = null;
 	private ISessionDao m_sessionDao = null;
 	private IShopDao m_shopDao = null;
 	private IUnitDao m_unitDao = null;
@@ -140,6 +142,14 @@ public class CouchDbDaoFactory implements IDaoFactory {
 			m_receiptDao = new ReceiptDao(this);
 		}
 		return m_receiptDao;
+	}
+	
+	@Override
+	public ISearchDao getSearchDao() {
+		if (m_searchDao == null) {
+			m_searchDao = new SearchDao();
+		}
+		return m_searchDao;
 	}
 
 	@Override
