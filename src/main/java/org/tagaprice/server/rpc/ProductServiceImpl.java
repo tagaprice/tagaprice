@@ -1,6 +1,5 @@
 package org.tagaprice.server.rpc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.server.dao.ICategoryDao;

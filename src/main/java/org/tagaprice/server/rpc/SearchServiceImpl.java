@@ -11,10 +11,12 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.server.dao.ISearchDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -30,16 +32,22 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	private IShopDao shopDAO;
 	private IProductDao productDAO;
+	private ISearchDao searchDAO;
 	private IStatisticDao statisticDao;
+	
 
 	public SearchServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		shopDAO = daoFactory.getShopDao();
 		productDAO = daoFactory.getProductDao();
+		searchDAO = daoFactory.getSearchDao();
 		statisticDao = daoFactory.getStatisticDao();
 	}
 
-
+	@Override
+	public List<Document> search(String query) throws DaoException {
+		return searchDAO.search(query);
+	}
 
 
 	@Override
