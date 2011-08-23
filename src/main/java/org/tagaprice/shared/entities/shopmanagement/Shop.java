@@ -7,9 +7,7 @@ import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
- * A shop contains a group of {@link ISubsidiary}. Eg. the shop is "Billa" and the subsidiary is
- * "Karlsplatz 14, 1050 Wien"
- * 
+ * Document representing a Shop
  */
 public class Shop extends Document {
 	private static final long serialVersionUID = 1L;
@@ -50,7 +48,6 @@ public class Shop extends Document {
 		super(creator, shopId, revision, title);
 		this._category = category;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -136,5 +133,13 @@ public class Shop extends Document {
 		return rc;
 	}
 
+	
+	/**
+	 * Tries to create a Shop from a Document (just copies the most essential stuff!)
+	 * @param document Document to copy
+	 */
+	public static Shop fromDocument(Document document) {
+		return new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);
+	}
 
 }

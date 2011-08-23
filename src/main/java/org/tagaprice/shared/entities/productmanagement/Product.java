@@ -209,4 +209,7 @@ public class Product extends Document {
 		return "Product [" + super.toString() + ", category=" + _category + ", unit=" + _unit + "]";
 	}
 
+	public static Product fromDocument(Document document) {
+		return new Product(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null, null);
+	}
 }
