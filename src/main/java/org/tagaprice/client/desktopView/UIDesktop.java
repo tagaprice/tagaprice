@@ -14,6 +14,7 @@ import org.tagaprice.client.generics.widgets.InfoBox;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -317,30 +318,48 @@ public class UIDesktop implements IUi {
 		final int curProductSearchCount=_productSearchCount;
 		final int curShopSearchCount=_shopSearchCount;
 		
-		_clientFactory.getSearchService().searchShop(searchCritera, 
-				new BoundingBox(90.0, 90.0, -90.0, -90.0), 
-				new AsyncCallback<List<Shop>>() {
+		_clientFactory.getSearchService().search(searchCritera, 
+				new AsyncCallback<List<Document>>() {
 			
 			@Override
-			public void onSuccess(List<Shop> response) {
+			public void onSuccess(List<Document> response) {
 				if(curShopSearchCount==_shopSearchCount){
-					Log.debug("ShopSearch successfull: count: "+response.size());
+					Log.debug("Search successful: count: "+response.size());
 					_shopSearchPanel.clear();
+					_productSearchPanel.clear();
 					
-					for(final Shop s:response){
-						ShopPreview dumpShop = new ShopPreview(s);
-						dumpShop.addClickHandler(new ClickHandler() {
-							
-							@Override
-							public void onClick(ClickEvent arg0) {
-								_clientFactory.getPlaceController().goTo(new CreateShopPlace(s.getId(), null, null, null, null));
-								_searchPopup.hide();
-								search.setText("");
-							}
-						});
-						_shopSearchPanel.add(dumpShop);
+					for(final Document document:response){
+						if (document.getDocType().equals("shop")) {
+							final Shop shop = Shop.fromDocument(document);
+							ShopPreview dumpShop = new ShopPreview(shop);
+							dumpShop.addClickHandler(new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent arg0) {
+									_clientFactory.getPlaceController().goTo(new CreateShopPlace(shop.getId(), null, null, null, null));
+									_searchPopup.hide();
+									search.setText("");
+								}
+							});
+							_shopSearchPanel.add(dumpShop);
+						}
+						else if (document.getDocType().equals("product")) {
+							final Product product = Product.fromDocument(document);
+							PackagePreview packDump = new PackagePreview(product, null);
+							packDump.addClickHandler(new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent arg0) {
+									_clientFactory.getPlaceController().goTo(new CreateProductPlace(product.getId(), null, null, null));
+									_searchPopup.hide();
+									search.setText("");
+								}
+							});
+							_productSearchPanel.add(packDump);
+						}
 					}	
 					
+					// new shop
 					Shop ns = new Shop(null, null, null, "(new Shop)"+search.getText(), null);
 					ShopPreview dumpShop = new ShopPreview(ns);
 					dumpShop.addClickHandler(new ClickHandler() {
@@ -353,10 +372,25 @@ public class UIDesktop implements IUi {
 						}
 					});
 					_shopSearchPanel.add(dumpShop);
+									
+					//new Product
+					Product pr = new Product(null, "(new Product) "+search.getText(), null, null);
+					PackagePreview newPackDump = new PackagePreview(pr, null);
+					newPackDump.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, search.getText()));
+							_searchPopup.hide();
+							search.setText("");
+							
+						}
+					});
 					
-					//if(response.size()>0)
+					_productSearchPanel.add(newPackDump);
+					
+
 					_searchPopup.showRelativeTo(search);
-				
 				}
 			}
 			
@@ -371,68 +405,5 @@ public class UIDesktop implements IUi {
 				}				
 			}
 		});
-		
-		_clientFactory.getSearchService().searchProduct(searchCritera, 
-				null, 
-				new AsyncCallback<List<Product>>() {
-					
-					@Override
-					public void onSuccess(List<Product> response) {
-						if(curProductSearchCount==_productSearchCount){
-						
-							Log.debug("ShopSearch successfull: count: "+response.size());
-							_productSearchPanel.clear();
-							
-							for(final Product pr:response){
-								PackagePreview packDump = new PackagePreview(pr, null);
-								packDump.addClickHandler(new ClickHandler() {
-									
-									@Override
-									public void onClick(ClickEvent arg0) {
-										_clientFactory.getPlaceController().goTo(new CreateProductPlace(pr.getId(), null, null, null));
-										_searchPopup.hide();
-										search.setText("");
-									}
-								});
-								_productSearchPanel.add(packDump);
-							}
-							
-							//if(response.size()>0)
-						
-							
-							//new Product
-							Product pr = new Product(null, "(new Product) "+search.getText(), null, null);
-							PackagePreview newPackDump = new PackagePreview(pr, null);
-							newPackDump.addClickHandler(new ClickHandler() {
-								
-								@Override
-								public void onClick(ClickEvent arg0) {
-									_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, search.getText()));
-									_searchPopup.hide();
-									search.setText("");
-									
-								}
-							});
-							
-							_productSearchPanel.add(newPackDump);
-							
-
-							_searchPopup.showRelativeTo(search);
-						}
-						
-						
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						try{
-							throw caught;
-						}catch (DaoException e){
-							Log.warn(e.getMessage());
-						}catch (Throwable e){
-							Log.error(e.getMessage());
-						}				
-					}
-				});
 	}
 }
