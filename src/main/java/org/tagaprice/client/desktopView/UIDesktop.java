@@ -13,7 +13,6 @@ import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
-import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -25,11 +24,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
@@ -59,8 +53,7 @@ public class UIDesktop implements IUi {
 	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
 	private VerticalPanel _shopSearchPanel = new VerticalPanel();
 	private VerticalPanel _productSearchPanel = new VerticalPanel();
-	private int _productSearchCount=0;
-	private int _shopSearchCount=0;
+	private int _searchCount=0;
 
 	private void init(){
 		{
@@ -312,18 +305,16 @@ public class UIDesktop implements IUi {
 	}
 	
 	private void search(String searchCritera){
-		_productSearchCount++;
-		_shopSearchCount++;
+		_searchCount++;
 		
-		final int curProductSearchCount=_productSearchCount;
-		final int curShopSearchCount=_shopSearchCount;
+		final int curSearchCount=_searchCount;
 		
 		_clientFactory.getSearchService().search(searchCritera, 
 				new AsyncCallback<List<Document>>() {
 			
 			@Override
 			public void onSuccess(List<Document> response) {
-				if(curShopSearchCount==_shopSearchCount){
+				if(curSearchCount==_searchCount){
 					Log.debug("Search successful: count: "+response.size());
 					_shopSearchPanel.clear();
 					_productSearchPanel.clear();
