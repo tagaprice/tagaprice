@@ -9,8 +9,8 @@
 		<param-name>daoFactoryClass</param-name>
 		
 		<!-- Couch -->
-		<!-- <param-value>org.tagaprice.server.dao.couchdb.CouchDbDaoFactory</param-value> -->
-		<param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value>
+		<param-value>org.tagaprice.server.dao.couchdb.CouchDbDaoFactory</param-value>
+		<!--  <param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value> -->
 	</context-param>
 	<!-- Servlets -->
 

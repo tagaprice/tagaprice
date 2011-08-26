@@ -2,6 +2,13 @@ package org.tagaprice.client.desktopView;
 
 import java.util.List;
 
+import org.gwtopenmaps.openlayers.client.LonLat;
+import org.gwtopenmaps.openlayers.client.Map;
+import org.gwtopenmaps.openlayers.client.MapOptions;
+import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener.MapMoveEndEvent;
+import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
@@ -13,6 +20,7 @@ import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -22,6 +30,8 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
@@ -43,11 +53,19 @@ public class UIDesktop implements IUi {
 	private SimplePanel center = new SimplePanel();
 	private HorizontalPanel bottom = new HorizontalPanel();
 	private InfoBox _infoBox = new InfoBox();
-	private TextBox search = new TextBox();
+	private HorizontalPanel _searchHoPa = new HorizontalPanel();
+	private TextBox _search = new TextBox();
+	private TextBox _location = new TextBox();
+	private PopupPanel _locationPop = new PopupPanel(true);
+	private VerticalPanel _locationVePa = new VerticalPanel();
+	private MapOptions _osmShopOptions = new MapOptions();
+	private MapWidget _osmShopWidget; 
+	private Map _osmShopMap;
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
 	private PopupPanel loginPop = new PopupPanel(true);
+	private Address _curAddresss;
 	
 	private PopupPanel _searchPopup = new PopupPanel(true);
 	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
@@ -79,33 +97,134 @@ public class UIDesktop implements IUi {
 		vePa1.add(menu);
 		
 		//search
+		_searchHoPa.add(_search);
+		_searchHoPa.add(_location);
 		SimplePanel nothing = new SimplePanel();
 		menu.add(nothing);
 		menu.setCellWidth(nothing, "1%");
 		
-		search.setText("");
-		menu.add(search);
-		menu.setCellHorizontalAlignment(search, HorizontalPanel.ALIGN_CENTER);
 		
+		
+		
+		//search
+		_search.setStyleName("header-search");
+		_search.setText("");
+		menu.add(_searchHoPa);
+		menu.setCellHorizontalAlignment(_searchHoPa, HorizontalPanel.ALIGN_CENTER);
+		
+		
+		//location Search
+		//_location.setWidth("200px");
+		
+		_location.setStyleName("header-location");
+		_location.setText("Your Location: ");
 		
 		_shopProductSearchPanel.setStyleName("popBackground");
-		_shopProductSearchPanel.setWidth("535px");
+		_shopProductSearchPanel.setWidth("750px");
 		
 		_productSearchPanel.setWidth("100%");
 		_shopProductSearchPanel.add(_productSearchPanel);
+		
+		//locationPop
+		_locationVePa.setWidth("200px");
+		_locationVePa.setStyleName("popBackground");
+		_locationPop.setWidget(_locationVePa);
+		_location.addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent arg0) {
+				_locationPop.showRelativeTo(_location);
+				
+			}
+		});
+		
+		
+		//TODO Add old locations from session or loggedin user
+		{
+			{
+				Label locText = new Label("Current Location");
+				locText.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						setLocation(new Address("Current location", 48.21657, 16.37456));
+					}
+				});
+				_locationVePa.add(locText);
+			}
+			
+			{
+				Label locText = new Label("Flossgasse, Wien");
+				locText.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
+					}
+				});
+				_locationVePa.add(locText);
+			}
+			
+			{
+				Label locText = new Label("Anywhere");
+				locText.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						setLocation(new Address("Anywhere", 0, 0));
+					}
+				});
+				_locationVePa.add(locText);
+			}
+			
+		}
+		
+		
+		//Shop Search
+		HorizontalPanel searchHoPaWithMap = new HorizontalPanel();
+		searchHoPaWithMap.setWidth("100%");
 		_shopSearchPanel.setWidth("100%");
-		_shopProductSearchPanel.add(_shopSearchPanel);
+		searchHoPaWithMap.add(_shopSearchPanel);
+		
+		
+		
+		//search map
+		OSM osmLayler = OSM.Mapnik("Mapnik");
+		osmLayler.setIsBaseLayer(true);
+		_osmShopWidget = new MapWidget("100%", "200px", _osmShopOptions);
+		_osmShopMap = _osmShopWidget.getMap();
+		_osmShopMap.addLayer(osmLayler);
+		//LonLat loLa = new LonLat(_curAddresss.getLng(), _curAddresss.getLat());
+		//loLa.transform("EPSG:4326", "EPSG:900913");
+		//_osmShopMap.setCenter(loLa);
+		_osmShopMap.zoomTo(14);
+		searchHoPaWithMap.add(_osmShopWidget);
+		searchHoPaWithMap.setCellWidth(_osmShopWidget, "300px");
+		
+		_shopProductSearchPanel.add(searchHoPaWithMap);
+		
+		_osmShopMap.addMapMoveEndListener(new MapMoveEndListener() {
+			
+			@Override
+			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
+				if(_curAddresss!=null){
+					LonLat c = _osmShopMap.getCenter();
+					c.transform("EPSG:900913", "EPSG:4326");
+					setLocation(new Address("Map Area", c.lat(), c.lon()));
+				}
+			}
+		});
 		
 		
 		_searchPopup.getElement().getStyle().setZIndex(2000);
 		_searchPopup.setWidget(_shopProductSearchPanel);
 		
 		//Implement Searching
-		search.addKeyUpHandler(new KeyUpHandler() {
+		_search.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent arg0) {
-				search(search.getText());
+				search(_search.getText());
 			}
 		});
 		
@@ -304,7 +423,22 @@ public class UIDesktop implements IUi {
 		return _infoBox;
 	}
 	
+	private void setLocation(Address address){
+		_curAddresss = address;	
+		_locationPop.hide();
+		_location.setText(_curAddresss.getAddress());
+	}
+	
 	private void search(String searchCritera){
+		
+		//search only if address != null
+		if(_curAddresss!=null){
+			LonLat c = new LonLat(_curAddresss.getLng(), _curAddresss.getLat());
+			c.transform( "EPSG:4326","EPSG:900913");
+			_osmShopMap.setCenter(c);
+		}
+		
+		
 		_searchCount++;
 		
 		final int curSearchCount=_searchCount;
@@ -329,7 +463,7 @@ public class UIDesktop implements IUi {
 								public void onClick(ClickEvent arg0) {
 									_clientFactory.getPlaceController().goTo(new CreateShopPlace(shop.getId(), null, null, null, null));
 									_searchPopup.hide();
-									search.setText("");
+									_search.setText("");
 								}
 							});
 							_shopSearchPanel.add(dumpShop);
@@ -343,7 +477,7 @@ public class UIDesktop implements IUi {
 								public void onClick(ClickEvent arg0) {
 									_clientFactory.getPlaceController().goTo(new CreateProductPlace(product.getId(), null, null, null));
 									_searchPopup.hide();
-									search.setText("");
+									_search.setText("");
 								}
 							});
 							_productSearchPanel.add(packDump);
@@ -351,29 +485,29 @@ public class UIDesktop implements IUi {
 					}	
 					
 					// new shop
-					Shop ns = new Shop(null, null, null, "(new Shop)"+search.getText(), null);
+					Shop ns = new Shop(null, null, null, "(new Shop)"+_search.getText(), null);
 					ShopPreview dumpShop = new ShopPreview(ns);
 					dumpShop.addClickHandler(new ClickHandler() {
 						
 						@Override
 						public void onClick(ClickEvent arg0) {
-							_clientFactory.getPlaceController().goTo(new CreateShopPlace(null, null, null, search.getText(), null));
+							_clientFactory.getPlaceController().goTo(new CreateShopPlace(null, null, null, _search.getText(), null));
 							_searchPopup.hide();
-							search.setText("");							
+							_search.setText("");							
 						}
 					});
 					_shopSearchPanel.add(dumpShop);
 									
 					//new Product
-					Product pr = new Product(null, "(new Product) "+search.getText(), null, null);
+					Product pr = new Product(null, "(new Product) "+_search.getText(), null, null);
 					PackagePreview newPackDump = new PackagePreview(pr, null);
 					newPackDump.addClickHandler(new ClickHandler() {
 						
 						@Override
 						public void onClick(ClickEvent arg0) {
-							_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, search.getText()));
+							_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, _search.getText()));
 							_searchPopup.hide();
-							search.setText("");
+							_search.setText("");
 							
 						}
 					});
@@ -381,7 +515,7 @@ public class UIDesktop implements IUi {
 					_productSearchPanel.add(newPackDump);
 					
 
-					_searchPopup.showRelativeTo(search);
+					_searchPopup.showRelativeTo(_search);
 				}
 			}
 			

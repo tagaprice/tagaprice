@@ -39,7 +39,8 @@ a:HOVER {
     height: 60px;
 }
 
-.header input {
+
+.header-search {
     color: #2c2d25;
     font-weight: bold;
     width: 500px;
@@ -59,14 +60,50 @@ a:HOVER {
     padding-left: 28px;
 }
 
-.header input:HOVER {
+
+.header-search:HOVER {
     color: #ebe9e1;
     background-color: #2c2d25;
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
 }
 
-.header input:FOCUS {
+.header-search:FOCUS {
+    color: #2c2d25;
+    background-color: white;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.header-location{
+    color: #2c2d25;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.0);
+    margin: 0px;
+    margin-left:5px;
+    padding: 5px;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border: solid 2px #ebe9e1;
+    border-top-width: 0px;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+    background-image: url('location.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 28px;
+}
+
+.header-location:HOVER{
+    color: #ebe9e1;
+    background-color: #2c2d25;
+    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
+    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+.header-location:FOCUS{
     color: #2c2d25;
     background-color: white;
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
