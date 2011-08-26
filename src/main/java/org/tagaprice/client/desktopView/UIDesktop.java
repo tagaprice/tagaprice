@@ -6,8 +6,12 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.event.MapClickListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.MapMoveListener;
+import org.gwtopenmaps.openlayers.client.event.MapClickListener.MapClickEvent;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener.MapMoveEndEvent;
+import org.gwtopenmaps.openlayers.client.event.MapMoveListener.MapMoveEvent;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
@@ -60,12 +64,14 @@ public class UIDesktop implements IUi {
 	private VerticalPanel _locationVePa = new VerticalPanel();
 	private MapOptions _osmShopOptions = new MapOptions();
 	private MapWidget _osmShopWidget; 
+	private boolean _osmLock = true;
 	private Map _osmShopMap;
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
 	private PopupPanel loginPop = new PopupPanel(true);
-	private Address _curAddresss;
+	private Address _curAddress;
+	private Address _saveAddress;
 	
 	private PopupPanel _searchPopup = new PopupPanel(true);
 	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
@@ -148,6 +154,7 @@ public class UIDesktop implements IUi {
 					@Override
 					public void onClick(ClickEvent arg0) {
 						setLocation(new Address("Current location", 48.21657, 16.37456));
+						setLocation(new Address("Current location", 48.21657, 16.37456));
 					}
 				});
 				_locationVePa.add(locText);
@@ -160,6 +167,7 @@ public class UIDesktop implements IUi {
 					@Override
 					public void onClick(ClickEvent arg0) {
 						setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
+						setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
 					}
 				});
 				_locationVePa.add(locText);
@@ -171,6 +179,7 @@ public class UIDesktop implements IUi {
 					
 					@Override
 					public void onClick(ClickEvent arg0) {
+						setLocation(new Address("Anywhere", 0, 0));
 						setLocation(new Address("Anywhere", 0, 0));
 					}
 				});
@@ -203,15 +212,32 @@ public class UIDesktop implements IUi {
 		
 		_shopProductSearchPanel.add(searchHoPaWithMap);
 		
+		
+		
 		_osmShopMap.addMapMoveEndListener(new MapMoveEndListener() {
 			
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				if(_curAddresss!=null){
+				System.out.println("move: cur: "+_curAddress +", save: "+_saveAddress);
+				LonLat c = _osmShopMap.getCenter();
+				c.transform("EPSG:900913", "EPSG:4326");
+				if(_curAddress!=null && _saveAddress!=null){
+					if(_curAddress.getLat()!=c.lat() || _curAddress.getLng()!=c.lon()){
+						
+						setLocation(new Address("Map Area", c.lat(), c.lon()));
+					}
+					
+				}else if(_curAddress!=null && _saveAddress==null){
+					_saveAddress = new Address(_curAddress.getAddress(), _curAddress.getLat(), _curAddress.getLng());
+				}
+				
+				/*
+				if(!_osmLock){
 					LonLat c = _osmShopMap.getCenter();
 					c.transform("EPSG:900913", "EPSG:4326");
 					setLocation(new Address("Map Area", c.lat(), c.lon()));
 				}
+				*/
 			}
 		});
 		
@@ -424,19 +450,16 @@ public class UIDesktop implements IUi {
 	}
 	
 	private void setLocation(Address address){
-		_curAddresss = address;	
+		_curAddress = address;	
 		_locationPop.hide();
-		_location.setText(_curAddresss.getAddress());
+		_location.setText(_curAddress.getAddress());
+		LonLat c = new LonLat(_curAddress.getLng(), _curAddress.getLat());
+		c.transform( "EPSG:4326","EPSG:900913");
+		_osmShopMap.setCenter(c);
 	}
 	
 	private void search(String searchCritera){
 		
-		//search only if address != null
-		if(_curAddresss!=null){
-			LonLat c = new LonLat(_curAddresss.getLng(), _curAddresss.getLat());
-			c.transform( "EPSG:4326","EPSG:900913");
-			_osmShopMap.setCenter(c);
-		}
 		
 		
 		_searchCount++;
