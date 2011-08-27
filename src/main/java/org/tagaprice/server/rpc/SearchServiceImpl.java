@@ -46,7 +46,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<Document> search(String query) throws DaoException {
-		return searchDAO.search(query);
+		return searchDAO.search("*"+query.trim()+"*");
 	}
 
 
