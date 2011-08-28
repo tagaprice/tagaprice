@@ -46,14 +46,6 @@ public interface ISearchService extends RemoteService {
 	 */
 	List<Product> searchProduct(String searchString, Shop address) throws DaoException;
 
-	/**
-	 * Find the Address of the lat lng position
-	 * @param lat latitude position
-	 * @param lng longitutde position
-	 * @return Address (Normaly a streetname)
-	 */
-	List<Address> searchAddress(double lat, double lng);
-
 
 	List<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end);
 

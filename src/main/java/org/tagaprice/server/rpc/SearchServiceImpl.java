@@ -65,38 +65,6 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 		return new ArrayList<Product>();
 	}
 
-	@Override
-	public List<Address> searchAddress(double lat, double lng) {
-		try {
-			ArrayList<Address> posibleAddresses = new ArrayList<Address>();
-			Log.debug("findService: "+lat+":"+lng);
-			URL urlg = new URL("http://api.geonames.org/findNearbyStreetsOSMJSON?lat="+lat+"&lng="+lng+"&username=tagaprice");
-			InputStream isg = urlg.openStream();
-			//Geonames
-			Gson gsonG = new Gson();
-			GeoNamesJson g = gsonG.fromJson(new InputStreamReader(isg), GeoNamesJson.class);
-
-			if(g.getStreetSegment()!=null & g.getStreetSegment().length>0){
-				for(Segmente s:g.getStreetSegment()){
-					posibleAddresses.add(new Address(s.getName(), lat, lng));
-					Log.debug("findService: found: "+s.getName());
-				}
-				
-			}else{
-				Log.debug("Not Found");
-				
-			}
-			return posibleAddresses;
-
-
-		} catch (MalformedURLException e) {
-			Log.warn(e.toString());
-		} catch (IOException e) {
-			Log.error(e.toString());
-		}
-
-		return null;
-	}
 
 
 
