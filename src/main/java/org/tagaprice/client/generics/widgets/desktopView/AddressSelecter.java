@@ -22,8 +22,11 @@ import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.jsonp.client.JsonpRequest;
+import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
@@ -43,7 +46,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private LonLat _lonLat = new LonLat(16.37692,48.21426);
 	private MorphWidget _addressBox = new MorphWidget();
 	private VectorFeature _pointFeature;
-	private PopupPanel _addressListPop = new PopupPanel(true);
 	private VerticalPanel _addressListPanel = new VerticalPanel();
 	private DragFeature _dragFeature;
 	private boolean _readonly = true;
@@ -82,7 +84,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		//Init address list popup
 		_addressListPanel.setWidth("100%");
 		_addressListPanel.setStyleName("searchPopup");
-		_addressListPop.setWidget(_addressListPanel);
 		
 		
 		
@@ -126,47 +127,57 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 				//get Possible streetnames
 				_addressListPanel.clear();
 				
-				I_SEARCH_SERVICE_ASYNC.searchAddress(l.lat(), l.lon(), new AsyncCallback<List<Address>>() {
+				//try jsonP qwt
+				String url = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat="+l.lat()+"&lon="+l.lon();
+				
+				System.out.println("requestUrl: "+url);
+				JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
+				jsonp.setCallbackParam("json_callback");
+				jsonp.requestObject(url, new AsyncCallback<MapquestResponse>() {
 					
 					@Override
-					public void onSuccess(List<Address> r) {
-						for(final Address a:r){
-							Label _ad = new Label(a.getAddress());
-							_ad.setStyleName("entry");
+					public void onSuccess(MapquestResponse response) {
+					
+						
+						if(response.getAddress()!=null){
+							String responseString = "";
 							
-							_ad.addClickHandler(new ClickHandler() {
-								
-								@Override
-								public void onClick(ClickEvent arg0) {
-									_addressListPop.hide();
-									setAddress(a);									
-								}
-							});
-							_addressListPanel.add(_ad);
+							if(response.getAddress().getRoad()!=null)
+								responseString+=response.getAddress().getRoad();
+							
+							if(response.getAddress().getPedestrian()!=null)
+								responseString+=response.getAddress().getPedestrian();
+							
+							if(response.getAddress().getFootway()!=null)
+								responseString+=response.getAddress().getFootway();
+							
+							if(response.getAddress().getHouse_number()!=null)
+								responseString+=" "+response.getAddress().getHouse_number()+",";
+							
+							if(response.getAddress().getPostcode()!=null)
+								responseString+=" "+response.getAddress().getPostcode()+",";
+							
+							if(response.getAddress().getCity()!=null)
+								responseString+=" "+response.getAddress().getCity()+",";
+							
+							if(response.getAddress().getCountry_code()!=null)
+								responseString+=" "+response.getAddress().getCountry_code()+",";
+							
+							//TODO create better address 
+							setAddress(new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon())));
+							System.out.println(responseString);
 						}
 						
-						Label _ad = new Label("Can't find streetname");
-						_ad.setStyleName("entry");
-						_ad.addClickHandler(new ClickHandler() {
-							
-							@Override
-							public void onClick(ClickEvent arg0) {
-								_addressListPop.hide();
-								setAddress(new Address("Add street name", l.lat(), l.lon()));									
-							}
-						});
-						_addressListPanel.add(_ad);
 						
 					}
 					
 					@Override
 					public void onFailure(Throwable e) {
-						Log.error(e.toString());						
+						Log.error("MapquestPointToAdressFailure: "+e);
 					}
 				});
 				
-				_addressListPop.setWidth(_osmWidget.getOffsetWidth()+"px");
-				_addressListPop.showRelativeTo(_osmWidget);
+
 			}
 		});
 		
@@ -214,4 +225,147 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		return _readonly;
 	}
 
+}
+
+
+class MapquestResponse extends JavaScriptObject{
+	
+	protected MapquestResponse() {}
+	
+	public final native String getLat() /*-{
+		return this.lat;
+	}-*/;
+
+	public final native void setLat(String lat) /*-{
+		this.lat = lat;
+	}-*/;
+	
+	public final native String getLon() /*-{
+		return this.lon;
+	}-*/;
+	
+	public final native void setLon(String lon) /*-{
+		this.lon = lon;
+	}-*/;
+	
+	
+	public final native MapquestAddress getAddress()/*-{
+		return this.address;
+	}-*/;
+	
+	public final native void setAddress(MapquestAddress address)/*-{
+		this.address = address;
+	}-*/;
+	
+	
+}
+
+
+class MapquestAddress extends JavaScriptObject{
+	
+	protected MapquestAddress(){}
+	
+	public final native String getHouse_number() /*-{
+		return this.house_number;
+	}-*/;
+
+	public final native void setHouse_number(String house_number) /*-{
+		this.house_number = house_number;
+	}-*/;
+	
+	
+	public final native String getRoad() /*-{
+		return this.road;
+	}-*/;
+	
+	public final native void setRoad(String road) /*-{
+		this.road = road;
+	}-*/;
+	
+	public final native String getPedestrian() /*-{
+		return this.pedestrian;
+	}-*/;
+	
+	public final native void setPedestrian(String pedestrian) /*-{
+		this.pedestrian = pedestrian;
+	}-*/;
+	
+	public final native String getFootway() /*-{
+		return this.footway;
+	}-*/;
+	
+	public final native void setFootway(String footway) /*-{
+		this.footway = footway;
+	}-*/;
+	
+	public final native String getCity() /*-{
+		return this.city;
+	}-*/;
+	
+	public final native void setCity(String city) /*-{
+		this.city = city;
+	}-*/;
+	
+	public final native String getPostcode() /*-{
+		return this.postcode;
+	}-*/;
+	
+	public final native void setPostcode(String postcode) /*-{
+		this.postcode = postcode;
+	}-*/;
+	
+	public final native String getCountry() /*-{
+		return this.country;
+	}-*/;
+	
+	public final native void setCountry(String country) /*-{
+		this.country = country;
+	}-*/;
+	
+	public final native String getCountry_code() /*-{
+		return this.country_code;
+	}-*/;
+	
+	public final native void setCountry_code(String country_code) /*-{
+		this.country_code = country_code;
+	}-*/;
+	
+	public final native String print()/*-{
+		
+		return "house_number: "
+		+this.house_number
+		+", road: "+this.road
+		+", pedestrian: "+this.pedestrian
+		+", footway: "+this.footway
+		+", suburb: "+this.suburb
+		+", city_district: "+this.city_district
+		+", city: "+this.city
+		+", county: "+this.county
+		+", region: "+this.region
+		+", state: "+this.state
+		+", postcode: "+this.postcode
+		+", country: "+this.country
+		+", country_code: "+this.country_code
+		;
+	}-*/;
+	
+	
+	
+	//address types
+	/*
+	 * house_number
+	 * road
+	 * pedestrian
+	 * footway
+	 * suburb
+	 * city_district
+	 * city
+	 * county
+	 * region
+	 * state
+	 * postcode
+	 * country
+	 * country_code
+	 */
+	
 }
