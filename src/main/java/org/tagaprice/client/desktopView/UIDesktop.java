@@ -19,6 +19,8 @@ import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
@@ -31,6 +33,10 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -153,8 +159,24 @@ public class UIDesktop implements IUi {
 					
 					@Override
 					public void onClick(ClickEvent arg0) {
-						setLocation(new Address("Current location", 48.21657, 16.37456));
-						setLocation(new Address("Current location", 48.21657, 16.37456));
+						//get current location
+						Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
+							
+							@Override
+							public void onSuccess(Position position) {								
+								_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(UIDesktop.class, "Found current address. lat: "+position.getCoords().getLatitude()+", lng: "+position.getCoords().getLongitude(), INFOTYPE.SUCCESS));
+								setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+								setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+							}
+							
+							@Override
+							public void onFailure(PositionError error) {
+								Log.error("Could not find position:" + error);
+								_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(UIDesktop.class, "Could not find position", INFOTYPE.ERROR));								
+							}
+						});
+						
+						
 					}
 				});
 				_locationVePa.add(locText);
@@ -218,18 +240,27 @@ public class UIDesktop implements IUi {
 			
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				System.out.println("move: cur: "+_curAddress +", save: "+_saveAddress);
+				
+
 				LonLat c = _osmShopMap.getCenter();
 				c.transform("EPSG:900913", "EPSG:4326");
-				if(_curAddress!=null && _saveAddress!=null){
+				
+				System.out.println("move: add: "+_curAddress +", point: "+c.lat()+":"+c.lon());
+				
+				
+				if(_curAddress!=null){
 					if(_curAddress.getLat()!=c.lat() || _curAddress.getLng()!=c.lon()){
 						
 						setLocation(new Address("Map Area", c.lat(), c.lon()));
 					}
 					
-				}else if(_curAddress!=null && _saveAddress==null){
+				}
+				
+				/*
+				else if(_curAddress!=null && _saveAddress==null){
 					_saveAddress = new Address(_curAddress.getAddress(), _curAddress.getLat(), _curAddress.getLng());
 				}
+				*/
 				
 				/*
 				if(!_osmLock){
@@ -450,6 +481,7 @@ public class UIDesktop implements IUi {
 	}
 	
 	private void setLocation(Address address){
+		System.out.println("setLocation. "+address);
 		_curAddress = address;	
 		_locationPop.hide();
 		_location.setText(_curAddress.getAddress());
