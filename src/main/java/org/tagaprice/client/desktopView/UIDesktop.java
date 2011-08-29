@@ -27,6 +27,7 @@ import org.tagaprice.client.generics.widgets.InfoBox;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -436,28 +437,6 @@ public class UIDesktop implements IUi {
 		_activityManager.setDisplay(center);
 
 
-		
-
-
-		//User loggedInHandler
-		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
-
-			@Override
-			public void onLoginChange(LoginChangeEvent event) {
-				//TODO Set SignIn invisible and add User plus name and so on.
-				/*
-				if(event.isLoggedIn()){
-					login.setVisible(false);
-					register.setVisible(false);
-					logout.setVisible(true);
-				}else{
-					login.setVisible(true);
-					register.setVisible(true);
-					logout.setVisible(false);
-				}*/
-
-			}
-		});
 	}
 
 
@@ -495,7 +474,16 @@ public class UIDesktop implements IUi {
 		
 		final int curSearchCount=_searchCount;
 		
-		_clientFactory.getSearchService().search(searchCritera, 
+		LonLat southWest = new LonLat(_osmShopMap.getExtent().getLowerLeftX(), _osmShopMap.getExtent().getLowerLeftY());
+		LonLat northEast = new LonLat(_osmShopMap.getExtent().getUpperRightX(), _osmShopMap.getExtent().getUpperRightY());
+		southWest.transform("EPSG:900913","EPSG:4326");
+		northEast.transform("EPSG:900913","EPSG:4326");
+		
+		_clientFactory.getSearchService().search(searchCritera, new BoundingBox(
+				southWest.lat(),
+				southWest.lon(),
+				northEast.lat(),
+				northEast.lon()), 
 				new AsyncCallback<List<Document>>() {
 			
 			@Override
