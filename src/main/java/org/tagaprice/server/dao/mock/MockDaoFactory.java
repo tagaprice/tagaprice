@@ -38,7 +38,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final IUnitDao m_unitDAO = new UnitDao();
 	private final IUserDao m_userDAO = new UserDao();
 	private final IStatisticDao m_statisticDAO = new StatisticDao();
-	private ISearchDao m_searchDao = new SearchDao(m_productDAO, m_shopDAO);
+	private ISearchDao m_searchDao = new SearchDao();
 
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
@@ -104,11 +104,11 @@ public class MockDaoFactory implements IDaoFactory {
 		//Create shops
 		//Create address for Shop(bills)
 		//Create some Shops
-		Shop s1 = m_shopDAO.create(new Shop(m_testUser, "Billa", vegetables));
+		//Shop s1 = m_shopDAO.create(new Shop(m_testUser, "Billa", vegetables));
 
 		Shop is2 = m_shopDAO.create(new Shop(m_testUser, "Billa - Blumauergasse 1B", vegetables));
 		is2.setAddress(new Address("Blumauergasse 1B", 48.21906856732104, 16.38164520263672));
-		is2.setParent(s1);
+		//is2.setParent(s1);
 		is2=m_shopDAO.update(is2);
 
 
@@ -116,7 +116,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 		Shop is3 = m_shopDAO.create(new Shop(m_testUser, "Billa - Holzhausergasse 9", vegetables));
 		is3.setAddress(new Address("Holzhausergasse 9", 48.21975481443672, 16.38885498046875));
-		is3.setParent(s1);
+		//is3.setParent(s1);
 		is3=m_shopDAO.update(is3);
 
 

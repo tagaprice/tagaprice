@@ -210,6 +210,7 @@ public class Product extends Document {
 	}
 
 	public static Product fromDocument(Document document) {
-		return new Product(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null, null);
+		return (Product)document;
+		//return new Product(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null, null);
 	}
 }

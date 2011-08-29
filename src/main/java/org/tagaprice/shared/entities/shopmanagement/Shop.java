@@ -139,7 +139,9 @@ public class Shop extends Document {
 	 * @param document Document to copy
 	 */
 	public static Shop fromDocument(Document document) {
-		return new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);
+		//Shop t = new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);
+		
+		return (Shop)document;
 	}
 
 }

@@ -6,13 +6,18 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.event.MapClickListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveListener;
 import org.gwtopenmaps.openlayers.client.event.MapClickListener.MapClickEvent;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener.MapMoveEndEvent;
 import org.gwtopenmaps.openlayers.client.event.MapMoveListener.MapMoveEvent;
+import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
+import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
+import org.gwtopenmaps.openlayers.client.layer.Vector;
+import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
@@ -69,9 +74,6 @@ public class UIDesktop implements IUi {
 	private TextBox _location = new TextBox();
 	private PopupPanel _locationPop = new PopupPanel(true);
 	private VerticalPanel _locationVePa = new VerticalPanel();
-	private MapOptions _osmShopOptions = new MapOptions();
-	private MapWidget _osmShopWidget; 
-	private Map _osmShopMap;
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
@@ -83,6 +85,13 @@ public class UIDesktop implements IUi {
 	private VerticalPanel _shopSearchPanel = new VerticalPanel();
 	private VerticalPanel _productSearchPanel = new VerticalPanel();
 	private int _searchCount=0;
+	
+	//map
+	private MapOptions _osmShopOptions = new MapOptions();
+	private MapWidget _osmShopWidget; 
+	private Map _osmShopMap;
+	private VectorOptions _osmVectorOptions = new VectorOptions();
+	private Vector _osmLayer;
 
 	private void init(){
 		{
@@ -222,9 +231,21 @@ public class UIDesktop implements IUi {
 		_osmShopWidget = new MapWidget("100%", "200px", _osmShopOptions);
 		_osmShopMap = _osmShopWidget.getMap();
 		_osmShopMap.addLayer(osmLayler);
-		//LonLat loLa = new LonLat(_curAddresss.getLng(), _curAddresss.getLat());
-		//loLa.transform("EPSG:4326", "EPSG:900913");
-		//_osmShopMap.setCenter(loLa);
+		
+		
+		//******** INIT OSM Vector ************/
+		//Style
+		Style style = new Style();
+		style.setStrokeColor("#000000");
+		style.setStrokeWidth(2);
+		style.setFillColor("#00FF00");
+		style.setFillOpacity(0.5);
+		style.setPointRadius(8);
+		style.setStrokeOpacity(0.8);
+		_osmVectorOptions.setStyle(style);		
+		
+		_osmLayer = new Vector("shopResults",_osmVectorOptions);
+		_osmShopMap.addLayer(_osmLayer);
 		_osmShopMap.zoomTo(14);
 		searchHoPaWithMap.add(_osmShopWidget);
 		searchHoPaWithMap.setCellWidth(_osmShopWidget, "300px");
@@ -465,6 +486,8 @@ public class UIDesktop implements IUi {
 		c.transform( "EPSG:4326","EPSG:900913");
 		_osmShopMap.setCenter(c);
 		_searchPopup.showRelativeTo(_search);
+		
+		search(_search.getText());
 	}
 	
 	private void search(String searchCritera){
@@ -493,6 +516,7 @@ public class UIDesktop implements IUi {
 					_shopSearchPanel.clear();
 					_productSearchPanel.clear();
 					
+					_osmLayer.destroyFeatures();
 					for(final Document document:response){
 						if (document.getDocType().equals("shop")) {
 							final Shop shop = Shop.fromDocument(document);
@@ -515,6 +539,18 @@ public class UIDesktop implements IUi {
 								}
 							});
 							_shopSearchPanel.add(dumpShop);
+							
+							
+							System.out.println("shopAddres:"+shop.getAddress());
+							
+							//Simple points
+							LonLat l = new LonLat(shop.getAddress().getLng(), shop.getAddress().getLat());
+							l.transform("EPSG:4326", "EPSG:900913");
+							Point point = new Point(l.lon(), l.lat());
+							VectorFeature pointFeature = new VectorFeature(point);
+
+							_osmLayer.addFeature(pointFeature);
+							
 						}
 						else if (document.getDocType().equals("product")) {
 							final Product product = Product.fromDocument(document);
