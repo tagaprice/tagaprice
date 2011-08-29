@@ -206,4 +206,10 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		return _category.getCategory();
 	}
 
+	@Override
+	public void setStatisticLatLng(double lat, double lng) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

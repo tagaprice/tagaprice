@@ -194,6 +194,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_statisticBodyPanel.setWidth("100%");
 		_statistic.setType(TYPE.SHOP);
 		_statisticBodyPanel.add(_statistic);
+		_statistic.setMapVisible(false);
 		_statisticFrame.setBody(_statisticBodyPanel);
 		
 		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
@@ -232,6 +233,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setBranding(Shop branding) {
+		if(branding!=null)
+			_statistic.setMapVisible(true);
 		// TODO Auto-generated method stub
 		
 	}
@@ -293,6 +296,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public Category getCategory() {
 		return _category.getCategory();
+	}
+
+
+
+	@Override
+	public void setStatisticLatLng(double lat, double lng) {
+		_statistic.setLatLng(lat, lng);		
 	}
 	
 }

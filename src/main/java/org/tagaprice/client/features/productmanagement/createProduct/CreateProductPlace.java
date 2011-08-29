@@ -13,16 +13,22 @@ public class CreateProductPlace extends Place {
 	private String _rev = null;
 	private String _title = null;
 	private String _redirectId=null;
+	private String _lat=null;
+	private String _lng=null;
+	private String _zoom=null;
 
 	public CreateProductPlace() {
 	}
 
 	
-	public CreateProductPlace(String id, String revision, String redirectId, String title){
+	public CreateProductPlace(String id, String revision, String redirectId, String title, String lat, String lng, String zoom){
 		_id=id;
 		_rev=revision;
 		_redirectId=redirectId;
 		_title=title;
+		_lat=lat;
+		_lng=lng;
+		_zoom=zoom;
 	}
 
 	public String getRevision() {
@@ -41,6 +47,29 @@ public class CreateProductPlace extends Place {
 	public String getTitle(){
 		return _title;
 	}
+	
+	/**
+	 * @return the lat
+	 */
+	public String getLat() {
+		return _lat;
+	}
+
+
+	/**
+	 * @return the lng
+	 */
+	public String getLng() {
+		return _lng;
+	}
+
+
+	/**
+	 * @return the zoom
+	 */
+	public String getZoom() {
+		return _zoom;
+	}
 
 	@Prefix("product")
 	public static class Tokenizer implements PlaceTokenizer<CreateProductPlace>{
@@ -51,7 +80,14 @@ public class CreateProductPlace extends Place {
 			TokenCreator.Exploder e = TokenCreator.getExploder(token);
 
 			
-			return new CreateProductPlace(e.getNode("id"),e.getNode("rev"),e.getNode("redirectid"),e.getNode("title"));
+			return new CreateProductPlace(
+					e.getNode("id"), 
+					e.getNode("rev"), 
+					e.getNode("redirectid"), 
+					e.getNode("title"), 
+					e.getNode("lat"),
+					e.getNode("lng"),
+					e.getNode("zoom"));
 
 		}
 
@@ -80,6 +116,12 @@ public class CreateProductPlace extends Place {
 				if (place.getRevision()!=null){
 					t.addNode("rev", ""+place.getRevision());
 				}
+				
+				
+				t.addNode("lat", place.getLat());
+				t.addNode("lng", place.getLng());
+				t.addNode("zoom", place.getZoom());
+				
 				rc = t.getToken();
 			}
 

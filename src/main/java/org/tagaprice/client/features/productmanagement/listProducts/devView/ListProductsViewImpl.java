@@ -52,7 +52,7 @@ public class ListProductsViewImpl extends Composite implements ListProductsView 
 				@Override
 				public void onClick(ClickEvent arg0) {
 
-					presenter.goTo(new CreateProductPlace(p.getId(), null, null, null));					
+					presenter.goTo(new CreateProductPlace(p.getId(), null, null, null, null, null, null));					
 				}
 			});
 			_table.add(text);

@@ -126,10 +126,10 @@ public class MockDaoFactory implements IDaoFactory {
 		//2 shop
 		//Create address for Shop(bills)
 		//Create some Shop
-		Shop s2 = m_shopDAO.create(new Shop(m_testUser, "Hofer",vegetables));
+		//Shop s2 = m_shopDAO.create(new Shop(m_testUser, "Hofer",vegetables));
 		Shop is = m_shopDAO.create(new Shop(m_testUser, "Hofer - Schüttelstraße 19A",vegetables));
 		is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
-		is.setParent(s2);
+		//is.setParent(s2);
 		is=m_shopDAO.update(is);
 
 

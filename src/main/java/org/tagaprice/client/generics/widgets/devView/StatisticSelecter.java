@@ -299,4 +299,10 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		_osmMap.setCenter(lonLat);
 	}
 
+	@Override
+	public void setMapVisible(boolean visible) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

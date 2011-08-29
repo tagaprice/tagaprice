@@ -29,4 +29,6 @@ public interface IStatisticSelecter extends IsWidget {
 	public Date getBeginDate();
 	
 	public Date getEndDate();
+	
+	public void setMapVisible(boolean visible);
 }

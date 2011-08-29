@@ -30,7 +30,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	private ClientFactory _clientFactory;
 	private Product _product;
 	private ICreateProductView _createProductView;
-	private static AddressChangedEventHandler _addressChangedEventHandler;
 	private int _statisticDebounce = 0;
 
 	public CreateProductActivity(CreateProductPlace place, ClientFactory clientFactory) {
@@ -38,20 +37,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		_place = place;
 		_clientFactory = clientFactory;
 		
-		if(_addressChangedEventHandler==null){
-			_addressChangedEventHandler = new AddressChangedEventHandler(){
-	
-				@Override
-				public void onAddressChanged(AddressChangedEvent event) {
-					_createProductView.setStatisticLatLng(
-							_clientFactory.getAccountPersistor().getAddress().getLat(), 
-							_clientFactory.getAccountPersistor().getAddress().getLng());				
-				}
-				
-			};
-			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, _addressChangedEventHandler);
-
-		}
 		
 		
 	}
@@ -205,13 +190,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					_createProductView.setReadOnly(true);
 					
 					
-					if(_clientFactory.getAccountPersistor().getAddress()==null)
-						_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-					else{
-						_createProductView.setStatisticLatLng(
-								_clientFactory.getAccountPersistor().getAddress().getLat(), 
-								_clientFactory.getAccountPersistor().getAddress().getLng());
-					}
+
+					_createProductView.setStatisticLatLng(
+							Double.parseDouble(_place.getLat()), 
+							Double.parseDouble(_place.getLng()));
 					
 				}
 			});

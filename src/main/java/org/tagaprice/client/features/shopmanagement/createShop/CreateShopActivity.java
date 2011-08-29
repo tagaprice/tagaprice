@@ -160,10 +160,21 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					//setReadable
 					_createShopView.setReadOnly(true);
 					
+					if(result.getParent()==null){
+						_createShopView.setStatisticLatLng(
+								result.getAddress().getLat(),
+								result.getAddress().getLng());
+					}else{
+						_createShopView.setStatisticLatLng(
+								Double.parseDouble(_place.getLat()), 
+								Double.parseDouble(_place.getLng()));
+					}
+					/*
 					onStatisticChangedEvent(
 							_createShopView.getStatisticBoundingBox(), 
 							_createShopView.getStatisticBeginDate(), 
 							_createShopView.getStatisticEndDate());
+						*/
 				}
 			});
 

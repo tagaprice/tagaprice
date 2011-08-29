@@ -55,6 +55,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	VectorOptions vectorOptions = new VectorOptions();
 	Vector layer = new Vector("shops",vectorOptions);
 	IStatisticChangeHandler _handler;
+	MapWidget omapWidget;
 
 	public StatisticSelecter() {
 		initWidget(vePa1);
@@ -74,7 +75,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		//inti Maps
 		
 		MapOptions defaultMapOptions = new MapOptions();
-		MapWidget omapWidget = new MapWidget("100%", "170px", defaultMapOptions);
+		omapWidget = new MapWidget("100%", "170px", defaultMapOptions);
 		
 		omapWidget.setStyleName("osmMap");
 		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
@@ -322,6 +323,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		LonLat lonLat = new LonLat(lng,lat);
 		lonLat.transform("EPSG:4326", "EPSG:900913");	
 		_osmMap.setCenter(lonLat);
+	}
+
+	@Override
+	public void setMapVisible(boolean visible) {	
+		omapWidget.setVisible(visible);
 	}
 
 }

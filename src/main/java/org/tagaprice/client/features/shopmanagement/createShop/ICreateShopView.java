@@ -92,6 +92,14 @@ public interface ICreateShopView extends IsWidget {
 	 */
 	public Date getStatisticEndDate();
 	
+	
+	/**
+	 * Set the center of the statistic Widget. Should be the current position of the user.
+	 * @param lat
+	 * @param lng
+	 */
+	public void setStatisticLatLng(double lat, double lng);
+	
 	/**
 	 * 
 	 *

@@ -339,8 +339,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_presenter.getId()!=null)
-					_presenter.goTo(new CreateProductPlace(null, null, _presenter.getId(), null));
-				else _presenter.goTo(new CreateProductPlace(null, null, "draft", null));
+					_presenter.goTo(new CreateProductPlace(null, null, _presenter.getId(), null, null, null, null));
+				else _presenter.goTo(new CreateProductPlace(null, null, "draft", null, null, null, null));
 			}
 		});
 		_productSearchSuggestVePa.add(newShop);

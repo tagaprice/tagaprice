@@ -57,5 +57,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	public void setLatLng(double lat, double lng) {
 		statisticSelecter.setLatLng(lat, lng);
 	}
+	
+	public void setMapVisible(boolean visible){
+		statisticSelecter.setMapVisible(visible);
+	}
 
 }

@@ -246,7 +246,7 @@ public class UIDesktop implements IUi {
 		
 		_osmLayer = new Vector("shopResults",_osmVectorOptions);
 		_osmShopMap.addLayer(_osmLayer);
-		_osmShopMap.zoomTo(14);
+		_osmShopMap.zoomTo(13);
 		searchHoPaWithMap.add(_osmShopWidget);
 		searchHoPaWithMap.setCellWidth(_osmShopWidget, "300px");
 		
@@ -559,7 +559,14 @@ public class UIDesktop implements IUi {
 								
 								@Override
 								public void onClick(ClickEvent arg0) {
-									_clientFactory.getPlaceController().goTo(new CreateProductPlace(product.getId(), null, null, null));
+									_clientFactory.getPlaceController().goTo(new CreateProductPlace(
+											product.getId(), 
+											null, 
+											null, 
+											null, 
+											""+_curAddress.getLat(), 
+											""+_curAddress.getLng(), 
+											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
 								}
@@ -597,7 +604,14 @@ public class UIDesktop implements IUi {
 						
 						@Override
 						public void onClick(ClickEvent arg0) {
-							_clientFactory.getPlaceController().goTo(new CreateProductPlace(null, null, null, _search.getText()));
+							_clientFactory.getPlaceController().goTo(new CreateProductPlace(
+									null, 
+									null, 
+									null, 
+									_search.getText(), 
+									""+_curAddress.getLat(), 
+									""+_curAddress.getLng(), 
+									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");
 							
