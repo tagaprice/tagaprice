@@ -17,6 +17,8 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -224,6 +226,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setAddress(Address address) {
+		Log.debug("setAddres: "+address);
 		_address.setAddress(address);
 	}
 

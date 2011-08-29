@@ -70,14 +70,12 @@ public class UIDesktop implements IUi {
 	private VerticalPanel _locationVePa = new VerticalPanel();
 	private MapOptions _osmShopOptions = new MapOptions();
 	private MapWidget _osmShopWidget; 
-	private boolean _osmLock = true;
 	private Map _osmShopMap;
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
 	private PopupPanel loginPop = new PopupPanel(true);
 	private Address _curAddress;
-	private Address _saveAddress;
 	
 	private PopupPanel _searchPopup = new PopupPanel(true);
 	private VerticalPanel _shopProductSearchPanel = new VerticalPanel();
@@ -135,7 +133,6 @@ public class UIDesktop implements IUi {
 		_shopProductSearchPanel.setWidth("750px");
 		
 		_productSearchPanel.setWidth("100%");
-		_shopProductSearchPanel.add(_productSearchPanel);
 		
 		//locationPop
 		_locationVePa.setWidth("200px");
@@ -164,7 +161,6 @@ public class UIDesktop implements IUi {
 							
 							@Override
 							public void onSuccess(Position position) {								
-								_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(UIDesktop.class, "Found current address. lat: "+position.getCoords().getLatitude()+", lng: "+position.getCoords().getLongitude(), INFOTYPE.SUCCESS));
 								setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
 								setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
 							}
@@ -233,6 +229,8 @@ public class UIDesktop implements IUi {
 		searchHoPaWithMap.setCellWidth(_osmShopWidget, "300px");
 		
 		_shopProductSearchPanel.add(searchHoPaWithMap);
+
+		_shopProductSearchPanel.add(_productSearchPanel);
 		
 		
 		
@@ -245,7 +243,7 @@ public class UIDesktop implements IUi {
 				LonLat c = _osmShopMap.getCenter();
 				c.transform("EPSG:900913", "EPSG:4326");
 				
-				System.out.println("move: add: "+_curAddress +", point: "+c.lat()+":"+c.lon());
+				Log.debug("move: add: "+_curAddress +", point: "+c.lat()+":"+c.lon());
 				
 				
 				if(_curAddress!=null){
@@ -253,28 +251,27 @@ public class UIDesktop implements IUi {
 						
 						setLocation(new Address("Map Area", c.lat(), c.lon()));
 					}
-					
-				}
-				
-				/*
-				else if(_curAddress!=null && _saveAddress==null){
-					_saveAddress = new Address(_curAddress.getAddress(), _curAddress.getLat(), _curAddress.getLng());
-				}
-				*/
-				
-				/*
-				if(!_osmLock){
-					LonLat c = _osmShopMap.getCenter();
-					c.transform("EPSG:900913", "EPSG:4326");
+				}else if(_curAddress==null){
 					setLocation(new Address("Map Area", c.lat(), c.lon()));
 				}
-				*/
+					
+				
 			}
 		});
 		
 		
 		_searchPopup.getElement().getStyle().setZIndex(2000);
 		_searchPopup.setWidget(_shopProductSearchPanel);
+		
+		
+		//Open pop
+		_search.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+					_searchPopup.showRelativeTo(_search);
+			}
+		});
 		
 		//Implement Searching
 		_search.addKeyUpHandler(new KeyUpHandler() {
@@ -481,17 +478,17 @@ public class UIDesktop implements IUi {
 	}
 	
 	private void setLocation(Address address){
-		System.out.println("setLocation. "+address);
+		Log.debug("setLocation. "+address);
 		_curAddress = address;	
 		_locationPop.hide();
 		_location.setText(_curAddress.getAddress());
 		LonLat c = new LonLat(_curAddress.getLng(), _curAddress.getLat());
 		c.transform( "EPSG:4326","EPSG:900913");
 		_osmShopMap.setCenter(c);
+		_searchPopup.showRelativeTo(_search);
 	}
 	
 	private void search(String searchCritera){
-		
 		
 		
 		_searchCount++;
@@ -516,7 +513,15 @@ public class UIDesktop implements IUi {
 								
 								@Override
 								public void onClick(ClickEvent arg0) {
-									_clientFactory.getPlaceController().goTo(new CreateShopPlace(shop.getId(), null, null, null, null));
+									_clientFactory.getPlaceController().goTo(new CreateShopPlace(
+											shop.getId(), 
+											null, 
+											null, 
+											null, 
+											null, 
+											""+_curAddress.getLat(), 
+											""+_curAddress.getLng(), 
+											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
 								}
@@ -546,7 +551,15 @@ public class UIDesktop implements IUi {
 						
 						@Override
 						public void onClick(ClickEvent arg0) {
-							_clientFactory.getPlaceController().goTo(new CreateShopPlace(null, null, null, _search.getText(), null));
+							_clientFactory.getPlaceController().goTo(new CreateShopPlace(
+									null, 
+									null, 
+									null, 
+									_search.getText(), 
+									null, 
+									""+_curAddress.getLat(), 
+									""+_curAddress.getLng(), 
+									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");							
 						}

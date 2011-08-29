@@ -11,6 +11,7 @@ import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.*;
@@ -174,6 +175,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			//setTitle
 			_shop.setTitle(_place.getTitle());
 			
+			//setLatlng from url
+			if(_place.getLat()!=null && _place.getLng()!=null)
+			{
+				Log.debug("lat: "+_place.getLat()+", lng: "+_place.getLng());
+				_shop.setAddress(new Address(null, Double.parseDouble(_place.getLat()), Double.parseDouble(_place.getLng())));
+			}
+			
 			//Get Branding data from server and add it to the shop
 			if(_place.getRedirectId()!=null && _place.getBrandId()!=null){
 				_clientFactory.getShopService().getShop(_place.getBrandId(), new AsyncCallback<Shop>() {
@@ -204,21 +212,6 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 			panel.setWidget(_createShopView);
 
-			if(_clientFactory.getAccountPersistor().getAddress()==null){
-				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-			}else{
-				_createShopView.setAddress(_clientFactory.getAccountPersistor().getAddress());
-			}
-
-			_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
-
-				@Override
-				public void onAddressChanged(AddressChangedEvent event) {
-					_createShopView.setAddress(_clientFactory.getAccountPersistor().getAddress());
-					//_createShopView.setAddress(event.getAddress());
-				}
-			});
-			
 
 			//setReadable
 			_createShopView.setReadOnly(false);

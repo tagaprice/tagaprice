@@ -53,7 +53,7 @@ public class ListShopsViewImpl extends Composite implements ListShopsView {
 				
 				@Override
 				public void onClick(ClickEvent arg0) {
-					presenter.goTo(new CreateShopPlace(s.getId(), null, null, null, null));
+					presenter.goTo(new CreateShopPlace(s.getId(), null, null, null, null, null, null, null));
 				}
 			});
 			_table.add(text);

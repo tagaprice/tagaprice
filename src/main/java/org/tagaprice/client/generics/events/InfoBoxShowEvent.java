@@ -32,7 +32,7 @@ public class InfoBoxShowEvent extends GwtEvent<InfoBoxShowEventHandler> {
 	 *            The INFOTYPE which should be displayed. 3 INFOTYPE (SUCCESS, INFO, ERROR)
 	 */
 	public InfoBoxShowEvent(Class<?> iclass, String info, INFOTYPE type) {
-		this(iclass, info, type, 4000);
+		this(iclass, info, type, 2000);
 	}
 
 
