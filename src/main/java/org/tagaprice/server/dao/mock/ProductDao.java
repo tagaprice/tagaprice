@@ -16,7 +16,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 		for (Deque<Product> deque: m_data.values()) {
 			Product product = deque.peek();
-
+			product.setDocType("product");
+			
 			if (searchPattern != null
 					&& product.getTitle().toLowerCase().contains((searchPattern.toLowerCase()))) {
 				rc.add(product);
@@ -33,6 +34,8 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 		ArrayList<Product> rc = new ArrayList<Product>();
 
 		for (Deque<Product> deque: m_data.values()) {
+			Product pt = deque.peek();
+			pt.setDocType("product");
 			rc.add(deque.peek());
 		}
 

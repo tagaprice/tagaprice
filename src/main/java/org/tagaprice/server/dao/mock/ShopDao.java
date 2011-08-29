@@ -21,6 +21,8 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 		ArrayList<Shop> rc = new ArrayList<Shop>();
 
 		for (Deque<Shop> deque: m_data.values()) {
+			Shop st = deque.peek();
+			st.setDocType("shop");
 			rc.add(deque.peek());
 		}
 
@@ -33,6 +35,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 		
 		for(Deque<Shop> deque: m_data.values()){
 			Shop shop = deque.peek();
+			shop.setDocType("shop");
 			
 			if (searchPattern != null
 					&& shop.getTitle().toLowerCase().contains((searchPattern.toLowerCase()))) {

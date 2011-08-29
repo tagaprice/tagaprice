@@ -6,6 +6,8 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -61,7 +63,7 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 		_clientFactory.getReceiptService().getReceipts(new AsyncCallback<List<Receipt>>() {
 
 			@Override
-			public void onSuccess(List<Receipt> response) {
+			public void onSuccess(List<Receipt> response) {				
 				_listReceiptsView.setReceipts(response);
 
 			}

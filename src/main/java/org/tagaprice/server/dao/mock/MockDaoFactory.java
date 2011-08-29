@@ -38,6 +38,7 @@ public class MockDaoFactory implements IDaoFactory {
 	private final IUnitDao m_unitDAO = new UnitDao();
 	private final IUserDao m_userDAO = new UserDao();
 	private final IStatisticDao m_statisticDAO = new StatisticDao();
+	private ISearchDao m_searchDao = new SearchDao(m_productDAO, m_shopDAO);
 
 	private final User m_testUser = new User("testUser_id", "testRev", "Test User");
 
@@ -187,7 +188,7 @@ public class MockDaoFactory implements IDaoFactory {
 	
 	@Override
 	public ISearchDao getSearchDao() {
-		throw new RuntimeException("MockDaoFactory.getSearchDao() not implemented!");
+		return m_searchDao;
 	}
 
 	@Override

@@ -313,6 +313,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				@Override
 				public void onSuccess(Receipt response) {
 
+					
 					//Add Shop or Product
 					addShopOrProduct();
 

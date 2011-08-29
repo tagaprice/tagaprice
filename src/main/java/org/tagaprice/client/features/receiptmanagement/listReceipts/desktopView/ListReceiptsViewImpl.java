@@ -9,6 +9,7 @@ import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -40,9 +41,11 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		_receiptList.setWidget(0, 1, new Label("Name"));
 		_receiptList.setWidget(0, 2, new Label("Value"));
 		
+		
+		
 		int i=1;
 		for(final Receipt r:receipts){
-
+			
 			Label date = new Label(r.getDate().toString());
 			date.addClickHandler(new ClickHandler() {
 
