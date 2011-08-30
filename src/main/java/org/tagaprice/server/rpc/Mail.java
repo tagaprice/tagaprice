@@ -32,24 +32,24 @@ public class Mail {
 	}
 	
 	private Mail() throws IOException {
-		Properties props = new Properties();
+		final Properties props = new Properties();
 
 		props.load(loadFile("mail.properties"));
-		Authenticator auth = null;
-		
-		if (props.contains("mail.user") || props.contains("mail.password")) {
-			final String user = props.getProperty("mail.user");
-			final String pwd = props.getProperty("mail.password"); 
-			
-			auth = new Authenticator() {
+		//Authenticator auth = null;
+
+
+		if (!props.getProperty("mail.user").isEmpty() && !props.getProperty("mail.password").isEmpty()){
+			session = Session.getInstance(props, new Authenticator() {
 				@Override
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(user, pwd);
+					return new PasswordAuthentication(
+							props.getProperty("mail.user"), 
+							props.getProperty("mail.password"));
 				}
-			};
+			});
+		}else{
+			session = Session.getInstance(props);
 		}
-
-		session = Session.getInstance(props, auth);
 	}
 	
 	/**

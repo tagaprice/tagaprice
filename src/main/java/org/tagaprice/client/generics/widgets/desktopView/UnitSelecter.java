@@ -66,7 +66,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 	@Override
 	public void setRelatedUnit(Unit unit) {
-		Log.debug("RelativeUnit: "+unit);
 		if(unit!=null){
 			if(unit.getParent()==null)
 				_allowId=unit.getId();
@@ -83,12 +82,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 			_cUnit=unit;
 			int pos = 0;
 
-			/// TODO fix me
-			/*		for(int i= 0; i < Unit.values().length; i++ ) {
-			if(Unit.values()[i].equals(unit)) {
-				pos=i;
-			}
-		}*/
 			_listBoxUnit.setSelectedIndex(pos);
 		}else{
 			_cUnit=new Unit();
@@ -115,7 +108,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 			@Override
 			public void onSuccess(List<Unit> results) {
-				Log.debug("get factorizedUnits successfull. count: "+results.size());
 				VerticalPanel vePa = new VerticalPanel();
 
 

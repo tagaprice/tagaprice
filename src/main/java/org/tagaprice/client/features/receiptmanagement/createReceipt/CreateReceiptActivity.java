@@ -319,6 +319,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 
 					Log.debug("Result: "+response);
+					Log.debug("entrySize: "+response.getReceiptEntries().size());
 					updateView(response);
 					panel.setWidget(_createReceiptView);
 				}

@@ -77,7 +77,6 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 			receipt.setShop(m_shopDAO.get(receipt.getShopId()));
 		}
 		
-		
 		for(ReceiptEntry re:receipt.getReceiptEntries()){
 			if(re.getPackageId()!=null){
 				re.setPackage(m_packageDAO.get(re.getPackageId()));

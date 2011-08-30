@@ -65,9 +65,16 @@ public class Receipt extends Document {
 	/**
 	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
 	 */
-	@JSONTypeHint(ReceiptEntry.class)
+	//@JSONTypeHint(ReceiptEntry.class)
 	public void addReceiptEntries(ReceiptEntry rc) {
 		_receiptEntries.add(rc);
+	}
+	
+	public void addReceiptEntries(List<ReceiptEntry> rc) {
+		_receiptEntries.clear();
+		for(ReceiptEntry r:rc){
+			addReceiptEntries(r);
+		}
 	}
 
 	/**
@@ -129,7 +136,7 @@ public class Receipt extends Document {
 	 * Set a list of {@link ReceiptEntry}. All included {@link ReceiptEntry} will be overwritten!
 	 * @param receiptEntries the list of {@link ReceiptEntry}
 	 */
-	@JSONTypeHint(ReceiptEntry.class)
+	//@JSONTypeHint(ReceiptEntry.class)
 	public void setReceiptEntries(List<ReceiptEntry> rc) {
 
 		_receiptEntries.clear();

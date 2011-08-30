@@ -140,7 +140,10 @@ public class Shop extends Document {
 	 */
 	public static Shop fromDocument(Document document) {
 		//return (Shop)document;
-		return new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);	
+		Shop ts = new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);
+		ts.setAddress(document.getAddress());
+		
+		return ts;	
 	}
 
 }
