@@ -70,6 +70,21 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 		return rc;
 	}
+	
+	@Override
+	public Receipt get(String id, String revision) throws DaoException {
+		return super.get(id, revision);
+	}
+	
+	@Override
+	public Receipt get(String id) throws DaoException {
+		Log.debug("getreceipt. Id: "+id);
+		Receipt r = get(id,null);
+		
+		Log.debug(r.getDocType()+", c:"+r.getReceiptEntries().size());
+		
+		return r;
+	}
 
 	@Override
 	protected void _injectFields(Receipt receipt) throws DaoException {
