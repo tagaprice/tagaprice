@@ -45,6 +45,7 @@ public class AccountPersistor implements IAccountPersistor {
 	/**
 	 * Returns global Address
 	 */
+	/*
 	@Override
 	public Address getAddress() {
 
@@ -60,12 +61,14 @@ public class AccountPersistor implements IAccountPersistor {
 
 		return I_ADDRESS;
 	}
+	*/
 
 
 	/**
 	 * Set Global Address. Saves it also in the cookies.
 	 * @param address setGlobalAddress
 	 */
+	/*
 	@Override
 	public void setAddress(Address address) {
 		Log.debug("setAddress: "+address);
@@ -78,6 +81,7 @@ public class AccountPersistor implements IAccountPersistor {
 		Cookies.setCookie("TAP_Lat", "" + address.getLat());
 		Cookies.setCookie("TAP_Lng", "" + address.getLng());
 	}
+	*/
 
 	/**
 	 * @return true if user is logged in.
@@ -183,9 +187,11 @@ public class AccountPersistor implements IAccountPersistor {
 		//clientFactory.getAccountPersistor().getAddress();
 
 		//Get Position if no one is saved in the cookies.
+		/*
 		if(getAddress()==null){
 			_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
 		}
+		*/
 
 		//Test if user is logged in
 		if(isLoggedIn()){

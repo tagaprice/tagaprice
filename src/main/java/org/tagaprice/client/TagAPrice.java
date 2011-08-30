@@ -97,22 +97,6 @@ public class TagAPrice implements EntryPoint {
 		});
 
 
-		//AddressChangeHandler
-		eventBus.addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
-
-			@Override
-			public void onAddressChanged(AddressChangedEvent event) {
-				clientFactory.getAccountPersistor().setAddress(event.getAddress());
-			}
-		});
-
-		eventBus.addHandler(WaitForAddressEvent.TYPE, new WaitForAddressEventHandler() {
-
-			@Override
-			public void onAddressChanged(WaitForAddressEvent event) {
-				locateMe();
-			}
-		});
 
 		clientFactory.getAccountPersistor().setClientFactory(clientFactory);
 		clientFactory.getAccountPersistor().checkLogin();
@@ -168,52 +152,5 @@ public class TagAPrice implements EntryPoint {
 
 	}
 
-	private void locateMe(){
-		final InfoBoxShowEvent tryPositionInfo = new InfoBoxShowEvent(TagAPrice.class, "Try to update address", INFOTYPE.INFO,0);
-		_iui.getInfoBox().addInfoBoxEvent(tryPositionInfo);
-
-
-		Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
-
-			@Override
-			public void onSuccess(final Position position) {
-				eventBus.fireEvent(new InfoBoxDestroyEvent(tryPositionInfo));
-				Log.debug("FoundPosition: lat: " + position.getCoords().getLatitude() +", Lng: "+position.getCoords().getLongitude());
-				Address address = new Address(null, position.getCoords().getLatitude(), position.getCoords().getLongitude());
-				eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "FoundPosition: lat: " + position.getCoords().getLatitude() +", Lng: "+position.getCoords().getLongitude(), INFOTYPE.SUCCESS));
-				eventBus.fireEvent(new AddressChangedEvent(address));
-
-				/*
-				//user OSM
-				clientFactory.getSearchService().searchAddress(position.getCoords().getLatitude(), position.getCoords().getLongitude(),
-						new AsyncCallback<Address>() {
-
-					@Override
-					public void onSuccess(Address result) {
-						// TODO Auto-generated method stub
-						_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Something was ok: "+result, INFOTYPE.INFO));
-						eventBus.fireEvent(new AddressChangedEvent(result));
-
-					}
-
-					@Override
-					public void onFailure(Throwable e) {
-						_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Can't find address", INFOTYPE.ERROR,0));
-					}
-				});
-				 */
-
-
-			}
-
-			@Override
-			public void onFailure(PositionError error) {
-				eventBus.fireEvent(new InfoBoxDestroyEvent(tryPositionInfo));
-				Log.error("Could not find position:" + error);
-				_iui.getInfoBox().addInfoBoxEvent(new InfoBoxShowEvent(TagAPrice.class, "Could not find position", INFOTYPE.ERROR));
-
-			}
-		});
-	}
 
 }

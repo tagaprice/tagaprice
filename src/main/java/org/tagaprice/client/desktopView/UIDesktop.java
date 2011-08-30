@@ -304,15 +304,7 @@ public class UIDesktop implements IUi {
 			}
 		});
 		
-		
-		
-		
-		
-		//position
-		Image position = new Image("desktopView/location.png");
-		position.setStyleName("location");
-		menu.add(position);
-		
+			
 		
 		//final Label add Receipt
 		final Label addReceipt = new Label("add Receipt");
