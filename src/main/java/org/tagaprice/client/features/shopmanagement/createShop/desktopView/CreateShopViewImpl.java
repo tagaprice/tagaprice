@@ -77,14 +77,14 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_shopBodyPanel.setWidth("100%");
 		_shopFrame.setBody(_shopBodyPanel);
 		
-		
+		//add Category Selecter
+		_category.setCategoryTypeIsProduct(false);
+		_shopBodyPanel.add(_category);
 		
 		//Address Selecter
 		_shopBodyPanel.add(_address);
 		
-		//add Category Selecter
-		_category.setCategoryTypeIsProduct(false);
-		_shopBodyPanel.add(_category);
+		
 		
 		//TODO implement Properties 
 		//Mock properties

@@ -114,6 +114,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 			arrow.setStyleName("arrow");
 			text.setStyleName("text");
 			showCats.setStyleName("popBackground");
+			showCats.getElement().getStyle().setZIndex(2000);
 			
 			hoPa1.add(text);
 			hoPa1.add(arrow);
