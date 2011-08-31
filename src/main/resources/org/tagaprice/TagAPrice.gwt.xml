@@ -153,13 +153,23 @@
 		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
 	
+	<!-- CurrencySelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.PackageSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" />
+	</replace-with>
 	
+	<replace-with class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
 	
-	
+
+
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IQuantitySelecter" />
 	</replace-with>
+
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.ShopSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IShopSelecter" />
@@ -167,9 +177,7 @@
 
 	
 
-	<replace-with class="org.tagaprice.client.generics.widgets.devView.PackageSelecter">
-		<when-type-is class="org.tagaprice.client.generics.widgets.IPackageSelecter" />
-	</replace-with>
+	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.MultipleAddressSelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.IMultipleAddressSelecter" />

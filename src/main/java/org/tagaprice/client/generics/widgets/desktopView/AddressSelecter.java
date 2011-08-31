@@ -112,18 +112,20 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 				String url = "http://open.mapquestapi.com/nominatim/v1/search?format=json&addressdetails=1&q=";
 				String q="";
 				if(!_streeBox.getValue().isEmpty())
-					q+=_streeBox.getValue()+"+";
+					q+=_streeBox.getValue()+" ";
 				
 				/*
 				if(!_postalcodeBox.getValue().isEmpty())
-					q+=_postalcodeBox.getValue()+"+";
+					q+=_postalcodeBox.getValue()+" ";
 				*/
 				
 				if(!_cityBox.getValue().isEmpty())
-					q+=_cityBox.getValue()+"+";
+					q+=_cityBox.getValue()+" ";
 				
+				/*
 				if(!q.isEmpty())
 					q=q.substring(0, q.length()-1);
+				*/
 				
 				url+=q;
 				
