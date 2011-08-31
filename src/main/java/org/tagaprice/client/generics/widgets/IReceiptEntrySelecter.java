@@ -1,9 +1,7 @@
 package org.tagaprice.client.generics.widgets;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IReceiptEntrySelecter extends IsWidget {
@@ -12,7 +10,7 @@ public interface IReceiptEntrySelecter extends IsWidget {
 	 * Set some {@link ReceiptEntry} to the {@link IReceiptEntrySelecter}
 	 * @param receiptEntries that will be added to the {@link IReceiptEntrySelecter}
 	 */
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries);
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries);
 
 	/**
 	 * Add one {@link ReceiptEntry}
@@ -24,5 +22,5 @@ public interface IReceiptEntrySelecter extends IsWidget {
 	 * Return all {@link ReceiptEntry}
 	 * @return all {@link ReceiptEntry}
 	 */
-	public ArrayList<ReceiptEntry> getReceiptEntries();
+	public List<ReceiptEntry> getReceiptEntries();
 }

@@ -1,6 +1,8 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.tagaprice.client.generics.widgets.IReceiptEntrySelecter;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,7 +24,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	
 
 	@Override
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {		
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {		
 		_vePa1.clear();
 		for(ReceiptEntry re:receiptEntries){
 			addReceiptEntrie(re);

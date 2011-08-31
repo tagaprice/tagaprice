@@ -1,6 +1,7 @@
 package org.tagaprice.client.generics.widgets;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
@@ -20,7 +21,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
 		receiptEntrySelecter.setReceiptEntries(receiptEntries);
 	}
 
@@ -30,7 +31,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public ArrayList<ReceiptEntry> getReceiptEntries() {
+	public List<ReceiptEntry> getReceiptEntries() {
 		return receiptEntrySelecter.getReceiptEntries();
 	}
 

@@ -91,6 +91,8 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_receipt.setDate(_createReceiptView.getDate());
 		_receipt.setShop(_createReceiptView.getShop());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
+		
+		Log.debug("receiptCount: "+_createReceiptView.getReceiptEntries().size());
 
 		//infox
 		//destroy all
@@ -235,6 +237,11 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 					Log.debug("Get Product sucessfull id: "+result.getId());
 					Package np = new Package(new Quantity(new BigDecimal("0.0"), result.getUnit()));
 					np.setProduct(result);
+					/*
+					List<ReceiptEntry> rt = _receipt.getReceiptEntries();
+					rt.add(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.euro), np));
+					_receipt.setReceiptEntries(rt);
+					*/
 					_receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("0"), Currency.euro), np));
 					updateView(_receipt);
 				}

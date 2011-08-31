@@ -524,12 +524,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 
 	@Override
-	public ArrayList<ReceiptEntry> getReceiptEntries() {
+	public List<ReceiptEntry> getReceiptEntries() {
 		return _receiptEntrySelecter.getReceiptEntries();
 	}
 
 	@Override
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
 		_receiptEntrySelecter.setReceiptEntries(receiptEntries);		
 	}
 

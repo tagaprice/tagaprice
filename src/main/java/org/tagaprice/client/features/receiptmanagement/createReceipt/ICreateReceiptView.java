@@ -43,9 +43,9 @@ public interface ICreateReceiptView extends IsWidget{
 
 	public void setProductSearchResults(List<Product> productResults);
 
-	public ArrayList<ReceiptEntry> getReceiptEntries();
+	public List<ReceiptEntry> getReceiptEntries();
 
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries);
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries);
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link ICreateReceiptView} to control this view. It is also necessary

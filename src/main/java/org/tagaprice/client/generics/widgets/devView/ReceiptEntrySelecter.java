@@ -2,6 +2,7 @@ package org.tagaprice.client.generics.widgets.devView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tagaprice.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.generics.widgets.IReceiptEntrySelecter;
@@ -36,7 +37,7 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	}
 
 	@Override
-	public void setReceiptEntries(ArrayList<ReceiptEntry> receiptEntries) {
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
 		receiptContainer.clear();
 		for(ReceiptEntry ir:receiptEntries){
 			OneReceiptEntry ore = new OneReceiptEntry();

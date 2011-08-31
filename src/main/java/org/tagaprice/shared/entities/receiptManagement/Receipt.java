@@ -24,7 +24,7 @@ public class Receipt extends Document {
 
 	private Shop _shop;
 	private Date _date;
-	private ArrayList<ReceiptEntry> _receiptEntries = new ArrayList<ReceiptEntry>();
+	private List<ReceiptEntry> _receiptEntries = new ArrayList<ReceiptEntry>();
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -64,23 +64,7 @@ public class Receipt extends Document {
 	}
 
 
-	/**
-	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
-	 */
-	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(ReceiptEntry rc) {
-		Log.debug("addReceiptEntries: 1");
-		_receiptEntries.add(rc);
-	}
 	
-	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(List<ReceiptEntry> rc) {
-		Log.debug("addReceiptEntries: "+rc.size());
-		_receiptEntries.clear();
-		for(ReceiptEntry r:rc){
-			addReceiptEntries(r);
-		}
-	}
 
 	/**
 	 * @return the date of the {@link Receipt}
@@ -98,13 +82,8 @@ public class Receipt extends Document {
 		_date=new Date(timestamp);
 	}
 
-	/**
-	 * @return all included {@link ReceiptEntry}
-	 */
-	public ArrayList<ReceiptEntry> getReceiptEntries() {
-		return _receiptEntries;
-	}
-
+	
+	
 	/**
 	 * @return the subsidiary where the user shopped
 	 */
@@ -136,22 +115,75 @@ public class Receipt extends Document {
 	}
 
 
+	/**
+	 * @return all included {@link ReceiptEntry}
+	 */
+	public List<ReceiptEntry> getReceiptEntries() {
+		return _receiptEntries;
+	}
+
+	public List<ReceiptEntry> getRt(){
+		return _receiptEntries;
+	}
+	
+
+	public void setRt(List<ReceiptEntry> rt){
+		Log.debug("setRt: "+rt.size());
+	}
+		
 
 	/**
 	 * Set a list of {@link ReceiptEntry}. All included {@link ReceiptEntry} will be overwritten!
 	 * @param receiptEntries the list of {@link ReceiptEntry}
 	 */
 	@JSONTypeHint(ReceiptEntry.class)
-	public void setReceiptEntries(List<ReceiptEntry> rc) {
-		Log.debug("setReceiptEntries: "+rc.size());
+	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
+		Log.debug("setReceiptEntries: "+receiptEntries.size());
+		_receiptEntries.clear();
+		
+		
+		/*
+		for(ReceiptEntry re:receiptEntries){
+			Log.debug("packageId: "+re.getPackageId());
+			_receiptEntries.add(re);
+		}
+		*/
+		
+		//_receiptEntries.addAll(receiptEntries);
+		
+		_receiptEntries.clear();
+		for(ReceiptEntry r:receiptEntries){
+			addReceiptEntries(r);
+		}
+		
+	}
+	
+
+	
+	/**
+	 * @param receiptEntry add one {@link ReceiptEntry} to the {@link Receipt}
+	 */
+	
+	@JSONProperty(ignore = true)
+	public void addReceiptEntries(ReceiptEntry rc) {
+		Log.debug("addReceiptEntries: 1");
+		_receiptEntries.add(rc);
+	}
+	
+	
+	
+	
+	
+	/*
+	@JSONTypeHint(ReceiptEntry.class)
+	public void addReceiptEntries(List<ReceiptEntry> rc) {
+		Log.debug("addReceiptEntries: "+rc.size());
 		_receiptEntries.clear();
 		for(ReceiptEntry r:rc){
 			addReceiptEntries(r);
 		}
 	}
-
-
-
+	*/
 
 
 	/**
