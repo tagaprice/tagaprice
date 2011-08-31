@@ -1,7 +1,5 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
-import java.util.List;
-
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;

@@ -55,12 +55,8 @@ public class MockDaoFactory implements IDaoFactory {
 
 
 		//Create units
-		Unit st = m_unitDAO.create(new Unit(m_testUser, "st",null,1.0));
 		Unit g = m_unitDAO.create(new Unit(m_testUser, "g",null,1.0));
-		Unit kg = m_unitDAO.create(new Unit(m_testUser, "kg",g,1000));
-		Unit mg = m_unitDAO.create(new Unit(m_testUser, "mg",g,0.001));
 		Unit l = m_unitDAO.create(new Unit(m_testUser, "l",null,1.0));
-		Unit ml = m_unitDAO.create(new Unit(m_testUser, "ml",l,1000));
 		/*
 		m_unitDAO.setFactorizedUnit(st.getId(), st.getId(), 1);
 		Unit kg = m_unitDAO.create(new Unit(m_testUser, "kg"));
