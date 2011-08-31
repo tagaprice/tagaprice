@@ -68,7 +68,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
 						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
 
-					if(shopId.equals(r.getShop().getId())){
+					if(shopId.equals(r.getShopId())){
 						for(ReceiptEntry re:r.getReceiptEntries()){
 							rc.add(new StatisticResult(
 									r.getDate(),
