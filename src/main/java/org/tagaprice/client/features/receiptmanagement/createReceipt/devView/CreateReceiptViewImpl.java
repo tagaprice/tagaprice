@@ -1,7 +1,6 @@
 package org.tagaprice.client.features.receiptmanagement.createReceipt.devView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -352,7 +351,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setAddress(Address address) {
 		Log.debug("new Address: "+address);
-		LonLat l = new LonLat(address.getLng(), address.getLat());
+		LonLat l = new LonLat(address.getLon(), address.getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
 		_osmMap.setCenter(l, 15);
 	}

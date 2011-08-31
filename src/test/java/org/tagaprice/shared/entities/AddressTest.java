@@ -23,7 +23,7 @@ public class AddressTest {
 	public void testAddress() {
 		assertEquals(addressEmpty.getAddress(), null);
 		Assert.assertEquals(addressEmpty.getLat(), 0.0, 0.0);
-		Assert.assertEquals(addressEmpty.getLng(), 0.0, 0.0);
+		Assert.assertEquals(addressEmpty.getLon(), 0.0, 0.0);
 	}
 
 
@@ -34,7 +34,7 @@ public class AddressTest {
 
 	@Test
 	public void testGetLng() {
-		Assert.assertEquals(withConstructor.getLng(), 2.2, 0.0);
+		Assert.assertEquals(withConstructor.getLon(), 2.2, 0.0);
 	}
 
 	@Test
@@ -45,8 +45,8 @@ public class AddressTest {
 
 	@Test
 	public void testSetLng() {
-		toChange.setLng(4.4);
-		Assert.assertEquals(toChange.getLng(), 4.4, 0.0);
+		toChange.setLon(4.4);
+		Assert.assertEquals(toChange.getLon(), 4.4, 0.0);
 	}
 
 	@Test

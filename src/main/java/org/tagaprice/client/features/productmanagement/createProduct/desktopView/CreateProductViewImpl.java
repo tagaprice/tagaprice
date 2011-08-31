@@ -316,8 +316,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	}
 
 	@Override
-	public void setStatisticLatLng(double lat, double lng) {
-		_statistic.setLatLng(lat, lng);		
+	public void setStatisticLatLon(double lat, double lon) {
+		_statistic.setLatLon(lat, lon);		
 	}
 
 }

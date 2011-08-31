@@ -158,13 +158,13 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					_createShopView.setReadOnly(true);
 					
 					if(result.getParent()==null){
-						_createShopView.setStatisticLatLng(
+						_createShopView.setStatisticLatLon(
 								result.getAddress().getLat(),
-								result.getAddress().getLng());
+								result.getAddress().getLon());
 					}else{
-						_createShopView.setStatisticLatLng(
+						_createShopView.setStatisticLatLon(
 								Double.parseDouble(_place.getLat()), 
-								Double.parseDouble(_place.getLng()));
+								Double.parseDouble(_place.getLon()));
 					}
 					/*
 					onStatisticChangedEvent(
@@ -183,11 +183,11 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			//setTitle
 			_shop.setTitle(_place.getTitle());
 			
-			//setLatlng from url
-			if(_place.getLat()!=null && _place.getLng()!=null)
+			//setLatlon from url
+			if(_place.getLat()!=null && _place.getLon()!=null)
 			{
-				Log.debug("lat: "+_place.getLat()+", lng: "+_place.getLng());
-				_shop.setAddress(new Address(null, Double.parseDouble(_place.getLat()), Double.parseDouble(_place.getLng())));
+				Log.debug("lat: "+_place.getLat()+", lon: "+_place.getLon());
+				_shop.setAddress(new Address(null, Double.parseDouble(_place.getLat()), Double.parseDouble(_place.getLon())));
 			}
 			
 			//Get Branding data from server and add it to the shop

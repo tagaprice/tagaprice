@@ -264,7 +264,7 @@ public class UIDesktop implements IUi {
 				
 				
 				if(_curAddress!=null){
-					if(_curAddress.getLat()!=c.lat() || _curAddress.getLng()!=c.lon()){
+					if(_curAddress.getLat()!=c.lat() || _curAddress.getLon()!=c.lon()){
 						
 						setLocation(new Address("Map Area", c.lat(), c.lon()));
 					}
@@ -469,7 +469,7 @@ public class UIDesktop implements IUi {
 		_curAddress = address;	
 		_locationPop.hide();
 		_location.setText(_curAddress.getAddress());
-		LonLat c = new LonLat(_curAddress.getLng(), _curAddress.getLat());
+		LonLat c = new LonLat(_curAddress.getLon(), _curAddress.getLat());
 		c.transform( "EPSG:4326","EPSG:900913");
 		_osmShopMap.setCenter(c);
 		_searchPopup.showRelativeTo(_search);
@@ -519,7 +519,7 @@ public class UIDesktop implements IUi {
 											null, 
 											null, 
 											""+_curAddress.getLat(), 
-											""+_curAddress.getLng(), 
+											""+_curAddress.getLon(), 
 											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
@@ -531,7 +531,7 @@ public class UIDesktop implements IUi {
 							System.out.println("shopAddres:"+shop.getAddress());
 							
 							//Simple points
-							LonLat l = new LonLat(shop.getAddress().getLng(), shop.getAddress().getLat());
+							LonLat l = new LonLat(shop.getAddress().getLon(), shop.getAddress().getLat());
 							l.transform("EPSG:4326", "EPSG:900913");
 							Point point = new Point(l.lon(), l.lat());
 							VectorFeature pointFeature = new VectorFeature(point);
@@ -552,7 +552,7 @@ public class UIDesktop implements IUi {
 											null, 
 											null, 
 											""+_curAddress.getLat(), 
-											""+_curAddress.getLng(), 
+											""+_curAddress.getLon(), 
 											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
@@ -576,7 +576,7 @@ public class UIDesktop implements IUi {
 									_search.getText(), 
 									null, 
 									""+_curAddress.getLat(), 
-									""+_curAddress.getLng(), 
+									""+_curAddress.getLon(), 
 									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");							
@@ -597,7 +597,7 @@ public class UIDesktop implements IUi {
 									null, 
 									_search.getText(), 
 									""+_curAddress.getLat(), 
-									""+_curAddress.getLng(), 
+									""+_curAddress.getLon(), 
 									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");

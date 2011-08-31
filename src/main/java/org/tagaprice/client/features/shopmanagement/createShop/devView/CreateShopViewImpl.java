@@ -206,7 +206,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	}
 
 	@Override
-	public void setStatisticLatLng(double lat, double lng) {
+	public void setStatisticLatLon(double lat, double lon) {
 		// TODO Auto-generated method stub
 		
 	}

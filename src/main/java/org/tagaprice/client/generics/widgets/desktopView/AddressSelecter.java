@@ -149,7 +149,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 							Address at = new Address();
 							
 							at.setLat(Double.parseDouble(temp.getLat()));
-							at.setLng(Double.parseDouble(temp.getLon()));
+							at.setLon(Double.parseDouble(temp.getLon()));
 							
 							if(temp.getAddress()!=null){
 								String responseString = "";
@@ -224,7 +224,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_curAddress=address;
 		_osmMap.removeOverlayLayers();
 		
-		_lonLat = new LonLat(address.getLng(), address.getLat());
+		_lonLat = new LonLat(address.getLon(), address.getLat());
 
 		//set Pos
 		_lonLat.transform("EPSG:4326", "EPSG:900913");
@@ -270,7 +270,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 						Address at = new Address();
 						
 						at.setLat(l.lat());
-						at.setLng(l.lon());
+						at.setLon(l.lon());
 						
 						if(response.getAddress()!=null){
 							String responseString = "";

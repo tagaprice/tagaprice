@@ -20,8 +20,8 @@ public class BoundingBoxTest {
 	public void testBoundingBox() {
 		assertEquals(emptyBox.getSouthWestLat(), 0.0, 0.0);
 		assertEquals(emptyBox.getNorthEastLat(), 0.0, 0.0);
-		assertEquals(emptyBox.getSouthWestLng(), 0.0, 0.0);
-		assertEquals(emptyBox.getNorthEastLng(), 0.0, 0.0);
+		assertEquals(emptyBox.getSouthWestLon(), 0.0, 0.0);
+		assertEquals(emptyBox.getNorthEastLon(), 0.0, 0.0);
 	}
 
 
@@ -32,7 +32,7 @@ public class BoundingBoxTest {
 
 	@Test
 	public void testGetY1() {
-		assertEquals(withConstructor.getSouthWestLng(), 2.2, 0.0);
+		assertEquals(withConstructor.getSouthWestLon(), 2.2, 0.0);
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class BoundingBoxTest {
 
 	@Test
 	public void testGetY2() {
-		assertEquals(withConstructor.getNorthEastLng(), 4.4, 0.0);
+		assertEquals(withConstructor.getNorthEastLon(), 4.4, 0.0);
 	}
 
 }

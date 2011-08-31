@@ -138,9 +138,9 @@ public interface ICreateProductView extends IsWidget {
 	/**
 	 * Set the center of the statistic Widget. Should be the current position of the user.
 	 * @param lat
-	 * @param lng
+	 * @param lon
 	 */
-	public void setStatisticLatLng(double lat, double lng);
+	public void setStatisticLatLon(double lat, double lon);
 	
 	/**
 	 * 

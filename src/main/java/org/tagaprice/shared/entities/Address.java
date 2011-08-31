@@ -12,7 +12,7 @@ public class Address implements IsSerializable {
 	private String _city;
 	private String _countrycode;
 	private double _lat;
-	private double _lng;
+	private double _lon;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -25,13 +25,13 @@ public class Address implements IsSerializable {
 	 * Constructor to create a new Address
 	 * @param address address
 	 * @param lat latitude
-	 * @param lng longitude
+	 * @param lon longitude
 	 */
-	public Address(String address, double lat, double lng) {
+	public Address(String address, double lat, double lon) {
 		super();
 		_address=address;
 		_lat = lat;
-		_lng = lng;
+		_lon = lon;
 	}
 
 	
@@ -39,44 +39,44 @@ public class Address implements IsSerializable {
 
 
 	public Address(String street, String postalcode, String city,
-			String countrycode, double lat, double lng) {
+			String countrycode, double lat, double lon) {
 		_street = street;
 		_postalcode = postalcode;
 		_city = city;
 		_countrycode = countrycode;
 		_lat = lat;
-		_lng = lng;
+		_lon = lon;
 	}
 
 
 	/**
-	 * @return the lat
+	 * @return Latitude
 	 */
 	public double getLat() {
 		return _lat;
 	}
 
 	/**
-	 * @return the lng
+	 * @return Longitude
 	 */
-	public double getLng() {
-		return _lng;
+	public double getLon() {
+		return _lon;
 	}
 
 
 
 	/**
-	 * @param lat the lat to set
+	 * @param lat the longitude to set
 	 */
 	public void setLat(double lat) {
 		_lat = lat;
 	}
 
 	/**
-	 * @param lng the lng to set
+	 * @param lon the longitude to set
 	 */
-	public void setLng(double lng) {
-		_lng = lng;
+	public void setLon(double lon) {
+		_lon = lon;
 	}
 
 
@@ -170,7 +170,7 @@ public class Address implements IsSerializable {
 		return "Address [_address=" + _address + ", _street=" + _street
 				+ ", _postalcode=" + _postalcode + ", _city=" + _city
 				+ ", _countrycode=" + _countrycode + ", _lat=" + _lat
-				+ ", _lng=" + _lng + "]";
+				+ ", _lon=" + _lon + "]";
 	}
 
 }
