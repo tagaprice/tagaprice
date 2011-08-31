@@ -6,7 +6,6 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;

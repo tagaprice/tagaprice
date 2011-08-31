@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
-import org.tagaprice.client.generics.events.AddressChangedEvent;
-import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;

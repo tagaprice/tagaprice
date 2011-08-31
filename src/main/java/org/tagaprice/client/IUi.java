@@ -3,7 +3,6 @@ package org.tagaprice.client;
 import org.tagaprice.client.generics.widgets.InfoBox;
 
 import com.google.gwt.activity.shared.ActivityManager;
-import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IUi {
 

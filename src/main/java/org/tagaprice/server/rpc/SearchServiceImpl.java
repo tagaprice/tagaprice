@@ -1,10 +1,5 @@
 package org.tagaprice.server.rpc;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +9,6 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.ISearchDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
-import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -23,8 +17,6 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 
-import com.allen_sauer.gwt.log.client.Log;
-import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class SearchServiceImpl extends RemoteServiceServlet implements ISearchService {

@@ -1,7 +1,6 @@
 package org.tagaprice.client.features.accountmanagement.register.devView;
 
 import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
-import org.tagaprice.client.Config;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;

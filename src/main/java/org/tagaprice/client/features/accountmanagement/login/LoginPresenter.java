@@ -4,7 +4,6 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
-import org.tagaprice.client.generics.facebook.FBCore;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;

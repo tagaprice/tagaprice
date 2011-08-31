@@ -20,7 +20,6 @@ import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;

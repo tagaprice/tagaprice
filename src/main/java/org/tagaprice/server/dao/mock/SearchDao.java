@@ -1,12 +1,9 @@
 package org.tagaprice.server.dao.mock;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
-import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.ISearchDao;
-import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.rpc.InitServlet;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;

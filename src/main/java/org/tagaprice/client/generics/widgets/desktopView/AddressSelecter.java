@@ -1,13 +1,11 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
-import java.util.List;
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Pixel;
 import org.gwtopenmaps.openlayers.client.Style;
-import org.gwtopenmaps.openlayers.client.ZIndexBase;
 import org.gwtopenmaps.openlayers.client.control.DragFeature;
 import org.gwtopenmaps.openlayers.client.control.DragFeature.DragFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.DragFeatureOptions;
@@ -23,15 +21,11 @@ import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.jsonp.client.JsonpRequest;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {

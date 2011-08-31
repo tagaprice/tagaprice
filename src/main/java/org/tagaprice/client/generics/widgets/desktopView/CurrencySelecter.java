@@ -5,7 +5,6 @@ import org.tagaprice.shared.entities.receiptManagement.Currency;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 
 /**
  * No selection or any function at the moment. it workes only with euro.
