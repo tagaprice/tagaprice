@@ -59,11 +59,10 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		ViewResult<?> result = m_db.queryView("receipt/all", Receipt.class, null, null);
 		List<Receipt> rc = new ArrayList<Receipt>();
 
-		Log.debug("Listsize: "+result.getRows().size());
-
 		for (ValueRow<?> row: result.getRows()) {
 			Log.debug("rowId: "+row.getId());
 			Receipt receipt = get(row.getId());
+			Log.debug("Listsize: "+receipt.getReceiptEntries().size());
 			Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
 			rc.add(receipt);
 		}
@@ -89,7 +88,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 	@Override
 	protected void _injectFields(Receipt receipt) throws DaoException {
-		/*
+		
 		if(receipt.getShopId() != null){
 			receipt.setShop(m_shopDAO.get(receipt.getShopId()));
 		}
@@ -101,7 +100,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 				re.getPackage().setProduct(m_productDAO.get(re.getPackage().getProductId()));
 			}
 		}
-		*/
+		
 	}
 
 }
