@@ -29,6 +29,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	private String _docType = null;
 	private User _creator = null;
 	private Map<String, Object> _properties = new HashMap<String, Object>();
+	private Address _address = new Address();
 
 	private String _title;
 
@@ -181,6 +182,23 @@ public class Document implements IsSerializable, DynamicProperties {
 	 */
 	public void setTitle(String title){
 		_title = title;
+	}
+	
+	/**
+	 * Set an {@link Address} to the {@link Shop}
+	 * @param address {@link Shop} address
+	 */
+	@JSONProperty(ignore = true)
+	public void setAddress(Address address) {
+		_address=address;
+	}
+
+	/**
+	 * @return the address of the {@link Shop}
+	 */
+	@JSONProperty(ignore = true)
+	public Address getAddress() {
+		return _address;
 	}
 
 	/* (non-Javadoc)

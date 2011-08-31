@@ -64,26 +64,44 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		for (ValueRow<?> row: result.getRows()) {
 			Log.debug("rowId: "+row.getId());
 			Receipt receipt = get(row.getId());
+			Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
 			rc.add(receipt);
 		}
 
 
 		return rc;
 	}
+	
+	@Override
+	public Receipt get(String id, String revision) throws DaoException {
+		return super.get(id, revision);
+	}
+	
+	@Override
+	public Receipt get(String id) throws DaoException {
+		Log.debug("getreceipt. Id: "+id);
+		Receipt r = get(id,null);
+		
+		Log.debug(r.getDocType()+", c:"+r.getReceiptEntries().size());
+		
+		return r;
+	}
 
 	@Override
 	protected void _injectFields(Receipt receipt) throws DaoException {
+		/*
 		if(receipt.getShopId() != null){
 			receipt.setShop(m_shopDAO.get(receipt.getShopId()));
 		}
 		
-		
+		Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
 		for(ReceiptEntry re:receipt.getReceiptEntries()){
 			if(re.getPackageId()!=null){
 				re.setPackage(m_packageDAO.get(re.getPackageId()));
 				re.getPackage().setProduct(m_productDAO.get(re.getPackage().getProductId()));
 			}
 		}
+		*/
 	}
 
 }

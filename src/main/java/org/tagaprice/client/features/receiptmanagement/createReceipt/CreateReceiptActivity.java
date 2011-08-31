@@ -273,11 +273,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			addShopOrProduct();
 
 
-			if(_clientFactory.getAccountPersistor().getAddress()==null){
-				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-			}else{
-				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
-			}
+			//check address
 
 		}else if (_place.getId() == null && _clientFactory.getAccountPersistor().getReceiptDraft()==null) {
 			Log.debug("Create new Receipt");
@@ -292,11 +288,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			panel.setWidget(_createReceiptView);
 
 
-			if(_clientFactory.getAccountPersistor().getAddress()==null){
-				_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-			}else{
-				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
-			}
+			//check address
 
 
 		} else {
@@ -319,21 +311,14 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 
 					Log.debug("Result: "+response);
+					Log.debug("entrySize: "+response.getReceiptEntries().size());
 					updateView(response);
 					panel.setWidget(_createReceiptView);
 				}
 			});
 		}
 
-		_clientFactory.getEventBus().addHandler(AddressChangedEvent.TYPE, new AddressChangedEventHandler() {
-
-			@Override
-			public void onAddressChanged(AddressChangedEvent event) {
-				_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getAddress());
-				//_createReceiptView.setAddress(event.getAddress());
-			}
-
-		});
+		
 
 
 

@@ -10,6 +10,8 @@ import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 /**
  * A single Receipt
  * Holds information about the creator {@link User} of the receipt,
@@ -67,7 +69,17 @@ public class Receipt extends Document {
 	 */
 	@JSONTypeHint(ReceiptEntry.class)
 	public void addReceiptEntries(ReceiptEntry rc) {
+		Log.debug("addReceiptEntries: 1");
 		_receiptEntries.add(rc);
+	}
+	
+	@JSONTypeHint(ReceiptEntry.class)
+	public void addReceiptEntries(List<ReceiptEntry> rc) {
+		Log.debug("addReceiptEntries: "+rc.size());
+		_receiptEntries.clear();
+		for(ReceiptEntry r:rc){
+			addReceiptEntries(r);
+		}
 	}
 
 	/**
@@ -131,7 +143,7 @@ public class Receipt extends Document {
 	 */
 	@JSONTypeHint(ReceiptEntry.class)
 	public void setReceiptEntries(List<ReceiptEntry> rc) {
-
+		Log.debug("setReceiptEntries: "+rc.size());
 		_receiptEntries.clear();
 		for(ReceiptEntry r:rc){
 			addReceiptEntries(r);

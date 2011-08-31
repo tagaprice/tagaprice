@@ -12,6 +12,8 @@ import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.MapZoomListener;
+import org.gwtopenmaps.openlayers.client.event.MapZoomListener.MapZoomEvent;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
@@ -113,6 +115,14 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		vePa1.add(resultList);
 
 
+		_osmMap.addMapZoomListener(new MapZoomListener() {
+			
+			@Override
+			public void onMapZoom(MapZoomEvent eventObject) {
+				Log.debug("MoveMapEndHandler");
+				sendChangeRequest();				
+			}
+		});
 
 		_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
 

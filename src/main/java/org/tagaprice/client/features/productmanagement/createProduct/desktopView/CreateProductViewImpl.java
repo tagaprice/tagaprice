@@ -159,6 +159,19 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_hoPa1.add(_statisticFrame);
 		
 		
+		//saveButton
+		_saveButton.setStyleName("stdButton save");
+		_statisticHeadPanel.add(_saveButton);
+		_statisticHeadPanel.setCellHorizontalAlignment(_saveButton, HorizontalPanel.ALIGN_RIGHT);
+		_saveButton.setVisible(!_readonly);
+		_saveButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onSaveEvent();		
+			}
+		});
+		
 		//cancel button
 		_cancelButton.setStyleName("stdButton cancel");
 		_statisticHeadPanel.add(_cancelButton);
@@ -174,18 +187,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		});
 		
 		
-		//saveButton
-		_saveButton.setStyleName("stdButton save");
-		_statisticHeadPanel.add(_saveButton);
-		_statisticHeadPanel.setCellHorizontalAlignment(_saveButton, HorizontalPanel.ALIGN_RIGHT);
-		_saveButton.setVisible(!_readonly);
-		_saveButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.onSaveEvent();		
-			}
-		});
+		
 		
 		
 		//editButton

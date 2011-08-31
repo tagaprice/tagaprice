@@ -11,14 +11,14 @@ public interface IAccountPersistor {
 	/**
 	 * Returns global Address
 	 */
-	public Address getAddress();
+	//public Address getAddress();
 
 
 	/**
 	 * Set Global Address. Saves it also in the cookies.
 	 * @param address setGlobalAddress
 	 */
-	public void setAddress(Address address);
+	//public void setAddress(Address address);
 
 	/**
 	 * @return true if user is logged in.

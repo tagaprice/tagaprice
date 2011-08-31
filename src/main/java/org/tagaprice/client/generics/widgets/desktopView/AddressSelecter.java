@@ -39,11 +39,18 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private Vector _layer;
 	private LonLat _lonLat = new LonLat(16.37692,48.21426);
 	private MorphWidget _addressBox = new MorphWidget();
+	private MorphWidget _streeBox = new MorphWidget();
+	private MorphWidget _postalcodeBox = new MorphWidget();
+	private MorphWidget _cityBox = new MorphWidget();
+	private MorphWidget _countryCodeBox = new MorphWidget();
+	
 	private VectorFeature _pointFeature;
 	private VerticalPanel _addressListPanel = new VerticalPanel();
 	private DragFeature _dragFeature;
 	private boolean _readonly = true;
-	private Grid _addressGrid = new Grid(1, 2);
+	private Grid _addressGrid = new Grid(5, 2);
+	private Address _curAddress = new Address();
+	private Button _showOnMapButton = new Button("Set marker to address");
 
 	public AddressSelecter() {
 		Log.debug("Start AddressSelecter");
@@ -67,12 +74,136 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_addressGrid.setWidth("100%");
 		_addressGrid.setStyleName("propertyGrid");
 		_addressGrid.setWidget(0, 0, new Label("Street"));
+		_addressGrid.setWidget(1, 0, new Label("Street"));
+		_addressGrid.setWidget(2, 0, new Label("ZIP"));
+		_addressGrid.setWidget(3, 0, new Label("City"));
+		_addressGrid.setWidget(4, 0, new Label("Country"));
+		
 		_addressGrid.getCellFormatter().setStyleName(0, 0, "namecell");
 		_addressGrid.getCellFormatter().setStyleName(0, 1, "valuecell");
+		
 		_addressGrid.setWidget(0, 1, _addressBox);
+		_addressGrid.setWidget(1, 1, _streeBox);
+		_addressGrid.setWidget(2, 1, _postalcodeBox);
+		_addressGrid.setWidget(3, 1, _cityBox);
+		_addressGrid.setWidget(4, 1, _countryCodeBox);
+		
+		
 		_vePa1.add(_addressGrid);
 		
+		//Show Button
+		_vePa1.add(_showOnMapButton);
+		_showOnMapButton.setVisible(!_readonly);
 		
+		_showOnMapButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				Log.debug("Search for address");
+				JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
+				jsonp.setCallbackParam("json_callback");
+				
+				String url = "http://open.mapquestapi.com/nominatim/v1/search?format=json&addressdetails=1&q=";
+				String q="";
+				if(!_streeBox.getValue().isEmpty())
+					q+=_streeBox.getValue()+" ";
+				
+				/*
+				if(!_postalcodeBox.getValue().isEmpty())
+					q+=_postalcodeBox.getValue()+" ";
+				*/
+				
+				if(!_cityBox.getValue().isEmpty())
+					q+=_cityBox.getValue()+" ";
+				
+				/*
+				if(!q.isEmpty())
+					q=q.substring(0, q.length()-1);
+				*/
+				
+				url+=q;
+				
+				//country code
+				if(!_countryCodeBox.getValue().isEmpty())
+					url+="&countrycodes="+_countryCodeBox.getValue().trim();
+				
+				System.out.println("url: "+url);
+				
+				jsonp.requestObject(url, new AsyncCallback<JsArray<MapquestResponse>>() {
+
+					@Override
+					public void onFailure(Throwable e) {
+						Log.error("MapquestPointToAdressFailure: "+e);						
+					}
+
+					@Override
+					public void onSuccess(JsArray<MapquestResponse> response) {
+						// TODO Auto-generated method stub
+						
+						if(response.length()>0){
+							MapquestResponse temp = response.get(0);
+							Address at = new Address();
+							
+							at.setLat(Double.parseDouble(temp.getLat()));
+							at.setLng(Double.parseDouble(temp.getLon()));
+							
+							if(temp.getAddress()!=null){
+								String responseString = "";
+								
+								if(temp.getAddress().getRoad()!=null){
+									responseString+=temp.getAddress().getRoad();
+									at.setStreet(temp.getAddress().getRoad());
+								}
+									
+								if(temp.getAddress().getPedestrian()!=null){
+									responseString+=temp.getAddress().getPedestrian();
+									at.setStreet(temp.getAddress().getPedestrian());
+								}
+								
+								if(temp.getAddress().getFootway()!=null){
+									responseString+=temp.getAddress().getFootway();
+									at.setStreet(temp.getAddress().getFootway());
+								}
+								
+								if(temp.getAddress().getHouse_number()!=null){
+									responseString+=" "+temp.getAddress().getHouse_number()+",";
+									if(at.getStreet()!=null)
+										at.setStreet(at.getStreet()+" "+temp.getAddress().getHouse_number());
+								}
+								
+								if(temp.getAddress().getPostcode()!=null){
+									responseString+=" "+temp.getAddress().getPostcode()+",";
+									at.setPostalcode(temp.getAddress().getPostcode());
+								}
+								
+								if(temp.getAddress().getCity()!=null){
+									responseString+=" "+temp.getAddress().getCity()+",";
+									at.setCity(temp.getAddress().getCity());
+								}
+									
+								if(temp.getAddress().getCountry_code()!=null){
+									responseString+=" "+temp.getAddress().getCountry_code()+",";
+									at.setCountrycode(temp.getAddress().getCountry_code());
+								}
+								
+								//TODO create better address 
+								//Address at = new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon()));
+								at.setAddress(responseString);
+								
+								
+								setAddress(at);
+							}
+						}
+						/*
+						for(int i=0;i<response.length();i++){
+							System.out.println("d: "+response.get(i).getLat()+","+response.get(i).getLon()+" "+response.get(i).getAddress().print());
+						}
+						*/
+					}
+
+				});
+			}
+		});
 		
 		
 		//Init address list popup
@@ -86,6 +217,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	@Override
 	public void setAddress(Address address) {
+		_curAddress=address;
 		_osmMap.removeOverlayLayers();
 		
 		_lonLat = new LonLat(address.getLng(), address.getLat());
@@ -124,7 +256,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 				//try jsonP qwt
 				String url = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat="+l.lat()+"&lon="+l.lon();
 				
-				System.out.println("requestUrl: "+url);
 				JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
 				jsonp.setCallbackParam("json_callback");
 				jsonp.requestObject(url, new AsyncCallback<MapquestResponse>() {
@@ -132,34 +263,56 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					@Override
 					public void onSuccess(MapquestResponse response) {
 					
+						Address at = new Address();
+						
+						at.setLat(l.lat());
+						at.setLng(l.lon());
 						
 						if(response.getAddress()!=null){
 							String responseString = "";
 							
-							if(response.getAddress().getRoad()!=null)
+							if(response.getAddress().getRoad()!=null){
 								responseString+=response.getAddress().getRoad();
-							
-							if(response.getAddress().getPedestrian()!=null)
+								at.setStreet(response.getAddress().getRoad());
+							}
+								
+							if(response.getAddress().getPedestrian()!=null){
 								responseString+=response.getAddress().getPedestrian();
+								at.setStreet(response.getAddress().getPedestrian());
+							}
 							
-							if(response.getAddress().getFootway()!=null)
+							if(response.getAddress().getFootway()!=null){
 								responseString+=response.getAddress().getFootway();
+								at.setStreet(response.getAddress().getFootway());
+							}
 							
-							if(response.getAddress().getHouse_number()!=null)
+							if(response.getAddress().getHouse_number()!=null){
 								responseString+=" "+response.getAddress().getHouse_number()+",";
+								if(at.getStreet()!=null)
+									at.setStreet(at.getStreet()+" "+response.getAddress().getHouse_number());
+							}
 							
-							if(response.getAddress().getPostcode()!=null)
+							if(response.getAddress().getPostcode()!=null){
 								responseString+=" "+response.getAddress().getPostcode()+",";
+								at.setPostalcode(response.getAddress().getPostcode());
+							}
 							
-							if(response.getAddress().getCity()!=null)
+							if(response.getAddress().getCity()!=null){
 								responseString+=" "+response.getAddress().getCity()+",";
-							
-							if(response.getAddress().getCountry_code()!=null)
+								at.setCity(response.getAddress().getCity());
+							}
+								
+							if(response.getAddress().getCountry_code()!=null){
 								responseString+=" "+response.getAddress().getCountry_code()+",";
+								at.setCountrycode(response.getAddress().getCountry_code());
+							}
 							
 							//TODO create better address 
-							setAddress(new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon())));
-							System.out.println(responseString);
+							//Address at = new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon()));
+							at.setAddress(responseString);
+							
+							
+							setAddress(at);
 						}
 						
 						
@@ -188,6 +341,10 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		setReadOnly(_readonly);
 
 		_addressBox.setValue(address.getAddress());
+		_streeBox.setValue(address.getStreet());
+		_postalcodeBox.setValue(address.getPostalcode());
+		_cityBox.setValue(address.getCity());
+		_countryCodeBox.setValue(address.getCountrycode());
 		
 	}
 
@@ -195,7 +352,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	public Address getAddress() {
 		LonLat l = _osmMap.getCenter();
 		l.transform("EPSG:900913","EPSG:4326");
-		return new Address(_addressBox.getValue(), l.lat(), l.lon());
+		//return new Address(street, postalcode, city, countrycode,  l.lat(), l.lon());
+		//return new Address(_addressBox.getValue(), l.lat(), l.lon());
+		return _curAddress;
 	}
 	
 
@@ -210,7 +369,11 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		}
 		
 		_addressBox.setReadOnly(_readonly);
-		
+		_postalcodeBox.setReadOnly(_readonly);
+		_streeBox.setReadOnly(_readonly);
+		_cityBox.setReadOnly(_readonly);
+		_countryCodeBox.setReadOnly(_readonly);
+		_showOnMapButton.setVisible(!_readonly);
 	}
 
 
