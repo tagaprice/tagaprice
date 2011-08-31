@@ -122,14 +122,6 @@ public class Receipt extends Document {
 		return _receiptEntries;
 	}
 
-	public List<ReceiptEntry> getRt(){
-		return _receiptEntries;
-	}
-	
-
-	public void setRt(List<ReceiptEntry> rt){
-		Log.debug("setRt: "+rt.size());
-	}
 		
 
 	/**
@@ -140,16 +132,6 @@ public class Receipt extends Document {
 	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
 		Log.debug("setReceiptEntries: "+receiptEntries.size());
 		_receiptEntries.clear();
-		
-		
-		/*
-		for(ReceiptEntry re:receiptEntries){
-			Log.debug("packageId: "+re.getPackageId());
-			_receiptEntries.add(re);
-		}
-		*/
-		
-		//_receiptEntries.addAll(receiptEntries);
 		
 		_receiptEntries.clear();
 		for(ReceiptEntry r:receiptEntries){
