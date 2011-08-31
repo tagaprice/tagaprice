@@ -2,7 +2,7 @@
 
 USERSCRIPT=./.post_compile.sh
 
-mvn -D maven.test.skip=true resources:resources package
+mvn -D maven.test.skip=true clean resources:resources package
 rc="$?"
 if [ "$rc" -ne 0 ]; then
 	echo "Build failed :(" >&2
