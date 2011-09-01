@@ -34,6 +34,7 @@ public class StdFrame extends Composite implements IStdFrame{
 		vePa.setWidth("100%");
 		vePa.add(headHoPa);
 		headHoPa.setWidth("100%");
+		headPa.setHeight("30px");
 		headHoPa.add(headPa);
 		headHoPa.add(headSavePa);
 		headHoPa.setCellWidth(headPa, "100%");
@@ -51,6 +52,7 @@ public class StdFrame extends Composite implements IStdFrame{
 		_buttonPanel.add(_cancelButton);
 		_buttonPanel.add(_editButton);
 		headSavePa.add(_buttonPanel);
+		headSavePa.setHeight("30px");
 		setButtonsVisible(false);
 		
 		initWidget(vePa);
@@ -66,12 +68,15 @@ public class StdFrame extends Composite implements IStdFrame{
 	}
 	
 	public void setBody(Widget body, String width){
-
+		body.setHeight("100%");
 		SimplePanel temp = new SimplePanel(body);
+		temp.setHeight("100%");
 		//temp.setStyleName(_bodyStyle);
 		bodyHoPa.add(temp);
 		if(width!=null)
 			bodyHoPa.setCellWidth(temp, width);
+		
+		bodyHoPa.setCellHeight(temp, "100%");
 		
 		setBodyStyleName(_bodyStyle);
 	}
