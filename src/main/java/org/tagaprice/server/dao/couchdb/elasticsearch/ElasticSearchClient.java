@@ -122,7 +122,7 @@ public class ElasticSearchClient {
 		return find(queryObject);
 	}
 	
-	public SearchResult findShopInBBox(String query, BoundingBox bbox, int limit) {
+	public SearchResult find(String query, BoundingBox bbox, int limit) {
 		QueryObject queryObject = new QueryObject()
 			.query(new FilteredQuery()
 				.query(
