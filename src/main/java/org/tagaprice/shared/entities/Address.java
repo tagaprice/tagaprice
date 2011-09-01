@@ -1,9 +1,53 @@
 package org.tagaprice.shared.entities;
 
+import org.gwtopenmaps.openlayers.client.LonLat;
+import org.svenson.JSONProperty;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Address implements IsSerializable {
-
+	public static class LatLon implements IsSerializable{
+		private double _lat;
+		private double _lon;
+		
+		public LatLon(double lat, double lon) {
+			_lat = lat;
+			_lon = lon;
+		}
+		
+		public LatLon() {
+			_lat = 0;
+			_lon = 0;
+		}
+		
+		public double getLat() {
+			return _lat;
+		}
+		
+		public double getLon() {
+			return _lon;
+		}
+		
+		public void setLat(double lat) {
+			_lat = lat;
+		}
+		
+		public void setLon(double lon) {
+			_lon = lon;
+		}
+		
+		public LonLat toLonLat() {
+			return new LonLat(getLon(), getLat());
+		}
+		
+		public String toString() {
+			return "{lat: "+getLat()+", lon: "+getLon()+"}";
+		}
+		
+		public static LatLon fromLonLat(LonLat lonLat) {
+			return new LatLon(lonLat.lat(), lonLat.lon());
+		}
+	}
 	private static final long serialVersionUID = 1L;
 
 	private String _address;
@@ -11,8 +55,7 @@ public class Address implements IsSerializable {
 	private String _postalcode;
 	private String _city;
 	private String _countrycode;
-	private double _lat;
-	private double _lon;
+	private LatLon _position;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -30,8 +73,7 @@ public class Address implements IsSerializable {
 	public Address(String address, double lat, double lon) {
 		super();
 		_address=address;
-		_lat = lat;
-		_lon = lon;
+		_position = new LatLon(lat, lon);
 	}
 
 	
@@ -44,42 +86,57 @@ public class Address implements IsSerializable {
 		_postalcode = postalcode;
 		_city = city;
 		_countrycode = countrycode;
-		_lat = lat;
-		_lon = lon;
+		_position = new LatLon(lat, lon);
 	}
 
 
 	/**
 	 * @return Latitude
+	 * @deprecated use getPos().getLat() instead
 	 */
+	@Deprecated
+	@JSONProperty(ignore=true)
 	public double getLat() {
-		return _lat;
+		return _position.getLat();
 	}
 
 	/**
 	 * @return Longitude
 	 */
+	@Deprecated
+	@JSONProperty(ignore=true)
 	public double getLon() {
-		return _lon;
+		return _position.getLon();
 	}
-
-
 
 	/**
 	 * @param lat the longitude to set
+	 * @deprecated use getPos().setLat() instead
 	 */
+	@Deprecated
+	@JSONProperty(ignore=true)
 	public void setLat(double lat) {
-		_lat = lat;
+		_position.setLat(lat);
 	}
 
 	/**
 	 * @param lon the longitude to set
+	 * @deprecated use getPos().setLon() instead
 	 */
+	@Deprecated
+	@JSONProperty(ignore=true)
 	public void setLon(double lon) {
-		_lon = lon;
+		_position.setLon(lon);
+	}
+	
+	public LatLon getPos() {
+		return _position;
 	}
 
-
+	public void setPos(LatLon position) {
+		_position = position;
+	}
+	
 	/**
 	 * @return the address
 	 */
@@ -169,8 +226,8 @@ public class Address implements IsSerializable {
 	public String toString() {
 		return "Address [_address=" + _address + ", _street=" + _street
 				+ ", _postalcode=" + _postalcode + ", _city=" + _city
-				+ ", _countrycode=" + _countrycode + ", _lat=" + _lat
-				+ ", _lon=" + _lon + "]";
+				+ ", _countrycode=" + _countrycode + ", _position=" + _position
+				+ "]";
 	}
 
 }
