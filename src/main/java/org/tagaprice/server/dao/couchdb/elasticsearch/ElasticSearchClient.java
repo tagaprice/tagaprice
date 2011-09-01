@@ -55,7 +55,7 @@ public class ElasticSearchClient {
 			Log.debug("Didn't find elasticsearch index, creating it...");
 			
 			// first create the empty ES index
-			m_server.get("/"+indexName);
+			m_server.put("/"+indexName);
 			
 			// import the mapping file
 			String mappingJson = _getResourceData("mapping.json");
