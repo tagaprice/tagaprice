@@ -11,13 +11,9 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class SearchDao extends DaoClass<Document> implements ISearchDao {
 
-	
 	@Override
-	public List<Document> search(String query, BoundingBox bbox)
-			throws DaoException {
+	public List<Document> search(String query, BoundingBox bbox, int limit) throws DaoException {
 		// TODO Auto-generated method stub
-		
-		
 		ArrayList<Document> rc = new ArrayList<Document>();
 		
 		rc.addAll(InitServlet.getDaoFactory().getShopDao().list());
