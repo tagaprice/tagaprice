@@ -86,6 +86,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_addressGrid.getCellFormatter().setStyleName(0, 0, "namecell");
 		_addressGrid.getCellFormatter().setStyleName(0, 1, "valuecell");
 		
+		_addressBox.setReadOnly(true);
 		_addressGrid.setWidget(0, 1, _addressBox);
 		_addressGrid.setWidget(1, 1, _streeBox);
 		_addressGrid.setWidget(2, 1, _postalcodeBox);
@@ -372,7 +373,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			_dragFeature.activate();
 		}
 		
-		_addressBox.setReadOnly(_readonly);
+		//_addressBox.setReadOnly(_readonly);
 		_postalcodeBox.setReadOnly(_readonly);
 		_streeBox.setReadOnly(_readonly);
 		_cityBox.setReadOnly(_readonly);

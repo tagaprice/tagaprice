@@ -130,6 +130,7 @@ a:HOVER {
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);/* */
     border-radius: 2px;
     font-family: Times;
+    margin-left:3px;
 }
 
 .stdframe .body {
@@ -138,6 +139,7 @@ a:HOVER {
     padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
+    margin-left:3px;
 }
 
 .stdframe.editArea {
