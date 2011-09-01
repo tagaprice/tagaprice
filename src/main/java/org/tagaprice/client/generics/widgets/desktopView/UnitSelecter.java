@@ -56,7 +56,6 @@ public class UnitSelecter extends Composite implements IUnitSelecter{
 
 	@Override
 	public void setRelatedUnit(Unit unit) {
-		Log.debug("RelativeUnit: "+unit);
 		if(unit!=null){
 			if(unit.getParent()==null)
 				_allowId=unit.getId();
