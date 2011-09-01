@@ -15,7 +15,7 @@ import org.svenson.JSON;
 import org.svenson.JSONParser;
 import org.tagaprice.server.dao.couchdb.CouchDbConfig;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
-import org.tagaprice.server.dao.couchdb.elasticsearch.query.Filtered;
+import org.tagaprice.server.dao.couchdb.elasticsearch.query.FilteredQuery;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
@@ -101,11 +101,11 @@ public class ElasticSearchClient {
 
 	public SearchResult find(String query, String docType, int limit) {
 		QueryObject queryObject = new QueryObject(
-				new Filtered(
+				new FilteredQuery(
+						new QueryString(query),
 						new TermFilter(
 								new Term("docType", docType)
-						),
-						new QueryString(query)
+						)
 				), 0, limit
 		);
 		return find(queryObject);
