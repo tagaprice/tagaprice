@@ -1,6 +1,5 @@
 package org.tagaprice.server.dao.couchdb;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,10 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 public class SearchDao implements ISearchDao {
 	private ElasticSearchClient m_searchClient = null;
 	
+	public SearchDao(CouchDbDaoFactory daoFactory) {
+		m_searchClient = daoFactory.getElasticSearchClient();
+	}
+	
 	@Override
 	public List<Document> search(String query, BoundingBox bbox) throws DaoException {
 		return search(query, 10);
@@ -23,15 +26,6 @@ public class SearchDao implements ISearchDao {
 	
 	public List<Document> search(String query, int limit) throws DaoException {
 		List<Document> rc = new ArrayList<Document>();
-
-		if (m_searchClient == null) {
-			try {
-				m_searchClient = new ElasticSearchClient(CouchDbDaoFactory.getConfiguration());
-			}
-			catch (IOException e) {
-				throw new DaoException("Error while fetching the database configuration!", e);
-			}
-		}
 
 		SearchResult searchResult = m_searchClient.find(query, limit);
 

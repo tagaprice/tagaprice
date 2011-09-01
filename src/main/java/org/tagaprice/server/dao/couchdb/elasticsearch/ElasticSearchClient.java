@@ -1,5 +1,13 @@
 package org.tagaprice.server.dao.couchdb.elasticsearch;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import org.jcouchdb.db.Response;
 import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
@@ -21,7 +29,7 @@ public class ElasticSearchClient {
 
 	private String m_queryUrl;
 
-	public ElasticSearchClient(CouchDbConfig configuration) {
+	public ElasticSearchClient(CouchDbConfig configuration) throws IOException, URISyntaxException {
 		String host = configuration.getElasticSearchHost();
 		int port = configuration.getElasticSearchPort();
 		String indexName = configuration.getElasticSearchIndex();
@@ -36,30 +44,32 @@ public class ElasticSearchClient {
 	 * This method checks if the elasticsearch river-couchdb is set up properly and does that if necessary
 	 * @param indexName elasticsearch index name
 	 * @param configuration the rest of the couchdb configuration
+	 * @throws URISyntaxException 
+	 * @throws IOException 
 	 */
-	private void _inject(String indexName, CouchDbConfig configuration) {
+	private void _inject(String indexName, CouchDbConfig configuration) throws IOException, URISyntaxException {
 		String indexMetaUrl = "/_river/"+indexName+"/_meta";
 		// first check if the index already exists:
 		Response response = m_server.get(indexMetaUrl);
 		if (response.getCode() == 404) {
+			response.destroy();
 			Log.debug("Didn't find elasticsearch index, creating it...");
+			
+			// first create the empty ES index
+			response = m_server.put("/"+indexName);
+			response.destroy();
 
-			/// TODO move this data to an external file
-			String couchHost = configuration.getCouchHost();
-			int couchPort = configuration.getCouchPort();
-			String couchDb = configuration.getCouchDatabase();
+			// import the mapping file
+			String mappingJson = _getResourceData("mapping.json");
+			response = m_server.put(indexName+"/"+indexName+"/_mapping", mappingJson);
+			response.destroy();
 
-			String indexJson = "{\n"
-				+ "  \"type\": \"couchdb\",\n"
-				+ "  \"couchdb\": {\n"
-				+ "    \"host\": \""+couchHost+"\",\n"
-				+ "    \"port\": "+couchPort+",\n"
-				+ "    \"db\": \""+couchDb+"\",\n"
-				+ "    \"filter\": null\n"
-				+ "  }\n"
-				+ "}";
-
-			response = m_server.put(indexMetaUrl, indexJson);
+			// then PUT the river
+			String riverJson = _getResourceData("river.json");
+			riverJson = riverJson.replace("{COUCH_HOST}", configuration.getCouchHost());
+			riverJson = riverJson.replace("{COUCH_PORT}", new Integer(configuration.getCouchPort()).toString());
+			riverJson = riverJson.replace("{COUCH_DB}", configuration.getCouchDatabase());
+			response = m_server.put(indexMetaUrl, riverJson);
 
 			int responseCode = response.getCode();
 			if (responseCode >= 200 && responseCode <= 299) Log.debug("Index successfully created (HTTP response code "+responseCode+")");
@@ -69,6 +79,19 @@ public class ElasticSearchClient {
 
 			}
 		}
+	}
+	
+	public String _getResourceData(String filename) throws IOException, URISyntaxException {
+		String fullFn = "/elasticsearch/"+filename;
+		URL url = getClass().getClassLoader().getResource(fullFn);
+		if (url == null) throw new FileNotFoundException("Couldn't load resource: '"+fullFn+"'");
+		File file = new File(url.toURI());
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String rc = "";
+		while (reader.ready()) {
+			rc += reader.readLine();
+		}
+		return rc;
 	}
 
 	public SearchResult find(String query, int limit) {
