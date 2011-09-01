@@ -3,7 +3,6 @@ package org.tagaprice.client;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
-import org.tagaprice.client.generics.events.WaitForAddressEvent;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
@@ -51,12 +50,12 @@ public class AccountPersistor implements IAccountPersistor {
 
 		if(Cookies.getCookie("TAP_address")!=null &&
 				Cookies.getCookie("TAP_Lat")!=null &&
-				Cookies.getCookie("TAP_Lng")!=null){
+				Cookies.getCookie("TAP_Lon")!=null){
 
 			if(I_ADDRESS==null)I_ADDRESS = new Address(
 					Cookies.getCookie("TAP_address"),
 					Double.parseDouble(Cookies.getCookie("TAP_Lat")),
-					Double.parseDouble(Cookies.getCookie("TAP_Lng")));
+					Double.parseDouble(Cookies.getCookie("TAP_Lon")));
 		}
 
 		return I_ADDRESS;
@@ -75,11 +74,11 @@ public class AccountPersistor implements IAccountPersistor {
 		if(I_ADDRESS==null)I_ADDRESS=new Address();
 		I_ADDRESS.setAddress(address.getAddress());
 		I_ADDRESS.setLat(address.getLat());
-		I_ADDRESS.setLng(address.getLng());
+		I_ADDRESS.setLon(address.getLon());
 
 		Cookies.setCookie("TAP_address", address.getAddress());
 		Cookies.setCookie("TAP_Lat", "" + address.getLat());
-		Cookies.setCookie("TAP_Lng", "" + address.getLng());
+		Cookies.setCookie("TAP_Lon", "" + address.getLon());
 	}
 	*/
 

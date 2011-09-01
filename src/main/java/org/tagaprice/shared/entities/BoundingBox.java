@@ -23,8 +23,8 @@ public class BoundingBox implements IsSerializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 
-	private double _southWestLat, _southWestLng;
-	private double _northEastLat, _northEastLng;
+	private double _southWestLat, _southWestLon;
+	private double _northEastLat, _northEastLon;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -39,7 +39,7 @@ public class BoundingBox implements IsSerializable {
 	 * @param x2
 	 * @param y2
 	 */
-	public BoundingBox(double southWestLat, double southWestLng, double northEastLat, double northEastLng)
+	public BoundingBox(double southWestLat, double southWestLon, double northEastLat, double northEastLon)
 	{
 		//Make sure the the coordinates of (x1, y1) are lower than for the point (x2, y2).
 		if (southWestLat <= northEastLat)
@@ -53,15 +53,15 @@ public class BoundingBox implements IsSerializable {
 			this._northEastLat = southWestLat;
 		}
 
-		if (southWestLng <= northEastLng)
+		if (southWestLon <= northEastLon)
 		{
-			this._southWestLng = southWestLng;
-			this._northEastLng = northEastLng;
+			this._southWestLon = southWestLon;
+			this._northEastLon = northEastLon;
 		}
 		else
 		{
-			this._southWestLng = northEastLng;
-			this._northEastLng = southWestLng;
+			this._southWestLon = northEastLon;
+			this._northEastLon = southWestLon;
 		}
 	}
 
@@ -78,9 +78,9 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for y1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getSouthWestLng()
+	public double getSouthWestLon()
 	{
-		return (_southWestLng);
+		return (_southWestLon);
 	}
 
 	/**
@@ -96,14 +96,14 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for y2. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getNorthEastLng()
+	public double getNorthEastLon()
 	{
-		return (_northEastLng);
+		return (_northEastLon);
 	}
 
 	@Override
 	public String toString() {
-		return "_southWestLat: "+_southWestLat+", _southWestLng: "+_southWestLng+", _northEastLat: "+_northEastLat+", _northEastLng: "+_northEastLng;
+		return "_southWestLat: "+_southWestLat+", _southWestLon: "+_southWestLon+", _northEastLat: "+_northEastLat+", _northEastLon: "+_northEastLon;
 	}
 
 }

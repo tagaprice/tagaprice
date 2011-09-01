@@ -15,21 +15,21 @@ public class CreateShopPlace extends Place {
 	private String _title = null;
 	private String _redirectId=null;
 	private String _lat=null;
-	private String _lng=null;
+	private String _lon=null;
 	private String _zoom=null;
 
 	public CreateShopPlace() {
 	}
 
 	
-	public CreateShopPlace(String id, String revision, String redirectId, String title, String brandId, String lat, String lng, String zoom){
+	public CreateShopPlace(String id, String revision, String redirectId, String title, String brandId, String lat, String lon, String zoom){
 		_id=id;
 		_rev=revision;
 		_redirectId=redirectId;
 		_title=title;
 		_brandId=brandId;
 		_lat=lat;
-		_lng=lng;
+		_lon=lon;
 		_zoom=zoom;
 	}
 
@@ -65,10 +65,10 @@ public class CreateShopPlace extends Place {
 
 
 	/**
-	 * @return the lng
+	 * @return the lon
 	 */
-	public String getLng() {
-		return _lng;
+	public String getLon() {
+		return _lon;
 	}
 
 
@@ -98,7 +98,7 @@ public class CreateShopPlace extends Place {
 					e.getNode("title"), 
 					e.getNode("brandid"), 
 					e.getNode("lat"),
-					e.getNode("lng"),
+					e.getNode("lon"),
 					e.getNode("zoom"));
 			
 		}
@@ -113,7 +113,7 @@ public class CreateShopPlace extends Place {
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				t.addNode("title", place.getTitle());			
 				t.addNode("lat", place.getLat());
-				t.addNode("lng", place.getLng());
+				t.addNode("lon", place.getLon());
 				t.addNode("zoom", place.getZoom());
 				
 				rc = t.getToken();
@@ -129,7 +129,7 @@ public class CreateShopPlace extends Place {
 				}
 				
 				t.addNode("lat", place.getLat());
-				t.addNode("lng", place.getLng());
+				t.addNode("lon", place.getLon());
 				t.addNode("zoom", place.getZoom());
 
 				rc = t.getToken();
@@ -145,7 +145,7 @@ public class CreateShopPlace extends Place {
 
 
 				t.addNode("lat", place.getLat());
-				t.addNode("lng", place.getLng());
+				t.addNode("lon", place.getLon());
 				t.addNode("zoom", place.getZoom());
 				
 				rc = t.getToken();

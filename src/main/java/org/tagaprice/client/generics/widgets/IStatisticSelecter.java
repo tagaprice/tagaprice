@@ -14,7 +14,7 @@ public interface IStatisticSelecter extends IsWidget {
 		SHOP, PRODUCT,
 	}
 
-	public void setLatLng(double lat, double lng);
+	public void setLatLon(double lat, double lon);
 	
 	public void setType(TYPE type);
 

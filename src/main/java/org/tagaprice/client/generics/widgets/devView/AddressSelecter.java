@@ -34,7 +34,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 	TextBox _addressBox = new TextBox();
 	Label _lat = new Label();
-	Label _lng = new Label();
+	Label _lon = new Label();
 	Address _adddress;
 
 
@@ -82,11 +82,11 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		Grid tempGrid = new Grid(6, 2);
 		tempGrid.setWidget(0, 0, new Label("address"));
 		tempGrid.setWidget(4, 0, new Label("lat"));
-		tempGrid.setWidget(5, 0, new Label("lng"));
+		tempGrid.setWidget(5, 0, new Label("lon"));
 
 		tempGrid.setWidget(0, 1, _addressBox);
 		tempGrid.setWidget(4, 1, _lat);
-		tempGrid.setWidget(5, 1, _lng);
+		tempGrid.setWidget(5, 1, _lon);
 
 		hoPaTemp.add(tempGrid);
 		hoPaTemp.add(omapWidget);
@@ -103,9 +103,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_adddress=address;
 		_addressBox.setText(_adddress.getAddress());
 
-		LonLat l = new LonLat(_adddress.getLng(), _adddress.getLat());
+		LonLat l = new LonLat(_adddress.getLon(), _adddress.getLat());
 		l.transform("EPSG:4326", "EPSG:900913");
-		setLatLng(l);
+		setLatLon(l);
 	}
 	
 
@@ -119,14 +119,14 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		l.transform("EPSG:900913","EPSG:4326");
 
 		_adddress.setLat(l.lat());
-		_adddress.setLng(l.lon());
+		_adddress.setLon(l.lon());
 
 
 		return _adddress;
 	}
 
-	private void setLatLng(LonLat lonLat){
-		Log.debug("setLatLng: " + lonLat.lat() + ", " + lonLat.lon());
+	private void setLatLon(LonLat lonLat){
+		Log.debug("setLatLon: " + lonLat.lat() + ", " + lonLat.lon());
 		osmMap.removeOverlayLayers();
 		//if(layer!=null)layer.destroyFeatures();
 		
@@ -138,7 +138,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			@Override
 			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
 				LonLat l = vectorFeature.getCenterLonLat();
-				setLatLng(l);
+				setLatLon(l);
 				/*
 				l.transform("EPSG:900913","EPSG:4326");
 
@@ -186,7 +186,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		LonLat l = lonLat;
 		l.transform("EPSG:900913","EPSG:4326");
 		_lat.setText(""+l.lat());
-		_lng.setText(""+l.lon());
+		_lon.setText(""+l.lon());
 		
 
 	}

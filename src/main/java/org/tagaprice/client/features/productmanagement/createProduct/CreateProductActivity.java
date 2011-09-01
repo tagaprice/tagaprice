@@ -188,9 +188,9 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					
 					
 
-					_createProductView.setStatisticLatLng(
+					_createProductView.setStatisticLatLon(
 							Double.parseDouble(_place.getLat()), 
-							Double.parseDouble(_place.getLng()));
+							Double.parseDouble(_place.getLon()));
 					
 				}
 			});

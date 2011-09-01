@@ -31,8 +31,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 			for(Receipt r:m_receiptDao.list()){
 				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
 						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
-						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
-						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
+						r.getShop().getAddress().getLon()<bbox.getNorthEastLon() &&
+						r.getShop().getAddress().getLon()>bbox.getSouthWestLon()){
 					for(ReceiptEntry re:r.getReceiptEntries()){
 						if(productId.equals(re.getPackage().getProduct().getId())){
 							rc.add(new StatisticResult(
@@ -65,8 +65,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 			for(Receipt r:m_receiptDao.list()){
 				if(r.getShop().getAddress().getLat()<bbox.getNorthEastLat() &&
 						r.getShop().getAddress().getLat()>bbox.getSouthWestLat() &&
-						r.getShop().getAddress().getLng()<bbox.getNorthEastLng() &&
-						r.getShop().getAddress().getLng()>bbox.getSouthWestLng()){
+						r.getShop().getAddress().getLon()<bbox.getNorthEastLon() &&
+						r.getShop().getAddress().getLon()>bbox.getSouthWestLon()){
 
 					if(shopId.equals(r.getShopId())){
 						for(ReceiptEntry re:r.getReceiptEntries()){

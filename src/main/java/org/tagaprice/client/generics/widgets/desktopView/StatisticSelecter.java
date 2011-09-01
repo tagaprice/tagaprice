@@ -200,7 +200,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			resultList.add(vePa);
 
 			/* TODO Get data from child shops
-			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
+			LonLat l = new LonLat(key.getAddress().getLon(), key.getAddress().getLat());
 			l.transform("EPSG:4326", "EPSG:900913");
 			Point point = new Point(l.lon(), l.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
@@ -253,7 +253,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
-			LonLat l = new LonLat(key.getAddress().getLng(), key.getAddress().getLat());
+			LonLat l = new LonLat(key.getAddress().getLon(), key.getAddress().getLat());
 			l.transform("EPSG:4326", "EPSG:900913");
 			Point point = new Point(l.lon(), l.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
@@ -327,8 +327,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	}
 
 	@Override
-	public void setLatLng(double lat, double lng) {
-		LonLat lonLat = new LonLat(lng,lat);
+	public void setLatLon(double lat, double lon) {
+		LonLat lonLat = new LonLat(lon,lat);
 		lonLat.transform("EPSG:4326", "EPSG:900913");	
 		_osmMap.setCenter(lonLat);
 	}
