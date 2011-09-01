@@ -95,14 +95,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	}
 
 	public List<T> find(String query) throws DaoException {
-		if (m_searchClient == null) {
-			try {
-				m_searchClient = new ElasticSearchClient(CouchDbDaoFactory.getConfiguration());
-			}
-			catch (IOException e) {
-				throw new DaoException("Error while fetching the database configuration!", e);
-			}
-		}
+		if (m_searchClient == null) m_searchClient = m_daoFactory.getElasticSearchClient();
 
 		SearchResult searchResult = m_searchClient.find(query, m_docType, 10);
 		List<T> rc = new ArrayList<T>();

@@ -1,0 +1,9 @@
+{
+  "type": "couchdb",
+  "couchdb": {
+    "host": "{COUCH_HOST}",
+    "port": "{COUCH_PORT}",
+    "db": "{COUCH_DB}",
+    "filter": null
+  }
+}
