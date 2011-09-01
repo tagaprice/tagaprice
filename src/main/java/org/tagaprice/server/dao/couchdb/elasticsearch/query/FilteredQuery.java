@@ -7,9 +7,17 @@ public class FilteredQuery implements Query {
 	private Query m_query;
 	private Filter m_filter;
 	
-	public FilteredQuery(Query query, Filter filter) {
+	public FilteredQuery() {
+	}
+
+	public FilteredQuery query(Query query) {
 		m_query = query;
+		return this;
+	}
+	
+	public FilteredQuery filter(Filter filter) {
 		m_filter = filter;
+		return this;
 	}
 	
 	@JSONProperty(ignore=true)

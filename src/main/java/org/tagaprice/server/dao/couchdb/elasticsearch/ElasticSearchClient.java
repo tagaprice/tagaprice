@@ -95,19 +95,24 @@ public class ElasticSearchClient {
 	}
 
 	public SearchResult find(String query, int limit) {
-		QueryObject queryObject = new QueryObject(new QueryString(query), 0, limit);
+		QueryObject queryObject = new QueryObject()
+			.query(new QueryString(query))
+			.from(0)
+			.size(limit);
 		return find(queryObject);
 	}
 
 	public SearchResult find(String query, String docType, int limit) {
-		QueryObject queryObject = new QueryObject(
-				new FilteredQuery(
-						new QueryString(query),
-						new TermFilter(
-								new Term("docType", docType)
-						)
-				), 0, limit
-		);
+		QueryObject queryObject = new QueryObject()
+			.query(new FilteredQuery()
+				.query(new QueryString(query))
+				.filter(new TermFilter()
+					.term(new Term("docType", docType))
+				)
+			)
+			.from(0)
+			.size(limit)
+		;
 		return find(queryObject);
 	}
 
