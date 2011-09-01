@@ -14,11 +14,17 @@ import org.jcouchdb.db.ServerImpl;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
 import org.tagaprice.server.dao.couchdb.CouchDbConfig;
+import org.tagaprice.server.dao.couchdb.elasticsearch.filter.BoundingBoxFilter;
+import org.tagaprice.server.dao.couchdb.elasticsearch.filter.NotFilter;
+import org.tagaprice.server.dao.couchdb.elasticsearch.filter.OrFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.TermFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.FilteredQuery;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
+import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Address.LatLon;
+
 import com.allen_sauer.gwt.log.client.Log;
 
 public class ElasticSearchClient {
@@ -113,6 +119,35 @@ public class ElasticSearchClient {
 			.from(0)
 			.size(limit)
 		;
+		return find(queryObject);
+	}
+	
+	public SearchResult findShopInBBox(String query, BoundingBox bbox, int limit) {
+		QueryObject queryObject = new QueryObject()
+			.query(new FilteredQuery()
+				.query(
+						new QueryString(query)
+				)
+				.filter(new OrFilter()
+					.addCondition(
+							new NotFilter().setChild(
+									new TermFilter().term(new Term("docType", "shop"))
+							)
+					)
+					.addCondition(
+							new BoundingBoxFilter()
+								.fieldName("address.pos")
+								.boundingBox(
+										new BoundingBoxFilter.BoundingBox()
+											.topLeft(new LatLon(bbox.getSouthWestLat(), bbox.getNorthEastLon()))
+											.bottomRight(new LatLon(bbox.getNorthEastLat(), bbox.getSouthWestLon()))
+								)
+					)
+				)
+			)
+			.from(0)
+			.size(limit);
+
 		return find(queryObject);
 	}
 
