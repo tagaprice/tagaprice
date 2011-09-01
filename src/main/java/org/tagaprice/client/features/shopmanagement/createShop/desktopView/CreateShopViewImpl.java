@@ -30,14 +30,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	private Presenter _presenter;
-	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _stdFrame = new StdFrame();
 	private HorizontalPanel _shopHeadPanel = new HorizontalPanel();
 	private MorphWidget _shopTitle = new MorphWidget();
 	private VerticalPanel _shopBodyPanel = new VerticalPanel();
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
-	private Label _statisticHead = new Label("Statistic");
 	private AddressSelecter _address = new AddressSelecter();
 	private boolean _readonly = true;
 	private CategorySelecter _category = new CategorySelecter();
@@ -45,7 +43,6 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	
 	
 	public CreateShopViewImpl() {
-		_hoPa1.setWidth("100%");
 		
 		
 		
