@@ -5,8 +5,12 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 public class TermFilter implements Filter {
 	Term m_term;
 
-	public TermFilter(Term term) {
+	public TermFilter() {
+	}
+	
+	public TermFilter term(Term term) {
 		m_term = term;
+		return this;
 	}
 
 	public Term getTerm() {

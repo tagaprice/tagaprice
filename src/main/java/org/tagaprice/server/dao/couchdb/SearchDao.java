@@ -25,9 +25,15 @@ public class SearchDao implements ISearchDao {
 	}
 	
 	public List<Document> search(String query, int limit) throws DaoException {
-		List<Document> rc = new ArrayList<Document>();
+		return _returnResultList(m_searchClient.find(query, limit));
+	}
+	
+	public List<Document> search(String query, BoundingBox bbox, int limit) {
+		return _returnResultList(m_searchClient.find(query, bbox, limit));
+	}
 
-		SearchResult searchResult = m_searchClient.find(query, limit);
+	public List<Document> _returnResultList(SearchResult searchResult) {
+		List<Document> rc = new ArrayList<Document>();
 
 		for (Hit hit: searchResult.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
@@ -35,8 +41,7 @@ public class SearchDao implements ISearchDao {
 			Document item = JSONParser.defaultJSONParser().parse(Document.class, json);
 			if (item != null) rc.add(item);
 		}
-
+		
 		return rc;
 	}
-
 }

@@ -3,13 +3,21 @@ package org.tagaprice.server.dao.couchdb.elasticsearch.query;
 import org.svenson.JSONProperty;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.Filter;
 
-public class Filtered implements Query {
+public class FilteredQuery implements Query {
 	private Query m_query;
 	private Filter m_filter;
 	
-	public Filtered(Filter filter, Query query) {
-		m_filter = filter;
+	public FilteredQuery() {
+	}
+
+	public FilteredQuery query(Query query) {
 		m_query = query;
+		return this;
+	}
+	
+	public FilteredQuery filter(Filter filter) {
+		m_filter = filter;
+		return this;
 	}
 	
 	@JSONProperty(ignore=true)

@@ -9,10 +9,21 @@ public class QueryObject {
 	private Integer m_size;
 	private Query m_query;
 	
-	public QueryObject(Query query, Integer from, Integer size) {
+	public QueryObject() {}
+	
+	public QueryObject query(Query query) {
 		m_query = query;
+		return this;
+	}
+	
+	public QueryObject from(int from) {
 		m_from = from;
+		return this;
+	}
+	
+	public QueryObject size(int size) {
 		m_size = size;
+		return this;
 	}
 	
 	@JSONProperty(ignore=true)
