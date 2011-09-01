@@ -73,9 +73,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		//infox
 		//destroy all
 		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class));
-		InfoBoxShowEvent emptyTitleInfo = new InfoBoxShowEvent(CreateProductActivity.class, "Title must not be empty", INFOTYPE.ERROR);
 
-		if(!_product.getTitle().isEmpty() && !_product.getTitle().trim().equals("")){
+		System.out.println("unit: "+_product.getUnit());
+		
+		if(!_product.getTitle().isEmpty() && !_product.getTitle().trim().equals("") && _product.getUnit()!=null && _product.getUnit().getId()!=null){
 
 
 			final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateProductActivity.class, "saving...", INFOTYPE.INFO,0);
@@ -117,7 +118,14 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 				}
 			});
 		}else{
-			_clientFactory.getEventBus().fireEvent(emptyTitleInfo);
+			String errorString ="";
+			if(_product.getTitle().isEmpty() || _product.getTitle().trim().equals(""))
+				errorString +="Title must not be empty.";
+			
+			if(_product.getUnit()==null || _product.getUnit().getId()==null)
+				errorString+=" Unit must be set.";
+			
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateProductActivity.class, errorString, INFOTYPE.ERROR));
 		}
 
 
