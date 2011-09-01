@@ -53,6 +53,11 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		Log.debug("save Product " + product);
 		if (sessionId == null) throw new UserNotLoggedInException("Can't save a product without having a valid session!");
 		Session session = sessionDAO.get(sessionId);
+		
+		if(product.getUnit()==null || product.getUnit().getId()==null)
+			throw new DaoException("Unit is not specified");
+		
+		
 		Product rc = null;
 
 		// TODO check session validity

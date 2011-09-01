@@ -1,3 +1,8 @@
+/*
+color background gray: ebe9e1
+
+*/
+
 html {
     background-color: #2c2d25;
 }
@@ -5,19 +10,21 @@ html {
 body {
     margin: 0px;
     padding: 0px;
-    background-color: #bfd255;
+    background-color: white;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    font-family:times;
     font-size: small;
-    background: -webkit-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px);
+
+    background: -webkit-linear-gradient(#43aabe 10px, #43aabe 120px, white 50px);
     /* Safari 5.1+, Chrome 10+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #bfd255
-        ), color-stop(150px, #72aa00), color-stop(150px, #ebe9e1) );
+        ), color-stop(150px, #72aa00), color-stop(150px, white) );
     /* Safari 4+, Chrome 2+ */
-    background: -moz-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px);
+    background: -moz-linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
     /* FF 3.6+ */
-    background: -ms-linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px);
+    background: -ms-linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
     /* IE10 */
-    background: linear-gradient(#bfd255 10px, #72aa00 150px, #ebe9e1 150px);
+    background: linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
     /* the standard */
 }
 
@@ -26,7 +33,7 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input {
 }
 
 a {
-    color: #72aa00;
+    color: #7fbf4d;
     text-decoration: none;
 }
 
@@ -44,7 +51,7 @@ a:HOVER {
     color: #2c2d25;
     font-weight: bold;
     width: 500px;
-    background-color: rgba(255, 255, 255, 0.0);
+    background-color: white;
     margin: 0px;
     padding: 5px;
     border-radius: 2px;
@@ -52,18 +59,16 @@ a:HOVER {
     border-top-left-radius: 0px;
     border: solid 2px #ebe9e1;
     border-top-width: 0px;
-    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
-    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
     background-image: url('06-magnify.png');
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 28px;
+
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 
 .header-search:HOVER {
-    color: #ebe9e1;
-    background-color: #2c2d25;
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
 }
@@ -79,7 +84,7 @@ a:HOVER {
 .header-location{
     color: #2c2d25;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.0);
+    background-color: white;
     margin: 0px;
     margin-left:5px;
     padding: 5px;
@@ -88,18 +93,15 @@ a:HOVER {
     border-top-left-radius: 0px;
     border: solid 2px #ebe9e1;
     border-top-width: 0px;
-    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
-    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
     background-image: url('location.png');
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 28px;
+
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 .header-location:HOVER{
-    color: #ebe9e1;
-    background-color: #2c2d25;
-    /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -122,51 +124,33 @@ a:HOVER {
 
 .stdframe .head {
     background-color: #2c2d25;
-    margin-bottom: 5px;
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: bold;
+    margin-bottom: 0px;
+    font-size: 20px;
     padding: 5px;
-    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);/* */
-    border-radius: 2px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    
+    border-bottom:none;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
     font-family: Times;
     margin-left:3px;
+    color: white;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
 
 .stdframe .body {
-    background-color: white;
-    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+    background-color: #f7f6f1;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
     padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
     margin-left:3px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #d9d4cf;
+    border-top:none;
 }
 
-.stdframe.editArea {
-    position: relative;
-    padding: 10px;
-    margin: 1em 0 3em;
-    color: #000;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-}
-
-/* creates triangle */
-.stdframe.editArea:after {
-    content: "";
-    position: absolute;
-    border-style: solid;
-    /* reduce the damage in FF3.0 */
-    top: 8px; /* controls vertical position */
-    right: -20px; /* value = - border-left-width - border-right-width */
-    bottom: auto;
-    left: auto;
-    border-width: 10px 0 10px 20px;
-    border-color: transparent rgba(0, 0, 0, 0.8);
-}
 
 .bottom {
     padding-top: 10px;
@@ -366,7 +350,6 @@ table.propertyGrid {
 }
 
 table.propertyGrid td {
-    border-bottom: 1px solid #bfd255;
     padding-top: 2px;
 }
 
@@ -386,12 +369,12 @@ table.propertyGrid td {
     width: 100%;
     border: none;
     background-color: rgba(255, 255, 255, 0.0);
-    border: solid 1px rgba(255, 255, 255, 0.0);
+    border: solid 0px rgba(255, 255, 255, 0.0);
 }
 
 input.morphWidget {
     margin: 0px;
-    padding: 0px;
+    padding: 2px;
 }
 
 .morphWidget:HOVER {
@@ -408,8 +391,10 @@ input.morphWidget {
 }
 
 .morphWidget.edit {
-    background-color: rgba(255, 255, 255, 0.0);
-    border: solid 1px #bfd255;
+    background-color: white;
+    box-shadow:inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d9d4cf;
+    border: solid 2px #ebe9e1;
 }
 
 .morphWidget.edit:HOVER {
@@ -425,18 +410,19 @@ input.morphWidget {
 }
 
 .morphWidget.headline {
-    background-color: rgba(255, 255, 255, 0.0);
-    border: solid 1px rgba(255, 255, 255, 0.0);
+    
     color: white;
-    font-family: Times;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 21px;
 }
 
 .morphWidget.edit.headline {
-    background-color: rgba(255, 255, 255, 0.0);
-    border: solid 1px #bfd255;
-    color: white;
+    color: black;
+    background-color: white;
+    box-shadow:inset 3px 3px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin: 0px;
+    padding: 0px;
+    border: solid 2px #ebe9e1;
 }
 
 .morphWidget.alignRight {
@@ -499,7 +485,7 @@ input.morphWidget {
     border-radius: 2px;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-    border: solid 2px #bfd255;
+    border: solid 2px #43aabe;
     background-image: url('06-magnify.png');
     background-repeat: no-repeat;
     background-position: left center;
@@ -509,6 +495,7 @@ input.morphWidget {
 .previewWidget { /*border: solid 2px #ebe9e1;*/
     border: solid 1px #ebe9e1;
     margin-bottom: 3px;
+    background-color: white;
 }
 
 .previewWidget .logo {

@@ -30,31 +30,19 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	private Presenter _presenter;
-	private HorizontalPanel _hoPa1 = new HorizontalPanel();
-	private StdFrame _shopFrame = new StdFrame();
-	private StdFrame _statisticFrame = new StdFrame();
+	private StdFrame _stdFrame = new StdFrame();
 	private HorizontalPanel _shopHeadPanel = new HorizontalPanel();
 	private MorphWidget _shopTitle = new MorphWidget();
 	private VerticalPanel _shopBodyPanel = new VerticalPanel();
 	private StatisticSelecter _statistic = new StatisticSelecter();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
-	private Label _statisticHead = new Label("Statistic");
 	private AddressSelecter _address = new AddressSelecter();
 	private boolean _readonly = true;
 	private CategorySelecter _category = new CategorySelecter();
 	
-	//edit buttons
-	private HorizontalPanel _statisticHeadPanel = new HorizontalPanel();
-	private Button _cancelButton = new Button("cancel");
-	private Button _saveButton = new Button("save");
-	private Button _editButton = new Button("edit");
 	
 	
 	public CreateShopViewImpl() {
-		_hoPa1.setWidth("100%");
-		
-		//Shop
-		_hoPa1.add(_shopFrame);
 		
 		
 		
@@ -64,15 +52,14 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_shopHeadPanel.add(_shopTitle);
 		
 		_shopHeadPanel.setWidth("100%");
-		_shopFrame.setHeader(_shopHeadPanel);
+		_stdFrame.setHeader(_shopHeadPanel);
 		
-		//Shop Size
-		_hoPa1.setCellWidth(_shopFrame, "300px");
-		
+
 		
 		//shop body
 		_shopBodyPanel.setWidth("100%");
-		_shopFrame.setBody(_shopBodyPanel);
+		_stdFrame.setBody(_shopBodyPanel,"300px");
+		//_stdFrame.setBodyCellWidth(_shopBodyPanel, "300px");
 		
 		//add Category Selecter
 		_category.setCategoryTypeIsProduct(false);
@@ -137,15 +124,9 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		
 		
 		
-		//Statistic
-		_hoPa1.add(_statisticFrame);
-		
+		//Statistic		
 		//saveButton
-		_saveButton.setStyleName("stdButton save");
-		_statisticHeadPanel.add(_saveButton);
-		_statisticHeadPanel.setCellHorizontalAlignment(_saveButton, HorizontalPanel.ALIGN_RIGHT);
-		_saveButton.setVisible(!_readonly);
-		_saveButton.addClickHandler(new ClickHandler() {
+		_stdFrame.addSaveClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
@@ -153,12 +134,11 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			}
 		});
 		
+		//enable button
+		_stdFrame.setButtonsVisible(true);
+		
 		//cancel button
-		_cancelButton.setStyleName("stdButton cancel");
-		_statisticHeadPanel.add(_cancelButton);
-		_statisticHeadPanel.setCellHorizontalAlignment(_cancelButton, HorizontalPanel.ALIGN_RIGHT);
-		_cancelButton.setVisible(!_readonly);
-		_cancelButton.addClickHandler(new ClickHandler() {
+		_stdFrame.addCancleClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
@@ -172,30 +152,22 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		
 		
 		//editButton
-		_editButton.setStyleName("stdButton");
-		//_statisticHeadPanel.setWidth("100%");
-		_statisticHeadPanel.add(_editButton);
-		_statisticHeadPanel.setCellHorizontalAlignment(_editButton, HorizontalPanel.ALIGN_RIGHT);
-		_editButton.addClickHandler(new ClickHandler() {
+		_stdFrame.addEditClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				setReadOnly(false);
 			}
 		});
-		
-		HorizontalPanel justDoRight = new HorizontalPanel();
-		justDoRight.setWidth("100%");
-		justDoRight.add(_statisticHeadPanel);
-		justDoRight.setCellHorizontalAlignment(_statisticHeadPanel, HorizontalPanel.ALIGN_RIGHT);
-		_statisticFrame.setHeader(justDoRight);
+	
 		
 		//Statistic Results
-		_statisticBodyPanel.setWidth("100%");
+		//_statisticBodyPanel.setWidth("100%");
 		_statistic.setType(TYPE.SHOP);
 		_statisticBodyPanel.add(_statistic);
 		_statistic.setMapVisible(false);
-		_statisticFrame.setBody(_statisticBodyPanel);
+		//_statisticFrame.setBody(_statisticBodyPanel);
+		_stdFrame.setBody(_statisticBodyPanel);
 		
 		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
 			@Override
@@ -204,7 +176,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			}
 		});
 		
-		initWidget(_hoPa1);
+		//initWidget(_hoPa1);
+		initWidget(_stdFrame);
 	}
 	
 	
@@ -265,9 +238,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_shopTitle.setReadOnly(_readonly);
 		_address.setReadOnly(_readonly);
 		_category.setReadOnly(_readonly);
-		_cancelButton.setVisible(!_readonly);
-		_saveButton.setVisible(!_readonly);
-		_editButton.setVisible(_readonly);
+		_stdFrame.setReadOnly(_readonly);
 	}
 
 	

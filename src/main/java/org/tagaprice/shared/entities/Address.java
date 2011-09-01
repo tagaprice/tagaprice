@@ -55,7 +55,7 @@ public class Address implements IsSerializable {
 	private String _postalcode;
 	private String _city;
 	private String _countrycode;
-	private LatLon _position;
+	private LatLon _position = new LatLon();
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -73,7 +73,7 @@ public class Address implements IsSerializable {
 	public Address(String address, double lat, double lon) {
 		super();
 		_address=address;
-		_position = new LatLon(lat, lon);
+		setPos(new LatLon(lat, lon));
 	}
 
 	
@@ -86,7 +86,7 @@ public class Address implements IsSerializable {
 		_postalcode = postalcode;
 		_city = city;
 		_countrycode = countrycode;
-		_position = new LatLon(lat, lon);
+		setPos(new LatLon(lat, lon));
 	}
 
 
@@ -94,40 +94,49 @@ public class Address implements IsSerializable {
 	 * @return Latitude
 	 * @deprecated use getPos().getLat() instead
 	 */
+	/*
 	@Deprecated
 	@JSONProperty(ignore=true)
 	public double getLat() {
 		return _position.getLat();
 	}
+	*/
 
 	/**
 	 * @return Longitude
 	 */
+	/*
 	@Deprecated
 	@JSONProperty(ignore=true)
 	public double getLon() {
 		return _position.getLon();
 	}
+	*/
 
 	/**
 	 * @param lat the longitude to set
 	 * @deprecated use getPos().setLat() instead
 	 */
+	/*
 	@Deprecated
 	@JSONProperty(ignore=true)
 	public void setLat(double lat) {
 		_position.setLat(lat);
 	}
+	*/
 
+	
 	/**
 	 * @param lon the longitude to set
 	 * @deprecated use getPos().setLon() instead
 	 */
+	/*
 	@Deprecated
 	@JSONProperty(ignore=true)
 	public void setLon(double lon) {
 		_position.setLon(lon);
 	}
+	*/
 	
 	public LatLon getPos() {
 		return _position;
@@ -140,6 +149,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @return the address
 	 */
+	@Deprecated
 	public String getAddress() {
 		return _address;
 	}
@@ -148,6 +158,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @param address the address to set
 	 */
+	@Deprecated
 	public void setAddress(String address) {
 		_address = address;
 	}
