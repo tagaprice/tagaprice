@@ -52,14 +52,17 @@ public class ElasticSearchClient {
 		// first check if the index already exists:
 		Response response = m_server.get(indexMetaUrl);
 		if (response.getCode() == 404) {
+			response.destroy();
 			Log.debug("Didn't find elasticsearch index, creating it...");
 			
 			// first create the empty ES index
-			m_server.put("/"+indexName);
-			
+			response = m_server.put("/"+indexName);
+			response.destroy();
+
 			// import the mapping file
 			String mappingJson = _getResourceData("mapping.json");
-			m_server.put(indexName+"/"+indexName+"/_mapping", mappingJson);
+			response = m_server.put(indexName+"/"+indexName+"/_mapping", mappingJson);
+			response.destroy();
 
 			// then PUT the river
 			String riverJson = _getResourceData("river.json");
