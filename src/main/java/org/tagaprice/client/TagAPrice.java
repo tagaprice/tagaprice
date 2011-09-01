@@ -1,24 +1,14 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.features.startmanagement.StartPlace;
-import org.tagaprice.client.generics.events.AddressChangedEvent;
-import org.tagaprice.client.generics.events.AddressChangedEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEventHandler;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
-import org.tagaprice.client.generics.events.WaitForAddressEvent;
-import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.InfoBoxShowEventHandler;
-import org.tagaprice.client.generics.events.WaitForAddressEventHandler;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.client.mvp.AppActivityMapper;
 import org.tagaprice.client.mvp.AppPlaceHistoryMapper;
-import org.tagaprice.shared.entities.Address;
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.code.gwt.geolocation.client.Geolocation;
-import com.google.code.gwt.geolocation.client.Position;
-import com.google.code.gwt.geolocation.client.PositionCallback;
-import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;

@@ -159,8 +159,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					
 					if(result.getParent()==null){
 						_createShopView.setStatisticLatLon(
-								result.getAddress().getLat(),
-								result.getAddress().getLon());
+								result.getAddress().getPos().getLat(),
+								result.getAddress().getPos().getLon());
 					}else{
 						_createShopView.setStatisticLatLon(
 								Double.parseDouble(_place.getLat()), 

@@ -22,31 +22,31 @@ public class AddressTest {
 	@Test
 	public void testAddress() {
 		assertEquals(addressEmpty.getAddress(), null);
-		Assert.assertEquals(addressEmpty.getLat(), 0.0, 0.0);
-		Assert.assertEquals(addressEmpty.getLon(), 0.0, 0.0);
+		Assert.assertEquals(addressEmpty.getPos().getLat(), 0.0, 0.0);
+		Assert.assertEquals(addressEmpty.getPos().getLon(), 0.0, 0.0);
 	}
 
 
 	@Test
 	public void testGetLat() {
-		Assert.assertEquals(withConstructor.getLat(), 1.1, 0.0);
+		Assert.assertEquals(withConstructor.getPos().getLat(), 1.1, 0.0);
 	}
 
 	@Test
 	public void testGetLng() {
-		Assert.assertEquals(withConstructor.getLon(), 2.2, 0.0);
+		Assert.assertEquals(withConstructor.getPos().getLon(), 2.2, 0.0);
 	}
 
 	@Test
 	public void testSetLat() {
-		toChange.setLat(3.3);
-		Assert.assertEquals(toChange.getLat(), 3.3, 0.0);
+		toChange.getPos().setLat(3.3);
+		Assert.assertEquals(toChange.getPos().getLat(), 3.3, 0.0);
 	}
 
 	@Test
 	public void testSetLng() {
-		toChange.setLon(4.4);
-		Assert.assertEquals(toChange.getLon(), 4.4, 0.0);
+		toChange.getPos().setLon(4.4);
+		Assert.assertEquals(toChange.getPos().getLon(), 4.4, 0.0);
 	}
 
 	@Test

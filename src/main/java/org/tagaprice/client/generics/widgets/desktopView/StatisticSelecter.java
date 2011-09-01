@@ -13,7 +13,6 @@ import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.event.MapZoomListener;
-import org.gwtopenmaps.openlayers.client.event.MapZoomListener.MapZoomEvent;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
@@ -253,9 +252,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
-			LonLat l = new LonLat(key.getAddress().getLon(), key.getAddress().getLat());
-			l.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(l.lon(), l.lat());
+			LonLat lonLat = key.getAddress().getPos().toLonLat();
+			lonLat.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(lonLat.lon(), lonLat.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
 
 			layer.addFeature(pointFeature);

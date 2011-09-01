@@ -314,9 +314,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setAddress(Address address) {
 		Log.debug("new Address: "+address);
-		LonLat l = new LonLat(address.getLon(), address.getLat());
-		l.transform("EPSG:4326", "EPSG:900913");
-		_osmMap.setCenter(l);
+		LonLat lonLat = address.getPos().toLonLat();
+		lonLat.transform("EPSG:4326", "EPSG:900913");
+		_osmMap.setCenter(lonLat);
 	}
 
 	@Override
