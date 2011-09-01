@@ -1,6 +1,5 @@
 package org.tagaprice.client;
 
-import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 public interface IAccountPersistor {

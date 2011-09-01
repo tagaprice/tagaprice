@@ -148,8 +148,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 							MapquestResponse temp = response.get(0);
 							Address at = new Address();
 							
-							at.setLat(Double.parseDouble(temp.getLat()));
-							at.setLon(Double.parseDouble(temp.getLon()));
+							at.getPos().setLat(Double.parseDouble(temp.getLat()));
+							at.getPos().setLon(Double.parseDouble(temp.getLon()));
 							
 							if(temp.getAddress()!=null){
 								String responseString = "";
@@ -224,7 +224,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_curAddress=address;
 		_osmMap.removeOverlayLayers();
 		
-		_lonLat = new LonLat(address.getLon(), address.getLat());
+		_lonLat = address.getPos().toLonLat();
 
 		//set Pos
 		_lonLat.transform("EPSG:4326", "EPSG:900913");
@@ -250,15 +250,15 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 			
 			@Override
 			public void onDragEvent(VectorFeature vectorFeature, Pixel pixel) {
-				final LonLat l = vectorFeature.getCenterLonLat();
-				l.transform("EPSG:900913","EPSG:4326");
-				Log.debug("Drag Marker: "+l.lat()+", "+l.lon());
+				final LonLat lonLat = vectorFeature.getCenterLonLat();
+				lonLat.transform("EPSG:900913","EPSG:4326");
+				Log.debug("Drag Marker: "+lonLat.lat()+", "+lonLat.lon());
 				
 				//get Possible streetnames
 				_addressListPanel.clear();
 				
 				//try jsonP qwt
-				String url = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat="+l.lat()+"&lon="+l.lon();
+				String url = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat="+lonLat.lat()+"&lon="+lonLat.lon();
 				
 				JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
 				jsonp.setCallbackParam("json_callback");
@@ -269,8 +269,8 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					
 						Address at = new Address();
 						
-						at.setLat(l.lat());
-						at.setLon(l.lon());
+						at.getPos().setLat(lonLat.lat());
+						at.getPos().setLon(lonLat.lon());
 						
 						if(response.getAddress()!=null){
 							String responseString = "";

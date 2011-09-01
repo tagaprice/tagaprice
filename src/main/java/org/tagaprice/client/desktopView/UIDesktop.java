@@ -49,7 +49,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -264,7 +263,7 @@ public class UIDesktop implements IUi {
 				
 				
 				if(_curAddress!=null){
-					if(_curAddress.getLat()!=c.lat() || _curAddress.getLon()!=c.lon()){
+					if(_curAddress.getPos().getLat()!=c.lat() || _curAddress.getPos().getLon()!=c.lon()){
 						
 						setLocation(new Address("Map Area", c.lat(), c.lon()));
 					}
@@ -469,9 +468,9 @@ public class UIDesktop implements IUi {
 		_curAddress = address;	
 		_locationPop.hide();
 		_location.setText(_curAddress.getAddress());
-		LonLat c = new LonLat(_curAddress.getLon(), _curAddress.getLat());
-		c.transform( "EPSG:4326","EPSG:900913");
-		_osmShopMap.setCenter(c);
+		LonLat lonLat = _curAddress.getPos().toLonLat();
+		lonLat.transform( "EPSG:4326","EPSG:900913");
+		_osmShopMap.setCenter(lonLat);
 		_searchPopup.showRelativeTo(_search);
 		
 		search(_search.getText());
@@ -518,8 +517,8 @@ public class UIDesktop implements IUi {
 											null, 
 											null, 
 											null, 
-											""+_curAddress.getLat(), 
-											""+_curAddress.getLon(), 
+											""+_curAddress.getPos().getLat(), 
+											""+_curAddress.getPos().getLon(), 
 											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
@@ -531,9 +530,9 @@ public class UIDesktop implements IUi {
 							System.out.println("shopAddres:"+shop.getAddress());
 							
 							//Simple points
-							LonLat l = new LonLat(shop.getAddress().getLon(), shop.getAddress().getLat());
-							l.transform("EPSG:4326", "EPSG:900913");
-							Point point = new Point(l.lon(), l.lat());
+							LonLat lonLat = shop.getAddress().getPos().toLonLat();
+							lonLat.transform("EPSG:4326", "EPSG:900913");
+							Point point = new Point(lonLat.lon(), lonLat.lat());
 							VectorFeature pointFeature = new VectorFeature(point);
 
 							_osmLayer.addFeature(pointFeature);
@@ -551,8 +550,8 @@ public class UIDesktop implements IUi {
 											null, 
 											null, 
 											null, 
-											""+_curAddress.getLat(), 
-											""+_curAddress.getLon(), 
+											""+_curAddress.getPos().getLat(), 
+											""+_curAddress.getPos().getLon(), 
 											""+_osmShopMap.getZoom()));
 									_searchPopup.hide();
 									_search.setText("");
@@ -575,8 +574,8 @@ public class UIDesktop implements IUi {
 									null, 
 									_search.getText(), 
 									null, 
-									""+_curAddress.getLat(), 
-									""+_curAddress.getLon(), 
+									""+_curAddress.getPos().getLat(), 
+									""+_curAddress.getPos().getLon(), 
 									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");							
@@ -596,8 +595,8 @@ public class UIDesktop implements IUi {
 									null, 
 									null, 
 									_search.getText(), 
-									""+_curAddress.getLat(), 
-									""+_curAddress.getLon(), 
+									""+_curAddress.getPos().getLat(), 
+									""+_curAddress.getPos().getLon(), 
 									""+_osmShopMap.getZoom()));
 							_searchPopup.hide();
 							_search.setText("");

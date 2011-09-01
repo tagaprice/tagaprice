@@ -218,9 +218,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
-			LonLat l = new LonLat(key.getAddress().getLon(), key.getAddress().getLat());
-			l.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(l.lon(), l.lat());
+			LonLat lonLat = key.getAddress().getPos().toLonLat();
+			lonLat.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(lonLat.lon(), lonLat.lat());
 			VectorFeature pointFeature = new VectorFeature(point);
 
 			layer.addFeature(pointFeature);

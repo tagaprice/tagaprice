@@ -16,6 +16,7 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import com.allen_sauer.gwt.log.client.Log;
@@ -103,7 +104,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_adddress=address;
 		_addressBox.setText(_adddress.getAddress());
 
-		LonLat l = new LonLat(_adddress.getLon(), _adddress.getLat());
+		LonLat l = _adddress.getPos().toLonLat();
 		l.transform("EPSG:4326", "EPSG:900913");
 		setLatLon(l);
 	}
@@ -115,12 +116,10 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		if(_adddress==null)_adddress = new Address();
 		_adddress.setAddress(_addressBox.getText());
 
-		LonLat l = osmMap.getCenter();
-		l.transform("EPSG:900913","EPSG:4326");
+		LonLat lonLat = osmMap.getCenter();
+		lonLat.transform("EPSG:900913","EPSG:4326");
 
-		_adddress.setLat(l.lat());
-		_adddress.setLon(l.lon());
-
+		_adddress.setPos(LatLon.fromLonLat(lonLat));
 
 		return _adddress;
 	}

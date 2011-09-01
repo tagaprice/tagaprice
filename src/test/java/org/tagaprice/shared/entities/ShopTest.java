@@ -58,16 +58,16 @@ public class ShopTest {
 	public void testSetAddress() {
 		setterShop.setAddress(new Address("address", 1.1, 2.2));
 		assertEquals(setterShop.getAddress().getAddress(), "address");
-		assertEquals(setterShop.getAddress().getLat(), 1.1, 0.0);
-		assertEquals(setterShop.getAddress().getLon(), 2.2, 0.0);
+		assertEquals(setterShop.getAddress().getPos().getLat(), 1.1, 0.0);
+		assertEquals(setterShop.getAddress().getPos().getLon(), 2.2, 0.0);
 	}
 
 	@Test
 	public void testGetAddress() {
 		assertNotNull(newShop.getAddress());
 		assertEquals(newShop.getAddress().getAddress(), null);
-		assertEquals(newShop.getAddress().getLat(), 0.0, 0.0);
-		assertEquals(newShop.getAddress().getLon(), 0.0, 0.0);
+		assertEquals(newShop.getAddress().getPos().getLat(), 0.0, 0.0);
+		assertEquals(newShop.getAddress().getPos().getLon(), 0.0, 0.0);
 	}
 
 	@Test
