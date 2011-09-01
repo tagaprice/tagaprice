@@ -97,6 +97,8 @@ public class UIDesktop implements IUi {
 		_infoBoxPopUp.show();
 		
 
+		
+		
 
 		//INfo test
 		//TODO Find out why setWidth(100%) is not working
@@ -122,7 +124,8 @@ public class UIDesktop implements IUi {
 		
 		//search
 		_search.setStyleName("header-search");
-		_search.setText("");
+		_search.setEnabled(false);
+		_search.setText("Pleace select Location first.");
 		menu.add(_searchHoPa);
 		menu.setCellHorizontalAlignment(_searchHoPa, HorizontalPanel.ALIGN_CENTER);
 		
@@ -473,7 +476,14 @@ public class UIDesktop implements IUi {
 		_osmShopMap.setCenter(lonLat);
 		_searchPopup.showRelativeTo(_search);
 		
-		search(_search.getText());
+		
+		if(_search.isEnabled())
+			search(_search.getText());
+		else{
+			_search.setEnabled(true);
+			_search.setText("");
+		}
+			
 	}
 	
 	private void search(String searchCritera){
