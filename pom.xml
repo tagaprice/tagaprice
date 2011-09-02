@@ -50,13 +50,7 @@
 	    <version>1.0.0.Beta2</version>
 	</dependency>
 
-	<!--  Gson: Java to Json conversion -->
-	<dependency>
-		<groupId>com.google.code.gson</groupId>
-		<artifactId>gson</artifactId>
-		<version>1.6</version>
-		<scope>compile</scope>
-	</dependency>
+	<!--  Java to Json conversion -->
 	<!-- mail -->
 	<dependency>
 		<groupId>javax.mail</groupId>
@@ -230,16 +224,6 @@
 		<name>Public Repository Group</name>
 		<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		<layout>default</layout>
-	</repository>
-	<repository>
-		<id>gson</id>
-		<url>http://google-gson.googlecode.com/svn/mavenrepo</url>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
-		<releases>
-			<enabled>true</enabled>
-		</releases>
 	</repository>
 
 	<repository>
