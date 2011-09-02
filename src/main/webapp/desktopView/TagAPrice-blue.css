@@ -494,6 +494,22 @@ input.morphWidget {
     padding-left: 28px;
 }
 
+.receiptLocationBox {
+    font-weight: bold;
+    width: 200px;
+    margin: 0px;
+    padding: 5px;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border: solid 2px #43aabe;
+    background-image: url('location.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 28px;
+    margin-left:5px;
+}
+
 .previewWidget { /*border: solid 2px #ebe9e1;*/
     border: solid 1px #ebe9e1;
     margin-bottom: 3px;

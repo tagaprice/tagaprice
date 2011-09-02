@@ -62,6 +62,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Map _osmMap;
 	private Label _receiptEntriesLabel = new Label("Receiptentries");
 	
+	private TextBox _location = new TextBox();
+	private PopupPanel _locationPop = new PopupPanel(true);
 	
 	//search
 	private TextBox _shopSearchText = new TextBox();
@@ -167,6 +169,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 	
 	private void drawShopSelected(){
+		
+		
+		
 		HorizontalPanel dHoPa = new HorizontalPanel();
 		//dHoPa.setWidth("600px");
 		ShopPreview _preview = new ShopPreview(_currShop);
@@ -196,8 +201,17 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	}
 	
 	private void drawShopSearch(){
-		HorizontalPanel searchShopHoPa = new HorizontalPanel();
-		searchShopHoPa.setWidth("100%");	
+		VerticalPanel vePaShop = new VerticalPanel();
+		vePaShop.setWidth("100%");
+		
+		HorizontalPanel locationShopHoPa = new HorizontalPanel();
+		//locationShopHoPa.setWidth("100%");
+		vePaShop.add(locationShopHoPa);
+		
+		HorizontalPanel responseMapHoPa = new HorizontalPanel();
+		responseMapHoPa.setWidth("100%");
+		vePaShop.add(responseMapHoPa);
+		
 		
 		//SearchPart
 		VerticalPanel searchBoxVePa = new VerticalPanel();
@@ -207,7 +221,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		//SearchPart TextBox
 		_shopSearchText.setStyleName("receiptSearchBox");
 		//searchText.setWidth("100%");
-		searchBoxVePa.add(_shopSearchText);
+		locationShopHoPa.add(_shopSearchText);
 		_shopSearchText.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
@@ -216,11 +230,15 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		
+		//locatioSearch
+		_location.setStyleName("receiptLocationBox");
+		locationShopHoPa.add(_location);
+		
 		//SearchResult
-		_shopSearchResultPanel.setWidth("100%");
-		searchBoxVePa.add(_shopSearchResultPanel);
-		searchShopHoPa.add(searchBoxVePa);
-		searchBoxVePa.setCellWidth(searchBoxVePa, "510px");
+		_shopSearchResultPanel.setWidth("540px");
+		//searchBoxVePa.add(_shopSearchResultPanel);
+		responseMapHoPa.add(_shopSearchResultPanel);
+		//responseMapHoPa.setCellWidth(_shopSearchResultPanel, "540px");
 		setProductSearchVisible(false);
 		
 		//SearchPart Map
@@ -231,8 +249,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_osmMap = omapWidget.getMap();
 		_osmMap.addLayer(osm_2);
 		_osmMap.zoomTo(16);
-		searchShopHoPa.add(omapWidget);
-		searchShopHoPa.setCellWidth(omapWidget, "100%");
+		responseMapHoPa.add(omapWidget);
+		responseMapHoPa.setCellWidth(omapWidget, "100%");
 		
 		
 		_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
@@ -243,7 +261,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		
-		_shopPanel.setWidget(searchShopHoPa);
+		//_shopPanel.setWidget(searchShopHoPa);
+		
+		_shopPanel.setWidget(vePaShop);
 	}
 	
 	@Override
