@@ -139,8 +139,8 @@ public class ElasticSearchClient {
 								.fieldName("address.pos")
 								.boundingBox(
 										new BoundingBoxFilter.BoundingBox()
-											.topLeft(new LatLon(bbox.getSouthWestLat(), bbox.getNorthEastLon()))
-											.bottomRight(new LatLon(bbox.getNorthEastLat(), bbox.getSouthWestLon()))
+											.topLeft(new LatLon(bbox.getNorthEastLat(), bbox.getSouthWestLon()))
+											.bottomRight(new LatLon(bbox.getSouthWestLat(), bbox.getNorthEastLon()))
 								)
 					)
 				)

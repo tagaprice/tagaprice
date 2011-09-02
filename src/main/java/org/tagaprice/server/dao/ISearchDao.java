@@ -7,5 +7,5 @@ import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public interface ISearchDao {
-	public List<Document> search(String query, BoundingBox bbox) throws DaoException;
+	public List<Document> search(String query, BoundingBox bbox, int limit) throws DaoException;
 }

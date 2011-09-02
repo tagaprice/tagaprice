@@ -19,11 +19,6 @@ public class SearchDao implements ISearchDao {
 		m_searchClient = daoFactory.getElasticSearchClient();
 	}
 	
-	@Override
-	public List<Document> search(String query, BoundingBox bbox) throws DaoException {
-		return search(query, 10);
-	}
-	
 	public List<Document> search(String query, int limit) throws DaoException {
 		return _returnResultList(m_searchClient.find(query, limit));
 	}
