@@ -3,7 +3,6 @@ package org.tagaprice.server.rpc;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.ISearchDao;
@@ -44,10 +43,17 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException {
-		if(!searchString.trim().isEmpty())
-			return shopDAO.find("*"+searchString.trim()+"*");
+		ArrayList<Shop> list = new ArrayList<Shop>();
 		
-		return new ArrayList<Shop>();
+		if(!searchString.trim().isEmpty()){
+			for(Document d:searchDAO.search("*"+searchString.trim()+"*",bbox, 10)){
+				if(d.getDocType().equals("shop"))
+					list.add(Shop.fromDocument(d));
+			}
+			
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -57,7 +63,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 		return new ArrayList<Product>();
 	}
 
-
+	
 
 
 
@@ -70,41 +76,5 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 	public List<StatisticResult> searchShopPrices(String shopId, BoundingBox bbox, Date begin, Date end) {
 		return statisticDao.searchPricesViaShop(shopId, bbox, begin, end);
 	}
-
-}
-
-class GeoNamesJson {
-
-	private Segmente[] streetSegment;
-
-	public GeoNamesJson() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @return the streetSegment
-	 */
-	public Segmente[] getStreetSegment() {
-		return streetSegment;
-	}
-
-
-
-}
-
-class Segmente{
-	private String name;
-
-	public Segmente() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
 
 }

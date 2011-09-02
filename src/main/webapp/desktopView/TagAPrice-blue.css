@@ -15,16 +15,16 @@ body {
     font-family:times;
     font-size: small;
 
-    background: -webkit-linear-gradient(#43aabe 10px, #43aabe 120px, white 50px);
+    background: -webkit-linear-gradient(#43aabe 10px, #43aabe 120px, white 120px);
     /* Safari 5.1+, Chrome 10+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #bfd255
-        ), color-stop(150px, #72aa00), color-stop(150px, white) );
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #43aabe
+        ), color-stop(120px, #43aabe), color-stop(120px, white) );
     /* Safari 4+, Chrome 2+ */
-    background: -moz-linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
+    background: -moz-linear-gradient(#43aabe 10px, #43aabe 120px, white 120px);
     /* FF 3.6+ */
-    background: -ms-linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
+    background: -ms-linear-gradient(#43aabe 10px, #43aabe 120px, white 120px);
     /* IE10 */
-    background: linear-gradient(#bfd255 10px, #72aa00 150px, white 150px);
+    background: linear-gradient(#43aabe 10px, #43aabe 120px, white 120px);
     /* the standard */
 }
 
@@ -33,7 +33,7 @@ body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input {
 }
 
 a {
-    color: #7fbf4d;
+    color: #72aa00;
     text-decoration: none;
 }
 
@@ -369,7 +369,7 @@ table.propertyGrid td {
     width: 100%;
     border: none;
     background-color: rgba(255, 255, 255, 0.0);
-    border: solid 0px rgba(255, 255, 255, 0.0);
+    border: none;
 }
 
 input.morphWidget {
@@ -378,16 +378,12 @@ input.morphWidget {
 }
 
 .morphWidget:HOVER {
-    border: solid 1px rgba(255, 255, 255, 0.0);
 }
 
 .morphWidget:FOCUS {
-    border: solid 1px rgba(255, 255, 255, 0.0);
-    box-shadow: none;
 }
 
 .morphWidget:ACTIVE {
-    border: solid 1px rgba(255, 255, 255, 0.0);
 }
 
 .morphWidget.edit {
@@ -410,9 +406,15 @@ input.morphWidget {
 }
 
 .morphWidget.headline {
-    
+    border:none;
     color: white;
     font-size: 21px;
+}
+
+.morphWidget.editheadline:FOCUS {
+}
+
+.morphWidget.headline:ACTIVE{
 }
 
 .morphWidget.edit.headline {
