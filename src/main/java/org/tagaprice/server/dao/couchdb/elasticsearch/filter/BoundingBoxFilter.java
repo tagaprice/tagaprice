@@ -10,9 +10,14 @@ public class BoundingBoxFilter implements Filter {
 		private static final long serialVersionUID = 1L;
 
 		private LatLon m_topLeft, m_bottomRight;
-		public BoundingBox() {
+
+		public BoundingBox() {}
+
+		public BoundingBox convert(org.tagaprice.shared.entities.BoundingBox other) {
+			topLeft(new LatLon(other.getNorthEastLat(), other.getSouthWestLon()));
+			bottomRight(new LatLon(other.getSouthWestLat(), other.getNorthEastLon()));
+			return this;
 		}
-		
 		public BoundingBox topLeft(LatLon topLeft) {
 			m_topLeft = topLeft;
 			return this;
