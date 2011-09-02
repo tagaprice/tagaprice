@@ -1,18 +1,24 @@
 package org.tagaprice.client.desktopView;
 
 import java.util.List;
-
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.OpenLayers;
 import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.control.Control;
+import org.gwtopenmaps.openlayers.client.control.ControlOptions;
+import org.gwtopenmaps.openlayers.client.control.MousePosition;
+import org.gwtopenmaps.openlayers.client.event.EventHandler;
+import org.gwtopenmaps.openlayers.client.event.EventObject;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
+import org.gwtopenmaps.openlayers.client.util.JSObject;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
@@ -32,7 +38,6 @@ import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
@@ -225,6 +230,7 @@ public class UIDesktop implements IUi {
 		//search map
 		OSM osmLayler = OSM.Mapnik("Mapnik");
 		osmLayler.setIsBaseLayer(true);
+		
 		_osmShopWidget = new MapWidget("100%", "200px", _osmShopOptions);
 		_osmShopMap = _osmShopWidget.getMap();
 		_osmShopMap.addLayer(osmLayler);
@@ -248,10 +254,11 @@ public class UIDesktop implements IUi {
 		searchHoPaWithMap.setCellWidth(_osmShopWidget, "300px");
 		
 		_shopProductSearchPanel.add(searchHoPaWithMap);
-
 		_shopProductSearchPanel.add(_productSearchPanel);
 		
 		
+		
+		_osmShopMap.addControl(new MousePosition());
 		
 		_osmShopMap.addMapMoveEndListener(new MapMoveEndListener() {
 			
@@ -277,6 +284,8 @@ public class UIDesktop implements IUi {
 				
 			}
 		});
+		
+		
 		
 		
 		_searchPopup.getElement().getStyle().setZIndex(2000);
@@ -537,7 +546,6 @@ public class UIDesktop implements IUi {
 							_shopSearchPanel.add(dumpShop);
 							
 							
-							System.out.println("shopAddres:"+shop.getAddress());
 							
 							//Simple points
 							LonLat lonLat = shop.getAddress().getPos().toLonLat();
@@ -634,3 +642,4 @@ public class UIDesktop implements IUi {
 		});
 	}
 }
+
