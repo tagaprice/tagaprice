@@ -24,4 +24,15 @@ public class SearchDao extends DaoClass<Document> implements ISearchDao {
 		return rc;
 	}
 
+	@Override
+	public List<Document> searchProduct(String query, int limit) throws DaoException {
+		// TODO implement me properly
+		return search(query, new BoundingBox(), limit);
+	}
+	
+	@Override
+	public List<Document> searchShop(String query, BoundingBox bbox, int limit) throws DaoException {
+		// TODO implement me properly
+		return search(query, bbox, limit);
+	}
 }

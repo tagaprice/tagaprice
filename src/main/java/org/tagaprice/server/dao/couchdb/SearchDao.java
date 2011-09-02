@@ -23,8 +23,19 @@ public class SearchDao implements ISearchDao {
 		return _returnResultList(m_searchClient.find(query, limit));
 	}
 	
+	@Override
 	public List<Document> search(String query, BoundingBox bbox, int limit) {
 		return _returnResultList(m_searchClient.find(query, bbox, limit));
+	}
+	
+	@Override
+	public List<Document> searchProduct(String query, int limit) {
+		return _returnResultList(m_searchClient.findProduct(query, limit));
+	}
+	
+	@Override
+	public List<Document> searchShop(String query, BoundingBox bbox, int limit) {
+		return _returnResultList(m_searchClient.findShop(query, bbox, limit));
 	}
 
 	public List<Document> _returnResultList(SearchResult searchResult) {

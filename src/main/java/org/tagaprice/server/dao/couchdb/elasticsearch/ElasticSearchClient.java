@@ -14,6 +14,7 @@ import org.jcouchdb.db.ServerImpl;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
 import org.tagaprice.server.dao.couchdb.CouchDbConfig;
+import org.tagaprice.server.dao.couchdb.elasticsearch.filter.AndFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.BoundingBoxFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.NotFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.OrFilter;
@@ -23,7 +24,6 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryString;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.Term;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.BoundingBox;
-import org.tagaprice.shared.entities.Address.LatLon;
 
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -137,16 +137,51 @@ public class ElasticSearchClient {
 					.addCondition(
 							new BoundingBoxFilter()
 								.fieldName("address.pos")
-								.boundingBox(
-										new BoundingBoxFilter.BoundingBox()
-											.topLeft(new LatLon(bbox.getNorthEastLat(), bbox.getSouthWestLon()))
-											.bottomRight(new LatLon(bbox.getSouthWestLat(), bbox.getNorthEastLon()))
-								)
+								.boundingBox(new BoundingBoxFilter.BoundingBox().convert(bbox))
 					)
 				)
 			)
 			.from(0)
 			.size(limit);
+
+		return find(queryObject);
+	}
+	
+	public SearchResult findShop(String query, BoundingBox bbox, int limit) {
+		QueryObject queryObject = new QueryObject()
+		.query(new FilteredQuery()
+			.query(
+					new QueryString(query)
+			)
+			.filter(new AndFilter()
+				.addCondition(
+						new TermFilter().term(new Term("docType", "shop"))
+				)
+				.addCondition(
+						new BoundingBoxFilter()
+							.fieldName("address.pos")
+							.boundingBox(new BoundingBoxFilter.BoundingBox().convert(bbox))
+				)
+			)
+		)
+		.from(0)
+		.size(limit);
+
+		return find(queryObject);
+	}
+	
+	public SearchResult findProduct(String query, int limit) {
+		QueryObject queryObject = new QueryObject()
+		.query(new FilteredQuery()
+			.query(
+					new QueryString(query)
+			)
+			.filter(
+				new TermFilter().term(new Term("docType", "product"))
+			)
+		)
+		.from(0)
+		.size(limit);
 
 		return find(queryObject);
 	}
