@@ -42,11 +42,11 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException {
+	public List<Shop> searchShop(String searchString, BoundingBox bbox) throws DaoException {		
 		ArrayList<Shop> list = new ArrayList<Shop>();
 		
 		if(!searchString.trim().isEmpty()){
-			for(Document d:searchDAO.search("*"+searchString.trim()+"*",bbox, 10)){
+			for(Document d:searchDAO.searchShop("*"+searchString.trim()+"*", bbox, 10)){
 				if(d.getDocType().equals("shop"))
 					list.add(Shop.fromDocument(d));
 			}
@@ -58,9 +58,18 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 	@Override
 	public List<Product> searchProduct(String searchString, Shop shop) throws DaoException {
-		if(!searchString.trim().isEmpty())
-			return productDAO.find("*"+searchString.trim()+"*");
-		return new ArrayList<Product>();
+		
+		ArrayList<Product> list = new ArrayList<Product>();
+		
+		if(!searchString.trim().isEmpty()){
+			for(Document d:searchDAO.searchProduct("*"+searchString.trim()+"*", 10)){
+				if(d.getDocType().equals("shop"))
+					list.add(Product.fromDocument(d));
+			}
+			
+		}
+		
+		return list;
 	}
 
 	
