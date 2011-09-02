@@ -7,6 +7,8 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener.MapMoveEndEvent;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
@@ -218,6 +220,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_shopSearchResultPanel.setWidth("100%");
 		searchBoxVePa.add(_shopSearchResultPanel);
 		searchShopHoPa.add(searchBoxVePa);
+		searchBoxVePa.setCellWidth(searchBoxVePa, "510px");
 		setProductSearchVisible(false);
 		
 		//SearchPart Map
@@ -229,7 +232,16 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_osmMap.addLayer(osm_2);
 		_osmMap.zoomTo(16);
 		searchShopHoPa.add(omapWidget);
-		searchShopHoPa.setCellWidth(omapWidget, "300px");
+		searchShopHoPa.setCellWidth(omapWidget, "100%");
+		
+		
+		_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
+			
+			@Override
+			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
+				_presenter.shopSearchStringHasChanged(_shopSearchText.getText());				
+			}
+		});
 		
 		_shopPanel.setWidget(searchShopHoPa);
 	}
@@ -284,8 +296,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public BoundingBox getBoundingBox() {
 
-		LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftY(), _osmMap.getExtent().getLowerLeftX());
-		LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightY(), _osmMap.getExtent().getUpperRightX());
+		LonLat southWest = new LonLat(_osmMap.getExtent().getLowerLeftX(), _osmMap.getExtent().getLowerLeftY());
+		LonLat northEast = new LonLat(_osmMap.getExtent().getUpperRightX(), _osmMap.getExtent().getUpperRightY());
 		southWest.transform("EPSG:900913","EPSG:4326");
 		northEast.transform("EPSG:900913","EPSG:4326");
 

@@ -63,7 +63,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 		return new ArrayList<Product>();
 	}
 
-
+	
 
 
 

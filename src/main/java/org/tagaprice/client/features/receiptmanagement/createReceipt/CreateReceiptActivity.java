@@ -168,7 +168,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void shopSearchStringHasChanged(String shopSearch) {
-		Log.debug("Start shopSearch: "+shopSearch);
+		Log.debug("Start shopSearch: "+shopSearch+", "+_createReceiptView.getBoundingBox());
 		_shopSearchCount++;
 		final int curShopSearchCount=_shopSearchCount;
 		
