@@ -3,13 +3,11 @@ package org.tagaprice.shared.entities.receiptManagement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.svenson.JSONProperty;
 import org.svenson.JSONTypeHint;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
@@ -74,11 +72,11 @@ public class Receipt extends Document {
 		return _date;
 	}
 
-	public Long getTimeStamp(){
+	public long getTimeStamp(){
 		return _date.getTime();
 	}
 
-	public void setTimeStamp(Long timestamp){
+	public void setTimeStamp(long timestamp){
 		_date=new Date(timestamp);
 	}
 
