@@ -3,6 +3,7 @@ package org.tagaprice.server.dao.couchdb;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IPackageDao;
@@ -67,7 +68,6 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 			rc.add(receipt);
 		}
 
-
 		return rc;
 	}
 	
@@ -84,6 +84,38 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		Log.debug(r.getDocType()+", c:"+r.getReceiptEntries().size());
 		
 		return r;
+	}
+
+	@Override
+	public List<Receipt> listByPackage(String packageId) throws DaoException {
+		ViewResult<?> result = m_db.queryView("receipt/byUser", Receipt.class, new Options().key(packageId), null);
+		List<Receipt> rc = new ArrayList<Receipt>();
+
+		for (ValueRow<?> row: result.getRows()) {
+			Log.debug("rowId: "+row.getId());
+			Receipt receipt = get(row.getId());
+			Log.debug("Listsize: "+receipt.getReceiptEntries().size());
+			Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
+			rc.add(receipt);
+		}
+
+		return rc;
+	}
+	
+	@Override
+	public List<Receipt> listByUser(String userId) throws DaoException {
+		ViewResult<?> result = m_db.queryView("receipt/byUser", Receipt.class, new Options().key(userId), null);
+		List<Receipt> rc = new ArrayList<Receipt>();
+
+		for (ValueRow<?> row: result.getRows()) {
+			Log.debug("rowId: "+row.getId());
+			Receipt receipt = get(row.getId());
+			Log.debug("Listsize: "+receipt.getReceiptEntries().size());
+			Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
+			rc.add(receipt);
+		}
+
+		return rc;
 	}
 
 	@Override

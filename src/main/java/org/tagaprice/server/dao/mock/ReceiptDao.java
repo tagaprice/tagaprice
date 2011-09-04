@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	@Override
@@ -17,6 +18,16 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		}
 
 		return rc;
+	}
+
+	@Override
+	public List<Receipt> listByPackage(String packageId) throws DaoException {
+		return list();
+	}
+
+	@Override
+	public List<Receipt> listByUser(String userId) throws DaoException {
+		return list();
 	}
 
 }
