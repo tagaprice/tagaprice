@@ -4,6 +4,7 @@
     "host": "{COUCH_HOST}",
     "port": "{COUCH_PORT}",
     "db": "{COUCH_DB}",
-    "filter": null
+    "filter": null,
+    "script": "ctx._type = ctx.doc.docType;"
   }
 }
