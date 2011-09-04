@@ -5,6 +5,21 @@
       "map": "function(doc) {
         if (doc.docType == 'receipt') emit(null, doc);
       }"
+    },
+    "byUser": {
+      "map": "function(doc) {
+        if (doc.docType == 'receipt') emit(doc.creatorId, null);
+      }"
+    },
+    "byPackage": {
+      "map": "function(doc) {
+        if (doc.docType == 'receipt') {
+          for (var i in doc.receiptEntries) {
+            var entry = doc.receiptEntries[i];
+            emit(entry.packageId, null);
+          }
+        }
+      }"
     }
   },
   "language": "javascript"
