@@ -63,7 +63,7 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 		
 		if(!searchString.trim().isEmpty()){
 			for(Document d:searchDAO.searchProduct("*"+searchString.trim()+"*", 10)){
-				if(d.getDocType().equals("shop"))
+				if(d.getDocType().equals("product"))
 					list.add(Product.fromDocument(d));
 			}
 			

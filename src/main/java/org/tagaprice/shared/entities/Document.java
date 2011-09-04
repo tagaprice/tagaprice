@@ -1,6 +1,7 @@
 package org.tagaprice.shared.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import java.util.Set;
 import org.svenson.DynamicProperties;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.accountmanagement.User;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.productmanagement.Product;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -30,6 +33,8 @@ public class Document implements IsSerializable, DynamicProperties {
 	private User _creator = null;
 	private Map<String, Object> _properties = new HashMap<String, Object>();
 	private Address _address = new Address();
+	private ArrayList<Package> _iPackage = new ArrayList<Package>();
+
 
 	private String _title;
 
@@ -199,6 +204,53 @@ public class Document implements IsSerializable, DynamicProperties {
 	@JSONProperty(ignore = true)
 	public Address getAddress() {
 		return _address;
+	}
+	
+	/**
+	 * Set some {@link Package} to the Product. All included products will be deleted.
+	 * 
+	 * @param ipackage
+	 *            that will be set to the {@link Product}
+	 */
+	@JSONProperty(ignore = true)
+	public void setPackages(List<Package> iPackage) {
+		_iPackage.clear();
+		for (Package p : iPackage) {
+			/*
+			if(getDocType().equals("product"))
+				p.setProduct(Product.fromDocument(this));
+			
+			*/
+			_iPackage.add(p);
+		}
+
+	}
+	
+	
+	/**
+	 * Add one {@link Package} to the Product.
+	 * 
+	 * @param ipackage
+	 *            that will be added to the {@link Product}
+	 */
+	@JSONProperty(ignore = true)
+	public void addPackage(Package ipackage) {
+		/*
+		if(getDocType().equals("product"))
+			ipackage.setProduct(Product.fromDocument(this));
+		*/
+		
+		_iPackage.add(ipackage);
+	}
+	
+	/**
+	 * Return all Packages includes in a {@link Product}
+	 * 
+	 * @return all Packages includes in a {@link Product}
+	 */
+	@JSONProperty(ignore = true)
+	public ArrayList<Package> getPackages() {
+		return _iPackage;
 	}
 
 	/* (non-Javadoc)

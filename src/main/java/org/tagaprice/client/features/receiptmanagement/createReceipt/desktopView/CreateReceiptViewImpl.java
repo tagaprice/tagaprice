@@ -8,8 +8,12 @@ import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
-import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener.MapMoveEndEvent;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
+import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
+import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
+import org.gwtopenmaps.openlayers.client.geometry.Point;
+import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
@@ -29,6 +33,8 @@ import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -43,6 +49,10 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import com.google.code.gwt.geolocation.client.Geolocation;
+import com.google.code.gwt.geolocation.client.Position;
+import com.google.code.gwt.geolocation.client.PositionCallback;
+import com.google.code.gwt.geolocation.client.PositionError;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 
@@ -53,7 +63,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Label _fullPrice = new Label("0.0€");
 	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
 	private DatePicker _datePicker = new DatePicker();
-	private boolean _readonly = true;
 	private PopupPanel _datePop = new PopupPanel(true);
 	private VerticalPanel _bodyPanel = new VerticalPanel();
 	private SimplePanel _shopPanel = new SimplePanel();
@@ -64,6 +73,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	
 	private TextBox _location = new TextBox();
 	private PopupPanel _locationPop = new PopupPanel(true);
+	private VerticalPanel _locationVePa = new VerticalPanel();
 	
 	//search
 	private TextBox _shopSearchText = new TextBox();
@@ -71,6 +81,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private PopupPanel _productSearchPopup = new PopupPanel(true);
 	private VerticalPanel _productSearchResultPanel = new VerticalPanel();
 	private VerticalPanel _shopSearchResultPanel = new VerticalPanel();
+	private Address _curAddress;
+	private VectorOptions _osmVectorOptions = new VectorOptions();
+	private Vector _osmLayer;
+	private VerticalPanel _searchShopPa = new VerticalPanel();
+	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
 	
 	public CreateReceiptViewImpl() {
 		
@@ -166,6 +181,187 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_productSearchPopup.setWidget(_productSearchResultPanel);
 		
 		initWidget(_frame);
+		
+		
+		//Draw everyhting
+		{
+			
+			_searchShopPa.setWidth("100%");
+			
+			HorizontalPanel locationShopHoPa = new HorizontalPanel();
+			//locationShopHoPa.setWidth("100%");
+			_searchShopPa.add(locationShopHoPa);
+			
+			
+			_responseMapHoPa.setWidth("100%");
+			_searchShopPa.add(_responseMapHoPa);
+			_responseMapHoPa.setVisible(false);
+			
+			
+			//SearchPart
+			VerticalPanel searchBoxVePa = new VerticalPanel();
+			searchBoxVePa.setWidth("500px");
+			
+			
+			//SearchPart TextBox
+			_shopSearchText.setStyleName("receiptSearchBox");
+			_shopSearchText.setEnabled(false);
+			_shopSearchText.setText("Please select location first. -->");
+			//searchText.setWidth("100%");
+			locationShopHoPa.add(_shopSearchText);
+			_shopSearchText.addKeyUpHandler(new KeyUpHandler() {
+				
+				@Override
+				public void onKeyUp(KeyUpEvent arg0) {
+					_presenter.shopSearchStringHasChanged(_shopSearchText.getText());				
+				}
+			});
+			
+			//locatioSearch
+			_location.setStyleName("receiptLocationBox");
+			_location.setText("Your Location:");
+			locationShopHoPa.add(_location);
+			
+			
+			//locationPop
+			_locationVePa.setWidth("240px");
+			_locationVePa.setStyleName("popBackground");
+			_locationPop.setWidget(_locationVePa);
+			_locationPop.getElement().getStyle().setZIndex(2000);
+			_location.addFocusHandler(new FocusHandler() {
+				
+				@Override
+				public void onFocus(FocusEvent arg0) {
+					_locationPop.showRelativeTo(_location);
+				}
+			});
+			
+			
+			//TODO Add old locations from session or loggedin user
+			{
+				{
+					Label locText = new Label("Current Location");
+					locText.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							
+							//get current location
+							Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
+								
+								@Override
+								public void onSuccess(Position position) {								
+									setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+									setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+								}
+								
+								@Override
+								public void onFailure(PositionError error) {
+									Log.error("Could not find position:" + error);
+									//_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptViewImpl.class, "Could not find position", INFOTYPE.ERROR));								
+								}
+							});
+							
+							
+						}
+					});
+					_locationVePa.add(locText);
+				}
+				
+				{
+					Label locText = new Label("Flossgasse, Wien");
+					locText.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
+							setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
+						}
+					});
+					_locationVePa.add(locText);
+				}
+				
+				{
+					Label locText = new Label("Anywhere");
+					locText.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							setLocation(new Address("Anywhere", 0, 0));
+							setLocation(new Address("Anywhere", 0, 0));
+						}
+					});
+					_locationVePa.add(locText);
+				}
+				
+			}
+			
+			
+			
+			//SearchResult
+			_shopSearchResultPanel.setWidth("540px");
+			//searchBoxVePa.add(_shopSearchResultPanel);
+			_responseMapHoPa.add(_shopSearchResultPanel);
+			//responseMapHoPa.setCellWidth(_shopSearchResultPanel, "540px");
+			setProductSearchVisible(false);
+			
+			
+			
+			
+			//SearchPart Map
+			MapOptions defaultMapOptions = new MapOptions();
+			MapWidget omapWidget = new MapWidget("100%", "200px", defaultMapOptions);
+			OSM osm_2 = OSM.Mapnik("Mapnik");
+			osm_2.setIsBaseLayer(true);
+			_osmMap = omapWidget.getMap();
+			_osmMap.addLayer(osm_2);
+			_osmMap.zoomTo(13);
+			
+			
+			//******** INIT OSM Vector ************/
+			//Style
+			Style style = new Style();
+			style.setStrokeColor("#000000");
+			style.setStrokeWidth(2);
+			style.setFillColor("#00FF00");
+			style.setFillOpacity(0.5);
+			style.setPointRadius(8);
+			style.setStrokeOpacity(0.8);
+			_osmVectorOptions.setStyle(style);	
+			
+			_osmLayer = new Vector("shopResults",_osmVectorOptions);
+			_osmMap.addLayer(_osmLayer);
+			
+			
+			_responseMapHoPa.add(omapWidget);
+			_responseMapHoPa.setCellWidth(omapWidget, "100%");
+			
+			
+			_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
+				
+				@Override
+				public void onMapMoveEnd(MapMoveEndEvent eventObject) {
+					LonLat c = _osmMap.getCenter();
+					c.transform("EPSG:900913", "EPSG:4326");
+					
+					Log.debug("move: add: "+_curAddress +", point: "+c.lat()+":"+c.lon());
+					
+					
+					if(_curAddress!=null){
+						if(_curAddress.getPos().getLat()!=c.lat() || _curAddress.getPos().getLon()!=c.lon()){
+							
+							setLocation(new Address("Map Area", c.lat(), c.lon()));
+						}
+					}else if(_curAddress==null){
+						setLocation(new Address("Map Area", c.lat(), c.lon()));
+					}				
+				}
+			});
+			
+			//_shopPanel.setWidget(searchShopHoPa);
+			
+			//_shopPanel.setWidget(_searchShopPa);
+		}
 	}
 	
 	private void drawShopSelected(){
@@ -200,71 +396,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
-	private void drawShopSearch(){
-		VerticalPanel vePaShop = new VerticalPanel();
-		vePaShop.setWidth("100%");
-		
-		HorizontalPanel locationShopHoPa = new HorizontalPanel();
-		//locationShopHoPa.setWidth("100%");
-		vePaShop.add(locationShopHoPa);
-		
-		HorizontalPanel responseMapHoPa = new HorizontalPanel();
-		responseMapHoPa.setWidth("100%");
-		vePaShop.add(responseMapHoPa);
-		
-		
-		//SearchPart
-		VerticalPanel searchBoxVePa = new VerticalPanel();
-		searchBoxVePa.setWidth("500px");
-		
-		
-		//SearchPart TextBox
-		_shopSearchText.setStyleName("receiptSearchBox");
-		//searchText.setWidth("100%");
-		locationShopHoPa.add(_shopSearchText);
-		_shopSearchText.addKeyUpHandler(new KeyUpHandler() {
-			
-			@Override
-			public void onKeyUp(KeyUpEvent arg0) {
-				_presenter.shopSearchStringHasChanged(_shopSearchText.getText());				
-			}
-		});
-		
-		//locatioSearch
-		_location.setStyleName("receiptLocationBox");
-		locationShopHoPa.add(_location);
-		
-		//SearchResult
-		_shopSearchResultPanel.setWidth("540px");
-		//searchBoxVePa.add(_shopSearchResultPanel);
-		responseMapHoPa.add(_shopSearchResultPanel);
-		//responseMapHoPa.setCellWidth(_shopSearchResultPanel, "540px");
-		setProductSearchVisible(false);
-		
-		//SearchPart Map
-		MapOptions defaultMapOptions = new MapOptions();
-		MapWidget omapWidget = new MapWidget("100%", "200px", defaultMapOptions);
-		OSM osm_2 = OSM.Mapnik("Mapnik");
-		osm_2.setIsBaseLayer(true);
-		_osmMap = omapWidget.getMap();
-		_osmMap.addLayer(osm_2);
-		_osmMap.zoomTo(16);
-		responseMapHoPa.add(omapWidget);
-		responseMapHoPa.setCellWidth(omapWidget, "100%");
-		
-		
-		_osmMap.addMapMoveEndListener(new MapMoveEndListener() {
-			
-			@Override
-			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				_presenter.shopSearchStringHasChanged(_shopSearchText.getText());				
-			}
-		});
-		
-		//_shopPanel.setWidget(searchShopHoPa);
-		
-		_shopPanel.setWidget(vePaShop);
-	}
+	
 	
 	@Override
 	public Date getDate() {
@@ -287,7 +419,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_currShop=shop;
 		
 		if(_currShop==null){
-			drawShopSearch();
+			_shopPanel.setWidget(_searchShopPa);
 			setProductSearchVisible(false);
 		}else{
 			drawShopSelected();
@@ -312,6 +444,26 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		lonLat.transform("EPSG:4326", "EPSG:900913");
 		_osmMap.setCenter(lonLat);
 	}
+	
+	private void setLocation(Address address){
+		Log.debug("setLocation. "+address);
+		_curAddress = address;	
+		_locationPop.hide();
+		_location.setText(_curAddress.getAddress());
+		LonLat lonLat = _curAddress.getPos().toLonLat();
+		lonLat.transform( "EPSG:4326","EPSG:900913");
+		_osmMap.setCenter(lonLat);
+		//_searchPopup.showRelativeTo(_search);
+		
+		
+		if(_shopSearchText.isEnabled())
+			_presenter.shopSearchStringHasChanged(_shopSearchText.getText());
+		else{
+			_shopSearchText.setEnabled(true);
+			_shopSearchText.setText("");
+			_responseMapHoPa.setVisible(true);
+		}
+	}
 
 	@Override
 	public BoundingBox getBoundingBox() {
@@ -331,6 +483,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setShopSearchResults(List<Shop> shopResults) {
 		_shopSearchResultPanel.clear();
+		_osmLayer.destroyFeatures();
+		
 		
 		for(final Shop s:shopResults){
 			HorizontalPanel takeShop = new HorizontalPanel();
@@ -352,6 +506,17 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			foundShops.addHoverWidget(addButton);
 			
 			takeShop.add(foundShops);
+			
+			//add marker
+			//Simple points
+			LonLat lonLat = s.getAddress().getPos().toLonLat();
+			lonLat.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(lonLat.lon(), lonLat.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+
+			_osmLayer.addFeature(pointFeature);
+			
+			
 			/*
 			foundAddress.addClickHandler(new ClickHandler() {
 
@@ -404,8 +569,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_presenter.getId()!=null)
-					_presenter.goTo(new CreateShopPlace(null, null, _presenter.getId(), _shopSearchText.getText(), null, null, null, null));
-				else _presenter.goTo(new CreateShopPlace(null, null, "draft", _shopSearchText.getText(), null, null, null, null));
+					_presenter.goTo(new CreateShopPlace(null, null, _presenter.getId(), _shopSearchText.getText(), null, ""+_curAddress.getPos().getLat(), ""+_curAddress.getPos().getLon(), ""+_osmMap.getZoom()));
+				else _presenter.goTo(new CreateShopPlace(null, null, "draft", _shopSearchText.getText(), null, ""+_curAddress.getPos().getLat(), ""+_curAddress.getPos().getLon(), ""+_osmMap.getZoom()));
 				
 				_shopSearchText.setText("");							
 			}
