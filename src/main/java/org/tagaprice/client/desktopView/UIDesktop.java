@@ -258,7 +258,7 @@ public class UIDesktop implements IUi {
 		
 		
 		
-		_osmShopMap.addControl(new MousePosition());
+		//_osmShopMap.addControl(new MousePosition());
 		
 		_osmShopMap.addMapMoveEndListener(new MapMoveEndListener() {
 			
