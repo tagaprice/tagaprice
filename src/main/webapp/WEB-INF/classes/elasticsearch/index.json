@@ -1,0 +1,13 @@
+{
+	"mappings": {
+		"shop": {
+			"properties": {
+				"address": {
+					"properties": {
+						"pos": {"type": "geo_point"}
+					}
+				}
+			}
+		}
+	}
+}
