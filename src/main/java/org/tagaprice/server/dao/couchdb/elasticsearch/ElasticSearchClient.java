@@ -62,12 +62,8 @@ public class ElasticSearchClient {
 			Log.debug("Didn't find elasticsearch index, creating it...");
 			
 			// first create the empty ES index
-			response = m_server.put("/"+indexName);
-			response.destroy();
-
-			// import the mapping file
-			String mappingJson = _getResourceData("mapping.json");
-			response = m_server.put(indexName+"/"+indexName+"/_mapping", mappingJson);
+			String indexJson = _getResourceData("index.json");
+			response = m_server.put("/"+indexName, indexJson);
 			response.destroy();
 
 			// then PUT the river
