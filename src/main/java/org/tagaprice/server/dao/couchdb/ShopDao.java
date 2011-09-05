@@ -53,7 +53,8 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 					new BoundingBoxFilter.BoundingBox().convert(bbox)
 				)
 			)
-		);
+		).size(100);
+		
 		SearchResult result = m_searchClient.find(queryObject);
 		return result.getHits().getIDs();
 	}

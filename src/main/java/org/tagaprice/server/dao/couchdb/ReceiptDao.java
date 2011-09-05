@@ -101,7 +101,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 		return rc;
 	}
-	
+
 	@Override
 	public List<Receipt> listByUser(String userId) throws DaoException {
 		ViewResult<?> result = m_db.queryView("receipt/byUser", Receipt.class, new Options().key(userId), null);

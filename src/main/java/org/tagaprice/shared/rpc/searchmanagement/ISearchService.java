@@ -45,7 +45,7 @@ public interface ISearchService extends RemoteService {
 	List<Product> searchProduct(String searchString, Shop address) throws DaoException;
 
 
-	List<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end);
+	List<StatisticResult> searchProductPrices(String id, BoundingBox bbox, Date begin, Date end) throws DaoException;
 
 	List<StatisticResult> searchShopPrices(String id, BoundingBox bbox, Date begin, Date end);
 
