@@ -1,5 +1,8 @@
 package org.tagaprice.server.dao.couchdb.elasticsearch.result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.svenson.JSONProperty;
 
 public class Hits {
@@ -25,7 +28,19 @@ public class Hits {
 	public Hit[] getHits() {
 		return m_hits;
 	}
+
 	public void setHits(Hit hits[]) {
 		m_hits = hits;
+	}
+
+	@JSONProperty(ignore=true)
+	public List<String> getIDs() {
+		List<String> rc = new ArrayList<String>();
+		
+		for (Hit hit: getHits()) {
+			rc.add(hit.getId());
+		}
+		
+		return rc;
 	}
 }
