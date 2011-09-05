@@ -21,7 +21,7 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.desktopView.
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
+import org.tagaprice.client.features.shopmanagement.listShops.devView.ListShopsViewImpl;
 import org.tagaprice.client.features.startmanagement.IStartView;
 import org.tagaprice.client.features.startmanagement.desktopView.StartViewImpl;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
@@ -34,10 +34,12 @@ import org.tagaprice.shared.rpc.receiptmanagement.IReceiptService;
 import org.tagaprice.shared.rpc.receiptmanagement.IReceiptServiceAsync;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
-import org.tagaprice.shared.rpc.shopmanagement.*;
+import org.tagaprice.shared.rpc.shopmanagement.IShopService;
+import org.tagaprice.shared.rpc.shopmanagement.IShopServiceAsync;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.*;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 /**
  * The ClientFactory provides singletones for <ul><li>an EventBus</li><li>a PlaceController</li><li>and the Views</li></ul>.
