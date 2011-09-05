@@ -100,6 +100,9 @@ public class CreateProductPlace extends Place {
 				TokenCreator.Imploder t = TokenCreator.getImploder();
 				//t.setRoot("create");
 				t.addNode("title", place.getTitle());
+				t.addNode("lat", place.getLat());
+				t.addNode("lon", place.getLon());
+				t.addNode("zoom", place.getZoom());
 				rc = t.getToken();
 			}else if(place.getId()==null && place.getRedirectId()!=null){
 				Log.debug("Tokenizer create with redirect: redirectid="+place.getRedirectId());

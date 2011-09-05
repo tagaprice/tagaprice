@@ -109,7 +109,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					if(_place.getRedirectId()!=null){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "product"));
 					}else{
-						updateView(result);
+						if(_product.getId()==null)
+							goTo(new CreateProductPlace(result.getId(), null, null, null, _place.getLat(), _place.getLon(), _place.getZoom()));
+						else
+							updateView(result);
 					}
 					
 					//setReadable

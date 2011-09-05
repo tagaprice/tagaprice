@@ -3,7 +3,6 @@ package org.tagaprice.client.features.shopmanagement.createShop;
 import java.util.Date;
 import java.util.List;
 
-import org.GNOME.Accessibility._ValueStub;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
