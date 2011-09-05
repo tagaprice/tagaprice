@@ -52,7 +52,7 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 	private VerticalPanel _addressListPanel = new VerticalPanel();
 	private DragFeature _dragFeature;
 	private boolean _readonly = true;
-	private Grid _addressGrid = new Grid(5, 2);
+	private Grid _addressGrid = new Grid(4, 2);
 	private Address _curAddress = new Address();
 	private Button _showOnMapButton = new Button("Set marker to address");
 
@@ -78,20 +78,18 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		_addressGrid.setWidth("100%");
 		_addressGrid.setStyleName("propertyGrid");
 		_addressGrid.setWidget(0, 0, new Label("Street"));
-		_addressGrid.setWidget(1, 0, new Label("Street"));
-		_addressGrid.setWidget(2, 0, new Label("ZIP"));
-		_addressGrid.setWidget(3, 0, new Label("City"));
-		_addressGrid.setWidget(4, 0, new Label("Country"));
+		_addressGrid.setWidget(1, 0, new Label("ZIP"));
+		_addressGrid.setWidget(2, 0, new Label("City"));
+		_addressGrid.setWidget(3, 0, new Label("Country"));
 		
 		_addressGrid.getCellFormatter().setStyleName(0, 0, "namecell");
 		_addressGrid.getCellFormatter().setStyleName(0, 1, "valuecell");
 		
 		_addressBox.setReadOnly(true);
-		_addressGrid.setWidget(0, 1, _addressBox);
-		_addressGrid.setWidget(1, 1, _streeBox);
-		_addressGrid.setWidget(2, 1, _postalcodeBox);
-		_addressGrid.setWidget(3, 1, _cityBox);
-		_addressGrid.setWidget(4, 1, _countryCodeBox);
+		_addressGrid.setWidget(0, 1, _streeBox);
+		_addressGrid.setWidget(1, 1, _postalcodeBox);
+		_addressGrid.setWidget(2, 1, _cityBox);
+		_addressGrid.setWidget(3, 1, _countryCodeBox);
 		
 		
 		_vePa1.add(_addressGrid);

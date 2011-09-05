@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.GNOME.Accessibility._MatchRuleStub;
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -22,6 +23,7 @@ import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
@@ -195,7 +197,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					}
 
 			}
-			resultList.add(new HTML("<a href=\"#product:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			
+			LonLat ln = _osmMap.getCenter();
+			ln.transform( "EPSG:900913","EPSG:4326");
+			
+			resultList.add(new HTML("<a href=\"#product:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			/* TODO Get data from child shops
@@ -249,7 +255,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					}
 
 			}
-			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			LonLat ln = _osmMap.getCenter();
+			ln.transform( "EPSG:900913","EPSG:4326");
+						
+			
+			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			LonLat lonLat = key.getAddress().getPos().toLonLat();
