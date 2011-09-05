@@ -75,10 +75,10 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 	}
 
 	@Override
-	public List<Product> findProducts(Product searchCriteria) throws DaoException {
+	public List<Product> findProducts(String searchCriteria) throws DaoException {
 		Log.debug("findProducts... searchCriteria: " + searchCriteria);
 		if(searchCriteria != null){
-			return productDAO.find("*"+searchCriteria.getTitle().trim()+"*");
+			return productDAO.find("*"+searchCriteria.trim()+"*");
 		}
 		
 		return productDAO.list();

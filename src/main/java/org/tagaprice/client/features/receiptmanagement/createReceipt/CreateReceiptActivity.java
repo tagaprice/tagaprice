@@ -142,7 +142,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		
 		Log.debug("Start productSearch: "+productSearch);
 
-		_clientFactory.getProductService().findProducts(new Product(null, productSearch, null, null), new AsyncCallback<List<Product>>(){
+		_clientFactory.getProductService().findProducts(productSearch.trim(), new AsyncCallback<List<Product>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
