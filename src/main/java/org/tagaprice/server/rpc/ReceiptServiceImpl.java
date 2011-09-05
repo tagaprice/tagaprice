@@ -70,8 +70,11 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public List<Receipt> getReceipts() throws UserNotLoggedInException, DaoException {
-		return receiptDAO.list();
+	public List<Receipt> getReceipts(String sessionId) throws UserNotLoggedInException, DaoException {
+		
+		if (sessionId == null) throw new UserNotLoggedInException("Can't save a receipt without having a valid session!");
+
+		return receiptDAO.listByUser(sessionDAO.get(sessionId).getCreatorId());
 	}
 
 }

@@ -16,7 +16,7 @@ public interface IReceiptService extends RemoteService {
 
 	Receipt getReceipt(String receiptid) throws UserNotLoggedInException, DaoException;
 
-	List<Receipt> getReceipts() throws UserNotLoggedInException, DaoException;
+	List<Receipt> getReceipts(String sessionId) throws UserNotLoggedInException, DaoException;
 
 
 	/**
