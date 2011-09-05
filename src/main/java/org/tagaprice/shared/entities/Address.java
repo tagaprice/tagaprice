@@ -1,7 +1,6 @@
 package org.tagaprice.shared.entities;
 
 import org.gwtopenmaps.openlayers.client.LonLat;
-import org.svenson.JSONProperty;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -89,55 +88,6 @@ public class Address implements IsSerializable {
 		setPos(new LatLon(lat, lon));
 	}
 
-
-	/**
-	 * @return Latitude
-	 * @deprecated use getPos().getLat() instead
-	 */
-	/*
-	@Deprecated
-	@JSONProperty(ignore=true)
-	public double getLat() {
-		return _position.getLat();
-	}
-	*/
-
-	/**
-	 * @return Longitude
-	 */
-	/*
-	@Deprecated
-	@JSONProperty(ignore=true)
-	public double getLon() {
-		return _position.getLon();
-	}
-	*/
-
-	/**
-	 * @param lat the longitude to set
-	 * @deprecated use getPos().setLat() instead
-	 */
-	/*
-	@Deprecated
-	@JSONProperty(ignore=true)
-	public void setLat(double lat) {
-		_position.setLat(lat);
-	}
-	*/
-
-	
-	/**
-	 * @param lon the longitude to set
-	 * @deprecated use getPos().setLon() instead
-	 */
-	/*
-	@Deprecated
-	@JSONProperty(ignore=true)
-	public void setLon(double lon) {
-		_position.setLon(lon);
-	}
-	*/
-	
 	public LatLon getPos() {
 		return _position;
 	}
