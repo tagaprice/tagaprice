@@ -207,13 +207,7 @@ a:HOVER {
 }
 
 .loginView input {
-    border-width: 2px;
-    border-style: solid;
-    border-color: #bfd255;
-    border-radius: 3px;
-    background-color: #ebe9e1;
-    padding: 3px;
-    margin-bottom: 6px;
+    border-radius: 2px;
 }
 
 .loginView input:HOVER,input:FOCUS {
@@ -369,6 +363,7 @@ table.propertyGrid td {
     border: none;
     background-color: rgba(255, 255, 255, 0.0);
     border: none;
+    border-radius: 2px;
 }
 
 input.morphWidget {
@@ -651,34 +646,8 @@ button:hover {
     color: black;
 }
 
-.stdButton {
-    background-color: #eeeeee;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
-        to(#cccccc) );
-    /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: linear-gradient(top, #eeeeee, #cccccc);
-    border: 1px solid #ccc;
-    border-bottom: 1px solid #bbb;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    color: #333;
-    font-weight: bold;
-    font-size: 11px;
-    padding: 5px 0;
-    text-align: center;
-    text-shadow: 0 1px 0 #eee;
-    min-width: 53px;
-    white-space: nowrap;
-}
 
-.stdButton.save {
+button.save {
     background-color: #7fbf4d;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d),
         to(#63a62f) );
@@ -703,11 +672,13 @@ button:hover {
     text-shadow: 0 -1px 0 #4c9021;
 }
 
-.stdButton.cancel {
+
+button.cancel {
     color: #b43731;
 }
 
-.stdButton:hover {
+
+button.save:hover {
     background-color: #dddddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd),
         to(#bbbbbb) );
@@ -720,14 +691,10 @@ button:hover {
     border-bottom: 1px solid #999;
     cursor: pointer;
     text-shadow: 0 1px 0 #ddd;
-    color: black;
-}
-
-.stdButton.save:hover {
     color: green;
 }
 
-.stdButton.cancel:hover {
+button.cancel:hover {
     color: white;
     background-color: #b43731;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#b43731),
