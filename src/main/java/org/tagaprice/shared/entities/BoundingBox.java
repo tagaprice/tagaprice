@@ -14,6 +14,8 @@
  */
 package org.tagaprice.shared.entities;
 
+import org.tagaprice.shared.entities.Address.LatLon;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
@@ -99,6 +101,19 @@ public class BoundingBox implements IsSerializable {
 	public double getNorthEastLon()
 	{
 		return (_northEastLon);
+	}
+	
+	/**
+	 * Returns true if the given point is within the BoundingBox's boundaries
+	 * @param point Point to check
+	 * @return true if it's within the BoundingBox, false otherwise
+	 */
+	public boolean contains(LatLon point) {
+		return 
+			point.getLat() <= getNorthEastLat() &&
+			point.getLat() >= getSouthWestLat() &&
+			point.getLon() <= getNorthEastLon() &&
+			point.getLon() >= getSouthWestLon();
 	}
 
 	@Override
