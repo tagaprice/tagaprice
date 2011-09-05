@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public abstract class APreviewWidget extends Composite implements HasClickHandlers, HasMouseOverHandlers, HasMouseOutHandlers {
@@ -31,11 +32,8 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	
 	//Mouse over stuff
 	protected HorizontalPanel _mainHoverHoPa = new HorizontalPanel();
-	private Button _clickArea = new Button("");
-	private Button _plusRating = new Button("0");
-	private Button _minusRating = new Button("0");
+	//private Button _clickArea = new Button("");
 	
-	private VerticalPanel _imgRatingVePa = new VerticalPanel();
 	
 	public APreviewWidget(String title, String imgUrl) {
 		
@@ -69,22 +67,7 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 		_absolutePa.setWidgetPosition(_mainHoverHoPa, 0, 0);
 		
 		//image
-		_imgRatingVePa.setStyleName("previewHoverWidget rating");
-		
-		_plusRating.setStyleName("plusRating");
-		_imgRatingVePa.add(_plusRating);
-		_minusRating.setStyleName("minusRating");
-		_imgRatingVePa.add(_minusRating);
-		_absolutePa.add(_imgRatingVePa);
-		_absolutePa.setWidgetPosition(_imgRatingVePa, 0, 0);
-		_imgRatingVePa.setVisible(false);
-		//_mainHoverHoPa.add(imgRatingVePa);
-		//_mainMouseHoPa.setCellWidth(imgRatingVePa, "38px");
-		
-		//title
-		//_mainHoverHoPa.setBorderWidth(1);
-		_clickArea.setWidth("100%");
-		_clickArea.setStyleName("clickArea");
+
 		
 		
 		_mainHoverHoPa.setVisible(false);
@@ -97,7 +80,7 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			@Override
 			public void onMouseOver(MouseOverEvent arg0) {
 				_mainHoverHoPa.setVisible(true);
-				_imgRatingVePa.setVisible(true);
+
 			}
 		});
 		
@@ -107,7 +90,7 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			@Override
 			public void onMouseOut(MouseOutEvent arg0) {
 				_mainHoverHoPa.setVisible(false);
-				_imgRatingVePa.setVisible(false);
+
 			}
 		});
 		
@@ -117,10 +100,12 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	public void addHoverWidget(IsWidget widget){
 
 		if(_mainHoverHoPa.getWidgetCount()==0){
-		_mainHoverHoPa.add(_clickArea);
-		_mainHoverHoPa.setCellWidth(_clickArea, "100%");
+			SimplePanel s = new SimplePanel();
+			_mainHoverHoPa.add(s);
+			_mainHoverHoPa.setCellWidth(s, "100%");
 		}
 		_mainHoverHoPa.add(widget);
+		_mainHoverHoPa.setCellHorizontalAlignment(widget, HorizontalPanel.ALIGN_RIGHT);
 	}
 	
 	@Override
@@ -136,7 +121,7 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		_clickArea.addClickHandler(handler);
+		//_clickArea.addClickHandler(handler);
 		return _mainHoPa.addDomHandler(handler, ClickEvent.getType());
 		//return _clickArea.addClickHandler(handler);
 	}
