@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -45,6 +46,19 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 			}
 		}
 		
+		
+		return rc;
+	}
+	
+	@Override
+	public List<String> findIDsInBBox(BoundingBox bbox) throws DaoException {
+		List<String> rc = new ArrayList<String>();
+		
+		for (Shop shop: list()) {
+			if (bbox.contains(shop.getAddress().getPos())) {
+				rc.add(shop.getId());
+			}
+		}
 		
 		return rc;
 	}
