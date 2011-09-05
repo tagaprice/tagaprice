@@ -142,6 +142,30 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		
 		Log.debug("Start productSearch: "+productSearch);
 
+		_clientFactory.getProductService().findProducts(productSearch.trim(), new AsyncCallback<List<Product>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				try{
+					throw caught;
+				}catch (DaoException e){
+					Log.warn(e.getMessage());
+				}catch (Throwable e){
+					Log.error(e.getMessage());
+				}
+				
+			}
+
+			@Override
+			public void onSuccess(List<Product> response) {
+				if(curProductSearchCount==_productSearchCount)
+					_createReceiptView.setProductSearchResults(response);
+				
+			}
+			
+		});
+		
+		/*
 		_clientFactory.getSearchService().searchProduct(
 				productSearch,
 				_createReceiptView.getShop(),
@@ -164,6 +188,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 							_createReceiptView.setProductSearchResults(response);
 					}
 				});
+				*/
 	}
 
 	@Override

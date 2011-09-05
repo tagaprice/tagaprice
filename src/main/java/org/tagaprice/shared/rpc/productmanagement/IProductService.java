@@ -34,7 +34,7 @@ public interface IProductService extends RemoteService {
 	 * @return
 	 * @throws DaoException if something went wrong while requesting the data
 	 */
-	public List<Product> findProducts(Product searchCriteria) throws DaoException;
+	public List<Product> findProducts(String searchCriteria) throws DaoException;
 
 
 	/**
