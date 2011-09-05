@@ -64,7 +64,7 @@ a:HOVER {
     background-position: left center;
     padding-left: 28px;
 
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px black;
 }
 
 
@@ -98,7 +98,7 @@ a:HOVER {
     background-position: left center;
     padding-left: 28px;
 
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px black;
 }
 
 .header-location:HOVER{
@@ -127,8 +127,7 @@ a:HOVER {
     margin-bottom: 0px;
     font-size: 20px;
     padding: 5px;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
-    
+    box-shadow: 0px 0px 15px black;
     border-bottom:none;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
@@ -140,7 +139,7 @@ a:HOVER {
 
 .stdframe .body {
     background-color: #f7f6f1;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px black;
     padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
