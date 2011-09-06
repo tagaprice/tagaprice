@@ -10,6 +10,8 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateRecei
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsActivity;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
+import org.tagaprice.client.features.searchmanagement.SearchActivity;
+import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.features.shopmanagement.listShops.*;
@@ -55,12 +57,15 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof RegisterPlace){
 			Log.debug("return new RegisterActivity");
 			return new RegisterActivity((RegisterPlace)place, this.clientFactory);
-		}if(place instanceof ListReceiptsPlace){
+		}else if(place instanceof ListReceiptsPlace){
 			Log.debug("return new ListReceiptsActivity");
 			return new ListReceiptsActivity((ListReceiptsPlace)place, this.clientFactory);
-		}if(place instanceof StartPlace){
+		}else if(place instanceof StartPlace){
 			Log.debug("return new StartActivity");
 			return new StartActivity((StartPlace)place, clientFactory);
+		}else if(place instanceof SearchPlace){
+			Log.debug("return new SearchPlace");
+			return new SearchActivity((SearchPlace)place, clientFactory);
 		}
 
 		else {
