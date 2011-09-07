@@ -32,7 +32,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private Presenter _presenter;
 	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _stdFrame = new StdFrame();
-	private StdFrame _statisticFrame = new StdFrame();
 	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();

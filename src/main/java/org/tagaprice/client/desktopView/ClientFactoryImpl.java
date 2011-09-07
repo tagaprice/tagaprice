@@ -18,6 +18,8 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.receiptmanagement.createReceipt.desktopView.CreateReceiptViewImpl;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.desktopView.ListReceiptsViewImpl;
+import org.tagaprice.client.features.searchmanagement.ISearchView;
+import org.tagaprice.client.features.searchmanagement.desktopView.SearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
@@ -69,6 +71,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static IRegisteredView registeredView;
 	private static IListReceiptsView listReceiptView;
 	private static IStartView startView;
+	private static ISearchView searchView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -166,6 +169,13 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 	
 	@Override
+	public ISearchView getSearchView() {
+		if(searchView==null)
+			searchView=new SearchView();
+		return ClientFactoryImpl.searchView;
+	}
+	
+	@Override
 	public ILoginServiceAsync getLoginService() {
 		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
 	}
@@ -200,6 +210,8 @@ public class ClientFactoryImpl implements ClientFactory {
 		// TODO Auto-generated method stub
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
+
+	
 
 
 }

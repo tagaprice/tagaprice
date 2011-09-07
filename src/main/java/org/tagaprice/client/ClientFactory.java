@@ -8,6 +8,7 @@ import org.tagaprice.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
+import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.startmanagement.IStartView;
@@ -107,6 +108,8 @@ public interface ClientFactory {
 	IListReceiptsView getListReceiptsView();
 
 	IStartView getStartView();
+	
+	ISearchView getSearchView();
 
 	/****************** GlobalAddress ***********************/
 	/**
