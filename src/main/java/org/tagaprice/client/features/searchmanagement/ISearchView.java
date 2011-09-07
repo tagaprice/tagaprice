@@ -21,7 +21,7 @@ public interface ISearchView extends IsWidget {
 	
 	public void setPresenter(Presenter presenter);
 	
-	public void addSelectableAddress(Address address);
+	public void addSelectableAddress(List<Address> address);
 	
 	public void setAddress(Address address);
 	

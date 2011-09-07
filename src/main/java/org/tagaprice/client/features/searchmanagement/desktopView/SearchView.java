@@ -48,6 +48,7 @@ public class SearchView extends Composite implements ISearchView {
 	private TextBox _location = new TextBox();
 	private PopupPanel _locationPop = new PopupPanel(true);
 	private VerticalPanel _locationVePa = new VerticalPanel();
+	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	
 	private VerticalPanel _resultsPanel = new VerticalPanel();
 	private VerticalPanel _shopSearchPanel = new VerticalPanel();
@@ -117,6 +118,7 @@ public class SearchView extends Composite implements ISearchView {
 				_presenter.onFindGpsPosition();				
 			}
 		});
+		_locationVePa.add(_dynLocationVePa);
 		_locationVePa.add(locText);
 		
 		
@@ -212,17 +214,23 @@ public class SearchView extends Composite implements ISearchView {
 
 
 	@Override
-	public void addSelectableAddress(final Address address) {
-		Label locText = new Label(address.getStreet()+", "+address.getCity());
-		locText.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.setAddress(address);
-				_locationPop.hide();
-			}
-		});
-		_locationVePa.add(locText);
+	public void addSelectableAddress(List<Address> address) {
+		_dynLocationVePa.clear();
+		
+		for(final Address a:address){
+			Label locText = new Label(a.getStreet()+", "+a.getCity());
+			locText.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					_presenter.setAddress(a);
+					_locationPop.hide();
+				}
+			});
+			_dynLocationVePa.add(locText);
+		}
+		
+		
 		
 	}
 

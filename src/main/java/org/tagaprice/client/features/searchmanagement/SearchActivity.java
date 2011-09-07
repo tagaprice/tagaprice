@@ -1,5 +1,6 @@
 package org.tagaprice.client.features.searchmanagement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
@@ -47,7 +48,10 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 		
 		//TODO TestLocation
 		{
-			_searchView.addSelectableAddress(new Address("Flossgasse", "1020", "Wien", "at", 48.21657, 16.37456));
+			ArrayList<Address> tempAddr = new ArrayList<Address>();
+ 			tempAddr.add(new Address("Flossgasse", "1020", "Wien", "at", 48.21657, 16.37456));
+
+ 			_searchView.addSelectableAddress(tempAddr);
 		}
 		
 		
