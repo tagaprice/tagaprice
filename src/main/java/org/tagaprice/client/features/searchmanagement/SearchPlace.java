@@ -26,7 +26,7 @@ public class SearchPlace extends Place {
 		@Override
 		public String getToken(SearchPlace place) {
 			// TODO Auto-generated method stub
-			return "searchBla";
+			return null;
 		}
 	}
 }
