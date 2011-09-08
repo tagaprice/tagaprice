@@ -3,6 +3,8 @@ package org.tagaprice.client.mvp;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.register.RegisterActivity;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
+import org.tagaprice.client.features.categorymanagement.CategoryActivity;
+import org.tagaprice.client.features.categorymanagement.CategoryPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.productmanagement.listProducts.*;
@@ -38,7 +40,6 @@ public class AppActivityMapper implements ActivityMapper {
 	@Override
 	public Activity getActivity(Place place) {
 		Log.debug("I was asked for an activity...");
-		// TODO make this gin
 		if (place instanceof ListProductsPlace) {
 			Log.debug("return new ListProductsActivity");
 			return new ListProductsActivity((ListProductsPlace) place, this.clientFactory);
@@ -66,6 +67,9 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof SearchPlace){
 			Log.debug("return new SearchPlace");
 			return new SearchActivity((SearchPlace)place, clientFactory);
+		}else if(place instanceof CategoryPlace){
+			Log.debug("return new CategoryPlace");
+			return new CategoryActivity((CategoryPlace)place, clientFactory);
 		}
 
 		else {
