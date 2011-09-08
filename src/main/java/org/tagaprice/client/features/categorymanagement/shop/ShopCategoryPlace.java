@@ -99,7 +99,6 @@ public class ShopCategoryPlace extends Place {
 			
 			
 			TokenCreator.Imploder t = TokenCreator.getImploder();
-			t.addNode("type", "product");
 			t.addNode("id", ""+place.getId());
 			if (place.getRev()!=null){
 				t.addNode("rev", ""+place.getRev());

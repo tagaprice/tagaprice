@@ -16,7 +16,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
-
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -64,6 +64,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		//add Category Selecter
 		_category.setCategoryTypeIsProduct(false);
 		_shopBodyPanel.add(_category);
+		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
+			
+			@Override
+			public void onCategoryClicked(String categoryId) {
+				_presenter.onCategoryClicked(categoryId);				
+			}
+		});
 		
 		//Address Selecter
 		_shopBodyPanel.add(_address);

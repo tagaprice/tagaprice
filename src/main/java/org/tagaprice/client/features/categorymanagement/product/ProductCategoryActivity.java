@@ -36,10 +36,7 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("Activity starts...");
 		_categoryView=_clientFactory.getProductCategoryView();
-		
-		_categoryView.setPresenter(this);
-		
-		
+		_categoryView.setPresenter(this);		
 		
 		
 		if(_place.getId()!=null){	

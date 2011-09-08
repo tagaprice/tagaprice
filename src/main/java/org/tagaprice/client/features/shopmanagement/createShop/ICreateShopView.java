@@ -141,6 +141,12 @@ public interface ICreateShopView extends IsWidget {
 		 * TODO: Implement event
 		 */
 		public void onCategorySelectedEvent();
+		
+		/**
+		 * Is sent if category has been clicked
+		 * @param categoryId
+		 */
+		public void onCategoryClicked(String categoryId);
 	}
 
 
