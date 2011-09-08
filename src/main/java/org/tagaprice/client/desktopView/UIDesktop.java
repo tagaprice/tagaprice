@@ -69,7 +69,7 @@ public class UIDesktop implements IUi {
 		
 		
 		//SearchText
-		Label searchLink = new Label("SEARCH");
+		Label searchLink = new Label("Search");
 		searchLink.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -152,7 +152,7 @@ public class UIDesktop implements IUi {
 					@Override
 					public void onLoginChange(LoginChangeEvent event) {
 						if(_clientFactory.getAccountPersistor().isLoggedIn()){
-							login.setText("DASHBOARD");
+							login.setText("Dashboard");
 							addReceipt.setVisible(true);
 						}else{
 							login.setText("Sign in");

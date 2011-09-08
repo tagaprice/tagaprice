@@ -4,13 +4,13 @@ color background gray: ebe9e1
 */
 
 html {
-    background-color: #2c2d25;
+    background-color: #43aabe;
 }
 
 body {
     margin: 0px;
     padding: 0px;
-    background-color: white;
+    background-color: #43aabe;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
     font-family:times;
     font-size: small;
