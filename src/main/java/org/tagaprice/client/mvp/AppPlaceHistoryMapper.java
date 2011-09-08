@@ -1,7 +1,8 @@
 package org.tagaprice.client.mvp;
 
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
-import org.tagaprice.client.features.categorymanagement.CategoryPlace;
+import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
+import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
@@ -28,7 +29,8 @@ import com.google.gwt.place.shared.*;
 	ListReceiptsPlace.Tokenizer.class,
 	StartPlace.Tokenizer.class,
 	SearchPlace.Tokenizer.class,
-	CategoryPlace.Tokenizer.class})
+	ProductCategoryPlace.Tokenizer.class,
+	ShopCategoryPlace.Tokenizer.class})
 	public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 
 }

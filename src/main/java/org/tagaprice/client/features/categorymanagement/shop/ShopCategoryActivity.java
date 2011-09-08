@@ -1,4 +1,4 @@
-package org.tagaprice.client.features.categorymanagement;
+package org.tagaprice.client.features.categorymanagement.shop;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.categorymanagement.ICategoryView.Presenter;
@@ -8,15 +8,14 @@ import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Label;
 
-public class CategoryActivity extends AbstractActivity implements Presenter {
+public class ShopCategoryActivity extends AbstractActivity implements Presenter {
 
 	
 	private ClientFactory _clientFactory;
-	private CategoryPlace _place;
+	private ShopCategoryPlace _place;
 	
-	public CategoryActivity(CategoryPlace place, ClientFactory clientFactory) {
+	public ShopCategoryActivity(ShopCategoryPlace place, ClientFactory clientFactory) {
 		_place=place;
 		_clientFactory=clientFactory;
 	}
@@ -27,7 +26,7 @@ public class CategoryActivity extends AbstractActivity implements Presenter {
 		Log.debug("Activity starts...");
 		
 		
-		panel.setWidget(new Label("category"));
+		panel.setWidget(_clientFactory.getShopCategoryView());
 		
 	}
 

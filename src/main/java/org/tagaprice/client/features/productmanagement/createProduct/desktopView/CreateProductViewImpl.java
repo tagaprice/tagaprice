@@ -21,7 +21,6 @@ import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;

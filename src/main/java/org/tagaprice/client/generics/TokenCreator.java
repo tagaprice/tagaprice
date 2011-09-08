@@ -102,17 +102,19 @@ public class TokenCreator {
 		 * @param value The value of this parameter.
 		 */
 		public void addNode(String varname, String value) {
-
-			varname = varname.replace("%", TokenCreator.encodedPercent);
-			varname = varname.replace("/", TokenCreator.encodedSlash);
-
-			value = value.replace("%", TokenCreator.encodedPercent);
-			value = value.replace("/", TokenCreator.encodedSlash);
-
-			_nodes.append("/");
-			_nodes.append(varname);
-			_nodes.append("/");
-			_nodes.append(value);
+			if(value!=null && varname!=null){
+				varname = varname.replace("%", TokenCreator.encodedPercent);
+				varname = varname.replace("/", TokenCreator.encodedSlash);
+	
+				value = value.replace("%", TokenCreator.encodedPercent);
+				value = value.replace("/", TokenCreator.encodedSlash);
+				
+				
+				_nodes.append("/");
+				_nodes.append(varname);
+				_nodes.append("/");
+				_nodes.append(value);
+			}
 		}
 
 

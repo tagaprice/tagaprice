@@ -10,6 +10,9 @@ import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
 import org.tagaprice.client.features.accountmanagement.register.desktopView.RegisterViewImpl;
 import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
+import org.tagaprice.client.features.categorymanagement.ICategoryView;
+import org.tagaprice.client.features.categorymanagement.product.desktopView.ProductCategoryView;
+import org.tagaprice.client.features.categorymanagement.shop.desktopView.ShopCategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.desktopView.CreateProductViewImpl;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
@@ -72,6 +75,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static IListReceiptsView listReceiptView;
 	private static IStartView startView;
 	private static ISearchView searchView;
+	private static ICategoryView shopCategoryView;
+	private static ICategoryView productCategoryView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -175,6 +180,21 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.searchView;
 	}
 	
+	
+	@Override
+	public ICategoryView getShopCategoryView() {
+		if(shopCategoryView==null)
+			shopCategoryView=new ShopCategoryView();
+		return shopCategoryView;
+	}
+
+	@Override
+	public ICategoryView getProductCategoryView() {
+		if(productCategoryView==null)
+			productCategoryView=new ProductCategoryView();
+		return productCategoryView;
+	}
+	
 	@Override
 	public ILoginServiceAsync getLoginService() {
 		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
@@ -210,6 +230,10 @@ public class ClientFactoryImpl implements ClientFactory {
 		// TODO Auto-generated method stub
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
+
+	
+
+	
 
 	
 
