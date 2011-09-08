@@ -2,6 +2,7 @@ package org.tagaprice.client.generics.widgets.desktopView;
 
 import java.util.List;
 
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -11,6 +12,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -30,7 +32,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private HorizontalPanel _hoPa = new HorizontalPanel();
 	private boolean _readonly = true;
 	private boolean _categoryTypeIsProduct = true;
-
+	private CategorySelectedEventHandler _handler=null;;
 
 	public CategorySelecter() {
 		_hoPa.setStyleName("categorySelecter");
@@ -89,6 +91,17 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		}
 	}
 
+	@Override
+	public void setCategoryTypeIsProduct(boolean isProduct) {
+		_categoryTypeIsProduct=isProduct;		
+	}
+
+	@Override
+	public void addCategorySelectedEventHandler(
+			CategorySelectedEventHandler handler) {
+		_handler=handler;
+		
+	}
 
 	class SimpleCategorySelecter extends Composite{
 
@@ -108,6 +121,17 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 			if(_myCat!=null){
 				text.setText(_myCat.getTitle());
+				
+				text.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						if(_handler!=null)
+							_handler.onCategoryClicked(_myCat.getId());
+						
+					}
+				});
+				
 			}
 
 			arrow.setStyleName("arrow");
@@ -212,10 +236,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 
-	@Override
-	public void setCategoryTypeIsProduct(boolean isProduct) {
-		_categoryTypeIsProduct=isProduct;		
-	}
+	
 	
 	
 }

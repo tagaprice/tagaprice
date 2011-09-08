@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
@@ -80,6 +81,14 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_productBodyPanel.setWidth("100%");
 		_stdFrame.setBody(_productBodyPanel, "300px");
 		_productBodyPanel.add(_category);
+		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
+			
+			@Override
+			public void onCategoryClicked(String categoryId) {
+				_presenter.onCategoryClicked(categoryId);				
+			}
+		});
+		
 		
 		
 		//package sizes

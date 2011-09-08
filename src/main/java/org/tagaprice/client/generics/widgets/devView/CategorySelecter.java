@@ -2,6 +2,7 @@ package org.tagaprice.client.generics.widgets.devView;
 
 import java.util.List;
 
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
@@ -182,5 +183,12 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	@Override
 	public void setCategoryTypeIsProduct(boolean isProduct) {
 		_categoryTypeIsProduct=isProduct;		
+	}
+
+	@Override
+	public void addCategorySelectedEventHandler(
+			CategorySelectedEventHandler handler) {
+		// TODO Auto-generated method stub
+		
 	}
 }
