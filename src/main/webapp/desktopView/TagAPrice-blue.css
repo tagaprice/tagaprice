@@ -355,6 +355,7 @@ table.propertyGrid td {
     border-style: solid;
     border-color: #bfd255;
     border-top: none;
+    
 }
 
 .searchPopup .entry {
@@ -435,24 +436,48 @@ input.morphWidget {
 }
 
 .unitSelecter.edit {
-    background-image: url('arrowBlackDown.png');
-    background-repeat: no-repeat;
-    background-position: right center;
-    padding: 0 14px 0 0;
-    white-space: nowrap;
-    border: solid 1px #bfd255;
     cursor: pointer;
+
+    background-color: #eeeeee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
+        to(#cccccc) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: linear-gradient(top, #eeeeee, #cccccc);
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #bbb;
+    color: #333;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 1px 0 #eee;
+    white-space: nowrap;
+    border-right:none;
+
+    
+    padding: 3px;
+    padding-left:5px;
+    padding-right:5px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+
+}
+
+.unitArrowSelecter{
+    cursor: pointer;
+    border-left: 1px solid #ccc;
 }
 
 .unitSelecter.edit.headline {
-    background-image: url('arrowWhiteDown.png');
 }
 
 .popBackground {
     background-color: white;
-    border: solid 2px #bfd255;
     padding: 3px;
-    cursor: pointer;
+    border: solid 2px #ebe9e1;
+    min-width:30px;
 }
 
 .categorySelecter {

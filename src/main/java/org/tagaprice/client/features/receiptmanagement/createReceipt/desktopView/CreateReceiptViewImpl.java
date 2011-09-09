@@ -281,18 +281,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_locationVePa.add(locText);
 				}
 				
-				{
-					Label locText = new Label("Anywhere");
-					locText.addClickHandler(new ClickHandler() {
-						
-						@Override
-						public void onClick(ClickEvent arg0) {
-							setLocation(new Address("Anywhere", 0, 0));
-							setLocation(new Address("Anywhere", 0, 0));
-						}
-					});
-					_locationVePa.add(locText);
-				}
 				
 			}
 			
