@@ -15,8 +15,8 @@ public class Address implements IsSerializable {
 		}
 		
 		public LatLon() {
-			_lat = 0;
-			_lon = 0;
+			_lat = 1;
+			_lon = 2;
 		}
 		
 		public double getLat() {
