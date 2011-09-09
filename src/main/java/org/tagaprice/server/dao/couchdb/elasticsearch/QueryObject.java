@@ -5,9 +5,9 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.query.Query;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.QueryWrapper;
 
 public class QueryObject {
-	private Integer m_from;
-	private Integer m_size;
-	private Query m_query;
+	private Integer m_from = 0;
+	private Integer m_size = 10;
+	private Query m_query = null;
 	
 	public QueryObject() {}
 	
