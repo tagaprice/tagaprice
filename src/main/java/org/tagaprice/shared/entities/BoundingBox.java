@@ -115,6 +115,17 @@ public class BoundingBox implements IsSerializable {
 			point.getLon() <= getEastLon() &&
 			point.getLon() >= getWestLon();
 	}
+	
+	@Override
+	public boolean equals(Object otherObject) {
+		if (!(otherObject instanceof BoundingBox)) return false;
+		BoundingBox other = (BoundingBox) otherObject;
+		if (other.getNorthLat() != getNorthLat()) return false;
+		if (other.getEastLon() != getEastLon()) return false;
+		if (other.getSouthLat() != getSouthLat()) return false;
+		if (other.getWestLon() != getWestLon()) return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
