@@ -77,13 +77,13 @@ public class SearchServiceImpl extends RemoteServiceServlet implements ISearchSe
 
 
 	@Override
-	public ArrayList<StatisticResult> searchProductPrices(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
+	public List<StatisticResult> searchProductPrices(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
 		return statisticDao.searchPricesViaProduct(productId, bbox, begin, end);
 	}
 
 	@Override
-	public List<StatisticResult> searchShopPrices(String shopId, BoundingBox bbox, Date begin, Date end) {
-		return statisticDao.searchPricesViaShop(shopId, bbox, begin, end);
+	public List<StatisticResult> searchShopPrices(String shopId, Date begin, Date end) throws DaoException {
+		return statisticDao.searchPricesViaShop(shopId, begin, end);
 	}
 
 }
