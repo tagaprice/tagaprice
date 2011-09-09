@@ -14,8 +14,8 @@ public class BoundingBoxFilter implements Filter {
 		public BoundingBox() {}
 
 		public BoundingBox convert(org.tagaprice.shared.entities.BoundingBox other) {
-			topLeft(new LatLon(other.getNorthEastLat(), other.getSouthWestLon()));
-			bottomRight(new LatLon(other.getSouthWestLat(), other.getNorthEastLon()));
+			topLeft(new LatLon(other.getNorthLat(), other.getWestLon()));
+			bottomRight(new LatLon(other.getSouthLat(), other.getEastLon()));
 			return this;
 		}
 		public BoundingBox topLeft(LatLon topLeft) {

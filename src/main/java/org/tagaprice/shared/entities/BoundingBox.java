@@ -71,7 +71,7 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for x1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getSouthWestLat()
+	public double getSouthLat()
 	{
 		return _southLat;
 	}
@@ -80,7 +80,7 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for y1. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getSouthWestLon()
+	public double getWestLon()
 	{
 		return _westLon;
 	}
@@ -89,7 +89,7 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for x2. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getNorthEastLat()
+	public double getNorthLat()
 	{
 		return _northLat;
 	}
@@ -98,7 +98,7 @@ public class BoundingBox implements IsSerializable {
 	 * Getter for y2. Setters are not required because a bounding box is read-only.
 	 * @return
 	 */
-	public double getNorthEastLon()
+	public double getEastLon()
 	{
 		return _eastLon;
 	}
@@ -110,10 +110,10 @@ public class BoundingBox implements IsSerializable {
 	 */
 	public boolean contains(LatLon point) {
 		return 
-			point.getLat() <= getNorthEastLat() &&
-			point.getLat() >= getSouthWestLat() &&
-			point.getLon() <= getNorthEastLon() &&
-			point.getLon() >= getSouthWestLon();
+			point.getLat() <= getNorthLat() &&
+			point.getLat() >= getSouthLat() &&
+			point.getLon() <= getEastLon() &&
+			point.getLon() >= getWestLon();
 	}
 
 	@Override
