@@ -4,10 +4,12 @@ import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
+import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.*;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
+import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.startmanagement.IStartView;
@@ -107,7 +109,13 @@ public interface ClientFactory {
 	IListReceiptsView getListReceiptsView();
 
 	IStartView getStartView();
+	
+	ISearchView getSearchView();
+	
+	ICategoryView getShopCategoryView();
 
+	ICategoryView getProductCategoryView();
+	
 	/****************** GlobalAddress ***********************/
 	/**
 	 * Returns Static {@link AccountPersistor}

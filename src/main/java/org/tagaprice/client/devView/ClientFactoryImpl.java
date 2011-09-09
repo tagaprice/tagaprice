@@ -10,6 +10,7 @@ import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
 import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
 import org.tagaprice.client.features.accountmanagement.register.devView.RegisterViewImpl;
 import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
+import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.devView.*;
 import org.tagaprice.client.features.productmanagement.listProducts.*;
@@ -18,6 +19,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateRece
 import org.tagaprice.client.features.receiptmanagement.createReceipt.devView.CreateReceiptViewImpl;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.devView.ListReceiptsViewImpl;
+import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
 import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
@@ -36,6 +38,7 @@ import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.shared.rpc.shopmanagement.*;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.*;
 import com.google.gwt.place.shared.PlaceController;
@@ -181,6 +184,27 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IStartView getStartView() {
 		return ClientFactoryImpl.startView;
+	}
+
+	@Override
+	public ISearchView getSearchView() {
+		// TODO Auto-generated method stub
+		Log.debug("getSearchView is null ......................");
+		return null;
+	}
+
+	@Override
+	public ICategoryView getShopCategoryView() {
+		// TODO Auto-generated method stub
+		Log.debug("getShopCategoryView is null ......................");
+		return null;
+	}
+
+	@Override
+	public ICategoryView getProductCategoryView() {
+		// TODO Auto-generated method stub
+		Log.debug("getProductCategoryView is null ......................");
+		return null;
 	}
 
 

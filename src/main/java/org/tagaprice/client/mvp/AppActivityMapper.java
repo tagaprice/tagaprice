@@ -3,6 +3,11 @@ package org.tagaprice.client.mvp;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.register.RegisterActivity;
 import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
+import org.tagaprice.client.features.categorymanagement.product.ProductCategoryActivity;
+import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
+import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryActivity;
+import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
+import org.tagaprice.client.features.categorymanagement.shop.desktopView.ShopCategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.productmanagement.listProducts.*;
@@ -10,6 +15,8 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateRecei
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsActivity;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
+import org.tagaprice.client.features.searchmanagement.SearchActivity;
+import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.features.shopmanagement.listShops.*;
@@ -36,7 +43,6 @@ public class AppActivityMapper implements ActivityMapper {
 	@Override
 	public Activity getActivity(Place place) {
 		Log.debug("I was asked for an activity...");
-		// TODO make this gin
 		if (place instanceof ListProductsPlace) {
 			Log.debug("return new ListProductsActivity");
 			return new ListProductsActivity((ListProductsPlace) place, this.clientFactory);
@@ -55,12 +61,21 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof RegisterPlace){
 			Log.debug("return new RegisterActivity");
 			return new RegisterActivity((RegisterPlace)place, this.clientFactory);
-		}if(place instanceof ListReceiptsPlace){
+		}else if(place instanceof ListReceiptsPlace){
 			Log.debug("return new ListReceiptsActivity");
 			return new ListReceiptsActivity((ListReceiptsPlace)place, this.clientFactory);
-		}if(place instanceof StartPlace){
+		}else if(place instanceof StartPlace){
 			Log.debug("return new StartActivity");
 			return new StartActivity((StartPlace)place, clientFactory);
+		}else if(place instanceof SearchPlace){
+			Log.debug("return new SearchPlace");
+			return new SearchActivity((SearchPlace)place, clientFactory);
+		}else if(place instanceof ProductCategoryPlace){
+			Log.debug("return new ProductCategoryPlace");
+			return new ProductCategoryActivity((ProductCategoryPlace)place, clientFactory);
+		}else if(place instanceof ShopCategoryPlace){
+			Log.debug("return new ShopCategoryPlace");
+			return new ShopCategoryActivity((ShopCategoryPlace)place, clientFactory); 
 		}
 
 		else {

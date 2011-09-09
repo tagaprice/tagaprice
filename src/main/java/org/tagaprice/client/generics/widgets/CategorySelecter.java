@@ -1,5 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 import com.google.gwt.core.client.GWT;
@@ -43,6 +44,13 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	@Override
 	public void setCategoryTypeIsProduct(boolean isProduct) {
 		categorySelecter.setCategoryTypeIsProduct(isProduct);		
+	}
+
+	@Override
+	public void addCategorySelectedEventHandler(
+			CategorySelectedEventHandler handler) {
+		categorySelecter.addCategorySelectedEventHandler(handler);
+		
 	}
 
 

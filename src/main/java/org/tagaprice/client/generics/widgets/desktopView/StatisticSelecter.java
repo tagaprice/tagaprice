@@ -33,6 +33,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -112,6 +113,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		Label _resultTitle = new Label("Results");
 		_resultTitle.setStyleName("propertyHeader");
 		vePa1.add(_resultTitle);
+		resultList.setWidth("100%");
 		vePa1.add(resultList);
 
 
@@ -228,11 +230,11 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		}
 
 		//Draw List
-		for(Shop key: sortedByShopList.keySet()){
+		for(final Shop key: sortedByShopList.keySet()){
 			VerticalPanel vePa = new VerticalPanel();
 
 			BigDecimal cheapest = null;
-			Currency currency = Currency.euro;;
+			Currency currency = Currency.euro;
 			Unit unit = new Unit();
 			for(StatisticResult sr: sortedByShopList.get(key)){
 				vePa.add(new Label(" - "+
@@ -254,11 +256,22 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					}
 
 			}
-			LonLat ln = _osmMap.getCenter();
+			final LonLat ln = _osmMap.getCenter();
 			ln.transform( "EPSG:900913","EPSG:4326");
 						
+			key.setTitle(cheapest.toString()+""+currency+"/1"+unit.getTitle()+" | "+key.getTitle());
+			ShopPreview sp = new ShopPreview(key);
+			sp.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					History.newItem("shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom());
+					
+				}
+			});
+			resultList.add(sp);
 			
-			resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
+			//resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
 			resultList.add(vePa);
 
 			LonLat lonLat = key.getAddress().getPos().toLonLat();

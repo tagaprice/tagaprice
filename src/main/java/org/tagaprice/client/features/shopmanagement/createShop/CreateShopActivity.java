@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
@@ -104,7 +105,10 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 					if(_place.getRedirectId()!=null){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "shop"));
 					}else{
-						updateView(result);
+						if(_shop.getId()==null)
+							goTo(new CreateShopPlace(result.getId(), null, null, null, null, ""+result.getAddress().getPos().getLat(), ""+result.getAddress().getPos().getLon(), _place.getZoom()));
+						else
+							updateView(result);
 					}
 
 					//setReadable
@@ -296,6 +300,18 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void onCategorySelectedEvent() {
 		Log.debug("Unit has changed");		
+	}
+
+
+	@Override
+	public void onCategoryClicked(String categoryId) {
+		goTo(new ShopCategoryPlace(
+				categoryId, 
+				null, 
+				_place.getLat(), 
+				_place.getLon(), 
+				_place.getZoom()));
+		
 	}
 
 }

@@ -44,7 +44,7 @@ public interface ILoginService extends RemoteService {
 	 *            to lookup.
 	 * @return true if email is not used yet.
 	 */
-	public Boolean isEmailAvailable(String email);
+	public boolean isEmailAvailable(String email);
 
 
 
@@ -70,7 +70,7 @@ public interface ILoginService extends RemoteService {
 	 *            second time the new password
 	 * @return True if password has being changed.
 	 */
-	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
+	public boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
 	throws UserNotLoggedInException;
 	
 	/**
@@ -78,5 +78,5 @@ public interface ILoginService extends RemoteService {
 	 * @param email email to check
 	 * @return true/false if this email has been confirmed. But false if not, or not available. 
 	 */
-	public Boolean isEmailConfirmed(String email);
+	public boolean isEmailConfirmed(String email);
 }

@@ -188,6 +188,12 @@ public interface ICreateProductView extends IsWidget {
 		 * @param end end Date
 		 */
 		public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end);
+		
+		/**
+		 * Is sent if category has been clicked
+		 * @param categoryId
+		 */
+		public void onCategoryClicked(String categoryId);
 	}
 
 }

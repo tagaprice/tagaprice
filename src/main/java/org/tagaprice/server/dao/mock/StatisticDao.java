@@ -51,7 +51,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	@Override
 	public List<StatisticResult> searchPricesViaShop(String shopId, BoundingBox bbox, Date begin, Date end) {
 
-		Log.debug("searchShopPrice");
+		Log.debug("searchShopPrice: bbox: "+bbox);
 		//TODO search
 		//Test Data
 		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();

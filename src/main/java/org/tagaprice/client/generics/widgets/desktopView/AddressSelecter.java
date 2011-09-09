@@ -84,6 +84,9 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		
 		_addressGrid.getCellFormatter().setStyleName(0, 0, "namecell");
 		_addressGrid.getCellFormatter().setStyleName(0, 1, "valuecell");
+		_addressGrid.getCellFormatter().setStyleName(1, 1, "valuecell");
+		_addressGrid.getCellFormatter().setStyleName(2, 1, "valuecell");
+		_addressGrid.getCellFormatter().setStyleName(3, 1, "valuecell");
 		
 		_addressBox.setReadOnly(true);
 		_addressGrid.setWidget(0, 1, _streeBox);

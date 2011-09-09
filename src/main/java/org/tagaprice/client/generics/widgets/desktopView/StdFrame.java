@@ -44,9 +44,9 @@ public class StdFrame extends Composite implements IStdFrame{
 		vePa.setCellWidth(bodyHoPa, "100%");		
 		
 		//buttons
-		_cancelButton.setStyleName("stdButton cancel");
-		_saveButton.setStyleName("stdButton save");
-		_editButton.setStyleName("stdButton");
+		_cancelButton.setStyleName("cancel");
+		_saveButton.setStyleName("save");
+		//_editButton.setStyleName("stdButton");
 
 		_buttonPanel.add(_saveButton);
 		_buttonPanel.add(_cancelButton);

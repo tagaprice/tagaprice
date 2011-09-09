@@ -4,13 +4,13 @@ color background gray: ebe9e1
 */
 
 html {
-    background-color: #2c2d25;
+    background-color: #43aabe;
 }
 
 body {
     margin: 0px;
     padding: 0px;
-    background-color: white;
+    background-color: #43aabe;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
     font-family:times;
     font-size: small;
@@ -42,8 +42,21 @@ a:HOVER {
 }
 
 .header {
-    width: 100%;
+    width: 950px;
     height: 60px;
+}
+
+.logo a{
+    color:white;
+    font-family: 'Passero One', cursive;
+    font-size: 40px;
+    text-shadow: 0px 0px 10px white;
+}
+
+.logo a:hover{
+    color:white;
+    text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
 }
 
 
@@ -64,7 +77,7 @@ a:HOVER {
     background-position: left center;
     padding-left: 28px;
 
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px black;
 }
 
 
@@ -98,7 +111,7 @@ a:HOVER {
     background-position: left center;
     padding-left: 28px;
 
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px black;
 }
 
 .header-location:HOVER{
@@ -127,8 +140,7 @@ a:HOVER {
     margin-bottom: 0px;
     font-size: 20px;
     padding: 5px;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
-    
+    box-shadow: 0px 0px 15px black;
     border-bottom:none;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
@@ -140,7 +152,7 @@ a:HOVER {
 
 .stdframe .body {
     background-color: #f7f6f1;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px black;
     padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
@@ -183,19 +195,23 @@ a:HOVER {
 
 .login {
     white-space:nowrap;
-    color: #2c2d25;
-    font-weight: bold;
+    color: white;
     margin: 0px;
-    padding: 7px;
-    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
     cursor: pointer;
-    margin-left:1px;
+    margin-left:8px;
+    font-size: 15px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    font-weight: bold;
+    background-color: #2c2d25;
+    border-radius:5px;
 }
 
 .login:HOVER {
-    color: #ebe9e1;
+    color: white;
     cursor: pointer;
     background-color: #2c2d25;
+    box-shadow: 0px 0px 10px 4px white;
 }
 
 .loginView {
@@ -208,33 +224,13 @@ a:HOVER {
 }
 
 .loginView input {
-    border-width: 2px;
-    border-style: solid;
-    border-color: #bfd255;
-    border-radius: 3px;
-    background-color: #ebe9e1;
-    padding: 3px;
-    margin-bottom: 6px;
+    border-radius: 2px;
 }
 
 .loginView input:HOVER,input:FOCUS {
     box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
 }
 
-.loginView button {
-    cursor: pointer;
-    font-weight: bold;
-    color: #2c2d25;
-    border-radius: 3px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #bfd255;
-    padding: 3px;
-}
-
-.loginView button:HOVER,button:FOCUS {
-    box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
-}
 
 .loginView a {
     color: #bfd255;
@@ -366,10 +362,10 @@ table.propertyGrid td {
 }
 
 .morphWidget {
-    width: 100%;
     border: none;
     background-color: rgba(255, 255, 255, 0.0);
     border: none;
+    border-radius: 2px;
 }
 
 input.morphWidget {
@@ -652,34 +648,8 @@ button:hover {
     color: black;
 }
 
-.stdButton {
-    background-color: #eeeeee;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
-        to(#cccccc) );
-    /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: linear-gradient(top, #eeeeee, #cccccc);
-    border: 1px solid #ccc;
-    border-bottom: 1px solid #bbb;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    color: #333;
-    font-weight: bold;
-    font-size: 11px;
-    padding: 5px 0;
-    text-align: center;
-    text-shadow: 0 1px 0 #eee;
-    min-width: 53px;
-    white-space: nowrap;
-}
 
-.stdButton.save {
+button.save {
     background-color: #7fbf4d;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d),
         to(#63a62f) );
@@ -704,11 +674,13 @@ button:hover {
     text-shadow: 0 -1px 0 #4c9021;
 }
 
-.stdButton.cancel {
+
+button.cancel {
     color: #b43731;
 }
 
-.stdButton:hover {
+
+button.save:hover {
     background-color: #dddddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd),
         to(#bbbbbb) );
@@ -721,14 +693,10 @@ button:hover {
     border-bottom: 1px solid #999;
     cursor: pointer;
     text-shadow: 0 1px 0 #ddd;
-    color: black;
-}
-
-.stdButton.save:hover {
     color: green;
 }
 
-.stdButton.cancel:hover {
+button.cancel:hover {
     color: white;
     background-color: #b43731;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#b43731),

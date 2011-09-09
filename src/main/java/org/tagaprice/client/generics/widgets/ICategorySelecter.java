@@ -1,5 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -24,4 +25,6 @@ public interface ICategorySelecter extends IsWidget {
 	void setReadOnly(boolean read);
 
 	void setCategoryTypeIsProduct(boolean isProduct);
+	
+	void addCategorySelectedEventHandler(CategorySelectedEventHandler handler);
 }

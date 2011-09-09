@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
@@ -109,7 +110,10 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 					if(_place.getRedirectId()!=null){
 						goTo(new CreateReceiptPlace(_place.getId(), result.getId(), "product"));
 					}else{
-						updateView(result);
+						if(_product.getId()==null)
+							goTo(new CreateProductPlace(result.getId(), null, null, null, _place.getLat(), _place.getLon(), _place.getZoom()));
+						else
+							updateView(result);
 					}
 					
 					//setReadable
@@ -260,6 +264,17 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			}
 		});
 
+	}
+
+	@Override
+	public void onCategoryClicked(String categoryId) {
+		goTo(new ProductCategoryPlace(
+				categoryId, 
+				null, 
+				_place.getLat(), 
+				_place.getLon(), 
+				_place.getZoom()));
+		
 	}
 
 }

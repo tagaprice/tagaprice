@@ -87,7 +87,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public Boolean isEmailAvailable(String email) {
+	public boolean isEmailAvailable(String email) {
 		if(!email.toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")) {
 			return false;
 		}
@@ -96,7 +96,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public Boolean isEmailConfirmed(String email){
+	public boolean isEmailConfirmed(String email){
 		User user = _userDao.getByMail(email);
 		if(user == null) return false;
 		
@@ -104,10 +104,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public Boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
+	public boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
 	throws UserNotLoggedInException {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override

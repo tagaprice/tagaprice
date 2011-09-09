@@ -40,11 +40,11 @@ public class ReceiptEntryPreview extends PackagePreview {
 	
 	public void setReadOnly(boolean read) {
 		_readonly=read;
+		
 		_price.setReadOnly(_readonly);
 		
-		System.out.println("getQuantity: "+_receiptEntry.getPackage().getQuantity().getQuantity());
 		
-		if(_receiptEntry.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0"))){
+		if(_receiptEntry.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) || _receiptEntry.getPackageId()==null){
 			super.setReadOnly(_readonly);
 		}
 		

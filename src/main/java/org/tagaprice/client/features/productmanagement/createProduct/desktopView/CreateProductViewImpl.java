@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
+import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IUnitChangedHandler;
@@ -21,7 +22,6 @@ import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -32,7 +32,6 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private Presenter _presenter;
 	private HorizontalPanel _hoPa1 = new HorizontalPanel();
 	private StdFrame _stdFrame = new StdFrame();
-	private StdFrame _statisticFrame = new StdFrame();
 	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
@@ -82,6 +81,14 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_productBodyPanel.setWidth("100%");
 		_stdFrame.setBody(_productBodyPanel, "300px");
 		_productBodyPanel.add(_category);
+		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
+			
+			@Override
+			public void onCategoryClicked(String categoryId) {
+				_presenter.onCategoryClicked(categoryId);				
+			}
+		});
+		
 		
 		
 		//package sizes

@@ -1,6 +1,7 @@
 package org.tagaprice.client.features.accountmanagement.login.desktopView;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
+import org.tagaprice.client.generics.widgets.MorphWidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,7 +24,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 
 	private SimplePanel panel = new SimplePanel();
 	private VerticalPanel vePaSignInUp = new VerticalPanel();
-	private TextBox email = new TextBox();
+	private MorphWidget email = new MorphWidget();
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button signInButton = new Button("Log in");
 	private Button signUpButton = new Button("Sign up!");
@@ -77,7 +78,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 
 	@Override
 	public String getEmail() {
-		return email.getText();
+		return email.getValue();
 	}
 
 	@Override
@@ -115,6 +116,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		vePaSignInUp.add(emailText);
 		vePaSignInUp.add(email);
+		email.setReadOnly(false);
 		
 		//radio
 		vePaSignInUp.add(signInRadio);
@@ -123,6 +125,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		vePaSignInUp.add(passwordText);
 		vePaSignInUp.add(password);
+		password.setStyleName("morphWidget edit");
 		
 		//sign in button
 		
