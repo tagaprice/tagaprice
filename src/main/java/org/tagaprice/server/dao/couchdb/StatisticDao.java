@@ -25,6 +25,8 @@ import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 public class StatisticDao extends DaoClass<StatisticResult> implements IStatisticDao {
 	private ElasticSearchClient m_searchClient;
 	private IPackageDao m_packageDao;
@@ -41,13 +43,14 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 
 	@Override
 	public ArrayList<StatisticResult> searchPricesViaProduct(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
+		// get all the packages of the product in question
 		List<String> packageIDs = m_packageDao.listIDsByProduct(productId);
+		// get all the shops in the specified bbox
 		List<String> shopIDs = m_shopDao.findIDsInBBox(bbox);
 		
-		//TODO Search efficient via db or elasticsearch
-		//Test Data
 		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
 
+		// find all receipts that contain at least one of the packages AND at least one of the shops
 		QueryObject queryObject = new QueryObject().query(
 			new FilteredQuery().query(
 				new MatchAllQuery()
@@ -72,6 +75,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 				}
 			}
 		}
+		
+		Log.debug("got "+rc.size()+" results");
 		
 		return rc;
 	}
