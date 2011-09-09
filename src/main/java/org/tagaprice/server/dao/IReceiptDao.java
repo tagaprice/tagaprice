@@ -11,4 +11,6 @@ public interface IReceiptDao extends IDaoClass<Receipt> {
 	List<Receipt> listByPackage(String packageId) throws DaoException;
 
 	List<Receipt> listByUser(String userId) throws DaoException;
+
+	List<String> listPackageIDsByShop(String shopId) throws DaoException;
 }

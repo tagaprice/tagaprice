@@ -117,6 +117,18 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 		return rc;
 	}
+	
+	@Override
+	public List<String> listPackageIDsByShop(String shopId) throws DaoException {
+		ViewResult<?> result = m_db.queryView("receipt/packagesByShop", String.class, new Options().key(shopId), null);
+		List<String> rc = new ArrayList<String>();
+
+		for (ValueRow<?> row: result.getRows()) {
+			rc.add(row.getValue().toString());
+		}
+
+		return rc;
+	}
 
 	@Override
 	protected void _injectFields(Receipt receipt) throws DaoException {
