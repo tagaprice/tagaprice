@@ -94,6 +94,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		final HorizontalPanel detailPanel = new HorizontalPanel();
 		detailPanel.setVisible(false);
 		
+		//beginDate.setCurrentMonth(new Date(1312192800000L));
+		//beginDate.setValue(new Date(1312192800000L));
 		detailPanel.add(beginDate);
 		detailPanel.add(endDate);
 		setDate(new Date(), new Date());
@@ -301,8 +303,12 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	@Override
 	public void setDate(Date begin, Date end) {
+		
 		beginDate.setValue(begin);
 		endDate.setValue(end);
+		
+		beginDate.setCurrentMonth(begin);
+		endDate.setCurrentMonth(end);
 	}
 
 	@Override
