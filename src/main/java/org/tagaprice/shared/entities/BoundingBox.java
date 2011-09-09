@@ -25,8 +25,8 @@ public class BoundingBox implements IsSerializable {
 	/// default serial version id
 	private static final long serialVersionUID = 1L;
 
-	private double _southWestLat, _southWestLon;
-	private double _northEastLat, _northEastLon;
+	private double _northLat, _southLat;
+	private double _westLon, _eastLon;
 
 	/**
 	 * This constructor is used by the serialization algorithm
@@ -41,29 +41,29 @@ public class BoundingBox implements IsSerializable {
 	 * @param x2
 	 * @param y2
 	 */
-	public BoundingBox(double southWestLat, double southWestLon, double northEastLat, double northEastLon)
+	public BoundingBox(double southLat, double westLon, double northLat, double eastLon)
 	{
 		//Make sure the the coordinates of (x1, y1) are lower than for the point (x2, y2).
-		if (southWestLat <= northEastLat)
+		if (southLat <= northLat)
 		{
-			this._southWestLat = southWestLat;
-			this._northEastLat = northEastLat;
+			this._southLat = southLat;
+			this._northLat = northLat;
 		}
 		else
 		{
-			this._southWestLat = northEastLat;
-			this._northEastLat = southWestLat;
+			this._southLat = northLat;
+			this._northLat = southLat;
 		}
 
-		if (southWestLon <= northEastLon)
+		if (westLon <= eastLon)
 		{
-			this._southWestLon = southWestLon;
-			this._northEastLon = northEastLon;
+			this._westLon = westLon;
+			this._eastLon = eastLon;
 		}
 		else
 		{
-			this._southWestLon = northEastLon;
-			this._northEastLon = southWestLon;
+			this._westLon = eastLon;
+			this._eastLon = westLon;
 		}
 	}
 
@@ -73,7 +73,7 @@ public class BoundingBox implements IsSerializable {
 	 */
 	public double getSouthWestLat()
 	{
-		return (_southWestLat);
+		return _southLat;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class BoundingBox implements IsSerializable {
 	 */
 	public double getSouthWestLon()
 	{
-		return (_southWestLon);
+		return _westLon;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class BoundingBox implements IsSerializable {
 	 */
 	public double getNorthEastLat()
 	{
-		return (_northEastLat);
+		return _northLat;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class BoundingBox implements IsSerializable {
 	 */
 	public double getNorthEastLon()
 	{
-		return (_northEastLon);
+		return _eastLon;
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class BoundingBox implements IsSerializable {
 
 	@Override
 	public String toString() {
-		return "_southWestLat: "+_southWestLat+", _southWestLon: "+_southWestLon+", _northEastLat: "+_northEastLat+", _northEastLon: "+_northEastLon;
+		return "_southLat: "+_southLat+", _westLon: "+_westLon+", _northLat: "+_northLat+", _eastLon: "+_eastLon;
 	}
 
 }
