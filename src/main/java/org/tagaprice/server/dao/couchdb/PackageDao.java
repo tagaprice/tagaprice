@@ -28,16 +28,10 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 
 	@Override
 	public List<Package> listByProduct(String productId) throws DaoException{
-
-		//ViewResult<?> result = m_db.queryViewByKeys("package/toproduct", Package.class, Arrays.asList(productId), null, null);
-		ViewResult<?> result = m_db.queryView("package/toproduct", Package.class, new Options().key(productId), null);
-
 		List<Package> rc = new ArrayList<Package>();
 
-		for (ValueRow<?> row: result.getRows()) {
-			Package packa = get(row.getId());
-
-			rc.add(packa);
+		for(String packageId: listIDsByProduct(productId)) {
+			rc.add(get(packageId));
 		}
 
 		return rc;
@@ -45,7 +39,7 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	
 	@Override
 	public List<String> listIDsByProduct(String productId) throws DaoException {
-		ViewResult<?> result = m_db.queryView("package/toproduct", Package.class, new Options().key(productId), null);
+		ViewResult<?> result = m_db.queryView("package/byProduct", String.class, new Options().key(productId), null);
 		List<String> rc = new ArrayList<String>();
 
 
@@ -64,5 +58,4 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 			document.getQuantity().setUnit(m_unitDAO.get(document.getQuantity().getUnitId()));
 		}
 	}
-
 }
