@@ -20,6 +20,16 @@
           }
         }
       }"
+    },
+    "packagesByShop": {
+      "map": "function(doc) {
+        if (doc.docType == 'receipt') {
+          for (var i in doc.receiptEntries) {
+            var entry = doc.receiptEntries[i];
+            emit(doc.shopId, entry.packageId);
+          }
+        }
+      }"
     }
   },
   "language": "javascript"
