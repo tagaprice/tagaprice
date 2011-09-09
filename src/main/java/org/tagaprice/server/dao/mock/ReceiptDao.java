@@ -1,6 +1,7 @@
 package org.tagaprice.server.dao.mock;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Deque;
 import java.util.List;
 
@@ -50,13 +51,13 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	}
 
 	@Override
-	public List<String> listPackageIDsByShop(String shopId) throws DaoException {
-		List<String> rc = new ArrayList<String>();
+	public List<Receipt> listByShop(String shopId, Date from, Date to) throws DaoException {
+		List<Receipt> rc = new ArrayList<Receipt>();
 		
 		for (Receipt receipt: list()) {
 			if (shopId.equals(receipt.getShopId())) {
-				for (ReceiptEntry entry: receipt.getReceiptEntries()) {
-					rc.add(entry.getPackageId());
+				if (!receipt.getDate().before(from) && !receipt.getDate().after(to)) {
+					rc.add(receipt);
 				}
 			}
 		}

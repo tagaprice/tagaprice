@@ -1,5 +1,6 @@
 package org.tagaprice.server.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
@@ -12,5 +13,5 @@ public interface IReceiptDao extends IDaoClass<Receipt> {
 
 	List<Receipt> listByUser(String userId) throws DaoException;
 
-	List<String> listPackageIDsByShop(String shopId) throws DaoException;
+	List<Receipt> listByShop(String shopId, Date from, Date to) throws DaoException;
 }

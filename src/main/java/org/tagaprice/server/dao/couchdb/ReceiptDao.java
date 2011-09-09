@@ -1,6 +1,7 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.jcouchdb.db.Options;
@@ -119,12 +120,15 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	}
 	
 	@Override
-	public List<String> listPackageIDsByShop(String shopId) throws DaoException {
-		ViewResult<?> result = m_db.queryView("receipt/packagesByShop", String.class, new Options().key(shopId), null);
-		List<String> rc = new ArrayList<String>();
+	public List<Receipt> listByShop(String shopId, Date from, Date to) throws DaoException {
+		ViewResult<?> result = m_db.queryView("receipt/byShop", Receipt.class, new Options().key(shopId), null);
+		List<Receipt> rc = new ArrayList<Receipt>();
 
 		for (ValueRow<?> row: result.getRows()) {
-			rc.add(row.getValue().toString());
+			Date date = new Date(Integer.parseInt(row.getValue().toString()));
+			if (!date.after(to) && !date.before(from)) {
+				rc.add(get(row.getId()));
+			}
 		}
 
 		return rc;
