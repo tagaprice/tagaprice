@@ -6,10 +6,17 @@
         if (doc.docType == 'package') emit(null, doc);
       }"
     },
-    "toproduct": {
+    "byProduct": {
       "map": "function(doc){
         if (doc.docType == 'package'){
           emit(doc.productId, null);
+        }
+      }"
+    },
+    "productByPackage": {
+      "map": "function(doc){
+        if (doc.docType == 'package'){
+          emit(doc._id, doc.productId);
         }
       }"
     }
