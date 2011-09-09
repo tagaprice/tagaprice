@@ -125,7 +125,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 		List<Receipt> rc = new ArrayList<Receipt>();
 
 		for (ValueRow<?> row: result.getRows()) {
-			Date date = new Date(Integer.parseInt(row.getValue().toString()));
+			Date date = new Date(Long.parseLong(row.getValue().toString()));
 			if (!date.after(to) && !date.before(from)) {
 				rc.add(get(row.getId()));
 			}
