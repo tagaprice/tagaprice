@@ -49,33 +49,25 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	}
 
 	@Override
-	public List<StatisticResult> searchPricesViaShop(String shopId, BoundingBox bbox, Date begin, Date end) {
+	public List<StatisticResult> searchPricesViaShop(String shopId, Date begin, Date end) {
 
-		Log.debug("searchShopPrice: bbox: "+bbox);
+		Log.debug("searchShopPrice");
 		//TODO search
 		//Test Data
 		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
 
 		try {
 			for(Receipt r:InitServlet.getDaoFactory().getReceiptDao().list()){
-				if(bbox.contains(r.getShop().getAddress().getPos())) {
-
-					if(shopId.equals(r.getShop().getId())){
-						for(ReceiptEntry re:r.getReceiptEntries()){
-							rc.add(new StatisticResult(
-									r.getDate(),
-									null,
-									re.getPackage().getProduct(),
-									re.getPackage().getQuantity(),
-									re.getPrice()));
-						}
-
-
-
-
+				if(shopId.equals(r.getShop().getId())){
+					for(ReceiptEntry re:r.getReceiptEntries()){
+						rc.add(new StatisticResult(
+								r.getDate(),
+								null,
+								re.getPackage().getProduct(),
+								re.getPackage().getQuantity(),
+								re.getPrice()));
 					}
 				}
-
 			}
 		} catch (DaoException e1) {
 			// TODO Auto-generated catch block

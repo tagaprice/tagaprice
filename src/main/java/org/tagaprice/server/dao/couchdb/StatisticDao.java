@@ -42,13 +42,13 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	}
 
 	@Override
-	public ArrayList<StatisticResult> searchPricesViaProduct(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
+	public List<StatisticResult> searchPricesViaProduct(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
 		// get all the packages of the product in question
 		List<String> packageIDs = m_packageDao.listIDsByProduct(productId);
 		// get all the shops in the specified bbox
 		List<String> shopIDs = m_shopDao.findIDsInBBox(bbox);
 		
-		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
+		List<StatisticResult> rc = new ArrayList<StatisticResult>();
 
 		// find all receipts that contain at least one of the packages AND at least one of the shops
 		QueryObject queryObject = new QueryObject().query(
@@ -82,37 +82,19 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	}
 
 	@Override
-	public List<StatisticResult> searchPricesViaShop(String shopId, BoundingBox bbox, Date begin, Date end) {
-		//TODO Search efficient via db or elasticsearch
-		//Test Data
-		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
+	public List<StatisticResult> searchPricesViaShop(String shopId, Date begin, Date end) throws DaoException {
+		List<StatisticResult> rc = new ArrayList<StatisticResult>();
 
-		try {
-			for(Receipt r:m_receiptDao.list()){
-				if(bbox.contains(r.getAddress().getPos())) {
-
-					if(shopId.equals(r.getShopId())){
-						for(ReceiptEntry re:r.getReceiptEntries()){
-							rc.add(new StatisticResult(
-									r.getDate(),
-									null,
-									re.getPackage().getProduct(),
-									re.getPackage().getQuantity(),
-									re.getPrice()));
-						}
-
-
-
-
-					}
-				}
-
+		// get all packages that have been bought in this shop
+		List<Receipt> receipts = m_receiptDao.listByShop(shopId, begin, end);
+		
+		for (Receipt receipt: receipts) {
+			for (ReceiptEntry entry: receipt.getReceiptEntries()) {
+				Package pkg = entry.getPackage();
+				rc.add(new StatisticResult(receipt.getDate(), receipt.getShop(), pkg.getProduct(), pkg.getQuantity(), entry.getPrice()));
 			}
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
-
+		
 		return rc;
 	}
 
