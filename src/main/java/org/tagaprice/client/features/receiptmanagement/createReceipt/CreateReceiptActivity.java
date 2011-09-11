@@ -23,6 +23,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -299,6 +300,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		
 		if((_place.getId() == null || (_place.getId()!=null && _place.getId().equals("draft")))  && _clientFactory.getAccountPersistor().getReceiptDraft()!=null){
 			Log.debug("Create start with draft: ");
+			Window.setTitle("Create Receipt");
 			_receipt=_clientFactory.getAccountPersistor().getReceiptDraft();
 			updateView(_receipt);
 			panel.setWidget(_createReceiptView);
@@ -311,6 +313,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 		}else if (_place.getId() == null && _clientFactory.getAccountPersistor().getReceiptDraft()==null) {
 			Log.debug("Create new Receipt");
+			Window.setTitle("Create Receipt");
 			_receipt.setDate(new Date());
 
 			//create Draft
@@ -339,7 +342,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				@Override
 				public void onSuccess(Receipt response) {
 
-					
+					Window.setTitle("Receipt - "+response.getTimeStamp());
 					//Add Shop or Product
 					addShopOrProduct();
 

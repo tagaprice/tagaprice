@@ -15,6 +15,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -44,6 +45,7 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 				
 				@Override
 				public void onSuccess(Category response) {
+					Window.setTitle("Product Category - "+response.getTitle());
 					
 					updateView(response);
 					panel.setWidget(_categoryView);

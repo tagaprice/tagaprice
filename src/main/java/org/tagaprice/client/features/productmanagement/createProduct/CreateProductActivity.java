@@ -19,6 +19,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -159,7 +160,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
 		_product = new Product();
 		Log.debug("activity startet");
-
 		_createProductView = _clientFactory.getCreateProductView();
 		_createProductView.setPresenter(this);
 
@@ -204,13 +204,16 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 							Double.parseDouble(_place.getLat()), 
 							Double.parseDouble(_place.getLon()));
 					
+
+					Window.setTitle("Product - "+result.getTitle());
 				}
 			});
 
 
 		}else {
 			Log.debug("Create new Product");
-
+			Window.setTitle("Create Product");
+			
 			_product.setTitle(_place.getTitle());
 			updateView(_product);
 			panel.setWidget(_createProductView);

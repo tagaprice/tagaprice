@@ -11,6 +11,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -52,7 +53,8 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
-
+		Window.setTitle("Show Receipts");
+		
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
 		_listReceiptsView.setPresenter(this);
 		panel.setWidget(_listReceiptsView);

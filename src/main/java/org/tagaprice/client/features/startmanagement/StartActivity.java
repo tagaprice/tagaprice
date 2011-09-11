@@ -8,6 +8,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class StartActivity implements Activity, Presenter {
@@ -43,7 +44,9 @@ public class StartActivity implements Activity, Presenter {
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
-
+		Window.setTitle("home");
+		
+		
 		_startView = _clientFactory.getStartView();
 		_startView.setPresenter(this);
 

@@ -20,6 +20,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -170,12 +171,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 								Double.parseDouble(_place.getLat()), 
 								Double.parseDouble(_place.getLon()));
 					}
-					/*
-					onStatisticChangedEvent(
-							_createShopView.getStatisticBoundingBox(), 
-							_createShopView.getStatisticBeginDate(), 
-							_createShopView.getStatisticEndDate());
-						*/
+					
+					Window.setTitle("Shop - "+result.getTitle());
 				}
 			});
 
@@ -183,7 +180,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		} else {
 			// new product... reseting view
 			Log.debug("Create new shop");
-
+			Window.setTitle("Create Shop");
+			
 			//setTitle
 			_shop.setTitle(_place.getTitle());
 			
