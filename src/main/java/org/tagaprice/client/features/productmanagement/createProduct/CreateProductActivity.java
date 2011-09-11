@@ -62,6 +62,21 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void onCanceEvent(){
+		
+		//redirect
+		if(_place.getRedirectId()!=null){
+			goTo(new CreateReceiptPlace(_place.getId(), null, "product"));
+		}else{
+			if(_product.getId()==null)
+				goTo(new CreateProductPlace(null, null, null, _place.getTitle(), _place.getLat(), _place.getLon(), _place.getZoom()));
+			else
+				goTo(new CreateProductPlace(_place.getId(), _place.getRevision(), null, null, _place.getLat(), _place.getLon(), _place.getZoom()));
+		}
+		
+	}
 
 	@Override
 	public void onSaveEvent() {
@@ -76,7 +91,6 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		//destroy all
 		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateProductActivity.class));
 
-		System.out.println("unit: "+_product.getUnit());
 		
 		if(!_product.getTitle().isEmpty() && !_product.getTitle().trim().equals("") && _product.getUnit()!=null && _product.getUnit().getId()!=null){
 

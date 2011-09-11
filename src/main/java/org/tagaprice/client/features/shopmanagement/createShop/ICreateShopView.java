@@ -147,6 +147,9 @@ public interface ICreateShopView extends IsWidget {
 		 * @param categoryId
 		 */
 		public void onCategoryClicked(String categoryId);
+
+
+		void onCanceEvent();
 	}
 
 

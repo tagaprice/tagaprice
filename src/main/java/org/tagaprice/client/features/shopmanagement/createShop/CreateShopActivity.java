@@ -55,6 +55,19 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void onCanceEvent(){
+		//redirect
+		if(_place.getRedirectId()!=null){
+			goTo(new CreateReceiptPlace(_place.getId(), null, "shop"));
+		}else{
+			if(_shop.getId()==null)
+				goTo(new CreateShopPlace(null, null, null, _place.getTitle(), null, _place.getLat(), _place.getLon(), _place.getZoom()));
+			else
+				goTo(new CreateShopPlace(_place.getId(), _place.getRevision(), null, null, null, _place.getLat(), _place.getLon(), _place.getZoom()));
+		}
+	}
 
 	@Override
 	public void onSaveEvent() {

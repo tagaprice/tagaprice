@@ -194,6 +194,8 @@ public interface ICreateProductView extends IsWidget {
 		 * @param categoryId
 		 */
 		public void onCategoryClicked(String categoryId);
+
+		void onCanceEvent();
 	}
 
 }

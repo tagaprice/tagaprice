@@ -171,8 +171,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				//TODO implement cancel
-				setReadOnly(true);
+				_presenter.onCanceEvent();
 			}
 		});
 		

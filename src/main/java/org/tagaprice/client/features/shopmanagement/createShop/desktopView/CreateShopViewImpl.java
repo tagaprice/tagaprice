@@ -98,8 +98,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				//TODO implement cancel
-				setReadOnly(true);
+				_presenter.onCanceEvent();
 			}
 		});
 		
