@@ -15,7 +15,7 @@ public class StartViewImpl extends Composite implements IStartView {
 	VerticalPanel vePa = new VerticalPanel();
 	Label normalhtml = new Label("so hald");
 	private StdFrame frame = new StdFrame();
-	private Label title = new Label("TagAPrice (beta): The consumer-created location-aware price comparison site.");
+	private Label title = new Label("consumer-created location-aware price comparison platform");
 	public StartViewImpl() {
 		initWidget(frame);
 		frame.setHeader(title);

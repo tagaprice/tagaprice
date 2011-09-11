@@ -16,11 +16,7 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IAddressSelecter;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.rpc.searchmanagement.ISearchService;
-import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -31,10 +27,11 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import org.tagaprice.client.generics.MapQuest.MapquestCreator;
+import org.tagaprice.client.generics.MapQuest.MapquestResponse;
 
 public class AddressSelecter extends Composite implements IAddressSelecter {
 
-	private ISearchServiceAsync I_SEARCH_SERVICE_ASYNC = GWT.create(ISearchService.class);
 
 	private VerticalPanel _vePa1 = new VerticalPanel();
 	private MapOptions _defaultMapOptions = new MapOptions();
@@ -133,7 +130,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 				if(!_countryCodeBox.getValue().isEmpty())
 					url+="&countrycodes="+_countryCodeBox.getValue().trim();
 				
-				System.out.println("url: "+url);
 				
 				jsonp.requestObject(url, new AsyncCallback<JsArray<MapquestResponse>>() {
 
@@ -144,67 +140,22 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 
 					@Override
 					public void onSuccess(JsArray<MapquestResponse> response) {
-						// TODO Auto-generated method stub
-						
+					
 						if(response.length()>0){
 							MapquestResponse temp = response.get(0);
-							Address at = new Address();
 							
-							at.getPos().setLat(Double.parseDouble(temp.getLat()));
-							at.getPos().setLon(Double.parseDouble(temp.getLon()));
 							
-							if(temp.getAddress()!=null){
-								String responseString = "";
-								
-								if(temp.getAddress().getRoad()!=null){
-									responseString+=temp.getAddress().getRoad();
-									at.setStreet(temp.getAddress().getRoad());
-								}
-									
-								if(temp.getAddress().getPedestrian()!=null){
-									responseString+=temp.getAddress().getPedestrian();
-									at.setStreet(temp.getAddress().getPedestrian());
-								}
-								
-								if(temp.getAddress().getFootway()!=null){
-									responseString+=temp.getAddress().getFootway();
-									at.setStreet(temp.getAddress().getFootway());
-								}
-								
-								if(temp.getAddress().getHouse_number()!=null){
-									responseString+=" "+temp.getAddress().getHouse_number()+",";
-									if(at.getStreet()!=null)
-										at.setStreet(at.getStreet()+" "+temp.getAddress().getHouse_number());
-								}
-								
-								if(temp.getAddress().getPostcode()!=null){
-									responseString+=" "+temp.getAddress().getPostcode()+",";
-									at.setPostalcode(temp.getAddress().getPostcode());
-								}
-								
-								if(temp.getAddress().getCity()!=null){
-									responseString+=" "+temp.getAddress().getCity()+",";
-									at.setCity(temp.getAddress().getCity());
-								}
-									
-								if(temp.getAddress().getCountry_code()!=null){
-									responseString+=" "+temp.getAddress().getCountry_code()+",";
-									at.setCountrycode(temp.getAddress().getCountry_code());
-								}
-								
-								//TODO create better address 
-								//Address at = new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon()));
-								at.setAddress(responseString);
-								
-								
+							Address at = MapquestCreator.getAddressByMapquestResponse(temp);
+							
+							
+							if(at!=null){
+								at.getPos().setLat(Double.parseDouble(temp.getLat()));
+								at.getPos().setLon(Double.parseDouble(temp.getLon()));
 								setAddress(at);
 							}
+									
+							
 						}
-						/*
-						for(int i=0;i<response.length();i++){
-							System.out.println("d: "+response.get(i).getLat()+","+response.get(i).getLon()+" "+response.get(i).getAddress().print());
-						}
-						*/
 					}
 
 				});
@@ -269,57 +220,14 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 					@Override
 					public void onSuccess(MapquestResponse response) {
 					
-						Address at = new Address();
+						Address at = MapquestCreator.getAddressByMapquestResponse(response);
 						
-						at.getPos().setLat(lonLat.lat());
-						at.getPos().setLon(lonLat.lon());
-						
-						if(response.getAddress()!=null){
-							String responseString = "";
-							
-							if(response.getAddress().getRoad()!=null){
-								responseString+=response.getAddress().getRoad();
-								at.setStreet(response.getAddress().getRoad());
-							}
-								
-							if(response.getAddress().getPedestrian()!=null){
-								responseString+=response.getAddress().getPedestrian();
-								at.setStreet(response.getAddress().getPedestrian());
-							}
-							
-							if(response.getAddress().getFootway()!=null){
-								responseString+=response.getAddress().getFootway();
-								at.setStreet(response.getAddress().getFootway());
-							}
-							
-							if(response.getAddress().getHouse_number()!=null){
-								responseString+=" "+response.getAddress().getHouse_number()+",";
-								if(at.getStreet()!=null)
-									at.setStreet(at.getStreet()+" "+response.getAddress().getHouse_number());
-							}
-							
-							if(response.getAddress().getPostcode()!=null){
-								responseString+=" "+response.getAddress().getPostcode()+",";
-								at.setPostalcode(response.getAddress().getPostcode());
-							}
-							
-							if(response.getAddress().getCity()!=null){
-								responseString+=" "+response.getAddress().getCity()+",";
-								at.setCity(response.getAddress().getCity());
-							}
-								
-							if(response.getAddress().getCountry_code()!=null){
-								responseString+=" "+response.getAddress().getCountry_code()+",";
-								at.setCountrycode(response.getAddress().getCountry_code());
-							}
-							
-							//TODO create better address 
-							//Address at = new Address(responseString,Double.parseDouble(response.getLat()), Double.parseDouble(response.getLon()));
-							at.setAddress(responseString);
-							
-							
+						if(at!=null){
+							at.getPos().setLat(lonLat.lat());
+							at.getPos().setLon(lonLat.lon());
 							setAddress(at);
 						}
+						
 						
 						
 					}
@@ -346,7 +254,6 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		
 		setReadOnly(_readonly);
 
-		_addressBox.setValue(address.getAddress());
 		_streeBox.setValue(address.getStreet());
 		_postalcodeBox.setValue(address.getPostalcode());
 		_cityBox.setValue(address.getCity());
@@ -391,144 +298,3 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 }
 
 
-class MapquestResponse extends JavaScriptObject{
-	
-	protected MapquestResponse() {}
-	
-	public final native String getLat() /*-{
-		return this.lat;
-	}-*/;
-
-	public final native void setLat(String lat) /*-{
-		this.lat = lat;
-	}-*/;
-	
-	public final native String getLon() /*-{
-		return this.lon;
-	}-*/;
-	
-	public final native void setLon(String lon) /*-{
-		this.lon = lon;
-	}-*/;
-	
-	
-	public final native MapquestAddress getAddress()/*-{
-		return this.address;
-	}-*/;
-	
-	public final native void setAddress(MapquestAddress address)/*-{
-		this.address = address;
-	}-*/;
-	
-	
-}
-
-
-class MapquestAddress extends JavaScriptObject{
-	
-	protected MapquestAddress(){}
-	
-	public final native String getHouse_number() /*-{
-		return this.house_number;
-	}-*/;
-
-	public final native void setHouse_number(String house_number) /*-{
-		this.house_number = house_number;
-	}-*/;
-	
-	
-	public final native String getRoad() /*-{
-		return this.road;
-	}-*/;
-	
-	public final native void setRoad(String road) /*-{
-		this.road = road;
-	}-*/;
-	
-	public final native String getPedestrian() /*-{
-		return this.pedestrian;
-	}-*/;
-	
-	public final native void setPedestrian(String pedestrian) /*-{
-		this.pedestrian = pedestrian;
-	}-*/;
-	
-	public final native String getFootway() /*-{
-		return this.footway;
-	}-*/;
-	
-	public final native void setFootway(String footway) /*-{
-		this.footway = footway;
-	}-*/;
-	
-	public final native String getCity() /*-{
-		return this.city;
-	}-*/;
-	
-	public final native void setCity(String city) /*-{
-		this.city = city;
-	}-*/;
-	
-	public final native String getPostcode() /*-{
-		return this.postcode;
-	}-*/;
-	
-	public final native void setPostcode(String postcode) /*-{
-		this.postcode = postcode;
-	}-*/;
-	
-	public final native String getCountry() /*-{
-		return this.country;
-	}-*/;
-	
-	public final native void setCountry(String country) /*-{
-		this.country = country;
-	}-*/;
-	
-	public final native String getCountry_code() /*-{
-		return this.country_code;
-	}-*/;
-	
-	public final native void setCountry_code(String country_code) /*-{
-		this.country_code = country_code;
-	}-*/;
-	
-	public final native String print()/*-{
-		
-		return "house_number: "
-		+this.house_number
-		+", road: "+this.road
-		+", pedestrian: "+this.pedestrian
-		+", footway: "+this.footway
-		+", suburb: "+this.suburb
-		+", city_district: "+this.city_district
-		+", city: "+this.city
-		+", county: "+this.county
-		+", region: "+this.region
-		+", state: "+this.state
-		+", postcode: "+this.postcode
-		+", country: "+this.country
-		+", country_code: "+this.country_code
-		;
-	}-*/;
-	
-	
-	
-	//address types
-	/*
-	 * house_number
-	 * road
-	 * pedestrian
-	 * footway
-	 * suburb
-	 * city_district
-	 * city
-	 * county
-	 * region
-	 * state
-	 * postcode
-	 * country
-	 * country_code
-	 */
-	
-}
