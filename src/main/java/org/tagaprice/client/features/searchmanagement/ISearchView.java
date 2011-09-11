@@ -17,6 +17,8 @@ public interface ISearchView extends IsWidget {
 		public void setAddress(Address address);
 		public void onFindGpsPosition();
 		public void onSearch(String searchString, BoundingBox bbox);
+		
+		public void onFoundPositionBySearchQuery(Address address);
 	}
 	
 	public void setPresenter(Presenter presenter);

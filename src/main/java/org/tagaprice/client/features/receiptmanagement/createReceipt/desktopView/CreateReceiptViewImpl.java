@@ -286,7 +286,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 										
 										@Override
 										public void onClick(ClickEvent arg0) {
-											addSelectableAddress(at);
+											_presenter.onFoundPositionBySearchQuery(at);
 											setAddress(at);
 											_seachLoctionPop.hide();
 										}
@@ -420,19 +420,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		}
 	}
 	
-	private void addSelectableAddress(final Address address){
-		Label locText = new Label(address.getStreet()+", "+address.getCity());
-		locText.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				setAddress(address);
-				setAddress(address);
-				_locationPop.hide();
-			}
-		});
-		_dynLocationVePa.add(locText);
-	}
 	
 	
 	private void drawShopSelected(){

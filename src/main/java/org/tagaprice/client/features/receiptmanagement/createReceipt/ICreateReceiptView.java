@@ -95,5 +95,7 @@ public interface ICreateReceiptView extends IsWidget{
 		
 		
 		public void checkSave();
+		
+		public void onFoundPositionBySearchQuery(Address address);
 	}
 }

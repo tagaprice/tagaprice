@@ -1,8 +1,6 @@
 package org.tagaprice.client.features.searchmanagement;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.searchmanagement.ISearchView.Presenter;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
@@ -98,6 +96,13 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(SearchActivity.class, "Could not find position", INFOTYPE.ERROR));								
 			}
 		});
+	}
+	
+	@Override
+	public void onFoundPositionBySearchQuery(Address address){
+		_clientFactory.getAccountPersistor().addAddress(address);
+		
+		_searchView.setSelectableAddress(_clientFactory.getAccountPersistor().getAddressList());
 	}
 
 	@Override

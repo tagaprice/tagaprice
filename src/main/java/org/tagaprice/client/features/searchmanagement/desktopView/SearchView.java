@@ -159,8 +159,9 @@ public class SearchView extends Composite implements ISearchView {
 									
 									@Override
 									public void onClick(ClickEvent arg0) {
-										addSelectableAddress(at);
+
 										_presenter.setAddress(at);
+										_presenter.onFoundPositionBySearchQuery(at);
 										_seachLoctionPop.hide();
 									}
 								});
@@ -286,7 +287,7 @@ public class SearchView extends Composite implements ISearchView {
 		_dynLocationVePa.clear();
 		
 		for(final Address a:address){
-			Label locText = new Label(a.getStreet()+", "+a.getCity());
+			Label locText = new Label(a.getStreet()+", "+a.getCity()+", "+a.getCountrycode());
 			locText.addClickHandler(new ClickHandler() {
 				
 				@Override
@@ -300,18 +301,7 @@ public class SearchView extends Composite implements ISearchView {
 		
 	}
 	
-	private void addSelectableAddress(final Address address){
-		Label locText = new Label(address.getStreet()+", "+address.getCity());
-		locText.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_presenter.setAddress(address);
-				_locationPop.hide();
-			}
-		});
-		_dynLocationVePa.add(locText);
-	}
+
 
 
 

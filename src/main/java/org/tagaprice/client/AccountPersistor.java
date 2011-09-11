@@ -70,12 +70,18 @@ public class AccountPersistor implements IAccountPersistor {
 			int c = Integer.parseInt(Cookies.getCookie("TAP_address_count"));
 			
 			for(int i=0;i<c;i++){
+				
 				Address a = new Address();
 				
 				a.setStreet(Cookies.getCookie("TAP_address_street_array_"+i));
+				
+				
 				a.setPos(new LatLon(
-						Double.parseDouble("TAP_address_lat_array_"+i), 
-						Double.parseDouble("TAP_address_lon_array_"+i)));
+						Double.parseDouble(Cookies.getCookie("TAP_address_lat_array_"+i)), 
+						Double.parseDouble(Cookies.getCookie("TAP_address_lon_array_"+i))));
+				
+				
+				rc.add(a);
 			}
 			
 		}

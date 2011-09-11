@@ -8,6 +8,7 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -293,6 +294,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
 
+		if(_clientFactory.getAccountPersistor().getAddressList()!=null)
+			_createReceiptView.setSelectableAddress(_clientFactory.getAccountPersistor().getAddressList());
+		
 		
 		if(_clientFactory.getAccountPersistor().getCurAddress()!=null)
 			_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getCurAddress());
@@ -375,6 +379,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		return _receipt.getId();
 	}
 
+	@Override
+	public void onFoundPositionBySearchQuery(Address address){
+		_clientFactory.getAccountPersistor().addAddress(address);
+		
+		_createReceiptView.setSelectableAddress(_clientFactory.getAccountPersistor().getAddressList());
+	}
 	
 
 }
