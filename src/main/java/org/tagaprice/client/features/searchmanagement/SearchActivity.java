@@ -45,14 +45,12 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 		_searchView.setPresenter(this);
 		
 		
-		
-		//TODO TestLocation
-		{
-			ArrayList<Address> tempAddr = new ArrayList<Address>();
- 			tempAddr.add(new Address("Flossgasse", "1020", "Wien", "at", 48.21657, 16.37456));
 
- 			_searchView.addSelectableAddress(tempAddr);
-		}
+		if(_clientFactory.getAccountPersistor().getCurAddress()!=null && _curAddress==null)
+			setAddress(_clientFactory.getAccountPersistor().getCurAddress());
+		
+		if(_clientFactory.getAccountPersistor().getAddressList()!=null)
+			_searchView.setSelectableAddress(_clientFactory.getAccountPersistor().getAddressList());
 		
 		
 		
@@ -82,7 +80,14 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 			
 			@Override
 			public void onSuccess(Position position) {	
-				setAddress(new Address("Current location", "", "", "", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+				Address a = new Address();
+				a.setStreet("current location");
+				a.getPos().setLat(position.getCoords().getLatitude());
+				a.getPos().setLon(position.getCoords().getLongitude());
+				
+				_clientFactory.getAccountPersistor().setCurAddress(a);
+				
+				setAddress(a);
 			}
 			
 			@Override

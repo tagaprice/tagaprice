@@ -1,10 +1,14 @@
 package org.tagaprice.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
+import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
@@ -41,46 +45,79 @@ public class AccountPersistor implements IAccountPersistor {
 		return Cookies.getCookie("TAP_SID");
 	}
 
+	
+	public void addAddress(Address address){
+		
+		if(Cookies.getCookie("TAP_address_count")==null){
+			Cookies.setCookie("TAP_address_count", "0");
+		}
+		
+		
+		int c = Integer.parseInt(Cookies.getCookie("TAP_address_count"));
+		
+		Cookies.setCookie("TAP_address_street_array_"+c,address.getStreet());
+		Cookies.setCookie("TAP_address_lat_array_"+c,""+address.getPos().getLat());
+		Cookies.setCookie("TAP_address_lon_array_"+c,""+address.getPos().getLon());
+		c++;
+		Cookies.setCookie("TAP_address_count", ""+c);
+	}
+	
+	
+	public List<Address> getAddressList(){
+		ArrayList<Address> rc = new ArrayList<Address>();
+		
+		if(Cookies.getCookie("TAP_address_count")!=null){
+			int c = Integer.parseInt(Cookies.getCookie("TAP_address_count"));
+			
+			for(int i=0;i<c;i++){
+				Address a = new Address();
+				
+				a.setStreet(Cookies.getCookie("TAP_address_street_array_"+i));
+				a.setPos(new LatLon(
+						Double.parseDouble("TAP_address_lat_array_"+i), 
+						Double.parseDouble("TAP_address_lon_array_"+i)));
+			}
+			
+		}
+		
+		return rc;
+	}
+	
 	/**
 	 * Returns global Address
 	 */
-	/*
-	@Override
-	public Address getAddress() {
+	
+	public Address getCurAddress() {
 
-		if(Cookies.getCookie("TAP_address")!=null &&
-				Cookies.getCookie("TAP_Lat")!=null &&
-				Cookies.getCookie("TAP_Lon")!=null){
-
-			if(I_ADDRESS==null)I_ADDRESS = new Address(
-					Cookies.getCookie("TAP_address"),
-					Double.parseDouble(Cookies.getCookie("TAP_Lat")),
-					Double.parseDouble(Cookies.getCookie("TAP_Lon")));
+		if(Cookies.getCookie("TAP_cur_address_street")!=null &&
+				Cookies.getCookie("TAP_cur_address_lat")!=null &&
+				Cookies.getCookie("TAP_cur_address_lon")!=null){
+			
+			Address a = new Address();
+			a.setStreet(Cookies.getCookie("TAP_cur_address_street"));
+			a.setPos(new LatLon(
+					Double.parseDouble(Cookies.getCookie("TAP_cur_address_lat")), 
+					Double.parseDouble(Cookies.getCookie("TAP_cur_address_lon"))));
+		
+			return a;
 		}
 
-		return I_ADDRESS;
+		return null;
 	}
-	*/
+	
 
 
 	/**
 	 * Set Global Address. Saves it also in the cookies.
 	 * @param address setGlobalAddress
 	 */
-	/*
-	@Override
-	public void setAddress(Address address) {
+	public void setCurAddress(Address address) {
 		Log.debug("setAddress: "+address);
-		if(I_ADDRESS==null)I_ADDRESS=new Address();
-		I_ADDRESS.setAddress(address.getAddress());
-		I_ADDRESS.setLat(address.getLat());
-		I_ADDRESS.setLon(address.getLon());
 
-		Cookies.setCookie("TAP_address", address.getAddress());
-		Cookies.setCookie("TAP_Lat", "" + address.getLat());
-		Cookies.setCookie("TAP_Lon", "" + address.getLon());
+		Cookies.setCookie("TAP_cur_address_street", address.getStreet());
+		Cookies.setCookie("TAP_cur_address_lat", ""+address.getPos().getLat());
+		Cookies.setCookie("TAP_cur_address_lon", ""+address.getPos().getLon());
 	}
-	*/
 
 	/**
 	 * @return true if user is logged in.

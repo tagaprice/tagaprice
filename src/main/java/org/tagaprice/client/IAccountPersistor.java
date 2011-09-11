@@ -1,5 +1,8 @@
 package org.tagaprice.client;
 
+import java.util.List;
+
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 
 public interface IAccountPersistor {
@@ -59,4 +62,12 @@ public interface IAccountPersistor {
 	 */
 	public Receipt getReceiptDraft();
 
+	public Address getCurAddress();
+	
+	public void setCurAddress(Address address);
+	
+	public List<Address> getAddressList();
+	
+	public void addAddress(Address address);
+	
 }

@@ -32,7 +32,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	private static final long serialVersionUID = 1L;
 
 
-	HttpSession session;
+	private HttpSession session;
 
 
 	private ISessionDao _sessionDao;
@@ -55,8 +55,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 		if (user == null || !_checkPassword(user, password)) throw new WrongEmailOrPasswordException("Please check your login credentials"); 
 
-		// create Session (default expiration time: 1h)
-		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+3600000);
+		// create Session (default expiration time: 24h)
+		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+(24*3600000));
 		Session session = _sessionDao.create(new Session(user, expirationDate));
 		rc = session.getId();
 
@@ -170,7 +170,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		return true; // I don't want a session to be returned that soon. There should be a mail verification before
 	}
 
-
+	
 	private String getSid(){
 		if(session==null)session = getThreadLocalRequest().getSession();
 

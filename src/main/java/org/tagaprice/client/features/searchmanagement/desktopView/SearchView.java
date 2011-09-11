@@ -214,7 +214,7 @@ public class SearchView extends Composite implements ISearchView {
 
 
 	@Override
-	public void addSelectableAddress(List<Address> address) {
+	public void setSelectableAddress(List<Address> address) {
 		_dynLocationVePa.clear();
 		
 		for(final Address a:address){
@@ -229,8 +229,6 @@ public class SearchView extends Composite implements ISearchView {
 			});
 			_dynLocationVePa.add(locText);
 		}
-		
-		
 		
 	}
 

@@ -86,6 +86,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Vector _osmLayer;
 	private VerticalPanel _searchShopPa = new VerticalPanel();
 	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
+	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	
 	public CreateReceiptViewImpl() {
 		
@@ -237,57 +238,41 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			});
 			
 			
-			//TODO Add old locations from session or loggedin user
-			{
-				{
-					Label locText = new Label("Current Location");
-					locText.addClickHandler(new ClickHandler() {
+			_locationVePa.add(_dynLocationVePa);
+			
+			
+			Label locText = new Label("Current Location");
+			locText.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					
+					//get current location
+					Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
 						
 						@Override
-						public void onClick(ClickEvent arg0) {
-							
-							//get current location
-							Geolocation.getGeolocation().getCurrentPosition(new PositionCallback() {
-								
-								@Override
-								public void onSuccess(Position position) {								
-									setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
-									setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
-								}
-								
-								@Override
-								public void onFailure(PositionError error) {
-									Log.error("Could not find position:" + error);
-									//_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptViewImpl.class, "Could not find position", INFOTYPE.ERROR));								
-								}
-							});
-							
-							
+						public void onSuccess(Position position) {								
+							setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
+							setLocation(new Address("Current location", position.getCoords().getLatitude(), position.getCoords().getLongitude()));
 						}
-					});
-					_locationVePa.add(locText);
-				}
-				
-				{
-					Label locText = new Label("Flossgasse, Wien");
-					locText.addClickHandler(new ClickHandler() {
 						
 						@Override
-						public void onClick(ClickEvent arg0) {
-							setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
-							setLocation(new Address("Flossgasse, Wien", 48.21657, 16.37456));
+						public void onFailure(PositionError error) {
+							Log.error("Could not find position:" + error);
+							//_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptViewImpl.class, "Could not find position", INFOTYPE.ERROR));								
 						}
 					});
-					_locationVePa.add(locText);
+					
+					
 				}
+			});
+			_locationVePa.add(locText);
 				
-				
-			}
 			
 			
 			
 			//SearchResult
-			_shopSearchResultPanel.setWidth("540px");
+			_shopSearchResultPanel.setWidth("300px");
 			//searchBoxVePa.add(_shopSearchResultPanel);
 			_responseMapHoPa.add(_shopSearchResultPanel);
 			//responseMapHoPa.setCellWidth(_shopSearchResultPanel, "540px");
@@ -298,7 +283,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			
 			//SearchPart Map
 			MapOptions defaultMapOptions = new MapOptions();
-			MapWidget omapWidget = new MapWidget("100%", "200px", defaultMapOptions);
+			MapWidget omapWidget = new MapWidget("100%", "300px", defaultMapOptions);
 			OSM osm_2 = OSM.Mapnik("Mapnik");
 			osm_2.setIsBaseLayer(true);
 			_osmMap = omapWidget.getMap();
@@ -352,6 +337,27 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		}
 	}
 	
+	@Override
+	public void setSelectableAddress(List<Address> address) {
+		
+		_dynLocationVePa.clear();
+		
+		for(final Address a:address){
+			Label locText = new Label(a.getStreet()+", "+a.getCity());
+			locText.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setAddress(a);
+					setAddress(a);
+					_locationPop.hide();
+				}
+			});
+			_dynLocationVePa.add(locText);
+		}
+	}
+	
+	
 	private void drawShopSelected(){
 		
 		
@@ -381,7 +387,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		
 		_shopPanel.setWidget(dHoPa);
-		//_shopPanel.setWidget(new Label("shop selected: "+_currShop.getTitle()));
 	}
 	
 	
@@ -431,6 +436,11 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		LonLat lonLat = address.getPos().toLonLat();
 		lonLat.transform("EPSG:4326", "EPSG:900913");
 		_osmMap.setCenter(lonLat);
+		
+
+		_shopSearchText.setEnabled(true);
+		_shopSearchText.setText("");
+		_responseMapHoPa.setVisible(true);
 	}
 	
 	private void setLocation(Address address){

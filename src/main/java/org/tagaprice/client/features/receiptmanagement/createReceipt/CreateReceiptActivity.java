@@ -292,6 +292,11 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
 
+		
+		if(_clientFactory.getAccountPersistor().getCurAddress()!=null)
+			_createReceiptView.setAddress(_clientFactory.getAccountPersistor().getCurAddress());
+		
+		
 		if((_place.getId() == null || (_place.getId()!=null && _place.getId().equals("draft")))  && _clientFactory.getAccountPersistor().getReceiptDraft()!=null){
 			Log.debug("Create start with draft: ");
 			_receipt=_clientFactory.getAccountPersistor().getReceiptDraft();

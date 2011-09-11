@@ -56,6 +56,9 @@ public interface ICreateReceiptView extends IsWidget{
 	public void setPresenter(Presenter presenter);
 
 
+	public void setSelectableAddress(List<Address> address);
+	
+	
 	public interface Presenter {
 
 		/**

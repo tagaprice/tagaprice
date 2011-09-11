@@ -481,12 +481,57 @@ input.morphWidget {
 }
 
 .categorySelecter {
+        cursor: pointer;
+
+    background-color: #eeeeee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
+        to(#cccccc) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: linear-gradient(top, #eeeeee, #cccccc);
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    color: #333;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 1px 0 #eee;
+    white-space: nowrap;
+
     
+    padding: 3px;
+    padding-left:5px;
+    padding-right:5px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+
+.categorySelecter.edit{
+    margin-left:2px;
+}
+
+.categorySelecter:hover{
+        background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd),
+        to(#bbbbbb) );
+    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: linear-gradient(top, #dddddd, #bbbbbb);
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd;
+    color: black;
 }
 
 .categorySelecter .arrow {
     padding-right: 2px;
     padding-left: 2px;
+    cursor: pointer;
 }
 
 .categorySelecter .text { /*cursor: pointer;*/
@@ -494,10 +539,6 @@ input.morphWidget {
 }
 
 .categorySelecter .arrow.edit {
-    padding-right: 2px;
-    padding-left: 2px;
-    border: solid 1px #bfd255;
-    cursor: pointer;
 }
 
 .receiptSearchBox {

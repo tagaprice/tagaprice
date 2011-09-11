@@ -7,12 +7,10 @@ import org.tagaprice.client.generics.widgets.ICategorySelecter;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryService;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryServiceAsync;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -32,10 +30,10 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private HorizontalPanel _hoPa = new HorizontalPanel();
 	private boolean _readonly = true;
 	private boolean _categoryTypeIsProduct = true;
-	private CategorySelectedEventHandler _handler=null;;
+	private CategorySelectedEventHandler _handler=null;
 
 	public CategorySelecter() {
-		_hoPa.setStyleName("categorySelecter");
+		
 		initWidget(_hoPa);
 
 		SimpleCategorySelecter c = new SimpleCategorySelecter(null);
@@ -116,22 +114,43 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		public SimpleCategorySelecter(Category category) {
 			_myCat=category;
 			Log.debug("CreateSimpleCategory " + category);
+			hoPa1.setStyleName("categorySelecter");
 
-
+			
+			
 
 			if(_myCat!=null){
 				text.setText(_myCat.getTitle());
-				
+				/*
 				text.addClickHandler(new ClickHandler() {
 					
 					@Override
 					public void onClick(ClickEvent arg0) {
-						if(_handler!=null)
-							_handler.onCategoryClicked(_myCat.getId());
+						if(_readonly){
+							if(_handler!=null)
+								_handler.onCategoryClicked(_myCat.getId());
+						}else{
+							loadCates();
+						}
 						
 					}
 				});
 				
+				/*
+				hoPa1.addDomHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						if(_readonly){
+							if(_handler!=null)
+								_handler.onCategoryClicked(_myCat.getId());
+						}else{
+							loadCates();
+						}
+						
+					}
+				}, ClickEvent.getType());
+				*/
 			}
 
 			arrow.setStyleName("arrow");
@@ -144,59 +163,64 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 			initWidget(hoPa1);
 
 
-			arrow.addClickHandler(new ClickHandler() {
-
+			hoPa1.addDomHandler(new ClickHandler() {
+				
 				@Override
 				public void onClick(ClickEvent arg0) {
-					
-					if(!_readonly){
-					
-						showCats.setWidget(new Label("loading..."));
-						showCats.showRelativeTo(arrow);
-	
-						String id=null;
-	
-						if(_myCat!=null)
-							id=_myCat.getId();
-	
-						Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
-						
-						
-						if(_categoryTypeIsProduct){
-						
-						
-						_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
-	
-	
-							@Override
-							public void onSuccess(List<Category> results) {
-								drawCategories(results);
-							}
-	
-							@Override
-							public void onFailure(Throwable e) {
-								Log.error("getCategoryProblem: "+e);
-							}
-						});
-						}else if(!_categoryTypeIsProduct){
-							_categoryServiceAsync.getShopCategoryChildren(id, new AsyncCallback<List<Category>>() {
-								
-								@Override
-								public void onSuccess(List<Category> results) {
-									drawCategories(results);									
-								}
-								
-								@Override
-								public void onFailure(Throwable e) {
-									Log.error("getCategoryProblem: "+e);
-								}
-							});
-						}
-	
+					if(_readonly){
+						if(_handler!=null)
+							_handler.onCategoryClicked(_myCat.getId());
+					}else{
+						loadCates();
 					}
+					
 				}
-			});
+			}, ClickEvent.getType());
 
+		}
+		
+		private void loadCates(){
+			showCats.setWidget(new Label("loading..."));
+			showCats.showRelativeTo(hoPa1);
+
+			String id=null;
+
+			if(_myCat!=null)
+				id=_myCat.getId();
+
+			Log.debug("getChildsFor: "+id+", _myCat: "+_myCat);
+			
+			
+			if(_categoryTypeIsProduct){
+			
+			
+				_categoryServiceAsync.getProductCategoryChildren(id, new AsyncCallback<List<Category>>() {
+
+
+					@Override
+					public void onSuccess(List<Category> results) {
+						drawCategories(results);
+					}
+
+					@Override
+					public void onFailure(Throwable e) {
+						Log.error("getCategoryProblem: "+e);
+					}
+				});
+			}else if(!_categoryTypeIsProduct){
+				_categoryServiceAsync.getShopCategoryChildren(id, new AsyncCallback<List<Category>>() {
+					
+					@Override
+					public void onSuccess(List<Category> results) {
+						drawCategories(results);									
+					}
+					
+					@Override
+					public void onFailure(Throwable e) {
+						Log.error("getCategoryProblem: "+e);
+					}
+				});
+			}
 		}
 
 		public Category getCategory(){
@@ -207,9 +231,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 			if(read){
 				_readonly=true;
 				arrow.setStyleName("arrow");
+				hoPa1.setStyleName("categorySelecter");
 			}else{
 				_readonly=false;
 				arrow.setStyleName("arrow edit");
+				hoPa1.setStyleName("categorySelecter edit");
 			}
 		}
 		
@@ -230,7 +256,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 				});
 			}
 			showCats.setWidget(vePa);
-			showCats.showRelativeTo(arrow);
+			showCats.showRelativeTo(hoPa1);
 		}
 		
 	}

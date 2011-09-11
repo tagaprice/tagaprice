@@ -356,6 +356,12 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_osmMap.setCenter(lonLat, 15);
 	}
 
+	@Override
+	public void setSelectableAddress(List<Address> address) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 
