@@ -16,6 +16,8 @@ import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
+import org.tagaprice.client.generics.MapQuest.MapquestCreator;
+import org.tagaprice.client.generics.MapQuest.MapquestResponse;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
@@ -26,12 +28,15 @@ import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.jsonp.client.JsonpRequestBuilder;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -47,6 +52,7 @@ public class SearchView extends Composite implements ISearchView {
 	private TextBox _search = new TextBox();
 	private TextBox _location = new TextBox();
 	private PopupPanel _locationPop = new PopupPanel(true);
+	private PopupPanel _seachLoctionPop = new PopupPanel(true);
 	private VerticalPanel _locationVePa = new VerticalPanel();
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	
@@ -104,7 +110,87 @@ public class SearchView extends Composite implements ISearchView {
 			
 			@Override
 			public void onFocus(FocusEvent arg0) {
+				
+				//clean
+				_location.setText("");
+				
 				_locationPop.showRelativeTo(_location);
+				
+			}
+		});
+		
+		
+		_seachLoctionPop.getElement().getStyle().setZIndex(2000);
+		
+		_location.addKeyUpHandler(new KeyUpHandler() {
+			
+			@Override
+			public void onKeyUp(KeyUpEvent key) {
+				if(key.getNativeKeyCode() == 13){
+					_locationPop.hide();
+					
+					JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
+					jsonp.setCallbackParam("json_callback");
+					String url = "http://open.mapquestapi.com/nominatim/v1/search?format=json&addressdetails=1&q=";
+					url+=_location.getText();
+					
+					jsonp.requestObject(url, new AsyncCallback<JsArray<MapquestResponse>>() {
+
+						@Override
+						public void onFailure(Throwable e) {
+							Log.error("MapquestPointToAdressFailure: "+e);						
+						}
+
+						@Override
+						public void onSuccess(JsArray<MapquestResponse> response) {
+						
+							VerticalPanel vePa = new VerticalPanel();
+							vePa.setWidth("200px");
+							vePa.setStyleName("popBackground");
+							_seachLoctionPop.setWidget(vePa);
+							
+							for(int i=0;i<response.length();i++){
+								final Address at = MapquestCreator.getAddressByMapquestResponse(response.get(i));
+								at.getPos().setLat(Double.parseDouble(response.get(i).getLat()));
+								at.getPos().setLon(Double.parseDouble(response.get(i).getLon()));
+								Label l = new Label(at.getStreet()+", "+at.getCity()+", "+at.getCountrycode());
+								vePa.add(l);
+								
+								l.addClickHandler(new ClickHandler() {
+									
+									@Override
+									public void onClick(ClickEvent arg0) {
+										addSelectableAddress(at);
+										_presenter.setAddress(at);
+										_seachLoctionPop.hide();
+									}
+								});
+								
+							}
+							
+							_seachLoctionPop.showRelativeTo(_location);
+							
+							/*
+							if(response.length()>0){
+								MapquestResponse temp = response.get(0);
+								
+								
+								Address at = MapquestCreator.getAddressByMapquestResponse(temp);
+								
+								
+								if(at!=null){
+									at.getPos().setLat(Double.parseDouble(temp.getLat()));
+									at.getPos().setLon(Double.parseDouble(temp.getLon()));
+									//addSelectableAddress(at);
+								}										
+								
+							}
+							*/
+						}
+
+					});
+					//_locationPop.showRelativeTo(_location);
+				}
 				
 			}
 		});
@@ -230,6 +316,19 @@ public class SearchView extends Composite implements ISearchView {
 			_dynLocationVePa.add(locText);
 		}
 		
+	}
+	
+	private void addSelectableAddress(final Address address){
+		Label locText = new Label(address.getStreet()+", "+address.getCity());
+		locText.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.setAddress(address);
+				_locationPop.hide();
+			}
+		});
+		_dynLocationVePa.add(locText);
 	}
 
 
