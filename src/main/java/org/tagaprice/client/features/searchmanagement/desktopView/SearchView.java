@@ -119,9 +119,8 @@ public class SearchView extends Composite implements ISearchView {
 			}
 		});
 		
-		
+		//search location
 		_seachLoctionPop.getElement().getStyle().setZIndex(2000);
-		
 		_location.addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
@@ -170,26 +169,9 @@ public class SearchView extends Composite implements ISearchView {
 							
 							_seachLoctionPop.showRelativeTo(_location);
 							
-							/*
-							if(response.length()>0){
-								MapquestResponse temp = response.get(0);
-								
-								
-								Address at = MapquestCreator.getAddressByMapquestResponse(temp);
-								
-								
-								if(at!=null){
-									at.getPos().setLat(Double.parseDouble(temp.getLat()));
-									at.getPos().setLon(Double.parseDouble(temp.getLon()));
-									//addSelectableAddress(at);
-								}										
-								
-							}
-							*/
 						}
 
 					});
-					//_locationPop.showRelativeTo(_location);
 				}
 				
 			}

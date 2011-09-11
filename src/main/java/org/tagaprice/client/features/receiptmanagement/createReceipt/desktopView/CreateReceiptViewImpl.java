@@ -17,6 +17,7 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
+import org.tagaprice.client.generics.MapQuest.MapquestCreator;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
@@ -31,6 +32,7 @@ import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -40,6 +42,8 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.jsonp.client.JsonpRequestBuilder;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -53,6 +57,9 @@ import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
+import com.google.gwt.core.client.JsArray;
+import org.tagaprice.client.generics.MapQuest.MapquestCreator;
+import org.tagaprice.client.generics.MapQuest.MapquestResponse;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {
 
@@ -73,6 +80,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	
 	private TextBox _location = new TextBox();
 	private PopupPanel _locationPop = new PopupPanel(true);
+	private PopupPanel _seachLoctionPop = new PopupPanel(true);
 	private VerticalPanel _locationVePa = new VerticalPanel();
 	
 	//search
@@ -236,10 +244,65 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 					_locationPop.showRelativeTo(_location);
 				}
 			});
-			
-			
 			_locationVePa.add(_dynLocationVePa);
 			
+			//search location
+			_seachLoctionPop.getElement().getStyle().setZIndex(2000);
+			_location.addKeyUpHandler(new KeyUpHandler() {
+				
+				@Override
+				public void onKeyUp(KeyUpEvent key) {
+					if(key.getNativeKeyCode() == 13){
+						_locationPop.hide();
+						
+						JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
+						jsonp.setCallbackParam("json_callback");
+						String url = "http://open.mapquestapi.com/nominatim/v1/search?format=json&addressdetails=1&q=";
+						url+=_location.getText();
+						
+						jsonp.requestObject(url, new AsyncCallback<JsArray<MapquestResponse>>() {
+
+							@Override
+							public void onFailure(Throwable e) {
+								Log.error("MapquestPointToAdressFailure: "+e);						
+							}
+
+							@Override
+							public void onSuccess(JsArray<MapquestResponse> response) {
+							
+								VerticalPanel vePa = new VerticalPanel();
+								vePa.setWidth("200px");
+								vePa.setStyleName("popBackground");
+								_seachLoctionPop.setWidget(vePa);
+								
+								for(int i=0;i<response.length();i++){
+									final Address at = MapquestCreator.getAddressByMapquestResponse(response.get(i));
+									at.getPos().setLat(Double.parseDouble(response.get(i).getLat()));
+									at.getPos().setLon(Double.parseDouble(response.get(i).getLon()));
+									Label l = new Label(at.getStreet()+", "+at.getCity()+", "+at.getCountrycode());
+									vePa.add(l);
+									
+									l.addClickHandler(new ClickHandler() {
+										
+										@Override
+										public void onClick(ClickEvent arg0) {
+											addSelectableAddress(at);
+											setAddress(at);
+											_seachLoctionPop.hide();
+										}
+									});
+									
+								}
+								
+								_seachLoctionPop.showRelativeTo(_location);
+								
+							}
+
+						});
+					}
+					
+				}
+			});
 			
 			Label locText = new Label("Current Location");
 			locText.addClickHandler(new ClickHandler() {
@@ -355,6 +418,20 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			});
 			_dynLocationVePa.add(locText);
 		}
+	}
+	
+	private void addSelectableAddress(final Address address){
+		Label locText = new Label(address.getStreet()+", "+address.getCity());
+		locText.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setAddress(address);
+				setAddress(address);
+				_locationPop.hide();
+			}
+		});
+		_dynLocationVePa.add(locText);
 	}
 	
 	
