@@ -52,7 +52,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 					_presenter.goTo(new CreateReceiptPlace(r.getId()));
 				}
 			});
-			Label name = new Label(r.getTitle());
+			Label name = new Label(r.getShop().getTitle()+", "+r.getShop().getAddress().getStreet());
 			name.addClickHandler(new ClickHandler() {
 
 				@Override
