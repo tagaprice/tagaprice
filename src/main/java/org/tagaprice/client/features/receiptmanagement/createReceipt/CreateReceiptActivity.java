@@ -92,43 +92,56 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
 		
 		Log.debug("receiptCount: "+_createReceiptView.getReceiptEntries().size());
-
 		//infox
 		//destroy all
 		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(CreateReceiptActivity.class));
-
-
-		final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateReceiptActivity.class, "saving...", INFOTYPE.INFO,0);
-		_clientFactory.getEventBus().fireEvent(trySaving);
-
-		_clientFactory.getReceiptService().saveReceipt(_clientFactory.getAccountPersistor().getSessionId(), _receipt, new AsyncCallback<Receipt>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
-				try{
-					throw caught;
-				}catch (UserNotLoggedInException e){
-					Log.warn(e.getMessage());
-					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
-				}catch (Throwable e){
-					Log.error(e.getMessage());
+		
+		boolean allowSaving = true;
+		for(ReceiptEntry re:_receipt.getReceiptEntries()){
+			if(re.getPackageId()==null){
+				if(re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) 
+						|| re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0"))){
+					allowSaving=false;
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "package size must not be 0", INFOTYPE.INFO));
 				}
 			}
-
-			@Override
-			public void onSuccess(Receipt response) {
-				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Receipt saved successful", INFOTYPE.SUCCESS));
-
-				Log.debug("Receipt saved: "+_receipt);
-				updateView(response);
-
-				//delete draft
-				_clientFactory.getAccountPersistor().setReceiptDraft(null);
-			}
-		});
-
+		}
+		
+		if(allowSaving){
+			
+	
+	
+			final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateReceiptActivity.class, "saving...", INFOTYPE.INFO,0);
+			_clientFactory.getEventBus().fireEvent(trySaving);
+	
+			_clientFactory.getReceiptService().saveReceipt(_clientFactory.getAccountPersistor().getSessionId(), _receipt, new AsyncCallback<Receipt>() {
+	
+				@Override
+				public void onFailure(Throwable caught) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+					try{
+						throw caught;
+					}catch (UserNotLoggedInException e){
+						Log.warn(e.getMessage());
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Please login or create new user to save.", INFOTYPE.ERROR));
+					}catch (Throwable e){
+						Log.error(e.getMessage());
+					}
+				}
+	
+				@Override
+				public void onSuccess(Receipt response) {
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(trySaving));
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(CreateReceiptActivity.class, "Receipt saved successful", INFOTYPE.SUCCESS));
+	
+					Log.debug("Receipt saved: "+_receipt);
+					updateView(response);
+	
+					//delete draft
+					_clientFactory.getAccountPersistor().setReceiptDraft(null);
+				}
+			});
+		}
 	}
 
 	@Override

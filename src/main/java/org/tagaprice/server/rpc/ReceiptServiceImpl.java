@@ -1,5 +1,6 @@
 package org.tagaprice.server.rpc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.tagaprice.server.dao.IDaoFactory;
@@ -41,8 +42,13 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 
 		//check if a package is new
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
-			if(re.getPackageId()==null)
-				re.getPackage().setCreator(session.getCreator());
+			if(re.getPackageId()==null){
+				if(!re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) 
+						&& !re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0"))){
+					re.getPackage().setCreator(session.getCreator());
+				}else
+					throw new DaoException("package size must not be 0");
+			}
 		}
 
 		//Create or update Receipt
