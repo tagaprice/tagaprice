@@ -13,7 +13,7 @@ public class TermsFilter implements Filter {
 		return this;
 	}
 
-	public Terms getTerm() {
+	public Terms getTerms() {
 		return m_terms;
 	}
 
