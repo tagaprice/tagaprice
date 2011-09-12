@@ -27,11 +27,11 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 	private SearchPlace _place;
 	private ClientFactory _clientFactory;
 	private ISearchView _searchView;
-	private Address _curAddress;
+	private static Address _curAddress;
 	private int _searchCount=0;
 	
 	public SearchActivity(SearchPlace place, ClientFactory clientFactory) {
-		
+		Log.debug("Create Activity");
 		_place=place;
 		_clientFactory=clientFactory;
 	}
@@ -68,9 +68,9 @@ public class SearchActivity extends AbstractActivity implements Presenter {
 	public void setAddress(Address address) {
 		Log.debug("setAddress. "+address);
 		_curAddress = address;
-		
-		
 		_searchView.setAddress(_curAddress);
+		
+		_clientFactory.getAccountPersistor().setCurAddress(address);
 	}
 	
 	@Override
