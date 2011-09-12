@@ -48,34 +48,36 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		// get all the shops in the specified bbox
 		List<String> shopIDs = m_shopDao.findIDsInBBox(bbox);
 		
+	
 		List<StatisticResult> rc = new ArrayList<StatisticResult>();
-
-		// find all receipts that contain at least one of the packages AND at least one of the shops
-		QueryObject queryObject = new QueryObject().query(
-			new FilteredQuery().query(
-				new MatchAllQuery()
-			).filter(
-				new AndFilter().addCondition(
-					new TermsFilter().terms(new Terms("packageId", packageIDs))
-				).addCondition(
-					new TermsFilter().terms(new Terms("shopId", shopIDs))
-				)
-			)
-		);
-
-		SearchResult searchResult = m_searchClient.find(queryObject);
 		
-		for (Hit hit: searchResult.getHits().getHits()) {
-			Receipt receipt = m_receiptDao.get(hit.getId());
-			Shop shop = receipt.getShop();
-			for (ReceiptEntry entry: receipt.getReceiptEntries()) {
-				if (packageIDs.contains(entry.getPackageId())) {
-					Package pkg = entry.getPackage();
-					rc.add(new StatisticResult(receipt.getDate(), shop, pkg.getProduct(), pkg.getQuantity(), entry.getPrice()));
+		if(shopIDs.size()>0){
+			// find all receipts that contain at least one of the packages AND at least one of the shops
+			QueryObject queryObject = new QueryObject().query(
+				new FilteredQuery().query(
+					new MatchAllQuery()
+				).filter(
+					new AndFilter().addCondition(
+						new TermsFilter().terms(new Terms("packageId", packageIDs))
+					).addCondition(
+						new TermsFilter().terms(new Terms("shopId", shopIDs))
+					)
+				)
+			);
+	
+			SearchResult searchResult = m_searchClient.find(queryObject);
+			
+			for (Hit hit: searchResult.getHits().getHits()) {
+				Receipt receipt = m_receiptDao.get(hit.getId());
+				Shop shop = receipt.getShop();
+				for (ReceiptEntry entry: receipt.getReceiptEntries()) {
+					if (packageIDs.contains(entry.getPackageId())) {
+						Package pkg = entry.getPackage();
+						rc.add(new StatisticResult(receipt.getDate(), shop, pkg.getProduct(), pkg.getQuantity(), entry.getPrice()));
+					}
 				}
 			}
 		}
-		
 		Log.debug("got "+rc.size()+" results");
 		
 		return rc;
