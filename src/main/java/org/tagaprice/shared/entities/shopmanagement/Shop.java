@@ -3,7 +3,6 @@ package org.tagaprice.shared.entities.shopmanagement;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Address;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
@@ -30,8 +29,8 @@ public class Shop extends Document {
 	 * @param creator Creator of the current document revision 
 	 * @param title Title of the shop
 	 */
-	public Shop(User creator, String title, Category category) {
-		super(creator, title);
+	public Shop(String creatorId, String title, Category category) {
+		super(creatorId, title);
 		this._category = category;
 	}
 
@@ -44,8 +43,8 @@ public class Shop extends Document {
 	 * @param revisionId
 	 * @param title
 	 */
-	public Shop(User creator, String shopId, String revision, String title, Category category) {
-		super(creator, shopId, revision, title);
+	public Shop(String creatorId, String shopId, String revision, String title, Category category) {
+		super(creatorId, shopId, revision, title);
 		this._category = category;
 	}
 
@@ -140,7 +139,7 @@ public class Shop extends Document {
 	 */
 	public static Shop fromDocument(Document document) {
 		//return (Shop)document;
-		Shop ts = new Shop(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null);
+		Shop ts = new Shop(document.getCreatorId(), document.getId(), document.getRevision(), document.getTitle(), null);
 		ts.setAddress(document.getAddress());
 		
 		return ts;	

@@ -2,7 +2,6 @@ package org.tagaprice.shared.entities.categorymanagement;
 
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.Document;
-import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * A category describes which properties and dependencies a {@link Product} has.
@@ -26,8 +25,8 @@ public class Category extends Document   {
 	 * @param title the title of the category
 	 * @param parent the parent of the category.
 	 */
-	public Category(User creator, String title, Category parent) {
-		this(creator, null, null, title, parent);
+	public Category(String creatorId, String title, Category parent) {
+		this(creatorId, null, null, title, parent);
 	}
 
 	/**
@@ -38,8 +37,8 @@ public class Category extends Document   {
 	 * @param title the title of the category
 	 * @param parent the parent of the category
 	 */
-	public Category(User creator, String id, String revision, String title, Category parent){
-		super(creator, id, revision, title);
+	public Category(String creatorId, String id, String revision, String title, Category parent){
+		super(creatorId, id, revision, title);
 		setParent(parent);
 	}
 

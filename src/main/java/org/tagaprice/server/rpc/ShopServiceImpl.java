@@ -59,7 +59,7 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 		Shop rc = null;
 
 		// TODO check session validity
-		shop.setCreator(session.getCreator());
+		shop.setCreatorId(session.getCreatorId());
 
 		if (shop.getId() != null) {
 			rc = shopDAO.update(shop);

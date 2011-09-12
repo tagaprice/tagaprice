@@ -73,15 +73,15 @@ public class MockDaoFactory implements IDaoFactory {
 
 
 		//Create Categories
-		Category food = m_categoryDAO.create(new Category(m_testUser, "food", null));
-		Category vegetables = m_categoryDAO.create(new Category(m_testUser, "vegetables", food));
-		Category beverages = m_categoryDAO.create(new Category(m_testUser, "beverages", null));
-		Category nonalcoholics = m_categoryDAO.create(new Category(m_testUser, "nonalcoholics", beverages));
+		Category food = m_categoryDAO.create(new Category(m_testUser.getId(), "food", null));
+		Category vegetables = m_categoryDAO.create(new Category(m_testUser.getId(), "vegetables", food));
+		Category beverages = m_categoryDAO.create(new Category(m_testUser.getId(), "beverages", null));
+		Category nonalcoholics = m_categoryDAO.create(new Category(m_testUser.getId(), "nonalcoholics", beverages));
 
 
 		//Create units
-		Unit g = m_unitDAO.create(new Unit(m_testUser, "g",null,1.0));
-		Unit l = m_unitDAO.create(new Unit(m_testUser, "l",null,1.0));
+		Unit g = m_unitDAO.create(new Unit(m_testUser.getId(), "g",null,1.0));
+		Unit l = m_unitDAO.create(new Unit(m_testUser.getId(), "l",null,1.0));
 		/*
 		m_unitDAO.setFactorizedUnit(st.getId(), st.getId(), 1);
 		Unit kg = m_unitDAO.create(new Unit(m_testUser, "kg"));
@@ -102,7 +102,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 		//Create Products
 		// TestProduct
-		Product bergkasese = new Product(m_testUser, "Bergkäse 4", vegetables, g);
+		Product bergkasese = new Product(m_testUser.getId(), "Bergkäse 4", vegetables, g);
 		bergkasese = m_productDAO.create(bergkasese);
 
 
@@ -118,8 +118,8 @@ public class MockDaoFactory implements IDaoFactory {
 
 		m_productDAO.update(bergkasese);
 
-		m_productDAO.create(new Product(m_testUser, "Extrawurst von der Theke", vegetables, g));
-		m_productDAO.create(new Product(m_testUser, "Limonade", nonalcoholics, l));
+		m_productDAO.create(new Product(m_testUser.getId(), "Extrawurst von der Theke", vegetables, g));
+		m_productDAO.create(new Product(m_testUser.getId(), "Limonade", nonalcoholics, l));
 
 
 		//Create shops
@@ -127,7 +127,7 @@ public class MockDaoFactory implements IDaoFactory {
 		//Create some Shops
 		//Shop s1 = m_shopDAO.create(new Shop(m_testUser, "Billa", vegetables));
 
-		Shop is2 = m_shopDAO.create(new Shop(m_testUser, "Billa - Blumauergasse 1B", vegetables));
+		Shop is2 = m_shopDAO.create(new Shop(m_testUser.getId(), "Billa - Blumauergasse 1B", vegetables));
 		is2.setAddress(new Address("Blumauergasse 1B", 48.0, 16.0));
 		//is2.setParent(s1);
 		is2=m_shopDAO.update(is2);
@@ -135,7 +135,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 
 
-		Shop is3 = m_shopDAO.create(new Shop(m_testUser, "Billa - Holzhausergasse 9", vegetables));
+		Shop is3 = m_shopDAO.create(new Shop(m_testUser.getId(), "Billa - Holzhausergasse 9", vegetables));
 		is3.setAddress(new Address("Holzhausergasse 9", 48.0, 16.0));
 		//is3.setParent(s1);
 		is3=m_shopDAO.update(is3);
@@ -148,7 +148,7 @@ public class MockDaoFactory implements IDaoFactory {
 		//Create address for Shop(bills)
 		//Create some Shop
 		//Shop s2 = m_shopDAO.create(new Shop(m_testUser, "Hofer",vegetables));
-		Shop is = m_shopDAO.create(new Shop(m_testUser, "Hofer - Schüttelstraße 19A",vegetables));
+		Shop is = m_shopDAO.create(new Shop(m_testUser.getId(), "Hofer - Schüttelstraße 19A",vegetables));
 		is.setAddress(new Address("Schüttelstraße 19A", 48.21048970218907, 16.396751403808594));
 		//is.setParent(s2);
 		is=m_shopDAO.update(is);
@@ -156,7 +156,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 		{
 			//Create Receipt
-			Receipt receipt = new Receipt(m_testUser, "First Receipt", new Date(), is);
+			Receipt receipt = new Receipt(m_testUser.getId(), "First Receipt", new Date(), is);
 
 			//Receipt Entry
 			ReceiptEntry recEnt = new ReceiptEntry(new Price(new BigDecimal("15.0"), Currency.euro), bergkasese1);
@@ -166,7 +166,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 		{
 			//Create Receipt
-			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is3);
+			Receipt receipt = new Receipt(m_testUser.getId(), "Second Receipt", new Date(), is3);
 
 			//Receipt Entry
 			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("16.0"), Currency.euro), bergkasese1));
@@ -176,7 +176,7 @@ public class MockDaoFactory implements IDaoFactory {
 
 		{
 			//Create Receipt
-			Receipt receipt = new Receipt(m_testUser, "Second Receipt", new Date(), is2);
+			Receipt receipt = new Receipt(m_testUser.getId(), "Second Receipt", new Date(), is2);
 
 			//Receipt Entry
 			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("13.0"), Currency.euro), bergkasese1));

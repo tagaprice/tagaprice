@@ -39,8 +39,8 @@ public class Receipt extends Document {
 	 * @param date date of the receipt
 	 * @param subsidiary the subsidiary
 	 */
-	public Receipt(User creator, String title, Date date, Shop shop) {
-		super(creator, title);
+	public Receipt(String creatorId, String title, Date date, Shop shop) {
+		super(creatorId, title);
 		setDate(date);
 		setShop(shop);
 	}
@@ -55,8 +55,8 @@ public class Receipt extends Document {
 	 * @param date the date and time when a receipt was created
 	 * @param subsidiary {@link ISubsidiary} where the receipt is from
 	 */
-	public Receipt(User creator, String receiptId, String revision, String title, Date date, Shop shop) {
-		super(creator, receiptId, revision, title);
+	public Receipt(String creatorId, String receiptId, String revision, String title, Date date, Shop shop) {
+		super(creatorId, receiptId, revision, title);
 		setDate(date);
 		setShop(shop);
 	}

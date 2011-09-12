@@ -28,7 +28,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>dummyservice</servlet-name>
-    <servlet-class>org.tagaprice.server.DummyServiceImpl</servlet-class>
+    <servlet-class>org.tagaprice.server.rpc.DummyServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>

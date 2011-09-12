@@ -33,7 +33,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 		//create Packages
 		ArrayList<Package> pl = new ArrayList<Package>();
 		for(Package p: rc.getPackages()){
-			p.setCreator(rc.getCreator());
+			p.setCreatorId(rc.getCreatorId());
 			pl.add(m_packageDAO.create(p));
 		}
 		rc.setPackages(pl);
@@ -48,11 +48,11 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 		//create Packages
 		ArrayList<Package> pl = new ArrayList<Package>();
 		for(Package p: rc.getPackages()){
-			if(p.getCreator()==null){
-				p.setCreator(rc.getCreator());
+			if(p.getCreatorId()==null){
+				p.setCreatorId(rc.getCreatorId());
 				pl.add(m_packageDAO.create(p));
 			}else{
-				p.setCreator(rc.getCreator());
+				p.setCreatorId(rc.getCreatorId());
 				pl.add(m_packageDAO.update(p));
 			}
 		}

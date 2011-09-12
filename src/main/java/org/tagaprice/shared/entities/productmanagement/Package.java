@@ -3,7 +3,6 @@ package org.tagaprice.shared.entities.productmanagement;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Quantity;
-import org.tagaprice.shared.entities.accountmanagement.User;
 
 public class Package extends Document {
 	private static final long serialVersionUID = 1L;
@@ -36,8 +35,8 @@ public class Package extends Document {
 	 * @param revisionId current revisionId.
 	 * @param quantity the current quantity of a package.
 	 */
-	public Package(User creator, String id, String revision, Quantity quantity){
-		super(creator, id, revision, null);
+	public Package(String creatorId, String id, String revision, Quantity quantity){
+		super(creatorId, id, revision, null);
 		_iQuantity=quantity;
 	}
 

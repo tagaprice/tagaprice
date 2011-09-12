@@ -1,7 +1,6 @@
 package org.tagaprice.shared.entities;
 
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.accountmanagement.User;
 
 /**
  * Represents Units and converts between them.
@@ -22,8 +21,8 @@ public class Unit extends Document {
 	 * @param creator Creator of the current document revision
 	 * @param title Unit title
 	 */
-	public Unit(User creator, String title, Unit parent, double factor) {
-		this(creator, null, null, title, parent, factor);
+	public Unit(String creatorId, String title, Unit parent, double factor) {
+		this(creatorId, null, null, title, parent, factor);
 	}
 
 	/**
@@ -34,8 +33,8 @@ public class Unit extends Document {
 	 * @param revision
 	 * @param title
 	 */
-	public Unit(User creator, String id, String revision, String title, Unit parent, double factor) {
-		super(creator, id, revision, title);
+	public Unit(String creatorId, String id, String revision, String title, Unit parent, double factor) {
+		super(creatorId, id, revision, title);
 		setParent(parent);
 		setFactor(factor);
 	}

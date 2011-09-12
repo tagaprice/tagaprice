@@ -38,14 +38,14 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 		Receipt rc=null;
 
 		// TODO check session validity
-		receipt.setCreator(session.getCreator());
+		receipt.setCreatorId(session.getCreatorId());
 
 		//check if a package is new
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				if(!re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) 
 						&& !re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0"))){
-					re.getPackage().setCreator(session.getCreator());
+					re.getPackage().setCreatorId(session.getCreatorId());
 				}else
 					throw new DaoException("package size must not be 0");
 			}

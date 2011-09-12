@@ -61,7 +61,7 @@ public class ProductServiceImpl extends RemoteServiceServlet implements IProduct
 		Product rc = null;
 
 		// TODO check session validity
-		product.setCreator(session.getCreator());
+		product.setCreatorId(session.getCreatorId());
 
 
 

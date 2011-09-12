@@ -25,8 +25,8 @@ public class Session extends Document {
 	 * @param user User the session belongs to
 	 * @param expiresAt Session expiration time
 	 */
-	public Session(User user, Date expiresAt) {
-		super(user, null);
+	public Session(String userId, Date expiresAt) {
+		super(userId, null);
 		m_expirationDate = expiresAt;
 	}
 
@@ -37,8 +37,8 @@ public class Session extends Document {
 	 * @param rev Session revision
 	 * @param expiresAt Session expiration time
 	 */
-	public Session(User user, String id, String rev, Date expiresAt) {
-		super(user, id, rev, null);
+	public Session(String userId, String id, String rev, Date expiresAt) {
+		super(userId, id, rev, null);
 		m_expirationDate = expiresAt;
 	}
 	

@@ -57,7 +57,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 		// create Session (default expiration time: 24h)
 		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+(24*3600000));
-		Session session = _sessionDao.create(new Session(user, expirationDate));
+		Session session = _sessionDao.create(new Session(user.getId(), expirationDate));
 		rc = session.getId();
 
 		return rc;

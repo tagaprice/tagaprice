@@ -30,7 +30,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	private String _id = null;
 	private String _rev = null;
 	private String _docType = null;
-	private User _creator = null;
+	private String _creatorId = null;
 	private Map<String, Object> _properties = new HashMap<String, Object>();
 	private Address _address = new Address();
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
@@ -58,8 +58,8 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * @param id Unique EntityID
 	 * @param title The title of the {@link Document}. It must not be null.
 	 */
-	public Document(User creator, String id, String revision, String title) {
-		_creator = creator;
+	public Document(String creatorId, String id, String revision, String title) {
+		_creatorId = creatorId;
 		setId(id);
 		setRevision(revision);
 		setTitle(title);
@@ -73,25 +73,16 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * @param title
 	 *            The title of the {@link Document}. Every {@link Document} needs a title. It must not be null.
 	 */
-	public Document(User creator, String title) {
-		this(creator, null, null, title);
+	public Document(String creatorId, String title) {
+		this(creatorId, null, null, title);
 	}
 
 	/**
 	 * Returns the creator of the Entity's current revision
-	 * @return Entity creator
-	 */
-	@JSONProperty(ignore=true)
-	public User getCreator() {
-		return _creator;
-	}
-
-	/**
-	 * Internal method necessary for CouchDB injection
 	 * @return This revision's creator UID
 	 */
 	public String getCreatorId() {
-		return _creator != null ? _creator.getId() : null;
+		return _creatorId;
 	}
 
 	/**
@@ -139,16 +130,12 @@ public class Document implements IsSerializable, DynamicProperties {
 		return _properties.keySet();
 	}
 
-	public void setCreator(User creator) {
-		_creator = creator;
-	}
-
 	/**
-	 * Internal method necessary for CouchDB injection
+	 * Set the document's creator ID
 	 * @param creatorId UID of the current revision's creator
 	 */
 	public void setCreatorId(String creatorId) {
-		setCreator(creatorId != null ? new User(creatorId, null, null) : null);
+		_creatorId = creatorId;
 	}
 
 	/**
@@ -270,7 +257,7 @@ public class Document implements IsSerializable, DynamicProperties {
 			Document other = (Document) otherObject;
 			if (!_equals(_id, other._id)) rc = false;
 			else if (!_equals(_rev, other._rev)) rc = false;
-			else if (!_equals(_creator, other._creator)) rc = false;
+			else if (!_equals(_creatorId, other._creatorId)) rc = false;
 			else if (!_equals(_title, other._title)) rc = false;
 		}
 		else rc = false;

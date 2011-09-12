@@ -6,7 +6,6 @@ import java.util.List;
 import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Unit;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 
 /**
@@ -35,8 +34,8 @@ public class Product extends Document {
 	 * @param category Product category
 	 * @param unit Product unit
 	 */
-	public Product(User creator, String title, Category category, Unit unit) {
-		super(creator, title);
+	public Product(String creatorId, String title, Category category, Unit unit) {
+		super(creatorId, title);
 		this._category = category;
 		this._unit = unit;
 
@@ -52,8 +51,8 @@ public class Product extends Document {
 	 * @param category Product category
 	 * @param unit Product unit
 	 */
-	public Product(User creator, String productId, String revision, String title, Category category, Unit unit) {
-		super(creator, productId, revision, title);
+	public Product(String creatorId, String productId, String revision, String title, Category category, Unit unit) {
+		super(creatorId, productId, revision, title);
 		this._category = category;
 		this._unit = unit;
 	}
@@ -210,7 +209,7 @@ public class Product extends Document {
 	}
 
 	public static Product fromDocument(Document document) {
-		Product pt = new Product(document.getCreator(), document.getId(), document.getRevision(), document.getTitle(), null, null);
+		Product pt = new Product(document.getCreatorId(), document.getId(), document.getRevision(), document.getTitle(), null, null);
 		pt.setPackages(document.getPackages());
 		
 		return pt;
