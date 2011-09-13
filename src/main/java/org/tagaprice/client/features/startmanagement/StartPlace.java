@@ -11,7 +11,7 @@ public class StartPlace extends Place {
 	}
 
 
-	@Prefix("Start")
+	@Prefix("start")
 	public static class Tokenizer implements PlaceTokenizer<StartPlace>{
 
 		@Override

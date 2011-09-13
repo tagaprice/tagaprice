@@ -48,6 +48,14 @@ public class DashboardMenuWidget extends Composite {
 			}
 		});
 		
+		_setting.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				History.newItem("settings:null");				
+			}
+		});
+		
 		
 		initWidget(_vePa);
 	}

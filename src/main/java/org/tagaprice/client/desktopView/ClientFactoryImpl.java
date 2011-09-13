@@ -6,6 +6,8 @@ import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.desktopView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
+import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
+import org.tagaprice.client.features.accountmanagement.settings.desktopView.SettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.categorymanagement.product.desktopView.ProductCategoryView;
 import org.tagaprice.client.features.categorymanagement.shop.desktopView.ShopCategoryView;
@@ -71,6 +73,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static ISearchView searchView;
 	private static ICategoryView shopCategoryView;
 	private static ICategoryView productCategoryView;
+	private static ISettingsView settingsView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -178,6 +181,14 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 	
 	@Override
+	public ISettingsView getSettingsView() {
+		if(settingsView==null)
+			settingsView=new SettingsView();
+		return settingsView;
+	}
+
+	
+	@Override
 	public ILoginServiceAsync getLoginService() {
 		return ClientFactoryImpl.I_LOGIN_SERVICE_ASYNC;
 	}
@@ -213,6 +224,7 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
 
+	
 	
 
 	

@@ -6,6 +6,7 @@ import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
+import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.devView.*;
@@ -189,6 +190,13 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ICategoryView getProductCategoryView() {
 		// TODO Auto-generated method stub
 		Log.debug("getProductCategoryView is null ......................");
+		return null;
+	}
+
+	@Override
+	public ISettingsView getSettingsView() {
+		// TODO Auto-generated method stub
+		Log.debug("getSettingsView is null ......................");
 		return null;
 	}
 

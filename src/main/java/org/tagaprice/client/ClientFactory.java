@@ -2,6 +2,7 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
+import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
@@ -108,6 +109,8 @@ public interface ClientFactory {
 	ICategoryView getShopCategoryView();
 
 	ICategoryView getProductCategoryView();
+	
+	ISettingsView getSettingsView();
 	
 	/****************** GlobalAddress ***********************/
 	/**
