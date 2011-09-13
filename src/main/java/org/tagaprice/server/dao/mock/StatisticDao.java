@@ -81,15 +81,15 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	public List<StatisticResult> searchPricesViaShopCategory(String categoryId,
 			BoundingBox bbox, Date begin, Date end) throws DaoException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<StatisticResult>();
 	}
 
 	@Override
-	public List<StatisticResult> searchPricesVieProductCategory(
+	public List<StatisticResult> searchPricesViaProductCategory(
 			String categoryId, BoundingBox bbox, Date begin, Date end)
 			throws DaoException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<StatisticResult>();
 	}
 
 

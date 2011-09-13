@@ -108,7 +108,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	}
 
 	@Override
-	public List<StatisticResult> searchPricesVieProductCategory(
+	public List<StatisticResult> searchPricesViaProductCategory(
 			String categoryId, BoundingBox bbox, Date begin, Date end)
 			throws DaoException {
 		// TODO Auto-generated method stub

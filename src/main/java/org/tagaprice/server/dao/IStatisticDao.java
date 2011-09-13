@@ -12,5 +12,5 @@ public interface IStatisticDao extends IDaoClass<StatisticResult> {
 	public List<StatisticResult> searchPricesViaProduct(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException;
 	public List<StatisticResult> searchPricesViaShop(String shopId, Date begin, Date end) throws DaoException;
 	public List<StatisticResult> searchPricesViaShopCategory(String categoryId, BoundingBox bbox, Date begin, Date end) throws DaoException;
-	public List<StatisticResult> searchPricesVieProductCategory(String categoryId, BoundingBox bbox, Date begin, Date end) throws DaoException;
+	public List<StatisticResult> searchPricesViaProductCategory(String categoryId, BoundingBox bbox, Date begin, Date end) throws DaoException;
 }
