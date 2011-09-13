@@ -108,6 +108,11 @@ public class Document implements IsSerializable, DynamicProperties {
 		return _properties.get(name);
 	}
 
+	@JSONProperty(ignore = true)
+	public Map<String, Object> getPropertyList(){
+		return _properties;
+	}
+	
 	/**
 	 * Returns the Revision of the {@link ASimpleEntity} or null, if it wasn't yet set (e.g. for unsaved {@link ASimpleEntity})
 	 * @return Returns the Revision of the {@link ASimpleEntity} or null, if Revision is not set.
