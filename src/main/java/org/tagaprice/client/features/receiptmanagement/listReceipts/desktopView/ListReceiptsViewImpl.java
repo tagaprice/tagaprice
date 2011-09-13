@@ -26,7 +26,6 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 
 	public ListReceiptsViewImpl() {
-		initWidget(_frame);
 		_frame.setHeader(_header);
 		
 		//menu
@@ -41,6 +40,8 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		});
 		
 		_frame.setBody(_receiptList);
+
+		initWidget(_frame);
 	}
 
 	@Override

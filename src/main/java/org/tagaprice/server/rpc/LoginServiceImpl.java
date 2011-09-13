@@ -59,6 +59,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+(24*3600000));
 		Session session = _sessionDao.create(new Session(user.getId(), expirationDate));
 		rc = session.getId();
+		setSessionId(rc);
 
 		return rc;
 	}
@@ -104,10 +105,43 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 	}
 
 	@Override
-	public boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
-	throws UserNotLoggedInException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setNewPassword(String newPassword, String confirmPassword)
+	throws UserNotLoggedInException, DaoException {
+		
+		
+		newPassword=newPassword.trim();
+		confirmPassword=confirmPassword.trim();
+		
+		if(!newPassword.equals(confirmPassword)) return false;
+		if(newPassword.length() < 6 ) return false;
+		
+		
+		String salt = generateSalt(24);
+		String pwdHash;
+
+		try {
+			pwdHash = md5(newPassword+salt);
+		}
+		catch (NoSuchAlgorithmException e) {
+			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
+		}
+		
+		
+		try {
+			System.out.println("get sessionid:"+getSid());
+			User user = _userDao.get(getSid());
+			user.setPasswordSalt(salt);
+			user.setPasswordHash(pwdHash);
+			
+			user.setConfirmSalt(generateSalt(24));
+			user.setConfirm(md5(user.getMail()+user.getConfirmSalt()));
+			
+			_userDao.update(user);
+		} catch (NoSuchAlgorithmException e) {
+			throw new DaoException("Couldn't generate password hash: "+e.getMessage(), e);
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -172,9 +206,11 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 
 	
 	private String getSid(){
-		if(session==null)session = getThreadLocalRequest().getSession();
-
-		return session.getId();
+		return getThreadLocalRequest().getSession().getAttribute("sid").toString();
+	}
+	
+	private void setSessionId(String sid){
+		getThreadLocalRequest().getSession().setAttribute("sid", sid);
 	}
 
 	private boolean _checkPassword(User user, String password) throws DaoException {
