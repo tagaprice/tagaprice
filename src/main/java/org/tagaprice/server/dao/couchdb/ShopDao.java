@@ -12,6 +12,7 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.QueryObject;
 import org.tagaprice.server.dao.couchdb.elasticsearch.filter.BoundingBoxFilter;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.FilteredQuery;
 import org.tagaprice.server.dao.couchdb.elasticsearch.query.MatchAllQuery;
+import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -43,6 +44,8 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	
 	@Override
 	public List<String> findIDsInBBox(BoundingBox bbox) throws DaoException {
+		List<String> rc = new ArrayList<String>();
+
 		QueryObject queryObject = new QueryObject().query(
 			new FilteredQuery().query(
 				new MatchAllQuery()
@@ -53,10 +56,14 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 					new BoundingBoxFilter.BoundingBox().convert(bbox)
 				)
 			)
-		).size(100);
+		).size(100).fields("_id");
 		
 		SearchResult result = m_searchClient.find(queryObject);
-		return result.getHits().getIDs();
+		for (Hit hit: result.getHits().getHits()) {
+			rc.add(hit.getField("_id").toString());
+		}
+		
+		return rc;
 	}
 
 	@Override
