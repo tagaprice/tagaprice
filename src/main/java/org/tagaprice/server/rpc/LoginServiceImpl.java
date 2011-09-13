@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IUserDao;
+import org.tagaprice.server.dao.couchdb.SessionDao;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
@@ -128,8 +129,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements ILoginServ
 		
 		
 		try {
-			System.out.println("get sessionid:"+getSid());
-			User user = _userDao.get(getSid());
+			Session session = _sessionDao.get(getSid());
+			
+			User user = _userDao.get(session.getCreatorId());
 			user.setPasswordSalt(salt);
 			user.setPasswordHash(pwdHash);
 			
