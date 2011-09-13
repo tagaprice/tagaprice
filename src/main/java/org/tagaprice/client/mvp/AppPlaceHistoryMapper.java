@@ -1,6 +1,5 @@
 package org.tagaprice.client.mvp;
 
-import org.tagaprice.client.features.accountmanagement.register.RegisterPlace;
 import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
 import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
@@ -25,7 +24,6 @@ import com.google.gwt.place.shared.*;
 	CreateShopPlace.Tokenizer.class,
 	ListShopsPlace.Tokenizer.class,
 	CreateReceiptPlace.Tokenizer.class,
-	RegisterPlace.Tokenizer.class,
 	ListReceiptsPlace.Tokenizer.class,
 	StartPlace.Tokenizer.class,
 	SearchPlace.Tokenizer.class,

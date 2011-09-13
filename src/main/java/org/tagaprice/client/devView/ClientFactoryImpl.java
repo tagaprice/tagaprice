@@ -6,10 +6,6 @@ import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
-import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
-import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
-import org.tagaprice.client.features.accountmanagement.register.devView.RegisterViewImpl;
-import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.devView.*;
@@ -66,8 +62,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 	private static final ListProductsViewImpl productListView = new ListProductsViewImpl();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
-	private static final IRegisterView registerView = new RegisterViewImpl();
-	private static final IRegisteredView registeredView = new RegisteredViewImpl();
 	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
 	private static final IStartView startView = new StartViewImpl();
 
@@ -161,15 +155,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 
-	@Override
-	public IRegisterView getRegisterView() {
-		return ClientFactoryImpl.registerView;
-	}
-
-	@Override
-	public IRegisteredView getRegisteredView() {
-		return ClientFactoryImpl.registeredView;
-	}
 
 	@Override
 	public IListReceiptsView getListReceiptsView() {
