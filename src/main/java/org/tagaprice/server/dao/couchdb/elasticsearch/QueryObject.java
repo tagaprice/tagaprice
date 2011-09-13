@@ -8,6 +8,7 @@ public class QueryObject {
 	private Integer m_from = 0;
 	private Integer m_size = 10;
 	private Query m_query = null;
+	private String m_fields[] = null;
 	
 	public QueryObject() {}
 	
@@ -26,6 +27,11 @@ public class QueryObject {
 		return this;
 	}
 	
+	public QueryObject fields(String... fields) {
+		m_fields = fields;
+		return this;
+	}
+	
 	@JSONProperty(ignore=true)
 	public Query getQuery() {
 		return m_query;
@@ -34,6 +40,11 @@ public class QueryObject {
 	@JSONProperty("query")
 	public QueryWrapper getQueryWrapper() {
 		return new QueryWrapper(m_query);
+	}
+	
+	@JSONProperty(ignoreIfNull=true)
+	public String[] getFields() {
+		return m_fields;
 	}
 	
 	@JSONProperty(ignoreIfNull=true)

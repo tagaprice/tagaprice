@@ -7,6 +7,7 @@ import org.svenson.JSONProperty;
 
 public class Hit {
 	private String m_type;
+	private Map<String, Object> m_fields;
 	private Map<String, Object> m_source;
 	private String m_index;
 	private BigDecimal m_score;
@@ -51,5 +52,19 @@ public class Hit {
 	}
 	public void setType(String type) {
 		m_type = type;
+	}
+	
+	@JSONProperty(value="fields")
+	public Map<String, Object> getFields() {
+		return m_fields;
+	}
+	
+	public void setFields(Map<String, Object> fields) {
+		m_fields = fields;
+	}
+	
+	@JSONProperty(ignore=true)
+	public Object getField(String name) {
+		return m_fields.get(name);
 	}
 }
