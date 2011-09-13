@@ -196,6 +196,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 
 		_stdFrame.setBody(_statisticBodyPanel);
 		
+		_statistic.setDate(new Date(1312192800000L), new Date());
 		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
 			@Override
 			public void onChange(BoundingBox bbox, Date begin, Date end) {
