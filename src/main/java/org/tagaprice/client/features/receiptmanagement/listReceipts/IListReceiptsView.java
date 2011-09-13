@@ -34,5 +34,7 @@ public interface IListReceiptsView extends IsWidget {
 		 *            The {@link Place} which should be displayed next.
 		 */
 		public void goTo(Place place);
+		
+		public void onLogout();
 	}
 }

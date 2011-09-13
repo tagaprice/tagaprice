@@ -30,6 +30,13 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		
 		//menu
 		_frame.setBody(_menu,"200px");
+		_menu.addLogoutClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onLogout();
+			}
+		});
 		
 		_frame.setBody(_receiptList);
 	}

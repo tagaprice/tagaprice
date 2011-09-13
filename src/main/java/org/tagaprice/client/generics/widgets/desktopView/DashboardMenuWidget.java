@@ -50,4 +50,8 @@ public class DashboardMenuWidget extends Composite {
 		
 		initWidget(_vePa);
 	}
+	
+	public void addLogoutClickHandler(ClickHandler handler){
+		_logout.addClickHandler(handler);
+	}
 }

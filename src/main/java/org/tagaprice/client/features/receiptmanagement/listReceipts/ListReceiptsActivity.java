@@ -3,6 +3,7 @@ package org.tagaprice.client.features.receiptmanagement.listReceipts;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
@@ -76,6 +77,13 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 
 			}
 		});
+	}
+
+	@Override
+	public void onLogout() {
+		_clientFactory.getAccountPersistor().logout();
+		goTo(new StartPlace());
+		
 	}
 
 }

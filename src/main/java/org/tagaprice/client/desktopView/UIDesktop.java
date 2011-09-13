@@ -4,6 +4,7 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
@@ -118,30 +119,18 @@ public class UIDesktop implements IUi {
 
 		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 		
-		final VerticalPanel vePaLoggedIn = new VerticalPanel();
-		vePaLoggedIn.setStyleName("loginView");
-		vePaLoggedIn.add(new HTML("<a href=\"#ListReceipts:/show\">My Receipts</a>"));
-		vePaLoggedIn.add(new HTML("<a href=\"#CreateReceipt:/create\">add Receipts</a>"));
-		HTML logout = new HTML("<a>Logout</a>");
-		logout.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_clientFactory.getAccountPersistor().logout();						
-			}
-		});
-		vePaLoggedIn.add(logout);
 		
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_clientFactory.getAccountPersistor().isLoggedIn()){
-					loginPop.setWidget(vePaLoggedIn);
+					_clientFactory.getPlaceController().goTo(new ListReceiptsPlace());
 				}else{
 					loginPop.setWidget(loginPres.getView());
+					loginPop.showRelativeTo(login);	
 				}
-				loginPop.showRelativeTo(login);				
+							
 			}
 		});
 		

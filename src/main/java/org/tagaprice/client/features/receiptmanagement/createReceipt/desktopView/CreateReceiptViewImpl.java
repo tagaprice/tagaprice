@@ -153,6 +153,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		//menu
 		_frame.setBody(_menu,"200px");
+		_menu.addLogoutClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onLogout();
+			}
+		});
 		
 		
 		//body
