@@ -61,6 +61,16 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		
 		return rc;
 	}
+	
+	@Override
+	public T getOnly(String id, String revision) throws DaoException {
+		return get(id, revision);
+	}
+
+	@Override
+	public T getOnly(String id) throws DaoException {
+		return get(id);
+	}
 
 	@Override
 	public T update(T document) throws DaoException {

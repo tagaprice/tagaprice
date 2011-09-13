@@ -116,10 +116,24 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 * @return Requested CouchDB document squeezed into a Document object
 	 */
 	@Override
-	public T get(String id, String revision) throws DaoException {
+	public T getOnly(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
 		if (!rc.getDocType().equals(m_docType)) throw new TypeMismatchException("Requested type ('"+m_docType+"') doesn't match actual type: '"+rc.getDocType()+"'");
 
+		return rc;
+	}
+	
+	/**
+	 * Request a document and inject all its fields
+	 * @param id Document ID
+	 * @param revision Document revision (if it's null, the current revision will be queried)
+	 * @return Requested CouchDB document squeezed into a Document object
+	 * @see getOnly() if you want to speed up things and don't need all the child objects to get fetched
+	 */
+	@Override
+	public T get(String id, String revision) throws DaoException {
+		T rc = getOnly(id, revision);
+		
 		// inject fields (recursively for all superClassDaos)
 		DaoClass<? super T> daoClass = this;
 		while (daoClass != null) {
@@ -134,10 +148,22 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 * Request a document from the database
 	 * @param id Document ID
 	 * @return Requested CouchDB document squeezed into a Document object
+	 * @see getOnly() if you want to speed up things and don't need all the child objects to get fetched
 	 */
 	@Override
 	public T get(String id) throws DaoException {
 		return get(id, null);
+	}
+	
+	/**
+	 * Request a document from the database
+	 * @param id Document ID
+	 * @return Requested CouchDB document squeezed into a Document object
+	 * @throws DaoException If something went wrong
+	 */
+	@Override
+	public T getOnly(String id) throws DaoException {
+		return getOnly(id, null);
 	}
 
 	/**
