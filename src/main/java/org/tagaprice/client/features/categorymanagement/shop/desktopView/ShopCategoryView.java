@@ -6,6 +6,8 @@ import java.util.List;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
+import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
+import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.shared.entities.BoundingBox;
@@ -29,7 +31,18 @@ public class ShopCategoryView extends Composite implements ICategoryView {
 		_stdFrame.setHeader(_category);
 		
 		//body
+		_statistic.setType(TYPE.SHOPCATEGORY);
 		_stdFrame.setBody(_statistic);
+		
+		
+		_statistic.setDate(new Date(1312192800000L), new Date());
+		_statistic.addStatisticChangeHandler(new IStatisticChangeHandler() {
+			@Override
+			public void onChange(BoundingBox bbox, Date begin, Date end) {
+				_presenter.onStatisticChangedEvent(bbox, begin, end);
+			}
+		});
+		
 		
 		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
 			

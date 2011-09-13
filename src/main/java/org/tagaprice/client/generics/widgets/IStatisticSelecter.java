@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 public interface IStatisticSelecter extends IsWidget {
 
 	public enum TYPE {
-		SHOP, PRODUCT,
+		SHOP, PRODUCT, SHOPCATEGORY, PRODUCTCATEGORY
 	}
 
 	public void setLatLon(double lat, double lon);

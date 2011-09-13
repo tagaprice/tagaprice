@@ -1,14 +1,17 @@
 package org.tagaprice.client.features.categorymanagement.shop;
 
 import java.util.Date;
+import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView.Presenter;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.categorymanagement.Category;
+import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -26,6 +29,7 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 	private ShopCategoryPlace _place;
 	private ICategoryView _categoryView;
 	private Category _category;
+	private int _statisticDebounce = 0;
 	
 	public ShopCategoryActivity(ShopCategoryPlace place, ClientFactory clientFactory) {
 		_place=place;
@@ -91,8 +95,32 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
-		// TODO Auto-generated method stub
+		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+
+		_statisticDebounce++;
+		final int curDebounce=_statisticDebounce;
+		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(ShopCategoryActivity.class));
 		
+		final InfoBoxShowEvent loadingInfo = new InfoBoxShowEvent(ShopCategoryActivity.class, "Getting statistic data... ", INFOTYPE.INFO,0);
+		_clientFactory.getEventBus().fireEvent(loadingInfo);
+		
+		_clientFactory.getSearchService().searchShopCategoryPrices(_category.getId(), bbox, begin, end, new AsyncCallback<List<StatisticResult>>() {
+			
+			@Override
+			public void onSuccess(List<StatisticResult> response) {
+				if(curDebounce==_statisticDebounce){
+					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
+					_categoryView.setStatisticResults(response);
+				}
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(ShopCategoryActivity.class, INFOTYPE.INFO));
+				Log.error("searchproblem: "+e);
+			}
+		});
 	}
 
 
