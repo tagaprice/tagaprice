@@ -2,6 +2,7 @@ package org.tagaprice.client.features.accountmanagement.settings;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.settings.ISettingsView.Presenter;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -93,6 +94,12 @@ public class SettingsActivity implements Activity, Presenter {
 			});
 		}
 		
+	}
+	
+	@Override
+	public void onLogout(){
+		_clientFactory.getAccountPersistor().logout();
+		goTo(new StartPlace());
 	}
 
 }

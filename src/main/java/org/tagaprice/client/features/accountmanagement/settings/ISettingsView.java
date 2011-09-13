@@ -17,5 +17,7 @@ public interface ISettingsView extends IsWidget {
 		public void goTo(Place place);
 		
 		public void onPasswordChange();
+
+		public void onLogout();
 	}
 }
