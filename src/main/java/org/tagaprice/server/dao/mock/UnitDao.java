@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.exceptions.dao.DaoException;
+
 import com.allen_sauer.gwt.log.client.Log;
 
 
@@ -96,6 +98,16 @@ public class UnitDao implements IUnitDao {
 		}
 
 		return rc;
+	}
+
+	@Override
+	public Unit getOnly(String id, String revision) throws DaoException {
+		return get(id, revision);
+	}
+
+	@Override
+	public Unit getOnly(String id) throws DaoException {
+		return get(id);
 	}
 
 
