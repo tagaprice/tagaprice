@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DashboardMenuWidget extends Composite {
 
+	public enum MENUPOINT{MYRECEIPTS, ADDRECEIPT, SETTINGS};
 	private VerticalPanel _vePa = new VerticalPanel();
 	private Label _myReceipts = new Label("My Receipts");
 	private Label _addReceipt = new Label("add Receipt");
@@ -49,6 +50,16 @@ public class DashboardMenuWidget extends Composite {
 		
 		
 		initWidget(_vePa);
+	}
+	
+	public void setActiveType(MENUPOINT point){
+		if(point.equals(MENUPOINT.ADDRECEIPT)){
+			_addReceipt.setStyleName("dashboardMenuItem dashboardMenuItemActive");
+		}else if(point.equals(MENUPOINT.MYRECEIPTS)){
+			_myReceipts.setStyleName("dashboardMenuItem dashboardMenuItemActive");
+		}else if(point.equals(MENUPOINT.SETTINGS)){
+			_setting.setStyleName("dashboardMenuItem dashboardMenuItemActive");
+		}
 	}
 	
 	public void addLogoutClickHandler(ClickHandler handler){

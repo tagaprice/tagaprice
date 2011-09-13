@@ -212,6 +212,12 @@ a:HOVER {
 
 }
 
+.dashboardMenuItemActive{
+    background-color: #43aabe;
+    border: solid 3px #ebe9e1;
+    font-weight: bold;
+    color:white;
+}
 
 .login {
     white-space:nowrap;

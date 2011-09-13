@@ -23,6 +23,7 @@ import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
+import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget.MENUPOINT;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Quantity;
@@ -153,6 +154,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		//menu
 		_frame.setBody(_menu,"200px");
+		_menu.setActiveType(MENUPOINT.ADDRECEIPT);
 		_menu.addLogoutClickHandler(new ClickHandler() {
 			
 			@Override

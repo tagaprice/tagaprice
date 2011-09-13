@@ -7,6 +7,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateRecei
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget;
+import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget.MENUPOINT;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
@@ -30,6 +31,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		
 		//menu
 		_frame.setBody(_menu,"200px");
+		_menu.setActiveType(MENUPOINT.MYRECEIPTS);
 		_menu.addLogoutClickHandler(new ClickHandler() {
 			
 			@Override
