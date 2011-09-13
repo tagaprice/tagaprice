@@ -6,6 +6,7 @@ import java.util.List;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.generics.widgets.StdFrame;
+import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
@@ -19,12 +20,17 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 
 	private Presenter _presenter;
 	private StdFrame _frame = new StdFrame();
-	private Label _header = new Label("My Receipts");
+	private Label _header = new Label("Dashboad / My Receipts");
 	private Grid _receiptList = new Grid();
+	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 
 	public ListReceiptsViewImpl() {
 		initWidget(_frame);
 		_frame.setHeader(_header);
+		
+		//menu
+		_frame.setBody(_menu,"200px");
+		
 		_frame.setBody(_receiptList);
 	}
 

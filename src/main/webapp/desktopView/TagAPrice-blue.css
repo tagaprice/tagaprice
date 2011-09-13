@@ -193,6 +193,26 @@ a:HOVER {
     text-decoration: underline;
 }
 
+.dashboardMenuItem{
+    background-color:white;
+    margin-top:3px;
+    padding:8px;
+    font-size: 15px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    border: solid 3px #ebe9e1;
+    border-radius:5px;
+}
+
+.dashboardMenuItem:hover{
+    font-weight: bold;
+    cursor:pointer;
+    background-color: #2c2d25;
+    color: white;
+    border: solid 3px #43aabe;
+
+}
+
+
 .login {
     white-space:nowrap;
     color: white;
