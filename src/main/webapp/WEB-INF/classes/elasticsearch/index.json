@@ -1,5 +1,26 @@
 {
 	"mappings": {
+		"package": {
+			"_parent": {
+				"type": "product"
+			}
+		},
+		"receipt": {
+			"_parent": {
+				"type": "shop"
+			},
+			"properties": {
+				"_parent": {
+					"properties": {
+						"address": {
+							"properties": {
+								"pos": {"type": "geo_point"}
+							}
+						}
+					}
+				}
+			}
+		},
 		"shop": {
 			"properties": {
 				"address": {
