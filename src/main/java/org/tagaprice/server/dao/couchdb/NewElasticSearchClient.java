@@ -10,7 +10,7 @@ import org.tagaprice.shared.entities.Document;
 
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
-/*
+
 public class NewElasticSearchClient {
 	private Client m_client;
 	private String m_indexName;
@@ -58,4 +58,3 @@ public class NewElasticSearchClient {
 	}
 
 }
-*/
