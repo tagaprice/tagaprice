@@ -48,9 +48,8 @@ public class NewElasticSearchClient {
 	}
 	
 	public SearchResponse find(Document.Type type, QueryBuilder queryBuilder, int from, int size) {
-		String indexString = m_indexName;
-		if (type != null) indexString += "/"+type;
-		return m_client.prepareSearch(indexString)
+		return m_client.prepareSearch(m_indexName)
+			.setTypes(type.toString())
 			.setQuery(queryBuilder)
 			.setFrom(from)
 			.setSize(size)
