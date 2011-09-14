@@ -70,6 +70,8 @@ public class Document implements IsSerializable, DynamicProperties {
 	private Long _unusedLong = null; // required to allow Long serialization with GWT-RPC
 	@SuppressWarnings("unused")
 	private BigDecimal _unusedBigDecimal = null;
+	@SuppressWarnings("unused")
+	private Boolean _unusedBoolean = null;
 
 
 	/**
@@ -117,16 +119,14 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * Just ignore it anywhere else in the application.
 	 * @return
 	 */
-	@JSONProperty(ignore=true)
-	public Type getDocType() {
-		return _docType;
-	}
-	
-	@JSONProperty(value="docType")
-	public String getDocTypeName() {
+	public String getDocType() {
 		return _docType != null ? _docType.toString() : null;
 	}
 
+	@JSONProperty(ignore=true)
+	public Type getDocTypeEnum() {
+		return _docType;
+	}
 	/**
 	 * Set the {@link ASimpleEntity} Id
 	 * @return  {@link ASimpleEntity} Id
