@@ -58,7 +58,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 				)
 			);
 
-		SearchResponse response = m_searchClient.find(Document.Type.SHOP, queryBuilder, 0, 100);
+		SearchResponse response = m_searchClient.find(queryBuilder, 0, 100, Document.Type.SHOP);
 
 		for (SearchHit hit: response.getHits().getHits()) {
 			rc.add(hit.getId());

@@ -104,7 +104,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	public List<T> find(String query) throws DaoException {
 		if (m_searchClient == null) m_searchClient = m_daoFactory.getElasticSearchClient();
 
-		SearchResponse searchResponse = m_searchClient.find(m_docType, query, 0, 10);
+		SearchResponse searchResponse = m_searchClient.find(query, 0, 10, m_docType);
 		List<T> rc = new ArrayList<T>();
 
 		for (SearchHit hit: searchResponse.getHits().getHits()) {

@@ -9,7 +9,6 @@ import org.svenson.JSONParser;
 import org.tagaprice.server.dao.ISearchDao;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
-import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class SearchDao implements ISearchDao {
 	private ElasticSearchClient m_searchClient = null;
@@ -18,13 +17,9 @@ public class SearchDao implements ISearchDao {
 		m_searchClient = daoFactory.getElasticSearchClient();
 	}
 	
-	public List<Document> search(String query, int limit) throws DaoException {
-		return _returnResultList(m_searchClient.find(null, query, 0, limit));
-	}
-	
 	@Override
 	public List<Document> search(String query, BoundingBox bbox, int limit) {
-		return _returnResultList(m_searchClient.find(query, bbox, 0, limit));
+		return _returnResultList(m_searchClient.find(query, bbox, 0, limit, Document.Type.PRODUCT, Document.Type.SHOP));
 	}
 	
 	@Override

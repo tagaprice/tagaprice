@@ -63,7 +63,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 				)
 			);
 	
-			SearchResponse searchResponse = m_searchClient.find(Document.Type.RECEIPT, queryBuilder);
+			SearchResponse searchResponse = m_searchClient.find(queryBuilder, Document.Type.RECEIPT);
 			
 			// cache the results to avoid fetching too much data
 			Map<String, Package> packageCache = new HashMap<String, Package>();

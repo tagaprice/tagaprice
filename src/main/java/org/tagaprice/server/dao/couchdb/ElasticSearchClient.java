@@ -22,13 +22,13 @@ public class ElasticSearchClient {
 		m_indexName = "tagaprice";
 	}
 	
-	public SearchResponse find(Document.Type type, String query, int from, int size) {
+	public SearchResponse find(String query, int from, int size, Document.Type ... types) {
 		QueryBuilder queryBuilder = queryString(query);
 
-		return find(type, queryBuilder, from, size);
+		return find(queryBuilder, from, size, types);
 	}
 	
-	public SearchResponse find(String query, BoundingBox bbox, int start, int limit) {
+	public SearchResponse find(String query, BoundingBox bbox, int start, int limit, Document.Type ... types) {
 		QueryBuilder queryBuilder = filteredQuery(
 				queryString(query),
 				orFilter(
@@ -40,21 +40,30 @@ public class ElasticSearchClient {
 						.topLeft(bbox.getNorthLat(), bbox.getWestLon())
 				)
 			);
-            return find(null, queryBuilder, start, limit);
+            return find(queryBuilder, start, limit, types);
        }
 
 	
-	public SearchResponse find(Document.Type type, QueryBuilder queryBuilder) {
-		return find(type, queryBuilder, 0, 10);
+	public SearchResponse find(QueryBuilder queryBuilder, Document.Type ... types) {
+		return find(queryBuilder, 0, 10, types);
 	}
 	
-	public SearchResponse find(Document.Type type, QueryBuilder queryBuilder, int from, int size) {
+	public SearchResponse find(QueryBuilder queryBuilder, int from, int size, Document.Type ... types) {
 		SearchRequestBuilder searchBuilder = m_client.prepareSearch(m_indexName)
 			.setQuery(queryBuilder)
 			.setFrom(from)
 			.setSize(size);
 
-		if (type != null) searchBuilder.setTypes(type.toString());
+		if (types.length > 0) {
+			String typeStrings[] = new String[types.length];
+
+			int i = 0;
+			for (Document.Type type: types) {
+				typeStrings[i++] = type.toString();
+			}
+
+			searchBuilder.setTypes(typeStrings);
+		}
 
 		return searchBuilder
 			.execute()
@@ -62,7 +71,7 @@ public class ElasticSearchClient {
 	}
 	
 	public SearchResponse findProduct(String query, int limit) {
-		return find(Document.Type.PRODUCT, query, 0, limit);
+		return find(query, 0, limit, Document.Type.PRODUCT);
 	}
 	
 	public SearchResponse findShop(String query, BoundingBox bbox, int limit) {
@@ -73,7 +82,7 @@ public class ElasticSearchClient {
 				.topLeft(bbox.getNorthLat(), bbox.getWestLon())
 		);
 
-		return find(Document.Type.SHOP, queryBuilder, 0, limit);
+		return find(queryBuilder, 0, limit, Document.Type.SHOP);
 	}
 
 }
