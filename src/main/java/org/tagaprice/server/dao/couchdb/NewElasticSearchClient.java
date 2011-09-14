@@ -27,6 +27,22 @@ public class NewElasticSearchClient {
 		return find(type, queryBuilder, from, size);
 	}
 	
+	public SearchResponse find(String query, BoundingBox bbox, int start, int limit) {
+		QueryBuilder queryBuilder = filteredQuery(
+				queryString(query),
+				orFilter(
+					notFilter(
+						termFilter("docType", "shop")
+					),
+					geoBoundingBoxFilter("address.pos")
+						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
+						.topLeft(bbox.getNorthLat(), bbox.getWestLon())
+				)
+			);
+            return find(null, queryBuilder, start, limit);
+       }
+
+	
 	public SearchResponse find(Document.Type type, QueryBuilder queryBuilder) {
 		return find(type, queryBuilder, 0, 10);
 	}

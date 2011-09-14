@@ -2,7 +2,6 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 
 import javax.servlet.ServletException;
 
@@ -21,7 +20,6 @@ import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
-import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -47,7 +45,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
 	
-	private ElasticSearchClient m_elasticSearchClient;
+	private NewElasticSearchClient m_elasticSearchClient;
 
 
 	static CouchDbConfig getConfiguration() throws IOException {
@@ -115,18 +113,10 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 * Default DAO factory constructor
 	 */
 	public CouchDbDaoFactory() throws DaoException {
-		try {
-			m_elasticSearchClient = new ElasticSearchClient(getConfiguration());
-		}
-		catch (IOException e) {
-			throw new DaoException("Error while creating the search index!", e);
-		}
-		catch (URISyntaxException e) {
-			throw new DaoException("Error while loading some search resources: "+e.getMessage(), e);
-		}
+		m_elasticSearchClient = new NewElasticSearchClient();
 	}
 
-	public ElasticSearchClient getElasticSearchClient() {
+	public NewElasticSearchClient getElasticSearchClient() {
 		return m_elasticSearchClient;
 	}
 	

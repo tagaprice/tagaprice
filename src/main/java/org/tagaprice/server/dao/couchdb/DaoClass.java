@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.SearchHit;
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.tagaprice.server.dao.IDaoClass;
-import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
-import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
-import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
@@ -24,7 +23,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	private Server m_server;
 
 	/// ElasticSearch client object
-	private ElasticSearchClient m_searchClient;
+	private NewElasticSearchClient m_searchClient;
 
 	/// JCouchDB database object
 	protected Database m_db;
@@ -105,10 +104,10 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	public List<T> find(String query) throws DaoException {
 		if (m_searchClient == null) m_searchClient = m_daoFactory.getElasticSearchClient();
 
-		SearchResult searchResult = m_searchClient.find(query, m_docType.toString(), 10);
+		SearchResponse searchResponse = m_searchClient.find(m_docType, query, 0, 10);
 		List<T> rc = new ArrayList<T>();
 
-		for (Hit hit: searchResult.getHits().getHits()) {
+		for (SearchHit hit: searchResponse.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
 			T item = get(hit.getId());
 			if (item != null) rc.add(item);
