@@ -16,10 +16,10 @@ public class ElasticSearchClient {
 	private Client m_client;
 	private String m_indexName;
 
-	public ElasticSearchClient() {
+	public ElasticSearchClient(CouchDbConfig config) {
 		m_client = new TransportClient()
-			.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
-		m_indexName = "tagaprice";
+			.addTransportAddress(new InetSocketTransportAddress(config.getElasticSearchHost(), config.getElasticSearchPort()));
+		m_indexName = config.getElasticSearchIndex();
 	}
 	
 	public SearchResponse find(String query, int from, int size, Document.Type ... types) {

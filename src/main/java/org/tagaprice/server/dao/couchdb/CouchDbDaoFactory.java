@@ -21,7 +21,6 @@ import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Document;
-import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -112,8 +111,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	/**
 	 * Default DAO factory constructor
 	 */
-	public CouchDbDaoFactory() throws DaoException {
-		m_elasticSearchClient = new ElasticSearchClient();
+	public CouchDbDaoFactory() {
 	}
 
 	public ElasticSearchClient getElasticSearchClient() {
@@ -199,6 +197,8 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		try {
 			dbName = getConfiguration().getCouchDatabase();
 			injector.init(getServerObject(), dbName);
+
+			m_elasticSearchClient = new ElasticSearchClient(getConfiguration());
 		} catch (Exception e) {
 			Log.error("Error while initializing CouchDB");
 			e.printStackTrace();
