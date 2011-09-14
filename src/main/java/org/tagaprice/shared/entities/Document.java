@@ -124,7 +124,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	
 	@JSONProperty(value="docType")
 	public String getDocTypeName() {
-		return _docType.toString();
+		return _docType != null ? _docType.toString() : null;
 	}
 
 	/**
