@@ -39,6 +39,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 			}
 		});
 		
+		_receiptList.setWidth("100%");
 		_frame.setBody(_receiptList);
 
 		initWidget(_frame);
@@ -48,12 +49,13 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	public void setReceipts(List<Receipt> receipts) {
 
 		_receiptList.clear();
-		_receiptList.resize(receipts.size()+1, 3);
+		_receiptList.resize(receipts.size()+1, 4);
 		
 		//head
 		_receiptList.setWidget(0, 0, new Label("Date"));
 		_receiptList.setWidget(0, 1, new Label("Name"));
 		_receiptList.setWidget(0, 2, new Label("Value"));
+		_receiptList.setWidget(0, 3, new Label("Note"));
 		
 		
 		
@@ -94,11 +96,15 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 				}
 			});
 			
+			Label note = new Label();
+			if(r.getTitle()!=null)
+				note.setText(r.getTitle());
+			
 			
 			_receiptList.setWidget(i, 0, date);
 			_receiptList.setWidget(i, 1, name);
 			_receiptList.setWidget(i, 2, value);
-			
+			_receiptList.setWidget(i, 3, note);
 			
 			
 			
