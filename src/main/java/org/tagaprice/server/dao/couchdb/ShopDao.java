@@ -43,14 +43,19 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	}
 	
 	@Override
-	public List<String> findIDsInBBox(BoundingBox bbox) throws DaoException {
+	public List<String> findIDsThatSell(BoundingBox bbox, List<String> packageIDs) throws DaoException {
 		List<String> rc = new ArrayList<String>();
 
 		QueryBuilder queryBuilder = filteredQuery(
 				matchAllQuery(),
-				geoBoundingBoxFilter("address.pos")
-					.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
-					.topLeft(bbox.getNorthLat(), bbox.getWestLon())
+				andFilter(
+					geoBoundingBoxFilter("address.pos")
+						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
+						.topLeft(bbox.getNorthLat(), bbox.getWestLon()),
+					hasChildFilter(Document.Type.RECEIPT.toString(),
+						termsQuery("packageId", packageIDs)
+					)
+				)
 			);
 
 		SearchResponse response = m_searchClient.find(Document.Type.SHOP, queryBuilder, 0, 100);

@@ -51,7 +51,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		// get all the packages of the product in question
 		List<String> packageIDs = m_packageDao.listIDsByProduct(productId);
 		// get all the shops in the specified bbox
-		List<String> shopIDs = m_shopDao.findIDsInBBox(bbox);
+		List<String> shopIDs = m_shopDao.findIDsThatSell(bbox, packageIDs);
 
 		if (shopIDs.size() > 0) {
 			// find all receipts that contain at least one of the packages AND at least one of the shops

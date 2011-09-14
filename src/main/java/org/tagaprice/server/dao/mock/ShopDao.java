@@ -52,7 +52,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	}
 	
 	@Override
-	public List<String> findIDsInBBox(BoundingBox bbox) throws DaoException {
+	public List<String> findIDsThatSell(BoundingBox bbox, List<String> packageIDs) throws DaoException {
 		List<String> rc = new ArrayList<String>();
 		
 		for (Shop shop: list()) {

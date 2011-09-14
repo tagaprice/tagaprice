@@ -9,5 +9,5 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 public interface IShopDao extends IDaoClass<Shop> {
 	public List<Shop> find(String searchPattern) throws DaoException;
 	public List<Shop> list() throws DaoException;
-	List<String> findIDsInBBox(BoundingBox bbox) throws DaoException;
+	List<String> findIDsThatSell(BoundingBox bbox, List<String> packageIDs) throws DaoException;
 }
