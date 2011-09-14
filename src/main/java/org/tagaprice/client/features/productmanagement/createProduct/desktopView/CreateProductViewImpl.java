@@ -23,7 +23,6 @@ import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -34,6 +33,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private StdFrame _stdFrame = new StdFrame();
 	private MorphWidget _productTitle = new MorphWidget();
 	private HorizontalPanel _productHeadPanel = new HorizontalPanel();
+	private VerticalPanel _infoStatVePa = new VerticalPanel();
+	private VerticalPanel _infoVePa = new VerticalPanel();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private UnitSelecter _unit = new UnitSelecter();
 	private VerticalPanel _productBodyPanel = new VerticalPanel();
@@ -97,57 +98,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_productBodyPanel.add(_packageHead);
 		_productBodyPanel.add(_packages);
 		
-		
-		//TODO implement Properties 
-		//Mock properties
-		
-		{//Nutrition facts
-			Label _mockPropertieHead = new Label("Nutrition Facts");
-			_mockPropertieHead.setStyleName("propertyHeader");
-			_productBodyPanel.add(_mockPropertieHead);
-			
-			Grid _mockProperites = new Grid(6,2);
-			_mockProperites.setStyleName("propertyGrid");
-			_mockProperites.setWidth("100%");
-			_mockProperites.getCellFormatter().setWidth(0, 0, "100%");
-			_mockProperites.setWidget(0, 0, new Label("Brennwert"));
-			_mockProperites.setWidget(1, 0, new Label("Eiweiss"));
-			_mockProperites.setWidget(2, 0, new Label("Kohlenhydrate"));
-			_mockProperites.setWidget(3, 0, new Label("Fett"));
-			_mockProperites.setWidget(4, 0, new Label("Ballaststoffe"));
-			_mockProperites.setWidget(5, 0, new Label("Natrium"));
-			
-			
-			_brennUnit.config(false);
-			_brenn.config(Type.STRING, false, "", true, false);
-			_brenn.setValue("1490kJ");
-			_mockProperites.setWidget(0, 1, _brenn);
-			_mockProperites.setWidget(1, 1, _brennUnit);
-			_mockProperites.setWidget(2, 1, new Label("72,2g"));
-			_mockProperites.setWidget(3, 1, new Label("1,4g"));
-			_mockProperites.setWidget(4, 1, new Label("3,6g"));
-			_mockProperites.setWidget(5, 1, new Label("0,7g"));
-			
-			
-			//style name
-			_mockProperites.getCellFormatter().setStyleName(0, 0, "namecell");
-			_mockProperites.getCellFormatter().setStyleName(1, 0, "namecell");
-			_mockProperites.getCellFormatter().setStyleName(2, 0, "namecell");
-			_mockProperites.getCellFormatter().setStyleName(3, 0, "namecell");
-			_mockProperites.getCellFormatter().setStyleName(4, 0, "namecell");
-			_mockProperites.getCellFormatter().setStyleName(5, 0, "namecell");
-			
-			
-			//stlye value
-			_mockProperites.getCellFormatter().setStyleName(0, 1, "valuecell");
-			_mockProperites.getCellFormatter().setStyleName(1, 1, "valuecell");
-			_mockProperites.getCellFormatter().setStyleName(2, 1, "valuecell");
-			_mockProperites.getCellFormatter().setStyleName(3, 1, "valuecell");
-			_mockProperites.getCellFormatter().setStyleName(4, 1, "valuecell");
-			_mockProperites.getCellFormatter().setStyleName(5, 1, "valuecell");
-			
-			_productBodyPanel.add(_mockProperites);
-		}
+		//TODO impel properites
 		
 		
 		
@@ -189,10 +140,45 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		});
 				
 		
-		//Statistic Results
+		//info and statistic
+		_infoStatVePa.setWidth("100%");
 		_statisticBodyPanel.setWidth("100%");
+		_statisticBodyPanel.add(_infoStatVePa);
+		
+		
+		//infoPanel
+		_infoStatVePa.add(_infoVePa);
+		Label stepByStep = new Label("STEP by STEP");
+		Label point1 = new Label("1.) Product title");
+		Label point1eg = new Label("eg.: Coca Cola Light, Billa Frische Bergabuern Heimilch 3,6%");
+		Label point2 = new Label("2.) Set the unit in which you buy the product");
+		Label point2eg = new Label("eg.: Milk = l (liter), Bread = kg (kilogram)");
+		Label point3 = new Label("3.) Set the category in which you would see this product");
+		Label point3eg = new Label("eg.: food, beverages, cars");
+
+		stepByStep.setStyleName("createInfo");
+		point1.setStyleName("createInfo");
+		point1eg.setStyleName("createEgInfo");
+		point2.setStyleName("createInfo");
+		point2eg.setStyleName("createEgInfo");
+		point3.setStyleName("createInfo");
+		point3eg.setStyleName("createEgInfo");
+		
+		_infoVePa.add(stepByStep);
+		_infoVePa.add(point1);
+		_infoVePa.add(point1eg);
+		_infoVePa.add(point2);
+		_infoVePa.add(point2eg);
+		_infoVePa.add(point3);
+		_infoVePa.add(point3eg);
+		_infoVePa.setVisible(false);
+		
+		
+		
+		//Statistic Results
+		//_statisticBodyPanel.setWidth("100%");
 		_statistic.setType(TYPE.PRODUCT);
-		_statisticBodyPanel.add(_statistic);
+		_infoStatVePa.add(_statistic);
 
 		_stdFrame.setBody(_statisticBodyPanel);
 		
@@ -273,9 +259,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_brenn.setReadOnly(_readonly);
 		_unit.setReadOnly(_readonly);
 		_brennUnit.setReadOnly(_readonly);
-		_category.setReadOnly(_readonly);
-		
+		_category.setReadOnly(_readonly);		
 		_stdFrame.setReadOnly(_readonly);
+
+		_infoVePa.setVisible(!read);
+		_statistic.setVisible(read);
 	}
 
 	@Override

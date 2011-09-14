@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateShopViewImpl extends Composite implements ICreateShopView {
@@ -38,6 +39,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private MorphWidget _shopTitle = new MorphWidget();
 	private VerticalPanel _shopBodyPanel = new VerticalPanel();
 	private StatisticSelecter _statistic = new StatisticSelecter();
+	private VerticalPanel _infoStatVePa = new VerticalPanel();
+	private VerticalPanel _infoVePa = new VerticalPanel();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
 	private AddressSelecter _address = new AddressSelecter();
 	private boolean _readonly = true;
@@ -122,11 +125,37 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			}
 		});
 	
+		//info and Statistic
+		_infoStatVePa.setWidth("100%");
+		_statisticBodyPanel.setWidth("100%");
+		_statisticBodyPanel.add(_infoStatVePa);
+		
+		//infoPanel
+		_infoStatVePa.add(_infoVePa);
+		Label stepByStep = new Label("STEP by STEP");
+		Label point1 = new Label("1.) Shop title");
+		Label point1eg = new Label("eg.: Hofer, Billa, Happy Noodles");
+		Label point2 = new Label("2.) Set the category in which you would see this shop/resaurant");
+		Label point2eg = new Label("eg.: restaurant --> Fast Food, supermarket");
+
+		stepByStep.setStyleName("createInfo");
+		point1.setStyleName("createInfo");
+		point1eg.setStyleName("createEgInfo");
+		point2.setStyleName("createInfo");
+		point2eg.setStyleName("createEgInfo");
+		
+		_infoVePa.add(stepByStep);
+		_infoVePa.add(point1);
+		_infoVePa.add(point1eg);
+		_infoVePa.add(point2);
+		_infoVePa.add(point2eg);
+		_infoVePa.setVisible(false);
+		
 		
 		//Statistic Results
 		//_statisticBodyPanel.setWidth("100%");
 		_statistic.setType(TYPE.SHOP);
-		_statisticBodyPanel.add(_statistic);
+		_infoStatVePa.add(_statistic);
 		_statistic.setMapVisible(false);
 		//_statisticFrame.setBody(_statisticBodyPanel);
 		_stdFrame.setBody(_statisticBodyPanel);
@@ -203,6 +232,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_address.setReadOnly(_readonly);
 		_category.setReadOnly(_readonly);
 		_stdFrame.setReadOnly(_readonly);
+		_infoVePa.setVisible(!read);
+		_statistic.setVisible(read);
 	}
 
 	
