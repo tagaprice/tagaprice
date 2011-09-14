@@ -9,6 +9,5 @@ public class ShopPreview extends APreviewWidget {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 
 }

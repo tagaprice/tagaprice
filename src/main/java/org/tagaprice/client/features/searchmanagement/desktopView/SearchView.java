@@ -1,13 +1,26 @@
 package org.tagaprice.client.features.searchmanagement.desktopView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import org.gwtopenmaps.openlayers.client.RenderIntent;
 import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.StyleMap;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature.ClickFeatureListener;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature.SelectFeatureListener;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature.UnselectFeatureListener;
+import org.gwtopenmaps.openlayers.client.control.SelectFeatureOptions;
+import org.gwtopenmaps.openlayers.client.event.BeforeFeatureHighlightedListener;
+import org.gwtopenmaps.openlayers.client.event.ControlActivateListener;
+import org.gwtopenmaps.openlayers.client.event.FeatureHighlightedListener;
+import org.gwtopenmaps.openlayers.client.event.FeatureUnhighlightedListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.ControlActivateListener.ControlActivateEvent;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
@@ -69,6 +82,9 @@ public class SearchView extends Composite implements ISearchView {
 	private VectorOptions _osmVectorOptions = new VectorOptions();
 	private Vector _osmLayer;
 	private Address _curAddress;
+	
+	private HashMap<String, ShopPreview> _shopHighlightMap = new HashMap<String, ShopPreview>();
+	private HashMap<String, Shop> _shopClickMap = new HashMap<String, Shop>();
 	
 	public SearchView() {
 
@@ -228,19 +244,73 @@ public class SearchView extends Composite implements ISearchView {
 		
 		//******** INIT OSM Vector ************/
 		//Style
-		Style style = new Style();
-		style.setStrokeColor("#000000");
-		style.setStrokeWidth(2);
-		style.setFillColor("#00FF00");
-		style.setFillOpacity(0.5);
-		style.setPointRadius(8);
-		style.setStrokeOpacity(0.8);
-		_osmVectorOptions.setStyle(style);		
+		// Create the style for each purpose
+		Style styleNormal = createStyle("#FF0000");
+		Style styleSelected = createStyle("#43aabe");
+		Style styleHighlighted = createStyle("#43aabe");
+		// Create the StyleMap to handle all styles
+		StyleMap styleMapVector = new StyleMap(styleNormal, styleSelected,
+			styleHighlighted);
 		
+		_osmVectorOptions.setStyleMap(styleMapVector);		
+	
 		_osmLayer = new Vector("shopResults",_osmVectorOptions);
-		_osmShopMap.addLayer(_osmLayer);
+		
+		
+		
+		_osmShopMap.addLayer(_osmLayer);	
 		_osmShopMap.zoomTo(13);
 		_mapPanel.add(_osmShopWidget);
+		
+		
+		// Create the SelectFeature and its Options
+		final SelectFeatureOptions selectFeatureOptions = new SelectFeatureOptions();
+
+		selectFeatureOptions.setHover();
+		selectFeatureOptions.setHighlightOnly(false);
+		selectFeatureOptions.setRenderIntent(RenderIntent.TEMPORARY);
+		
+
+		// Add Select event
+		selectFeatureOptions.onSelect(new SelectFeatureListener() {
+		    public void onFeatureSelected(VectorFeature vectorFeature) {		    	
+		    	_shopHighlightMap.get(vectorFeature.getFeatureId()).onHover();
+		    }
+		});
+
+		// Add Unselect event
+		selectFeatureOptions.onUnSelect(new UnselectFeatureListener() {
+		    public void onFeatureUnselected(VectorFeature vectorFeature) {
+		    	_shopHighlightMap.get(vectorFeature.getFeatureId()).onHoverOut();
+		    }
+		});
+		
+		selectFeatureOptions.clickFeature(new ClickFeatureListener() {
+			
+			@Override
+			public void onFeatureClicked(VectorFeature vectorFeature) {
+				_presenter.goTo(new CreateShopPlace(
+						_shopClickMap.get(vectorFeature.getFeatureId()).getId(), 
+						null, 
+						null, 
+						null, 
+						null, 
+						""+_curAddress.getPos().getLat(), 
+						""+_curAddress.getPos().getLon(), 
+						""+_osmShopMap.getZoom()));
+			}
+		});
+		
+		
+		
+		SelectFeature selectFeatureClick = new SelectFeature(_osmLayer,
+				selectFeatureOptions);
+		
+		
+		_osmShopMap.addControl(selectFeatureClick);
+		
+		selectFeatureClick.activate();
+		
 		
 		_osmShopMap.addMapMoveEndListener(new MapMoveEndListener() {
 			
@@ -264,14 +334,20 @@ public class SearchView extends Composite implements ISearchView {
 		});
 		
 				
-		
-			
-			
-		
-		
-		
 		initWidget(_stdFrame);
 	}
+	
+	private Style createStyle(String fillColor) {
+		Style style = new Style();
+		style.setStrokeColor("#000000");
+		style.setStrokeWidth(3);
+		style.setFillColor(fillColor);
+		style.setFillOpacity(0.5);
+		style.setPointRadius(10);
+		style.setStrokeOpacity(1.0);
+		return style;
+
+	    }
 	
 
 
@@ -331,7 +407,6 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 
-
 	@Override
 	public void setSearchResults(List<Document> results) {
 		Log.debug("Search successful: count: "+results.size());
@@ -339,10 +414,12 @@ public class SearchView extends Composite implements ISearchView {
 		_productSearchPanel.clear();
 		_osmLayer.destroyFeatures();
 		
+		_shopHighlightMap.clear();
+		_shopClickMap.clear();
 		for(final Document document:results){
 			if (document.getDocType().equals("shop")) {
 				final Shop shop = Shop.fromDocument(document);
-				ShopPreview dumpShop = new ShopPreview(shop);
+				final ShopPreview dumpShop = new ShopPreview(shop);
 				dumpShop.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -367,8 +444,14 @@ public class SearchView extends Composite implements ISearchView {
 				lonLat.transform("EPSG:4326", "EPSG:900913");
 				Point point = new Point(lonLat.lon(), lonLat.lat());
 				VectorFeature pointFeature = new VectorFeature(point);
-
+				
 				_osmLayer.addFeature(pointFeature);
+				
+				_shopHighlightMap.put(pointFeature.getFeatureId(), dumpShop);
+				_shopClickMap.put(pointFeature.getFeatureId(), shop);
+				
+				
+				
 				
 			}
 			else if (document.getDocType().equals("product")) {

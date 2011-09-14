@@ -682,6 +682,11 @@ input.morphWidget {
     background-color: white;
 }
 
+.previewWidget-hover{
+    background-color:#43aabe;
+    cursor:pointer;
+}
+
 .previewWidget .logo {
     padding: 2px;
     border: 1px solid #ebe9e1;
