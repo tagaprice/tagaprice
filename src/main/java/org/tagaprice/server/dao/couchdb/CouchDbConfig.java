@@ -46,7 +46,7 @@ public class CouchDbConfig extends Properties {
 	}
 	
 	public int getElasticSearchPort() {
-		return Integer.parseInt(getProperty("elasticSearch.port", "9200"));
+		return Integer.parseInt(getProperty("elasticSearch.port", "9300"));
 	}
 	
 	public boolean hasLoginData() {
