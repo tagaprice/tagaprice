@@ -9,6 +9,8 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -17,17 +19,21 @@ public class ElasticSearchClient {
 	private String m_indexName;
 
 	public ElasticSearchClient(CouchDbConfig config) {
+		Log.debug("Connecting to the ElasticSearch server (host: '"+config.getElasticSearchHost()+"', port: "+config.getElasticSearchPort()+")");
 		m_client = new TransportClient()
-			.addTransportAddress(new InetSocketTransportAddress(config.getElasticSearchHost(), config.getElasticSearchPort()));
+			.addTransportAddress(new InetSocketTransportAddress(
+				config.getElasticSearchHost(),
+				config.getElasticSearchPort())
+			);
 		m_indexName = config.getElasticSearchIndex();
 	}
-	
+
 	public SearchResponse find(String query, int from, int size, Document.Type ... types) {
 		QueryBuilder queryBuilder = queryString(query);
 
 		return find(queryBuilder, from, size, types);
 	}
-	
+
 	public SearchResponse find(String query, BoundingBox bbox, int start, int limit, Document.Type ... types) {
 		QueryBuilder queryBuilder = filteredQuery(
 				queryString(query),
@@ -39,9 +45,9 @@ public class ElasticSearchClient {
 						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
 						.topLeft(bbox.getNorthLat(), bbox.getWestLon())
 				)
-			);
-            return find(queryBuilder, start, limit, types);
-       }
+		);
+		return find(queryBuilder, start, limit, types);
+	}
 
 	
 	public SearchResponse find(QueryBuilder queryBuilder, Document.Type ... types) {
