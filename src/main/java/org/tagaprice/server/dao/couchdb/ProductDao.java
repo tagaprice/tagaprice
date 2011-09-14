@@ -8,6 +8,7 @@ import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -18,7 +19,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 	IPackageDao m_packageDAO;
 
 	public ProductDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Product.class, "product", daoFactory._getDocumentDao());
+		super(daoFactory, Product.class, Document.Type.PRODUCT, null);
 		m_categoryDAO = daoFactory.getProductCategoryDao();
 		m_unitDAO = daoFactory.getUnitDao();
 		m_packageDAO = daoFactory.getPackageDao();

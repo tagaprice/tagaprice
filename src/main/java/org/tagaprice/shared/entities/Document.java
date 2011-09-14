@@ -27,9 +27,36 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Document implements IsSerializable, DynamicProperties {
 	private static final long serialVersionUID = 1L;
 
+	public static enum Type {
+		PRODUCT("product"),
+		SHOP("shop"),
+		PRODUCTCATEGORY("productCategory"),
+		SHOPCATEGORY("shopCategory"),
+		RECEIPT("receipt"),
+		PACKAGE("package"),
+		SESSION("session"),
+		UNIT("unit"),
+		USER("user");
+
+		private final String typeName;
+
+		Type(String value) {
+			typeName = value;
+		}
+
+		public String getTypeName() {
+			return typeName;
+		}
+
+		@Override
+		public String toString() {
+			return getTypeName();
+		}
+	}
+
 	private String _id = null;
 	private String _rev = null;
-	private String _docType = null;
+	private Type _docType = null;
 	private String _creatorId = null;
 	private Map<String, Object> _properties = new HashMap<String, Object>();
 	private Address _address = new Address();
@@ -90,9 +117,14 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * Just ignore it anywhere else in the application.
 	 * @return
 	 */
-	@JSONProperty(value="docType")
-	public String getDocType() {
+	@JSONProperty(ignore=true)
+	public Type getDocType() {
 		return _docType;
+	}
+	
+	@JSONProperty(value="docType")
+	public String getDocTypeName() {
+		return _docType.toString();
 	}
 
 	/**
@@ -112,7 +144,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	public Map<String, Object> getPropertyList(){
 		return _properties;
 	}
-	
+
 	/**
 	 * Returns the Revision of the {@link ASimpleEntity} or null, if it wasn't yet set (e.g. for unsaved {@link ASimpleEntity})
 	 * @return Returns the Revision of the {@link ASimpleEntity} or null, if Revision is not set.
@@ -147,10 +179,14 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * This method is required for the CouchDB JSON injector to work.
 	 * Just ignore it anywhere else in the application.
 	 * 
-	 * @param typeName Type name (e.g. "product" or "shop")
+	 * @param typeName new document Type
 	 */
+	public void _setDocType(Type type) {
+		_docType = type;
+	}
+
 	public void setDocType(String typeName) {
-		_docType = typeName;
+		_docType = Type.valueOf(typeName.toUpperCase());
 	}
 
 	/**

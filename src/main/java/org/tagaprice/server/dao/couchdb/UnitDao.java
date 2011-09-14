@@ -7,6 +7,7 @@ import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -15,7 +16,7 @@ import com.allen_sauer.gwt.log.client.Log;
 public class UnitDao extends DaoClass<Unit> implements IUnitDao {
 
 	public UnitDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Unit.class, "unit", daoFactory._getDocumentDao());
+		super(daoFactory, Unit.class, Document.Type.UNIT, null);
 		// TODO Auto-generated constructor stub
 	}
 

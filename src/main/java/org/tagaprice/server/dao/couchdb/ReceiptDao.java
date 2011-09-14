@@ -11,6 +11,7 @@ import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -24,7 +25,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Receipt.class, "receipt", daoFactory._getDocumentDao());
+		super(daoFactory, Receipt.class, Document.Type.RECEIPT, null);
 		m_shopDAO = daoFactory.getShopDao();
 		m_packageDAO = daoFactory.getPackageDao();
 		m_productDAO = daoFactory.getProductDao();

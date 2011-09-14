@@ -149,7 +149,13 @@
 		<version>r127</version>
 		<scope>provided</scope>
 	</dependency>
-	
+
+	<dependency>
+		<groupId>org.elasticsearch</groupId>
+		<artifactId>elasticsearch</artifactId>
+		<version>0.17.6</version>
+		<scope>compile</scope>
+	</dependency>
   </dependencies>
 
   <build>
@@ -230,7 +236,11 @@
 		<id>gwtquery-ui-repository</id>
 		<url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
 	</repository>
-
+	<repository>
+		<id>sonatype-repo</id>
+		<name>Sonatype Releases Repository</name>
+		<url>http://oss.sonatype.org/content/repositories/releases/</url>
+	</repository>
 </repositories>
 
 </project>

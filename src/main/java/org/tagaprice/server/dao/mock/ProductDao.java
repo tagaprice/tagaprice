@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import org.tagaprice.server.dao.IProductDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -16,7 +17,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 		for (Deque<Product> deque: m_data.values()) {
 			Product product = deque.peek();
-			product.setDocType("product");
+			product._setDocType(Document.Type.PRODUCT);
 			
 			if (searchPattern != null
 					&& product.getTitle().toLowerCase().contains((searchPattern.toLowerCase()))) {
@@ -35,7 +36,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 		for (Deque<Product> deque: m_data.values()) {
 			Product pt = deque.peek();
-			pt.setDocType("product");
+			pt._setDocType(Document.Type.PRODUCT);
 			rc.add(deque.peek());
 		}
 

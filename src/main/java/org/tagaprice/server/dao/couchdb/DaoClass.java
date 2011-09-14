@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.SearchHit;
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
 import org.tagaprice.server.dao.IDaoClass;
-import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
-import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
-import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
@@ -24,7 +23,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	private Server m_server;
 
 	/// ElasticSearch client object
-	private ElasticSearchClient m_searchClient;
+	private NewElasticSearchClient m_searchClient;
 
 	/// JCouchDB database object
 	protected Database m_db;
@@ -44,18 +43,18 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 * Document type name (e.g. "product", "shop", ...)
 	 * This is stored in each CouchDB document so that we can find out of which type they are
 	 */
-	private String m_docType;
+	private Document.Type m_docType;
 
 	/**
 	 * Constructor
 	 * @param classObject Class object necessary to instantiate new objects when get() gets called
 	 * @param objectType type name (e.g. "product", "shop", ...)
 	 */
-	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, String objectType, DaoClass<? super T> superClassDao) {
+	protected DaoClass(CouchDbDaoFactory daoFactory, Class<? extends T> classObject, Document.Type docType, DaoClass<? super T> superClassDao) {
 		String dbName;
 
 		m_class = classObject;
-		m_docType = objectType;
+		m_docType = docType;
 		m_superClassDao = superClassDao;
 		m_daoFactory = daoFactory;
 
@@ -74,6 +73,14 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 
 		m_db = new Database(m_server, dbName);
 	}
+	
+	/**
+	 * Returns the document type that's been assigned to this DAO class
+	 * @return Document.Type value
+	 */
+	protected Document.Type getDocumentType() {
+		return m_docType;
+	}
 
 	/**
 	 * Create a new document in the CouchDB
@@ -83,7 +90,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 */
 	@Override
 	public T create(T document) throws DaoException {
-		document.setDocType(m_docType);
+		document._setDocType(m_docType);
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());
@@ -97,10 +104,10 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	public List<T> find(String query) throws DaoException {
 		if (m_searchClient == null) m_searchClient = m_daoFactory.getElasticSearchClient();
 
-		SearchResult searchResult = m_searchClient.find(query, m_docType, 10);
+		SearchResponse searchResponse = m_searchClient.find(m_docType, query, 0, 10);
 		List<T> rc = new ArrayList<T>();
 
-		for (Hit hit: searchResult.getHits().getHits()) {
+		for (SearchHit hit: searchResponse.getHits().getHits()) {
 			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
 			T item = get(hit.getId());
 			if (item != null) rc.add(item);
@@ -174,7 +181,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 */
 	@Override
 	public T update(T document) throws DaoException {
-		document.setDocType(m_docType);
+		document._setDocType(m_docType);
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());

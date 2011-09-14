@@ -2,7 +2,6 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 
 import javax.servlet.ServletException;
 
@@ -21,7 +20,7 @@ import org.tagaprice.server.dao.ISessionDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
-import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -45,9 +44,8 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
-	private DocumentDao m_documentDao = null;
 	
-	private ElasticSearchClient m_elasticSearchClient;
+	private NewElasticSearchClient m_elasticSearchClient;
 
 
 	static CouchDbConfig getConfiguration() throws IOException {
@@ -115,25 +113,17 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 * Default DAO factory constructor
 	 */
 	public CouchDbDaoFactory() throws DaoException {
-		try {
-			m_elasticSearchClient = new ElasticSearchClient(getConfiguration());
-		}
-		catch (IOException e) {
-			throw new DaoException("Error while creating the search index!", e);
-		}
-		catch (URISyntaxException e) {
-			throw new DaoException("Error while loading some search resources: "+e.getMessage(), e);
-		}
+		m_elasticSearchClient = new NewElasticSearchClient();
 	}
 
-	public ElasticSearchClient getElasticSearchClient() {
+	public NewElasticSearchClient getElasticSearchClient() {
 		return m_elasticSearchClient;
 	}
 	
 	@Override
 	public ICategoryDao getProductCategoryDao() {
 		if (m_productCategoryDao == null) {
-			m_productCategoryDao = new CategoryDao(this,"productCategory");
+			m_productCategoryDao = new CategoryDao(this,Document.Type.PRODUCTCATEGORY);
 		}
 		return m_productCategoryDao;
 	}
@@ -202,13 +192,6 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		return m_userDao;
 	}
 
-	DocumentDao _getDocumentDao() {
-		if (m_documentDao == null) {
-			m_documentDao = new DocumentDao(this);
-		}
-		return m_documentDao;
-	}
-
 	@Override
 	public void init() throws ServletException {
 		InitialInjector injector = new InitialInjector();
@@ -234,7 +217,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	@Override
 	public ICategoryDao getShopCategoryDao() {
 		if(m_shopCategoryDao == null)
-			m_shopCategoryDao = new CategoryDao(this, "shopCategory");
+			m_shopCategoryDao = new CategoryDao(this, Document.Type.SHOPCATEGORY);
 		return m_shopCategoryDao;
 	}
 }
