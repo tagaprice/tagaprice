@@ -2,6 +2,7 @@ package org.tagaprice.client.features.shopmanagement.createShop;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
@@ -99,6 +100,14 @@ public interface ICreateShopView extends IsWidget {
 	 * @param lon
 	 */
 	public void setStatisticLatLon(double lat, double lon);
+	
+	
+	/**
+	 * A list of properties and property object. This list must be handled by a property handler
+	 * @param propertyList
+	 */
+	public void setPropertyList(Map<String, Object> propertyList);
+	
 	
 	/**
 	 * 

@@ -163,7 +163,12 @@
 		<when-property-is name="formfactor" value="dev"/>
 	</replace-with>
 	
-
+	<!-- PropertyDefaultSelecter -->
+	<replace-with class="org.tagaprice.client.generics.widgets.desktopView.PropertyDefaultSelecter">
+		<when-type-is class="org.tagaprice.client.generics.widgets.IPropertyDefaultSelecter" />
+	</replace-with>
+	
+	
 
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.QuantitySelecter">
@@ -183,10 +188,6 @@
 		<when-type-is class="org.tagaprice.client.generics.widgets.IMultipleAddressSelecter" />
 	</replace-with>
 
-
-	
-
-	
 
 	<replace-with class="org.tagaprice.client.generics.widgets.devView.CountrySelecter">
 		<when-type-is class="org.tagaprice.client.generics.widgets.ICountrySelecter" />

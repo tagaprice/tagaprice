@@ -2,11 +2,14 @@ package org.tagaprice.client.features.shopmanagement.createShop.desktopView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.MorphWidget;
+import org.tagaprice.client.generics.widgets.PropertyDefaultSelecter;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
@@ -39,7 +42,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private AddressSelecter _address = new AddressSelecter();
 	private boolean _readonly = true;
 	private CategorySelecter _category = new CategorySelecter();
-	
+	private PropertyDefaultSelecter _propertyDefaultSelecter = new PropertyDefaultSelecter();
 	
 	
 	public CreateShopViewImpl() {
@@ -76,7 +79,11 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		_shopBodyPanel.add(_address);
 		
 				
-		
+		//properties
+		Label _mockPropertieHead = new Label("Properties");
+		_mockPropertieHead.setStyleName("propertyHeader");
+		_shopBodyPanel.add(_mockPropertieHead);
+		_shopBodyPanel.add(_propertyDefaultSelecter);
 		
 		
 		
@@ -231,6 +238,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public void setStatisticLatLon(double lat, double lon) {
 		_statistic.setLatLon(lat, lon);		
+	}
+
+
+
+	@Override
+	public void setPropertyList(Map<String, Object> propertyList) {
+		_propertyDefaultSelecter.setPropertyList(propertyList);	
 	}
 	
 }

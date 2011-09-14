@@ -2,10 +2,9 @@ package org.tagaprice.client;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
-import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
-import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
+import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
-import org.tagaprice.client.features.productmanagement.createProduct.*;
+import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
@@ -19,7 +18,6 @@ import org.tagaprice.shared.rpc.productmanagement.IProductServiceAsync;
 import org.tagaprice.shared.rpc.receiptmanagement.IReceiptServiceAsync;
 import org.tagaprice.shared.rpc.searchmanagement.ISearchServiceAsync;
 import org.tagaprice.shared.rpc.shopmanagement.IShopServiceAsync;
-
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 
@@ -102,10 +100,6 @@ public interface ClientFactory {
 	ICreateReceiptView getCreateReceiptView();
 
 
-	IRegisterView getRegisterView();
-
-	IRegisteredView getRegisteredView();
-
 	IListReceiptsView getListReceiptsView();
 
 	IStartView getStartView();
@@ -115,6 +109,8 @@ public interface ClientFactory {
 	ICategoryView getShopCategoryView();
 
 	ICategoryView getProductCategoryView();
+	
+	ISettingsView getSettingsView();
 	
 	/****************** GlobalAddress ***********************/
 	/**

@@ -20,8 +20,10 @@ import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
 import org.tagaprice.client.generics.MapQuest.MapquestCreator;
 import org.tagaprice.client.generics.widgets.ReceiptEntrySelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
+import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget;
 import org.tagaprice.client.generics.widgets.desktopView.PackagePreview;
 import org.tagaprice.client.generics.widgets.desktopView.ShopPreview;
+import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget.MENUPOINT;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Quantity;
@@ -95,18 +97,19 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private VerticalPanel _searchShopPa = new VerticalPanel();
 	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
+	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 	
 	public CreateReceiptViewImpl() {
 		
 		
 		//head
 		_headPanel.setWidth("100%");
-		_headPanel.add(new Label("Receipt"));
+		_headPanel.add(new Label("Dasboard / add Receipt"));
 		
 		
 		//Date
 		_headPanel.add(_receiptDateLabel);
-		_headPanel.setCellWidth(_receiptDateLabel, "100%");
+		//_headPanel.setCellWidth(_receiptDateLabel, "100%");
 		_datePop.setWidget(_datePicker);
 		_datePop.setStyleName("popBackground");
 		_receiptDateLabel.addClickHandler(new ClickHandler() {
@@ -147,6 +150,18 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_frame.setReadOnly(false);
 		
 		_frame.setHeader(_headPanel);
+		
+		
+		//menu
+		_frame.setBody(_menu,"200px");
+		_menu.setActiveType(MENUPOINT.ADDRECEIPT);
+		_menu.addLogoutClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onLogout();
+			}
+		});
 		
 		
 		//body

@@ -2,6 +2,7 @@ package org.tagaprice.client.features.shopmanagement.createShop.devView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
@@ -207,6 +208,12 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 
 	@Override
 	public void setStatisticLatLon(double lat, double lon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPropertyList(Map<String, Object> propertyList) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -4,6 +4,7 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.IUi;
 import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
@@ -118,30 +119,18 @@ public class UIDesktop implements IUi {
 
 		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 		
-		final VerticalPanel vePaLoggedIn = new VerticalPanel();
-		vePaLoggedIn.setStyleName("loginView");
-		vePaLoggedIn.add(new HTML("<a href=\"#ListReceipts:/show\">My Receipts</a>"));
-		vePaLoggedIn.add(new HTML("<a href=\"#CreateReceipt:/create\">add Receipts</a>"));
-		HTML logout = new HTML("<a>Logout</a>");
-		logout.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_clientFactory.getAccountPersistor().logout();						
-			}
-		});
-		vePaLoggedIn.add(logout);
 		
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if(_clientFactory.getAccountPersistor().isLoggedIn()){
-					loginPop.setWidget(vePaLoggedIn);
+					_clientFactory.getPlaceController().goTo(new ListReceiptsPlace());
 				}else{
 					loginPop.setWidget(loginPres.getView());
+					loginPop.showRelativeTo(login);	
 				}
-				loginPop.showRelativeTo(login);				
+							
 			}
 		});
 		
@@ -197,8 +186,16 @@ public class UIDesktop implements IUi {
 				"team[at]tagaprice[dot]org " +
 				"<h2>Twitter</h2> " +
 				"<a href=\"http://twitter.com/tagaprice\">@tagaprice</a>");
+		
+		HTML labels = new HTML("" +
+				"<h2>Labels</h2> " +
+				"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/3.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"http://i.creativecommons.org/l/by-sa/3.0/88x31.png\" /></a>" +
+				"<br /><br /><a rel=\"license\" href=\"http://www.gnu.org/licenses/agpl.html\"><img alt=\"GNU Affero General Public License\" style=\"border-width:0\" src=\"http://www.gnu.org/graphics/agplv3-88x31.png\" /></a>" +
+				"<br /><br /><a href=\"http://www.w3.org/html/logo/\"><img src=\"http://www.w3.org/html/logo/downloads/HTML5_Logo_64.png\" alt=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\" title=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\"></a>");
+		
 		bottomText.add(lefthtml);
 		bottomText.add(righthtml);
+		bottomText.add(labels);
 		bottom.add(bottomText);
 		bottom.setCellHorizontalAlignment(bottomText, HorizontalPanel.ALIGN_CENTER);
 				

@@ -111,6 +111,7 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 				if(curDebounce==_statisticDebounce){
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
 					_categoryView.setStatisticResults(response);
+					
 				}
 				
 			}

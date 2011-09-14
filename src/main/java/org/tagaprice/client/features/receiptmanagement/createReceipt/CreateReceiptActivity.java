@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -397,6 +398,12 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		_clientFactory.getAccountPersistor().addAddress(address);
 		
 		_createReceiptView.setSelectableAddress(_clientFactory.getAccountPersistor().getAddressList());
+	}
+
+	@Override
+	public void onLogout() {
+		_clientFactory.getAccountPersistor().logout();
+		goTo(new StartPlace());
 	}
 	
 

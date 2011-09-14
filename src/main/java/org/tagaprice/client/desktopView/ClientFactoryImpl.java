@@ -6,10 +6,8 @@ import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.desktopView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
-import org.tagaprice.client.features.accountmanagement.register.IRegisterView;
-import org.tagaprice.client.features.accountmanagement.register.IRegisteredView;
-import org.tagaprice.client.features.accountmanagement.register.desktopView.RegisterViewImpl;
-import org.tagaprice.client.features.accountmanagement.register.devView.RegisteredViewImpl;
+import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
+import org.tagaprice.client.features.accountmanagement.settings.desktopView.SettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.categorymanagement.product.desktopView.ProductCategoryView;
 import org.tagaprice.client.features.categorymanagement.shop.desktopView.ShopCategoryView;
@@ -70,13 +68,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static ICreateReceiptView CREATE_RECEIPT_VIEW;
 	private static ListProductsViewImpl productListView;
 	private static ICreateProductView createProductView;
-	private static IRegisterView registerView;
-	private static IRegisteredView registeredView;
 	private static IListReceiptsView listReceiptView;
 	private static IStartView startView;
 	private static ISearchView searchView;
 	private static ICategoryView shopCategoryView;
 	private static ICategoryView productCategoryView;
+	private static ISettingsView settingsView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -150,18 +147,6 @@ public class ClientFactoryImpl implements ClientFactory {
 
 
 	@Override
-	public IRegisterView getRegisterView() {
-		if(registerView==null)registerView = new RegisterViewImpl();
-		return ClientFactoryImpl.registerView;
-	}
-
-	@Override
-	public IRegisteredView getRegisteredView() {
-		if(registeredView==null)registeredView = new RegisteredViewImpl();
-		return ClientFactoryImpl.registeredView;
-	}
-
-	@Override
 	public IListReceiptsView getListReceiptsView() {
 		if(listReceiptView==null)listReceiptView = new ListReceiptsViewImpl();
 		return ClientFactoryImpl.listReceiptView;
@@ -194,6 +179,14 @@ public class ClientFactoryImpl implements ClientFactory {
 			productCategoryView=new ProductCategoryView();
 		return productCategoryView;
 	}
+	
+	@Override
+	public ISettingsView getSettingsView() {
+		if(settingsView==null)
+			settingsView=new SettingsView();
+		return settingsView;
+	}
+
 	
 	@Override
 	public ILoginServiceAsync getLoginService() {
@@ -231,6 +224,7 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
 
+	
 	
 
 	

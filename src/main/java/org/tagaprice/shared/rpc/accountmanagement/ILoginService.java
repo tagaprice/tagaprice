@@ -62,16 +62,14 @@ public interface ILoginService extends RemoteService {
 	/**
 	 * Set new password.
 	 * 
-	 * @param oldPassword
-	 *            old password
 	 * @param newPassword
 	 *            new password
-	 * @param newPassword2
+	 * @param confirmPassword
 	 *            second time the new password
 	 * @return True if password has being changed.
 	 */
-	public boolean setNewPassword(String oldPassword, String newPassword, String newPassword2)
-	throws UserNotLoggedInException;
+	public boolean setNewPassword(String newPassword, String confirmPassword)
+	throws UserNotLoggedInException, DaoException;
 	
 	/**
 	 * Returns true/false if this email has been confirmed. But false if not, or not available. 
