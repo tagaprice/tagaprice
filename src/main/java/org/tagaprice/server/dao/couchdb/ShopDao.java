@@ -53,7 +53,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
 						.topLeft(bbox.getNorthLat(), bbox.getWestLon()),
 					hasChildFilter(Document.Type.RECEIPT.toString(),
-						termsQuery("packageId", packageIDs)
+						termsQuery("packageId", packageIDs.toArray())
 					)
 				)
 			);
