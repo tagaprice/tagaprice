@@ -163,6 +163,18 @@ a:HOVER {
     border-top:none;
 }
 
+.createInfo{
+    margin-top:6px;
+    font-size:20px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+
+.createEgInfo{
+    font-size:16px;
+    margin-left:18px;
+    margin-bottom:3px;
+}
+
 
 .bottom {
     padding-top: 10px;
