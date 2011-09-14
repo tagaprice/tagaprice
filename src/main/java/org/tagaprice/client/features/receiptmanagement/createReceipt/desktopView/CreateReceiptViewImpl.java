@@ -787,4 +787,14 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_presenter=presenter;		
 	}
 
+	@Override
+	public String getNote() {
+		return _noteBox.getText();
+	}
+
+	@Override
+	public void setNote(String note) {
+		_noteBox.setText(note);
+	}
+
 }

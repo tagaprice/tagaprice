@@ -362,6 +362,16 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 	}
 
+	@Override
+	public String getNote() {
+		return _title.getText();
+	}
+
+	@Override
+	public void setNote(String note) {
+		_title.setText(note);
+	}
+
 
 
 

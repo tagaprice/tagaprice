@@ -17,13 +17,9 @@ public interface ICreateReceiptView extends IsWidget{
 	 * Returns the Title of the {@link Receipt}, if Title is NULL you get NULL back
 	 * @return Returns the Title of the {@link Receipt} or null.
 	 */
-	public String getTitle();
+	public String getNote();
 
-	/**
-	 * Sets the document title
-	 * @param title Sets the document title
-	 */
-	public void setTitle(String title);
+	public void setNote(String note);
 
 	public Date getDate();
 
