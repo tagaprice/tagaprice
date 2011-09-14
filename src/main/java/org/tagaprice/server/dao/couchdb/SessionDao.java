@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.tagaprice.server.dao.ISessionDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.Session;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -11,7 +12,7 @@ public class SessionDao extends DaoClass<Session> implements ISessionDao {
 	SimpleDateFormat m_dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	
 	public SessionDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Session.class, "session", null);
+		super(daoFactory, Session.class, Document.Type.SESSION, null);
 	}
 	
 	@Override

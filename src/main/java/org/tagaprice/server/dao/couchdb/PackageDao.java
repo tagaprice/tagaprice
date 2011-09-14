@@ -8,6 +8,7 @@ import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -16,7 +17,7 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	IUnitDao m_unitDAO;
 
 	public PackageDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Package.class, "package", null);
+		super(daoFactory, Package.class, Document.Type.PACKAGE, null);
 		m_unitDAO = daoFactory.getUnitDao();
 	}
 

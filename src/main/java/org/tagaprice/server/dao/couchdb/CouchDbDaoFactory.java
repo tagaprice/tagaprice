@@ -22,6 +22,7 @@ import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.server.dao.couchdb.elasticsearch.ElasticSearchClient;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -132,7 +133,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	@Override
 	public ICategoryDao getProductCategoryDao() {
 		if (m_productCategoryDao == null) {
-			m_productCategoryDao = new CategoryDao(this,"productCategory");
+			m_productCategoryDao = new CategoryDao(this,Document.Type.PRODUCTCATEGORY);
 		}
 		return m_productCategoryDao;
 	}
@@ -226,7 +227,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	@Override
 	public ICategoryDao getShopCategoryDao() {
 		if(m_shopCategoryDao == null)
-			m_shopCategoryDao = new CategoryDao(this, "shopCategory");
+			m_shopCategoryDao = new CategoryDao(this, Document.Type.SHOPCATEGORY);
 		return m_shopCategoryDao;
 	}
 }

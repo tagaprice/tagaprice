@@ -4,12 +4,13 @@ import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IUserDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class UserDao extends DaoClass<User> implements IUserDao {
 	public UserDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, User.class, "user", null);
+		super(daoFactory, User.class, Document.Type.USER, null);
 	}
 
 	@Override

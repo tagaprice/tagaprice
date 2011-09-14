@@ -15,6 +15,7 @@ import org.tagaprice.server.dao.couchdb.elasticsearch.query.MatchAllQuery;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.Hit;
 import org.tagaprice.server.dao.couchdb.elasticsearch.result.SearchResult;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -24,7 +25,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	private ElasticSearchClient m_searchClient;
 	
 	public ShopDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Shop.class, "shop", null);
+		super(daoFactory, Shop.class, Document.Type.SHOP, null);
 		m_shopCategoryDAO = daoFactory.getShopCategoryDao();
 		m_searchClient = daoFactory.getElasticSearchClient();
 	}

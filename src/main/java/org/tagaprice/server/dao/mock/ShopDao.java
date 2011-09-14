@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.BoundingBox;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -23,7 +24,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 
 		for (Deque<Shop> deque: m_data.values()) {
 			Shop st = deque.peek();
-			st.setDocType("shop");
+			st._setDocType(Document.Type.SHOP);
 			rc.add(deque.peek());
 		}
 
@@ -36,7 +37,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 		
 		for(Deque<Shop> deque: m_data.values()){
 			Shop shop = deque.peek();
-			shop.setDocType("shop");
+			shop._setDocType(Document.Type.SHOP);
 			
 			if (searchPattern != null
 					&& shop.getTitle().toLowerCase().contains((searchPattern.toLowerCase()))) {
