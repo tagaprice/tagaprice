@@ -125,7 +125,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T getOnly(String id, String revision) throws DaoException {
 		T rc = m_db.getDocument(m_class, id);
-		if (!rc.getDocType().equals(m_docType)) throw new TypeMismatchException("Requested type ('"+m_docType+"') doesn't match actual type: '"+rc.getDocType()+"'");
+		if (!rc.getDocTypeEnum().equals(m_docType)) throw new TypeMismatchException("Requested type ('"+m_docType+"') doesn't match actual type: '"+rc.getDocType()+"'");
 
 		return rc;
 	}
