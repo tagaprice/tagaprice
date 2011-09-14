@@ -24,7 +24,7 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	private ElasticSearchClient m_searchClient;
 	
 	public ShopDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Shop.class, "shop", daoFactory._getDocumentDao());
+		super(daoFactory, Shop.class, "shop", null);
 		m_shopCategoryDAO = daoFactory.getShopCategoryDao();
 		m_searchClient = daoFactory.getElasticSearchClient();
 	}

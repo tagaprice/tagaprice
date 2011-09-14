@@ -16,7 +16,7 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 	private  String _objectType;
 	
 	public CategoryDao(CouchDbDaoFactory daoFactory, String objectType) {
-		super(daoFactory, Category.class, objectType, daoFactory._getDocumentDao());
+		super(daoFactory, Category.class, objectType, null);
 		_objectType=objectType;
 	}
 

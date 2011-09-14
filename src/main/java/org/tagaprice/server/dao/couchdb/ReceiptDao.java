@@ -24,7 +24,7 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 
 	public ReceiptDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Receipt.class, "receipt", daoFactory._getDocumentDao());
+		super(daoFactory, Receipt.class, "receipt", null);
 		m_shopDAO = daoFactory.getShopDao();
 		m_packageDAO = daoFactory.getPackageDao();
 		m_productDAO = daoFactory.getProductDao();

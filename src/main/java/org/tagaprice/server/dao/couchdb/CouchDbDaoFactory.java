@@ -45,7 +45,6 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
-	private DocumentDao m_documentDao = null;
 	
 	private ElasticSearchClient m_elasticSearchClient;
 
@@ -200,13 +199,6 @@ public class CouchDbDaoFactory implements IDaoFactory {
 			m_userDao = new UserDao(this);
 		}
 		return m_userDao;
-	}
-
-	DocumentDao _getDocumentDao() {
-		if (m_documentDao == null) {
-			m_documentDao = new DocumentDao(this);
-		}
-		return m_documentDao;
 	}
 
 	@Override

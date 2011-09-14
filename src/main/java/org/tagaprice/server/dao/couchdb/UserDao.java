@@ -9,7 +9,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class UserDao extends DaoClass<User> implements IUserDao {
 	public UserDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, User.class, "user", daoFactory._getDocumentDao());
+		super(daoFactory, User.class, "user", null);
 	}
 
 	@Override

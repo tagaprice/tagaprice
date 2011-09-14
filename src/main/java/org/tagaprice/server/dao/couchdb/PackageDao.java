@@ -16,7 +16,7 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	IUnitDao m_unitDAO;
 
 	public PackageDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Package.class, "package", daoFactory._getDocumentDao());
+		super(daoFactory, Package.class, "package", null);
 		m_unitDAO = daoFactory.getUnitDao();
 	}
 

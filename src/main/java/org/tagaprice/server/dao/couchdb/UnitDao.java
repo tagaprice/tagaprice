@@ -15,7 +15,7 @@ import com.allen_sauer.gwt.log.client.Log;
 public class UnitDao extends DaoClass<Unit> implements IUnitDao {
 
 	public UnitDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, Unit.class, "unit", daoFactory._getDocumentDao());
+		super(daoFactory, Unit.class, "unit", null);
 		// TODO Auto-generated constructor stub
 	}
 

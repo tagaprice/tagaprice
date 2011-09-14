@@ -39,7 +39,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	private IShopDao m_shopDao;
 
 	public StatisticDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, StatisticResult.class, "statistic", daoFactory._getDocumentDao());
+		super(daoFactory, StatisticResult.class, "statistic", null);
 		m_packageDao = daoFactory.getPackageDao();
 		m_productDao = daoFactory.getProductDao();
 		m_receiptDao = daoFactory.getReceiptDao();
