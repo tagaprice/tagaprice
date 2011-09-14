@@ -80,7 +80,7 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			@Override
 			public void onMouseOver(MouseOverEvent arg0) {
 				_mainHoverHoPa.setVisible(true);
-
+				onHover();
 			}
 		});
 		
@@ -90,11 +90,19 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 			@Override
 			public void onMouseOut(MouseOutEvent arg0) {
 				_mainHoverHoPa.setVisible(false);
-
+				onHoverOut();
 			}
 		});
 		
 		
+	}
+	
+	public void onHover(){
+		_mainHoPa.setStyleName("previewWidget previewWidget-hover");
+	}
+	
+	public void onHoverOut(){
+		_mainHoPa.setStyleName("previewWidget");
 	}
 	
 	public void addHoverWidget(IsWidget widget){
@@ -110,12 +118,12 @@ public abstract class APreviewWidget extends Composite implements HasClickHandle
 	
 	@Override
 	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-		return addDomHandler(handler, MouseOutEvent.getType());
+		return _absolutePa.addDomHandler(handler, MouseOutEvent.getType());
 	}
 	
 	@Override
 	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-		return addDomHandler(handler, MouseOverEvent.getType());
+		return _absolutePa.addDomHandler(handler, MouseOverEvent.getType());
 	}
 	
 	
