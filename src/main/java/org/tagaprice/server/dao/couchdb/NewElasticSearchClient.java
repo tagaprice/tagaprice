@@ -2,6 +2,7 @@ package org.tagaprice.server.dao.couchdb;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.action.search.SearchRequestBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -48,11 +49,14 @@ public class NewElasticSearchClient {
 	}
 	
 	public SearchResponse find(Document.Type type, QueryBuilder queryBuilder, int from, int size) {
-		return m_client.prepareSearch(m_indexName)
-			.setTypes(type.toString())
+		SearchRequestBuilder searchBuilder = m_client.prepareSearch(m_indexName)
 			.setQuery(queryBuilder)
 			.setFrom(from)
-			.setSize(size)
+			.setSize(size);
+
+		if (type != null) searchBuilder.setTypes(type.toString());
+
+		return searchBuilder
 			.execute()
 			.actionGet();
 	}
