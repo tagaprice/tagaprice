@@ -11,13 +11,16 @@ import org.gwtopenmaps.openlayers.client.RenderIntent;
 import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.StyleMap;
 import org.gwtopenmaps.openlayers.client.control.SelectFeature;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature.ClickFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.SelectFeature.SelectFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.SelectFeature.UnselectFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.SelectFeatureOptions;
 import org.gwtopenmaps.openlayers.client.event.BeforeFeatureHighlightedListener;
+import org.gwtopenmaps.openlayers.client.event.ControlActivateListener;
 import org.gwtopenmaps.openlayers.client.event.FeatureHighlightedListener;
 import org.gwtopenmaps.openlayers.client.event.FeatureUnhighlightedListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
+import org.gwtopenmaps.openlayers.client.event.ControlActivateListener.ControlActivateEvent;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
@@ -81,6 +84,7 @@ public class SearchView extends Composite implements ISearchView {
 	private Address _curAddress;
 	
 	private HashMap<String, ShopPreview> _shopHighlightMap = new HashMap<String, ShopPreview>();
+	private HashMap<String, Shop> _shopClickMap = new HashMap<String, Shop>();
 	
 	public SearchView() {
 
@@ -281,8 +285,27 @@ public class SearchView extends Composite implements ISearchView {
 		    }
 		});
 		
-		final SelectFeature selectFeatureClick = new SelectFeature(_osmLayer,
+		selectFeatureOptions.clickFeature(new ClickFeatureListener() {
+			
+			@Override
+			public void onFeatureClicked(VectorFeature vectorFeature) {
+				_presenter.goTo(new CreateShopPlace(
+						_shopClickMap.get(vectorFeature.getFeatureId()).getId(), 
+						null, 
+						null, 
+						null, 
+						null, 
+						""+_curAddress.getPos().getLat(), 
+						""+_curAddress.getPos().getLon(), 
+						""+_osmShopMap.getZoom()));
+			}
+		});
+		
+		
+		
+		SelectFeature selectFeatureClick = new SelectFeature(_osmLayer,
 				selectFeatureOptions);
+		
 		
 		_osmShopMap.addControl(selectFeatureClick);
 		
@@ -392,6 +415,7 @@ public class SearchView extends Composite implements ISearchView {
 		_osmLayer.destroyFeatures();
 		
 		_shopHighlightMap.clear();
+		_shopClickMap.clear();
 		for(final Document document:results){
 			if (document.getDocType().equals("shop")) {
 				final Shop shop = Shop.fromDocument(document);
@@ -424,6 +448,7 @@ public class SearchView extends Composite implements ISearchView {
 				_osmLayer.addFeature(pointFeature);
 				
 				_shopHighlightMap.put(pointFeature.getFeatureId(), dumpShop);
+				_shopClickMap.put(pointFeature.getFeatureId(), shop);
 				
 				
 				
