@@ -12,11 +12,11 @@ import org.tagaprice.shared.entities.Document;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
-public class NewElasticSearchClient {
+public class ElasticSearchClient {
 	private Client m_client;
 	private String m_indexName;
 
-	public NewElasticSearchClient() {
+	public ElasticSearchClient() {
 		m_client = new TransportClient()
 			.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
 		m_indexName = "tagaprice";

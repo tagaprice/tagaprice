@@ -12,7 +12,7 @@ import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class SearchDao implements ISearchDao {
-	private NewElasticSearchClient m_searchClient = null;
+	private ElasticSearchClient m_searchClient = null;
 	
 	public SearchDao(CouchDbDaoFactory daoFactory) {
 		m_searchClient = daoFactory.getElasticSearchClient();

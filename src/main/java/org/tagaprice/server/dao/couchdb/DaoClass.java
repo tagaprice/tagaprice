@@ -23,7 +23,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	private Server m_server;
 
 	/// ElasticSearch client object
-	private NewElasticSearchClient m_searchClient;
+	private ElasticSearchClient m_searchClient;
 
 	/// JCouchDB database object
 	protected Database m_db;

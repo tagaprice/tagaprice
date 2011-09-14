@@ -21,7 +21,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	
 	private ICategoryDao m_shopCategoryDAO;
-	private NewElasticSearchClient m_searchClient;
+	private ElasticSearchClient m_searchClient;
 	
 	public ShopDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, Shop.class, Document.Type.SHOP, null);

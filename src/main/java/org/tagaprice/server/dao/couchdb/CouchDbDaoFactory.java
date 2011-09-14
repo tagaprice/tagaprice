@@ -45,7 +45,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
 	
-	private NewElasticSearchClient m_elasticSearchClient;
+	private ElasticSearchClient m_elasticSearchClient;
 
 
 	static CouchDbConfig getConfiguration() throws IOException {
@@ -113,10 +113,10 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	 * Default DAO factory constructor
 	 */
 	public CouchDbDaoFactory() throws DaoException {
-		m_elasticSearchClient = new NewElasticSearchClient();
+		m_elasticSearchClient = new ElasticSearchClient();
 	}
 
-	public NewElasticSearchClient getElasticSearchClient() {
+	public ElasticSearchClient getElasticSearchClient() {
 		return m_elasticSearchClient;
 	}
 	

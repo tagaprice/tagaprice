@@ -29,7 +29,7 @@ import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 public class StatisticDao extends DaoClass<StatisticResult> implements IStatisticDao {
-	private NewElasticSearchClient m_searchClient;
+	private ElasticSearchClient m_searchClient;
 	private IPackageDao m_packageDao;
 	private IProductDao m_productDao;
 	private IReceiptDao m_receiptDao;
