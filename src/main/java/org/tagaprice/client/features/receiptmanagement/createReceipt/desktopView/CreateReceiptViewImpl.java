@@ -52,6 +52,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
@@ -68,11 +69,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private Presenter _presenter;
 	private StdFrame _frame = new StdFrame();
 	private HorizontalPanel _headPanel = new HorizontalPanel();
-	private Label _receiptDateLabel = new Label();
 	private Label _fullPrice = new Label("0.0€");
 	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
 	private DatePicker _datePicker = new DatePicker();
-	private PopupPanel _datePop = new PopupPanel(true);
 	private VerticalPanel _bodyPanel = new VerticalPanel();
 	private SimplePanel _shopPanel = new SimplePanel();
 	private ReceiptEntrySelecter _receiptEntrySelecter = new ReceiptEntrySelecter();
@@ -84,6 +83,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private PopupPanel _locationPop = new PopupPanel(true);
 	private PopupPanel _seachLoctionPop = new PopupPanel(true);
 	private VerticalPanel _locationVePa = new VerticalPanel();
+	private TextArea _noteBox = new TextArea();
+	
 	
 	//search
 	private TextBox _shopSearchText = new TextBox();
@@ -99,6 +100,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 	
+	
 	public CreateReceiptViewImpl() {
 		
 		
@@ -106,29 +108,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_headPanel.setWidth("100%");
 		_headPanel.add(new Label("Dasboard / add Receipt"));
 		
-		
-		//Date
-		_headPanel.add(_receiptDateLabel);
-		//_headPanel.setCellWidth(_receiptDateLabel, "100%");
-		_datePop.setWidget(_datePicker);
-		_datePop.setStyleName("popBackground");
-		_receiptDateLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				_datePop.showRelativeTo(_receiptDateLabel);
-			}
-		});
-		
-		_datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<Date> date) {
-				setDate(date.getValue());	
-				_datePop.hide();
-			}
-		});
-
 		_headPanel.add(_fullPrice);
 		
 		//Add Save button
@@ -167,6 +146,40 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		//body
 		_bodyPanel.setWidth("100%");
 		_frame.setBody(_bodyPanel);
+		
+		//date and note
+		HorizontalPanel dateNodeHoPa = new HorizontalPanel();
+		dateNodeHoPa.setWidth("100%");
+		_bodyPanel.add(dateNodeHoPa);
+		
+		//date
+		VerticalPanel dateVePa = new VerticalPanel();
+		Label dateLabel = new Label("Date");
+		dateLabel.setStyleName("propertyHeader");
+		dateVePa.add(dateLabel);
+		dateVePa.add(_datePicker);
+		_datePicker.setStyleName("datePicker");
+		dateNodeHoPa.add(dateVePa);
+		
+		_datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Date> date) {
+				setDate(date.getValue());	
+			}
+		});
+		
+		
+		
+		//note
+		VerticalPanel noteVePa = new VerticalPanel();
+		Label noteLabel = new Label("Note");
+		noteLabel.setStyleName("propertyHeader");
+		noteVePa.add(noteLabel);
+		_noteBox.setSize("300px", "50px");
+		_noteBox.setStyleName("receiptNode");
+		noteVePa.add(_noteBox);
+		dateNodeHoPa.add(noteVePa);
 		
 		
 		//Select Shop
@@ -477,8 +490,9 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setDate(Date date) {
-		_receiptDateLabel.setText(fmt.format(date));
+		//_receiptDateLabel.setText(fmt.format(date));
 		_datePicker.setValue(date,true);
+		_datePicker.setCurrentMonth(date);
 	}
 
 	@Override
@@ -771,6 +785,16 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;		
+	}
+
+	@Override
+	public String getNote() {
+		return _noteBox.getText();
+	}
+
+	@Override
+	public void setNote(String note) {
+		_noteBox.setText(note);
 	}
 
 }

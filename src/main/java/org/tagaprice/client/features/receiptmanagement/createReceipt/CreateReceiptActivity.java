@@ -51,7 +51,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		//Check if this is a draft or existing receipt and save before change view
 		if((_place.getId()!=null && _place.getId().equals("draft")) || _place.getId()==null){
 			//Get data from View
-			_receipt.setTitle(_createReceiptView.getTitle());
+			_receipt.setTitle(_createReceiptView.getNote());
 			_receipt.setDate(_createReceiptView.getDate());
 			_receipt.setShop(_createReceiptView.getShop());
 			_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
@@ -87,7 +87,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 		Log.debug("Try Save Receipt");
 
 		//Get data from View
-		_receipt.setTitle(_createReceiptView.getTitle());
+		_receipt.setTitle(_createReceiptView.getNote());
 		_receipt.setDate(_createReceiptView.getDate());
 		_receipt.setShop(_createReceiptView.getShop());
 		_receipt.setReceiptEntries(_createReceiptView.getReceiptEntries());
@@ -382,7 +382,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	private void updateView(Receipt receipt){
 		_receipt=receipt;
 
-		_createReceiptView.setTitle(_receipt.getTitle());
+		_createReceiptView.setNote(_receipt.getTitle());
 		_createReceiptView.setDate(_receipt.getDate());
 		_createReceiptView.setShop(_receipt.getShop());
 		_createReceiptView.setReceiptEntries(_receipt.getReceiptEntries());
