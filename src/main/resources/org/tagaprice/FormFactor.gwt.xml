@@ -3,7 +3,7 @@
 <!-- Defines the formfactor property and its provider function. -->
 <module>
 	<inherits name='com.google.gwt.user.User' />
-	<inherits name='com.google.gwt.core.Core' />
+	<inherits name='com.google.gwt.core.Core' />"pom.xml"
 	<!-- Determine if we are in a mobile browser. -->
 	<define-property name="formfactor" values="desktop,tablet,mobile,dev" />
 	<collapse-property name="formfactor" values="*" />

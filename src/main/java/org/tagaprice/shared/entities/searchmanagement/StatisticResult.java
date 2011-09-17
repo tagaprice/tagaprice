@@ -7,10 +7,9 @@ import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class StatisticResult extends Document implements IsSerializable {
+public class StatisticResult extends Document {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,12 +18,11 @@ public class StatisticResult extends Document implements IsSerializable {
 	private Product _product;
 	private Quantity _quantity;
 	private Price _price;
+	private Package _package;
 
 
 	public StatisticResult() {
-		// TODO Auto-generated constructor stub
 	}
-
 
 	public StatisticResult(Date date, Shop shop, Product product, Quantity quantity, Price price) {
 		super();
@@ -33,6 +31,25 @@ public class StatisticResult extends Document implements IsSerializable {
 		_product = product;
 		_quantity = quantity;
 		_price = price;
+	}
+	
+	public StatisticResult(Date date, Shop shop, Product product, Package pack, Price price) {
+		super();
+		_date = date;
+		_shop = shop;
+		_product = product;
+		_package = pack;
+		_price = price;
+	}
+	
+	
+
+
+	/**
+	 * @return the package
+	 */
+	public Package getPackage() {
+		return _package;
 	}
 
 

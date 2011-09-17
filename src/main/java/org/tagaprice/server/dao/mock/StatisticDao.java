@@ -11,6 +11,7 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.dao.DaoException;
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -80,16 +81,66 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	@Override
 	public List<StatisticResult> searchPricesViaShopCategory(String categoryId,
 			BoundingBox bbox, Date begin, Date end) throws DaoException {
-		// TODO Auto-generated method stub
-		return new ArrayList<StatisticResult>();
+		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
+
+		try {
+			for(Receipt r:InitServlet.getDaoFactory().getReceiptDao().list()){
+				
+				if(r.getShopId().equals(categoryId)){
+					for(ReceiptEntry re:r.getReceiptEntries()){
+						
+							rc.add(new StatisticResult(
+									r.getDate(), 
+									r.getShop(), 
+									re.getPackage().getProduct(), 
+									re.getPackage().getQuantity(), 
+									re.getPrice()));						
+					}
+				}
+				
+				
+				
+				
+			}
+		}catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		return rc;
 	}
 
 	@Override
 	public List<StatisticResult> searchPricesViaProductCategory(
 			String categoryId, BoundingBox bbox, Date begin, Date end)
 			throws DaoException {
-		// TODO Auto-generated method stub
-		return new ArrayList<StatisticResult>();
+		ArrayList<StatisticResult> rc = new ArrayList<StatisticResult>();
+		
+		try {
+			for(Receipt r:InitServlet.getDaoFactory().getReceiptDao().list()){
+				
+				for(ReceiptEntry re:r.getReceiptEntries()){
+					
+					if(re.getPackage().getProduct().getCategoryId().equals(categoryId)){
+						rc.add(new StatisticResult(
+								r.getDate(), 
+								r.getShop(), 
+								re.getPackage().getProduct(), 
+								re.getPackage(), 
+								re.getPrice()));
+					}
+					
+				}
+				
+				
+			}
+		}catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		return rc;
 	}
 
 
