@@ -58,6 +58,38 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 		return rc;
 	}
 
+	/**
+	 * Fetch child category IDs recursively until there are no more children or maxDepth reaches 0 
+	 * @param parentIDs IDs of the parents whose children should be fetched
+	 * @param maxDepth This parameter will be decremented with each recursive call (until it reaches 0)
+	 * @return Long list of children, grandchildren, ... (not including the parentIDs)
+	 */
+	private List<String> getChildIDsRecursively(List<String> parentIDs, int maxDepth) {
+		List<String> rc = new ArrayList<String>();
+		if (maxDepth > 0) {
+			ViewResult<?> result = m_db.queryViewByKeys(getDocumentType()+"/childrenOf", Category.class, parentIDs, null, null);
+
+			// direct children
+			for (ValueRow<?> row: result.getRows()) {
+				rc.add(row.getId());
+			}
+
+			if (!rc.isEmpty()) {
+				rc.addAll(getChildIDsRecursively(rc, maxDepth--));
+			}
+		}
+		return rc;
+	}
+
+	/**
+	 * Fetch all the IDs of child categories recursively (with a maximal recursion depth of 5)
+	 * @param parentIDs IDs of the parents whose children should be fetched
+	 * @return Long list of children, grandchildren, ... (not including the parentIDs)
+	 */
+	public List<String> getChildIDsRecursively(List<String> parentIDs) {
+		return getChildIDsRecursively(parentIDs, 5);
+	}
+
 	
 	@Override
 	protected void _injectFields(Category category) throws DaoException {
