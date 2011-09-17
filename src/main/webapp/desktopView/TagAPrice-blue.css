@@ -205,6 +205,38 @@ a:HOVER {
     text-decoration: underline;
 }
 
+
+.statisticTable{
+    border-collapse:collapse;
+}
+
+
+.statisticTable td{
+    padding:1px;
+}
+
+
+.statisticTable-head td{
+    background-color:#2c2d25;
+    font-size:15px;
+    font-weight:bold;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    border-bottom:2px solid #43aabe;
+    color:white;
+}
+
+.statisticTable-shop-cell{
+    color:white;
+    font-weight:bold;
+    background-color:#43aabe;
+}
+
+.statisticTable-cell{
+    border:2px white solid;
+    padding:3px;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+
 .dashboardMenuItem{
     background-color:white;
     margin-top:3px;
