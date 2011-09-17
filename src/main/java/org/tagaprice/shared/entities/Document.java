@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Document implements IsSerializable, DynamicProperties {
 	private static final long serialVersionUID = 1L;
 
-	public static enum Type {
+	public static enum Type implements IsSerializable {
 		PRODUCT("product"),
 		SHOP("shop"),
 		PRODUCTCATEGORY("productCategory"),
