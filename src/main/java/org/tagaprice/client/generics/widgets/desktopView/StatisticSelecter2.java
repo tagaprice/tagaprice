@@ -13,24 +13,29 @@ import org.gwtopenmaps.openlayers.client.Style;
 import org.gwtopenmaps.openlayers.client.StyleMap;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.event.MapZoomListener;
+import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
+import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
+import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.DatePickerCell;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
@@ -146,6 +151,13 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 
 	}
 
+	private  LatLon getLatLon(){
+		LonLat ll = _osmMap.getCenter();
+		ll.transform("EPSG:900913", "EPSG:4326");
+		return new LatLon(ll.lat(), ll.lon());
+		
+	}
+	
 	@Override
 	public void setType(TYPE type) {
 		_type = type;
@@ -162,11 +174,12 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 	private void drawProductCategory(List<StatisticResult> results){
 		
 		
+		_osmMarkerLayer.destroyFeatures();
+		
 		//shop product package
 		final HashMap<String, HashMap<String, HashMap<String, StatisticResult>>> shopSortList = new HashMap<String, HashMap<String,HashMap<String, StatisticResult>>>();
-		HashMap<String, StatisticResult> shopList = new HashMap<String, StatisticResult>();
-		HashMap<String, StatisticResult> productList = new HashMap<String, StatisticResult>();
-		int rowSize =1;
+		final HashMap<String, StatisticResult> shopList = new HashMap<String, StatisticResult>();
+		final HashMap<String, StatisticResult> productList = new HashMap<String, StatisticResult>();
 		for(StatisticResult sr:results){
 			//shop
 			if(shopSortList.get(sr.getShop().getId())==null){
@@ -183,26 +196,21 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 			//package
 			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
 				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
-				rowSize++;
 			}else{
 				//Overwrite old date
 				if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
 					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
-					rowSize++;
 				}
 			}
 			
 		}
 		
-		rowSize = rowSize+ shopList.size();
-		rowSize = rowSize+ productList.size();
-		
-		System.out.println("rowsiez:"+rowSize);
 		
 		
 		FlexTable shopFlex = new FlexTable();
 		shopFlex.setStyleName("statisticTable");
 		shopFlex.setWidth("100%");
+		
 		
 		shopFlex.setText(0, 0, "Shop");
 		shopFlex.setText(0, 1, "Product");
@@ -213,16 +221,43 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 		
 		//test output
 		int rk=1;
-		for(String sk:shopSortList.keySet()){
-			shopFlex.setWidget(rk, 0, new Label(shopList.get(sk).getShop().getTitle()));
+		for(final String sk:shopSortList.keySet()){
+			Label sl = new Label(shopList.get(sk).getShop().getTitle());
+			sl.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					History.newItem("shop:/null/id/"+shopList.get(sk).getShop().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());
+				}
+			});
+			shopFlex.setWidget(rk, 0, sl);
 			shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-shop-cell");
 			shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-shop-cell");
 			shopFlex.getCellFormatter().setStyleName(rk, 2, "statisticTable-shop-cell");
 			shopFlex.getCellFormatter().setStyleName(rk, 3, "statisticTable-shop-cell");
 			shopFlex.getCellFormatter().setStyleName(rk, 4, "statisticTable-shop-cell");
+			
+			
+			//add map Marker
+			LonLat lonLat = shopList.get(sk).getShop().getAddress().getPos().toLonLat();
+			lonLat.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(lonLat.lon(), lonLat.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+			
+			_osmMarkerLayer.addFeature(pointFeature);
+			
+			
 			rk++;
-			for(String prK: shopSortList.get(sk).keySet()){
-				shopFlex.setWidget(rk, 1, new Label(productList.get(prK).getProduct().getTitle()));
+			for(final String prK: shopSortList.get(sk).keySet()){
+				Label pl = new Label(productList.get(prK).getProduct().getTitle());
+				pl.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						History.newItem("product:/null/id/"+productList.get(prK).getProduct().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());						
+					}
+				});
+				shopFlex.setWidget(rk, 1, pl);
 
 				shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
 				shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-cell");
@@ -231,9 +266,9 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 				shopFlex.getCellFormatter().setStyleName(rk, 4, "statisticTable-cell");
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
-					shopFlex.setWidget(rk, 2, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()));
+					shopFlex.setWidget(rk, 2, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
 					shopFlex.setWidget(rk, 3, new Label(""+shopSortList.get(sk).get(prK).get(paK).getDate()));
-					shopFlex.setWidget(rk, 4, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()));
+					shopFlex.setWidget(rk, 4, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
 
 					shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
 					shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-cell");
