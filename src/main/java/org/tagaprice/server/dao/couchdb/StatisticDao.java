@@ -58,8 +58,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 			QueryBuilder queryBuilder = filteredQuery(
 				matchAllQuery(),
 				andFilter(
-					termsFilter("packageId", packageIDs),
-					termsFilter("shopId", shopIDs)
+					termsFilter("packageId", packageIDs.toArray()),
+					termsFilter("shopId", shopIDs.toArray())
 				)
 			);
 	
