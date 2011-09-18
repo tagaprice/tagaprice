@@ -2,7 +2,6 @@ package org.tagaprice.client.features.categorymanagement.shop.desktopView;
 
 import java.util.Date;
 import java.util.List;
-
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import org.tagaprice.client.generics.widgets.CategorySelecter;

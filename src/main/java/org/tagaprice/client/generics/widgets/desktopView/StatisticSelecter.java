@@ -21,28 +21,18 @@ import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.BoundingBox;
-import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
-import org.tagaprice.shared.entities.shopmanagement.Shop;
-import com.google.gwt.cell.client.DateCell;
-import com.google.gwt.cell.client.DatePickerCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
-import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
@@ -302,65 +292,6 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		
 	}
 	
-	private void drawProductCategory2(List<StatisticResult> results){
-		
-		CellTable<StatisticResult> table = new CellTable<StatisticResult>();
-		
-
-		//productColumn
-		TextColumn<StatisticResult> productNameColumn = new TextColumn<StatisticResult>() {
-		
-			@Override
-		      public String getValue(StatisticResult object) {
-		        return object.getProduct().getTitle();
-		      }
-		};
-		table.addColumn(productNameColumn, "Product");
-		
-		//ShopColumn
-		TextColumn<StatisticResult> shopNameColomn = new TextColumn<StatisticResult>() {
-		
-			@Override
-		      public String getValue(StatisticResult object) {
-		        return object.getShop().getTitle();
-		      }
-		};
-		table.addColumn(shopNameColomn, "Shop");
-		
-		//SizeColumn
-		TextColumn<StatisticResult> sizeNameColumn = new TextColumn<StatisticResult>() {
-			
-			@Override
-			public String getValue(StatisticResult object) {
-				return object.getQuantity().getQuantity().toEngineeringString()+"/"+object.getQuantity().getUnit().getTitle();
-			}
-		};
-		table.addColumn(sizeNameColumn, "Size");
-		
-		//DateColumn
-		Column<StatisticResult, Date> sizeDateColumn = new Column<StatisticResult, Date>(
-		        new DateCell()) {
-		      @Override
-		      public Date getValue(StatisticResult object) {
-		        return object.getDate();
-		      }
-		    };
-		table.addColumn(sizeDateColumn, "Date");
-		
-		//DateColumn
-		TextColumn<StatisticResult> sizePriceColumn = new TextColumn<StatisticResult>() {
-			
-			@Override
-			public String getValue(StatisticResult object) {
-				return object.getPrice().getPrice().toEngineeringString()+" "+object.getPrice().getCurrency();
-			}
-		};
-		table.addColumn(sizePriceColumn, "Prize");
-		
-		table.setRowData(results);
-		table.setWidth("100%");
-		_tablepanel.setWidget(table);
-	}
 	
 	@Override
 	public void setDate(Date begin, Date end) {
