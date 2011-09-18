@@ -35,6 +35,7 @@ public class Document implements IsSerializable, DynamicProperties {
 		RECEIPT("receipt"),
 		PACKAGE("package"),
 		SESSION("session"),
+		STATISTICS("statistics"),
 		UNIT("unit"),
 		USER("user");
 
