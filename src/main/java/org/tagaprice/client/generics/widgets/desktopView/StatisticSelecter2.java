@@ -166,7 +166,7 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
 		// TODO Auto-generated method stub
-		if(_type.equals(TYPE.PRODUCTCATEGORY)){
+		if(_type.equals(TYPE.PRODUCTCATEGORY) || _type.equals(TYPE.SHOPCATEGORY)){
 			drawProductCategory(results);
 		}
 	}
@@ -223,6 +223,7 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 		int rk=1;
 		for(final String sk:shopSortList.keySet()){
 			Label sl = new Label(shopList.get(sk).getShop().getTitle());
+			sl.setStyleName("statisticTable-shop-cell-link");
 			sl.addClickHandler(new ClickHandler() {
 				
 				@Override
@@ -250,6 +251,7 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 			rk++;
 			for(final String prK: shopSortList.get(sk).keySet()){
 				Label pl = new Label(productList.get(prK).getProduct().getTitle());
+				pl.setStyleName("statisticTable-cell-link");
 				pl.addClickHandler(new ClickHandler() {
 					
 					@Override
