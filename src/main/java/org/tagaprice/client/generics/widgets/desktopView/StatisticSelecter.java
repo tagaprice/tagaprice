@@ -180,9 +180,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				shopSortList.get(sr.getShop().getId()).put(sr.getProduct().getId(), new HashMap<String, StatisticResult>());
 			}
 			productList.put(sr.getProduct().getId(), sr);
-			
-			Log.debug("pacK: "+sr.getPackage());
-			/*
+						
 			//package
 			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
 				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
@@ -192,7 +190,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
 				}
 			}
-			*/
+			
 		}
 		
 		
