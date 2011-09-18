@@ -22,6 +22,8 @@ import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -179,6 +181,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			}
 			productList.put(sr.getProduct().getId(), sr);
 			
+			Log.debug("pacK: "+sr.getPackage());
+			/*
 			//package
 			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
 				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
@@ -188,7 +192,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
 				}
 			}
-			
+			*/
 		}
 		
 		

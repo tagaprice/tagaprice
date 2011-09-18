@@ -92,6 +92,48 @@ public class StatisticResult extends Document {
 		return _price;
 	}
 
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		_date = date;
+	}
+
+	/**
+	 * @param shop the shop to set
+	 */
+	public void setShop(Shop shop) {
+		_shop = shop;
+	}
+
+	/**
+	 * @param product the product to set
+	 */
+	public void setProduct(Product product) {
+		_product = product;
+	}
+
+	/**
+	 * @param quantity the quantity to set
+	 */
+	public void setQuantity(Quantity quantity) {
+		_quantity = quantity;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Price price) {
+		_price = price;
+	}
+
+	/**
+	 * @param package1 the package to set
+	 */
+	public void setPackage(Package package1) {
+		_package = package1;
+	}
+
 
 
 }
