@@ -296,6 +296,12 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			public void onSuccess(List<StatisticResult> response) {
 				if(curDebounce==_statisticDebounce){
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
+					
+					for(int i=0;i<response.size();i++){
+						if(response.get(i).getShop()==null)
+							response.get(i).setShop(_shop);
+					}
+					
 					_createShopView.setStatisticResults(response);
 				}
 			}

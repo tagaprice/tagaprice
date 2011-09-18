@@ -145,19 +145,19 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				vePa.add(new Label(" - "+
 						sr.getPrice().getPrice().toString()+""+
 						sr.getPrice().getCurrency()+"/"+
-						sr.getQuantity().getQuantity().toString()+""+
-						sr.getQuantity().getUnit().getTitle()));
+						sr.getPackage().getQuantity().getQuantity().toString()+""+
+						sr.getPackage().getQuantity().getUnit().getTitle()));
 
 
 				if(cheapest==null)
 				{
 					currency=sr.getPrice().getCurrency();
-					unit = sr.getQuantity().getUnit();
-					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					unit = sr.getPackage().getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 				}
 				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 					}
 
 			}
@@ -199,19 +199,19 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				vePa.add(new Label(" - "+
 						sr.getPrice().getPrice().toString()+""+
 						sr.getPrice().getCurrency()+"/"+
-						sr.getQuantity().getQuantity().toString()+""+
-						sr.getQuantity().getUnit().getTitle()));
+						sr.getPackage().getQuantity().getQuantity().toString()+""+
+						sr.getPackage().getQuantity().getUnit().getTitle()));
 
 
 				if(cheapest==null)
 				{
 					currency=sr.getPrice().getCurrency();
-					unit = sr.getQuantity().getUnit();
-					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					unit = sr.getPackage().getQuantity().getUnit();
+					cheapest=sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 				}
 				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
+					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
+						cheapest=sr.getPrice().getPrice().divide(sr.getPackage().getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
 					}
 
 			}

@@ -108,6 +108,7 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 			
 			@Override
 			public void onSuccess(List<StatisticResult> response) {
+				Log.debug("resultSize: "+response.size());
 				if(curDebounce==_statisticDebounce){
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
 					_categoryView.setStatisticResults(response);

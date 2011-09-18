@@ -6,7 +6,6 @@ import java.util.List;
 import org.svenson.JSONProperty;
 import org.svenson.JSONTypeHint;
 import org.tagaprice.shared.entities.Document;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
 

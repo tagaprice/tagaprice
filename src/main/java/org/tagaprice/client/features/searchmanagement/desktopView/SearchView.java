@@ -15,12 +15,7 @@ import org.gwtopenmaps.openlayers.client.control.SelectFeature.ClickFeatureListe
 import org.gwtopenmaps.openlayers.client.control.SelectFeature.SelectFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.SelectFeature.UnselectFeatureListener;
 import org.gwtopenmaps.openlayers.client.control.SelectFeatureOptions;
-import org.gwtopenmaps.openlayers.client.event.BeforeFeatureHighlightedListener;
-import org.gwtopenmaps.openlayers.client.event.ControlActivateListener;
-import org.gwtopenmaps.openlayers.client.event.FeatureHighlightedListener;
-import org.gwtopenmaps.openlayers.client.event.FeatureUnhighlightedListener;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
-import org.gwtopenmaps.openlayers.client.event.ControlActivateListener.ControlActivateEvent;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
 import org.gwtopenmaps.openlayers.client.geometry.Point;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
@@ -39,7 +34,6 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;

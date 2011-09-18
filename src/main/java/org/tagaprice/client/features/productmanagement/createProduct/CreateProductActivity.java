@@ -270,6 +270,12 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			public void onSuccess(List<StatisticResult> response) {
 				if(curDebounce==_statisticDebounce){
 					_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(loadingInfo));
+					
+					for(int i=0;i<response.size();i++){
+						if(response.get(i).getProduct()==null)
+							response.get(i).setProduct(_product);
+					}
+						
 					_createProductView.setStatisticResults(response);
 				}
 			}

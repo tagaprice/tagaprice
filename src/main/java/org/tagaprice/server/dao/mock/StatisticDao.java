@@ -32,8 +32,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 							rc.add(new StatisticResult(
 									r.getDate(),
 									r.getShop(),
-									null,
-									re.getPackage().getQuantity(),
+									re.getPackage().getProduct(),
+									re.getPackage(),
 									re.getPrice()));
 						}
 
@@ -63,9 +63,9 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 					for(ReceiptEntry re:r.getReceiptEntries()){
 						rc.add(new StatisticResult(
 								r.getDate(),
-								null,
+								r.getShop(),
 								re.getPackage().getProduct(),
-								re.getPackage().getQuantity(),
+								re.getPackage(),
 								re.getPrice()));
 					}
 				}
@@ -86,17 +86,16 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		try {
 			for(Receipt r:InitServlet.getDaoFactory().getReceiptDao().list()){
 				
-				if(r.getShopId().equals(categoryId)){
-					for(ReceiptEntry re:r.getReceiptEntries()){
-						
-							rc.add(new StatisticResult(
-									r.getDate(), 
-									r.getShop(), 
-									re.getPackage().getProduct(), 
-									re.getPackage().getQuantity(), 
-									re.getPrice()));						
-					}
+				for(ReceiptEntry re:r.getReceiptEntries()){
+					
+					rc.add(new StatisticResult(
+							r.getDate(), 
+							r.getShop(), 
+							re.getPackage().getProduct(), 
+							re.getPackage(), 
+							re.getPrice()));					
 				}
+			
 				
 				
 				

@@ -7,10 +7,10 @@ import org.tagaprice.client.features.categorymanagement.product.ProductCategoryA
 import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
 import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryActivity;
 import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
-import org.tagaprice.client.features.categorymanagement.shop.desktopView.ShopCategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
-import org.tagaprice.client.features.productmanagement.listProducts.*;
+import org.tagaprice.client.features.productmanagement.listProducts.ListProductsActivity;
+import org.tagaprice.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptActivity;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsActivity;
@@ -19,12 +19,13 @@ import org.tagaprice.client.features.searchmanagement.SearchActivity;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
-import org.tagaprice.client.features.shopmanagement.listShops.*;
+import org.tagaprice.client.features.shopmanagement.listShops.ListShopsActivity;
+import org.tagaprice.client.features.shopmanagement.listShops.ListShopsPlace;
 import org.tagaprice.client.features.startmanagement.StartActivity;
 import org.tagaprice.client.features.startmanagement.StartPlace;
-
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.activity.shared.*;
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
 
 /**

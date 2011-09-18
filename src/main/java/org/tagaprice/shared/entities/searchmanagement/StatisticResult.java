@@ -16,7 +16,6 @@ public class StatisticResult extends Document {
 	private Date _date;
 	private Shop _shop;
 	private Product _product;
-	private Quantity _quantity;
 	private Price _price;
 	private Package _package;
 
@@ -24,14 +23,6 @@ public class StatisticResult extends Document {
 	public StatisticResult() {
 	}
 
-	public StatisticResult(Date date, Shop shop, Product product, Quantity quantity, Price price) {
-		super();
-		_date = date;
-		_shop = shop;
-		_product = product;
-		_quantity = quantity;
-		_price = price;
-	}
 	
 	public StatisticResult(Date date, Shop shop, Product product, Package pack, Price price) {
 		super();
@@ -77,12 +68,6 @@ public class StatisticResult extends Document {
 	}
 
 
-	/**
-	 * @return the quantity
-	 */
-	public Quantity getQuantity() {
-		return _quantity;
-	}
 
 
 	/**
@@ -90,6 +75,41 @@ public class StatisticResult extends Document {
 	 */
 	public Price getPrice() {
 		return _price;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		_date = date;
+	}
+
+	/**
+	 * @param shop the shop to set
+	 */
+	public void setShop(Shop shop) {
+		_shop = shop;
+	}
+
+	/**
+	 * @param product the product to set
+	 */
+	public void setProduct(Product product) {
+		_product = product;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Price price) {
+		_price = price;
+	}
+
+	/**
+	 * @param package1 the package to set
+	 */
+	public void setPackage(Package package1) {
+		_package = package1;
 	}
 
 

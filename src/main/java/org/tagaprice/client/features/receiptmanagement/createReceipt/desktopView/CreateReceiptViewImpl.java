@@ -60,8 +60,6 @@ import com.google.code.gwt.geolocation.client.Geolocation;
 import com.google.code.gwt.geolocation.client.Position;
 import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
-import com.google.gwt.core.client.JsArray;
-import org.tagaprice.client.generics.MapQuest.MapquestCreator;
 import org.tagaprice.client.generics.MapQuest.MapquestResponse;
 
 public class CreateReceiptViewImpl extends Composite implements ICreateReceiptView {

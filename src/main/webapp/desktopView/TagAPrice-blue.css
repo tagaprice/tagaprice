@@ -231,10 +231,28 @@ a:HOVER {
     background-color:#43aabe;
 }
 
+.statisticTable-shop-cell-link{
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+.statisticTable-shop-cell-link:hover{
+    color:black;
+}
+
 .statisticTable-cell{
     border:2px white solid;
     padding:3px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+
+.statisticTable-cell-link{
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+.statisticTable-cell-link:hover{
+    color: #43aabe;
 }
 
 .dashboardMenuItem{

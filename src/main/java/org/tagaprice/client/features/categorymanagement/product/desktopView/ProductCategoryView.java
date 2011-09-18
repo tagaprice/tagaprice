@@ -10,12 +10,9 @@ import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
-import org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter2;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
-
-import com.google.gwt.requestfactory.rebind.model.EntityProxyModel.Type;
 import com.google.gwt.user.client.ui.Composite;
 
 public class ProductCategoryView extends Composite implements ICategoryView {
@@ -23,7 +20,7 @@ public class ProductCategoryView extends Composite implements ICategoryView {
 	
 	private StdFrame _stdFrame = new StdFrame();
 	private CategorySelecter _category = new CategorySelecter();
-	private StatisticSelecter2 _statistic = new StatisticSelecter2();
+	private StatisticSelecter _statistic = new StatisticSelecter();
 	private Presenter _presenter; 
 	
 	public ProductCategoryView() {

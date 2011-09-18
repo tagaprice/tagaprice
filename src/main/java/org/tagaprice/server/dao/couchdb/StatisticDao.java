@@ -76,7 +76,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 				for (ReceiptEntry entry: receipt.getReceiptEntries()) {
 					if (packageIDs.contains(entry.getPackageId())) {
 						Package pkg = _getCached(m_packageDao, entry.getPackageId(), packageCache);
-						rc.add(new StatisticResult(receipt.getDate(), shop, _getCached(m_productDao, pkg.getProductId(), productCache), pkg.getQuantity(), entry.getPrice()));
+						rc.add(new StatisticResult(receipt.getDate(), shop, _getCached(m_productDao, pkg.getProductId(), productCache), pkg, entry.getPrice()));
 					}
 				}
 			}
@@ -100,7 +100,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		for (Receipt receipt: receipts) {
 			for (ReceiptEntry entry: receipt.getReceiptEntries()) {
 				Package pkg = entry.getPackage();
-				rc.add(new StatisticResult(receipt.getDate(), receipt.getShop(), pkg.getProduct(), pkg.getQuantity(), entry.getPrice()));
+				rc.add(new StatisticResult(receipt.getDate(), receipt.getShop(), pkg.getProduct(), pkg, entry.getPrice()));
 			}
 		}
 		
