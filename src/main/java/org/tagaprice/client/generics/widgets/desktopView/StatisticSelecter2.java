@@ -165,10 +165,7 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
-		// TODO Auto-generated method stub
-		if(_type.equals(TYPE.PRODUCTCATEGORY) || _type.equals(TYPE.SHOPCATEGORY)){
-			drawProductCategory(results);
-		}
+		drawProductCategory(results);
 	}
 
 	private void drawProductCategory(List<StatisticResult> results){
@@ -211,32 +208,45 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 		shopFlex.setStyleName("statisticTable");
 		shopFlex.setWidth("100%");
 		
+		final int shopProductC;
 		
-		shopFlex.setText(0, 0, "Shop");
-		shopFlex.setText(0, 1, "Product");
-		shopFlex.setText(0, 2, "Size");
-		shopFlex.setText(0, 3, "Date");
-		shopFlex.setText(0, 4, "Price");
+		if(_type.equals(TYPE.PRODUCT) || _type.equals(TYPE.SHOP)){
+			shopProductC=0;
+		}else{
+			shopProductC=1;
+		}
+		
+		if(!_type.equals(TYPE.SHOP))
+				shopFlex.setText(0, 0, "Shop");
+		if(!_type.equals(TYPE.PRODUCT))
+			shopFlex.setText(0, 0+shopProductC, "Product");
+		shopFlex.setText(0, 1+shopProductC, "Size");
+		shopFlex.setText(0, 2+shopProductC, "Date");
+		shopFlex.setText(0, 3+shopProductC, "Price");
 		shopFlex.getRowFormatter().setStyleName(0, "statisticTable-head");
 		
 		//test output
 		int rk=1;
 		for(final String sk:shopSortList.keySet()){
-			Label sl = new Label(shopList.get(sk).getShop().getTitle());
-			sl.setStyleName("statisticTable-shop-cell-link");
-			sl.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					History.newItem("shop:/null/id/"+shopList.get(sk).getShop().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());
-				}
-			});
-			shopFlex.setWidget(rk, 0, sl);
-			shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-shop-cell");
-			shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-shop-cell");
-			shopFlex.getCellFormatter().setStyleName(rk, 2, "statisticTable-shop-cell");
-			shopFlex.getCellFormatter().setStyleName(rk, 3, "statisticTable-shop-cell");
-			shopFlex.getCellFormatter().setStyleName(rk, 4, "statisticTable-shop-cell");
+			if(!_type.equals(TYPE.SHOP)){
+				Label sl = new Label(shopList.get(sk).getShop().getTitle());
+				sl.setStyleName("statisticTable-shop-cell-link");
+				sl.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						History.newItem("shop:/null/id/"+shopList.get(sk).getShop().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());
+					}
+				});
+				shopFlex.setWidget(rk, 0, sl);
+			}
+			if(!_type.equals(TYPE.SHOP))
+				shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-shop-cell");
+			if(!_type.equals(TYPE.PRODUCT))
+				shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-shop-cell");
 			
 			
 			//add map Marker
@@ -250,33 +260,39 @@ public class StatisticSelecter2 extends Composite implements IStatisticSelecter 
 			
 			rk++;
 			for(final String prK: shopSortList.get(sk).keySet()){
-				Label pl = new Label(productList.get(prK).getProduct().getTitle());
-				pl.setStyleName("statisticTable-cell-link");
-				pl.addClickHandler(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent arg0) {
-						History.newItem("product:/null/id/"+productList.get(prK).getProduct().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());						
-					}
-				});
-				shopFlex.setWidget(rk, 1, pl);
+				if(!_type.equals(TYPE.PRODUCT)){
+					Label pl = new Label(productList.get(prK).getProduct().getTitle());
+					pl.setStyleName("statisticTable-cell-link");
+					pl.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							History.newItem("product:/null/id/"+productList.get(prK).getProduct().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());						
+						}
+					});
+					shopFlex.setWidget(rk, 0+shopProductC, pl);
+				}
 
-				shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
-				shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-cell");
-				shopFlex.getCellFormatter().setStyleName(rk, 2, "statisticTable-cell");
-				shopFlex.getCellFormatter().setStyleName(rk, 3, "statisticTable-cell");
-				shopFlex.getCellFormatter().setStyleName(rk, 4, "statisticTable-cell");
+				if(!_type.equals(TYPE.SHOP))
+					shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
+				if(!_type.equals(TYPE.PRODUCT))
+					shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
-					shopFlex.setWidget(rk, 2, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
-					shopFlex.setWidget(rk, 3, new Label(""+shopSortList.get(sk).get(prK).get(paK).getDate()));
-					shopFlex.setWidget(rk, 4, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
+					shopFlex.setWidget(rk, 1+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
+					shopFlex.setWidget(rk, 2+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getDate()));
+					shopFlex.setWidget(rk, 3+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
 
-					shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
-					shopFlex.getCellFormatter().setStyleName(rk, 1, "statisticTable-cell");
-					shopFlex.getCellFormatter().setStyleName(rk, 2, "statisticTable-cell");
-					shopFlex.getCellFormatter().setStyleName(rk, 3, "statisticTable-cell");
-					shopFlex.getCellFormatter().setStyleName(rk, 4, "statisticTable-cell");
+					if(!_type.equals(TYPE.SHOP))
+						shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
+					if(!_type.equals(TYPE.PRODUCT))
+						shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 					rk++;
 				}
 			}

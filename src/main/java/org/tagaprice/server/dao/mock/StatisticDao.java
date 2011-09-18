@@ -32,8 +32,8 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 							rc.add(new StatisticResult(
 									r.getDate(),
 									r.getShop(),
-									null,
-									re.getPackage().getQuantity(),
+									re.getPackage().getProduct(),
+									re.getPackage(),
 									re.getPrice()));
 						}
 
@@ -63,9 +63,9 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 					for(ReceiptEntry re:r.getReceiptEntries()){
 						rc.add(new StatisticResult(
 								r.getDate(),
-								null,
+								r.getShop(),
 								re.getPackage().getProduct(),
-								re.getPackage().getQuantity(),
+								re.getPackage(),
 								re.getPrice()));
 					}
 				}

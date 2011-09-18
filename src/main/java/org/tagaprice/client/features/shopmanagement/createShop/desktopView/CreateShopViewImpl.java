@@ -19,6 +19,7 @@ import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
+import org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter2;
 import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -38,7 +39,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	private HorizontalPanel _shopHeadPanel = new HorizontalPanel();
 	private MorphWidget _shopTitle = new MorphWidget();
 	private VerticalPanel _shopBodyPanel = new VerticalPanel();
-	private StatisticSelecter _statistic = new StatisticSelecter();
+	private StatisticSelecter2 _statistic = new StatisticSelecter2();
 	private VerticalPanel _infoStatVePa = new VerticalPanel();
 	private VerticalPanel _infoVePa = new VerticalPanel();
 	private VerticalPanel _statisticBodyPanel = new VerticalPanel();
