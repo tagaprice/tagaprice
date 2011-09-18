@@ -1,0 +1,39 @@
+{
+  "_id": "_design/statistics",
+  "views": {
+    "all": {
+      "map": "function(doc) {
+        if (doc.docType == 'statistics') emit(doc.id, null);
+      }"
+    },
+    "containedIDs": {
+      "map": "function(doc) {        
+        if (doc.docType == 'statistics') {
+          if (doc.receiptId) emit(doc.receiptId, 'receipt');
+          if (doc.product && doc.product._id) {
+            emit(doc.product._id, 'product');
+            if (doc.product.category && doc.product.category._id) emit(doc.product.category._id, 'productCategory');
+          }
+          if (doc.package && doc.package._id) {
+            emit(doc.package._id, 'package');
+            if (doc.package.quantity && doc.package.quantity.unit && doc.package.quantity.unit._id) {
+              emit(doc.package.quantity.unit._id, 'unit');
+            }
+          }
+          if (doc.shop && doc.shop._id) {
+            emit(doc.shop._id, 'shop');
+            if (doc.shop.category && doc.shop.category._id) emit(doc.shop.category._id, 'shopCategory');
+          }
+        }
+      }"
+    },
+    "sequenceNrs": {
+      "map": "function(doc) {
+        if (doc.docType == 'statistics') {
+          if (doc.seqNr) emit(doc.seqNr, null);
+        }
+      }"
+    }
+  },
+  "language": "javascript"
+}
