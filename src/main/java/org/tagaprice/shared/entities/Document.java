@@ -6,12 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.svenson.DynamicProperties;
 import org.svenson.JSONProperty;
-import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.productmanagement.Package;
-import org.tagaprice.shared.entities.productmanagement.Product;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 

@@ -2,7 +2,6 @@ package org.tagaprice.client.features.accountmanagement.login.desktopView;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.generics.widgets.MorphWidget;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -17,7 +16,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class LoginViewImpl extends Composite implements ILoginView {
