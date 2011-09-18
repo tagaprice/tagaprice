@@ -15,7 +15,6 @@ import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
-import org.tagaprice.client.generics.widgets.desktopView.StatisticSelecter2;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
@@ -40,7 +39,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	private UnitSelecter _unit = new UnitSelecter();
 	private VerticalPanel _productBodyPanel = new VerticalPanel();
 	private CategorySelecter _category = new CategorySelecter();
-	private StatisticSelecter2 _statistic = new StatisticSelecter2();
+	private StatisticSelecter _statistic = new StatisticSelecter();
 	private PackageSelecter _packages = new PackageSelecter();
 	private boolean _readonly = true;
 	

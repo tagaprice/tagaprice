@@ -1,7 +1,5 @@
 package org.tagaprice.client.generics.widgets.desktopView;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +9,7 @@ import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.Style;
+import org.gwtopenmaps.openlayers.client.StyleMap;
 import org.gwtopenmaps.openlayers.client.event.MapMoveEndListener;
 import org.gwtopenmaps.openlayers.client.event.MapZoomListener;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
@@ -20,110 +19,80 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.VectorOptions;
 import org.tagaprice.client.generics.widgets.IStatisticChangeHandler;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter;
-import org.tagaprice.shared.entities.BoundingBox;
-import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.Address.LatLon;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.productmanagement.Product;
-import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-
-import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.cell.client.DateCell;
+import com.google.gwt.cell.client.DatePickerCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
-
+import org.tagaprice.shared.entities.productmanagement.Package;
 
 public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
-	TYPE _type = null;
-	VerticalPanel vePa1 = new VerticalPanel();
-	DatePicker beginDate = new DatePicker();
-	DatePicker endDate = new DatePicker();
+	private TYPE _type = null;
+	private VerticalPanel _vePa = new VerticalPanel();
+	private DatePicker _beginDate = new DatePicker();
+	private DatePicker _endDate = new DatePicker();
+	private IStatisticChangeHandler _handler;
 
-	VerticalPanel resultList = new VerticalPanel();
-
-	//OSM
-	Map _osmMap;
-	VectorOptions vectorOptions = new VectorOptions();
-	Vector layer = new Vector("shops",vectorOptions);
-	IStatisticChangeHandler _handler;
-	MapWidget omapWidget;
+	private VectorOptions _osmVectorOptions = new VectorOptions();
+	private MapOptions _osmMapOptions = new MapOptions();
+	private Map _osmMap;
+	private MapWidget _osmMapWidget;
+	private Vector _osmMarkerLayer;
+	private SimplePanel _tablepanel = new SimplePanel();
 
 	public StatisticSelecter() {
-		initWidget(vePa1);
-		vePa1.setWidth("100%");
+		_vePa.setWidth("100%");
+		initWidget(_vePa);
 
-		//******** INIT OSM Vector ************/
-		//Style
-		Style style = new Style();
-		style.setStrokeColor("#000000");
-		style.setStrokeWidth(2);
-		style.setFillColor("#00FF00");
-		style.setFillOpacity(0.5);
-		style.setPointRadius(8);
-		style.setStrokeOpacity(0.8);
-		vectorOptions.setStyle(style);
+		// map
+		// search map
+		OSM osmLayler = OSM.Mapnik("Mapnik");
+		osmLayler.setIsBaseLayer(true);
 
-		//inti Maps
+		_osmMapWidget = new MapWidget("100%", "200px", _osmMapOptions);
+		_osmMap = _osmMapWidget.getMap();
+		_osmMap.addLayer(osmLayler);
+
+		// ******** INIT OSM Vector ************/
+		// Style
+		// Create the style for each purpose
+		Style styleNormal = createStyle("#FF0000");
+		Style styleSelected = createStyle("#43aabe");
+		Style styleHighlighted = createStyle("#43aabe");
+		// Create the StyleMap to handle all styles
+		StyleMap styleMapVector = new StyleMap(styleNormal, styleSelected,
+				styleHighlighted);
+
+		_osmVectorOptions.setStyleMap(styleMapVector);
+
+		_osmMarkerLayer = new Vector("shopResults", _osmVectorOptions);
+		_osmMap.addLayer(_osmMarkerLayer);	
+		_osmMap.zoomTo(13);
 		
-		MapOptions defaultMapOptions = new MapOptions();
-		omapWidget = new MapWidget("100%", "170px", defaultMapOptions);
 		
-		omapWidget.setStyleName("osmMap");
-		OSM osm_2 = OSM.Mapnik("Mapnik");   // Label for menu 'LayerSwitcher'
-		osm_2.setIsBaseLayer(true);
-		_osmMap = omapWidget.getMap();
-		_osmMap.addLayer(osm_2);
-		vePa1.add(omapWidget);
-
-		_osmMap.zoomTo(12);
-		_osmMap.addLayer(layer);
-
-		//Datens
-		Label detailSearch = new Label("show detail search");
-		vePa1.add(detailSearch);
-		final HorizontalPanel detailPanel = new HorizontalPanel();
-		detailPanel.setVisible(false);
-		
-		//beginDate.setCurrentMonth(new Date(1312192800000L));
-		//beginDate.setValue(new Date(1312192800000L));
-		detailPanel.add(beginDate);
-		detailPanel.add(endDate);
-		setDate(new Date(), new Date());
-		
-		detailSearch.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				detailPanel.setVisible(!detailPanel.isVisible());
-			}
-		});	
-		vePa1.add(detailPanel);
-		
-
-
-		//Add resultList
-		Label _resultTitle = new Label("Results");
-		_resultTitle.setStyleName("propertyHeader");
-		vePa1.add(_resultTitle);
-		resultList.setWidth("100%");
-		vePa1.add(resultList);
-
-
 		_osmMap.addMapZoomListener(new MapZoomListener() {
 			
 			@Override
 			public void onMapZoom(MapZoomEvent eventObject) {
-				Log.debug("MoveMapEndHandler");
 				sendChangeRequest();				
 			}
 		});
@@ -132,202 +101,286 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 			@Override
 			public void onMapMoveEnd(MapMoveEndEvent eventObject) {
-				Log.debug("MoveMapEndHandler");
 				sendChangeRequest();
 			}
 		});
 
 
-		beginDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+		_beginDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				Log.debug("setBeginDate");
 				sendChangeRequest();
 			}
 		});
 
-		endDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+		_endDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> arg0) {
-				Log.debug("setEndDate");
 				sendChangeRequest();
 			}
 		});
+		
 
+		_vePa.add(_osmMapWidget);
+		_tablepanel.setWidth("100%");
+		_tablepanel.setWidget(new Label("loading..."));
+		_vePa.add(_tablepanel);
+		
+	}
 
-
+	private Style createStyle(String fillColor) {
+			Style style = new Style();
+			style.setStrokeColor("#000000");
+			style.setStrokeWidth(3);
+			style.setFillColor(fillColor);
+			style.setFillOpacity(0.5);
+			style.setPointRadius(10);
+			style.setStrokeOpacity(1.0);
+		return style;
 
 	}
 
-	private void setShopResults(List<StatisticResult> results){
-		layer.destroyFeatures();
-		resultList.clear();
-		HashMap<Product, ArrayList<StatisticResult>> sortedByProductList = new HashMap<Product, ArrayList<StatisticResult>>();
-		for(StatisticResult s:results){
-			if(!sortedByProductList.containsKey(s.getProduct())){
-				sortedByProductList.put(s.getProduct(), new ArrayList<StatisticResult>());
-			}
-
-			sortedByProductList.get(s.getProduct()).add(s);
-			//resultList.add(new Label(s.getProduct().getTitle()+", "+s.getPrice().getPrice()+""+s.getPrice().getCurrency()));
-		}
-
-		for(Product key: sortedByProductList.keySet()){
-			VerticalPanel vePa = new VerticalPanel();
-
-			BigDecimal cheapest = null;
-			Currency currency = Currency.euro;
-			Unit unit = new Unit();
-			for(StatisticResult sr: sortedByProductList.get(key)){
-				vePa.add(new Label(" - "+
-						sr.getPrice().getPrice().toString()+""+
-						sr.getPrice().getCurrency()+"/"+
-						sr.getQuantity().getQuantity().toString()+""+
-						sr.getQuantity().getUnit().getTitle()));
-
-
-				if(cheapest==null)
-				{
-					currency=sr.getPrice().getCurrency();
-					unit = sr.getQuantity().getUnit();
-					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
-				}
-				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
-					}
-
-			}
-			
-			LonLat ln = _osmMap.getCenter();
-			ln.transform( "EPSG:900913","EPSG:4326");
-			
-			resultList.add(new HTML("<a href=\"#product:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
-			resultList.add(vePa);
-
-			/* TODO Get data from child shops
-			LonLat l = new LonLat(key.getAddress().getLon(), key.getAddress().getLat());
-			l.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(l.lon(), l.lat());
-			VectorFeature pointFeature = new VectorFeature(point);
-
-			layer.addFeature(pointFeature);
-			 */
-		}
-	}
-
-	public void setProductResults(List<StatisticResult> results){
-		layer.destroyFeatures();
-		resultList.clear();
-		HashMap<Shop, ArrayList<StatisticResult>> sortedByShopList = new HashMap<Shop, ArrayList<StatisticResult>>();
-		for(StatisticResult s:results){
-			if(!sortedByShopList.containsKey(s.getShop())){
-				sortedByShopList.put(s.getShop(), new ArrayList<StatisticResult>());
-			}
-
-			sortedByShopList.get(s.getShop()).add(s);
-
-		}
-
-		//Draw List
-		for(final Shop key: sortedByShopList.keySet()){
-			VerticalPanel vePa = new VerticalPanel();
-
-			BigDecimal cheapest = null;
-			Currency currency = Currency.euro;
-			Unit unit = new Unit();
-			for(StatisticResult sr: sortedByShopList.get(key)){
-				vePa.add(new Label(" - "+
-						sr.getPrice().getPrice().toString()+""+
-						sr.getPrice().getCurrency()+"/"+
-						sr.getQuantity().getQuantity().toString()+""+
-						sr.getQuantity().getUnit().getTitle()));
-
-
-				if(cheapest==null)
-				{
-					currency=sr.getPrice().getCurrency();
-					unit = sr.getQuantity().getUnit();
-					cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
-				}
-				else
-					if(-1==cheapest.compareTo(sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN))){
-						cheapest=sr.getPrice().getPrice().divide(sr.getQuantity().getQuantity(), 5, BigDecimal.ROUND_HALF_EVEN);
-					}
-
-			}
-			final LonLat ln = _osmMap.getCenter();
-			ln.transform( "EPSG:900913","EPSG:4326");
-						
-			key.setTitle(cheapest.toString()+""+currency+"/1"+unit.getTitle()+" | "+key.getTitle());
-			ShopPreview sp = new ShopPreview(key);
-			sp.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					History.newItem("shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom());
-					
-				}
-			});
-			resultList.add(sp);
-			
-			//resultList.add(new HTML("<a href=\"#shop:/null/id/"+key.getId()+"/lat/"+ln.lat()+"/lon/"+ln.lon()+"/zoom/"+_osmMap.getZoom()+"\" >"+cheapest.toString()+""+currency+"/1"+unit.getTitle()+" "+key.getTitle()+"</a>"));
-			resultList.add(vePa);
-
-			LonLat lonLat = key.getAddress().getPos().toLonLat();
-			lonLat.transform("EPSG:4326", "EPSG:900913");
-			Point point = new Point(lonLat.lon(), lonLat.lat());
-			VectorFeature pointFeature = new VectorFeature(point);
-
-			layer.addFeature(pointFeature);
-		}
+	@Override
+	public void setLatLon(double lat, double lon) {
+		LonLat lonLat = new LonLat(lon,lat);
+		lonLat.transform("EPSG:4326", "EPSG:900913");	
+		_osmMap.setCenter(lonLat);
 
 	}
 
+	private  LatLon getLatLon(){
+		LonLat ll = _osmMap.getCenter();
+		ll.transform("EPSG:900913", "EPSG:4326");
+		return new LatLon(ll.lat(), ll.lon());
+		
+	}
+	
+	@Override
+	public void setType(TYPE type) {
+		_type = type;
+	}
 
 	@Override
 	public void setStatisticResults(List<StatisticResult> results) {
+		drawProductCategory(results);
+	}
 
-		if(_type!=null){
-			if(_type==TYPE.PRODUCT){
-				setProductResults(results);
-			}else if(_type==TYPE.SHOP){
-				setShopResults(results);
+	private void drawProductCategory(List<StatisticResult> results){
+		
+		
+		_osmMarkerLayer.destroyFeatures();
+		
+		//shop product package
+		final HashMap<String, HashMap<String, HashMap<String, StatisticResult>>> shopSortList = new HashMap<String, HashMap<String,HashMap<String, StatisticResult>>>();
+		final HashMap<String, StatisticResult> shopList = new HashMap<String, StatisticResult>();
+		final HashMap<String, StatisticResult> productList = new HashMap<String, StatisticResult>();
+		for(StatisticResult sr:results){
+			//shop
+			if(shopSortList.get(sr.getShop().getId())==null){
+				shopSortList.put(sr.getShop().getId(), new HashMap<String, HashMap<String, StatisticResult>>());
+			}
+			shopList.put(sr.getShop().getId(), sr);
+			
+			//product
+			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId())==null){
+				shopSortList.get(sr.getShop().getId()).put(sr.getProduct().getId(), new HashMap<String, StatisticResult>());
+			}
+			productList.put(sr.getProduct().getId(), sr);
+			
+			//package
+			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
+				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
+			}else{
+				//Overwrite old date
+				if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
+					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
+				}
+			}
+			
+		}
+		
+		
+		
+		FlexTable shopFlex = new FlexTable();
+		shopFlex.setStyleName("statisticTable");
+		shopFlex.setWidth("100%");
+		
+		final int shopProductC;
+		
+		if(_type.equals(TYPE.PRODUCT) || _type.equals(TYPE.SHOP)){
+			shopProductC=0;
+		}else{
+			shopProductC=1;
+		}
+		
+		if(!_type.equals(TYPE.SHOP))
+				shopFlex.setText(0, 0, "Shop");
+		if(!_type.equals(TYPE.PRODUCT))
+			shopFlex.setText(0, 0+shopProductC, "Product");
+		shopFlex.setText(0, 1+shopProductC, "Size");
+		shopFlex.setText(0, 2+shopProductC, "Date");
+		shopFlex.setText(0, 3+shopProductC, "Price");
+		shopFlex.getRowFormatter().setStyleName(0, "statisticTable-head");
+		
+		//test output
+		int rk=1;
+		for(final String sk:shopSortList.keySet()){
+			if(!_type.equals(TYPE.SHOP)){
+				Label sl = new Label(shopList.get(sk).getShop().getTitle());
+				sl.setStyleName("statisticTable-shop-cell-link");
+				sl.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent arg0) {
+						History.newItem("shop:/null/id/"+shopList.get(sk).getShop().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());
+					}
+				});
+				shopFlex.setWidget(rk, 0, sl);
+			}
+			if(!_type.equals(TYPE.SHOP))
+				shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-shop-cell");
+			if(!_type.equals(TYPE.PRODUCT))
+				shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-shop-cell");
+			shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-shop-cell");
+			
+			
+			//add map Marker
+			LonLat lonLat = shopList.get(sk).getShop().getAddress().getPos().toLonLat();
+			lonLat.transform("EPSG:4326", "EPSG:900913");
+			Point point = new Point(lonLat.lon(), lonLat.lat());
+			VectorFeature pointFeature = new VectorFeature(point);
+			
+			_osmMarkerLayer.addFeature(pointFeature);
+			
+			
+			rk++;
+			for(final String prK: shopSortList.get(sk).keySet()){
+				if(!_type.equals(TYPE.PRODUCT)){
+					Label pl = new Label(productList.get(prK).getProduct().getTitle());
+					pl.setStyleName("statisticTable-cell-link");
+					pl.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							History.newItem("product:/null/id/"+productList.get(prK).getProduct().getId()+"/lat/"+getLatLon().getLat()+"/lon/"+getLatLon().getLon());						
+						}
+					});
+					shopFlex.setWidget(rk, 0+shopProductC, pl);
+				}
+
+				if(!_type.equals(TYPE.SHOP))
+					shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
+				if(!_type.equals(TYPE.PRODUCT))
+					shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-cell");
+				shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
+				rk++;
+				for(String paK: shopSortList.get(sk).get(prK).keySet()){
+					shopFlex.setWidget(rk, 1+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
+					shopFlex.setWidget(rk, 2+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getDate()));
+					shopFlex.setWidget(rk, 3+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
+
+					if(!_type.equals(TYPE.SHOP))
+						shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
+					if(!_type.equals(TYPE.PRODUCT))
+						shopFlex.getCellFormatter().setStyleName(rk, 0+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 1+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-cell");
+					shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
+					rk++;
+				}
 			}
 		}
-
-
+		
+		_tablepanel.setWidget(shopFlex);
+		
+		
 	}
+	
+	private void drawProductCategory2(List<StatisticResult> results){
+		
+		CellTable<StatisticResult> table = new CellTable<StatisticResult>();
+		
 
+		//productColumn
+		TextColumn<StatisticResult> productNameColumn = new TextColumn<StatisticResult>() {
+		
+			@Override
+		      public String getValue(StatisticResult object) {
+		        return object.getProduct().getTitle();
+		      }
+		};
+		table.addColumn(productNameColumn, "Product");
+		
+		//ShopColumn
+		TextColumn<StatisticResult> shopNameColomn = new TextColumn<StatisticResult>() {
+		
+			@Override
+		      public String getValue(StatisticResult object) {
+		        return object.getShop().getTitle();
+		      }
+		};
+		table.addColumn(shopNameColomn, "Shop");
+		
+		//SizeColumn
+		TextColumn<StatisticResult> sizeNameColumn = new TextColumn<StatisticResult>() {
+			
+			@Override
+			public String getValue(StatisticResult object) {
+				return object.getQuantity().getQuantity().toEngineeringString()+"/"+object.getQuantity().getUnit().getTitle();
+			}
+		};
+		table.addColumn(sizeNameColumn, "Size");
+		
+		//DateColumn
+		Column<StatisticResult, Date> sizeDateColumn = new Column<StatisticResult, Date>(
+		        new DateCell()) {
+		      @Override
+		      public Date getValue(StatisticResult object) {
+		        return object.getDate();
+		      }
+		    };
+		table.addColumn(sizeDateColumn, "Date");
+		
+		//DateColumn
+		TextColumn<StatisticResult> sizePriceColumn = new TextColumn<StatisticResult>() {
+			
+			@Override
+			public String getValue(StatisticResult object) {
+				return object.getPrice().getPrice().toEngineeringString()+" "+object.getPrice().getCurrency();
+			}
+		};
+		table.addColumn(sizePriceColumn, "Prize");
+		
+		table.setRowData(results);
+		table.setWidth("100%");
+		_tablepanel.setWidget(table);
+	}
+	
 	@Override
 	public void setDate(Date begin, Date end) {
-		
-		beginDate.setValue(begin);
-		endDate.setValue(end);
-		
-		beginDate.setCurrentMonth(begin);
-		endDate.setCurrentMonth(end);
+		_beginDate.setValue(begin);
+		_endDate.setValue(end);
+
+		_beginDate.setCurrentMonth(begin);
+		_endDate.setCurrentMonth(end);
+
 	}
 
-	@Override
-	public void addStatisticChangeHandler(IStatisticChangeHandler handler) {
-		_handler=handler;
-	}
-
-	
-	private void sendChangeRequest(){
-		Log.debug("sendChangeRequest");
-		if(_handler!=null){
-
+	private void sendChangeRequest() {
+		if (_handler != null) {
 			_handler.onChange(getBoundingBox(), getBeginDate(), getEndDate());
 		}
 	}
 
 	@Override
-	public void setType(TYPE type) {
-		_type=type;
+	public void addStatisticChangeHandler(IStatisticChangeHandler handler) {
+		_handler = handler;
 	}
 
 	@Override
@@ -345,24 +398,17 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 	@Override
 	public Date getBeginDate() {
-		return beginDate.getValue();
+		return _beginDate.getValue();
 	}
 
 	@Override
 	public Date getEndDate() {
-		return endDate.getValue();
+		return _endDate.getValue();
 	}
 
 	@Override
-	public void setLatLon(double lat, double lon) {
-		LonLat lonLat = new LonLat(lon,lat);
-		lonLat.transform("EPSG:4326", "EPSG:900913");	
-		_osmMap.setCenter(lonLat);
-	}
-
-	@Override
-	public void setMapVisible(boolean visible) {	
-		omapWidget.setVisible(visible);
+	public void setMapVisible(boolean visible) {
+		_osmMapWidget.setVisible(visible);
 	}
 
 }
