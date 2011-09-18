@@ -16,6 +16,7 @@ public class StatisticResult extends Document {
 	private Date _date;
 	private Shop _shop;
 	private Product _product;
+	@Deprecated
 	private Quantity _quantity;
 	private Price _price;
 	private Package _package;
@@ -24,6 +25,7 @@ public class StatisticResult extends Document {
 	public StatisticResult() {
 	}
 
+	@Deprecated
 	public StatisticResult(Date date, Shop shop, Product product, Quantity quantity, Price price) {
 		super();
 		_date = date;
@@ -80,6 +82,7 @@ public class StatisticResult extends Document {
 	/**
 	 * @return the quantity
 	 */
+	@Deprecated
 	public Quantity getQuantity() {
 		return _quantity;
 	}
@@ -116,6 +119,7 @@ public class StatisticResult extends Document {
 	/**
 	 * @param quantity the quantity to set
 	 */
+	@Deprecated
 	public void setQuantity(Quantity quantity) {
 		_quantity = quantity;
 	}
