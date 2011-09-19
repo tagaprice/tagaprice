@@ -1,32 +1,34 @@
 package org.tagaprice.server.dao.couchdb.statisticAggregator;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.svenson.JSON;
 import org.svenson.JSONParser;
 import org.tagaprice.server.dao.ICategoryDao;
-import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IPackageDao;
+import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.server.dao.couchdb.CouchDbConfig;
 import org.tagaprice.server.dao.couchdb.CouchDbDaoFactory;
 import org.tagaprice.server.dao.couchdb.StatisticDao;
+import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
@@ -42,25 +44,40 @@ public class StatisticAggregator extends Thread {
 	private boolean _stopFlag = false;
 	private StatisticDao _statisticDao = null;
 	private IPackageDao _packageDao = null;
+	private IProductDao _productDao = null;
 	private ICategoryDao _productCategoryDao = null;
 	private ICategoryDao _shopCategoryDao = null;
 	private IShopDao _shopDao = null;
 	private IUnitDao _unitDao = null;
 	
-	public StatisticAggregator(IDaoFactory daoFactory, StatisticDao statisticDao) {
+	public StatisticAggregator(CouchDbDaoFactory daoFactory, StatisticDao statisticDao) {
 		_statisticDao = statisticDao;
 		_packageDao = daoFactory.getPackageDao();
+		_productDao = daoFactory.getProductDao();
 		_productCategoryDao = daoFactory.getProductCategoryDao();
 		_shopCategoryDao = daoFactory.getShopCategoryDao();
 		_shopDao = daoFactory.getShopDao();
 		_unitDao = daoFactory.getUnitDao();
 	}
+
 	public void run() {
 		_stopFlag = false;
 		while (!_stopFlag) {
 			try {
+				CouchDbConfig configuration = CouchDbDaoFactory.getConfiguration();
+				
+				String host = configuration.getCouchHost();
+				String userInfo = null;
+				if (configuration.getCouchUser() != null || configuration.getCouchPassword() != null) {
+					userInfo = configuration.getCouchUser()+":"+configuration.getCouchPassword();
+				}
+				int port = configuration.getCouchPort();
+				String path = "/"+configuration.getCouchDatabase()+"/_changes";
+				String query = "feed=continuous&include_docs=true&since="+_statisticDao.getMaxSequenceNr();
+				
 				_client = new DefaultHttpClient();
-				_getRequest = new HttpGet("http://localhost:5984/tagaprice/_changes?since=21120&feed=continuous&include_docs=true");
+				URI uri = new URI("http", userInfo, host, port, path, query, null);
+				_getRequest = new HttpGet(uri);
 				HttpResponse response = _client.execute(_getRequest);
 				HttpEntity entity = response.getEntity();
 				if (entity != null) {
@@ -68,38 +85,20 @@ public class StatisticAggregator extends Thread {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 					String line;
 					while ((line = reader.readLine()) != null) {
-						System.err.println("Line: '"+line+"'");
+						System.out.println("Line: '"+line+"'");
 						if (line.length() > 0) {
-							CouchChange changes = JSONParser.defaultJSONParser().parse(CouchChange.class, line);
-							Document document = changes.getDoc();
-							if (changes.getDeleted() == true) {
-								//statisticDao.delete(statisticDao.getAffected(changes.getId()));
-							}
-							else if (document != null && document.getDocTypeEnum() != null) {
-								switch (document.getDocTypeEnum()) {
-								case RECEIPT:
-									receiptChanged(changes);
-									break;
-								case PACKAGE:
-								case PRODUCT:
-								case SHOP:
-									documentChanged(changes);
-									break;
-								}
-							}
+							parseLine(line);
+							return;
 						}
 					}
 					
 				}
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Throwable e) {
+				do {
+					e.printStackTrace();
+					e = e.getCause();
+					if (e != null) System.err.println("Caused by:");
+				} while (e != null);
 			}
 			
 			// make sure we won't hang in a CPU eating loop if there is an error 
@@ -107,6 +106,26 @@ public class StatisticAggregator extends Thread {
 				sleep(5000);
 			} catch (InterruptedException e) {
 				//ignore it
+			}
+		}
+	}
+	
+	private void parseLine(String line) throws DaoException {
+		CouchChange changes = JSONParser.defaultJSONParser().parse(CouchChange.class, line);
+		Document document = changes.getDoc();
+		if (changes.getDeleted() == true) {
+			_statisticDao.delete(_statisticDao.getAffectedIDs(changes.getId()));
+		}
+		else if (document != null && document.getDocTypeEnum() != null) {
+			switch (document.getDocTypeEnum()) {
+			case RECEIPT:
+				receiptChanged(changes);
+				break;
+			case PACKAGE:
+			case PRODUCT:
+			case SHOP:
+				documentChanged(changes);
+				break;
 			}
 		}
 	}
@@ -185,6 +204,7 @@ public class StatisticAggregator extends Thread {
 			case UNIT:
 				// update title
 				statistic.getPackage().getQuantity().getUnit().setTitle(document.getTitle());
+				// TODO: update parent
 				break;
 			}
 			statistic.setSequenceNr(changes.getSeq());
@@ -196,29 +216,34 @@ public class StatisticAggregator extends Thread {
 		Document document = changes.getDoc();
 	
 		// first delete all the old statistics documents that are associated to this Receipt
-		Map<String, String> affectedIDs = _statisticDao.getAffectedIDs(document.getId());
-		Document deleteArray[] = new Document[affectedIDs.size()];
-		
-		int i = 0;
-		for(String id: affectedIDs.keySet()) {
-			String rev = affectedIDs.get(id);
-			deleteArray[i++] = new Document(null, id, rev, null);
-		}
-		_statisticDao.delete(deleteArray);
+		_statisticDao.delete(_statisticDao.getAffectedIDs(document.getId()));
 
 		// then create a new one for each receipt entry
 		Shop shop = null;
 		Date timestamp = null;
+		Category shopCategory = null;
 		
 		if (document.hasProperty("shopId")) {
 			String shopId = document.getProperty("shopId").toString();
 			if (shopId != null) {
-				shop = _shopDao.get(document.getProperty("shopId").toString());
+				Shop originalShop = _shopDao.get(document.getProperty("shopId").toString());
+				shop = new Shop(null, originalShop.getId(), null, originalShop.getTitle(), null);
+				if (originalShop.getAddress() != null && originalShop.getAddress().getPos() != null) {
+					LatLon pos = originalShop.getAddress().getPos();
+					shop.setAddress(new Address(null, null, null, null, pos.getLat(), pos.getLon()));
+				}
+				if (originalShop.getCategoryId() != null) {
+					shopCategory = new Category(null, originalShop.getCategoryId(), null, originalShop.getCategory().getTitle(), null);
+				}
 			}
 		}
 
-		if (document.hasProperty("timestamp")) {
-			timestamp = new Date(new Long(document.getProperty("timestamp").toString()));
+		if (document.hasProperty("timeStamp")) {
+			String timestampString = document.getProperty("timeStamp").toString();
+			if (timestampString.endsWith(".0")) {
+				timestampString = timestampString.replace(".0", "");
+			}
+			timestamp = new Date(new Long(timestampString));
 		}
 
 		if (document.hasProperty("receiptEntries")) {
@@ -231,22 +256,30 @@ public class StatisticAggregator extends Thread {
 						StatisticResult statistic = new StatisticResult();
 
 						statistic.setShop(shop);
+						statistic.setShopCategory(shopCategory);
 						statistic.setDate(timestamp);
 						statistic.setReceiptId(document.getId());
 						statistic.setSequenceNr(changes.getSeq());
+						
 
 						// package and product
 						if (entryMap.containsKey("packageId")) {
 							String packageId = entryMap.get("packageId").toString();
 							Package pkg = _packageDao.get(packageId);
-							Product product = pkg.getProduct(); 
-							statistic.setPackage(pkg);
+							Product product = _productDao.get(pkg.getProductId());
+							statistic.setPackage(new Package(null, pkg.getId(), null, new Quantity(pkg.getQuantity().getQuantity(), null)));
 							if (product != null) {
 								Category category = null;
 								if (product.getCategory() != null) {
 									category = new Category(null, product.getCategoryId(), null, product.getCategory().getTitle(), null);
 								}
 								statistic.setProduct(new Product(null, product.getId(), null, product.getTitle(), category, null));
+							}
+							Unit unit = _unitDao.get(pkg.getQuantity().getUnitId());
+							statistic.setUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, unit.getFactor()));
+							if (unit.getParentId() != null) {
+								unit = _unitDao.get(unit.getParentId());
+								statistic.setParentUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, Double.NaN));
 							}
 						}
 
