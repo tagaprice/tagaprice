@@ -9,6 +9,8 @@ import java.util.Map;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.jcouchdb.document.ValueRow;
+import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
@@ -42,6 +44,34 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		m_receiptDao = daoFactory.getReceiptDao();
 		m_shopDao = daoFactory.getShopDao();
 		m_searchClient = daoFactory.getElasticSearchClient();
+	}
+	
+	public List<StatisticResult> getAffected(String documentId) throws DaoException {
+		List<StatisticResult> rc = new ArrayList<StatisticResult>();
+		for (String affectedId: getAffectedIDs(documentId).keySet()) {
+			rc.add(get(affectedId));
+		}
+		return rc;
+	}
+	
+	/**
+	 * Returns a list of the IDs of all StatisticResult objects that are referencing the given document ID
+	 *	and therefore might be affected by changes to that document 
+	 * @param documentId ID of the Document to find referencing StatisticResults 
+	 * @return Map of the matching StatisticResult IDs and their current revisions (for simple deletion)
+	 * @throws DaoException If there were problems fetching the {@link StatisticResult} objects
+	 */
+	public Map<String, String> getAffectedIDs(String documentId) throws DaoException {
+		Map<String, String> rc = new HashMap<String, String>();
+
+		ViewResult<?> result = m_db.queryView("statistics/containedIDs", StatisticResult.class, null, null);
+		
+		for (ValueRow<?> row: result.getRows()) {
+			String statisticsId = row.getId();
+			rc.put(statisticsId, row.getValue().toString());
+		}
+
+		return rc;
 	}
 
 	@Override
