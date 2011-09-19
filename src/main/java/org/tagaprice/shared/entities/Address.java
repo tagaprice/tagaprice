@@ -1,6 +1,7 @@
 package org.tagaprice.shared.entities;
 
 import org.gwtopenmaps.openlayers.client.LonLat;
+import org.svenson.JSONProperty;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -119,6 +120,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @return the street
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getStreet() {
 		return _street;
 	}
@@ -135,6 +137,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @return the postalcode
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getPostalcode() {
 		return _postalcode;
 	}
@@ -151,6 +154,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @return the city
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getCity() {
 		return _city;
 	}
@@ -167,6 +171,7 @@ public class Address implements IsSerializable {
 	/**
 	 * @return the countrycode
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getCountrycode() {
 		return _countrycode;
 	}
