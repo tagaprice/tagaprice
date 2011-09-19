@@ -45,8 +45,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	
 	
 	//This is a mock. We must replace it later
-	MorphWidget _brenn = new MorphWidget();
-	UnitSelecter _brennUnit = new UnitSelecter();
+	private MorphWidget _brenn = new MorphWidget();
+	private UnitSelecter _brennUnit = new UnitSelecter();
 	
 	public CreateProductViewImpl() {
 		_hoPa1.setWidth("100%");
@@ -54,7 +54,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Product		
 		
 		//product Name
-		_productTitle.config(Type.STRING, true, "Coca Cola Light", false, true);
+		_productTitle.config(false, true);
 		_productTitle.setValue("New Product");
 		_productHeadPanel.add(_productTitle);
 		_productHeadPanel.setCellWidth(_productTitle, "100%");

@@ -57,7 +57,25 @@
 	</replace-with>
 	
 	
+	<!-- shopView -->
+	<replace-with class="org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl">
+		<when-type-is class="org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView" />
+	</replace-with>
 	
+	<replace-with class="org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl">
+		<when-type-is class="org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
+	
+	<!-- receiptCreateView -->
+	<replace-with class="org.tagaprice.client.features.receiptmanagement.createReceipt.desktopView.CreateReceiptViewImpl">
+		<when-type-is class="org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView" />
+	</replace-with>
+	
+	<replace-with class="org.tagaprice.client.features.receiptmanagement.createReceipt.devView.CreateReceiptViewImpl">
+		<when-type-is class="org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
 	
 	
 

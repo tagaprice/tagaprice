@@ -18,6 +18,8 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
@@ -143,9 +145,34 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	}
 
 	@Override
-	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
 		_shop=new Shop();
 		Log.debug("activity startet");
+		
+		if(_clientFactory.getCreateShopView()==null){
+			GWT.runAsync(ICreateShopView.class,new RunAsyncCallback() {
+				
+				@Override
+				public void onSuccess() {
+					_clientFactory.setCreateShopview((ICreateShopView)GWT.create(ICreateShopView.class));
+					viewLoadedStart(panel, eventBus);
+				}
+				
+				@Override
+				public void onFailure(Throwable arg0) {
+					Log.error("Load CreaetShopView error");
+				}
+			});
+		}else{
+			viewLoadedStart(panel, eventBus);
+		}
+		
+		
+		
+
+	}
+
+	private void viewLoadedStart(final AcceptsOneWidget panel, EventBus eventBus){
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
 
@@ -241,10 +268,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 
 		}
-
 	}
-
-
 
 
 	private void updateView(Shop shop){

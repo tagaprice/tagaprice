@@ -169,6 +169,15 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>2.3.0</version>
+
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<runTarget>TagAPrice.html</runTarget>
+					<hostedWebapp>${webappDirectory}</hostedWebapp>
+					<i18nMessagesBundle>org.tagaprice.client.Messages</i18nMessagesBundle>
+					<optimizationLevel>9</optimizationLevel>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -179,13 +188,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
-				<configuration>
-					<runTarget>TagAPrice.html</runTarget>
-					<hostedWebapp>${webappDirectory}</hostedWebapp>
-					<i18nMessagesBundle>org.tagaprice.client.Messages</i18nMessagesBundle>
-				</configuration>
 			</plugin>
 
 			<!-- Copy static web files before executing gwt:run -->

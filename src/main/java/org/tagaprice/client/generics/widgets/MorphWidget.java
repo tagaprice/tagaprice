@@ -34,9 +34,8 @@ public class MorphWidget extends Composite implements IMorphWidget {
 	}
 
 	@Override
-	public void config(Type type, boolean notNull, String exampleText,
-			boolean alignRight, boolean isHeadline) {
-		morphWidget.config(type, notNull, exampleText, alignRight, isHeadline);
+	public void config(boolean alignRight, boolean isHeadline) {
+		morphWidget.config(alignRight, isHeadline);
 		
 	}
 }

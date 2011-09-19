@@ -23,6 +23,8 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
@@ -302,9 +304,30 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	}
 
 	@Override
-	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
+	public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
 		_receipt=new Receipt();
 		Log.debug("activity startet");
+		
+		if(_clientFactory.getCreateReceiptView()==null){
+			GWT.runAsync(ICreateReceiptView.class, new RunAsyncCallback() {
+				
+				@Override
+				public void onSuccess() {
+					_clientFactory.setCreateReceiptView((ICreateReceiptView)GWT.create(ICreateReceiptView.class));
+					viewLoadedStart(panel, eventBus);
+				}
+				
+				@Override
+				public void onFailure(Throwable arg0) {
+					Log.error("Load ICreateReceiptView error");					
+				}
+			});
+		}else{
+			viewLoadedStart(panel, eventBus);
+		}
+	}
+
+	private void viewLoadedStart(final AcceptsOneWidget panel, EventBus eventBus){
 		_createReceiptView = _clientFactory.getCreateReceiptView();
 		_createReceiptView.setPresenter(this);
 
@@ -372,13 +395,9 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 				}
 			});
 		}
-
-		
-
-
-
 	}
-
+	
+	
 	private void updateView(Receipt receipt){
 		_receipt=receipt;
 
