@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IUnitDao;
+import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -52,7 +53,7 @@ public class UnitDao implements IUnitDao {
 	}
 
 	@Override
-	public void delete(Unit document) {
+	public void delete(Document ... documents) {
 		// TODO Auto-generated method stub
 
 	}
