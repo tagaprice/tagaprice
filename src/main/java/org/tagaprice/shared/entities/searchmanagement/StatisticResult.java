@@ -3,7 +3,6 @@ package org.tagaprice.shared.entities.searchmanagement;
 import java.util.Date;
 
 import org.tagaprice.shared.entities.Document;
-import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -18,6 +17,8 @@ public class StatisticResult extends Document {
 	private Product _product;
 	private Price _price;
 	private Package _package;
+	private String _receiptId;
+	private Long _seqNr = null;
 
 
 	public StatisticResult() {
@@ -76,6 +77,24 @@ public class StatisticResult extends Document {
 	public Price getPrice() {
 		return _price;
 	}
+	
+	/**
+	 * Returns the ReceiptID this {@link StatisticResult} is associated to.
+	 * 
+	 * This method is required for the StatisticAggregator to work and can be ignored everywhere else.
+	 * @return Receipt ID
+	 */
+	public String getReceiptId() {
+		return _receiptId;
+	}
+	
+	/**
+	 * Returns the sequence number this StatisticResult was last updated with
+	 * @return sequence number or null if it wasn't specified
+	 */
+	public Long getSequenceNr() {
+		return _seqNr;
+	}
 
 	/**
 	 * @param date the date to set
@@ -112,6 +131,16 @@ public class StatisticResult extends Document {
 		_package = package1;
 	}
 
-
+	/**
+	 * Set a new receipt ID (necessary for the CouchDB statistics aggregation to work (can be ignored everywhere else)
+	 * @param receiptId New Receipt ID
+	 */
+	public void setReceiptId(String receiptId) {
+		_receiptId = receiptId;
+	}
+	
+	public void setSequenceNr(Long sequenceNr) {
+		_seqNr = sequenceNr;
+	}
 
 }
