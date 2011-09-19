@@ -13,3 +13,4 @@ bin/
 war/
 www-test/
 *.launch
+hs_err_pid*.log
