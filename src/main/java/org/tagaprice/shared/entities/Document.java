@@ -25,12 +25,13 @@ public class Document implements IsSerializable, DynamicProperties {
 	private static final long serialVersionUID = 1L;
 
 	public static enum Type implements IsSerializable {
-		PRODUCT("product"),
-		SHOP("shop"),
-		PRODUCTCATEGORY("productCategory"),
-		SHOPCATEGORY("shopCategory"),
-		RECEIPT("receipt"),
+		DBVERSION("dbVersion"),
 		PACKAGE("package"),
+		PRODUCT("product"),
+		PRODUCTCATEGORY("productCategory"),
+		RECEIPT("receipt"),
+		SHOP("shop"),
+		SHOPCATEGORY("shopCategory"),
 		SESSION("session"),
 		STATISTICS("statistics"),
 		UNIT("unit"),
@@ -108,6 +109,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * Returns the creator of the Entity's current revision
 	 * @return This revision's creator UID
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getCreatorId() {
 		return _creatorId;
 	}
@@ -117,6 +119,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * Just ignore it anywhere else in the application.
 	 * @return
 	 */
+	@JSONProperty(ignoreIfNull=true)
 	public String getDocType() {
 		return _docType != null ? _docType.toString() : null;
 	}
