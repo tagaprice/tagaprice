@@ -9,6 +9,7 @@ import java.util.Map;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.IDaoClass;
@@ -17,6 +18,7 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.server.dao.IStatisticDao;
+import org.tagaprice.server.dao.couchdb.statisticAggregator.StatisticAggregator;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.productmanagement.Package;
@@ -36,14 +38,34 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	private IProductDao m_productDao;
 	private IReceiptDao m_receiptDao;
 	private IShopDao m_shopDao;
+	private StatisticAggregator m_statisticAggregator;
 
 	public StatisticDao(CouchDbDaoFactory daoFactory) {
-		super(daoFactory, StatisticResult.class, null, null);
+		super(daoFactory, StatisticResult.class, Document.Type.STATISTICS, null);
 		m_packageDao = daoFactory.getPackageDao();
 		m_productDao = daoFactory.getProductDao();
 		m_receiptDao = daoFactory.getReceiptDao();
 		m_shopDao = daoFactory.getShopDao();
 		m_searchClient = daoFactory.getElasticSearchClient();
+		m_statisticAggregator = new StatisticAggregator(daoFactory, this);
+		m_statisticAggregator.start();
+	}
+
+	@Override
+	protected void _checkCreatorId(String creatorId) throws DaoException {
+		if (creatorId != null) throw new DaoException("The creator ID of StatisticResult objects has to be null!");
+	}
+
+	public void delete(Map<String, String> deletedIDs) {
+		Document deleteArray[] = new Document[deletedIDs.size()];
+		
+		int i = 0;
+		for(String id: deletedIDs.keySet()) {
+			String rev = deletedIDs.get(id);
+			deleteArray[i++] = new Document(null, id, rev, null);
+		}
+
+		delete(deleteArray);
 	}
 	
 	public List<StatisticResult> getAffected(String documentId) throws DaoException {
@@ -72,6 +94,18 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 		}
 
 		return rc;
+	}
+	
+	public long getMaxSequenceNr() throws DaoException {
+		long rc = 0;
+		
+		ViewResult<?> result = m_db.queryView("statistics/sequenceNrs", StatisticResult.class, new Options().descending(true).limit(1), null);
+
+		for (ValueRow<?> row: result.getRows()) {
+			rc = new Long(row.getKey().toString());
+		}
+		
+		return 21126;
 	}
 
 	@Override
