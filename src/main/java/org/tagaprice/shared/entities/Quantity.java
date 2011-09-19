@@ -79,8 +79,9 @@ public class Quantity implements IsSerializable {
 		return this._unit;
 	}
 
+	@JSONProperty(ignoreIfNull=true)
 	public String getUnitId(){
-		return _unit.getId();
+		return _unit != null ? _unit.getId() : null;
 	}
 
 	public void setUnitId(String unitId){
