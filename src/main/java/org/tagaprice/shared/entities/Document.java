@@ -139,7 +139,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	}
 
 	@JSONProperty(ignore = true)
-	public Map<String, Object> getPropertyList(){
+	public Map<String, Object> getPropertyList() {
 		return _properties;
 	}
 
@@ -159,6 +159,10 @@ public class Document implements IsSerializable, DynamicProperties {
 	@JSONProperty(value="title", ignoreIfNull=true)
 	public String getTitle() {
 		return _title;
+	}
+	
+	public boolean hasProperty(String name) {
+		return getPropertyList().containsKey(name);
 	}
 
 	public Set<String> propertyNames() {
