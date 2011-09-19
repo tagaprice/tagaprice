@@ -3,6 +3,7 @@ package org.tagaprice.shared.entities.searchmanagement;
 import java.util.Date;
 
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
@@ -14,6 +15,7 @@ public class StatisticResult extends Document {
 
 	private Date _date;
 	private Shop _shop;
+	private Category _shopCategory;
 	private Product _product;
 	private Price _price;
 	private Package _package;
@@ -21,8 +23,7 @@ public class StatisticResult extends Document {
 	private Long _seqNr = null;
 
 
-	public StatisticResult() {
-	}
+	public StatisticResult() {}
 
 	
 	public StatisticResult(Date date, Shop shop, Product product, Package pack, Price price) {
@@ -58,6 +59,10 @@ public class StatisticResult extends Document {
 	 */
 	public Shop getShop() {
 		return _shop;
+	}
+	
+	public Category getShopCategory() {
+		return _shopCategory;
 	}
 
 
@@ -108,6 +113,10 @@ public class StatisticResult extends Document {
 	 */
 	public void setShop(Shop shop) {
 		_shop = shop;
+	}
+	
+	public void setShopCategory(Category category) {
+		_shopCategory = category;
 	}
 
 	/**
