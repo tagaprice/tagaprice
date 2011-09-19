@@ -93,8 +93,8 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	}
 
 	@Override
-	public void delete(T ... documents) throws DaoException {
-		for (T document: documents) {
+	public void delete(Document ... documents) throws DaoException {
+		for (Document document: documents) {
 			if (m_data.containsKey(document.getId())) {
 				m_data.remove(document.getId());
 			}
