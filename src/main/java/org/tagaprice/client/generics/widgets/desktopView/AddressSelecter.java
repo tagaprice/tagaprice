@@ -267,6 +267,12 @@ public class AddressSelecter extends Composite implements IAddressSelecter {
 		l.transform("EPSG:900913","EPSG:4326");
 		//return new Address(street, postalcode, city, countrycode,  l.lat(), l.lon());
 		//return new Address(_addressBox.getValue(), l.lat(), l.lon());
+		
+		_curAddress.setStreet(_streeBox.getValue());
+		_curAddress.setPostalcode(_postalcodeBox.getValue());
+		_curAddress.setCity(_cityBox.getValue());
+		_curAddress.setCountrycode(_countryCodeBox.getValue());
+		
 		return _curAddress;
 	}
 	
