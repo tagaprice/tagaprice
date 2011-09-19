@@ -105,7 +105,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 			rc = new Long(row.getKey().toString());
 		}
 		
-		return 21126;
+		return rc;
 	}
 
 	@Override
