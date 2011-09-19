@@ -12,3 +12,4 @@ tomcat/
 bin/
 war/
 www-test/
+*.launch
