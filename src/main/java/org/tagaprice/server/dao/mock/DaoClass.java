@@ -93,12 +93,13 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	}
 
 	@Override
-	public void delete(T document) throws DaoException {
-		if (m_data.containsKey(document.getId())) {
-			m_data.remove(document.getId());
+	public void delete(T ... documents) throws DaoException {
+		for (T document: documents) {
+			if (m_data.containsKey(document.getId())) {
+				m_data.remove(document.getId());
+			}
+			else throw new DaoException("Document not found: '"+document.getId()+"'");
 		}
-		else throw new DaoException("Document not found: '"+document.getId()+"'");
-		
 	}
 
 	protected List<T> _getCurrentRevisions() {

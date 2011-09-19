@@ -2,6 +2,7 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.elasticsearch.action.search.SearchResponse;
@@ -197,8 +198,13 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 * @param document Document to remove
 	 */
 	@Override
-	public void delete(T document) {
-		m_db.delete(document);
+	public void delete(T ... documents) {
+		if (documents.length == 1) {
+			m_db.delete(documents[0]);
+		}
+		else if (documents.length > 1) {
+			m_db.bulkDeleteDocuments(Arrays.asList(documents));
+		}
 	}
 
 	/**
