@@ -20,7 +20,6 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.desktopView.
 import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.searchmanagement.desktopView.SearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl;
 import org.tagaprice.client.features.startmanagement.IStartView;
 import org.tagaprice.client.features.startmanagement.desktopView.StartViewImpl;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
@@ -112,8 +111,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public void setCreateShopview(ICreateShopView createShopView) {
-		if(createShopview==null)
-			createShopview = new CreateShopViewImpl();		
+		if(ClientFactoryImpl.createShopview==null)
+			ClientFactoryImpl.createShopview = createShopView;		
 	}
 
 	
@@ -129,11 +128,14 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public ICreateReceiptView getCreateReceiptView() {
-		if(CREATE_RECEIPT_VIEW==null)CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
 		return ClientFactoryImpl.CREATE_RECEIPT_VIEW;
 	}
 
 
+	@Override
+	public void setCreateReceiptView(ICreateReceiptView createReceiptView) {
+		if(CREATE_RECEIPT_VIEW==null)CREATE_RECEIPT_VIEW = createReceiptView;		
+	}
 
 	@Override
 	public IListReceiptsView getListReceiptsView() {
@@ -214,11 +216,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	
-	
-	
-
-	
-
 	
 
 

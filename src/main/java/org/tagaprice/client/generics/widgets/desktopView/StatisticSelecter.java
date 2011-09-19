@@ -28,6 +28,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -50,6 +51,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	private MapWidget _osmMapWidget;
 	private Vector _osmMarkerLayer;
 	private SimplePanel _tablepanel = new SimplePanel();
+	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
+
 
 	public StatisticSelecter() {
 		_vePa.setWidth("100%");

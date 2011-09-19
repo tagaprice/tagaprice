@@ -91,6 +91,7 @@ public interface ClientFactory {
 
 	ICreateReceiptView getCreateReceiptView();
 
+	public void setCreateReceiptView(ICreateReceiptView createReceiptView);
 
 	IListReceiptsView getListReceiptsView();
 

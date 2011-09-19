@@ -160,7 +160,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 				
 				@Override
 				public void onFailure(Throwable arg0) {
-					Log.error("Loav CreaetShopView error");
+					Log.error("Load CreaetShopView error");
 				}
 			});
 		}else{

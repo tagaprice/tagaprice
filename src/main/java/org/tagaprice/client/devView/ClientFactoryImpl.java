@@ -52,10 +52,10 @@ public class ClientFactoryImpl implements ClientFactory {
 
 
 	//VIEWS
-	private static ICreateShopView createShopview;
+	private static ICreateShopView _createShopview;
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
-	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
+	private static ICreateReceiptView CREATE_RECEIPT_VIEW;
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
 	private static final IStartView startView = new StartViewImpl();
@@ -96,13 +96,13 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public ICreateShopView getCreateShopView() {
-		return ClientFactoryImpl.createShopview;
+		return ClientFactoryImpl._createShopview;
 	}
 	
 	@Override
 	public void setCreateShopview(ICreateShopView createShopView) {
-		if(createShopview==null)
-			createShopview = new CreateShopViewImpl();		
+		if(ClientFactoryImpl._createShopview==null)
+			ClientFactoryImpl._createShopview = createShopView;		
 	}
 
 	@Override
@@ -124,6 +124,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ICreateReceiptView getCreateReceiptView() {
 		return ClientFactoryImpl.CREATE_RECEIPT_VIEW;
+	}
+
+
+	@Override
+	public void setCreateReceiptView(ICreateReceiptView createReceiptView) {
+		if(CREATE_RECEIPT_VIEW==null)CREATE_RECEIPT_VIEW = createReceiptView;		
 	}
 
 	@Override
