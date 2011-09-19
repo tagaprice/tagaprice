@@ -51,7 +51,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		
 		//shop name
 		_shopTitle.setValue("New Shop");
-		_shopTitle.config(Type.STRING, true, "", false, true);
+		_shopTitle.config(false, true);
 		_shopHeadPanel.add(_shopTitle);
 		
 		_shopHeadPanel.setWidth("100%");

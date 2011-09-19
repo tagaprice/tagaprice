@@ -28,7 +28,7 @@ public class PackagePreview extends APreviewWidget {
 		
 		//Package
 		if(_pack!=null){
-			_quantity.config(Type.DOUBLE, true, null, true, false);
+			_quantity.config(true, false);
 			_quantity.setValue(_pack.getQuantity().getQuantity().toPlainString());
 			_quantity.setWidth("40px");
 			_hoPa1.add(_quantity);

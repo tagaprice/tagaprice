@@ -54,7 +54,7 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		//Product		
 		
 		//product Name
-		_productTitle.config(Type.STRING, true, "Coca Cola Light", false, true);
+		_productTitle.config(false, true);
 		_productTitle.setValue("New Product");
 		_productHeadPanel.add(_productTitle);
 		_productHeadPanel.setCellWidth(_productTitle, "100%");

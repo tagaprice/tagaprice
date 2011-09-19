@@ -22,7 +22,7 @@ public class ReceiptEntryPreview extends PackagePreview {
 		_receiptEntry=receiptEntry;
 		
 		//price
-		_price.config(Type.DOUBLE, true, null, true, false);
+		_price.config(true, false);
 		_price.setValue(receiptEntry.getPrice().getPrice().toPlainString());
 		_price.setWidth("50px");
 		_hoPa1.add(_price);
