@@ -3,7 +3,7 @@
   "views": {
     "all": {
       "map": "function(doc) {
-        if (doc.docType == 'statistics') emit(doc.id, null);
+        if (doc.docType == 'statistics') emit(doc._id, null);
       }"
     },
     "containedIDs": {
@@ -30,7 +30,7 @@
     "sequenceNrs": {
       "map": "function(doc) {
         if (doc.docType == 'statistics') {
-          if (doc.seqNr) emit(doc.seqNr, null);
+          if (doc.sequenceNr) emit(doc.sequenceNr, null);
         }
       }"
     }
