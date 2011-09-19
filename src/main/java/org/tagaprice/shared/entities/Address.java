@@ -70,6 +70,7 @@ public class Address implements IsSerializable {
 	 * @param lat latitude
 	 * @param lon longitude
 	 */
+	@Deprecated
 	public Address(String address, double lat, double lon) {
 		super();
 		_address=address;
@@ -101,6 +102,7 @@ public class Address implements IsSerializable {
 	 * @return the address
 	 */
 	@Deprecated
+	@JSONProperty(ignoreIfNull=true)
 	public String getAddress() {
 		return _address;
 	}
