@@ -14,17 +14,17 @@ import org.tagaprice.shared.rpc.shopmanagement.*;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ShopServiceImpl extends RemoteServiceServlet implements IShopService  {
+public class ShopServiceImpl extends ASessionService implements IShopService  {
 	private static final long serialVersionUID = 1L;
 
-	ISessionDao sessionDAO;
+	//ISessionDao sessionDAO;
 	IShopDao shopDAO;
 
 	public ShopServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		Log.debug("Load servlet...");
 
-		sessionDAO = daoFactory.getSessionDao();
+		//sessionDAO = daoFactory.getSessionDao();
 		shopDAO = daoFactory.getShopDao();
 
 	}
@@ -54,12 +54,11 @@ public class ShopServiceImpl extends RemoteServiceServlet implements IShopServic
 	public Shop saveShop(String sessionId, Shop shop) throws DaoException, UserNotLoggedInException {
 		Log.debug("save Shop " + shop);
 
-		if (sessionId == null) throw new UserNotLoggedInException("Can't save a shop without having a valid session!");
-		Session session = sessionDAO.get(sessionId);
+		
 		Shop rc = null;
 
 		// TODO check session validity
-		shop.setCreatorId(session.getCreatorId());
+		shop.setCreatorId(getUser().getCreatorId());
 
 		if (shop.getId() != null) {
 			rc = shopDAO.update(shop);
