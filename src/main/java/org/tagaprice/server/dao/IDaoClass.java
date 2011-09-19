@@ -8,7 +8,7 @@ public interface IDaoClass<T extends Document> {
 	public T get(String id) throws DaoException;
 	public T get(String id, String revision) throws DaoException;
 	public T update(final T document) throws DaoException;
-	public void delete(T ... documents) throws DaoException;
+	public void delete(Document ... documents) throws DaoException;
 	
 	/**
 	 * Faster alternative to get() that doesn't fetch child objects (for DAO implementations that support this)

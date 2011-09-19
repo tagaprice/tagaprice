@@ -50,6 +50,7 @@ public class Package extends Document {
 		return _product;
 	}
 
+	@JSONProperty(ignoreIfNull=true)
 	public String getProductId(){
 		if(_product!=null)return _product.getId();
 		return null;
