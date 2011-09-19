@@ -9,8 +9,6 @@ import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryActivit
 import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductActivity;
 import org.tagaprice.client.features.productmanagement.createProduct.CreateProductPlace;
-import org.tagaprice.client.features.productmanagement.listProducts.ListProductsActivity;
-import org.tagaprice.client.features.productmanagement.listProducts.ListProductsPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptActivity;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsActivity;
@@ -19,8 +17,6 @@ import org.tagaprice.client.features.searchmanagement.SearchActivity;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopActivity;
 import org.tagaprice.client.features.shopmanagement.createShop.CreateShopPlace;
-import org.tagaprice.client.features.shopmanagement.listShops.ListShopsActivity;
-import org.tagaprice.client.features.shopmanagement.listShops.ListShopsPlace;
 import org.tagaprice.client.features.startmanagement.StartActivity;
 import org.tagaprice.client.features.startmanagement.StartPlace;
 import com.allen_sauer.gwt.log.client.Log;
@@ -44,19 +40,13 @@ public class AppActivityMapper implements ActivityMapper {
 	@Override
 	public Activity getActivity(Place place) {
 		Log.debug("I was asked for an activity...");
-		if (place instanceof ListProductsPlace) {
-			Log.debug("return new ListProductsActivity");
-			return new ListProductsActivity((ListProductsPlace) place, this.clientFactory);
-		} else if (place instanceof CreateProductPlace) {
+		if (place instanceof CreateProductPlace) {
 			Log.debug("return new CreateProductActivity");
 			return new CreateProductActivity((CreateProductPlace) place, this.clientFactory);
 		}else if (place instanceof CreateShopPlace){
 			Log.debug("return new CreateShopActivity");
 			return new CreateShopActivity((CreateShopPlace)place, this.clientFactory);
-		} else if(place instanceof ListShopsPlace) {
-			Log.debug("return new ListShopsActivity");
-			return new ListShopsActivity((ListShopsPlace) place, this.clientFactory);
-		}else if(place instanceof CreateReceiptPlace){
+		} else if(place instanceof CreateReceiptPlace){
 			Log.debug("return new CreateReceiptActivity");
 			return new CreateReceiptActivity((CreateReceiptPlace)place, this.clientFactory);
 		}else if(place instanceof ListReceiptsPlace){

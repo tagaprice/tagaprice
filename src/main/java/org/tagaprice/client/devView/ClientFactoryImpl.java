@@ -10,8 +10,6 @@ import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
 import org.tagaprice.client.features.productmanagement.createProduct.devView.*;
-import org.tagaprice.client.features.productmanagement.listProducts.*;
-import org.tagaprice.client.features.productmanagement.listProducts.devView.*;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.devView.CreateReceiptViewImpl;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
@@ -19,8 +17,6 @@ import org.tagaprice.client.features.receiptmanagement.listReceipts.devView.List
 import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.features.shopmanagement.createShop.devView.CreateShopViewImpl;
-import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
-import org.tagaprice.client.features.shopmanagement.listShops.devView.*;
 import org.tagaprice.client.features.startmanagement.IStartView;
 import org.tagaprice.client.features.startmanagement.devView.StartViewImpl;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginService;
@@ -57,11 +53,9 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	//VIEWS
 	private static final CreateShopViewImpl createShopview = new CreateShopViewImpl();
-	private static final ListShopsViewImpl listShopsView = new ListShopsViewImpl();
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
-	private static final ListProductsViewImpl productListView = new ListProductsViewImpl();
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
 	private static final IStartView startView = new StartViewImpl();
@@ -90,10 +84,6 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	
-	@Override
-	public ListProductsView getListProductsView() {
-		return ClientFactoryImpl.productListView;
-	}
 	@Override
 	public ICreateProductView getCreateProductView() {
 		return ClientFactoryImpl.createProductView;
@@ -124,10 +114,6 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.I_SHOP_SERVICE_ASYNC;
 	}
 
-	@Override
-	public ListShopsView getListShopsView() {
-		return ClientFactoryImpl.listShopsView;
-	}
 
 	@Override
 	public ICreateReceiptView getCreateReceiptView() {

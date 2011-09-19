@@ -5,12 +5,10 @@ import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
-import org.tagaprice.client.features.productmanagement.listProducts.ListProductsView;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.ICreateReceiptView;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.IListReceiptsView;
 import org.tagaprice.client.features.searchmanagement.ISearchView;
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
-import org.tagaprice.client.features.shopmanagement.listShops.ListShopsView;
 import org.tagaprice.client.features.startmanagement.IStartView;
 import org.tagaprice.shared.rpc.accountmanagement.ILoginServiceAsync;
 import org.tagaprice.shared.rpc.categorymanagement.ICategoryServiceAsync;
@@ -37,13 +35,6 @@ public interface ClientFactory {
 	 */
 	PlaceController getPlaceController();
 
-
-	/**
-	 * Singleton for ListProductsView
-	 * 
-	 * @return
-	 */
-	ListProductsView getListProductsView();
 
 	/**
 	 * Locale Dispatch for remote RPC Service
@@ -95,7 +86,6 @@ public interface ClientFactory {
 	 */
 	ICreateShopView getCreateShopView();
 
-	ListShopsView getListShopsView();
 
 	ICreateReceiptView getCreateReceiptView();
 
