@@ -42,7 +42,7 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 		Log.debug("Activity starts...");
 		_categoryView=_clientFactory.getProductCategoryView();
 		_categoryView.setPresenter(this);		
-		
+		_categoryView.setStatisticIsLoading();
 		
 		if(_place.getId()!=null){	
 			_clientFactory.getCategoryService().getProductCategory(_place.getId(), new AsyncCallback<Category>() {
@@ -96,7 +96,7 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
-
+		_categoryView.setStatisticIsLoading();
 		_statisticDebounce++;
 		final int curDebounce=_statisticDebounce;
 		_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(ProductCategoryActivity.class));

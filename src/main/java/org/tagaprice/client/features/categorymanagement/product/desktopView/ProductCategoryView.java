@@ -109,4 +109,10 @@ public class ProductCategoryView extends Composite implements ICategoryView {
 		return _statistic.getEndDate();
 	}
 
+
+	@Override
+	public void setStatisticIsLoading() {
+		_statistic.setLoading();			
+	}
+
 }

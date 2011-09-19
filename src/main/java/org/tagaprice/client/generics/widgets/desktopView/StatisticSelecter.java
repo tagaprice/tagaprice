@@ -29,6 +29,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -117,7 +118,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 		_vePa.add(_osmMapWidget);
 		_tablepanel.setWidth("100%");
-		_tablepanel.setWidget(new Label("loading..."));
+		setLoading();
 		_vePa.add(_tablepanel);
 		
 	}
@@ -342,6 +343,13 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	@Override
 	public void setMapVisible(boolean visible) {
 		_osmMapWidget.setVisible(visible);
+	}
+
+	@Override
+	public void setLoading() {
+		_osmMarkerLayer.destroyFeatures();
+		_tablepanel.setWidget(new Image("desktopView/ajax-loader.gif"));
+		
 	}
 
 }

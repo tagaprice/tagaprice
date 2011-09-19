@@ -195,5 +195,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_statistic.setLatLon(lat, lon);
 	}
 
+	@Override
+	public void setStatisticIsLoading() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

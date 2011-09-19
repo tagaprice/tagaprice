@@ -107,4 +107,10 @@ public class ShopCategoryView extends Composite implements ICategoryView {
 	public Date getStatisticEndDate() {
 		return _statistic.getEndDate();
 	}
+
+
+	@Override
+	public void setStatisticIsLoading() {
+		_statistic.setLoading();		
+	}
 }

@@ -48,6 +48,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public String mayStop() {
+		_statisticDebounce++;
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -175,6 +176,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	private void viewLoadedStart(final AcceptsOneWidget panel, EventBus eventBus){
 		_createShopView = _clientFactory.getCreateShopView();
 		_createShopView.setPresenter(this);
+		_createShopView.setStatisticIsLoading();
 
 		if (_place.getId() != null && _place.getRedirectId()==null) {
 			// Existing product... trying to load
@@ -307,6 +309,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
+		_createShopView.setStatisticIsLoading();
 		_statisticDebounce++;
 		final int curDebounce=_statisticDebounce;
 		
