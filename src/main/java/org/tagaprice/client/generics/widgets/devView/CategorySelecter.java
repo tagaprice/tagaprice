@@ -180,10 +180,6 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		
 	}
 
-	@Override
-	public void setCategoryTypeIsProduct(boolean isProduct) {
-		_categoryTypeIsProduct=isProduct;		
-	}
 
 	@Override
 	public void addCategorySelectedEventHandler(
@@ -191,4 +187,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void config(boolean categoryTypeIsProduct, boolean isHeadline) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

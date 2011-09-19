@@ -24,7 +24,8 @@ public class ShopCategoryView extends Composite implements ICategoryView {
 	private Presenter _presenter;
 	
 	public ShopCategoryView() {
-		_category.setCategoryTypeIsProduct(false);
+		_category.config(false, true);
+		
 		
 		//head
 		_stdFrame.setHeader(_category);

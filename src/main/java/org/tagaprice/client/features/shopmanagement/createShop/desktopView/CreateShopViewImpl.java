@@ -63,7 +63,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		//_stdFrame.setBodyCellWidth(_shopBodyPanel, "300px");
 		
 		//add Category Selecter
-		_category.setCategoryTypeIsProduct(false);
+		_category.config(false, false);
 		_shopBodyPanel.add(_category);
 		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
 			
