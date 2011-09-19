@@ -52,7 +52,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
 
 	//VIEWS
-	private static final CreateShopViewImpl createShopview = new CreateShopViewImpl();
+	private static ICreateShopView createShopview;
 	private static final ILoginView loginView = new LoginViewImpl();
 	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
 	private static final ICreateReceiptView CREATE_RECEIPT_VIEW = new CreateReceiptViewImpl();
@@ -97,6 +97,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public ICreateShopView getCreateShopView() {
 		return ClientFactoryImpl.createShopview;
+	}
+	
+	@Override
+	public void setCreateShopview(ICreateShopView createShopView) {
+		if(createShopview==null)
+			createShopview = new CreateShopViewImpl();		
 	}
 
 	@Override
@@ -185,6 +191,8 @@ public class ClientFactoryImpl implements ClientFactory {
 		Log.debug("getSettingsView is null ......................");
 		return null;
 	}
+
+	
 
 
 }

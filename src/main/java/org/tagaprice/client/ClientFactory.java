@@ -85,6 +85,8 @@ public interface ClientFactory {
 	 * @return the CreateShopView
 	 */
 	ICreateShopView getCreateShopView();
+	
+	public void setCreateShopview(ICreateShopView createShopView);
 
 
 	ICreateReceiptView getCreateReceiptView();

@@ -57,7 +57,15 @@
 	</replace-with>
 	
 	
+	<!-- shopView -->
+	<replace-with class="org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl">
+		<when-type-is class="org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView" />
+	</replace-with>
 	
+	<replace-with class="org.tagaprice.client.features.shopmanagement.createShop.desktopView.CreateShopViewImpl">
+		<when-type-is class="org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView" />
+		<when-property-is name="formfactor" value="dev"/>
+	</replace-with>
 	
 	
 

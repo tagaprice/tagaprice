@@ -57,7 +57,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
 
 	//VIEWS
-	private static CreateShopViewImpl createShopview;
+	private static ICreateShopView createShopview;
 	private static ILoginView loginView;
 	private static ILogoutView LOGOUT_VIEW;
 	private static ICreateReceiptView CREATE_RECEIPT_VIEW;
@@ -107,8 +107,13 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	@Override
 	public ICreateShopView getCreateShopView() {
-		if(createShopview==null)createShopview = new CreateShopViewImpl();
 		return ClientFactoryImpl.createShopview;
+	}
+
+	@Override
+	public void setCreateShopview(ICreateShopView createShopView) {
+		if(createShopview==null)
+			createShopview = new CreateShopViewImpl();		
 	}
 
 	
@@ -208,6 +213,7 @@ public class ClientFactoryImpl implements ClientFactory {
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
 
+	
 	
 	
 
