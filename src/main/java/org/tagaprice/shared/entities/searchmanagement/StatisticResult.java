@@ -2,7 +2,9 @@ package org.tagaprice.shared.entities.searchmanagement;
 
 import java.util.Date;
 
+import org.svenson.JSONProperty;
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.Unit;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Price;
@@ -21,6 +23,8 @@ public class StatisticResult extends Document {
 	private Package _package;
 	private String _receiptId;
 	private Long _seqNr = null;
+	private Unit _unit = null;
+	private Unit _parentUnit = null;
 
 
 	public StatisticResult() {}
@@ -49,8 +53,13 @@ public class StatisticResult extends Document {
 	/**
 	 * @return the date
 	 */
+	@JSONProperty(ignore=true)
 	public Date getDate() {
 		return _date;
+	}
+	
+	public long getTimestamp() {
+		return _date.getTime();
 	}
 
 
@@ -99,6 +108,16 @@ public class StatisticResult extends Document {
 	 */
 	public Long getSequenceNr() {
 		return _seqNr;
+	}
+	
+	@JSONProperty(ignoreIfNull=true)
+	public Unit getUnit() {
+		return _unit;
+	}
+	
+	@JSONProperty(ignoreIfNull=true)
+	public Unit getParentUnit() {
+		return _parentUnit;
 	}
 
 	/**
@@ -151,5 +170,16 @@ public class StatisticResult extends Document {
 	public void setSequenceNr(Long sequenceNr) {
 		_seqNr = sequenceNr;
 	}
+	
+	public void setTimestamp(long timestamp) {
+		_date = new Date(timestamp);
+	}
 
+	public void setUnit(Unit unit) {
+		_unit = unit;
+	}
+	
+	public void setParentUnit(Unit unit) {
+		_parentUnit = unit;
+	}
 }
