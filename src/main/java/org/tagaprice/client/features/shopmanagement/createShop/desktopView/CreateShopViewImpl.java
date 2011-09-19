@@ -130,7 +130,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		Label stepByStep = new Label("STEP by STEP");
 		Label point1 = new Label("1.) Shop title");
 		Label point1eg = new Label("eg.: Hofer, Billa, Happy Noodles");
-		Label point2 = new Label("2.) Set the category in which you would see this shop/resaurant");
+		Label point2 = new Label("2.) Set the category in which you would see this shop/restaurant");
 		Label point2eg = new Label("eg.: restaurant --> Fast Food, supermarket");
 
 		stepByStep.setStyleName("createInfo");
