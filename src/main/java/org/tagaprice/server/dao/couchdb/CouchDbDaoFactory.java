@@ -47,7 +47,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private ElasticSearchClient m_elasticSearchClient;
 
 
-	static CouchDbConfig getConfiguration() throws IOException {
+	public static CouchDbConfig getConfiguration() throws IOException {
 		if (CouchDbDaoFactory.m_dbConfig == null) {
 			CouchDbDaoFactory.m_dbConfig = _readProperties("couchdb.properties");
 		}
