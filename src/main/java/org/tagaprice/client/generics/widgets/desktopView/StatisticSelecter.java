@@ -3,7 +3,6 @@ package org.tagaprice.client.generics.widgets.desktopView;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -22,8 +21,6 @@ import org.tagaprice.client.generics.widgets.IStatisticSelecter;
 import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
-
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -51,7 +48,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	private MapWidget _osmMapWidget;
 	private Vector _osmMarkerLayer;
 	private SimplePanel _tablepanel = new SimplePanel();
-	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
+	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
 
 
 	public StatisticSelecter() {
@@ -277,7 +274,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
 					shopFlex.setWidget(rk, 1+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
-					shopFlex.setWidget(rk, 2+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getDate()));
+					shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(shopSortList.get(sk).get(prK).get(paK).getDate())));
 					shopFlex.setWidget(rk, 3+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
 
 					if(!_type.equals(TYPE.SHOP))
