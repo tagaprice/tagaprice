@@ -64,7 +64,7 @@ public class Category extends Document   {
 	 * (CouchDB helper method)
 	 * @return Parent Category's ID
 	 */
-	@JSONProperty(value="parentId")
+	@JSONProperty(value="parentId", ignoreIfNull=true)
 	public String getParentId() {
 		return getParent() != null ? getParent().getId() : null;
 	}
