@@ -25,7 +25,7 @@ public class ReceiptServiceImpl extends ASessionService implements IReceiptServi
 	}
 
 	@Override
-	public Receipt saveReceipt(String sessionId, Receipt receipt) throws DaoException, UserNotLoggedInException {
+	public Receipt saveReceipt(Receipt receipt) throws DaoException, UserNotLoggedInException {
 		Log.debug("Receipt saved: "+receipt);
 		
 		
@@ -70,7 +70,7 @@ public class ReceiptServiceImpl extends ASessionService implements IReceiptServi
 	}
 
 	@Override
-	public List<Receipt> getReceipts(String sessionId) throws UserNotLoggedInException, DaoException {
+	public List<Receipt> getReceipts() throws UserNotLoggedInException, DaoException {
 		
 		return receiptDAO.listByUser(getUser().getId());
 	}

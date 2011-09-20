@@ -62,7 +62,7 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(ListReceiptsActivity.class, "Loading...", INFOTYPE.INFO));
 
 
-		_clientFactory.getReceiptService().getReceipts(_clientFactory.getAccountPersistor().getSessionId(),new AsyncCallback<List<Receipt>>() {
+		_clientFactory.getReceiptService().getReceipts(new AsyncCallback<List<Receipt>>() {
 
 			@Override
 			public void onSuccess(List<Receipt> response) {				

@@ -51,7 +51,7 @@ public class ShopServiceImpl extends ASessionService implements IShopService  {
 	}
 
 	@Override
-	public Shop saveShop(String sessionId, Shop shop) throws DaoException, UserNotLoggedInException {
+	public Shop saveShop(Shop shop) throws DaoException, UserNotLoggedInException {
 		Log.debug("save Shop " + shop);
 
 		

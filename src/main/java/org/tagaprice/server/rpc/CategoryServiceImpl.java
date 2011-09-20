@@ -55,7 +55,4 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements ICatego
 		return shopCategoryDAO.getChildren(id);
 	}
 
-	
-	
-	
 }

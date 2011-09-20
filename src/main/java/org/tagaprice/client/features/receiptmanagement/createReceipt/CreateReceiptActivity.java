@@ -117,7 +117,7 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 			final InfoBoxShowEvent trySaving = new InfoBoxShowEvent(CreateReceiptActivity.class, "saving...", INFOTYPE.INFO,0);
 			_clientFactory.getEventBus().fireEvent(trySaving);
 	
-			_clientFactory.getReceiptService().saveReceipt(_clientFactory.getAccountPersistor().getSessionId(), _receipt, new AsyncCallback<Receipt>() {
+			_clientFactory.getReceiptService().saveReceipt(_receipt, new AsyncCallback<Receipt>() {
 	
 				@Override
 				public void onFailure(Throwable caught) {

@@ -94,7 +94,7 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 			_clientFactory.getEventBus().fireEvent(trySaving);
 
 
-			_clientFactory.getShopService().saveShop(_clientFactory.getAccountPersistor().getSessionId(), _shop, new AsyncCallback<Shop>() {
+			_clientFactory.getShopService().saveShop(_shop, new AsyncCallback<Shop>() {
 
 				@Override
 				public void onFailure(Throwable caught) {

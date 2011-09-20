@@ -15,7 +15,7 @@ public interface IShopService extends RemoteService {
 	public List<Shop> getShops(Shop searchCriteria) throws DaoException;
 	public Shop getShop(String id, String revision) throws DaoException;
 	public Shop getShop(String id) throws DaoException;
-	public Shop saveShop(String sessionId, Shop shop) throws UserNotLoggedInException, DaoException;
+	public Shop saveShop(Shop shop) throws UserNotLoggedInException, DaoException;
 
 
 }

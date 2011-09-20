@@ -43,7 +43,7 @@ public class ProductServiceImpl extends ASessionService implements IProductServi
 	}
 
 	@Override
-	public Product saveProduct(String sessionId, final Product product) throws DaoException, UserNotLoggedInException {
+	public Product saveProduct(final Product product) throws DaoException, UserNotLoggedInException {
 		Log.debug("save Product " + product);
 		
 		if(product.getUnit()==null || product.getUnit().getId()==null)

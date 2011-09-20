@@ -100,7 +100,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			_clientFactory.getEventBus().fireEvent(trySaving);
 
 
-			_clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
+			_clientFactory.getProductService().saveProduct(_product, new AsyncCallback<Product>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
