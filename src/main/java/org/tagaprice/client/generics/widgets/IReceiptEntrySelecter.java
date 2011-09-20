@@ -2,6 +2,8 @@ package org.tagaprice.client.generics.widgets;
 
 import java.util.List;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IReceiptEntrySelecter extends IsWidget {
@@ -23,4 +25,6 @@ public interface IReceiptEntrySelecter extends IsWidget {
 	 * @return all {@link ReceiptEntry}
 	 */
 	public List<ReceiptEntry> getReceiptEntries();
+	
+	public void addChangeHandler(ChangeHandler handler);
 }

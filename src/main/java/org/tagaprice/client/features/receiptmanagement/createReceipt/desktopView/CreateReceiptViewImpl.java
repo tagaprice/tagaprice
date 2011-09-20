@@ -35,6 +35,8 @@ import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -106,6 +108,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_headPanel.add(new Label("Dasboard / add Receipt"));
 		
 		_headPanel.add(_fullPrice);
+		_headPanel.setCellHorizontalAlignment(_fullPrice, HorizontalPanel.ALIGN_RIGHT);
 		
 		//Add Save button
 		
@@ -206,6 +209,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		//ReceiptEntries
 		_bodyPanel.add(_receiptEntrySelecter);
+		_receiptEntrySelecter.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent arg0) {
+				calcCurrentPrice();
+			}
+		});
 		
 		
 		//entry search
@@ -785,7 +795,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
-		_receiptEntrySelecter.setReceiptEntries(receiptEntries);		
+		_receiptEntrySelecter.setReceiptEntries(receiptEntries);
+		calcCurrentPrice();
 	}
 
 	@Override
@@ -801,6 +812,15 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setNote(String note) {
 		_noteBox.setText(note);
+	}
+	
+	private void calcCurrentPrice(){
+		BigDecimal price = new BigDecimal(0);
+		for(ReceiptEntry re:_receiptEntrySelecter.getReceiptEntries()){
+			price = price.add(re.getPrice().getPrice());
+		}
+		
+		_fullPrice.setText(price.toEngineeringString()+"€");
 	}
 
 }

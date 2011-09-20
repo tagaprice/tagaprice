@@ -6,6 +6,8 @@ import org.tagaprice.client.generics.widgets.CurrencySelecter;
 import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ReceiptEntryPreview extends PackagePreview {
@@ -32,6 +34,10 @@ public class ReceiptEntryPreview extends PackagePreview {
 		_hoPa1.add(_currency);
 		
 		_vePaPricePack.add(_hoPa1);
+	}
+	
+	public void addChangeHandler(ChangeHandler handler){
+		_price.addChangeHandler(handler);
 	}
 
 	public boolean isReadOnly() {
