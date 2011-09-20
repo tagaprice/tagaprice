@@ -58,8 +58,8 @@ public class ShopServiceImpl extends ASessionService implements IShopService  {
 		Shop rc = null;
 
 		// TODO check session validity
-		shop.setCreatorId(getUser().getCreatorId());
-
+		shop.setCreatorId(getUser().getId());
+		
 		if (shop.getId() != null) {
 			rc = shopDAO.update(shop);
 		}

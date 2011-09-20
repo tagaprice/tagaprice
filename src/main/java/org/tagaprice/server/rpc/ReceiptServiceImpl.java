@@ -32,7 +32,7 @@ public class ReceiptServiceImpl extends ASessionService implements IReceiptServi
 		Receipt rc=null;
 
 		// TODO check session validity
-		receipt.setCreatorId(getUser().getCreatorId());
+		receipt.setCreatorId(getUser().getId());
 
 		//check if a package is new
 		for(ReceiptEntry re: receipt.getReceiptEntries()){

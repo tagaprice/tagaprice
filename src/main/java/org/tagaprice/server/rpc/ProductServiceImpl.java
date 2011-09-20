@@ -53,7 +53,7 @@ public class ProductServiceImpl extends ASessionService implements IProductServi
 		Product rc = null;
 
 		// TODO check session validity
-		product.setCreatorId(getUser().getCreatorId());
+		product.setCreatorId(getUser().getId());
 
 
 

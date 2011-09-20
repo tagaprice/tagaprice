@@ -87,11 +87,15 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 			
 			
 			//calc value
-			BigDecimal money = new BigDecimal("0");
+			String money="0.0";
+			/*
 			for(ReceiptEntry re: r.getReceiptEntries()){
 				money = money.add(re.getPrice().getPrice());
-			}
-			Label value = new Label(money.toString());
+			}*/
+			if(r.getPrice()!=null)
+				money=r.getPrice().getPrice().toEngineeringString();
+			
+			Label value = new Label(money);
 			
 			
 			value.addClickHandler(new ClickHandler() {
