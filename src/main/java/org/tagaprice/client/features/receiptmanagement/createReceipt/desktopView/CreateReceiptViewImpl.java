@@ -68,7 +68,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private StdFrame _frame = new StdFrame();
 	private HorizontalPanel _headPanel = new HorizontalPanel();
 	private Label _fullPrice = new Label("0.0€");
-	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
 	private DatePicker _datePicker = new DatePicker();
 	private VerticalPanel _bodyPanel = new VerticalPanel();
 	private SimplePanel _shopPanel = new SimplePanel();
@@ -123,6 +122,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		
+		_frame.addCancleClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onCancelEvent();
+			}
+		});
 		
 		_frame.setReadOnly(false);
 		
@@ -139,6 +145,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				_presenter.onLogout();
 			}
 		});
+		
+		
 		
 		
 		//body

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
@@ -80,7 +81,6 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 
 	@Override
 	public void onCancel() {
-
 	}
 
 
@@ -423,6 +423,11 @@ public class CreateReceiptActivity implements ICreateReceiptView.Presenter, Acti
 	public void onLogout() {
 		_clientFactory.getAccountPersistor().logout();
 		goTo(new StartPlace());
+	}
+
+	@Override
+	public void onCancelEvent() {
+		goTo(new ListReceiptsPlace());		
 	}
 	
 

@@ -61,5 +61,11 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		return nice;
 	}
 
+	@Override
+	public void setReceiptListIsLoading() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

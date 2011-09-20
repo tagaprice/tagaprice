@@ -96,5 +96,7 @@ public interface ICreateReceiptView extends IsWidget{
 		
 		
 		public void onLogout();
+
+		public void onCancelEvent();
 	}
 }

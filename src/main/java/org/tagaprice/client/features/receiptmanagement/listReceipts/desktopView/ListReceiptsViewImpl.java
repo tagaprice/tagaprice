@@ -15,7 +15,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public class ListReceiptsViewImpl extends Composite implements IListReceiptsView {
 
@@ -24,6 +26,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private Label _header = new Label("Dashboad / My Receipts");
 	private Grid _receiptList = new Grid();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
+	private SimplePanel _listSiPa = new SimplePanel();
 
 	public ListReceiptsViewImpl() {
 		_frame.setHeader(_header);
@@ -40,14 +43,17 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		});
 		
 		_receiptList.setWidth("100%");
-		_frame.setBody(_receiptList);
+		
+		_listSiPa.setWidth("100%");
+		
+		_frame.setBody(_listSiPa);
 
+		setReceiptListIsLoading();
 		initWidget(_frame);
 	}
 
 	@Override
 	public void setReceipts(List<Receipt> receipts) {
-
 		_receiptList.clear();
 		_receiptList.resize(receipts.size()+1, 4);
 		
@@ -111,11 +117,18 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 			i++;
 		}
 
+		_listSiPa.setWidget(_receiptList);
 	}
 
 	@Override
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;
+	}
+
+	@Override
+	public void setReceiptListIsLoading() {
+		_listSiPa.setWidget(new Image("desktopView/ajax-loader.gif"));
+		
 	}
 
 

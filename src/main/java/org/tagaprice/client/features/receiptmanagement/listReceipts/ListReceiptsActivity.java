@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.startmanagement.StartPlace;
+import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
@@ -55,11 +56,12 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
 		Window.setTitle("Show Receipts");
+		_clientFactory.getListReceiptsView().setReceiptListIsLoading();
 		
 		if(_listReceiptsView==null)_listReceiptsView=_clientFactory.getListReceiptsView();
 		_listReceiptsView.setPresenter(this);
 		panel.setWidget(_listReceiptsView);
-		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(ListReceiptsActivity.class, "Loading...", INFOTYPE.INFO));
+		_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(ListReceiptsActivity.class, "Loading...", INFOTYPE.INFO, 0));
 
 
 		_clientFactory.getReceiptService().getReceipts(new AsyncCallback<List<Receipt>>() {
@@ -67,7 +69,7 @@ public class ListReceiptsActivity implements Activity, IListReceiptsView.Present
 			@Override
 			public void onSuccess(List<Receipt> response) {				
 				_listReceiptsView.setReceipts(response);
-
+				_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(ListReceiptsActivity.class));
 			}
 
 			@Override

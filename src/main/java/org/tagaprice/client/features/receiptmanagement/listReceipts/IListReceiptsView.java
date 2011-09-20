@@ -23,6 +23,9 @@ public interface IListReceiptsView extends IsWidget {
 	 *            Sets the {@link Presenter} which implements the {@link IListReceiptsView} to control this view.
 	 */
 	public void setPresenter(Presenter presenter);
+	
+	
+	public void setReceiptListIsLoading();
 
 	public interface Presenter{
 
