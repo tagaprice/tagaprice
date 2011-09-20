@@ -11,13 +11,20 @@ import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget.MEN
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
+import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.view.client.CellPreviewEvent;
+import com.google.gwt.view.client.CellPreviewEvent.Handler;
 
 public class ListReceiptsViewImpl extends Composite implements IListReceiptsView {
 
@@ -27,7 +34,9 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private Grid _receiptList = new Grid();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 	private SimplePanel _listSiPa = new SimplePanel();
-
+	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
+	private CellTable<Receipt> _cellTable = new CellTable<Receipt>();
+	
 	public ListReceiptsViewImpl() {
 		_frame.setHeader(_header);
 		
@@ -48,12 +57,85 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		
 		_frame.setBody(_listSiPa);
 
+		/*
+		//Create table
+		_cellTable.setWidth("100%");
+		TextColumn<Receipt> dateColunn = new TextColumn<Receipt>() {
+
+			@Override
+			public String getValue(Receipt arg0) {
+				return fmt.format(arg0.getDate());
+			}
+		};
+		// Add the columns.
+		dateColunn.setSortable(true);		
+		_cellTable.addColumn(dateColunn, "Date");
+		
+		_cellTable.addCellPreviewHandler(new Handler<Receipt>() {
+
+			@Override
+			public void onCellPreview(CellPreviewEvent<Receipt> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("id: "+arg0.getValue().getId());
+				
+			}
+		});
+		
+		
+		
+		TextColumn<Receipt> shopColunn = new TextColumn<Receipt>() {
+
+			@Override
+			public String getValue(Receipt arg0) {
+				String shop=arg0.getShop().getTitle();
+				
+				if(arg0.getAddress().getStreet()!=null)
+					shop+=", "+arg0.getAddress().getStreet();
+				
+				return shop;
+			}
+		};
+		// Add the columns.
+		shopColunn.setSortable(true);
+		_cellTable.addColumn(shopColunn, "Shop");
+		
+		
+		TextColumn<Receipt> priceColunn = new TextColumn<Receipt>() {
+
+			@Override
+			public String getValue(Receipt arg0) {
+				if(arg0.getPrice()==null)return "0.0€";
+				return arg0.getPrice().getPrice().toEngineeringString()+"€";
+			}
+		};
+		// Add the columns.
+		priceColunn.setSortable(true);
+		_cellTable.addColumn(priceColunn, "Price");
+		
+		
+		TextColumn<Receipt> noteColunn = new TextColumn<Receipt>() {
+
+			@Override
+			public String getValue(Receipt arg0) {
+				if(arg0.getTitle()==null)
+					return "";
+				
+				return arg0.getTitle();
+			}
+		};
+		// Add the columns.
+		_cellTable.addColumn(noteColunn, "Note");
+		*/
+		
+		
+		
 		setReceiptListIsLoading();
 		initWidget(_frame);
 	}
 
 	@Override
 	public void setReceipts(List<Receipt> receipts) {
+		
 		_receiptList.clear();
 		_receiptList.resize(receipts.size()+1, 4);
 		
@@ -68,7 +150,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		int i=1;
 		for(final Receipt r:receipts){
 			
-			Label date = new Label(r.getDate().toString());
+			Label date = new Label(fmt.format(r.getDate()));
 			date.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -76,7 +158,10 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 					_presenter.goTo(new CreateReceiptPlace(r.getId()));
 				}
 			});
-			Label name = new Label(r.getShop().getTitle()+", "+r.getShop().getAddress().getStreet());
+			String namet = r.getShop().getTitle();
+			if(r.getShop().getAddress() !=null && r.getShop().getAddress().getStreet()!=null)
+				namet+=", "+r.getShop().getAddress().getStreet();
+			Label name = new Label(namet);
 			name.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -86,14 +171,9 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 			});
 			
 			
-			//calc value
-			String money="0.0";
-			/*
-			for(ReceiptEntry re: r.getReceiptEntries()){
-				money = money.add(re.getPrice().getPrice());
-			}*/
+			String money = "0.0€";
 			if(r.getPrice()!=null)
-				money=r.getPrice().getPrice().toEngineeringString();
+				money=r.getPrice().getPrice().toEngineeringString()+"€";
 			
 			Label value = new Label(money);
 			
@@ -122,6 +202,10 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 		}
 
 		_listSiPa.setWidget(_receiptList);
+		/*
+		_cellTable.setRowData(receipts);
+		_listSiPa.setWidget(_cellTable);
+		*/
 	}
 
 	@Override
