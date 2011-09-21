@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.mock.MockDaoFactory;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -27,6 +28,14 @@ public class InitServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() throws ServletException {
+		// load the Log4j configuration file
+		DOMConfigurator.configureAndWatch("log4j.xml");
+		
+		// init the DAO factory
+		initDaoFactory();
+	}
+	
+	private void initDaoFactory() throws ServletException {
 		try {
 			// First get the class name
 			String daoFactoryClassName = System.getenv("daoFactoryClass");
