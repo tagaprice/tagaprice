@@ -58,8 +58,9 @@ public class StatisticResult extends Document {
 		return _date;
 	}
 	
-	public long getTimestamp() {
-		return _date.getTime();
+	@JSONProperty(ignoreIfNull=true)
+	public Long getTimestamp() {
+		return _date != null ? _date.getTime() : null;
 	}
 
 
