@@ -24,7 +24,7 @@ public class ProductCategoryView extends Composite implements ICategoryView {
 	private Presenter _presenter; 
 	
 	public ProductCategoryView() {
-		_category.setCategoryTypeIsProduct(true);
+		_category.config(true, true);
 		
 		//head
 		_stdFrame.setHeader(_category);
@@ -107,6 +107,12 @@ public class ProductCategoryView extends Composite implements ICategoryView {
 	@Override
 	public Date getStatisticEndDate() {
 		return _statistic.getEndDate();
+	}
+
+
+	@Override
+	public void setStatisticIsLoading() {
+		_statistic.setLoading();			
 	}
 
 }

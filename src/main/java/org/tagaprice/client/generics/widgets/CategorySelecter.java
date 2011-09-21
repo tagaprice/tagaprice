@@ -41,10 +41,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		categorySelecter.setReadOnly(read);
 	}
 
-	@Override
-	public void setCategoryTypeIsProduct(boolean isProduct) {
-		categorySelecter.setCategoryTypeIsProduct(isProduct);		
-	}
+
 
 	@Override
 	public void addCategorySelectedEventHandler(
@@ -52,6 +49,14 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		categorySelecter.addCategorySelectedEventHandler(handler);
 		
 	}
+
+	@Override
+	public void config(boolean categoryTypeIsProduct, boolean isHeadline) {
+		categorySelecter.config(categoryTypeIsProduct, isHeadline);
+		
+	}
+
+
 
 
 }

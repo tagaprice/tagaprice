@@ -31,6 +31,7 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	private boolean _readonly = true;
 	private boolean _categoryTypeIsProduct = true;
 	private CategorySelectedEventHandler _handler=null;
+	private String _headlineString="";
 
 	public CategorySelecter() {
 		
@@ -90,8 +91,11 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 	}
 
 	@Override
-	public void setCategoryTypeIsProduct(boolean isProduct) {
-		_categoryTypeIsProduct=isProduct;		
+	public void config(boolean categoryTypeIsProduct, boolean isHeadline) {
+		_categoryTypeIsProduct=categoryTypeIsProduct;	
+		
+		if(isHeadline)_headlineString=" headline";
+		else _headlineString="";
 	}
 
 	@Override
@@ -105,7 +109,8 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 
 
 		private HorizontalPanel hoPa1 = new HorizontalPanel();
-		private Image arrow = new Image("desktopView/arrowBlackRight.png");
+		//private Image arrow = new Image("desktopView/arrowBlackRight.png");
+		private Label arrow = new Label("/");
 		private Label text = new Label("");
 		private Category _myCat = null;
 		private PopupPanel showCats = new PopupPanel(true);
@@ -153,8 +158,8 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 				*/
 			}
 
-			arrow.setStyleName("arrow");
-			text.setStyleName("text");
+			arrow.setStyleName("arrow"+_headlineString);
+			text.setStyleName("text"+_headlineString);
 			showCats.setStyleName("popBackground");
 			showCats.getElement().getStyle().setZIndex(2000);
 			
@@ -228,14 +233,15 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		}
 		
 		public void setReadOnly(boolean read){
+			
 			if(read){
 				_readonly=true;
-				arrow.setStyleName("arrow");
-				hoPa1.setStyleName("categorySelecter");
+				arrow.setStyleName("arrow"+_headlineString);
+				hoPa1.setStyleName("categorySelecter"+_headlineString);
 			}else{
 				_readonly=false;
-				arrow.setStyleName("arrow edit");
-				hoPa1.setStyleName("categorySelecter edit");
+				arrow.setStyleName("arrow edit"+_headlineString);
+				hoPa1.setStyleName("categorySelecter edit"+_headlineString);
 			}
 		}
 		
@@ -260,6 +266,8 @@ public class CategorySelecter extends Composite implements ICategorySelecter {
 		}
 		
 	}
+
+	
 
 
 	

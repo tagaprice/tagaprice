@@ -305,4 +305,10 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		
 	}
 
+	@Override
+	public void setLoading() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

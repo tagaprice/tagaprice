@@ -218,4 +218,10 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		
 	}
 
+	@Override
+	public void setStatisticIsLoading() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

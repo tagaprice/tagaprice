@@ -3,7 +3,6 @@ package org.tagaprice.client.features.shopmanagement.createShop.desktopView;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import org.tagaprice.client.features.shopmanagement.createShop.ICreateShopView;
 import org.tagaprice.client.generics.widgets.AddressSelecter;
 import org.tagaprice.client.generics.widgets.CategorySelecter;
@@ -18,7 +17,6 @@ import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
-import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.client.generics.events.CategorySelectedEventHandler;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -65,7 +63,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		//_stdFrame.setBodyCellWidth(_shopBodyPanel, "300px");
 		
 		//add Category Selecter
-		_category.setCategoryTypeIsProduct(false);
+		_category.config(false, false);
 		_shopBodyPanel.add(_category);
 		_category.addCategorySelectedEventHandler(new CategorySelectedEventHandler() {
 			
@@ -132,7 +130,7 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 		Label stepByStep = new Label("STEP by STEP");
 		Label point1 = new Label("1.) Shop title");
 		Label point1eg = new Label("eg.: Hofer, Billa, Happy Noodles");
-		Label point2 = new Label("2.) Set the category in which you would see this shop/resaurant");
+		Label point2 = new Label("2.) Set the category in which you would see this shop/restaurant");
 		Label point2eg = new Label("eg.: restaurant --> Fast Food, supermarket");
 
 		stepByStep.setStyleName("createInfo");
@@ -273,6 +271,13 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	@Override
 	public void setPropertyList(Map<String, Object> propertyList) {
 		_propertyDefaultSelecter.setPropertyList(propertyList);	
+	}
+
+
+
+	@Override
+	public void setStatisticIsLoading() {
+		_statistic.setLoading();
 	}
 	
 }

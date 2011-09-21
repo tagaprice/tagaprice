@@ -23,8 +23,8 @@ public interface ICategorySelecter extends IsWidget {
 	boolean isReadOnly();
 
 	void setReadOnly(boolean read);
-
-	void setCategoryTypeIsProduct(boolean isProduct);
 	
 	void addCategorySelectedEventHandler(CategorySelectedEventHandler handler);
+	
+	public void config(boolean categoryTypeIsProduct,boolean isHeadline);
 }

@@ -47,6 +47,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public String mayStop() {
+		_statisticDebounce++;
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -99,7 +100,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			_clientFactory.getEventBus().fireEvent(trySaving);
 
 
-			_clientFactory.getProductService().saveProduct(_clientFactory.getAccountPersistor().getSessionId(), _product, new AsyncCallback<Product>() {
+			_clientFactory.getProductService().saveProduct(_product, new AsyncCallback<Product>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -176,7 +177,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		Log.debug("activity startet");
 		_createProductView = _clientFactory.getCreateProductView();
 		_createProductView.setPresenter(this);
-
+		_createProductView.setStatisticIsLoading();
 
 
 		if (_place.getId() != null && _place.getRedirectId()==null) {
@@ -242,18 +243,17 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	private void updateView(Product product) {
 		_product = product;
-		ICreateProductView view = this._clientFactory.getCreateProductView();
-		view.setTitle(product.getTitle());
-		view.setCategory(product.getCategory());
-		view.setUnit(product.getUnit());
+		_createProductView.setTitle(product.getTitle());
+		_createProductView.setCategory(product.getCategory());
+		_createProductView.setUnit(product.getUnit());
 
-		view.setPackages(product.getPackages());
+		_createProductView.setPackages(product.getPackages());
 	}
 
 	@Override
 	public void onStatisticChangedEvent(BoundingBox bbox, Date begin, Date end) {
 		Log.debug("onStatisticChangedEvent: bbox: "+bbox+", begin: "+begin+", end: "+end);
-		
+		_createProductView.setStatisticIsLoading();
 		_statisticDebounce++;
 		final int curDebounce=_statisticDebounce;
 		

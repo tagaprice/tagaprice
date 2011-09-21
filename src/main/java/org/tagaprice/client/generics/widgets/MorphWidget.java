@@ -1,6 +1,7 @@
 package org.tagaprice.client.generics.widgets;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 
 public class MorphWidget extends Composite implements IMorphWidget {
@@ -37,5 +38,10 @@ public class MorphWidget extends Composite implements IMorphWidget {
 	public void config(boolean alignRight, boolean isHeadline) {
 		morphWidget.config(alignRight, isHeadline);
 		
+	}
+
+	@Override
+	public void addChangeHandler(ChangeHandler handler) {
+		morphWidget.addChangeHandler(handler);		
 	}
 }

@@ -35,6 +35,8 @@ import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -44,6 +46,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -68,7 +71,6 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private StdFrame _frame = new StdFrame();
 	private HorizontalPanel _headPanel = new HorizontalPanel();
 	private Label _fullPrice = new Label("0.0€");
-	private DateTimeFormat fmt = DateTimeFormat.getFormat(" [dd, MMMM yyyy]");
 	private DatePicker _datePicker = new DatePicker();
 	private VerticalPanel _bodyPanel = new VerticalPanel();
 	private SimplePanel _shopPanel = new SimplePanel();
@@ -97,6 +99,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
+	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
 	
 	
 	public CreateReceiptViewImpl() {
@@ -107,6 +110,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		_headPanel.add(new Label("Dasboard / add Receipt"));
 		
 		_headPanel.add(_fullPrice);
+		_headPanel.setCellHorizontalAlignment(_fullPrice, HorizontalPanel.ALIGN_RIGHT);
 		
 		//Add Save button
 		
@@ -123,6 +127,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			}
 		});
 		
+		_frame.addCancleClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_presenter.onCancelEvent();
+			}
+		});
 		
 		_frame.setReadOnly(false);
 		
@@ -139,6 +150,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 				_presenter.onLogout();
 			}
 		});
+		
+		
 		
 		
 		//body
@@ -198,6 +211,13 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 		
 		//ReceiptEntries
 		_bodyPanel.add(_receiptEntrySelecter);
+		_receiptEntrySelecter.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent arg0) {
+				calcCurrentPrice();
+			}
+		});
 		
 		
 		//entry search
@@ -777,7 +797,8 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 
 	@Override
 	public void setReceiptEntries(List<ReceiptEntry> receiptEntries) {
-		_receiptEntrySelecter.setReceiptEntries(receiptEntries);		
+		_receiptEntrySelecter.setReceiptEntries(receiptEntries);
+		calcCurrentPrice();
 	}
 
 	@Override
@@ -793,6 +814,15 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	@Override
 	public void setNote(String note) {
 		_noteBox.setText(note);
+	}
+	
+	private void calcCurrentPrice(){
+		BigDecimal price = new BigDecimal(0);
+		for(ReceiptEntry re:_receiptEntrySelecter.getReceiptEntries()){
+			price = price.add(re.getPrice().getPrice());
+		}
+		
+		_fullPrice.setText(dfmt.format(price)+"€");
 	}
 
 }

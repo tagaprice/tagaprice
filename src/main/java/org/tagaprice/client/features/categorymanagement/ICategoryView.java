@@ -50,6 +50,13 @@ public interface ICategoryView extends IsWidget {
 	 */
 	public void setStatisticLatLon(double lat, double lon);
 	
+	
+	/**
+	 * Tell the statistic widget that activity is loading data from the server
+	 */
+	public void setStatisticIsLoading();
+	
+	
 	/**
 	 * Set the readmode of the view
 	 * @param read

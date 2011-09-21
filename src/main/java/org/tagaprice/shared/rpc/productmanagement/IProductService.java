@@ -48,7 +48,7 @@ public interface IProductService extends RemoteService {
 	 * @return the SAVED or UPDATED {@link Product}
 	 * @throws DaoException when something went wrong while saving the Product
 	 */
-	public Product saveProduct(String sessionId, Product product) throws UserNotLoggedInException, DaoException;
+	public Product saveProduct(Product product) throws UserNotLoggedInException, DaoException;
 
 	/**
 	 * Returns a list of all categories. TODO Return

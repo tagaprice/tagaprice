@@ -1,16 +1,46 @@
 package org.tagaprice.server.dao.mock;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Deque;
 import java.util.List;
 
 import org.tagaprice.server.dao.IReceiptDao;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
+	
+	
+	@Override
+	public Receipt create(Receipt receipt) throws DaoException {
+		
+		BigDecimal price = new BigDecimal("0.0");
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
+			price=price.add(re.getPrice().getPrice());
+		}
+		receipt.setPrice(new Price(price, Currency.euro));
+		
+		
+		return super.create(receipt);
+	}
+	
+	@Override
+	public Receipt update(Receipt receipt) throws DaoException {
+		BigDecimal price = new BigDecimal("0.0");
+		for(ReceiptEntry re: receipt.getReceiptEntries()){
+			price=price.add(re.getPrice().getPrice());
+		}
+		receipt.setPrice(new Price(price, Currency.euro));
+		
+		return super.update(receipt);
+	}
+	
+	
 	@Override
 	public List<Receipt> list() {
 		ArrayList<Receipt> rc = new ArrayList<Receipt>();

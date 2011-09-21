@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.tagaprice.client.generics.widgets.IReceiptEntrySelecter;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -15,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySelecter {
 
 	private VerticalPanel _vePa1 = new VerticalPanel();
+	private ChangeHandler _change=null;
 	
 	public ReceiptEntrySelecter() {
 		//_vePa1.setWidth("500px");
@@ -53,6 +57,16 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		_hoPaRe.setCellWidth(min, "30px");
 		
 		_vePa1.add(_hoPaRe);
+		
+		//add change
+		reEnt.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent arg0) {
+				if(_change!=null)
+					_change.onChange(arg0);
+			}
+		});
 	}
 
 	@Override
@@ -64,6 +78,13 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 		}
 		
 		return returnList;
+	}
+
+
+
+	@Override
+	public void addChangeHandler(ChangeHandler handler) {
+		_change=handler;		
 	}
 	
 	

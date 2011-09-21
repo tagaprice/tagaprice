@@ -26,9 +26,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -49,6 +51,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	private Vector _osmMarkerLayer;
 	private SimplePanel _tablepanel = new SimplePanel();
 	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
 
 
 	public StatisticSelecter() {
@@ -117,7 +120,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 
 		_vePa.add(_osmMapWidget);
 		_tablepanel.setWidth("100%");
-		_tablepanel.setWidget(new Label("loading..."));
+		setLoading();
 		_vePa.add(_tablepanel);
 		
 	}
@@ -273,9 +276,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
-					shopFlex.setWidget(rk, 1+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity()+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
+					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity())+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
 					shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(shopSortList.get(sk).get(prK).get(paK).getDate())));
-					shopFlex.setWidget(rk, 3+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
+					shopFlex.setWidget(rk, 3+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice())+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
 
 					if(!_type.equals(TYPE.SHOP))
 						shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");
@@ -342,6 +345,13 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	@Override
 	public void setMapVisible(boolean visible) {
 		_osmMapWidget.setVisible(visible);
+	}
+
+	@Override
+	public void setLoading() {
+		_osmMarkerLayer.destroyFeatures();
+		_tablepanel.setWidget(new Image("desktopView/ajax-loader.gif"));
+		
 	}
 
 }

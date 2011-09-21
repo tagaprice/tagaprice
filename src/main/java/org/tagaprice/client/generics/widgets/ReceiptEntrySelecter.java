@@ -5,6 +5,7 @@ import java.util.List;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 
 /**
@@ -32,6 +33,11 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 	@Override
 	public List<ReceiptEntry> getReceiptEntries() {
 		return receiptEntrySelecter.getReceiptEntries();
+	}
+
+	@Override
+	public void addChangeHandler(ChangeHandler handler) {
+		receiptEntrySelecter.addChangeHandler(handler);		
 	}
 
 }

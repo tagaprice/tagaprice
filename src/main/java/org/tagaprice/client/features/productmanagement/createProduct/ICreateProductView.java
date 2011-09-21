@@ -99,6 +99,12 @@ public interface ICreateProductView extends IsWidget {
 	 * @param results statistic results.
 	 */
 	public void setStatisticResults(List<StatisticResult> results);
+	
+	
+	/**
+	 * Tell the statistic widget that activity is loading data from the server
+	 */
+	public void setStatisticIsLoading();
 
 	/**
 	 * Sets the {@link Presenter} which implements the {@link IProductView} to control this view. It is also necessary

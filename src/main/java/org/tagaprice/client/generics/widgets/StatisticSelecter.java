@@ -62,4 +62,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		statisticSelecter.setMapVisible(visible);
 	}
 
+	@Override
+	public void setLoading() {
+		statisticSelecter.setLoading();
+	}
+
 }

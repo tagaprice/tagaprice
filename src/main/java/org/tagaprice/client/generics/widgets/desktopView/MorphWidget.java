@@ -2,6 +2,7 @@ package org.tagaprice.client.generics.widgets.desktopView;
 
 import org.tagaprice.client.generics.widgets.IMorphWidget;
 
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -66,6 +67,11 @@ public class MorphWidget extends Composite implements IMorphWidget {
 		
 		setReadOnly(_readonly);
 		
+	}
+
+	@Override
+	public void addChangeHandler(ChangeHandler handler) {
+		_morph.addChangeHandler(handler);		
 	}
 	
 	

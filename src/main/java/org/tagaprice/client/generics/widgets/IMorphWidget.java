@@ -1,5 +1,6 @@
 package org.tagaprice.client.generics.widgets;
 
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface IMorphWidget extends IsWidget {
@@ -29,4 +30,7 @@ public interface IMorphWidget extends IsWidget {
 	public void setReadOnly(boolean read);
 	
 	public boolean isReadOnly();
+	
+	
+	public void addChangeHandler(ChangeHandler handler);
 }

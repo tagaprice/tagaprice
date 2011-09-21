@@ -101,6 +101,10 @@ public interface ICreateShopView extends IsWidget {
 	 */
 	public void setStatisticLatLon(double lat, double lon);
 	
+	/**
+	 * Tell the statistic widget that activity is loading data from the server
+	 */
+	public void setStatisticIsLoading();
 	
 	/**
 	 * A list of properties and property object. This list must be handled by a property handler

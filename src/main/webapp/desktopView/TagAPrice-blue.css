@@ -695,6 +695,21 @@ input.morphWidget {
 .categorySelecter .arrow.edit {
 }
 
+
+.categorySelecter.headline{
+    background-image:none;
+
+    background-color:#2c2d25;
+    border:none;
+    color: white;
+    font-size: 21px; 
+    text-shadow:none;
+}
+
+.categorySelecter.headline .arrow{
+    
+}
+
 .receiptSearchBox {
     font-weight: bold;
     width: 400px;

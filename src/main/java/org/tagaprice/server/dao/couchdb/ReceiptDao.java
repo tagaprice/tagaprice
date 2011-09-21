@@ -1,5 +1,6 @@
 package org.tagaprice.server.dao.couchdb;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,8 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.receiptManagement.Currency;
+import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -35,12 +38,15 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	@Override
 	public Receipt create(Receipt receipt) throws DaoException {
 
+		BigDecimal price = new BigDecimal("0.0");
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				re.setPackage(m_packageDAO.create(re.getPackage()));
+				
 			}
+			price=price.add(re.getPrice().getPrice());
 		}
-
+		receipt.setPrice(new Price(price, Currency.euro));
 		Receipt rc = super.create(receipt);
 		return rc;
 
@@ -48,11 +54,14 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 	@Override
 	public Receipt update(Receipt receipt) throws DaoException {
+		BigDecimal price = new BigDecimal("0.0");
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				re.setPackage(m_packageDAO.create(re.getPackage()));
 			}
+			price=price.add(re.getPrice().getPrice());
 		}
+		receipt.setPrice(new Price(price, Currency.euro));
 		return super.update(receipt);
 	}
 
@@ -111,9 +120,12 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 
 		for (ValueRow<?> row: result.getRows()) {
 			Log.debug("rowId: "+row.getId());
-			Receipt receipt = get(row.getId());
-			Log.debug("Listsize: "+receipt.getReceiptEntries().size());
-			Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
+			
+			
+			//Fill Receipt with date/shop/price but not packages
+			Receipt receipt = getOnly(row.getId());
+			receipt.setShop(m_shopDAO.getOnly(receipt.getShopId()));
+			
 			rc.add(receipt);
 		}
 

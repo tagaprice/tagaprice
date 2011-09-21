@@ -10,6 +10,7 @@ import org.tagaprice.client.generics.widgets.QuantitySelecter;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -121,6 +122,12 @@ public class ReceiptEntrySelecter extends Composite implements IReceiptEntrySele
 
 			return _receiptEntry;
 		}
+	}
+
+	@Override
+	public void addChangeHandler(ChangeHandler handler) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

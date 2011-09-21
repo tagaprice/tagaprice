@@ -21,6 +21,7 @@ public class Receipt extends Document {
 
 	private Shop _shop;
 	private Date _date;
+	private Price _price;
 	private List<ReceiptEntry> _receiptEntries = new ArrayList<ReceiptEntry>();
 
 	/**
@@ -151,19 +152,21 @@ public class Receipt extends Document {
 	
 	
 	
-	
-	
-	/*
-	@JSONTypeHint(ReceiptEntry.class)
-	public void addReceiptEntries(List<ReceiptEntry> rc) {
-		Log.debug("addReceiptEntries: "+rc.size());
-		_receiptEntries.clear();
-		for(ReceiptEntry r:rc){
-			addReceiptEntries(r);
-		}
-	}
-	*/
 
+
+	/**
+	 * @return the price
+	 */
+	public Price getPrice() {
+		return _price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Price price) {
+		_price = price;
+	}
 
 	/**
 	 * Set the {@link shop} where the user bought the things.

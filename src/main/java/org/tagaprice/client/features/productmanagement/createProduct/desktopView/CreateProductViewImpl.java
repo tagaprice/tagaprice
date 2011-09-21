@@ -13,7 +13,6 @@ import org.tagaprice.client.generics.widgets.PackageSelecter;
 import org.tagaprice.client.generics.widgets.StatisticSelecter;
 import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.UnitSelecter;
-import org.tagaprice.client.generics.widgets.IMorphWidget.Type;
 import org.tagaprice.client.generics.widgets.IStatisticSelecter.TYPE;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Unit;
@@ -284,6 +283,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 	@Override
 	public void setStatisticLatLon(double lat, double lon) {
 		_statistic.setLatLon(lat, lon);		
+	}
+
+	@Override
+	public void setStatisticIsLoading() {
+		_statistic.setLoading();		
 	}
 
 }

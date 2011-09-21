@@ -15,37 +15,31 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceiptService {
+public class ReceiptServiceImpl extends ASessionService implements IReceiptService {
 	private static final long serialVersionUID = 1L;
 	IReceiptDao receiptDAO;
-	ISessionDao sessionDAO;
 
 	public ReceiptServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 		receiptDAO = daoFactory.getReceiptDao();
-		sessionDAO = daoFactory.getSessionDao();
 	}
 
 	@Override
-	public Receipt saveReceipt(String sessionId, Receipt receipt) throws DaoException, UserNotLoggedInException {
+	public Receipt saveReceipt(Receipt receipt) throws DaoException, UserNotLoggedInException {
 		Log.debug("Receipt saved: "+receipt);
 		
-		
-		if (sessionId == null) throw new UserNotLoggedInException("Can't save a receipt without having a valid session!");
-
-		Session session = sessionDAO.get(sessionId);
 		
 		Receipt rc=null;
 
 		// TODO check session validity
-		receipt.setCreatorId(session.getCreatorId());
+		receipt.setCreatorId(getUser().getId());
 
 		//check if a package is new
 		for(ReceiptEntry re: receipt.getReceiptEntries()){
 			if(re.getPackageId()==null){
 				if(!re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) 
 						&& !re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0"))){
-					re.getPackage().setCreatorId(session.getCreatorId());
+					re.getPackage().setCreatorId(getUser().getCreatorId());
 				}else
 					throw new DaoException("package size must not be 0");
 			}
@@ -76,11 +70,9 @@ public class ReceiptServiceImpl extends RemoteServiceServlet implements IReceipt
 	}
 
 	@Override
-	public List<Receipt> getReceipts(String sessionId) throws UserNotLoggedInException, DaoException {
+	public List<Receipt> getReceipts() throws UserNotLoggedInException, DaoException {
 		
-		if (sessionId == null) throw new UserNotLoggedInException("Can't save a receipt without having a valid session!");
-
-		return receiptDAO.listByUser(sessionDAO.get(sessionId).getCreatorId());
+		return receiptDAO.listByUser(getUser().getId());
 	}
 
 }
