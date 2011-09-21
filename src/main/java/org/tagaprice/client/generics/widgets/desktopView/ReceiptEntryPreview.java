@@ -8,6 +8,7 @@ import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ReceiptEntryPreview extends PackagePreview {
@@ -17,6 +18,7 @@ public class ReceiptEntryPreview extends PackagePreview {
 	private CurrencySelecter _currency = new CurrencySelecter();
 	private boolean _readonly = true;
 	private ReceiptEntry _receiptEntry;
+	private NumberFormat dfmt = NumberFormat.getFormat("0.0");
 	
 	
 	public ReceiptEntryPreview(ReceiptEntry receiptEntry) {
@@ -25,7 +27,7 @@ public class ReceiptEntryPreview extends PackagePreview {
 		
 		//price
 		_price.config(true, false);
-		_price.setValue(receiptEntry.getPrice().getPrice().toPlainString());
+		_price.setValue(dfmt.format(receiptEntry.getPrice().getPrice()));
 		_price.setWidth("50px");
 		_hoPa1.add(_price);
 		
@@ -57,7 +59,7 @@ public class ReceiptEntryPreview extends PackagePreview {
 	}
 	
 	public ReceiptEntry getReceiptEntry(){
-		_receiptEntry.setPrice(new Price(new BigDecimal(_price.getValue()), _currency.getCurrency()));
+		_receiptEntry.setPrice(new Price(new BigDecimal(dfmt.parse(_price.getValue())), _currency.getCurrency()));
 		_receiptEntry.getPackage().setQuantity(getPackage().getQuantity());
 		
 		return _receiptEntry;

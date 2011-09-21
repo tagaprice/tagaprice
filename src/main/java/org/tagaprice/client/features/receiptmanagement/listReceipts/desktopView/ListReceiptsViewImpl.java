@@ -9,22 +9,16 @@ import org.tagaprice.client.generics.widgets.StdFrame;
 import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget;
 import org.tagaprice.client.generics.widgets.desktopView.DashboardMenuWidget.MENUPOINT;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
-import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
-
-import com.google.gwt.cell.client.ActionCell;
-import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.view.client.CellPreviewEvent;
-import com.google.gwt.view.client.CellPreviewEvent.Handler;
 
 public class ListReceiptsViewImpl extends Composite implements IListReceiptsView {
 
@@ -35,7 +29,8 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 	private SimplePanel _listSiPa = new SimplePanel();
 	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
-	private CellTable<Receipt> _cellTable = new CellTable<Receipt>();
+	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
+	//private CellTable<Receipt> _cellTable = new CellTable<Receipt>();
 	
 	public ListReceiptsViewImpl() {
 		_frame.setHeader(_header);
@@ -171,11 +166,11 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 			});
 			
 			
-			String money = "0.0€";
+			BigDecimal money = new BigDecimal("0.0");
 			if(r.getPrice()!=null)
-				money=r.getPrice().getPrice().toEngineeringString()+"€";
+				money=r.getPrice().getPrice();
 			
-			Label value = new Label(money);
+			Label value = new Label(dfmt.format(money)+"€");
 			
 			
 			value.addClickHandler(new ClickHandler() {

@@ -189,8 +189,8 @@ public class MockDaoFactory implements IDaoFactory {
 			Receipt receipt = new Receipt(m_testUser.getId(), "Second Receipt", new Date(), is3);
 
 			//Receipt Entry
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("16.0"), Currency.euro), bergkasese1));
-			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("17.0"), Currency.euro), limonPack1));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("16.1"), Currency.euro), bergkasese1));
+			receipt.addReceiptEntries(new ReceiptEntry(new Price(new BigDecimal("17.3"), Currency.euro), limonPack1));
 			receipt=m_receiptDAO.create(receipt);
 		}
 

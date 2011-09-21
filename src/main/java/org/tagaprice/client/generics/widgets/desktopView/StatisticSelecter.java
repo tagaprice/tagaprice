@@ -51,7 +51,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	private Vector _osmMarkerLayer;
 	private SimplePanel _tablepanel = new SimplePanel();
 	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
-	private NumberFormat dfmt = NumberFormat.getDecimalFormat();
+	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
 
 
 	public StatisticSelecter() {
@@ -278,7 +278,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
 					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity())+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
 					shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(shopSortList.get(sk).get(prK).get(paK).getDate())));
-					shopFlex.setWidget(rk, 3+shopProductC, new Label(""+shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice()+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
+					shopFlex.setWidget(rk, 3+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice())+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
 
 					if(!_type.equals(TYPE.SHOP))
 						shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");

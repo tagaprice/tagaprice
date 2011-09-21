@@ -9,6 +9,7 @@ import org.tagaprice.shared.entities.Quantity;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -20,6 +21,7 @@ public class PackagePreview extends APreviewWidget {
 	private UnitSelecter _unitSelecter = new UnitSelecter();
 	private boolean _readonly = true;
 	private Package _pack;
+	private NumberFormat dfmt = NumberFormat.getFormat("0.0");
 	
 	public PackagePreview(Product product, Package pack) {
 		super(product.getTitle(), null);
@@ -29,7 +31,7 @@ public class PackagePreview extends APreviewWidget {
 		//Package
 		if(_pack!=null){
 			_quantity.config(true, false);
-			_quantity.setValue(_pack.getQuantity().getQuantity().toPlainString());
+			_quantity.setValue(dfmt.format(_pack.getQuantity().getQuantity()));
 			_quantity.setWidth("40px");
 			_hoPa1.add(_quantity);
 			
@@ -56,7 +58,7 @@ public class PackagePreview extends APreviewWidget {
 	}
 	
 	public Package getPackage(){
-		_pack.setQuantity(new Quantity(new BigDecimal(_quantity.getValue()),
+		_pack.setQuantity(new Quantity(new BigDecimal(dfmt.parse(_quantity.getValue())),
 				_unitSelecter.getUnit()));
 		
 		

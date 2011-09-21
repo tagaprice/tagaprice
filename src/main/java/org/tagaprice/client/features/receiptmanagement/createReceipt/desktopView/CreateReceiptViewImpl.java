@@ -46,6 +46,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -98,6 +99,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
+	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
 	
 	
 	public CreateReceiptViewImpl() {
@@ -820,7 +822,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 			price = price.add(re.getPrice().getPrice());
 		}
 		
-		_fullPrice.setText(price.toEngineeringString()+"€");
+		_fullPrice.setText(dfmt.format(price)+"€");
 	}
 
 }
