@@ -23,7 +23,14 @@
 	<inherits name='org.tagaprice.FormFactor'/>
 	
 	
+	<!-- Languages -->
 	
+	<extend-property name="locale" values="en"/>
+	<extend-property name="locale" values="de"/>
+	<set-property-fallback name="locale" value="en"/>
+	
+	
+	<set-property name="locale" value="de"/>
 	
 	<!--  <script src="http://jqueryui.com/themeroller/themeswitchertool/"/> -->
 	<!--  <stylesheet src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" /> -->
