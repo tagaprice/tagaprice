@@ -9,7 +9,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Server;
-import org.jcouchdb.document.BaseDocument;
 import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -200,7 +199,12 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 */
 	@Override
 	public void delete(Document ... documents) {
-		m_db.bulkDeleteDocuments(Arrays.asList(documents));
+		if (documents.length == 1) {
+			m_db.delete(documents[0]);
+		}
+		else if (documents.length > 1) {
+			m_db.bulkDeleteDocuments(Arrays.asList(documents));
+		}
 	}
 	
 	/**
