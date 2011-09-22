@@ -98,6 +98,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	public void showSignInUp(boolean showSingIn) {
 		vePaSignInUp.clear();
 		
+		/*
 		//facebook
 		Image fb = new Image("desktopView/fb-login-button.png");
 		fb.setStyleName("loginView-pic");
@@ -107,6 +108,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
 		vePaSignInUp.add(tw);
 		vePaSignInUp.add(new HTML("<br />"));
+		*/
 		
 		//Username
 		Label emailText = new Label("Email");
