@@ -7,6 +7,7 @@ import org.tagaprice.shared.entities.Document;
 
 public class CouchChange implements DynamicProperties {
 	private long _seq;
+	private Long _lastSeq = null;
 	private String _id;
 	private boolean _deleted = false;
 	private Document _document;
@@ -23,6 +24,10 @@ public class CouchChange implements DynamicProperties {
 	public String getId() {
 		return _id;
 	}
+
+	public Long getLast_seq() {
+		return _lastSeq;
+	}
 	
 	public long getSeq() {
 		return _seq;
@@ -30,6 +35,10 @@ public class CouchChange implements DynamicProperties {
 	
 	public boolean getDeleted() {
 		return _deleted;
+	}
+	
+	public boolean hasLastSeq() {
+		return _lastSeq != null;
 	}
 	
 	
@@ -50,6 +59,11 @@ public class CouchChange implements DynamicProperties {
 	
 	public void setId(String id) {
 		_id = id;
+	}
+	
+	public void setLast_seq(Long lastSeq) {
+		_lastSeq = lastSeq;
+		_seq = lastSeq;
 	}
 	
 	public void setSeq(long seq) {
