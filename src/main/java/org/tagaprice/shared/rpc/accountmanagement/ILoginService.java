@@ -1,5 +1,6 @@
 package org.tagaprice.shared.rpc.accountmanagement;
 
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
@@ -19,7 +20,7 @@ public interface ILoginService extends RemoteService {
 	 * @throws WrongEmailOrPasswordException if the login failed
 	 * @throws DaoException if something went wrong at the database backend
 	 */
-	public String setLogin(String email, String password) throws WrongEmailOrPasswordException,
+	public User setLogin(String email, String password) throws WrongEmailOrPasswordException,
 	UserAlreadyLoggedInException, DaoException;
 
 
@@ -34,7 +35,7 @@ public interface ILoginService extends RemoteService {
 	 * 
 	 * @return Returns a new or old sessionId if user is logged in. If user is not logged in, return value is NULL.
 	 */
-	public String isLoggedIn();
+	public User isLoggedIn();
 
 
 	/**

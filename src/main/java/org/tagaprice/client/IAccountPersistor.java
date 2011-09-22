@@ -8,8 +8,6 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 public interface IAccountPersistor {
 	public void setClientFactory(ClientFactory clientFactory);
 
-	public String getSessionId();
-
 	/**
 	 * Returns global Address
 	 */
@@ -32,11 +30,6 @@ public interface IAccountPersistor {
 	 */
 	public void logout() ;
 
-	/**
-	 * Log user in and set session id
-	 * @param sessionId new SessionId
-	 */
-	public void setSessionId(String sessionId);
 
 	/**
 	 * Login and set SessionId

@@ -34,8 +34,8 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	}
 
 	@Override
-	public String setLogin(String email, String password) throws DaoException, UserAlreadyLoggedInException, WrongEmailOrPasswordException {
-		String rc = null;
+	public User setLogin(String email, String password) throws DaoException, UserAlreadyLoggedInException, WrongEmailOrPasswordException {
+		User rc = null;
 
 		User user = _userDao.getByMail(email);
 
@@ -49,7 +49,7 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 		setUser(user);
 		//TODO return user!
-		rc=user.getId();
+		rc=user;
 		
 		return rc;
 	}
@@ -60,12 +60,12 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	}
 
 	@Override
-	public String isLoggedIn() {
-		String rc = null;
+	public User isLoggedIn() {
+		User rc = null;
 
 		//TODO return user
 		try {
-			if(getUser()!=null)rc=getUser().getId();
+			if(getUser()!=null)rc=getUser();
 		} catch (UserNotLoggedInException e) {
 			return null;
 		}

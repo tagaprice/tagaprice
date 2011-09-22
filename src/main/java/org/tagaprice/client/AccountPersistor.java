@@ -9,6 +9,7 @@ import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Address.LatLon;
+import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
@@ -29,7 +30,8 @@ public class AccountPersistor implements IAccountPersistor {
 	private FBCore _fbCore = new FBCore();
 	private ClientFactory _clientFactory;
 	private Receipt _receipt=null;
-
+	private User _user=null;
+	
 	public AccountPersistor() {
 		//Start Facebook
 		_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
@@ -40,10 +42,6 @@ public class AccountPersistor implements IAccountPersistor {
 		_clientFactory=clientFactory;
 	}
 
-	@Override
-	public String getSessionId() {
-		return Cookies.getCookie("TAP_SID");
-	}
 
 	
 	public void addAddress(Address address){
@@ -125,26 +123,17 @@ public class AccountPersistor implements IAccountPersistor {
 		Cookies.setCookie("TAP_cur_address_lon", ""+address.getPos().getLon());
 	}
 
-	/**
-	 * @return true if user is logged in.
-	 */
-	@Override
-	public boolean isLoggedIn() {
-		if(getSessionId()==null)
-			return false;
-		else
-			return true;
-	}
 
 	/**
 	 * Logout user and remove sid
 	 */
 	@Override
 	public void logout() {
+		_user=null;
 		Log.debug("LogOut Button clicked");
 		Cookies.removeCookie("TAP_SID");
 		_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(false));
-
+		
 		//Go To Login Place
 		//goTo(new LoginPlace());
 
@@ -156,7 +145,7 @@ public class AccountPersistor implements IAccountPersistor {
 			public void onSuccess(Void value) {
 				Log.debug("Logout was ok: " + value);
 				//Send User login event
-
+				_user=null;
 			}
 
 			@Override
@@ -172,15 +161,6 @@ public class AccountPersistor implements IAccountPersistor {
 		});
 	}
 
-	/**
-	 * Log user in and set session id
-	 * @param sessionId new SessionId
-	 */
-	@Override
-	public void setSessionId(String sessionId) {
-		Cookies.setCookie("TAP_SID", sessionId);
-		checkLogin();
-	}
 
 	/**
 	 * Login and set SessionId
@@ -189,13 +169,12 @@ public class AccountPersistor implements IAccountPersistor {
 	 */
 	@Override
 	public void login(String email, String password){
-		_clientFactory.getLoginService().setLogin(email, password, new AsyncCallback<String>() {
+		_clientFactory.getLoginService().setLogin(email, password, new AsyncCallback<User>() {
 
 			@Override
-			public void onSuccess(String sessionId) {
-				Log.debug("Login OK. SessionId: " + sessionId);
-				setSessionId(sessionId);
-
+			public void onSuccess(User user) {
+				Log.debug("Login OK. SessionId: " + user.getMail());
+				_user=user;
 				//Send User login event
 				_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
 
@@ -224,26 +203,33 @@ public class AccountPersistor implements IAccountPersistor {
 	 */
 	@Override
 	public void checkLogin(){
-
-		//Start Account Initialisation
-		//clientFactory.getAccountPersistor().getAddress();
-
-		//Get Position if no one is saved in the cookies.
-		/*
-		if(getAddress()==null){
-			_clientFactory.getEventBus().fireEvent(new WaitForAddressEvent());
-		}
-		*/
-
-		//Test if user is logged in
-		if(isLoggedIn()){
-			Log.debug("User is loggedIn");
-			_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
-		}else{
-			Log.debug("User is not loggedIn");
-			_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(false));
-			checkFB();
-		}
+		
+		_clientFactory.getLoginService().isLoggedIn(new AsyncCallback<User>() {
+			
+			@Override
+			public void onSuccess(User user) {
+				if(user!=null){
+					_user=user;
+					//Send User login event
+					_clientFactory.getEventBus().fireEvent(new LoginChangeEvent(true));
+				}else{
+					logout();
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				try {
+					throw caught;
+				} catch (WrongEmailOrPasswordException e) {
+					Log.warn("Login problem: " + e);
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Something is wrong ", INFOTYPE.ERROR));
+				} catch (Throwable e) {
+					Log.error("Unexpected error: " + e);
+				}				
+			}
+		});
+		
 
 	}
 
@@ -274,5 +260,13 @@ public class AccountPersistor implements IAccountPersistor {
 	@Override
 	public Receipt getReceiptDraft() {
 		return _receipt;
+	}
+
+	@Override
+	public boolean isLoggedIn() {
+		if(_user!=null)
+			return true;
+		
+		return false;
 	}
 }
