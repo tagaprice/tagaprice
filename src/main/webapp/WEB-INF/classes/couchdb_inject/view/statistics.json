@@ -33,6 +33,13 @@
           if (doc.sequenceNr) emit(doc.sequenceNr, null);
         }
       }"
+    },
+    "byReceipt": {
+      "map": "function(doc) {
+        if (doc.docType == 'statistics') {
+          if (doc.receiptId) emit(doc.receiptId, doc._rev);
+        }
+      }"
     }
   },
   "language": "javascript"
