@@ -86,7 +86,20 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	public Map<String, String> getAffectedIDs(String documentId) throws DaoException {
 		Map<String, String> rc = new HashMap<String, String>();
 
-		ViewResult<?> result = m_db.queryView("statistics/containedIDs", StatisticResult.class, null, null);
+		ViewResult<?> result = m_db.queryView("statistics/containedIDs", StatisticResult.class, new Options().key(documentId), null);
+		
+		for (ValueRow<?> row: result.getRows()) {
+			String statisticsId = row.getId();
+			rc.put(statisticsId, row.getValue().toString());
+		}
+
+		return rc;
+	}
+	
+	public Map<String, String> getIDsByReceipt(String receiptId) {
+		Map<String, String> rc = new HashMap<String, String>();
+
+		ViewResult<?> result = m_db.queryView("statistics/byReceipt", StatisticResult.class, new Options().key(receiptId), null);
 		
 		for (ValueRow<?> row: result.getRows()) {
 			String statisticsId = row.getId();
