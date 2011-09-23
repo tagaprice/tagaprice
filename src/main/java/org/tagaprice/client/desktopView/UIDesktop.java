@@ -6,9 +6,13 @@ import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
+import org.tagaprice.client.generics.events.DisplayLoginEvent;
+import org.tagaprice.client.generics.events.DisplayLoginEventHandler;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,7 +36,7 @@ public class UIDesktop implements IUi {
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
-	private PopupPanel loginPop = new PopupPanel(true);
+	private PopupPanel loginPop = new PopupPanel(false);
 	
 	private void init(){
 		{
@@ -116,10 +120,14 @@ public class UIDesktop implements IUi {
 		
 		
 		loginPop.getElement().getStyle().setZIndex(2000);
+		loginPop.setGlassEnabled(true);
+		loginPop.setAnimationEnabled(true);
 
+		loginPop.center();
+		loginPop.hide();
 		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 		
-		
+		loginPop.setWidget(loginPres.getView());
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -127,8 +135,9 @@ public class UIDesktop implements IUi {
 				if(_clientFactory.getAccountPersistor().isLoggedIn()){
 					_clientFactory.getPlaceController().goTo(new ListReceiptsPlace());
 				}else{
-					loginPop.setWidget(loginPres.getView());
-					loginPop.showRelativeTo(login);	
+					
+					//loginPop.showRelativeTo(login);	
+					_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(true));
 				}
 							
 			}
@@ -206,10 +215,26 @@ public class UIDesktop implements IUi {
 		
 	
 		//Set Popvisilb
+		
 		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
 			@Override
 			public void onLoginChange(LoginChangeEvent event) {
-				loginPop.hide();
+				if(event.isLoggedIn())
+					loginPop.hide();
+			}
+		});
+		
+		
+		//ShopLogin
+		_clientFactory.getEventBus().addHandler(DisplayLoginEvent.TYPE, new DisplayLoginEventHandler() {
+			
+			@Override
+			public void onDisplayLogin(DisplayLoginEvent event) {
+				if(event.isShow()){
+					Log.debug("Pop Login");
+					
+					loginPop.show();
+				}
 			}
 		});
 

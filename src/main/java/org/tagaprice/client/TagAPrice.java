@@ -89,52 +89,6 @@ public class TagAPrice implements EntryPoint {
 		clientFactory.getAccountPersistor().setClientFactory(clientFactory);
 		clientFactory.getAccountPersistor().checkLogin();
 
-		/*
-		//Start Account Initialisation
-		//clientFactory.getAccountPersistor().getAddress();
-
-		//Get Position if no one is saved in the cookies.
-		if(clientFactory.getAccountPersistor().getAddress()==null){
-			eventBus.fireEvent(new WaitForAddressEvent());
-		}
-
-		//Test if user is logged in
-		if(!clientFactory.getAccountPersistor().isLoggedIn()){
-			TagAPrice._logger.log("User is not loggedIn");
-			eventBus.fireEvent(new LoginChangeEvent(false));
-		}else{
-			TagAPrice._logger.log("User is loggedIn");
-
-			//Start Facebook
-			_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
-
-			//Check current status via async
-			_fbCore.getLoginStatus(new AsyncCallback<JavaScriptObject>() {
-
-				@Override
-				public void onSuccess(JavaScriptObject result) {
-					TagAPrice._logger.log("Findout the facebook login status");
-					//myHellow(result);
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					TagAPrice._logger.log("Facebook login Problem");
-				}
-			});
-
-			eventBus.fireEvent(new LoginChangeEvent(true));
-
-			//TODO Get address from user via rpc and send AddressChanged event
-		}
-		 */
-
-
-
-		//test info box
-		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "success", INFOTYPE.SUCCESS,0));
-		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "error", INFOTYPE.ERROR,0));
-		//eventBus.fireEvent(new InfoBoxShowEvent(TagAPrice.class, "Info", INFOTYPE.INFO,0));
 
 
 

@@ -6,7 +6,6 @@ import java.util.List;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
-import org.tagaprice.client.generics.facebook.FBCore;
 import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.accountmanagement.User;
@@ -27,14 +26,11 @@ public class AccountPersistor implements IAccountPersistor {
 
 
 	private Address I_ADDRESS;
-	private FBCore _fbCore = new FBCore();
 	private ClientFactory _clientFactory;
 	private Receipt _receipt=null;
 	private User _user=null;
 	
 	public AccountPersistor() {
-		//Start Facebook
-		_fbCore.init(Config.CONFIG.facebookAppId(), true, true, true);
 	}
 
 	@Override
@@ -234,22 +230,6 @@ public class AccountPersistor implements IAccountPersistor {
 	}
 
 
-	private void checkFB(){
-		//Check current status via async
-		_fbCore.getLoginStatus(new AsyncCallback<JavaScriptObject>() {
-
-			@Override
-			public void onSuccess(JavaScriptObject result) {
-				Log.debug("Findout the facebook login status");
-				//myHellow(result);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Log.error("Facebook login Problem");
-			}
-		});
-	}
 
 	@Override
 	public void setReceiptDraft(Receipt draft) {

@@ -2,6 +2,7 @@ package org.tagaprice.client.features.startmanagement;
 
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.startmanagement.IStartView.Presenter;
+import org.tagaprice.client.generics.events.DisplayLoginEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -10,6 +11,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 public class StartActivity implements Activity, Presenter {
 
@@ -45,7 +48,13 @@ public class StartActivity implements Activity, Presenter {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
 		Window.setTitle("home");
-		
+		Log.debug("redir: "+_place.getRedirect());
+		if(_place.getRedirect()!=null && _place.getRedirect().equals("true")){
+			
+			eventBus.fireEvent(new DisplayLoginEvent(true));
+			
+			
+		}
 		
 		_startView = _clientFactory.getStartView();
 		_startView.setPresenter(this);
