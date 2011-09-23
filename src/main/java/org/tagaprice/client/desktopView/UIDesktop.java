@@ -17,6 +17,8 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -118,16 +120,31 @@ public class UIDesktop implements IUi {
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
 		menu.setCellWidth(login, "1%");
 		
+		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 		
+		
+		
+		//create poptup
+		Button close = new Button("x", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				loginPop.hide();
+			}
+		});
+		AbsolutePanel aPop = new AbsolutePanel();
+		aPop.add(loginPres.getView());
+		aPop.add(close);
+		aPop.setWidgetPosition(close, 0, 0);
+		loginPop.setWidget(aPop);
 		loginPop.getElement().getStyle().setZIndex(2000);
 		loginPop.setGlassEnabled(true);
 		loginPop.setAnimationEnabled(true);
-
-		loginPop.center();
-		loginPop.hide();
-		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+		loginPop.setGlassStyleName("loginPopGlass");
 		
-		loginPop.setWidget(loginPres.getView());
+		
+		
+	
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -232,7 +249,8 @@ public class UIDesktop implements IUi {
 			public void onDisplayLogin(DisplayLoginEvent event) {
 				if(event.isShow()){
 					Log.debug("Pop Login");
-					
+
+					loginPop.center();
 					loginPop.show();
 				}
 			}
