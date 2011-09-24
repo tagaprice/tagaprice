@@ -1,0 +1,10 @@
+{
+  "type": "couchdb",
+  "couchdb": {
+    "host": "{COUCH_HOST}",
+    "port": "{COUCH_PORT}",
+    "db": "tagaprice-statistics",
+    "filter": null,
+    "script": "var docType = ctx.doc.docType; ctx._type = docType;"
+  }
+}

@@ -1,11 +1,25 @@
 package org.tagaprice.server.dao.couchdb;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
+import org.elasticsearch.action.admin.indices.exists.IndicesExistsRequest;
+import org.elasticsearch.action.admin.indices.exists.IndicesExistsResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.action.search.SearchRequestBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.GeoBoundingBoxFilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.tagaprice.server.rpc.Mail;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 
@@ -18,7 +32,7 @@ public class ElasticSearchClient {
 	private Client m_client;
 	private String m_indexName;
 
-	public ElasticSearchClient(CouchDbConfig config) {
+	public ElasticSearchClient(CouchDbConfig config, String configDir) throws IOException {
 		Log.debug("Connecting to the ElasticSearch server (host: '"+config.getElasticSearchHost()+"', port: "+config.getElasticSearchPort()+")");
 		m_client = new TransportClient()
 			.addTransportAddress(new InetSocketTransportAddress(
@@ -26,6 +40,60 @@ public class ElasticSearchClient {
 				config.getElasticSearchPort())
 			);
 		m_indexName = config.getElasticSearchIndex();
+		
+		// create the index if necessary
+		createIndexIfNotExists(m_indexName);
+		
+		// create the mappings
+		for (String fileName: InitialInjector.allFilesIn("elasticsearch/"+configDir+"/mappings/")) {
+			if (fileName.endsWith(".json")) {
+				File file = new File(fileName);
+				String typeName = file.getName().replace(".json", "");
+				String data = getInputStreamContents(new FileInputStream(file));
+				PutMappingRequest request = new PutMappingRequest(m_indexName)
+					.type(typeName)
+					.source(data);
+				m_client.admin().indices().putMapping(request).actionGet();
+			}
+		}
+
+		// check if the _river index exists
+		createIndexIfNotExists("_river");
+		
+		// create the river configuration
+		String riverConfig = getInputStreamContents(Mail.loadFile("elasticsearch/"+configDir+"/river.json"));
+		
+		riverConfig = riverConfig
+			.replace("{COUCH_HOST}", config.getCouchHost())
+			.replace("{COUCH_PORT}", new Integer(config.getCouchPort()).toString())
+			.replace("{COUCH_DB}", config.getCouchDatabase());
+		createDocumentIfNotExists("_river", m_indexName, "_meta", riverConfig);
+	}
+	
+	private String getInputStreamContents(InputStream is) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		String line;
+		StringBuffer rc = new StringBuffer();
+		
+		while ((line = reader.readLine()) != null) {
+			rc.append(line);
+		}
+		return rc.toString();
+	}
+	
+	private void createIndexIfNotExists(String indexName) {
+		IndicesExistsResponse existsResponse = m_client.admin().indices().exists(new IndicesExistsRequest(indexName)).actionGet();
+		if (!existsResponse.exists()) {
+			CreateIndexResponse createResponse = m_client.admin().indices().create(new CreateIndexRequest(indexName)).actionGet();
+			if (!createResponse.acknowledged()) throw new RuntimeException("Index creation failed (indexName: '"+indexName+"')");
+		}
+	}
+	
+	private void createDocumentIfNotExists(String indexName, String type, String id, String data) {
+		// TODO check if the document already exists
+		m_client.prepareIndex(indexName, type, id)
+			.setRouting("meta")
+			.setSource(data).execute().actionGet();
 	}
 
 	public SearchResponse find(String query, int from, int size, Document.Type ... types) {
@@ -41,9 +109,7 @@ public class ElasticSearchClient {
 					notFilter(
 						termFilter("docType", "shop")
 					),
-					geoBoundingBoxFilter("address.pos")
-						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
-						.topLeft(bbox.getNorthLat(), bbox.getWestLon())
+					createBoundingBoxFilter("address.pos", bbox)
 				)
 		);
 		return find(queryBuilder, start, limit, types);
@@ -83,12 +149,15 @@ public class ElasticSearchClient {
 	public SearchResponse findShop(String query, BoundingBox bbox, int limit) {
 		QueryBuilder queryBuilder = filteredQuery(
 			queryString(query),
-			geoBoundingBoxFilter("address.pos")
-				.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
-				.topLeft(bbox.getNorthLat(), bbox.getWestLon())
+			createBoundingBoxFilter("address.pos", bbox)
 		);
 
 		return find(queryBuilder, 0, limit, Document.Type.SHOP);
 	}
-
+	
+	public static GeoBoundingBoxFilterBuilder createBoundingBoxFilter(String name, BoundingBox bbox) {
+		return geoBoundingBoxFilter(name)
+			.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
+			.topLeft(bbox.getNorthLat(), bbox.getWestLon());
+	}
 }

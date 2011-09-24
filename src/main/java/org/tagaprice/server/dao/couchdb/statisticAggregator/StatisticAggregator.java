@@ -38,6 +38,8 @@ import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 public class StatisticAggregator extends Thread {
 	private HttpClient _client;
 	private HttpGet _getRequest;
@@ -62,8 +64,11 @@ public class StatisticAggregator extends Thread {
 
 	public void run() {
 		_stopFlag = false;
+		long seqNr = 0;
+
 		while (!_stopFlag) {
 			try {
+				seqNr = Math.max(seqNr, _statisticDao.getMaxSequenceNr());
 				CouchDbConfig configuration = CouchDbDaoFactory.getConfiguration();
 				
 				String host = configuration.getCouchHost();
@@ -73,7 +78,7 @@ public class StatisticAggregator extends Thread {
 				}
 				int port = configuration.getCouchPort();
 				String path = "/"+configuration.getCouchDatabase()+"/_changes";
-				String query = "feed=continuous&include_docs=true&since="+_statisticDao.getMaxSequenceNr();
+				String query = "feed=continuous&include_docs=true&since="+seqNr;
 				
 				_client = new DefaultHttpClient();
 				URI uri = new URI("http", userInfo, host, port, path, query, null);
@@ -85,20 +90,14 @@ public class StatisticAggregator extends Thread {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 					String line;
 					while ((line = reader.readLine()) != null) {
-						System.out.println("Line: '"+line+"'");
+						Log.debug("StatisticAggregator got changes line: '"+line+"'");
 						if (line.length() > 0) {
-							parseLine(line);
-							return;
+							seqNr = Math.max(seqNr, parseLine(line));
 						}
 					}
-					
 				}
 			} catch (Throwable e) {
-				do {
-					e.printStackTrace();
-					e = e.getCause();
-					if (e != null) System.err.println("Caused by:");
-				} while (e != null);
+				Log.error("Exception in StatisticAggregator caught: "+e.getMessage(), e);
 			}
 			
 			// make sure we won't hang in a CPU eating loop if there is an error 
@@ -110,7 +109,7 @@ public class StatisticAggregator extends Thread {
 		}
 	}
 	
-	private void parseLine(String line) throws DaoException {
+	private long parseLine(String line) throws DaoException {
 		CouchChange changes = JSONParser.defaultJSONParser().parse(CouchChange.class, line);
 		Document document = changes.getDoc();
 		if (changes.getDeleted() == true) {
@@ -128,6 +127,7 @@ public class StatisticAggregator extends Thread {
 				break;
 			}
 		}
+		return changes.getSeq();
 	}
 	
 	public synchronized void stopListening() {
@@ -172,7 +172,7 @@ public class StatisticAggregator extends Thread {
 						Unit unit = _unitDao.get(quantityMap.get("unitId").toString());
 						Quantity quantity = new Quantity(new BigDecimal(
 								quantityMap.get("quantity").toString()),
-								new Unit(null, unit.getId(), null, unit.getTitle(), null, Double.NaN));
+								new Unit(null, unit.getId(), null, unit.getTitle(), null, 0));
 						statistic.getPackage().setQuantity(quantity);
 					}
 					
@@ -216,7 +216,7 @@ public class StatisticAggregator extends Thread {
 		Document document = changes.getDoc();
 	
 		// first delete all the old statistics documents that are associated to this Receipt
-		_statisticDao.delete(_statisticDao.getAffectedIDs(document.getId()));
+		_statisticDao.delete(_statisticDao.getIDsByReceipt(document.getId()));
 
 		// then create a new one for each receipt entry
 		Shop shop = null;
@@ -243,7 +243,9 @@ public class StatisticAggregator extends Thread {
 			if (timestampString.endsWith(".0")) {
 				timestampString = timestampString.replace(".0", "");
 			}
-			timestamp = new Date(new Long(timestampString));
+			if (!timestampString.contains("e") && !timestampString.contains("E")) {
+				timestamp = new Date(new Long(timestampString));
+			}
 		}
 
 		if (document.hasProperty("receiptEntries")) {
@@ -275,11 +277,14 @@ public class StatisticAggregator extends Thread {
 								}
 								statistic.setProduct(new Product(null, product.getId(), null, product.getTitle(), category, null));
 							}
-							Unit unit = _unitDao.get(pkg.getQuantity().getUnitId());
-							statistic.setUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, unit.getFactor()));
-							if (unit.getParentId() != null) {
-								unit = _unitDao.get(unit.getParentId());
-								statistic.setParentUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, Double.NaN));
+							String unitId = pkg.getQuantity().getUnitId();
+							if (unitId != null) {
+								Unit unit = _unitDao.get(unitId);
+								statistic.setUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, unit.getFactor()));
+								if (unit.getParentId() != null) {
+									unit = _unitDao.get(unit.getParentId());
+									statistic.setParentUnit(new Unit(null, unit.getId(), null, unit.getTitle(), null, 0));
+								}
 							}
 						}
 
@@ -298,13 +303,5 @@ public class StatisticAggregator extends Thread {
 				}
 			}
 		}
-
-
-	}
-	
-	public static void main(String args[]) throws InterruptedException {
-		CouchDbDaoFactory daoFactory = new CouchDbDaoFactory();
-		StatisticAggregator aggregator = new StatisticAggregator(daoFactory, new StatisticDao(daoFactory));
-		aggregator.run();
 	}
 }

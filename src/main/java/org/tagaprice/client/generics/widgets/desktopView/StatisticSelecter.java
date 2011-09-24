@@ -276,9 +276,10 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
-					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getQuantity())+"/"+shopSortList.get(sk).get(prK).get(paK).getPackage().getQuantity().getUnit().getTitle()));
-					shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(shopSortList.get(sk).get(prK).get(paK).getDate())));
-					shopFlex.setWidget(rk, 3+shopProductC, new Label(dfmt.format(shopSortList.get(sk).get(prK).get(paK).getPrice().getPrice())+"/"+shopSortList.get(sk).get(prK).get(paK).getPrice().getCurrency()));
+					StatisticResult statistics = shopSortList.get(sk).get(prK).get(paK);
+					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(statistics.getPackage().getQuantity().getQuantity())+"/"+statistics.getUnit().getTitle()));
+					if (statistics.getDate() != null) shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(statistics.getDate())));
+					shopFlex.setWidget(rk, 3+shopProductC, new Label(dfmt.format(statistics.getPrice().getPrice())+"/"+statistics.getPrice().getCurrency()));
 
 					if(!_type.equals(TYPE.SHOP))
 						shopFlex.getCellFormatter().setStyleName(rk, 0, "statisticTable-cell");

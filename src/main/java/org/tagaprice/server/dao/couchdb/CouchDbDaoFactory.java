@@ -196,9 +196,11 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		String dbName;
 		try {
 			dbName = getConfiguration().getCouchDatabase();
-			injector.init(getServerObject(), dbName);
+			injector.init(getServerObject(), dbName, "main");
 
-			m_elasticSearchClient = new ElasticSearchClient(getConfiguration());
+			m_elasticSearchClient = new ElasticSearchClient(getConfiguration(), "main");
+			
+			m_statisticDao = new StatisticDao(this);
 		} catch (Exception e) {
 			Log.error("Error while initializing CouchDB");
 			e.printStackTrace();
@@ -208,9 +210,6 @@ public class CouchDbDaoFactory implements IDaoFactory {
 
 	@Override
 	public IStatisticDao getStatisticDao() {
-		if(m_statisticDao == null){
-			m_statisticDao = new StatisticDao(this);
-		}
 		return m_statisticDao;
 	}
 
