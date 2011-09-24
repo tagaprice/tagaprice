@@ -74,5 +74,11 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 	}
 
+	@Override
+	public String getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

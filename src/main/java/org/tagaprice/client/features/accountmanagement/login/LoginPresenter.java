@@ -74,18 +74,22 @@ public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Present
 
 		if(loginView.getEmail().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Email is empty", INFOTYPE.ERROR,0));
-
+		
 		if(loginView.getPassword().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Password is empty", INFOTYPE.ERROR,0));
 
 		if(!loginView.getPassword().isEmpty() && loginView.getPassword().length()<6)
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Password must have more than 6 characters", INFOTYPE.ERROR,0));
 
+		if(loginView.getDisplayName().trim().isEmpty())
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Displayname must not be empty", INFOTYPE.ERROR,0));
+
 
 
 		if(
 				!loginView.getEmail().isEmpty() &&
-				loginView.getPassword().length()>=6){
+				loginView.getPassword().length()>=6 &&
+				!loginView.getDisplayName().trim().isEmpty()){
 			final InfoBoxShowEvent registerShow = new InfoBoxShowEvent(LoginPresenter.class, "Try to register...", INFOTYPE.INFO);
 			_clientFactory.getEventBus().fireEvent(registerShow);
 
@@ -96,9 +100,9 @@ public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Present
 					if(response==true){
 
 						_clientFactory.getLoginService().registerUser(
+								loginView.getDisplayName(),
 								loginView.getEmail(),
 								loginView.getPassword(),
-								true,
 								new AsyncCallback<Boolean>() {
 
 									@Override
@@ -108,6 +112,8 @@ public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Present
 											_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Juhu. You are registered. Waiting for confirming", INFOTYPE.INFO));
 											//goTo(new StartPlace());
+											loginView.showWaitForConfirmation();
+											
 											
 											 t = new Timer() {
 												
@@ -137,7 +143,7 @@ public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Present
 											
 											
 											
-											loginView.showWaitForConfirmation();
+											
 
 										}else{
 											Log.error("Unexpected registration problem");

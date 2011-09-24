@@ -341,6 +341,7 @@ a:HOVER {
 
 .loginView-pic {
     margin-bottom: 4px;
+    cursor:pointer;
 }
 
 .loginPopGlass{
