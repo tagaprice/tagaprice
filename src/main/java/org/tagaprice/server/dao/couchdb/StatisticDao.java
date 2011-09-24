@@ -172,16 +172,48 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	@Override
 	public List<StatisticResult> searchPricesViaShopCategory(String categoryId,
 			BoundingBox bbox, Date begin, Date end) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		List<StatisticResult> rc = new ArrayList<StatisticResult>();
+
+		QueryBuilder queryBuilder = constantScoreQuery(
+			andFilter(
+				termFilter("shopCategory._id", categoryId),
+				ElasticSearchClient.createBoundingBoxFilter("shop.address.pos", bbox),
+				rangeFilter("timestamp").from(begin.getTime()).to(end.getTime())
+			)
+		);
+
+		SearchResponse searchResponse = m_searchClient.find(queryBuilder, Document.Type.STATISTICS);
+
+		for (SearchHit hit: searchResponse.getHits().getHits()) {
+			StatisticResult statistic = JSONParser.defaultJSONParser().parse(StatisticResult.class, JSON.defaultJSON().forValue(hit.getSource()));
+			rc.add(statistic);
+		}
+
+		return rc;
 	}
 
 	@Override
 	public List<StatisticResult> searchPricesViaProductCategory(
 			String categoryId, BoundingBox bbox, Date begin, Date end)
 			throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		List<StatisticResult> rc = new ArrayList<StatisticResult>();
+
+		QueryBuilder queryBuilder = constantScoreQuery(
+			andFilter(
+				termFilter("productCategory._id", categoryId),
+				ElasticSearchClient.createBoundingBoxFilter("shop.address.pos", bbox),
+				rangeFilter("timestamp").from(begin.getTime()).to(end.getTime())
+			)
+		);
+
+		SearchResponse searchResponse = m_searchClient.find(queryBuilder, Document.Type.STATISTICS);
+
+		for (SearchHit hit: searchResponse.getHits().getHits()) {
+			StatisticResult statistic = JSONParser.defaultJSONParser().parse(StatisticResult.class, JSON.defaultJSON().forValue(hit.getSource()));
+			rc.add(statistic);
+		}
+
+		return rc;
 	}
 
 }
