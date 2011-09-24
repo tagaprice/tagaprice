@@ -21,7 +21,7 @@ import com.allen_sauer.gwt.log.client.Log;
  */
 public class DaoClass<T extends Document> implements IDaoClass<T> {
 	/// JCouchDB server object
-	private Server m_server;
+	protected Server m_server;
 
 	/// ElasticSearch client object
 	private ElasticSearchClient m_searchClient;
