@@ -11,6 +11,7 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.exists.IndicesExistsResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.action.search.SearchRequestBuilder;
@@ -49,7 +50,10 @@ public class ElasticSearchClient {
 				File file = new File(fileName);
 				String typeName = file.getName().replace(".json", "");
 				String data = getInputStreamContents(new FileInputStream(file));
-				createDocumentIfNotExists(m_indexName, typeName, "_mapping", data);
+				PutMappingRequest request = new PutMappingRequest(m_indexName)
+					.type(typeName)
+					.source(data);
+				m_client.admin().indices().putMapping(request).actionGet();
 			}
 		}
 
