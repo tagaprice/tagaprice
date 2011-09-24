@@ -21,7 +21,6 @@ public class SocialAuthenticationAction extends HttpServlet {
 
 		HttpSession session = req.getSession(true);
 
-		PrintWriter out = resp.getWriter();
 		String id = req.getParameter("id").trim();
 
 		// Create an instance of SocialAuthConfgi object
@@ -48,7 +47,12 @@ public class SocialAuthenticationAction extends HttpServlet {
 		}
 
 		// URL of YOUR application which will be called after authentication
-		String successUrl = "http://127.0.0.1:8888/TagAPrice/socialAuthSuccessAction";
+		//System.out.println("RequestURL:"+req.getRequestURL());
+		//System.out.println("hostName: "+req.getLocalName());
+		String successUrl ="http://"+req.getLocalName()+":"+req.getLocalPort();	
+		
+		
+		successUrl += "/TagAPrice/socialAuthSuccessAction";
 
 		// get Provider URL to which you should redirect for authentication.
 		// id can have values "facebook", "twitter", "yahoo" etc. or the OpenID

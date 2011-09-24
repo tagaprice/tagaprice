@@ -39,7 +39,8 @@ public abstract class ASessionService extends RemoteServiceServlet {
 	}
 	
 	protected void setUser(User user){
-		getThreadLocalRequest().getSession().setAttribute("suser", user);
+		Log.debug("setUser "+user);
+		getThreadLocalRequest().getSession(true).setAttribute("suser", user);
 	}
 	
 	/**
