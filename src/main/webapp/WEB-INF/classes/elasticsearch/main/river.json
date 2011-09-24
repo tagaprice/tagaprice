@@ -5,6 +5,6 @@
     "port": "{COUCH_PORT}",
     "db": "{COUCH_DB}",
     "filter": null,
-    "script": "var docType = ctx.doc.docType; ctx._type = docType; if (docType == 'receipt') ctx._parent = ctx.doc.shopId; else if (docType == 'package') ctx._parent = ctx.doc.productId;"
+    "script": "var docType = ctx.doc.docType; ctx._type = docType;"
   }
 }
