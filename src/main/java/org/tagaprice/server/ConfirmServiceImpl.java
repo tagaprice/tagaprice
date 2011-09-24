@@ -42,7 +42,9 @@ public class ConfirmServiceImpl extends HttpServlet {
 						if(conf.equals(md5(mail+user.getConfirmSalt()))){
 							user.setConfirmed(true);
 							_userDao.update(user);
-								info = "You are now registered. Please go back to your (open) TagAPrice window.";
+								//info = "You are now registered. Please go back to your (open) TagAPrice window.";
+								response.sendRedirect("#start:/null/redirect/true");
+							return;
 						}else{
 							info="something went wrong";
 						}
@@ -63,15 +65,8 @@ public class ConfirmServiceImpl extends HttpServlet {
 			out.print("something went wrong");
 		}
 		
-		String html=
-			"<html>\n" +
-			"<head>\n" +
-			"</head>\n" +
-			"<body>\n" +
-			info +
-			"</body>\n" +
-			"</html>\n";
-		out.print(html);
+		
+		out.print(info);
 		
 	};
 	

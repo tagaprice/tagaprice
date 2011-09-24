@@ -6,13 +6,19 @@ import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
+import org.tagaprice.client.generics.events.DisplayLoginEvent;
+import org.tagaprice.client.generics.events.DisplayLoginEventHandler;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -32,7 +38,7 @@ public class UIDesktop implements IUi {
 	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
-	private PopupPanel loginPop = new PopupPanel(true);
+	private PopupPanel loginPop = new PopupPanel(false);
 	
 	private void init(){
 		{
@@ -114,12 +120,31 @@ public class UIDesktop implements IUi {
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
 		menu.setCellWidth(login, "1%");
 		
-		
-		loginPop.getElement().getStyle().setZIndex(2000);
-
 		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
 		
 		
+		
+		//create poptup
+		Button close = new Button("x", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				loginPop.hide();
+			}
+		});
+		AbsolutePanel aPop = new AbsolutePanel();
+		aPop.add(loginPres.getView());
+		aPop.add(close);
+		aPop.setWidgetPosition(close, 0, 0);
+		loginPop.setWidget(aPop);
+		loginPop.getElement().getStyle().setZIndex(2000);
+		loginPop.setGlassEnabled(true);
+		loginPop.setAnimationEnabled(true);
+		loginPop.setGlassStyleName("loginPopGlass");
+		
+		
+		
+	
 		login.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -127,8 +152,9 @@ public class UIDesktop implements IUi {
 				if(_clientFactory.getAccountPersistor().isLoggedIn()){
 					_clientFactory.getPlaceController().goTo(new ListReceiptsPlace());
 				}else{
-					loginPop.setWidget(loginPres.getView());
-					loginPop.showRelativeTo(login);	
+					
+					//loginPop.showRelativeTo(login);	
+					_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(true));
 				}
 							
 			}
@@ -206,10 +232,27 @@ public class UIDesktop implements IUi {
 		
 	
 		//Set Popvisilb
+		
 		_clientFactory.getEventBus().addHandler(LoginChangeEvent.TYPE, new LoginChangeEventHandler() {
 			@Override
 			public void onLoginChange(LoginChangeEvent event) {
-				loginPop.hide();
+				if(event.isLoggedIn())
+					loginPop.hide();
+			}
+		});
+		
+		
+		//ShopLogin
+		_clientFactory.getEventBus().addHandler(DisplayLoginEvent.TYPE, new DisplayLoginEventHandler() {
+			
+			@Override
+			public void onDisplayLogin(DisplayLoginEvent event) {
+				if(event.isShow()){
+					Log.debug("Pop Login");
+
+					loginPop.center();
+					loginPop.show();
+				}
 			}
 		});
 

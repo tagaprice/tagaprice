@@ -47,18 +47,15 @@ public interface ILoginService extends RemoteService {
 	 */
 	public boolean isEmailAvailable(String email);
 
-
-
 	/**
-	 * Register a user with an email. The user will receive an email with
-	 * an auto generated password.
-	 * @param email that should be registered
+	 * 
+	 * @param displayName The users display name. Don't have to be unique
+	 * @param email email that should be registered
 	 * @param password password
-	 * @param agreeTerms if user agrees our terms and conditions
-	 * @return return true if everything was ok.
+	 * @return true if everything was ok.
 	 * @throws DaoException
 	 */
-	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException;
+	public boolean registerUser(String displayName, String email, String password) throws DaoException;
 
 	/**
 	 * Set new password.

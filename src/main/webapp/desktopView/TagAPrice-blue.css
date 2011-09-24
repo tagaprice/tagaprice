@@ -309,6 +309,7 @@ a:HOVER {
     border-radius: 5px;
     border-top-right-radius: 0px;
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+    margin:20px;
 }
 
 .loginView input {
@@ -340,6 +341,12 @@ a:HOVER {
 
 .loginView-pic {
     margin-bottom: 4px;
+    cursor:pointer;
+}
+
+.loginPopGlass{
+    background-color:rgba(0, 0, 0, 0.5);
+    z-index:1200;
 }
 
 .infoBox {

@@ -16,6 +16,12 @@ public interface ILoginView extends IsWidget {
 	public void setPresenter(Presenter presenter);
 
 	/**
+	 * Returns the DisplayName of the user. This name don't have to be unique. 
+	 * @return the DisplayName of the user. This name don't have to be unique. 
+	 */
+	public String getDisplayName();
+	
+	/**
 	 * Returns the email address in the textbox
 	 * @return email address in textbox
 	 */

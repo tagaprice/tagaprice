@@ -23,6 +23,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private SimplePanel panel = new SimplePanel();
 	private VerticalPanel vePaSignInUp = new VerticalPanel();
 	private MorphWidget email = new MorphWidget();
+	private MorphWidget diplayName = new MorphWidget();
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button signInButton = new Button("Log in");
 	private Button signUpButton = new Button("Sign up!");
@@ -34,7 +35,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 
 	public LoginViewImpl() {
 		initWidget(panel);
-		panel.setWidth("200px");
+		panel.setWidth("180px");
 		setStyleName("loginView");
 		
 		//We have to add hander here because of multible fire events
@@ -87,8 +88,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@Override
 	public void showWaitForConfirmation() {
 		VerticalPanel conWait = new VerticalPanel();
-		conWait.add(new Label("We have just sent you an confirmation mail. Please klick the link in this mail to finish you registration."));
-		conWait.add(new Label("..."));
+		conWait.add(new Label("We have just sent you an confirmation mail. Please click the link in this mail to finish you registration."));
 		panel.setWidget(conWait);
 		
 	}
@@ -98,19 +98,46 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	public void showSignInUp(boolean showSingIn) {
 		vePaSignInUp.clear();
 		
+		
 		//facebook
 		Image fb = new Image("desktopView/fb-login-button.png");
 		fb.setStyleName("loginView-pic");
+		fb.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		vePaSignInUp.add(fb);
 		
 		//twitter
 		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
+		tw.setStyleName("loginView-pic");
+		tw.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		vePaSignInUp.add(tw);
-		vePaSignInUp.add(new HTML("<br />"));
+		vePaSignInUp.add(new HTML("<hr />"));
+		
 		
 		//Username
 		Label emailText = new Label("Email");
 		Label passwordText = new Label("Password");
+		final Label displayText = new Label("Display Name");
+		
+		//diplayName
+		vePaSignInUp.add(displayText);
+		vePaSignInUp.add(diplayName);
+		diplayName.setReadOnly(false);
+		displayText.setVisible(false);
+		diplayName.setVisible(false);
 		
 		vePaSignInUp.add(emailText);
 		vePaSignInUp.add(email);
@@ -150,6 +177,8 @@ public class LoginViewImpl extends Composite implements ILoginView {
 					signUpButton.setVisible(false);
 					passwordForgotText.setVisible(true);
 					terms.setVisible(false);
+					displayText.setVisible(false);
+					diplayName.setVisible(false);
 				}
 			}
 		});
@@ -163,6 +192,9 @@ public class LoginViewImpl extends Composite implements ILoginView {
 					signInButton.setVisible(false);
 					passwordForgotText.setVisible(false);
 					terms.setVisible(true);
+
+					displayText.setVisible(true);
+					diplayName.setVisible(true);
 				}				
 			}
 		});		
@@ -182,6 +214,11 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		}
 		
 		panel.setWidget(vePaSignInUp);
+	}
+
+	@Override
+	public String getDisplayName() {
+		return diplayName.getValue();
 	}
 
 }

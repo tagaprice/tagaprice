@@ -133,16 +133,16 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	}
 
 	@Override
-	public boolean registerUser(String email, String password, boolean agreeTerms) throws DaoException {
+	public boolean registerUser(String diplayName, String email, String password) throws DaoException {
 		Log.debug("Try to register: email: " + email + ", password: " + password);
 
 		password=password.trim();
 		email=email.trim();
 		
-		// TODO do some error handling here
+		// do some error handling here
 		if (!isEmailAvailable(email)) return false;
 		if (password.length() < 6) return false;
-
+		if (diplayName.trim().isEmpty()) return false;
 
 
 		String salt = generateSalt(24);
@@ -157,7 +157,7 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 		
 		try {
-			User user = new User(email); // TODO we need an actual user name here
+			User user = new User(diplayName); // TODO we need an actual user name here
 			user.setMail(email);
 			user.setPasswordSalt(salt);
 			user.setPasswordHash(pwdHash);
