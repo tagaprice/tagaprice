@@ -7,10 +7,10 @@
 
 	<context-param>
 		<param-name>daoFactoryClass</param-name>
-		
+
 		<!-- Couch -->
 		<param-value>org.tagaprice.server.dao.couchdb.CouchDbDaoFactory</param-value>
-		<!--  <param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value> -->
+		<!-- <param-value>org.tagaprice.server.dao.mock.MockDaoFactory</param-value> -->
 	</context-param>
 	<!-- Servlets -->
 
@@ -25,20 +25,43 @@
 		<url-pattern>/TagAPrice/initservlet</url-pattern>
 	</servlet-mapping>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>dummyservice</servlet-name>
-    <servlet-class>org.tagaprice.server.rpc.DummyServiceImpl</servlet-class>
-  </servlet>
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>dummyservice</servlet-name>
+		<servlet-class>org.tagaprice.server.rpc.DummyServiceImpl</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>dummyservice</servlet-name>
-    <url-pattern>/TagAPrice/dummy</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dummyservice</servlet-name>
+		<url-pattern>
+			/TagAPrice/dummy</url-pattern>
+	</servlet-mapping>
 
-<!-- BEGIN: RPC -->
+	<!-- BEGIN: RPC -->
 
+	<!-- SocialAuth servlets -->
+	<servlet>
+		<servlet-name>socialAuth</servlet-name>
+		<servlet-class>org.tagaprice.server.SocialAuthenticationAction</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>socialAuth</servlet-name>
+		<url-pattern>/TagAPrice/socialAuth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>socialAuthSuccess</servlet-name>
+		<servlet-class>org.tagaprice.server.SocialAuthSuccessAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>socialAuthSuccess</servlet-name>
+		<url-pattern>/TagAPrice/socialAuthSuccessAction</url-pattern>
+	</servlet-mapping>
+
+	
+	<!-- GWT-RPC servlets -->
 	<servlet>
 		<servlet-name>productservice</servlet-name>
 		<servlet-class>org.tagaprice.server.rpc.ProductServiceImpl</servlet-class>
@@ -108,8 +131,8 @@
 		<servlet-name>unitService</servlet-name>
 		<url-pattern>/TagAPrice/unitservice</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<!-- Confirmation -->
 	<servlet>
 		<servlet-name>confirmService</servlet-name>
@@ -121,7 +144,7 @@
 		<url-pattern>/TagAPrice/confirmservice</url-pattern>
 	</servlet-mapping>
 
-<!-- JUNIT -->
+	<!-- JUNIT -->
 
 	<servlet>
 		<servlet-name>jUnitHostImpl</servlet-name>
@@ -151,9 +174,9 @@
 
 	<!-- END: RPC -->
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>TagAPrice.html</welcome-file>
-  </welcome-file-list>
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>TagAPrice.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>

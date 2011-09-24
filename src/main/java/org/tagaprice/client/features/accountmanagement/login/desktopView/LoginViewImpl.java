@@ -2,12 +2,16 @@ package org.tagaprice.client.features.accountmanagement.login.desktopView;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.generics.widgets.MorphWidget;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -106,8 +110,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
 			}
 		});
 		vePaSignInUp.add(fb);

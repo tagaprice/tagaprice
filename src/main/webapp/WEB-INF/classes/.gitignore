@@ -1,2 +1,3 @@
 couchdb.properties
 mail.properties
+/oauth_consumer.properties
