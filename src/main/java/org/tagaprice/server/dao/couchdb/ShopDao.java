@@ -3,30 +3,22 @@ package org.tagaprice.server.dao.couchdb;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.SearchHit;
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IShopDao;
-import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
-import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	
 	private ICategoryDao m_shopCategoryDAO;
-	private ElasticSearchClient m_searchClient;
 	
 	public ShopDao(CouchDbDaoFactory daoFactory) {
 		super(daoFactory, Shop.class, Document.Type.SHOP, null);
 		m_shopCategoryDAO = daoFactory.getShopCategoryDao();
-		m_searchClient = daoFactory.getElasticSearchClient();
 	}
 	
 	@Override
@@ -37,31 +29,6 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 		for (ValueRow<?> row: result.getRows()) {
 			Shop shop = get(row.getId());
 			rc.add(shop);
-		}
-		
-		return rc;
-	}
-	
-	@Override
-	public List<String> findIDsThatSell(BoundingBox bbox, List<String> packageIDs) throws DaoException {
-		List<String> rc = new ArrayList<String>();
-
-		QueryBuilder queryBuilder = filteredQuery(
-				matchAllQuery(),
-				andFilter(
-					geoBoundingBoxFilter("address.pos")
-						.bottomRight(bbox.getSouthLat(), bbox.getEastLon())
-						.topLeft(bbox.getNorthLat(), bbox.getWestLon()),
-					hasChildFilter(Document.Type.RECEIPT.toString(),
-						termsQuery("packageId", packageIDs.toArray())
-					)
-				)
-			);
-
-		SearchResponse response = m_searchClient.find(queryBuilder, 0, 100, Document.Type.SHOP);
-
-		for (SearchHit hit: response.getHits().getHits()) {
-			rc.add(hit.getId());
 		}
 		
 		return rc;

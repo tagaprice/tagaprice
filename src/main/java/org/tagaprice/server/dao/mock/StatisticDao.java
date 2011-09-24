@@ -11,7 +11,6 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
 import org.tagaprice.shared.entities.searchmanagement.StatisticResult;
 import org.tagaprice.shared.exceptions.dao.DaoException;
-import org.tagaprice.shared.entities.productmanagement.Package;
 
 import com.allen_sauer.gwt.log.client.Log;
 
