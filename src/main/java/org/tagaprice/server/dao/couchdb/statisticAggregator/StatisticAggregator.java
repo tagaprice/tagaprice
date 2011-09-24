@@ -239,13 +239,16 @@ public class StatisticAggregator extends Thread {
 		}
 
 		if (document.hasProperty("timeStamp")) {
-			String timestampString = document.getProperty("timeStamp").toString();
-			if (timestampString.endsWith(".0")) {
-				timestampString = timestampString.replace(".0", "");
+			Object timestampObject = document.getProperty("timeStamp");
+			Long timestampLong = null;
+			if (timestampObject instanceof BigDecimal) {
+				timestampLong = ((BigDecimal) timestampObject).longValue();
 			}
-			if (!timestampString.contains("e") && !timestampString.contains("E")) {
-				timestamp = new Date(new Long(timestampString));
+			else {
+				timestampLong = new Long(timestampObject.toString());
 			}
+
+			if (timestampLong != null) timestamp = new Date(timestampLong);
 		}
 
 		if (document.hasProperty("receiptEntries")) {
