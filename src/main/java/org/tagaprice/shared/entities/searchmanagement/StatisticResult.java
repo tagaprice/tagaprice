@@ -19,6 +19,7 @@ public class StatisticResult extends Document {
 	private Shop _shop;
 	private Category _shopCategory;
 	private Product _product;
+	private Category _productCategory;
 	private Price _price;
 	private Package _package;
 	private String _receiptId;
@@ -71,6 +72,7 @@ public class StatisticResult extends Document {
 		return _shop;
 	}
 	
+	@JSONProperty(ignoreIfNull=true)
 	public Category getShopCategory() {
 		return _shopCategory;
 	}
@@ -83,7 +85,10 @@ public class StatisticResult extends Document {
 		return _product;
 	}
 
-
+	@JSONProperty(ignoreIfNull=true)
+	public Category getProductCategory() {
+		return _productCategory;
+	}
 
 
 	/**
@@ -144,6 +149,10 @@ public class StatisticResult extends Document {
 	 */
 	public void setProduct(Product product) {
 		_product = product;
+	}
+	
+	public void setProductCategory(Category category) {
+		_productCategory = category;
 	}
 
 	/**
