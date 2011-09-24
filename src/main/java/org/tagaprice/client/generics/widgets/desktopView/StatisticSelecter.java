@@ -189,7 +189,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
 			}else{
 				//Overwrite old date
-				if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
+				if(sr.getDate() != null && shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
 					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
 				}
 			}
