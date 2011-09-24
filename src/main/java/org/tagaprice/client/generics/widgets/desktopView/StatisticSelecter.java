@@ -277,7 +277,8 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				rk++;
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
 					StatisticResult statistics = shopSortList.get(sk).get(prK).get(paK);
-					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(statistics.getPackage().getQuantity().getQuantity())+"/"+statistics.getUnit().getTitle()));
+					String unitTitle = statistics.getUnit() != null ? statistics.getUnit().getTitle() : null;
+					shopFlex.setWidget(rk, 1+shopProductC, new Label(dfmt.format(statistics.getPackage().getQuantity().getQuantity())+"/"+unitTitle));
 					if (statistics.getDate() != null) shopFlex.setWidget(rk, 2+shopProductC, new Label(fmt.format(statistics.getDate())));
 					shopFlex.setWidget(rk, 3+shopProductC, new Label(dfmt.format(statistics.getPrice().getPrice())+"/"+statistics.getPrice().getCurrency()));
 
