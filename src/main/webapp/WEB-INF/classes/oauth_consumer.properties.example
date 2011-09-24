@@ -1,3 +1,7 @@
+#redirekt url plus port
+redirecturl = http://127.0.0.1:8888/TagAPrice.html?gwt.codesvr=127.0.0.1:9997
+
+
 #google
 www.google.com.consumer_key = opensource.brickred.com
 www.google.com.consumer_secret = YC06FqhmCLWvtBg/O4W/aJfj
