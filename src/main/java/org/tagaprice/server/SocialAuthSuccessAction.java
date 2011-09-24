@@ -1,7 +1,10 @@
 package org.tagaprice.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import org.brickred.socialauth.SocialAuthManager;
 import org.brickred.socialauth.util.SocialAuthUtil;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IUserDao;
+import org.tagaprice.server.dao.couchdb.CouchDbDaoFactory;
 import org.tagaprice.server.rpc.ASessionService;
 import org.tagaprice.server.rpc.InitServlet;
 import org.tagaprice.shared.entities.accountmanagement.User;
@@ -32,6 +36,8 @@ public class SocialAuthSuccessAction extends ASessionService {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		
 		HttpSession session = req.getSession(true);
 
 		// get the social auth manager from session
@@ -75,7 +81,7 @@ public class SocialAuthSuccessAction extends ASessionService {
 					
 					req.getSession(true).setAttribute("suser", user);
 					
-					resp.sendRedirect("/#start:null");
+					resp.sendRedirect(p+"/#start:null");
 				}else {
 					// login with this user
 					
