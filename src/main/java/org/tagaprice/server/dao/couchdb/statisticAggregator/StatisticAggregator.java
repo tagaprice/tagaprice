@@ -274,11 +274,13 @@ public class StatisticAggregator extends Thread {
 							Product product = _productDao.get(pkg.getProductId());
 							statistic.setPackage(new Package(null, pkg.getId(), null, new Quantity(pkg.getQuantity().getQuantity(), null)));
 							if (product != null) {
+								statistic.setProduct(new Product(null, product.getId(), null, product.getTitle(), null, null));
+
 								Category category = null;
 								if (product.getCategory() != null) {
 									category = new Category(null, product.getCategoryId(), null, product.getCategory().getTitle(), null);
+									statistic.setProductCategory(category);
 								}
-								statistic.setProduct(new Product(null, product.getId(), null, product.getTitle(), category, null));
 							}
 							String unitId = pkg.getQuantity().getUnitId();
 							if (unitId != null) {
