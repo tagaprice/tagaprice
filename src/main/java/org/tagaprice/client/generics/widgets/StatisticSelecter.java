@@ -67,4 +67,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		statisticSelecter.setLoading();
 	}
 
+	@Override
+	public void onStop() {
+		statisticSelecter.onStop();
+	}
+
 }

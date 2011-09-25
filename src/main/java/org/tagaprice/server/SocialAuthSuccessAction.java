@@ -71,15 +71,29 @@ public class SocialAuthSuccessAction extends ASessionService {
 			
 			//is for systems with email
 			//is email free
-			if(!p.getEmail().isEmpty()){
-				User user = _userDao.getByMail(p.getEmail());
+			String username=null;
+			String email = null;
+			if(p.getProviderId().equals("facebook")){
+				if(p.getEmail()!=null)email=p.getEmail();
+				if(p.getDisplayName()!=null)username=p.getDisplayName();
+				else username=p.getFirstName();
+			}else if(p.getProviderId().equals("twitter")){
+				if(p.getDisplayName()!=null){
+					email = p.getDisplayName();
+					username=p.getDisplayName();
+				}
+			}
+						
+			
+			if(email!=null && username!=null){
+				User user = _userDao.getByMail(email);
 				
 				
 				if(user==null){
 					//create new user
-					user = new User(p.getFirstName());
+					user = new User(username);
 					//user.setTitle(p.getDisplayName());
-					user.setMail(p.getEmail());
+					user.setMail(email);
 					user.setProperty(p.getProviderId(), "true");
 					user = _userDao.create(user);
 										

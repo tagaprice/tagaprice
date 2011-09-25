@@ -290,4 +290,9 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		_statistic.setLoading();		
 	}
 
+	@Override
+	public void onStop() {
+		_statistic.onStop();		
+	}
+
 }

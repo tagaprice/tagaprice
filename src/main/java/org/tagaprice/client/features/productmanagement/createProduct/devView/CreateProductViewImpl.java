@@ -201,5 +201,11 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 		
 	}
 
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

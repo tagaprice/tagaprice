@@ -13,7 +13,10 @@ import com.google.gwt.place.shared.Place;
 
 public interface ICategoryView extends IsWidget {
 
-	
+	/**
+	 * Tell the view that it is going to be destroyed or set invisible.
+	 */
+	public void onStop();
 	
 	
 	public void setPresenter(Presenter presenter);

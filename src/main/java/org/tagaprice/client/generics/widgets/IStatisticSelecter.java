@@ -33,4 +33,6 @@ public interface IStatisticSelecter extends IsWidget {
 	public void setMapVisible(boolean visible);
 	
 	public void setLoading();
+	
+	public void onStop();
 }

@@ -47,6 +47,7 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 
 	@Override
 	public String mayStop() {
+		_createProductView.onStop();
 		_statisticDebounce++;
 		// TODO Auto-generated method stub
 		return null;

@@ -279,5 +279,12 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 	public void setStatisticIsLoading() {
 		_statistic.setLoading();
 	}
+
+
+
+	@Override
+	public void onStop() {
+		_statistic.onStop();		
+	}
 	
 }

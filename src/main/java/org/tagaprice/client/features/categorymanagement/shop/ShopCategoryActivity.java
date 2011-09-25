@@ -36,6 +36,12 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 		_clientFactory=clientFactory;
 	}
 	
+	@Override
+	public String mayStop() {
+		_categoryView.onStop();
+		_statisticDebounce++;
+		return null;
+	}
 	
 	@Override
 	public void start(final AcceptsOneWidget panel, EventBus eventBus) {
