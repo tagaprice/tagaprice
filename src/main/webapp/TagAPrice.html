@@ -3,29 +3,31 @@
 <!-- browser's rendering engine into               -->
 <!-- "Standards Mode". Replacing this declaration  -->
 <!-- with a "Quirks Mode" doctype may lead to some -->
-<!-- differences in layout.                        -->              
+<!-- differences in layout.                        -->
 
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <!--                                                               -->
-    <!-- Consider inlining CSS to reduce the number of requested files -->
-    <!--                                                               -->
-    <link href='http://fonts.googleapis.com/css?family=Passero+One' rel='stylesheet' type='text/css'>
-    <link type="text/css" rel="stylesheet" href="desktopView/TagAPrice-blue.css">
-    <!--  <link type="text/css" rel="stylesheet" href="desktopView/jqueryui/css/smoothness/jquery-ui-1.8.14.custom.css"> -->
+<!--                                                               -->
+<!-- Consider inlining CSS to reduce the number of requested files -->
+<!--                                                               -->
+<link href='http://fonts.googleapis.com/css?family=Passero+One'
+	rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet"
+	href="desktopView/TagAPrice-blue.css">
+<!--  <link type="text/css" rel="stylesheet" href="desktopView/jqueryui/css/smoothness/jquery-ui-1.8.14.custom.css"> -->
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>TagAPrice</title>
+<!--                                           -->
+<!-- Any title is fine                         -->
+<!--                                           -->
+<title>TagAPrice</title>
 
-    <!--                                           -->
-    <!-- This script loads your compiled module.   -->
-    <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
-    <!--                                           -->
+<!--                                           -->
+<!-- This script loads your compiled module.   -->
+<!-- If you add any GWT meta tags, they must   -->
+<!-- be added before this line.                -->
+<!--                                           -->
 <script src="http://openlayers.org/api/2.9/OpenLayers.js"></script>
 <script type="text/javascript"
 	src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
@@ -33,30 +35,56 @@
 
 
 
-    
-  </head>
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or      -->
-  <!-- you can leave the body empty if you want  -->
-  <!-- to create a completely dynamic UI.        -->
-  <!--                                           -->
-  <body>
+</head>
 
-    <!-- OPTIONAL: include this if you want history support -->
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+<!--                                           -->
+<!-- The body can have arbitrary html, or      -->
+<!-- you can leave the body empty if you want  -->
+<!-- to create a completely dynamic UI.        -->
+<!--                                           -->
+<body>
 
-    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-    <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
-    </noscript>
-	<script type="text/javascript" language="javascript" src="TagAPrice/TagAPrice.nocache.js"></script>
-  
-  	<a href="http://github.com/tagaprice/tagaprice">
-  	<img style="position: absolute; top: 0; left: 0; border: 0;" src="desktopView/forkme.png" 
-  	alt="Fork me on GitHub"></a>
-  </body>
+	<!-- OPTIONAL: include this if you want history support -->
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+
+	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+	<noscript>
+		<div
+			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+			Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</div>
+	</noscript>
+	<script type="text/javascript" language="javascript"
+		src="TagAPrice/TagAPrice.nocache.js"></script>
+
+	<a href="http://github.com/tagaprice/tagaprice"> <img
+		style="position: absolute; top: 0; left: 0; border: 0;"
+		src="desktopView/forkme.png" alt="Fork me on GitHub">
+	</a>
+
+	<!-- Piwik -->
+	<script type="text/javascript">
+		var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.fakeroot.at/"
+				: "http://piwik.fakeroot.at/");
+		document.write(unescape("%3Cscript src='" + pkBaseURL
+				+ "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
+			piwikTracker.trackPageView();
+			piwikTracker.enableLinkTracking();
+		} catch (err) {
+		}
+	</script>
+	<noscript>
+		<p>
+			<img src="http://piwik.fakeroot.at/piwik.php?idsite=4"
+				style="border: 0" alt="" />
+		</p>
+	</noscript>
+	<!-- End Piwik Tracking Code -->
+</body>
 </html>
