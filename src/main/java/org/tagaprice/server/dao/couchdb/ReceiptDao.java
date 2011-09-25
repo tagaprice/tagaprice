@@ -129,7 +129,18 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 			receiptIDs.add(row.getId());
 		}
 		
-		Map<String, Receipt> receipts = getBulk(receiptIDs.toArray(new String[receiptIDs.size()]));
+		Map<String, Receipt> receipts = getBulkOnly(receiptIDs.toArray(new String[receiptIDs.size()]));
+		Set<String> shopIDs = new TreeSet<String>();
+		
+		for (Receipt receipt: receipts.values()) {
+			if (receipt.getShopId() != null) shopIDs.add(receipt.getShopId());
+		}
+		
+		Map<String, Shop> shops = m_shopDAO.getBulkOnly(shopIDs.toArray(new String[shopIDs.size()]));
+		
+		for (Receipt receipt: receipts.values()) {
+			if (receipt.getShopId() != null) receipt.setShop(shops.get(receipt.getShopId()));
+		}
 	
 		return new ArrayList<Receipt>(receipts.values());
 	}
