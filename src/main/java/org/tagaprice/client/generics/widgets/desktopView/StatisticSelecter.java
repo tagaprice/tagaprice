@@ -356,4 +356,9 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 		
 	}
 
+	@Override
+	public void onStop() {
+		_osmMarkerLayer.destroyFeatures();		
+	}
+
 }

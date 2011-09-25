@@ -19,6 +19,10 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface ICreateProductView extends IsWidget {
 
+	/**
+	 * Tell the view that it is going to be destroyed or set invisible.
+	 */
+	public void onStop();
 
 	/**
 	 * Sets the displayed title

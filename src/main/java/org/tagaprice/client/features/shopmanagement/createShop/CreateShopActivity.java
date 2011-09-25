@@ -48,8 +48,8 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 
 	@Override
 	public String mayStop() {
+		_createShopView.onStop();
 		_statisticDebounce++;
-		// TODO Auto-generated method stub
 		return null;
 	}
 

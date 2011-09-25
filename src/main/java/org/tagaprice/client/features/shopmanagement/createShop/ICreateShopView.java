@@ -21,6 +21,12 @@ public interface ICreateShopView extends IsWidget {
 
 	
 	/**
+	 * Tell the view that it is going to be destroyed or set invisible.
+	 */
+	public void onStop();
+	
+	
+	/**
 	 * Sets the depending {@link Category} for a
 	 * {@link Product}
 	 * 

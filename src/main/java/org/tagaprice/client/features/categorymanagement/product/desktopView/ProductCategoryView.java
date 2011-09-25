@@ -115,4 +115,10 @@ public class ProductCategoryView extends Composite implements ICategoryView {
 		_statistic.setLoading();			
 	}
 
+
+	@Override
+	public void onStop() {
+		_statistic.onStop();
+	}
+
 }

@@ -114,4 +114,10 @@ public class ShopCategoryView extends Composite implements ICategoryView {
 	public void setStatisticIsLoading() {
 		_statistic.setLoading();		
 	}
+
+
+	@Override
+	public void onStop() {
+		_statistic.onStop();
+	}
 }
