@@ -129,10 +129,13 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		List<T> rc = new ArrayList<T>();
 
 		for (SearchHit hit: searchResponse.getHits().getHits()) {
-			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
-			T item = get(hit.getId());
-			if (item != null) rc.add(item);
+			String json = org.svenson.JSON.defaultJSON().forValue(hit.getSource());
+			rc.add(JSONParser.defaultJSONParser().parse(m_class, json));
 		}
+
+		@SuppressWarnings("unchecked")
+		T arr[] = (T[]) Array.newInstance(m_class, rc.size());
+		_injectFields(rc.toArray(arr));
 
 		return rc;
 	}
