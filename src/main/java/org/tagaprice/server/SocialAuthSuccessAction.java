@@ -26,11 +26,19 @@ public class SocialAuthSuccessAction extends ASessionService {
 	private static final long serialVersionUID = 1L;
 
 	private IUserDao _userDao;
+	private static Properties _properties;
 	
-	public SocialAuthSuccessAction() {
+	public SocialAuthSuccessAction() throws IOException {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 
 		_userDao = daoFactory.getUserDao();
+		
+		if(_properties==null){
+			_properties=new Properties();
+			//Get Properties
+			InputStream stream = CouchDbDaoFactory.class.getResourceAsStream("/"+"oauth_consumer.properties");
+			_properties.load(stream);	
+		}
 	}
 	
 	@Override
@@ -81,15 +89,17 @@ public class SocialAuthSuccessAction extends ASessionService {
 					
 					req.getSession(true).setAttribute("suser", user);
 					
-					resp.sendRedirect(p+"/#start:null");
+					//resp.sendRedirect("/#start:null");
 				}else {
 					// login with this user
 					
-					if(user.getProperty(p.getProviderId()).equals("true")){
+					if("true".equals(user.getProperty(p.getProviderId()))){
 						req.getSession(true).setAttribute("suser", user);
-						resp.sendRedirect("/#start:null");
+						
 					}
 				}
+				
+				resp.sendRedirect(_properties.getProperty("redirecturl")+"/#start:null");
 			}
 			
 			
