@@ -22,6 +22,14 @@ public interface IDaoClass<T extends Document> {
 	 * @throws DaoException If something went wrong
 	 */
 	public Map<String, T> getBulk(String ... ids) throws DaoException;
+	
+	/**
+	 * Requests several documents at once (but not their fields)
+	 * @param ids IDs of the documents to query
+	 * @return Map of ID-Document tuples
+	 * @throws DaoException If something went wrong
+	 */
+	public Map<String, T> getBulkOnly(String ... ids) throws DaoException;
 
 	/**
 	 * Faster alternative to get() that doesn't fetch child objects (for DAO implementations that support this)

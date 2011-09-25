@@ -84,6 +84,11 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	}
 
 	@Override
+	public Map<String, T> getBulkOnly(String ... ids) throws DaoException {
+		return getBulk(ids);
+	}
+
+	@Override
 	public T update(T document) throws DaoException {
 		if (document.getId() == null) throw new DaoException("Documents must have an ID when you update them!");
 		if (!m_data.containsKey(document.getId())) throw new DaoException("Document not found! (id: '"+document.getId()+"')");

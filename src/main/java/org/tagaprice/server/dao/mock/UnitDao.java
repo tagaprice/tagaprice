@@ -56,6 +56,11 @@ public class UnitDao implements IUnitDao {
 	}
 
 	@Override
+	public Map<String, Unit> getBulkOnly(String ... ids) throws DaoException {
+		return getBulk(ids);
+	}
+
+	@Override
 	public Unit update(Unit unit) {
 		unit.setRevision(""+(Integer.parseInt(unit.getRevision())+1));
 
