@@ -2,6 +2,9 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
@@ -92,9 +95,19 @@ public class CategoryDao extends DaoClass<Category> implements ICategoryDao {
 
 	
 	@Override
-	protected void _injectFields(Category category) throws DaoException {
-		if (category.getParent() != null) {
-			category.setParent(get(category.getParent().getId()));
+	protected void _injectFields(Category ... categories) throws DaoException {
+		Set<String> parentIDs = new TreeSet<String>();
+
+		for(Category category: categories) {
+			if (category.getParentId() != null) parentIDs.add(category.getParentId());
+		}
+
+		Map<String, Category> parents = getBulk(parentIDs.toArray(new String[parentIDs.size()]));
+		
+		for(Category category: categories) {
+			if (category.getParentId() != null) {
+				category.setParent(parents.get(category.getParentId()));
+			}
 		}
 	}
 

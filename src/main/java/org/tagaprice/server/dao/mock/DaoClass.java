@@ -71,6 +71,17 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	public T getOnly(String id) throws DaoException {
 		return get(id);
 	}
+	
+	@Override
+	public Map<String, T> getBulk(String ... ids) throws DaoException {
+		Map<String, T> rc = new HashMap<String, T>();
+
+		for (String id: ids) {
+			rc.put(id, get(id));
+		}
+
+		return null;
+	}
 
 	@Override
 	public T update(T document) throws DaoException {

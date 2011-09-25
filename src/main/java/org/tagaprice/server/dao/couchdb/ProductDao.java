@@ -2,6 +2,10 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
@@ -9,6 +13,8 @@ import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.Unit;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.productmanagement.Package;
 import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -65,17 +71,30 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 
 	@Override
-	protected void _injectFields(Product product) throws DaoException {
-		if (product.getCategoryId() != null) {
-			product.setCategory(m_categoryDAO.get(product.getCategoryId()));
-		}
+	protected void _injectFields(Product ... products) throws DaoException {
+		Set<String> categoryIDs = new TreeSet<String>();
+		Set<String> unitIDs = new TreeSet<String>();
 
-		if (product.getUnitId() != null) {
-			product.setUnit(m_unitDAO.get(product.getUnitId()));
+		for (Product product: products) {
+			if (product.getCategoryId() != null) categoryIDs.add(product.getCategoryId());
+			if (product.getUnitId() != null) unitIDs.add(product.getUnitId());
 		}
+		
+		Map<String, Category> categories = m_categoryDAO.getBulk(categoryIDs.toArray(new String[categoryIDs.size()]));
+		Map<String, Unit> units = m_unitDAO.getBulk(unitIDs.toArray(new String[unitIDs.size()]));
 
-		//Add packages
-		product.setPackages(m_packageDAO.listByProduct(product.getId()));
+		for (Product product: products) {
+			if (product.getCategoryId() != null) {
+				product.setCategory(categories.get(product.getCategoryId()));
+			}
+	
+			if (product.getUnitId() != null) {
+				product.setUnit(units.get(product.getUnitId()));
+			}
+
+			//Add packages (TODO make this bulk too)
+			product.setPackages(m_packageDAO.listByProduct(product.getId()));
+		}
 	}
 
 
