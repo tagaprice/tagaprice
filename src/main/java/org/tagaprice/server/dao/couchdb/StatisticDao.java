@@ -133,7 +133,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 			matchAllQuery(),
 			andFilter(
 				termFilter("product._id", productId),
-				ElasticSearchClient.createBoundingBoxFilter("address.pos", bbox),
+				ElasticSearchClient.createBoundingBoxFilter("shop.address.pos", bbox),
 				rangeFilter("timestamp").from(begin.getTime()).to(end.getTime())
 			)
 		);
