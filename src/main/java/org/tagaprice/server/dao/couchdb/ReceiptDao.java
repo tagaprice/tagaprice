@@ -161,16 +161,24 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 			for (ReceiptEntry entry: receipt.getReceiptEntries()) {
 				if (entry.getPackageId() != null) {
 					packageIDs.add(entry.getPackageId());
-					if (entry.getPackage().getProductId() != null) {
-						productIDs.add(entry.getPackage().getProductId());
-					}
 				}
 			}
 		}
 		
 		Map<String, Shop> shops = m_shopDAO.getBulk(shopIDs.toArray(new String[shopIDs.size()]));
 		Map<String, Package> packages = m_packageDAO.getBulk(packageIDs.toArray(new String[packageIDs.size()]));
+
+		// inject the products into the packages
+		for (Package pkg: packages.values()) {
+			if (pkg.getProductId() != null) productIDs.add(pkg.getProductId());
+		}
 		Map<String, Product> products = m_productDAO.getBulk(productIDs.toArray(new String[productIDs.size()]));
+		for (Package pkg: packages.values()) {
+			if (pkg.getProductId() != null) {
+				pkg.setProduct(products.get(pkg.getProductId()));
+			}
+		}
+
 
 		for (Receipt receipt: receipts) {
 			if(receipt.getShopId() != null){
@@ -178,13 +186,11 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 			}
 			
 			for(ReceiptEntry entry: receipt.getReceiptEntries()) {
-				if(entry.getPackageId()!=null){
+				if(entry.getPackageId()!=null) {
 					entry.setPackage(packages.get(entry.getPackageId()));
-					entry.getPackage().setProduct(products.get(entry.getPackage().getProductId()));
 				}
 			}
 		}
-		
 	}
 
 }
