@@ -129,8 +129,7 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 	public List<StatisticResult> searchPricesViaProduct(String productId, BoundingBox bbox, Date begin, Date end) throws DaoException {
 		List<StatisticResult> rc = new ArrayList<StatisticResult>();
 		
-		QueryBuilder queryBuilder = filteredQuery(
-			matchAllQuery(),
+		QueryBuilder queryBuilder = constantScoreQuery(
 			andFilter(
 				termFilter("product._id", productId),
 				ElasticSearchClient.createBoundingBoxFilter("shop.address.pos", bbox),
