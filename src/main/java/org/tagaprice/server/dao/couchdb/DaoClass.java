@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,6 +216,13 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 				T doc = JSONParser.defaultJSONParser().parse(m_class, json);
 				rc.put(doc.getId(), doc);
 			}
+		}
+
+		if (rc.size() > 0) {
+			Collection<T> values = rc.values();
+			@SuppressWarnings("unchecked")
+			T arr[] = (T[]) Array.newInstance(m_class, values.size());
+			_injectFields(values.toArray(arr));
 		}
 
 		return rc;
