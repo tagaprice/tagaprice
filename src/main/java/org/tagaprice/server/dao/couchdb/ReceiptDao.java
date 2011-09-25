@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jcouchdb.db.Options;
 import org.jcouchdb.document.ValueRow;
@@ -13,10 +16,13 @@ import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.productmanagement.Package;
+import org.tagaprice.shared.entities.productmanagement.Product;
 import org.tagaprice.shared.entities.receiptManagement.Currency;
 import org.tagaprice.shared.entities.receiptManagement.Price;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.entities.receiptManagement.ReceiptEntry;
+import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -116,20 +122,27 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	@Override
 	public List<Receipt> listByUser(String userId) throws DaoException {
 		ViewResult<?> result = m_db.queryView("receipt/byUser", Receipt.class, new Options().key(userId), null);
-		List<Receipt> rc = new ArrayList<Receipt>();
 
+		Set<String> receiptIDs = new TreeSet<String>();
+		
 		for (ValueRow<?> row: result.getRows()) {
-			Log.debug("rowId: "+row.getId());
-			
-			
-			//Fill Receipt with date/shop/price but not packages
-			Receipt receipt = getOnly(row.getId());
-			receipt.setShop(m_shopDAO.getOnly(receipt.getShopId()));
-			
-			rc.add(receipt);
+			receiptIDs.add(row.getId());
 		}
-
-		return rc;
+		
+		Map<String, Receipt> receipts = getBulkOnly(receiptIDs.toArray(new String[receiptIDs.size()]));
+		Set<String> shopIDs = new TreeSet<String>();
+		
+		for (Receipt receipt: receipts.values()) {
+			if (receipt.getShopId() != null) shopIDs.add(receipt.getShopId());
+		}
+		
+		Map<String, Shop> shops = m_shopDAO.getBulkOnly(shopIDs.toArray(new String[shopIDs.size()]));
+		
+		for (Receipt receipt: receipts.values()) {
+			if (receipt.getShopId() != null) receipt.setShop(shops.get(receipt.getShopId()));
+		}
+	
+		return new ArrayList<Receipt>(receipts.values());
 	}
 	
 	@Override
@@ -148,20 +161,47 @@ public class ReceiptDao extends DaoClass<Receipt> implements IReceiptDao {
 	}
 
 	@Override
-	protected void _injectFields(Receipt receipt) throws DaoException {
+	protected void _injectFields(Receipt ... receipts) throws DaoException {
+		Set<String> shopIDs = new TreeSet<String>();
+		Set<String> packageIDs = new TreeSet<String>();
+		Set<String> productIDs = new TreeSet<String>();
 		
-		if(receipt.getShopId() != null){
-			receipt.setShop(m_shopDAO.get(receipt.getShopId()));
-		}
-		
-		Log.debug("receiptEntrysize: "+receipt.getReceiptEntries().size());
-		for(ReceiptEntry re:receipt.getReceiptEntries()){
-			if(re.getPackageId()!=null){
-				re.setPackage(m_packageDAO.get(re.getPackageId()));
-				re.getPackage().setProduct(m_productDAO.get(re.getPackage().getProductId()));
+		for (Receipt receipt: receipts) {
+			if (receipt.getShopId() != null) shopIDs.add(receipt.getShopId());
+			
+			for (ReceiptEntry entry: receipt.getReceiptEntries()) {
+				if (entry.getPackageId() != null) {
+					packageIDs.add(entry.getPackageId());
+				}
 			}
 		}
 		
+		Map<String, Shop> shops = m_shopDAO.getBulk(shopIDs.toArray(new String[shopIDs.size()]));
+		Map<String, Package> packages = m_packageDAO.getBulk(packageIDs.toArray(new String[packageIDs.size()]));
+
+		// inject the products into the packages
+		for (Package pkg: packages.values()) {
+			if (pkg.getProductId() != null) productIDs.add(pkg.getProductId());
+		}
+		Map<String, Product> products = m_productDAO.getBulk(productIDs.toArray(new String[productIDs.size()]));
+		for (Package pkg: packages.values()) {
+			if (pkg.getProductId() != null) {
+				pkg.setProduct(products.get(pkg.getProductId()));
+			}
+		}
+
+
+		for (Receipt receipt: receipts) {
+			if(receipt.getShopId() != null){
+				receipt.setShop(shops.get(receipt.getShopId()));
+			}
+			
+			for(ReceiptEntry entry: receipt.getReceiptEntries()) {
+				if(entry.getPackageId()!=null) {
+					entry.setPackage(packages.get(entry.getPackageId()));
+				}
+			}
+		}
 	}
 
 }

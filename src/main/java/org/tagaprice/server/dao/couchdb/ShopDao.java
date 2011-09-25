@@ -2,12 +2,16 @@ package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jcouchdb.document.ValueRow;
 import org.jcouchdb.document.ViewResult;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IShopDao;
 import org.tagaprice.shared.entities.Document;
+import org.tagaprice.shared.entities.categorymanagement.Category;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
@@ -35,9 +39,17 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 	}
 
 	@Override
-	protected void _injectFields(Shop shop) throws DaoException {
-		if (shop.getCategoryId() != null) {
-			shop.setCategory(m_shopCategoryDAO.get(shop.getCategoryId()));
+	protected void _injectFields(Shop ... shops) throws DaoException {
+		Set<String> categoryIDs = new TreeSet<String>();
+		
+		for (Shop shop: shops) {
+			if (shop.getCategoryId() != null) categoryIDs.add(shop.getCategoryId());
+		}
+		
+		Map<String, Category> categories = m_shopCategoryDAO.getBulk(categoryIDs.toArray(new String[categoryIDs.size()]));
+		
+		for (Shop shop: shops) {
+			if (shop.getCategoryId() != null) shop.setCategory(categories.get(shop.getCategoryId()));
 		}
 	}
 

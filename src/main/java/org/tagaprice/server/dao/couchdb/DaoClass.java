@@ -1,14 +1,23 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.jcouchdb.db.Database;
+import org.jcouchdb.db.Options;
 import org.jcouchdb.db.Server;
+import org.jcouchdb.document.ValueRow;
+import org.jcouchdb.document.ViewResult;
+import org.svenson.JSON;
+import org.svenson.JSONParser;
 import org.tagaprice.server.dao.IDaoClass;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -20,6 +29,17 @@ import com.allen_sauer.gwt.log.client.Log;
  * @param <T> Datatype of the documents that will be queried
  */
 public class DaoClass<T extends Document> implements IDaoClass<T> {
+	public static class CouchKeys {
+		String m_keys[];
+		public CouchKeys(String ... keys) {
+			m_keys = keys;
+		}
+
+		public String[] getKeys() {
+			return m_keys;
+		}
+	}
+
 	/// JCouchDB server object
 	protected Server m_server;
 
@@ -109,10 +129,13 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		List<T> rc = new ArrayList<T>();
 
 		for (SearchHit hit: searchResponse.getHits().getHits()) {
-			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
-			T item = get(hit.getId());
-			if (item != null) rc.add(item);
+			String json = org.svenson.JSON.defaultJSON().forValue(hit.getSource());
+			rc.add(JSONParser.defaultJSONParser().parse(m_class, json));
 		}
+
+		@SuppressWarnings("unchecked")
+		T arr[] = (T[]) Array.newInstance(m_class, rc.size());
+		_injectFields(rc.toArray(arr));
 
 		return rc;
 	}
@@ -145,7 +168,11 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		// inject fields (recursively for all superClassDaos)
 		DaoClass<? super T> daoClass = this;
 		while (daoClass != null) {
-			daoClass._injectFields(rc);
+			@SuppressWarnings("unchecked")
+			T arr[] = (T[]) Array.newInstance(m_class, 1);
+			arr[0] = rc;
+			
+			daoClass._injectFields(arr);
 			daoClass = daoClass._getSuperClassDao();
 		}
 
@@ -172,6 +199,44 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T getOnly(String id) throws DaoException {
 		return getOnly(id, null);
+	}
+
+	@Override
+	public Map<String, T> getBulkOnly(String ... ids) throws DaoException {
+		Map<String, T> rc = new HashMap<String, T>();
+
+		if (ids.length == 1) {
+			T doc = getOnly(ids[0]);
+			rc.put(doc.getId(), doc);
+		}
+		else if (ids.length > 1) {
+			CouchKeys keys = new CouchKeys(ids);
+			ViewResult<?> result = m_db.query("_all_docs", m_class, new Options().includeDocs(true), null, keys);
+	
+			for (ValueRow<?> row: result.getRows()) {
+				Object docObject = row.getProperty("doc");
+				String json = JSON.formatJSON(JSON.defaultJSON().forValue(docObject));
+				T doc = JSONParser.defaultJSONParser().parse(m_class, json);
+				rc.put(doc.getId(), doc);
+			}
+		}
+
+		return rc;
+	}
+
+	@Override
+	public Map<String, T> getBulk(String ... ids) throws DaoException {
+		Map<String, T> rc = getBulkOnly(ids);
+		
+		if (rc.size() > 0) {
+			Collection<T> values = rc.values();
+			@SuppressWarnings("unchecked")
+			T arr[] = (T[]) Array.newInstance(m_class, values.size());
+			_injectFields(values.toArray(arr));
+		}
+
+		return rc;
+
 	}
 
 	/**
@@ -232,10 +297,10 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 
 	/**
 	 * Callback method that's called by get() for the class itself and its superclass hierarchy (using _getSuperClassDao())
-	 * @param document Document that wants its fields being injected
+	 * @param documents Documents that need fields to be injected
 	 * @throws DaoException if there was any problem when injecting the fields
 	 */
-	protected void _injectFields(T document) throws DaoException {
+	protected void _injectFields(T ... documents) throws DaoException {
 		// do nothing here
 	}
 

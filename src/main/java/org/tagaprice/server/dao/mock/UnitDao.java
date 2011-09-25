@@ -4,6 +4,7 @@ package org.tagaprice.server.dao.mock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import org.tagaprice.server.dao.IUnitDao;
 import org.tagaprice.shared.entities.Document;
@@ -41,6 +42,22 @@ public class UnitDao implements IUnitDao {
 	@Override
 	public Unit get(String id, String revision) {
 		return _units.get(id);
+	}
+	
+	@Override
+	public Map<String, Unit> getBulk(String ... ids) throws DaoException {
+		Map<String, Unit> rc = new HashMap<String, Unit>();
+
+		for (String id: ids) {
+			rc.put(id, get(id));
+		}
+
+		return null;
+	}
+
+	@Override
+	public Map<String, Unit> getBulkOnly(String ... ids) throws DaoException {
+		return getBulk(ids);
 	}
 
 	@Override

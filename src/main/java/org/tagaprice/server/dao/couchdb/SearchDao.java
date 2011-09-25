@@ -36,7 +36,6 @@ public class SearchDao implements ISearchDao {
 		List<Document> rc = new ArrayList<Document>();
 
 		for (SearchHit hit: searchResponse.getHits().getHits()) {
-			/// TODO find a way to avoid calling get() here (we should be able to use hit.getSource() directly)
 			String json = org.svenson.JSON.defaultJSON().forValue(hit.getSource());
 			Document item = JSONParser.defaultJSONParser().parse(Document.class, json);
 			if (item != null) rc.add(item);
