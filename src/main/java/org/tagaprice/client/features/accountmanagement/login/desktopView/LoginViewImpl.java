@@ -122,7 +122,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				// TODO Auto-generated method stub
+				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
 				
 			}
 		});
