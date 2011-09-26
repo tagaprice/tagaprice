@@ -99,16 +99,19 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 	@Override
 	protected void _injectFields(Product ... products) throws DaoException {
+		Set<String> productIDs = new TreeSet<String>();
 		Set<String> categoryIDs = new TreeSet<String>();
 		Set<String> unitIDs = new TreeSet<String>();
 
 		for (Product product: products) {
+			productIDs.add(product.getId());
 			if (product.getCategoryId() != null) categoryIDs.add(product.getCategoryId());
 			if (product.getUnitId() != null) unitIDs.add(product.getUnitId());
 		}
 		
-		Map<String, Category> categories = m_categoryDAO.getBulk(categoryIDs.toArray(new String[categoryIDs.size()]));
-		Map<String, Unit> units = m_unitDAO.getBulk(unitIDs.toArray(new String[unitIDs.size()]));
+		Map<String, Category> categories = m_categoryDAO.getBulk(arrayFrom(String.class, categoryIDs));
+		Map<String, Unit> units = m_unitDAO.getBulk(arrayFrom(String.class, unitIDs));
+		Map<String, List<Package>> packages = m_packageDAO.listByProducts(arrayFrom(String.class, productIDs));
 
 		for (Product product: products) {
 			if (product.getCategoryId() != null) {
@@ -120,7 +123,10 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 			}
 
 			//Add packages (TODO make this bulk too)
-			product.setPackages(m_packageDAO.listByProducts(product.getId()).get(product.getId()));
+			if (!packages.containsKey(product.getId())) {
+				packages.put(product.getId(), new ArrayList<Package>());
+			}
+			product.setPackages(packages.get(product.getId()));
 		}
 	}
 
