@@ -133,10 +133,6 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 			rc.add(JSONParser.defaultJSONParser().parse(m_class, json));
 		}
 
-		@SuppressWarnings("unchecked")
-		T arr[] = (T[]) Array.newInstance(m_class, rc.size());
-		_injectFields(rc.toArray(arr));
-
 		return rc;
 	}
 
@@ -168,11 +164,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		// inject fields (recursively for all superClassDaos)
 		DaoClass<? super T> daoClass = this;
 		while (daoClass != null) {
-			@SuppressWarnings("unchecked")
-			T arr[] = (T[]) Array.newInstance(m_class, 1);
-			arr[0] = rc;
-			
-			daoClass._injectFields(arr);
+			daoClass._injectFields(arrayFrom(rc));
 			daoClass = daoClass._getSuperClassDao();
 		}
 
@@ -214,9 +206,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 			ViewResult<?> result = m_db.query("_all_docs", m_class, new Options().includeDocs(true), null, keys);
 	
 			for (ValueRow<?> row: result.getRows()) {
-				Object docObject = row.getProperty("doc");
-				String json = JSON.formatJSON(JSON.defaultJSON().forValue(docObject));
-				T doc = JSONParser.defaultJSONParser().parse(m_class, json);
+				T doc = docFromValueRow(row);
 				rc.put(doc.getId(), doc);
 			}
 		}
@@ -230,9 +220,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 		
 		if (rc.size() > 0) {
 			Collection<T> values = rc.values();
-			@SuppressWarnings("unchecked")
-			T arr[] = (T[]) Array.newInstance(m_class, values.size());
-			_injectFields(values.toArray(arr));
+			_injectFields(arrayFrom(values));
 		}
 
 		return rc;
@@ -303,6 +291,36 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	protected void _injectFields(T ... documents) throws DaoException {
 		// do nothing here
 	}
+	
+	/**
+	 * Convenience method for _injectFields(T ... documents)
+	 * @param documents document list
+	 * @throws DaoException If there was a problem when injecting the fields
+	 * @see _injectFields(T ... documents)
+	 */
+	protected T[] arrayFrom(Collection<T> documents) throws DaoException {
+		return arrayFrom(m_class, documents);
+	}
+	
+	protected static <Type> Type[] arrayFrom(Class<? extends Type> clazz, Collection<Type> documents) {
+		@SuppressWarnings("unchecked")
+		Type arr[] = (Type[]) Array.newInstance(clazz, documents.size());
+		arr = documents.toArray(arr);
+		return arr;
+	}
+	
+	/**
+	 * Convenience method to wrap a matching array around a single generic object
+	 * @param document Document to convert
+	 * @throws DaoException If there was a problem when injecting the fields
+	 * @see _injectFields(T ... documents)
+	 */
+	protected T[] arrayFrom(T document) throws DaoException {
+		@SuppressWarnings("unchecked")
+		T arr[] = (T[]) Array.newInstance(m_class, 1);
+		arr[0] = document;
+		return arr;
+	}
 
 	/**
 	 * Returns the super DAO class passed to the DaoClass' constructor
@@ -310,5 +328,11 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	 */
 	private DaoClass<? super T> _getSuperClassDao() {
 		return m_superClassDao;
+	}
+	
+	protected T docFromValueRow(ValueRow<?> row) {
+		Object docObject = row.getProperty("doc");
+		String json = JSON.formatJSON(JSON.defaultJSON().forValue(docObject));
+		return JSONParser.defaultJSONParser().parse(m_class, json);
 	}
 }
