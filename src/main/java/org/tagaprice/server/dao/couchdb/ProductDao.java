@@ -122,7 +122,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 				product.setUnit(units.get(product.getUnitId()));
 			}
 
-			//Add packages (TODO make this bulk too)
+			//Add packages
 			if (!packages.containsKey(product.getId())) {
 				packages.put(product.getId(), new ArrayList<Package>());
 			}
