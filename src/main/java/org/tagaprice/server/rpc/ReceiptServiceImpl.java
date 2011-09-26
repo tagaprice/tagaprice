@@ -39,7 +39,7 @@ public class ReceiptServiceImpl extends ASessionService implements IReceiptServi
 			if(re.getPackageId()==null){
 				if(!re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0.0")) 
 						&& !re.getPackage().getQuantity().getQuantity().equals(new BigDecimal("0"))){
-					re.getPackage().setCreatorId(getUser().getCreatorId());
+					re.getPackage().setCreatorId(getUser().getId());
 				}else
 					throw new DaoException("package size must not be 0");
 			}
