@@ -1,6 +1,9 @@
 package org.tagaprice.server.dao.couchdb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,11 +35,31 @@ public class PackageDao extends DaoClass<Package> implements IPackageDao {
 	}
 
 	@Override
-	public List<Package> listByProduct(String productId) throws DaoException{
-		List<Package> rc = new ArrayList<Package>();
+	public Map<String, List<Package>> listByProducts(String ... productIDs) throws DaoException {
+		ViewResult<?> result = m_db.queryViewByKeys("package/byProduct", String.class, Arrays.asList(productIDs), new Options().includeDocs(true), null);
+		Map<String, List<Package>> rc = new HashMap<String, List<Package>>();
+		Set<String> unitIDs = new TreeSet<String>();
 
-		for(String packageId: listIDsByProduct(productId)) {
-			rc.add(get(packageId));
+		for (ValueRow<?> row: result.getRows()) {
+			Package pkg = docFromValueRow(row);
+			if (!rc.containsKey(pkg.getProductId())) {
+				rc.put(pkg.getProductId(), new ArrayList<Package>());
+			}
+			rc.get(pkg.getProductId()).add(pkg);
+			
+			if (pkg.getQuantity().getUnitId() != null) {
+				unitIDs.add(pkg.getQuantity().getUnitId());
+			}
+		}
+
+		Map<String, Unit> units = m_unitDAO.getBulkOnly(arrayFrom(String.class, unitIDs));
+		
+		for (Collection<Package> pkgs: rc.values()) {
+			for (Package pkg: pkgs) {
+				if (pkg.getQuantity().getUnitId() != null) {
+					pkg.getQuantity().setUnit(units.get(pkg.getQuantity().getUnitId()));
+				}
+			}
 		}
 
 		return rc;

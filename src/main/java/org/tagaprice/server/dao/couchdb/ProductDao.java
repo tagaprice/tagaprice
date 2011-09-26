@@ -47,6 +47,33 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 
 		return rc;
 	}
+	
+	@Override
+	public List<Product> find(String query) throws DaoException {
+		List<Product> rc = super.find(query);
+
+		Set<String> productIDs = new TreeSet<String>();
+		Set<String> unitIDs = new TreeSet<String>();
+
+		for (Product product: rc) {
+			productIDs.add(product.getId());
+			if (product.getUnitId() != null) unitIDs.add(product.getUnitId());
+		}
+		
+		Map<String, List<Package>> packages = m_packageDAO.listByProducts(arrayFrom(String.class, productIDs));
+		Map<String, Unit> units = m_unitDAO.getBulkOnly(arrayFrom(String.class, unitIDs));
+		
+		for (Product product: rc) {
+			if (!packages.containsKey(product.getId())) {
+				packages.put(product.getId(), new ArrayList<Package>());
+			}
+			product.setPackages(packages.get(product.getId()));
+			
+			if (product.getUnitId() != null) product.setUnit(units.get(product.getUnitId()));
+		}
+
+		return rc;
+	}
 
 	@Override
 	public Product update(Product product) throws DaoException {
@@ -93,7 +120,7 @@ public class ProductDao extends DaoClass<Product> implements IProductDao {
 			}
 
 			//Add packages (TODO make this bulk too)
-			product.setPackages(m_packageDAO.listByProduct(product.getId()));
+			product.setPackages(m_packageDAO.listByProducts(product.getId()).get(product.getId()));
 		}
 	}
 
