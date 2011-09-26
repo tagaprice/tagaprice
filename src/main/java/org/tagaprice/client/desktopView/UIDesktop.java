@@ -215,9 +215,9 @@ public class UIDesktop implements IUi {
 		
 		HTML labels = new HTML("" +
 				"<h2>Labels</h2> " +
-				"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/3.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"http://i.creativecommons.org/l/by-sa/3.0/88x31.png\" /></a>" +
-				"<br /><br /><a rel=\"license\" href=\"http://www.gnu.org/licenses/agpl.html\"><img alt=\"GNU Affero General Public License\" style=\"border-width:0\" src=\"http://www.gnu.org/graphics/agplv3-88x31.png\" /></a>" +
-				"<br /><br /><a href=\"http://www.w3.org/html/logo/\"><img src=\"http://www.w3.org/html/logo/downloads/HTML5_Logo_64.png\" alt=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\" title=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\"></a>");
+				"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/3.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"desktopView/cc.png\" /></a>" +
+				"<br /><br /><a rel=\"license\" href=\"http://www.gnu.org/licenses/agpl.html\"><img alt=\"GNU Affero General Public License\" style=\"border-width:0\" src=\"desktopView/agplv3.png\" /></a>" +
+				"<br /><br /><a href=\"http://www.w3.org/html/logo/\"><img src=\"desktopView/html5.png\" alt=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\" title=\"HTML5 Powered with CSS3 / Styling, Device Access, and Semantics\"></a>");
 		
 		bottomText.add(lefthtml);
 		bottomText.add(righthtml);
