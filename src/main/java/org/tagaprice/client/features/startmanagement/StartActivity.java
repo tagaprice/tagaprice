@@ -47,7 +47,7 @@ public class StartActivity implements Activity, Presenter {
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
-		Window.setTitle("home");
+		Window.setTitle("TagAPrice - the consumer-created location-aware price comparison platform");
 		Log.debug("redir: "+_place.getRedirect());
 		if(_place.getRedirect()!=null && _place.getRedirect().equals("true")){
 			
