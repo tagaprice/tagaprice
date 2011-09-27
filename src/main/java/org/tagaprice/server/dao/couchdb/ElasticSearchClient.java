@@ -19,6 +19,7 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.GeoBoundingBoxFilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 import org.tagaprice.server.rpc.Mail;
 import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
@@ -97,14 +98,14 @@ public class ElasticSearchClient {
 	}
 
 	public SearchResponse find(String query, int from, int size, Document.Type ... types) {
-		QueryBuilder queryBuilder = queryString(query);
+		QueryBuilder queryBuilder = queryString(query).defaultOperator(Operator.AND);
 
 		return find(queryBuilder, from, size, types);
 	}
 
 	public SearchResponse find(String query, BoundingBox bbox, int start, int limit, Document.Type ... types) {
 		QueryBuilder queryBuilder = filteredQuery(
-				queryString(query),
+				queryString(query).defaultOperator(Operator.AND),
 				orFilter(
 					notFilter(
 						termFilter("docType", "shop")
@@ -148,7 +149,7 @@ public class ElasticSearchClient {
 	
 	public SearchResponse findShop(String query, BoundingBox bbox, int limit) {
 		QueryBuilder queryBuilder = filteredQuery(
-			queryString(query),
+			queryString(query).defaultOperator(Operator.AND),
 			createBoundingBoxFilter("address.pos", bbox)
 		);
 
