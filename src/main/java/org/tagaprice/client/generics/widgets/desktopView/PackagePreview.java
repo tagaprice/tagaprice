@@ -21,7 +21,7 @@ public class PackagePreview extends APreviewWidget {
 	private UnitSelecter _unitSelecter = new UnitSelecter();
 	private boolean _readonly = true;
 	private Package _pack;
-	private NumberFormat dfmt = NumberFormat.getFormat("0.0");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 	
 	public PackagePreview(Product product, Package pack) {
 		super(product.getTitle(), null);

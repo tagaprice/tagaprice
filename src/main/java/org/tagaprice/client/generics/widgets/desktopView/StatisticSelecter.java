@@ -51,7 +51,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 	private Vector _osmMarkerLayer;
 	private SimplePanel _tablepanel = new SimplePanel();
 	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
-	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 
 
 	public StatisticSelecter() {

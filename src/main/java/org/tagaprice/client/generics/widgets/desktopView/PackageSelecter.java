@@ -15,7 +15,7 @@ public class PackageSelecter extends Composite implements IPackageSelecter {
 
 	private VerticalPanel _vePa = new VerticalPanel();
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
-	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 	private Unit _relatedUnit;
 	//private ArrayList<QuantitySelecter> _quantitySaveList = new ArrayList<QuantitySelecter>();
 	//private QuantitySelecter newQuant = new QuantitySelecter();

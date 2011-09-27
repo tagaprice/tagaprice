@@ -18,7 +18,7 @@ public class ReceiptEntryPreview extends PackagePreview {
 	private CurrencySelecter _currency = new CurrencySelecter();
 	private boolean _readonly = true;
 	private ReceiptEntry _receiptEntry;
-	private NumberFormat dfmt = NumberFormat.getFormat("0.0");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 	
 	
 	public ReceiptEntryPreview(ReceiptEntry receiptEntry) {

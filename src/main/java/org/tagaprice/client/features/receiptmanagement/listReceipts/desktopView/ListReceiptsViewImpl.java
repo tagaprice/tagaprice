@@ -29,7 +29,7 @@ public class ListReceiptsViewImpl extends Composite implements IListReceiptsView
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
 	private SimplePanel _listSiPa = new SimplePanel();
 	private DateTimeFormat fmt = DateTimeFormat.getFormat("dd, MMM. yyyy");
-	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 	//private CellTable<Receipt> _cellTable = new CellTable<Receipt>();
 	
 	public ListReceiptsViewImpl() {

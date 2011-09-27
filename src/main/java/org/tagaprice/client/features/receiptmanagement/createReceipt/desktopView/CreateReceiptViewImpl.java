@@ -99,7 +99,7 @@ public class CreateReceiptViewImpl extends Composite implements ICreateReceiptVi
 	private HorizontalPanel _responseMapHoPa = new HorizontalPanel();
 	private VerticalPanel _dynLocationVePa = new VerticalPanel();
 	private DashboardMenuWidget _menu = new DashboardMenuWidget();
-	private NumberFormat dfmt = NumberFormat.getFormat("0.00");
+	private NumberFormat dfmt = NumberFormat.getFormat("0.#####");
 	
 	
 	public CreateReceiptViewImpl() {
