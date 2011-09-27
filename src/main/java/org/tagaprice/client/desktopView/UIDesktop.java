@@ -30,41 +30,37 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class UIDesktop implements IUi {
 
 	private VerticalPanel vePa1 = new VerticalPanel();
+	private VerticalPanel iVePa = new VerticalPanel();
 	private HorizontalPanel menu = new HorizontalPanel();
 	private SimplePanel center = new SimplePanel();
 	private HorizontalPanel bottom = new HorizontalPanel();
 	private InfoBox _infoBox = new InfoBox();
 
-	private PopupPanel _infoBoxPopUp = new PopupPanel();
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
 	private PopupPanel loginPop = new PopupPanel(false);
 	
 	private void init(){
-		{
+		
+		
 		vePa1.setWidth("100%");
+		vePa1.add(iVePa);
+
+		iVePa.setStyleName("main");
+		vePa1.setCellHorizontalAlignment(iVePa, HorizontalPanel.ALIGN_CENTER);
 		
 		//infobox
-		//Add InfoBox Popup
-		_infoBoxPopUp.setWidget(_infoBox);
-		_infoBoxPopUp.show();
-		
-
-		
-		
-
-		//INfo test
-		//TODO Find out why setWidth(100%) is not working
-		_infoBox.setWidth((Window.getClientWidth()-20)+"px");
-		
+		_infoBox.setWidth("100%");
+		_infoBox.getElement().getStyle().setZIndex(2000);
 		
 		
 		
 		//menu
 		//menu.setSize("100%", "30px");
 		menu.setStyleName("header");
-		vePa1.add(menu);
-		vePa1.setCellHorizontalAlignment(menu, HorizontalPanel.ALIGN_CENTER);
+		menu.setWidth("100%");
+		iVePa.add(menu);
+		//vePa1.setCellHorizontalAlignment(menu, HorizontalPanel.ALIGN_CENTER);
 		
 		
 		//titel
@@ -183,8 +179,9 @@ public class UIDesktop implements IUi {
 		
 		//center
 		center.setStyleName("center");
-		vePa1.add(center);
-		vePa1.setCellHorizontalAlignment(center, VerticalPanel.ALIGN_CENTER);
+		center.setWidth("100%");
+		iVePa.add(center);
+		//vePa1.setCellHorizontalAlignment(center, VerticalPanel.ALIGN_CENTER);
 		
 		//center.setHeight((Window.getClientHeight()-240-120)+"px");
 		//vePa1.setCellHeight(center, "100%");
@@ -227,7 +224,7 @@ public class UIDesktop implements IUi {
 				
 		
 				
-	}
+	
 		
 		
 	
@@ -270,7 +267,7 @@ public class UIDesktop implements IUi {
 		init();
 
 		RootPanel.get().add(vePa1);
-
+		RootPanel.get().add(_infoBox,0,0);
 	}
 
 

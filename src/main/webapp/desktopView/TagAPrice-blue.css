@@ -41,8 +41,11 @@ a:HOVER {
     text-decoration: underline;
 }
 
+.main{	
+ 	width: 950px;
+}
+
 .header {
-    width: 950px;
     height: 60px;
 }
 
@@ -127,7 +130,6 @@ a:HOVER {
 
 .center {
     text-align: left;
-    width: 950px;
 }
 
 .stdframe {
