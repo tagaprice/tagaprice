@@ -42,8 +42,13 @@ public interface ILoginView extends IsWidget {
 	/**
 	 * Displays the SignIn/Up view. 
 	 * @param showSingIn radio button is set to 'I have an account' or 'I'm new!'
+
 	 */
 	public void showSignInUp(boolean showSingIn);
+	
+	
+	public void showInviteMe();
+	
 
 	public interface Presenter {
 		/**

@@ -36,6 +36,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private RadioButton signUpRadio = new RadioButton("blabla","I'm new!");
 	private HTML passwordForgotText = new HTML("<a >Forgot your password?</a>");
 	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a>terms of service</a>.");
+	private MorphWidget inviteKey = new MorphWidget();
 
 	public LoginViewImpl() {
 		initWidget(panel);
@@ -97,11 +98,22 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 	}
 
+	
+	
 
 	@Override
 	public void showSignInUp(boolean showSingIn) {
 		vePaSignInUp.clear();
 		
+		/*
+		//invite key
+		if(invite){
+			Label inviteKeylabel = new Label("Add here your invite key");
+			vePaSignInUp.add(inviteKeylabel);
+			vePaSignInUp.add(inviteKey);
+			vePaSignInUp.add(new HTML("<hr />"));
+		}
+		*/
 		
 		//facebook
 		Image fb = new Image("desktopView/fb-login-button.png");
@@ -222,6 +234,13 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@Override
 	public String getDisplayName() {
 		return diplayName.getValue();
+	}
+
+
+	@Override
+	public void showInviteMe() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

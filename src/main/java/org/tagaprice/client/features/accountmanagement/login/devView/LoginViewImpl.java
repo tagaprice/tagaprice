@@ -68,16 +68,23 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	}
 
 
-	@Override
-	public void showSignInUp(boolean showSingIn) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String getDisplayName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void showSignInUp(boolean showSignIn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showInviteMe() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -4,6 +4,7 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.startmanagement.IStartView.Presenter;
 import org.tagaprice.client.generics.events.DisplayLoginEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
+import org.tagaprice.client.generics.events.DisplayLoginEvent.LoginType;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -51,7 +52,7 @@ public class StartActivity implements Activity, Presenter {
 		Log.debug("redir: "+_place.getRedirect());
 		if(_place.getRedirect()!=null && _place.getRedirect().equals("true")){
 			
-			eventBus.fireEvent(new DisplayLoginEvent(true));
+			eventBus.fireEvent(new DisplayLoginEvent(LoginType.login));
 			
 			
 		}

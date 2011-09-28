@@ -2,7 +2,6 @@
 color background gray: ebe9e1
 
 */
-
 html {
     background-color: #43aabe;
 }
@@ -12,9 +11,8 @@ body {
     padding: 0px;
     background-color: #43aabe;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
-    font-family:times;
+    font-family: times;
     font-size: small;
-
     background: -webkit-linear-gradient(#43aabe 10px, #43aabe 120px, white 120px);
     /* Safari 5.1+, Chrome 10+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10px, #43aabe
@@ -41,27 +39,26 @@ a:HOVER {
     text-decoration: underline;
 }
 
-.main{  
-    width:85%;
+.main {
+    width: 85%;
 }
 
 .header {
     height: 60px;
 }
 
-.logo a{
-    color:white;
+.logo a {
+    color: white;
     font-family: 'Passero One', cursive;
     font-size: 40px;
     text-shadow: 0px 0px 10px white;
 }
 
-.logo a:hover{
-    color:white;
+.logo a:hover {
+    color: white;
     text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
     text-decoration: none;
 }
-
 
 .header-search {
     color: #2c2d25;
@@ -79,10 +76,8 @@ a:HOVER {
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 28px;
-
     box-shadow: 0px 4px 15px black;
 }
-
 
 .header-search:HOVER {
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
@@ -96,13 +91,12 @@ a:HOVER {
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
 }
 
-
-.header-location{
+.header-location {
     color: #2c2d25;
     font-weight: bold;
     background-color: white;
     margin: 0px;
-    margin-left:5px;
+    margin-left: 5px;
     padding: 5px;
     border-radius: 2px;
     border-top-right-radius: 0px;
@@ -113,15 +107,14 @@ a:HOVER {
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 28px;
-
     box-shadow: 0px 4px 15px black;
 }
 
-.header-location:HOVER{
+.header-location:HOVER {
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
 }
 
-.header-location:FOCUS{
+.header-location:FOCUS {
     color: #2c2d25;
     background-color: white;
     /*box-shadow:  0px 0px 3px 3px rgba(255,255,255,0.5);*/
@@ -131,6 +124,122 @@ a:HOVER {
 .center {
     text-align: left;
 }
+
+/* invitiations */
+.startInviteButton {
+    color: white;
+    font-size: 42px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #7fbf4d;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d),
+        to(#63a62f) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -moz-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -ms-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -o-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: linear-gradient(top, #7fbf4d, #63a62f);
+    border: 1px solid #63a62f;
+    border-bottom: 1px solid #5b992b;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -moz-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -ms-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -o-box-shadow: inset 0 1px 0 0 #96ca6d;
+    box-shadow: inset 0 1px 0 0 #96ca6d;
+    color: #fff;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+        Geneva, Verdana, sans-serif;
+    line-height: 1;
+    padding: 7px 0 8px 0;
+    text-align: center;
+    text-shadow: 0 -1px 0 #4c9021;
+    margin: 30px;
+}
+
+.startInviteButton:hover {
+    background-color: #76b347;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#76b347),
+        to(#5e9e2e) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -moz-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -ms-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -o-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: linear-gradient(top, #76b347, #5e9e2e);
+    -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -moz-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -ms-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -o-box-shadow: inset 0 1px 0 0 #8dbf67;
+    box-shadow: inset 0 1px 0 0 #8dbf67;
+    cursor: pointer;
+}
+
+
+.menuInviteButton{
+    white-space: nowrap;
+        color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #7fbf4d;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d),
+        to(#63a62f) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -moz-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -ms-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: -o-linear-gradient(top, #7fbf4d, #63a62f);
+    background-image: linear-gradient(top, #7fbf4d, #63a62f);
+    border: 1px solid #63a62f;
+    border-bottom: 1px solid #5b992b;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -moz-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -ms-box-shadow: inset 0 1px 0 0 #96ca6d;
+    -o-box-shadow: inset 0 1px 0 0 #96ca6d;
+    box-shadow: inset 0 1px 0 0 #96ca6d;
+    color: #fff;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+        Geneva, Verdana, sans-serif;
+    line-height: 1;
+    padding: 6px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #4c9021;
+}
+
+.menuInviteButton:hover{
+    background-color: #76b347;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#76b347),
+        to(#5e9e2e) );
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -moz-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -ms-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -o-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: linear-gradient(top, #76b347, #5e9e2e);
+    -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -moz-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -ms-box-shadow: inset 0 1px 0 0 #8dbf67;
+    -o-box-shadow: inset 0 1px 0 0 #8dbf67;
+    box-shadow: inset 0 1px 0 0 #8dbf67;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 4px white;
+}
+
+
 
 .stdframe {
     padding-right: 2px;
@@ -143,11 +252,11 @@ a:HOVER {
     font-size: 20px;
     padding: 5px;
     box-shadow: 0px 0px 15px black;
-    border-bottom:none;
+    border-bottom: none;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     font-family: Times;
-    margin-left:3px;
+    margin-left: 3px;
     color: white;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
@@ -158,25 +267,24 @@ a:HOVER {
     padding: 5px;
     padding-bottom: 30px;
     border-radius: 2px;
-    margin-left:3px;
+    margin-left: 3px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 1px solid #d9d4cf;
-    border-top:none;
+    border-top: none;
 }
 
-.createInfo{
-    margin-top:6px;
-    font-size:20px;
+.createInfo {
+    margin-top: 6px;
+    font-size: 20px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
 
-.createEgInfo{
-    font-size:16px;
-    margin-left:18px;
-    margin-bottom:3px;
+.createEgInfo {
+    font-size: 16px;
+    margin-left: 18px;
+    margin-bottom: 3px;
 }
-
 
 .bottom {
     padding-top: 10px;
@@ -207,94 +315,90 @@ a:HOVER {
     text-decoration: underline;
 }
 
-
-.statisticTable{
-    border-collapse:collapse;
+.statisticTable {
+    border-collapse: collapse;
 }
 
-
-.statisticTable td{
-    padding:1px;
+.statisticTable td {
+    padding: 1px;
 }
 
-
-.statisticTable-head td{
-    background-color:#2c2d25;
-    font-size:15px;
-    font-weight:bold;
+.statisticTable-head td {
+    background-color: #2c2d25;
+    font-size: 15px;
+    font-weight: bold;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
-    border-bottom:2px solid #43aabe;
-    color:white;
+    border-bottom: 2px solid #43aabe;
+    color: white;
 }
 
-.statisticTable-shop-cell{
-    color:white;
-    font-weight:bold;
-    background-color:#43aabe;
+.statisticTable-shop-cell {
+    color: white;
+    font-weight: bold;
+    background-color: #43aabe;
 }
 
-.statisticTable-shop-cell-link{
-    text-decoration:underline;
-    cursor:pointer;
+.statisticTable-shop-cell-link {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.statisticTable-shop-cell-link:hover{
-    color:black;
+.statisticTable-shop-cell-link:hover {
+    color: black;
 }
 
-.statisticTable-cell{
-    border:2px white solid;
-    padding:3px;
+.statisticTable-cell {
+    border: 2px white solid;
+    padding: 3px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
 
-.statisticTable-cell-link{
-    text-decoration:underline;
-    cursor:pointer;
+.statisticTable-cell-link {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.statisticTable-cell-link:hover{
+.statisticTable-cell-link:hover {
     color: #43aabe;
 }
 
-.dashboardMenuItem{
-    background-color:white;
-    margin-top:3px;
-    padding:8px;
+.dashboardMenuItem {
+    background-color: white;
+    margin-top: 3px;
+    padding: 8px;
     font-size: 15px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
     border: solid 3px #ebe9e1;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
-.dashboardMenuItem:hover{
+.dashboardMenuItem:hover {
     font-weight: bold;
-    cursor:pointer;
+    cursor: pointer;
     background-color: #2c2d25;
     color: white;
     border: solid 3px #43aabe;
-
 }
 
-.dashboardMenuItemActive{
+.dashboardMenuItemActive {
     background-color: #43aabe;
     border: solid 3px #ebe9e1;
     font-weight: bold;
-    color:white;
+    color: white;
 }
 
 .login {
-    white-space:nowrap;
+    white-space: nowrap;
     color: white;
     margin: 0px;
     padding: 5px;
     cursor: pointer;
-    margin-left:8px;
+    margin-left: 8px;
     font-size: 15px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
     font-weight: bold;
     background-color: #2c2d25;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
 .login:HOVER {
@@ -311,7 +415,7 @@ a:HOVER {
     border-radius: 5px;
     border-top-right-radius: 0px;
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
-    margin:20px;
+    margin: 20px;
 }
 
 .loginView input {
@@ -321,7 +425,6 @@ a:HOVER {
 .loginView input:HOVER,input:FOCUS {
     box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
 }
-
 
 .loginView a {
     color: #bfd255;
@@ -343,12 +446,12 @@ a:HOVER {
 
 .loginView-pic {
     margin-bottom: 4px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.loginPopGlass{
-    background-color:rgba(0, 0, 0, 0.5);
-    z-index:1200;
+.loginPopGlass {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1200;
 }
 
 .infoBox {
@@ -452,70 +555,67 @@ table.propertyGrid td {
     border-style: solid;
     border-color: #bfd255;
     border-top: none;
-    
 }
 
-.datePicker{
-    padding:3px;
+.datePicker {
+    padding: 3px;
     border: solid 2px #ebe9e1;
-    
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
 
-.datePicker .datePickerMonthSelector{
-    background-color:#2c2d25;
-    color:white;
-    width:100%;
-    text-align:center;
+.datePicker .datePickerMonthSelector {
+    background-color: #2c2d25;
+    color: white;
+    width: 100%;
+    text-align: center;
 }
 
-.datePicker .datePickerPreviousButton{
-    padding-left:2px;
-    padding-right:2px;
+.datePicker .datePickerPreviousButton {
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
-.datePicker .datePickerNextButton{
-    padding-left:2px;
-    padding-right:2px;
+.datePicker .datePickerNextButton {
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
-.datePicker .datePickerPreviousButton:hover{
-    background-color:#43aabe;
-    cursor:pointer;
-    font-weight:bold;
+.datePicker .datePickerPreviousButton:hover {
+    background-color: #43aabe;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.datePicker .datePickerNextButton:hover{
-    background-color:#43aabe;
-    cursor:pointer;
-    font-weight:bold;
+.datePicker .datePickerNextButton:hover {
+    background-color: #43aabe;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.datePicker .datePickerWeekdayLabel{
-    background-color:#2c2d25;
-    color:white;
+.datePicker .datePickerWeekdayLabel {
+    background-color: #2c2d25;
+    color: white;
 }
 
-.datePicker .datePickerWeekendLabel{
-    background-color:#2c2d25;
-    color:white;
-    font-weight:bold;
+.datePicker .datePickerWeekendLabel {
+    background-color: #2c2d25;
+    color: white;
+    font-weight: bold;
 }
 
-.datePicker .datePickerDay{
-    padding:1px;
-    cursor:pointer;
+.datePicker .datePickerDay {
+    padding: 1px;
+    cursor: pointer;
 }
 
-.datePicker .datePickerDayIsValue{
-    background-color:#43aabe;
-    color:white;
-    font-weight:bold;
+.datePicker .datePickerDayIsValue {
+    background-color: #43aabe;
+    color: white;
+    font-weight: bold;
 }
 
-
-.receiptNode{
-    box-shadow:inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+.receiptNode {
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid #d9d4cf;
     border: solid 2px #ebe9e1;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
@@ -538,17 +638,20 @@ input.morphWidget {
 }
 
 .morphWidget:HOVER {
+    
 }
 
 .morphWidget:FOCUS {
+    
 }
 
 .morphWidget:ACTIVE {
+    
 }
 
 .morphWidget.edit {
     background-color: white;
-    box-shadow:inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid #d9d4cf;
     border: solid 2px #ebe9e1;
 }
@@ -566,21 +669,23 @@ input.morphWidget {
 }
 
 .morphWidget.headline {
-    border:none;
+    border: none;
     color: white;
     font-size: 21px;
 }
 
 .morphWidget.editheadline:FOCUS {
+    
 }
 
-.morphWidget.headline:ACTIVE{
+.morphWidget.headline:ACTIVE {
+    
 }
 
 .morphWidget.edit.headline {
     color: black;
     background-color: white;
-    box-shadow:inset 3px 3px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.2);
     background-color: white;
     margin: 0px;
     padding: 0px;
@@ -600,7 +705,6 @@ input.morphWidget {
 
 .unitSelecter.edit {
     cursor: pointer;
-
     background-color: #eeeeee;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
         to(#cccccc) );
@@ -618,34 +722,31 @@ input.morphWidget {
     text-align: center;
     text-shadow: 0 1px 0 #eee;
     white-space: nowrap;
-    border-right:none;
-
-    
+    border-right: none;
     padding: 3px;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
-
 }
 
-.unitArrowSelecter{
+.unitArrowSelecter {
     cursor: pointer;
     border-left: 1px solid #ccc;
 }
 
 .unitSelecter.edit.headline {
+    
 }
 
 .popBackground {
     background-color: white;
     padding: 3px;
     border: solid 2px #ebe9e1;
-    min-width:30px;
+    min-width: 30px;
 }
 
 .categorySelecter {
-        cursor: pointer;
-
+    cursor: pointer;
     background-color: #eeeeee;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
         to(#cccccc) );
@@ -663,20 +764,18 @@ input.morphWidget {
     text-align: center;
     text-shadow: 0 1px 0 #eee;
     white-space: nowrap;
-
-    
     padding: 3px;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
 }
 
-.categorySelecter.edit{
-    margin-left:2px;
+.categorySelecter.edit {
+    margin-left: 2px;
 }
 
-.categorySelecter:hover{
-        background-color: #dddddd;
+.categorySelecter:hover {
+    background-color: #dddddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd),
         to(#bbbbbb) );
     background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
@@ -702,20 +801,19 @@ input.morphWidget {
 }
 
 .categorySelecter .arrow.edit {
+    
 }
 
-
-.categorySelecter.headline{
-    background-image:none;
-
-    background-color:#2c2d25;
-    border:none;
+.categorySelecter.headline {
+    background-image: none;
+    background-color: #2c2d25;
+    border: none;
     color: white;
-    font-size: 21px; 
-    text-shadow:none;
+    font-size: 21px;
+    text-shadow: none;
 }
 
-.categorySelecter.headline .arrow{
+.categorySelecter.headline .arrow {
     
 }
 
@@ -747,7 +845,7 @@ input.morphWidget {
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 28px;
-    margin-left:5px;
+    margin-left: 5px;
 }
 
 .previewWidget { /*border: solid 2px #ebe9e1;*/
@@ -756,9 +854,9 @@ input.morphWidget {
     background-color: white;
 }
 
-.previewWidget-hover{
-    background-color:#43aabe;
-    cursor:pointer;
+.previewWidget-hover {
+    background-color: #43aabe;
+    cursor: pointer;
 }
 
 .previewWidget .logo {
@@ -854,7 +952,7 @@ input.morphWidget {
     margin: 1px;
 }
 
-button{
+button {
     background-color: #eeeeee;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),
         to(#cccccc) );
@@ -897,7 +995,6 @@ button:hover {
     color: black;
 }
 
-
 button.save {
     background-color: #7fbf4d;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d),
@@ -923,11 +1020,9 @@ button.save {
     text-shadow: 0 -1px 0 #4c9021;
 }
 
-
 button.cancel {
     color: #b43731;
 }
-
 
 button.save:hover {
     background-color: #dddddd;

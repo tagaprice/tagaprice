@@ -7,6 +7,7 @@ import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateRecei
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
 import org.tagaprice.client.generics.events.DisplayLoginEvent;
+import org.tagaprice.client.generics.events.DisplayLoginEvent.LoginType;
 import org.tagaprice.client.generics.events.DisplayLoginEventHandler;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
@@ -37,9 +38,10 @@ public class UIDesktop implements IUi {
 	private ActivityManager _activityManager;
 	private ClientFactory _clientFactory;
 	private PopupPanel loginPop = new PopupPanel(false);
+	private LoginPresenter loginPres;
 	
 	private void init(){
-		
+		loginPres = new LoginPresenter(_clientFactory);
 		
 		vePa1.setWidth("100%");
 		vePa1.add(iVePa);
@@ -105,6 +107,20 @@ public class UIDesktop implements IUi {
 		});
 		
 		
+		//invite me
+		final Label inviteMe = new Label("Invite Me!");
+		inviteMe.setStyleName("menuInviteButton");
+		menu.add(inviteMe);
+		inviteMe.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.invite));
+			}
+		});
+		
+		
+		
 		//login
 		final Label login = new Label("Sign in");
 		login.setStyleName("login");
@@ -114,7 +130,10 @@ public class UIDesktop implements IUi {
 		menu.setCellHorizontalAlignment(login, HorizontalPanel.ALIGN_RIGHT);
 		menu.setCellWidth(login, "1%");
 		
-		final LoginPresenter loginPres = new LoginPresenter(_clientFactory);
+		
+		
+		
+		
 		
 		
 		
@@ -148,7 +167,7 @@ public class UIDesktop implements IUi {
 				}else{
 					
 					//loginPop.showRelativeTo(login);	
-					_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(true));
+					_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.login));
 				}
 							
 			}
@@ -163,9 +182,11 @@ public class UIDesktop implements IUi {
 						if(_clientFactory.getAccountPersistor().isLoggedIn()){
 							login.setText("Dashboard");
 							addReceipt.setVisible(true);
+							inviteMe.setVisible(false);
 						}else{
 							login.setText("Sign in");
 							addReceipt.setVisible(false);
+							inviteMe.setVisible(true);
 						}
 						
 					}
@@ -242,9 +263,14 @@ public class UIDesktop implements IUi {
 			
 			@Override
 			public void onDisplayLogin(DisplayLoginEvent event) {
-				if(event.isShow()){
+				if(event.getLoginType().equals(LoginType.login)){
 					Log.debug("Pop Login");
 
+					loginPop.center();
+					loginPop.show();
+				}else if(event.getLoginType().equals(LoginType.invite)){
+					Log.debug("open invite");
+					
 					loginPop.center();
 					loginPop.show();
 				}
