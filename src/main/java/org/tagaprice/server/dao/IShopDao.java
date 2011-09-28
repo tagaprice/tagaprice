@@ -7,5 +7,6 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public interface IShopDao extends IDaoClass<Shop> {
 	public List<Shop> find(String searchPattern) throws DaoException;
+	@Deprecated
 	public List<Shop> list() throws DaoException;
 }
