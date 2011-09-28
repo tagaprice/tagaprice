@@ -11,12 +11,10 @@ import org.tagaprice.client.generics.events.DisplayLoginEventHandler;
 import org.tagaprice.client.generics.events.LoginChangeEvent;
 import org.tagaprice.client.generics.events.LoginChangeEventHandler;
 import org.tagaprice.client.generics.widgets.InfoBox;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
