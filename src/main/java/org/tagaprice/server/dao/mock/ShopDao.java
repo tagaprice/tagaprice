@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import org.tagaprice.server.dao.IShopDao;
+import org.tagaprice.shared.entities.BoundingBox;
 import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.entities.shopmanagement.Shop;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -25,6 +26,19 @@ public class ShopDao extends DaoClass<Shop> implements IShopDao {
 			Shop st = deque.peek();
 			st._setDocType(Document.Type.SHOP);
 			rc.add(deque.peek());
+		}
+
+		return rc;
+	}
+	
+	@Override
+	public List<Shop> listByCategory(String shopCategoryId, BoundingBox bbox) {
+		List<Shop> rc = new ArrayList<Shop>();
+
+		for (Shop shop: list()) {
+			if (shopCategoryId.equals(shop.getCategoryId()) && bbox.contains(shop.getAddress().getPos())) {
+				rc.add(shop);
+			}
 		}
 
 		return rc;
