@@ -94,10 +94,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			@Override
 			public void onKeyDown(KeyDownEvent key) {
 				if(key.getNativeKeyCode() == 13){
-					if(signInRadio.getValue())
-						_presenter.onLoginEvent();
-					else if(signUpRadio.getValue())
-						_presenter.onRegisterButtonEvent();
+					_presenter.onLoginEvent();
 				}
 				
 			}
