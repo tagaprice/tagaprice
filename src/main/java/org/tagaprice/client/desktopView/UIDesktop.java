@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -138,11 +139,13 @@ public class UIDesktop implements IUi {
 		
 		
 		//create poptup
-		Button close = new Button("x", new ClickHandler() {
+		Image close = new Image("desktopView/close_cross.png");
+		close.setStyleName("loginPop-close");
+		close.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				loginPop.hide();
+				loginPop.hide();				
 			}
 		});
 		AbsolutePanel aPop = new AbsolutePanel();
