@@ -3,7 +3,6 @@ package org.tagaprice.client.devView;
 import org.tagaprice.client.AccountPersistor;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
-import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
 import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
@@ -54,7 +53,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	//VIEWS
 	private static ICreateShopView _createShopview;
 	private static final ILoginView loginView = new LoginViewImpl();
-	private static final ILogoutView LOGOUT_VIEW = new LogoutViewImpl();
+	private static final ILoginView LOGOUT_VIEW = new LogoutViewImpl();
 	private static ICreateReceiptView CREATE_RECEIPT_VIEW;
 	private static final ICreateProductView createProductView = new CreateProductViewImpl();
 	private static final IListReceiptsView listReceiptView = new ListReceiptsViewImpl();
@@ -111,7 +110,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 
 	@Override
-	public ILogoutView getLogoutView() {
+	public ILoginView getLogoutView() {
 		return ClientFactoryImpl.LOGOUT_VIEW;
 	}
 

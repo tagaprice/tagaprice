@@ -146,6 +146,7 @@ public class UIDesktop implements IUi {
 			}
 		});
 		AbsolutePanel aPop = new AbsolutePanel();
+		loginPres.setLoginView();
 		aPop.add(loginPres.getView());
 		aPop.add(close);
 		aPop.setWidgetPosition(close, 0, 0);
@@ -265,10 +266,12 @@ public class UIDesktop implements IUi {
 			public void onDisplayLogin(DisplayLoginEvent event) {
 				if(event.getLoginType().equals(LoginType.login)){
 					Log.debug("Pop Login");
-
+					loginPres.setLoginView();
+					
 					loginPop.center();
 					loginPop.show();
 				}else if(event.getLoginType().equals(LoginType.invite)){
+					loginPres.setInviteMeView();
 					Log.debug("open invite");
 					
 					loginPop.center();

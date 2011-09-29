@@ -21,7 +21,8 @@
 <!--                                           -->
 <!-- Any title is fine                         -->
 <!--                                           -->
-<title>TagAPrice - the consumer-created location-aware price comparison platform</title>
+<title>TagAPrice - the consumer-created location-aware price
+	comparison platform</title>
 
 <!--                                           -->
 <!-- This script loads your compiled module.   -->
@@ -34,9 +35,8 @@
 	var switchTo5x = true;
 </script>
 <script type="text/javascript"
-	src="js/sharethis_buttons.js"></script>
-<script type="text/javascript" src="js/sharethis_loader.js"></script>
-
+	src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript" src="http://s.sharethis.com/loader.js"></script>
 
 
 
@@ -72,18 +72,40 @@
 	<script>
 		var options = {
 			"publisher" : "591e7801-31fe-4cf9-b83b-5ae77bc3bc28",
-			"position" : "right",
 			"ad" : {
 				"visible" : false,
 				"openDelay" : "5",
 				"closeDelay" : "0"
 			},
+			"livestream" : {
+				"domain" : ""
+			},
+			"ticker" : {
+				"visible" : false,
+				"domain" : ""
+			},
+			"facebook" : {
+				"visible" : false,
+				"profile" : "sharethis"
+			},
+			"fblike" : {
+				"visible" : true,
+				"url" : "http://tagaprice.org"
+			},
+			"twitter" : {
+				"visible" : false,
+				"user" : "https://twitter.com/tagaprice"
+			},
+			"twfollow" : {
+				"visible" : true,
+				"url" : "https://twitter.com/tagaprice"
+			},
 			"chicklets" : {
-				"items" : [ "facebook", "twitter",  "linkedin",
+				"items" : [ "facebook", "twitter", "gbuzz", "linkedin",
 						"email", "sharethis" ]
 			}
 		};
-		var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+		var st_bar_widget = new sharethis.widgets.sharebar(options);
 	</script>
 
 	<script type="text/javascript">

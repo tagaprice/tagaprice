@@ -12,7 +12,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Presenter{
+public class LoginPresenter implements ILoginView.Presenter{
 
 	private ILoginView loginView;
 	private ClientFactory _clientFactory;
@@ -175,6 +175,43 @@ public class LoginPresenter implements ILoginView.Presenter, ILogoutView.Present
 			});
 		}
 
+	}
+
+	@Override
+	public void onInviteEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onForgotPasswordEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRegisterView(String key) {
+		loginView.setRegisterView(key);		
+	}
+
+	@Override
+	public void setLoginView() {
+		loginView.setLoginView();		
+	}
+
+	@Override
+	public void setInviteMeView() {
+		loginView.setInviteMeView();
+	}
+
+	@Override
+	public void setForgotPasswortView() {
+		loginView.setForgotPasswortView();
+	}
+
+	@Override
+	public void setConfirmationSentView() {
+		loginView.setConfirmationSentView();
 	}
 	
 	

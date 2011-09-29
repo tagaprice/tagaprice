@@ -410,11 +410,13 @@ a:HOVER {
 
 .loginView {
     color: #ebe9e1;
-    background-color: #2c2d25;
+    
     padding: 10px;
+/*
     border-radius: 5px;
     border-top-right-radius: 0px;
     box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+*/
     margin: 20px;
 }
 
@@ -436,10 +438,10 @@ a:HOVER {
 }
 
 .loginView hr {
-    margin-top: 15px;
+    margin-top: 5px;
     margin-bottom: 3px;
-    color: rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     height: 1px;
     border: 0;
 }
@@ -447,6 +449,40 @@ a:HOVER {
 .loginView-pic {
     margin-bottom: 4px;
     cursor: pointer;
+}
+
+.loginView-headline{
+    background-color: #2c2d25;
+    padding:4px;
+    color:white;
+    font-size: 18px;
+    font-weight:bold;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.loginView-body{
+    font-size: 15px;
+    color: black;
+    background-color: #f7f6f1;
+    padding: 4px;
+
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.loginView-passwordForgot{
+    color: #43aabe;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.loginView-passwordForgot:hover{
+    font-weight:bold;
 }
 
 .loginPopGlass {
