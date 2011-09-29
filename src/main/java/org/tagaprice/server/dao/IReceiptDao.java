@@ -7,6 +7,7 @@ import org.tagaprice.shared.entities.receiptManagement.Receipt;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public interface IReceiptDao extends IDaoClass<Receipt> {
+	@Deprecated
 	public List<Receipt> list() throws DaoException;
 
 	List<Receipt> listByPackage(String packageId) throws DaoException;

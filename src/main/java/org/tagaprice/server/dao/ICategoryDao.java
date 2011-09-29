@@ -7,6 +7,7 @@ import org.tagaprice.shared.exceptions.dao.DaoException;
 
 public interface ICategoryDao extends IDaoClass<Category> {
 	public List<Category> find(final Category searchPattern);
+	@Deprecated
 	public List<Category> list() throws DaoException;
 	public List<Category> getChildren(String id) throws DaoException;
 	List<Category> getChildren(Category parent) throws DaoException;
