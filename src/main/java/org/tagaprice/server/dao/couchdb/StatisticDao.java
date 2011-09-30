@@ -32,24 +32,14 @@ public class StatisticDao extends DaoClass<StatisticResult> implements IStatisti
 
 	public StatisticDao(CouchDbDaoFactory daoFactory) throws IOException {
 		super(daoFactory, StatisticResult.class, Document.Type.STATISTICS, null);
+		CouchDbConfig config = CouchDbDaoFactory.getConfiguration().getStatisticsConfig();
 
-		String statisticsDb = "tagaprice-statistics";
-
-		if (!m_server.listDatabases().contains(statisticsDb)) {
-			new InitialInjector().init(m_server, statisticsDb, "statistics");
+		if (!m_server.listDatabases().contains(config.getStatisticsDb())) {
+			new InitialInjector().init(m_server, config.getStatisticsDb(), "statistics");
 		}
 
-		m_db = new Database(m_server, statisticsDb);
-
-		CouchDbConfig config;
-		try {
-			config = new CouchDbConfig(CouchDbDaoFactory.getConfiguration());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException("Error while reading CouchDB configuration: "+e.getMessage(), e);
-		}
+		m_db = new Database(m_server, config.getStatisticsDb());
 		
-		config.setProperty("elasticSearch.index", statisticsDb);
 		m_searchClient = new ElasticSearchClient(config, "statistics");
 		m_statisticAggregator = new StatisticAggregator(daoFactory, this);
 		m_statisticAggregator.start();
