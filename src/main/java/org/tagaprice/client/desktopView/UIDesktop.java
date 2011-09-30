@@ -279,6 +279,12 @@ public class UIDesktop implements IUi {
 					
 					loginPop.center();
 					loginPop.show();
+				}else if(event.getLoginType().equals(LoginType.register)){
+					loginPres.setRegisterView(event.getInviteKey());
+					Log.debug("open setRegisterView");
+					
+					loginPop.center();
+					loginPop.show();
 				}
 			}
 		});

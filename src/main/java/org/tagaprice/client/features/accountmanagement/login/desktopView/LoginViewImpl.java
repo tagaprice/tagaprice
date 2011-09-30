@@ -266,73 +266,143 @@ public class LoginViewImpl extends Composite implements ILoginView {
 
 	@Override
 	public void setRegisterView(String key) {
-		// TODO Auto-generated method stub
+		headLine.setText("Register");
+		VerticalPanel loginViewVePa = new VerticalPanel();
+		loginViewVePa.clear();
+		loginViewVePa.setWidth("100%");
 		
+		
+		//invite Key
+		Label inviteKeyLabel = new Label("Inivte key");
+		loginViewVePa.add(inviteKeyLabel);
+		inviteKey.setValue(key);
+		loginViewVePa.add(inviteKey);
+		inviteKey.setReadOnly(false);
+		loginViewVePa.add(new HTML("<hr />"));
+		
+		
+		//facebook
+		Image fb = new Image("desktopView/fb-login-button.png");
+		fb.setStyleName("loginView-pic");
+		fb.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
+			}
+		});
+		loginViewVePa.add(fb);
+		
+		//twitter
+		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
+		tw.setStyleName("loginView-pic");
+		tw.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
+				
+			}
+		});
+		loginViewVePa.add(tw);
+		loginViewVePa.add(new HTML("<hr />"));
+		
+		//email
+		Label emailText = new Label("Email");
+		loginViewVePa.add(emailText);
+		loginViewVePa.add(email);
+		email.setReadOnly(false);
+		
+		//password
+		Label passwordText = new Label("Password");
+		loginViewVePa.add(passwordText);
+		loginViewVePa.add(password);
+		password.setStyleName("morphWidget edit");
+		
+		
+		//singIn button
+		loginViewVePa.add(signInButton);
+		
+		
+		//forgot password
+		Label passwordForgotText = new Label("Forgot your password?");
+		passwordForgotText.setStyleName("loginView-passwordForgot");
+		passwordForgotText.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setForgotPasswortView();
+				
+			}
+		});
+		loginViewVePa.add(passwordForgotText);
+	
+		panel.setWidget(loginViewVePa);	
 	}
 
 	@Override
 	public void setLoginView() {
 		headLine.setText("Login");
 		VerticalPanel loginViewVePa = new VerticalPanel();
-			loginViewVePa.clear();
-			loginViewVePa.setWidth("100%");
-			
-			//facebook
-			Image fb = new Image("desktopView/fb-login-button.png");
-			fb.setStyleName("loginView-pic");
-			fb.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
-				}
-			});
-			loginViewVePa.add(fb);
-			
-			//twitter
-			Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
-			tw.setStyleName("loginView-pic");
-			tw.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
-					
-				}
-			});
-			loginViewVePa.add(tw);
-			loginViewVePa.add(new HTML("<hr />"));
-			
-			//email
-			Label emailText = new Label("Email");
-			loginViewVePa.add(emailText);
-			loginViewVePa.add(email);
-			email.setReadOnly(false);
-			
-			//password
-			Label passwordText = new Label("Password");
-			loginViewVePa.add(passwordText);
-			loginViewVePa.add(password);
-			password.setStyleName("morphWidget edit");
-			
-			
-			//singIn button
-			loginViewVePa.add(signInButton);
-			
-			
-			//forgot password
-			Label passwordForgotText = new Label("Forgot your password?");
-			passwordForgotText.setStyleName("loginView-passwordForgot");
-			passwordForgotText.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent arg0) {
-					setForgotPasswortView();
-					
-				}
-			});
-			loginViewVePa.add(passwordForgotText);
+		loginViewVePa.clear();
+		loginViewVePa.setWidth("100%");
 		
+		//facebook
+		Image fb = new Image("desktopView/fb-login-button.png");
+		fb.setStyleName("loginView-pic");
+		fb.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
+			}
+		});
+		loginViewVePa.add(fb);
+		
+		//twitter
+		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
+		tw.setStyleName("loginView-pic");
+		tw.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
+				
+			}
+		});
+		loginViewVePa.add(tw);
+		loginViewVePa.add(new HTML("<hr />"));
+		
+		//email
+		Label emailText = new Label("Email");
+		loginViewVePa.add(emailText);
+		loginViewVePa.add(email);
+		email.setReadOnly(false);
+		
+		//password
+		Label passwordText = new Label("Password");
+		loginViewVePa.add(passwordText);
+		loginViewVePa.add(password);
+		password.setStyleName("morphWidget edit");
+		
+		
+		//singIn button
+		loginViewVePa.add(signInButton);
+		
+		
+		//forgot password
+		Label passwordForgotText = new Label("Forgot your password?");
+		passwordForgotText.setStyleName("loginView-passwordForgot");
+		passwordForgotText.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				setForgotPasswortView();
+				
+			}
+		});
+		loginViewVePa.add(passwordForgotText);
+	
 		panel.setWidget(loginViewVePa);
 		
 	}

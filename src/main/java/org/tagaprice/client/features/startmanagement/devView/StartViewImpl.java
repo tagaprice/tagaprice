@@ -30,6 +30,14 @@ public class StartViewImpl extends Composite implements IStartView {
 	public void setPresenter(Presenter presenter) {
 		_presenter=presenter;
 	}
+
+
+
+	@Override
+	public String getInviteKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

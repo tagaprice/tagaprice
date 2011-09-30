@@ -23,6 +23,12 @@ public interface IStartView extends IsWidget {
 	 *            Sets the {@link Presenter} which implements the {@link IProductView} to control this view.
 	 */
 	public void setPresenter(Presenter presenter);
+	
+	/**
+	 * Returns the Invite key 
+	 * @return invite key
+	 */
+	public String getInviteKey();
 
 	public interface Presenter {
 		/**
@@ -34,6 +40,14 @@ public interface IStartView extends IsWidget {
 		 */
 		public void goTo(Place place);
 		
-		public void fireEventTest(InfoBoxShowEvent event);
+		/**
+		 * invite buttons clicked
+		 */
+		public void onInvieteMe();
+		
+		/**
+		 * register button clicked
+		 */
+		public void onRegisterWithKey();
 	}
 }

@@ -70,8 +70,16 @@ public class StartActivity implements Activity, Presenter {
 	}
 
 	@Override
-	public void fireEventTest(InfoBoxShowEvent event) {
-		_clientFactory.getEventBus().fireEvent(event);
+	public void onInvieteMe() {
+		_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.invite));		
 	}
+
+	@Override
+	public void onRegisterWithKey() {
+		if(!_startView.getInviteKey().equals("your invite key"))
+			_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.register, _startView.getInviteKey()));				
+	}
+
+
 
 }
