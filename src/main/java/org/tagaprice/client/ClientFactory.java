@@ -1,7 +1,6 @@
 package org.tagaprice.client;
 
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
-import org.tagaprice.client.features.accountmanagement.login.ILogoutView;
 import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
 import org.tagaprice.client.features.productmanagement.createProduct.ICreateProductView;
@@ -77,7 +76,7 @@ public interface ClientFactory {
 	 * This view displays a logout button
 	 * @return ILogoutView
 	 */
-	ILogoutView getLogoutView();
+	ILoginView getLogoutView();
 
 
 	/**

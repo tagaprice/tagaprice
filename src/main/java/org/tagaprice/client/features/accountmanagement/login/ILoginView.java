@@ -44,6 +44,35 @@ public interface ILoginView extends IsWidget {
 	 * @param showSingIn radio button is set to 'I have an account' or 'I'm new!'
 	 */
 	public void showSignInUp(boolean showSingIn);
+	
+	/**
+	 * set the view to registerView
+	 * @param key is a inviteKey. can be null
+	 */
+	public void setRegisterView(String key);
+	
+	/**
+	 * Set view to loginView
+	 */
+	public void setLoginView();
+	
+	
+	/**
+	 * set view to inviteMeView
+	 */
+	public void setInviteMeView();
+	
+	
+	/**
+	 * set view to forgotPasswortView
+	 */
+	public void setForgotPasswortView();
+	
+	/**
+	 * set view to confirmationSentView
+	 */
+	public void setConfirmationSentView();
+	
 
 	public interface Presenter {
 		/**
@@ -65,5 +94,50 @@ public interface ILoginView extends IsWidget {
 		 * This method signals that the user has clicked the sign up button.
 		 */
 		public void onRegisterButtonEvent();
+		
+		/**
+		 * This methods signals that the user has clicked the login button
+		 */
+		public void onLogOutEvent();
+		
+		
+		/**
+		 * This method signals that the user has clicked the InviteMe button
+		 */
+		public void onInviteEvent();
+		
+		/**
+		 * This method signals that the user has clicked the ForgotPasswortLink
+		 */
+		public void onForgotPasswordEvent();
+		
+		/**
+		 * set the view to registerView
+		 * @param key is a inviteKey. can be null
+		 */
+		public void setRegisterView(String key);
+		
+		/**
+		 * Set view to loginView
+		 */
+		public void setLoginView();
+		
+		
+		/**
+		 * set view to inviteMeView
+		 */
+		public void setInviteMeView();
+		
+		
+		/**
+		 * set view to forgotPasswortView
+		 */
+		public void setForgotPasswortView();
+		
+		/**
+		 * set view to confirmationSentView
+		 */
+		public void setConfirmationSentView();
+		
 	}
 }

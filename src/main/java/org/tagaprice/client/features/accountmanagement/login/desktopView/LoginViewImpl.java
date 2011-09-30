@@ -25,6 +25,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class LoginViewImpl extends Composite implements ILoginView {
 
 	private SimplePanel panel = new SimplePanel();
+	private VerticalPanel vePa = new VerticalPanel();
+	private VerticalPanel innerVePa = new VerticalPanel();
 	private VerticalPanel vePaSignInUp = new VerticalPanel();
 	private MorphWidget email = new MorphWidget();
 	private MorphWidget diplayName = new MorphWidget();
@@ -36,12 +38,40 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private RadioButton signUpRadio = new RadioButton("blabla","I'm new!");
 	private HTML passwordForgotText = new HTML("<a >Forgot your password?</a>");
 	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a>terms of service</a>.");
+	private MorphWidget inviteKey = new MorphWidget();
 
+	private Label headLine = new Label("Login");
+	
+	
+	//views
+	
+	
 	public LoginViewImpl() {
-		initWidget(panel);
-		panel.setWidth("180px");
-		setStyleName("loginView");
+		vePa.setWidth("350px");
+		initWidget(vePa);
+		//panel.setWidth("180px");
+		vePa.setStyleName("loginView");
 		
+		//header 
+		headLine.setStyleName("loginView-headline");
+		vePa.add(headLine);
+		
+		
+		//body
+		innerVePa.setWidth("100%");
+		innerVePa.setStyleName("loginView-body");
+		vePa.add(innerVePa);
+		
+		//buttons and so on
+		innerVePa.add(panel);
+		
+		
+		
+		
+		
+		
+		
+		//events
 		//We have to add hander here because of multible fire events
 		signInButton.addClickHandler(new ClickHandler() {
 			
@@ -64,10 +94,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			@Override
 			public void onKeyDown(KeyDownEvent key) {
 				if(key.getNativeKeyCode() == 13){
-					if(signInRadio.getValue())
-						_presenter.onLoginEvent();
-					else if(signUpRadio.getValue())
-						_presenter.onRegisterButtonEvent();
+					_presenter.onLoginEvent();
 				}
 				
 			}
@@ -91,17 +118,29 @@ public class LoginViewImpl extends Composite implements ILoginView {
 
 	@Override
 	public void showWaitForConfirmation() {
+		
 		VerticalPanel conWait = new VerticalPanel();
 		conWait.add(new Label("We have just sent you an confirmation mail. Please click the link in this mail to finish you registration."));
-		panel.setWidget(conWait);
+		//panel.setWidget(conWait);
 		
 	}
 
+	
+	
 
 	@Override
 	public void showSignInUp(boolean showSingIn) {
 		vePaSignInUp.clear();
-		
+		if(false){
+		/*
+		//invite key
+		if(invite){
+			Label inviteKeylabel = new Label("Add here your invite key");
+			vePaSignInUp.add(inviteKeylabel);
+			vePaSignInUp.add(inviteKey);
+			vePaSignInUp.add(new HTML("<hr />"));
+		}
+		*/
 		
 		//facebook
 		Image fb = new Image("desktopView/fb-login-button.png");
@@ -215,13 +254,129 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			passwordForgotText.setVisible(false);
 			terms.setVisible(true);
 		}
-		
-		panel.setWidget(vePaSignInUp);
+		}
+		//panel.setWidget(vePaSignInUp);
 	}
 
 	@Override
 	public String getDisplayName() {
 		return diplayName.getValue();
+	}
+
+
+	@Override
+	public void setRegisterView(String key) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setLoginView() {
+		headLine.setText("Login");
+		VerticalPanel loginViewVePa = new VerticalPanel();
+			loginViewVePa.clear();
+			loginViewVePa.setWidth("100%");
+			
+			//facebook
+			Image fb = new Image("desktopView/fb-login-button.png");
+			fb.setStyleName("loginView-pic");
+			fb.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
+				}
+			});
+			loginViewVePa.add(fb);
+			
+			//twitter
+			Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
+			tw.setStyleName("loginView-pic");
+			tw.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
+					
+				}
+			});
+			loginViewVePa.add(tw);
+			loginViewVePa.add(new HTML("<hr />"));
+			
+			//email
+			Label emailText = new Label("Email");
+			loginViewVePa.add(emailText);
+			loginViewVePa.add(email);
+			email.setReadOnly(false);
+			
+			//password
+			Label passwordText = new Label("Password");
+			loginViewVePa.add(passwordText);
+			loginViewVePa.add(password);
+			password.setStyleName("morphWidget edit");
+			
+			
+			//singIn button
+			loginViewVePa.add(signInButton);
+			
+			
+			//forgot password
+			Label passwordForgotText = new Label("Forgot your password?");
+			passwordForgotText.setStyleName("loginView-passwordForgot");
+			passwordForgotText.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent arg0) {
+					setForgotPasswortView();
+					
+				}
+			});
+			loginViewVePa.add(passwordForgotText);
+		
+		panel.setWidget(loginViewVePa);
+		
+	}
+
+	@Override
+	public void setInviteMeView() {
+		headLine.setText("Invite Me");
+		VerticalPanel inviteMeViewVePa = new VerticalPanel();
+		
+		//email
+		Label emailText = new Label("Email");
+		inviteMeViewVePa.add(emailText);
+		inviteMeViewVePa.add(email);
+		email.setReadOnly(false);
+		
+		
+		//button
+		Button inviteMe = new Button("Invite Me",new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		inviteMe.setStyleName("save");
+		inviteMeViewVePa.add(inviteMe);
+		
+		
+		panel.setWidget(inviteMeViewVePa);
+	}
+
+	@Override
+	public void setForgotPasswortView() {
+		headLine.setText("Forgotten Password");
+		panel.setWidget(new Label("ForgotPW"));
+		
+	}
+
+	@Override
+	public void setConfirmationSentView() {
+		headLine.setText("Waiting for confirmation");
+		panel.setWidget(new Label("setConfirmationSentView"));
+		
 	}
 
 }

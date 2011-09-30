@@ -6,18 +6,18 @@ public class DisplayLoginEvent extends GwtEvent<DisplayLoginEventHandler> {
 
 	public static Type<DisplayLoginEventHandler> TYPE = new Type<DisplayLoginEventHandler>();
 	
-	private final boolean _show;
+	public enum LoginType {login, invite};
+	private final LoginType _loginType;
 	
-	public DisplayLoginEvent(boolean show) {
-		_show=show;
+	
+	public DisplayLoginEvent(LoginType loginType) {
+		_loginType=loginType;
 	}
 	
+
 	
-	/**
-	 * @return the show
-	 */
-	public boolean isShow() {
-		return _show;
+	public LoginType getLoginType(){
+		return _loginType;
 	}
 
 
