@@ -81,6 +81,7 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 					
 				}
 			});
+			
 		}
 		
 		panel.setWidget(_clientFactory.getShopCategoryView());
@@ -129,6 +130,8 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 				Log.error("searchproblem: "+e);
 			}
 		});
+		
+
 	}
 
 
