@@ -90,7 +90,6 @@ public class StatisticAggregator extends Thread {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 					String line;
 					while ((line = reader.readLine()) != null) {
-						Log.debug("StatisticAggregator got changes line: '"+line+"'");
 						if (line.length() > 0) {
 							seqNr = Math.max(seqNr, parseLine(line));
 						}
@@ -112,6 +111,9 @@ public class StatisticAggregator extends Thread {
 	private long parseLine(String line) throws DaoException {
 		CouchChange changes = JSONParser.defaultJSONParser().parse(CouchChange.class, line);
 		Document document = changes.getDoc();
+
+		if (changes.getLast_seq() != null) Log.debug("StatisticAggregator got changes line: '"+line+"'");
+
 		if (changes.getDeleted() == true) {
 			_statisticDao.delete(_statisticDao.getAffectedIDs(changes.getId()));
 		}
