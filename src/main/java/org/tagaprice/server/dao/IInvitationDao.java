@@ -1,5 +1,6 @@
 package org.tagaprice.server.dao;
 
+import org.tagaprice.server.dao.couchdb.InvitationDao.InvitationRequest;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
 public interface IInvitationDao {
@@ -26,4 +27,12 @@ public interface IInvitationDao {
 	 * @return Invitation code
 	 */
 	public String generateKey(User user);
+
+	/**
+	 * Create an {@link InvitationRequest} document with a mail address to which the invitation will
+	 * be sent as soon as there are more slots available
+	 * 
+	 * @param mail E-Mail address
+	 */
+	void requestInvitation(String mail);
 }
