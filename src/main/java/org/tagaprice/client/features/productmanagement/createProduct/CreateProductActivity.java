@@ -6,6 +6,8 @@ import java.util.List;
 import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
+import org.tagaprice.client.generics.events.DisplayLoginEvent;
+import org.tagaprice.client.generics.events.DisplayLoginEvent.LoginType;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
@@ -235,7 +237,8 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 			panel.setWidget(_createProductView);
 			
 			//setReadable
-			_createProductView.setReadOnly(false);
+			onEditEvent();
+			//_createProductView.setReadOnly(false);
 		
 			
 		}
@@ -298,6 +301,15 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 				_place.getLat(), 
 				_place.getLon(), 
 				_place.getZoom()));
+		
+	}
+
+	@Override
+	public void onEditEvent() {
+		_createProductView.setReadOnly(false);
+		if(!_clientFactory.getAccountPersistor().isLoggedIn())
+			_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.login));
+		
 		
 	}
 

@@ -134,7 +134,8 @@ public class CreateProductViewImpl extends Composite implements ICreateProductVi
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				setReadOnly(false);
+				_presenter.onEditEvent();
+				//setReadOnly(false);
 			}
 		});
 				

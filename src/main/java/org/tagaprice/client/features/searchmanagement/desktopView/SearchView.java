@@ -255,7 +255,7 @@ public class SearchView extends Composite implements ISearchView {
 		
 		_osmShopMap.addLayer(_osmLayer);	
 		LonLat vienna = new LonLat(16.3700, 48.2089);
-		vienna.transform("EPSG:900913","EPSG:4326");
+		vienna.transform("EPSG:4326","EPSG:900913");
 		_osmShopMap.setCenter(vienna, 13);
 		_mapPanel.add(_osmShopWidget);
 		
