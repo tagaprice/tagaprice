@@ -29,6 +29,9 @@ public interface IStartView extends IsWidget {
 	 * @return invite key
 	 */
 	public String getInviteKey();
+	
+
+	public void setInviteKey(String inviteKey);
 
 	public interface Presenter {
 		/**
@@ -50,4 +53,5 @@ public interface IStartView extends IsWidget {
 		 */
 		public void onRegisterWithKey();
 	}
+
 }

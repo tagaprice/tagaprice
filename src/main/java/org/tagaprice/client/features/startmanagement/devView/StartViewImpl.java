@@ -38,6 +38,14 @@ public class StartViewImpl extends Composite implements IStartView {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public void setInviteKey(String inviteKey) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

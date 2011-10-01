@@ -49,19 +49,22 @@ public class StartActivity implements Activity, Presenter {
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		Log.debug("activity startet");
 		Window.setTitle("TagAPrice - the consumer-created location-aware price comparison platform");
-		Log.debug("redir: "+_place.getRedirect());
-		if(_place.getRedirect()!=null && _place.getRedirect().equals("true")){
-			
-			eventBus.fireEvent(new DisplayLoginEvent(LoginType.login));
-			
-			
-		}
+		
 		
 		_startView = _clientFactory.getStartView();
 		_startView.setPresenter(this);
 
+		
 		panel.setWidget(_startView);
 
+		
+		Log.debug("redir: "+_place.getRedirect());
+		if(_place.getRedirect()!=null && _place.getRedirect().equals("true")){
+			eventBus.fireEvent(new DisplayLoginEvent(LoginType.login));
+		}else if(_place.getInviteKey()!=null){
+			eventBus.fireEvent(new DisplayLoginEvent(LoginType.register, _place.getInviteKey()));
+			_startView.setInviteKey(_place.getInviteKey());
+		}
 	}
 
 	@Override
