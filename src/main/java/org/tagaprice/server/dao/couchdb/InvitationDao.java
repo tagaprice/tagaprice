@@ -33,8 +33,8 @@ public class InvitationDao implements IInvitationDao {
 		}
 		
 		@JSONProperty(ignoreIfNull=true)
-		public long getRequestTimestamp() {
-			return m_requestTimestamp.getTime();
+		public Long getRequestTimestamp() {
+			return m_requestTimestamp != null ? m_requestTimestamp.getTime() : null;
 		}
 		
 		@JSONProperty(ignore=true)
@@ -48,8 +48,8 @@ public class InvitationDao implements IInvitationDao {
 		}
 		
 		@JSONProperty(ignoreIfNull=true)
-		public long getUseTimestamp() {
-			return m_useTimestamp.getTime();
+		public Long getUseTimestamp() {
+			return m_useTimestamp != null ? m_useTimestamp.getTime() : null;
 		}
 		
 		@JSONProperty(ignore=true)
@@ -93,20 +93,21 @@ public class InvitationDao implements IInvitationDao {
 
 	public static class InvitationRequest extends BaseDocument {
 		private String m_mail;
-		private Date m_timestamp;
+		private Date m_timestamp = Calendar.getInstance().getTime();;
 		
 		public InvitationRequest() {}
 		
 		public InvitationRequest(String mail) {
 			m_mail = mail;
-			m_timestamp = Calendar.getInstance().getTime();
 		}
 		
 		public String getMail() {
 			return m_mail;
 		}
 		
+		
 		public long getTimestamp() {
+			// m_timestamp can't be null, we don't need to check that here
 			return m_timestamp.getTime();
 		}
 		
