@@ -1,5 +1,6 @@
 package org.tagaprice.client.mvp;
 
+import org.tagaprice.client.features.accountmanagement.inviteFriends.InviteFriendsPlace;
 import org.tagaprice.client.features.accountmanagement.settings.SettingsPlace;
 import org.tagaprice.client.features.categorymanagement.product.ProductCategoryPlace;
 import org.tagaprice.client.features.categorymanagement.shop.ShopCategoryPlace;
@@ -26,7 +27,8 @@ import com.google.gwt.place.shared.*;
 	SearchPlace.Tokenizer.class,
 	ProductCategoryPlace.Tokenizer.class,
 	ShopCategoryPlace.Tokenizer.class,
-	SettingsPlace.Tokenizer.class})
+	SettingsPlace.Tokenizer.class,
+	InviteFriendsPlace.Tokenizer.class})
 	public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 
 }

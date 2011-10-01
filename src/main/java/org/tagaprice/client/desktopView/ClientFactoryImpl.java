@@ -2,6 +2,8 @@ package org.tagaprice.client.desktopView;
 
 import org.tagaprice.client.AccountPersistor;
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.accountmanagement.inviteFriends.IInviteFriendsView;
+import org.tagaprice.client.features.accountmanagement.inviteFriends.desktopView.InviteFriendsView;
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.desktopView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
@@ -66,6 +68,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static ICategoryView shopCategoryView;
 	private static ICategoryView productCategoryView;
 	private static ISettingsView settingsView;
+	private static IInviteFriendsView inviteFriendsView;
 
 	//RPC
 	private static final IShopServiceAsync I_SHOP_SERVICE_ASYNC = GWT.create(IShopService.class);
@@ -177,6 +180,12 @@ public class ClientFactoryImpl implements ClientFactory {
 		return settingsView;
 	}
 
+	@Override
+	public IInviteFriendsView getInivteFriendsView() {
+		if(inviteFriendsView==null)
+			inviteFriendsView = new InviteFriendsView();
+		return inviteFriendsView;
+	}
 	
 	@Override
 	public ILoginServiceAsync getLoginService() {
@@ -213,6 +222,8 @@ public class ClientFactoryImpl implements ClientFactory {
 		// TODO Auto-generated method stub
 		return ClientFactoryImpl.I_SEARCH_SERVICE_ASYNC;
 	}
+
+	
 
 	
 	

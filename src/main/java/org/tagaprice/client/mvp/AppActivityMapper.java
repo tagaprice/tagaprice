@@ -1,6 +1,8 @@
 package org.tagaprice.client.mvp;
 
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.accountmanagement.inviteFriends.InviteFriendsActivity;
+import org.tagaprice.client.features.accountmanagement.inviteFriends.InviteFriendsPlace;
 import org.tagaprice.client.features.accountmanagement.settings.SettingsActivity;
 import org.tagaprice.client.features.accountmanagement.settings.SettingsPlace;
 import org.tagaprice.client.features.categorymanagement.product.ProductCategoryActivity;
@@ -67,6 +69,9 @@ public class AppActivityMapper implements ActivityMapper {
 		}else if(place instanceof SettingsPlace){
 			Log.debug("return new SettingsPlace");
 			return new SettingsActivity((SettingsPlace)place, clientFactory); 
+		}else if(place instanceof InviteFriendsPlace){
+			Log.debug("return new InviteFriendsPlace");
+			return new InviteFriendsActivity((InviteFriendsPlace)place, clientFactory);
 		}
 
 		else {

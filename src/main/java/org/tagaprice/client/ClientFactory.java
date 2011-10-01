@@ -1,5 +1,6 @@
 package org.tagaprice.client;
 
+import org.tagaprice.client.features.accountmanagement.inviteFriends.IInviteFriendsView;
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.settings.ISettingsView;
 import org.tagaprice.client.features.categorymanagement.ICategoryView;
@@ -104,11 +105,15 @@ public interface ClientFactory {
 	
 	ISettingsView getSettingsView();
 	
+	IInviteFriendsView getInivteFriendsView();
+	
 	/****************** GlobalAddress ***********************/
 	/**
 	 * Returns Static {@link AccountPersistor}
 	 * @return {@link AccountPersistor}
 	 */
 	public IAccountPersistor getAccountPersistor();
+
+	
 
 }

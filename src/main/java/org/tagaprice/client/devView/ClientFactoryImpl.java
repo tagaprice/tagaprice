@@ -2,6 +2,7 @@ package org.tagaprice.client.devView;
 
 import org.tagaprice.client.AccountPersistor;
 import org.tagaprice.client.ClientFactory;
+import org.tagaprice.client.features.accountmanagement.inviteFriends.IInviteFriendsView;
 import org.tagaprice.client.features.accountmanagement.login.ILoginView;
 import org.tagaprice.client.features.accountmanagement.login.devView.LoginViewImpl;
 import org.tagaprice.client.features.accountmanagement.login.devView.LogoutViewImpl;
@@ -194,6 +195,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ISettingsView getSettingsView() {
 		// TODO Auto-generated method stub
 		Log.debug("getSettingsView is null ......................");
+		return null;
+	}
+
+	@Override
+	public IInviteFriendsView getInivteFriendsView() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
