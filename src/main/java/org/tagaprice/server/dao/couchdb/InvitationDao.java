@@ -89,7 +89,6 @@ public class InvitationDao implements IInvitationDao {
 				throw new RuntimeException("Not an invitation document!");
 			}
 		}
-		
 	}
 
 	public static class InvitationRequest extends BaseDocument {
@@ -117,6 +116,16 @@ public class InvitationDao implements IInvitationDao {
 		
 		public void setTimestamp(long timestamp) {
 			m_timestamp = new Date(timestamp);
+		}
+		
+		public String getDocType() {
+			return "invitationRequest";
+		}
+		
+		public void setDocType(String docType) {
+			if (!"invitationRequest".equals(docType)) {
+				throw new RuntimeException("Not an invitation request document!");
+			}
 		}
 	}
 	
