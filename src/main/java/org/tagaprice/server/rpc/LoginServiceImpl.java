@@ -231,11 +231,38 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	
 	@Override
 	public long sendInviteToFriend(String email) throws DaoException, UserNotLoggedInException{
-		if(getUser()==null || getUser().getProperty("inviteCount")==null || ((Long)getUser().getProperty("inviteCount"))==0) return 0;
+		if(getUser()==null 
+				|| getUser().getProperty("inviteCount")==null 
+				|| ((Long)getUser().getProperty("inviteCount"))==0 
+				) return 0;
 		
 		Long count = ((Long)getUser().getProperty("inviteCount"));
 		//send email
 		Log.info("Send invite to friend: "+email);
+		
+		if(_userDao.getByMail(email)!=null)return count;
+		
+		
+		// send confirmation mail
+		HashMap<String, String> replacements = new HashMap<String, String>();
+		
+		String key = "asdfs";
+			key = _invitationDao.generateKey(getUser());
+		
+		replacements.put("mail", email);
+		replacements.put("key", key);
+		replacements.put("host", "beta.tagaprice.org");
+		try {
+			Mail.getInstance().send("inviteFriend", new InternetAddress(email),  replacements);
+			
+			
+		} catch (AddressException e) {
+			throw new DaoException("AddressException: "+e.getMessage(), e);
+		} catch (MessagingException e) {
+			throw new DaoException("MessagingException: "+e.getMessage(), e);
+		} catch (IOException e) {
+			throw new DaoException("IOException: "+e.getMessage(), e);
+		}
 		
 		//ok
 		count=count-1;
