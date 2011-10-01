@@ -98,6 +98,10 @@ public class ShopCategoryActivity extends AbstractActivity implements Presenter 
 		_category=category;
 		_categoryView.setCategory(category);
 		
+		onStatisticChangedEvent(
+				_categoryView.getStatisticBoundingBox(), 
+				_categoryView.getStatisticBeginDate(), 
+				_categoryView.getStatisticEndDate());
 	}
 
 	@Override

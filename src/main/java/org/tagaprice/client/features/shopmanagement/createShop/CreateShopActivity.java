@@ -283,6 +283,11 @@ public class CreateShopActivity implements ICreateShopView.Presenter, Activity {
 		_createShopView.setBranding(shop.getParent());
 		_createShopView.setCategory(shop.getCategory());
 		_createShopView.setPropertyList(shop.getPropertyList());
+		
+		onStatisticChangedEvent(
+				_createShopView.getStatisticBoundingBox(), 
+				_createShopView.getStatisticBeginDate(), 
+				_createShopView.getStatisticEndDate());
 	}
 
 

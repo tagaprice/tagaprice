@@ -252,6 +252,11 @@ public class CreateProductActivity implements ICreateProductView.Presenter, Acti
 		_createProductView.setUnit(product.getUnit());
 
 		_createProductView.setPackages(product.getPackages());
+		
+		onStatisticChangedEvent(
+				_createProductView.getStatisticBoundingBox(), 
+				_createProductView.getStatisticBeginDate(), 
+				_createProductView.getStatisticEndDate());
 	}
 
 	@Override

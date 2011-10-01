@@ -91,6 +91,10 @@ public class ProductCategoryActivity extends AbstractActivity implements Present
 		_category=category;
 		_categoryView.setCategory(category);
 		
+		onStatisticChangedEvent(
+				_categoryView.getStatisticBoundingBox(), 
+				_categoryView.getStatisticBeginDate(), 
+				_categoryView.getStatisticEndDate());
 	}
 	
 	
