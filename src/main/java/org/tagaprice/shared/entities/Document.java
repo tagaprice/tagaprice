@@ -2,6 +2,7 @@ package org.tagaprice.shared.entities;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,12 +58,12 @@ public class Document implements IsSerializable, DynamicProperties {
 	private String _rev = null;
 	private Type _docType = null;
 	private String _creatorId = null;
+	private Date _modificationDate = null; 
+	private String _title;
 	private Map<String, Object> _properties = new HashMap<String, Object>();
+
 	private Address _address = new Address();
 	private ArrayList<Package> _iPackage = new ArrayList<Package>();
-
-
-	private String _title;
 
 	/// TODO make a dummy RPC class to cover all those types
 	@SuppressWarnings("unused")
@@ -137,6 +138,30 @@ public class Document implements IsSerializable, DynamicProperties {
 		return _id;
 	}
 	
+	/**
+	 * Returns the time the document was last modified in msecs since epoch
+	 * 
+	 * This method is for serialization purposes only. Use getModificationDate() instead
+	 * 
+	 * @see getModificationDate()
+	 * @return Timstamp in msecs since epoch (since 1970-01-01 00:00:00 UTC)
+	 */
+	@JSONProperty(ignoreIfNull=true)
+	public Long getLastModified() {
+		return _modificationDate != null ? _modificationDate.getTime() : 0;
+	}
+
+	/**
+	 * Get the date and time when this document was last saved.
+	 * Its value is set by the DAO, so don't call the setter explicitly
+	 * 
+	 * @return Modification date or null if not yet saved 
+	 */
+	@JSONProperty(ignore=true)
+	public Date getModificationDate() {
+		return _modificationDate;
+	}
+	
 	public Object getProperty(String name) {
 		return _properties.get(name);
 	}
@@ -154,7 +179,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	public String getRevision() {
 		return _rev;
 	}
-
+	
 	/**
 	 * Returns the title
 	 * @return the title
@@ -200,6 +225,17 @@ public class Document implements IsSerializable, DynamicProperties {
 	 */
 	public void setId(String entityId) {
 		_id = entityId;
+	}
+	
+	/**
+	 * Set the modification timestamp of this document
+	 *
+	 * Don't call this method explicitly as this value will be overwritten when the document gets saved
+	 * by the DAO
+	 * @param lastModified New modification time (in msecs since epoch)
+	 */
+	public void setLastModified(long lastModified) {
+		_modificationDate = new Date(lastModified);
 	}
 
 	public void setProperty(String name, Object value) {
