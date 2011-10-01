@@ -14,7 +14,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DummyServiceImpl extends RemoteServiceServlet implements DummyService {
 	@Override
 	public void dummyMethode(Boolean bool, boolean bool2,
-			ReceiptEntry eceiptEntry, HashMap<String, String> dummyMap) {
+			ReceiptEntry eceiptEntry, HashMap<String, String> dummyMap, 
+			int i,
+			Integer i2) {
 		// TODO Auto-generated method stub
 		
 	}

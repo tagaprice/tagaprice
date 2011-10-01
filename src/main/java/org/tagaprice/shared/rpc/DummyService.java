@@ -12,5 +12,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("dummyservice")
 public interface DummyService extends RemoteService {
-  void dummyMethode(Boolean bool, boolean bool2, ReceiptEntry eceiptEntry, HashMap<String, String> dummyMap);
+  void dummyMethode(Boolean bool, boolean bool2, ReceiptEntry eceiptEntry, HashMap<String, String> dummyMap, int i, Integer i2);
 }

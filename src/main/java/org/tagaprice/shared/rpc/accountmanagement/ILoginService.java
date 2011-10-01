@@ -87,4 +87,13 @@ public interface ILoginService extends RemoteService {
 	 * @return true/false if this email has been confirmed. But false if not, or not available. 
 	 */
 	public boolean isEmailConfirmed(String email);
+
+
+	/**
+	 * Send invite key to this email and returns current count
+	 * @param email email of a friend
+	 * @return current invite count
+	 * @throws DaoException
+	 */
+	long sendInviteToFriend(String email) throws DaoException, UserNotLoggedInException;
 }

@@ -107,6 +107,7 @@ public class SocialAuthSuccessAction extends ASessionService {
 							//user.setTitle(p.getDisplayName());
 							user.setMail(email);
 							user.setProperty(p.getProviderId(), "true");
+							user.setProperty("inviteCount", 5l);
 							user = _userDao.create(user);
 							
 							_inviteDao.useKey((String)session.getAttribute("invitekey"), user);

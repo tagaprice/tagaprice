@@ -9,10 +9,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DashboardMenuWidget extends Composite {
 
-	public enum MENUPOINT{MYRECEIPTS, ADDRECEIPT, SETTINGS};
+	public enum MENUPOINT{MYRECEIPTS, ADDRECEIPT, SETTINGS, INVITEFRIENDS};
 	private VerticalPanel _vePa = new VerticalPanel();
 	private Label _myReceipts = new Label("My Receipts");
 	private Label _addReceipt = new Label("add Receipt");
+	private Label _inviteFriends = new Label("Invite Friends");
 	private Label _setting = new Label("Settings");
 	private Label _logout = new Label("Logout");
 	
@@ -23,11 +24,13 @@ public class DashboardMenuWidget extends Composite {
 		//menu style
 		_myReceipts.setStyleName("dashboardMenuItem");
 		_addReceipt.setStyleName("dashboardMenuItem");
+		_inviteFriends.setStyleName("dashboardMenuItem");
 		_setting.setStyleName("dashboardMenuItem");
 		_logout.setStyleName("dashboardMenuItem");
 		
 		_vePa.add(_myReceipts);
 		_vePa.add(_addReceipt);
+		_vePa.add(_inviteFriends);
 		_vePa.add(_setting);
 		_vePa.add(_logout);
 		
@@ -56,6 +59,14 @@ public class DashboardMenuWidget extends Composite {
 			}
 		});
 		
+		_inviteFriends.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				History.newItem("invitefriends:null");					
+			}
+		});
+		
 		
 		initWidget(_vePa);
 	}
@@ -67,6 +78,8 @@ public class DashboardMenuWidget extends Composite {
 			_myReceipts.setStyleName("dashboardMenuItem dashboardMenuItemActive");
 		}else if(point.equals(MENUPOINT.SETTINGS)){
 			_setting.setStyleName("dashboardMenuItem dashboardMenuItemActive");
+		}else if(point.equals(MENUPOINT.INVITEFRIENDS)){
+			_inviteFriends.setStyleName("dashboardMenuItem dashboardMenuItemActive");
 		}
 	}
 	

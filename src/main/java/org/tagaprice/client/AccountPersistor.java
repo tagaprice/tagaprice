@@ -252,4 +252,9 @@ public class AccountPersistor implements IAccountPersistor {
 		
 		return false;
 	}
+
+	@Override
+	public User getUser() {
+		return _user;
+	}
 }

@@ -165,6 +165,7 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 		
 		try {
 			User user = new User(diplayName); 
+			user.setProperty("inviteCount",5l);
 			user.setMail(email);
 			user.setPasswordSalt(salt);
 			user.setPasswordHash(pwdHash);
@@ -226,6 +227,22 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 		
 		return false;
 		*/
+	}
+	
+	@Override
+	public long sendInviteToFriend(String email) throws DaoException, UserNotLoggedInException{
+		if(getUser()==null || getUser().getProperty("inviteCount")==null || ((Long)getUser().getProperty("inviteCount"))==0) return 0;
+		
+		Long count = ((Long)getUser().getProperty("inviteCount"));
+		//send email
+		Log.info("Send invite to friend: "+email);
+		
+		//ok
+		count=count-1;
+		getUser().setProperty("inviteCount", count);
+		_userDao.update(getUser());
+		
+		return ((Long)getUser().getProperty("inviteCount"));
 	}
 
 }
