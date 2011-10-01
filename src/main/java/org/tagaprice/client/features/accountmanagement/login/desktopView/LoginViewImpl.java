@@ -332,7 +332,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@Override
 	public void setInviteSentView() {
 		headLine.setText("Invite Me");
-		panel.setWidget(new Label("We add you to the invitation queue, and try to send you an invitation as soon as possible."));
+		panel.setWidget(new Label("We added you to the invitation queue, and try to send you an invitation as soon as possible."));
 	}
 
 }

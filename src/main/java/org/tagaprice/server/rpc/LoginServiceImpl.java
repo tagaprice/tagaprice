@@ -208,25 +208,16 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 	@Override
 	public boolean addEmailToInviteQueue(String email) throws DaoException {
-		return false;
-		/*
+		
+		
 		if (!isEmailAvailable(email)) return false;
 		
-		User user = new User(email); 
-		user.setMail(email);
-		user.setProperty("inviteme", "true");
+		_invitationDao.requestInvitation(email);
 		
-		try {
-			user = _userDao.create(user);
-		} catch (DaoException e) {
-			throw new DaoException("IOException: "+e.getMessage(), e);	
-		}
+
 		
-		if(user.getId()!=null)
-			return true;
+		return true;
 		
-		return false;
-		*/
 	}
 	
 	@Override
