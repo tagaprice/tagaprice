@@ -109,7 +109,7 @@ public class UIDesktop implements IUi {
 		
 		
 		//invite me
-		final Label inviteMe = new Label("Invite Me!");
+		final Label inviteMe = new Label("Request Invitation");
 		inviteMe.setStyleName("menuInviteButton");
 		menu.add(inviteMe);
 		inviteMe.addClickHandler(new ClickHandler() {

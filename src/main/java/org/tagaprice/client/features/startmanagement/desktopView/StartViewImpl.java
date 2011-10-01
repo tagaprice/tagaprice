@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class StartViewImpl extends Composite implements IStartView {
 
 	private Presenter _presenter;
-	private Label getInvitation = new Label("Invite Me!");
+	private Label getInvitation = new Label("Request Invitation");
 	private VerticalPanel vePa = new VerticalPanel();
 	private StdFrame frame = new StdFrame();
 	private Label title = new Label("The consumer-created location-aware price comparison platform");
@@ -73,7 +73,7 @@ public class StartViewImpl extends Composite implements IStartView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				if(inviteationKeyText.getText().equals("your invite key"));
+				if(inviteationKeyText.getText().equals("your invite key"))
 					inviteationKeyText.setText("");
 				
 			}
@@ -104,7 +104,7 @@ public class StartViewImpl extends Composite implements IStartView {
 
 	@Override
 	public void setInviteKey(String inviteKey) {
-		inviteationKeyText.setValue(inviteKey);
+		inviteationKeyText.setText(inviteKey);
 	}
 	
 

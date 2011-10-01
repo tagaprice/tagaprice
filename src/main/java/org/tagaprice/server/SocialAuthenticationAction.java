@@ -38,7 +38,12 @@ public class SocialAuthenticationAction extends HttpServlet {
 		
 		HttpSession session = req.getSession(true);
 
+		if(req.getParameter("invitekey")!=null){
+			session.setAttribute("invitekey", req.getParameter("invitekey").trim());
+		}
+		
 		String id = req.getParameter("id").trim();
+		
 
 		// Create an instance of SocialAuthConfgi object
 		SocialAuthConfig config = SocialAuthConfig.getDefault();

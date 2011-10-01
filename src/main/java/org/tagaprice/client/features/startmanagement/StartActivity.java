@@ -55,7 +55,7 @@ public class StartActivity implements Activity, Presenter {
 		_startView.setPresenter(this);
 
 		
-		panel.setWidget(_startView);
+		
 
 		
 		Log.debug("redir: "+_place.getRedirect());
@@ -65,6 +65,8 @@ public class StartActivity implements Activity, Presenter {
 			eventBus.fireEvent(new DisplayLoginEvent(LoginType.register, _place.getInviteKey()));
 			_startView.setInviteKey(_place.getInviteKey());
 		}
+		
+		panel.setWidget(_startView);
 	}
 
 	@Override

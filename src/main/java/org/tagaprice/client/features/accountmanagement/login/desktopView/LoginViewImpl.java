@@ -27,16 +27,12 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private SimplePanel panel = new SimplePanel();
 	private VerticalPanel vePa = new VerticalPanel();
 	private VerticalPanel innerVePa = new VerticalPanel();
-	private VerticalPanel vePaSignInUp = new VerticalPanel();
 	private MorphWidget email = new MorphWidget();
 	private MorphWidget diplayName = new MorphWidget();
 	private PasswordTextBox password = new PasswordTextBox();
 	private Button signInButton = new Button("Log in");
 	private Button signUpButton = new Button("Sign up!");
 	private Presenter _presenter;
-	private RadioButton signInRadio = new RadioButton("blabla","I have an account.");
-	private RadioButton signUpRadio = new RadioButton("blabla","I'm new!");
-	private HTML passwordForgotText = new HTML("<a >Forgot your password?</a>");
 	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a>terms of service</a>.");
 	private MorphWidget inviteKey = new MorphWidget();
 
@@ -148,7 +144,10 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
+				String url = "/TagAPrice/socialAuth?id=facebook";
+				if(!inviteKey.getValue().isEmpty())
+					url+="&invitekey="+inviteKey.getValue();
+				Window.open(url, "_self", "");
 			}
 		});
 		loginViewVePa.add(fb);
@@ -160,7 +159,10 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
+				String url = "/TagAPrice/socialAuth?id=twitter";
+				if(!inviteKey.getValue().isEmpty())
+					url+="&invitekey="+inviteKey.getValue();
+				Window.open(url, "_self", "");
 				
 			}
 		});
@@ -191,6 +193,9 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		//singIn button
 		loginViewVePa.add(signUpButton);
+		
+		loginViewVePa.add(terms);
+		loginViewVePa.add(new HTML("<br />"));
 		
 		
 		//forgot password
@@ -223,7 +228,8 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
+				String url = "/TagAPrice/socialAuth?id=facebook";
+				Window.open(url, "_self", "");
 			}
 		});
 		loginViewVePa.add(fb);
@@ -235,7 +241,8 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
+				String url = "/TagAPrice/socialAuth?id=twitter";
+				Window.open(url, "_self", "");
 				
 			}
 		});

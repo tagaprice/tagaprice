@@ -15,6 +15,7 @@ import org.brickred.socialauth.Profile;
 import org.brickred.socialauth.SocialAuthManager;
 import org.brickred.socialauth.util.SocialAuthUtil;
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.dao.IUserDao;
 import org.tagaprice.server.dao.couchdb.CouchDbDaoFactory;
 import org.tagaprice.server.rpc.ASessionService;
@@ -26,12 +27,14 @@ public class SocialAuthSuccessAction extends ASessionService {
 	private static final long serialVersionUID = 1L;
 
 	private IUserDao _userDao;
+	private IInvitationDao _inviteDao;
 	private static Properties _properties;
 	
 	public SocialAuthSuccessAction() throws IOException {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 
 		_userDao = daoFactory.getUserDao();
+		_inviteDao = daoFactory.getInvitationDao();
 		
 		if(_properties==null){
 			_properties=new Properties();
@@ -90,20 +93,36 @@ public class SocialAuthSuccessAction extends ASessionService {
 				
 				
 				if(user==null){
-					//create new user
-					user = new User(username);
-					//user.setTitle(p.getDisplayName());
-					user.setMail(email);
-					user.setProperty(p.getProviderId(), "true");
-					user = _userDao.create(user);
-										
-					//setLOGIN
-					//setUser(user);
-					//getThreadLocalRequest().getSession(true).setAttribute("suser", user);
+					if(session.getAttribute("invitekey")!=null){
+						
+						if(!_inviteDao.checkKey((String)session.getAttribute("invitekey"))){
+							session.removeAttribute("invitekey");
+							resp.sendRedirect(_properties.getProperty("redirecturl")+"/#start:/null");
+							
+							return ;
+						}else{
+							
+							//create new user
+							user = new User(username);
+							//user.setTitle(p.getDisplayName());
+							user.setMail(email);
+							user.setProperty(p.getProviderId(), "true");
+							user = _userDao.create(user);
+							
+							_inviteDao.useKey((String)session.getAttribute("invitekey"), user);
+							
+							session.removeAttribute("invitekey");
+							
+							//setLOGIN
+							//setUser(user);
+							//getThreadLocalRequest().getSession(true).setAttribute("suser", user);
+							
+							req.getSession(true).setAttribute("suser", user);
+						}
+						//resp.sendRedirect("/#start:null");
+					}
 					
-					req.getSession(true).setAttribute("suser", user);
 					
-					//resp.sendRedirect("/#start:null");
 				}else {
 					// login with this user
 					
@@ -113,7 +132,7 @@ public class SocialAuthSuccessAction extends ASessionService {
 					}
 				}
 				
-				resp.sendRedirect(_properties.getProperty("redirecturl")+"/#start:null");
+				resp.sendRedirect(_properties.getProperty("redirecturl")+"/#start:/null");
 			}
 			
 			
