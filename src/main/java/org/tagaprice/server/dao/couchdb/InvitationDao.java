@@ -91,6 +91,35 @@ public class InvitationDao implements IInvitationDao {
 		}
 		
 	}
+
+	public static class InvitationRequest extends BaseDocument {
+		private String m_mail;
+		private Date m_timestamp;
+		
+		public InvitationRequest() {}
+		
+		public InvitationRequest(String mail) {
+			m_mail = mail;
+			m_timestamp = Calendar.getInstance().getTime();
+		}
+		
+		public String getMail() {
+			return m_mail;
+		}
+		
+		public long getTimestamp() {
+			return m_timestamp.getTime();
+		}
+		
+		public void setMail(String mail) {
+			m_mail = mail;
+		}
+		
+		public void setTimestamp(long timestamp) {
+			m_timestamp = new Date(timestamp);
+		}
+	}
+	
 	
 	Database m_db;
 	
