@@ -113,7 +113,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T create(T document) throws DaoException {
 		document._setDocType(m_docType);
-		document.setTimestamp(Calendar.getInstance().getTimeInMillis());
+		document.setLastModified(Calendar.getInstance().getTimeInMillis());
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());
@@ -238,7 +238,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T update(T document) throws DaoException {
 		document._setDocType(m_docType);
-		document.setTimestamp(Calendar.getInstance().getTimeInMillis());
+		document.setLastModified(Calendar.getInstance().getTimeInMillis());
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());

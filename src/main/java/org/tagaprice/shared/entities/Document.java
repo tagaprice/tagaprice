@@ -139,6 +139,19 @@ public class Document implements IsSerializable, DynamicProperties {
 	}
 	
 	/**
+	 * Returns the time the document was last modified in msecs since epoch
+	 * 
+	 * This method is for serialization purposes only. Use getModificationDate() instead
+	 * 
+	 * @see getModificationDate()
+	 * @return Timstamp in msecs since epoch (since 1970-01-01 00:00:00 UTC)
+	 */
+	@JSONProperty(ignoreIfNull=true)
+	public Long getLastModified() {
+		return _modificationDate != null ? _modificationDate.getTime() : 0;
+	}
+
+	/**
 	 * Get the date and time when this document was last saved.
 	 * Its value is set by the DAO, so don't call the setter explicitly
 	 * 
@@ -167,19 +180,6 @@ public class Document implements IsSerializable, DynamicProperties {
 		return _rev;
 	}
 	
-	/**
-	 * Returns the time the document was last modified in msecs since epoch
-	 * 
-	 * This method is for serialization purposes only. Use getModificationDate() instead
-	 * 
-	 * @see getModificationDate()
-	 * @return Timstamp in msecs since epoch (since 1970-01-01 00:00:00 UTC)
-	 */
-	@JSONProperty(ignoreIfNull=true)
-	public Long getTimestamp() {
-		return _modificationDate != null ? _modificationDate.getTime() : 0;
-	}
-
 	/**
 	 * Returns the title
 	 * @return the title
@@ -227,6 +227,17 @@ public class Document implements IsSerializable, DynamicProperties {
 		_id = entityId;
 	}
 	
+	/**
+	 * Set the modification timestamp of this document
+	 *
+	 * Don't call this method explicitly as this value will be overwritten when the document gets saved
+	 * by the DAO
+	 * @param lastModified New modification time (in msecs since epoch)
+	 */
+	public void setLastModified(long lastModified) {
+		_modificationDate = new Date(lastModified);
+	}
+
 	public void setProperty(String name, Object value) {
 		_properties.put(name, value);
 	}
@@ -237,17 +248,6 @@ public class Document implements IsSerializable, DynamicProperties {
 	 */
 	public void setRevision(String revision) {
 		_rev=revision;
-	}
-
-	/**
-	 * Set the modification timestamp of this document
-	 *
-	 * Don't call this method explicitly as this value will be overwritten when the document gets saved
-	 * by the DAO
-	 * @param lastModified New modification time (in msecs since epoch)
-	 */
-	public void setTimestamp(long lastModified) {
-		_modificationDate = new Date(lastModified);
 	}
 
 	/**
