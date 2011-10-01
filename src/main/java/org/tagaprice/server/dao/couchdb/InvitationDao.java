@@ -89,8 +89,46 @@ public class InvitationDao implements IInvitationDao {
 				throw new RuntimeException("Not an invitation document!");
 			}
 		}
-		
 	}
+
+	public static class InvitationRequest extends BaseDocument {
+		private String m_mail;
+		private Date m_timestamp;
+		
+		public InvitationRequest() {}
+		
+		public InvitationRequest(String mail) {
+			m_mail = mail;
+			m_timestamp = Calendar.getInstance().getTime();
+		}
+		
+		public String getMail() {
+			return m_mail;
+		}
+		
+		public long getTimestamp() {
+			return m_timestamp.getTime();
+		}
+		
+		public void setMail(String mail) {
+			m_mail = mail;
+		}
+		
+		public void setTimestamp(long timestamp) {
+			m_timestamp = new Date(timestamp);
+		}
+		
+		public String getDocType() {
+			return "invitationRequest";
+		}
+		
+		public void setDocType(String docType) {
+			if (!"invitationRequest".equals(docType)) {
+				throw new RuntimeException("Not an invitation request document!");
+			}
+		}
+	}
+	
 	
 	Database m_db;
 	
@@ -126,6 +164,7 @@ public class InvitationDao implements IInvitationDao {
 	 * @param key Invitation code
 	 * @return True if the key is usable, false otherwise (invalid or already used)
 	 */
+	@Override
 	public boolean checkKey(String key) {
 		return getInvitation(key) != null;
 	}
@@ -136,6 +175,7 @@ public class InvitationDao implements IInvitationDao {
 	 * @param user User that activated his/her profile with the given key
 	 * @return True if the key was used successfully, false if it was invalid or has already been used
 	 */
+	@Override
 	public boolean useKey(String key, User user) {
 		Invitation invitation = getInvitation(key);
 		boolean rc = false;
@@ -153,6 +193,7 @@ public class InvitationDao implements IInvitationDao {
 	 * @param user User that issues the invitation code
 	 * @return Invitation code
 	 */
+	@Override
 	public String generateKey(User user) {
 		String code = LoginServiceImpl.generateSalt(8);
 		
@@ -160,5 +201,17 @@ public class InvitationDao implements IInvitationDao {
 		m_db.createDocument(invitation);
 		
 		return code;
+	}
+	
+	/**
+	 * Create an {@link InvitationRequest} document with a mail address to which the invitation will
+	 * be sent as soon as there are more slots available
+	 * 
+	 * @param mail E-Mail address
+	 */
+	@Override
+	public void requestInvitation(String mail) {
+		InvitationRequest request = new InvitationRequest(mail);
+		m_db.createDocument(request);
 	}
 }
