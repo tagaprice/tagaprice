@@ -39,6 +39,14 @@ public interface ILoginService extends RemoteService {
 	 */
 	public User isLoggedIn();
 
+	
+	/**
+	 * Add this email address to invite queue
+	 * @param email email of the person who wants to get an invitation
+	 * @return true if everything was ok
+	 */
+	public boolean addEmailToInviteQueue(String email) throws DaoException;
+	
 
 	/**
 	 * Returns true if email is not used yet.

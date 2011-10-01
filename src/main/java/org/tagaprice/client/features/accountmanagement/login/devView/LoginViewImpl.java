@@ -108,5 +108,11 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		return null;
 	}
 
+	@Override
+	public void setInviteSentView() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

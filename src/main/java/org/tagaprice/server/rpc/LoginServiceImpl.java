@@ -2,8 +2,6 @@ package org.tagaprice.server.rpc;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -11,7 +9,6 @@ import javax.mail.internet.InternetAddress;
 import org.tagaprice.server.dao.IDaoFactory;
 import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.dao.IUserDao;
-import org.tagaprice.server.dao.couchdb.InvitationDao;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.exceptions.InvitationKeyUsedOrInvalidException;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
@@ -67,7 +64,6 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	public User isLoggedIn() {
 		User rc = null;
 
-		//TODO return user
 		try {
 			if(getUser()!=null)rc=getUser();
 		} catch (UserNotLoggedInException e) {
@@ -208,12 +204,24 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 		return true; // I don't want a session to be returned that soon. There should be a mail verification before
 	}
 
-	/*
-	private String getSid(){
-		return getThreadLocalRequest().getSession().getAttribute("sid").toString();
+	@Override
+	public boolean addEmailToInviteQueue(String email) throws DaoException {
+		if (!isEmailAvailable(email)) return false;
+		
+		User user = new User(email); 
+		user.setMail(email);
+		user.setProperty("inviteme", "true");
+		
+		try {
+			user = _userDao.create(user);
+		} catch (DaoException e) {
+			throw new DaoException("IOException: "+e.getMessage(), e);	
+		}
+		
+		if(user.getId()!=null)
+			return true;
+		
+		return false;
 	}
-	*/
-
-
 
 }

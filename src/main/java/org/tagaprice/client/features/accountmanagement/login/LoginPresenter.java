@@ -198,7 +198,35 @@ public class LoginPresenter implements ILoginView.Presenter{
 
 	@Override
 	public void onInviteEvent() {
-		// TODO Auto-generated method stub
+		if(loginView.getEmail().isEmpty()){
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Email must not be empty", INFOTYPE.ERROR,0));
+		}else{
+			_clientFactory.getLoginService().addEmailToInviteQueue(loginView.getEmail().trim(), new AsyncCallback<Boolean>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					try {
+						throw caught;
+					}  catch (Throwable e) {
+						Log.error("Unexpected error: " + e);
+					}
+					
+				}
+
+				@Override
+				public void onSuccess(Boolean response) {
+					if(response){
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "We try to send you an invitation as soon as possible.", INFOTYPE.SUCCESS));
+						loginView.setInviteSentView();
+					}else{
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Email already in queue. ", INFOTYPE.INFO));
+					}
+					
+					
+				}
+			});
+		}
+			
 		
 	}
 

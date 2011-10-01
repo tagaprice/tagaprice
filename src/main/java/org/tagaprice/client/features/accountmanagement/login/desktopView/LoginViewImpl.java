@@ -300,8 +300,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				_presenter.onInviteEvent();
 			}
 		});
 		inviteMe.setStyleName("save");
@@ -328,6 +327,12 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@Override
 	public String getInvitationKey() {
 		return inviteKey.getValue();
+	}
+
+	@Override
+	public void setInviteSentView() {
+		headLine.setText("Invite Me");
+		panel.setWidget(new Label("We add you to the invitation queue, and try to send you an invitation as soon as possible."));
 	}
 
 }

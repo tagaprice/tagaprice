@@ -68,7 +68,12 @@ public interface ILoginView extends IsWidget {
 	 */
 	public void setConfirmationSentView();
 	
-
+	/**
+	 * Show you are in the queue
+	 */
+	public void setInviteSentView();
+	
+	
 	public interface Presenter {
 		/**
 		 * Is used by the {@link org.tagaprice.client.mvp.AppActivityMapper} to display a new place in the
@@ -135,4 +140,6 @@ public interface ILoginView extends IsWidget {
 		public void setConfirmationSentView();
 		
 	}
+
+
 }
