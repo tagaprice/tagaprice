@@ -34,16 +34,11 @@ public interface ILoginView extends IsWidget {
 	public String getPassword();
 	
 	/**
-	 * Displays the wait for confirmation view.
+	 * @return the invitation key
 	 */
-	public void showWaitForConfirmation();
+	public String getInvitationKey();
 	
 	
-	/**
-	 * Displays the SignIn/Up view. 
-	 * @param showSingIn radio button is set to 'I have an account' or 'I'm new!'
-	 */
-	public void showSignInUp(boolean showSingIn);
 	
 	/**
 	 * set the view to registerView

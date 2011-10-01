@@ -10,6 +10,7 @@ import java.util.Random;
 
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
@@ -335,5 +336,11 @@ public class MockDaoFactory implements IDaoFactory {
 		}
 
 		return rc.toString();
+	}
+
+	@Override
+	public IInvitationDao getInvitationDao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

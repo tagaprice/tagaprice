@@ -9,9 +9,13 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.dao.IUserDao;
+import org.tagaprice.server.dao.couchdb.InvitationDao;
 import org.tagaprice.shared.entities.accountmanagement.User;
+import org.tagaprice.shared.exceptions.InvitationKeyUsedOrInvalidException;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.shared.exceptions.UserNotConfirmedException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -25,30 +29,30 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 	//private ISessionDao _sessionDao;
 	private IUserDao _userDao;
+	private IInvitationDao _invitationDao;
 
 	public LoginServiceImpl() {
 		IDaoFactory daoFactory = InitServlet.getDaoFactory();
 
 		//_sessionDao = daoFactory.getSessionDao();
 		_userDao = daoFactory.getUserDao();
+		_invitationDao = daoFactory.getInvitationDao();
+		
 	}
 
 	@Override
-	public User setLogin(String email, String password) throws DaoException, UserAlreadyLoggedInException, WrongEmailOrPasswordException {
+	public User setLogin(String email, String password) throws DaoException, UserAlreadyLoggedInException, WrongEmailOrPasswordException, UserNotConfirmedException {
 		User rc = null;
 
 		User user = _userDao.getByMail(email);
 
 		if (user == null || !_checkPassword(user, password)) throw new WrongEmailOrPasswordException("Please check your login credentials"); 
 
-		// create Session (default expiration time: 24h)
-		Date expirationDate = new Date(Calendar.getInstance().getTimeInMillis()+(24*3600000));
-		//Session session = _sessionDao.create(new Session(user.getId(), expirationDate));
-		//rc = session.getId();
-		//setSessionId(rc);
-
+	
+		if(user.isConfirmed()==false) throw new UserNotConfirmedException("Please check your email and click the confirmation link");
+		
 		setUser(user);
-		//TODO return user!
+		
 		rc=user;
 		
 		return rc;
@@ -133,9 +137,15 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 	}
 
 	@Override
-	public boolean registerUser(String diplayName, String email, String password) throws DaoException {
+	public boolean registerUser(String diplayName, String email, String password, String invitationKey) 
+	throws InvitationKeyUsedOrInvalidException, DaoException {
 		Log.debug("Try to register: email: " + email + ", password: " + password);
 
+		
+		
+		if(!_invitationDao.checkKey(invitationKey.trim()))throw new InvitationKeyUsedOrInvalidException();
+
+		
 		password=password.trim();
 		email=email.trim();
 		
@@ -157,7 +167,7 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 		
 		try {
-			User user = new User(diplayName); // TODO we need an actual user name here
+			User user = new User(diplayName); 
 			user.setMail(email);
 			user.setPasswordSalt(salt);
 			user.setPasswordHash(pwdHash);
@@ -176,6 +186,12 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 			replacements.put("host", "beta.tagaprice.org");
 			replacements.put("link", "TagAPrice/confirmservice");
 			Mail.getInstance().send("regConfirm", new InternetAddress(user.getMail()),  replacements);
+			
+			//set Key has been used
+			_invitationDao.useKey(invitationKey.trim(), user);
+			//System.out.println("key: "+_invitationDao.generateKey(user));
+			//System.out.println("key: "+_invitationDao.generateKey(user));
+			//System.out.println("key: "+_invitationDao.generateKey(user));
 		} catch (AddressException e) {
 			throw new DaoException("AddressException: "+e.getMessage(), e);
 		} catch (MessagingException e) {

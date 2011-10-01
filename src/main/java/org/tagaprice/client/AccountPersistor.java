@@ -10,6 +10,7 @@ import org.tagaprice.shared.entities.Address;
 import org.tagaprice.shared.entities.Address.LatLon;
 import org.tagaprice.shared.entities.accountmanagement.User;
 import org.tagaprice.shared.entities.receiptManagement.Receipt;
+import org.tagaprice.shared.exceptions.UserNotConfirmedException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import com.allen_sauer.gwt.log.client.Log;
@@ -186,9 +187,11 @@ public class AccountPersistor implements IAccountPersistor {
 				} catch (WrongEmailOrPasswordException e) {
 					Log.warn("Login problem: " + e);
 					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Your email and password is incorrect. Register or try again. ", INFOTYPE.ERROR));
-				} catch (Throwable e) {
+				} catch (UserNotConfirmedException e){
+					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(AccountPersistor.class, "Please check your email and click the confirmation link.", INFOTYPE.ERROR));
+				}catch (Throwable e) {
 					Log.error("Unexpected error: " + e);
-				}
+				} 
 
 			}
 		});

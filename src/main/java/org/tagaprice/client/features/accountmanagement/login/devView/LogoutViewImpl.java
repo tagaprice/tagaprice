@@ -56,17 +56,7 @@ public class LogoutViewImpl extends Composite implements ILoginView {
 		return null;
 	}
 
-	@Override
-	public void showWaitForConfirmation() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void showSignInUp(boolean showSingIn) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
@@ -97,6 +87,12 @@ public class LogoutViewImpl extends Composite implements ILoginView {
 	public void setConfirmationSentView() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getInvitationKey() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

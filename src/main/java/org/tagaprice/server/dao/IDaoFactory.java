@@ -14,6 +14,7 @@ public interface IDaoFactory {
 	IUnitDao getUnitDao();
 	IUserDao getUserDao();
 	IStatisticDao getStatisticDao();
+	IInvitationDao getInvitationDao();
 
 	void init() throws ServletException;
 }

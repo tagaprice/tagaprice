@@ -116,147 +116,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		return password.getText();
 	}
 
-	@Override
-	public void showWaitForConfirmation() {
-		
-		VerticalPanel conWait = new VerticalPanel();
-		conWait.add(new Label("We have just sent you an confirmation mail. Please click the link in this mail to finish you registration."));
-		//panel.setWidget(conWait);
-		
-	}
-
 	
-	
-
-	@Override
-	public void showSignInUp(boolean showSingIn) {
-		vePaSignInUp.clear();
-		if(false){
-		/*
-		//invite key
-		if(invite){
-			Label inviteKeylabel = new Label("Add here your invite key");
-			vePaSignInUp.add(inviteKeylabel);
-			vePaSignInUp.add(inviteKey);
-			vePaSignInUp.add(new HTML("<hr />"));
-		}
-		*/
-		
-		//facebook
-		Image fb = new Image("desktopView/fb-login-button.png");
-		fb.setStyleName("loginView-pic");
-		fb.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=facebook", "_self", "");
-			}
-		});
-		vePaSignInUp.add(fb);
-		
-		//twitter
-		Image tw = new Image("https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png");
-		tw.setStyleName("loginView-pic");
-		tw.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				Window.open("/TagAPrice/socialAuth?id=twitter", "_self", "");
-				
-			}
-		});
-		vePaSignInUp.add(tw);
-		vePaSignInUp.add(new HTML("<hr />"));
-		
-		
-		//Username
-		Label emailText = new Label("Email");
-		Label passwordText = new Label("Password");
-		final Label displayText = new Label("Display Name");
-		
-		//diplayName
-		vePaSignInUp.add(displayText);
-		vePaSignInUp.add(diplayName);
-		diplayName.setReadOnly(false);
-		displayText.setVisible(false);
-		diplayName.setVisible(false);
-		
-		vePaSignInUp.add(emailText);
-		vePaSignInUp.add(email);
-		email.setReadOnly(false);
-		
-		//radio
-		vePaSignInUp.add(signInRadio);
-		vePaSignInUp.add(signUpRadio);
-		
-		
-		vePaSignInUp.add(passwordText);
-		vePaSignInUp.add(password);
-		password.setStyleName("morphWidget edit");
-		
-		//sign in button
-		
-		vePaSignInUp.add(signInButton);
-		vePaSignInUp.add(signUpButton);
-		signUpButton.setVisible(false);
-		
-		
-		
-		//forgot Password
-		vePaSignInUp.add(passwordForgotText);
-		vePaSignInUp.add(terms);
-		terms.setVisible(false);
-
-		
-		
-		//sign in/up select
-		signInRadio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> value) {
-				if(value.getValue()){
-					signInButton.setVisible(true);
-					signUpButton.setVisible(false);
-					passwordForgotText.setVisible(true);
-					terms.setVisible(false);
-					displayText.setVisible(false);
-					diplayName.setVisible(false);
-				}
-			}
-		});
-		
-		signUpRadio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> value) {
-				if(value.getValue()){
-					signUpButton.setVisible(true);
-					signInButton.setVisible(false);
-					passwordForgotText.setVisible(false);
-					terms.setVisible(true);
-
-					displayText.setVisible(true);
-					diplayName.setVisible(true);
-				}				
-			}
-		});		
-		
-		if(showSingIn){
-			signInRadio.setValue(true);
-			signInButton.setVisible(true);
-			signUpButton.setVisible(false);
-			passwordForgotText.setVisible(true);
-			terms.setVisible(false);
-		}else{
-			signUpRadio.setValue(true);
-			signUpButton.setVisible(true);
-			signInButton.setVisible(false);
-			passwordForgotText.setVisible(false);
-			terms.setVisible(true);
-		}
-		}
-		//panel.setWidget(vePaSignInUp);
-	}
 
 	@Override
 	public String getDisplayName() {
@@ -273,7 +133,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		
 		//invite Key
-		Label inviteKeyLabel = new Label("Inivte key");
+		Label inviteKeyLabel = new Label("Invite key");
 		loginViewVePa.add(inviteKeyLabel);
 		inviteKey.setValue(key);
 		loginViewVePa.add(inviteKey);
@@ -307,6 +167,15 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		loginViewVePa.add(tw);
 		loginViewVePa.add(new HTML("<hr />"));
 		
+		
+		Label displayText = new Label("Display Name");
+		
+		//diplayName
+		loginViewVePa.add(displayText);
+		loginViewVePa.add(diplayName);
+		diplayName.setReadOnly(false);
+				
+		
 		//email
 		Label emailText = new Label("Email");
 		loginViewVePa.add(emailText);
@@ -321,7 +190,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		
 		//singIn button
-		loginViewVePa.add(signInButton);
+		loginViewVePa.add(signUpButton);
 		
 		
 		//forgot password
@@ -445,8 +314,13 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	@Override
 	public void setConfirmationSentView() {
 		headLine.setText("Waiting for confirmation");
-		panel.setWidget(new Label("setConfirmationSentView"));
+		panel.setWidget(new Label("You should have got an confirmation email. Please click the link to finish the registration."));
 		
+	}
+
+	@Override
+	public String getInvitationKey() {
+		return inviteKey.getValue();
 	}
 
 }

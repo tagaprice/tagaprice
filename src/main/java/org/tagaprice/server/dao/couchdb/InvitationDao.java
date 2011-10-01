@@ -8,10 +8,11 @@ import org.jcouchdb.db.Server;
 import org.jcouchdb.document.BaseDocument;
 import org.jcouchdb.exception.NotFoundException;
 import org.svenson.JSONProperty;
+import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.rpc.LoginServiceImpl;
 import org.tagaprice.shared.entities.accountmanagement.User;
 
-public class InvitationDao {
+public class InvitationDao implements IInvitationDao {
 	public static class Invitation extends BaseDocument {
 		private String m_requesterId = null;
 		private Date m_requestTimestamp = null;
@@ -32,7 +33,12 @@ public class InvitationDao {
 		}
 		
 		@JSONProperty(ignoreIfNull=true)
-		public Date getRequestTimestamp() {
+		public long getRequestTimestamp() {
+			return m_requestTimestamp.getTime();
+		}
+		
+		@JSONProperty(ignore=true)
+		public Date getRequestDate(){
 			return m_requestTimestamp;
 		}
 		
@@ -42,7 +48,12 @@ public class InvitationDao {
 		}
 		
 		@JSONProperty(ignoreIfNull=true)
-		public Date getUseTimestamp() {
+		public long getUseTimestamp() {
+			return m_useTimestamp.getTime();
+		}
+		
+		@JSONProperty(ignore=true)
+		public Date getUseDate(){
 			return m_useTimestamp;
 		}
 		
@@ -56,16 +67,16 @@ public class InvitationDao {
 			m_requesterId = requesterId;
 		}
 		
-		public void setRequestTimestamp(Date timestamp) {
-			m_requestTimestamp = timestamp;
+		public void setRequestTimestamp(long timestamp) {
+			m_requestTimestamp = new Date(timestamp);
 		}
 		
 		public void setUserId(String userId) {
 			m_userId = userId;
 		}
 		
-		public void setUseTimestamp(Date timestamp) {
-			m_useTimestamp = timestamp;
+		public void setUseTimestamp(long timestamp) {
+			m_useTimestamp = new Date(timestamp);
 		}
 
 		
@@ -130,7 +141,7 @@ public class InvitationDao {
 		boolean rc = false;
 		if (invitation != null) {
 			invitation.setUserId(user.getId());
-			invitation.setUseTimestamp(Calendar.getInstance().getTime());
+			invitation.setUseTimestamp(Calendar.getInstance().getTime().getTime());
 
 			m_db.updateDocument(invitation);
 		}

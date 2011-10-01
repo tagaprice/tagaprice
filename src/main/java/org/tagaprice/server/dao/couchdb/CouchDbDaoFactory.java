@@ -12,6 +12,7 @@ import org.jcouchdb.db.Server;
 import org.jcouchdb.db.ServerImpl;
 import org.tagaprice.server.dao.ICategoryDao;
 import org.tagaprice.server.dao.IDaoFactory;
+import org.tagaprice.server.dao.IInvitationDao;
 import org.tagaprice.server.dao.IPackageDao;
 import org.tagaprice.server.dao.IProductDao;
 import org.tagaprice.server.dao.IReceiptDao;
@@ -43,6 +44,7 @@ public class CouchDbDaoFactory implements IDaoFactory {
 	private IUnitDao m_unitDao = null;
 	private UserDao m_userDao = null;
 	private StatisticDao m_statisticDao = null;
+	private IInvitationDao m_invitaionDao = null;
 	
 	private ElasticSearchClient m_elasticSearchClient;
 
@@ -218,5 +220,12 @@ public class CouchDbDaoFactory implements IDaoFactory {
 		if(m_shopCategoryDao == null)
 			m_shopCategoryDao = new CategoryDao(this, Document.Type.SHOPCATEGORY);
 		return m_shopCategoryDao;
+	}
+
+	@Override
+	public IInvitationDao getInvitationDao() {
+		if(m_invitaionDao == null)
+			m_invitaionDao = new InvitationDao(m_dbConfig);
+		return m_invitaionDao;
 	}
 }

@@ -4,6 +4,8 @@ import org.tagaprice.client.ClientFactory;
 import org.tagaprice.client.generics.events.InfoBoxDestroyEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent;
 import org.tagaprice.client.generics.events.InfoBoxShowEvent.INFOTYPE;
+import org.tagaprice.shared.exceptions.InvitationKeyUsedOrInvalidException;
+import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.place.shared.Place;
@@ -28,7 +30,7 @@ public class LoginPresenter implements ILoginView.Presenter{
 
 		loginView = _clientFactory.getLoginView();
 		loginView.setPresenter(this);
-		loginView.showSignInUp(true);
+		loginView.setLoginView();
 		_view.setWidget(loginView);
 		
 	}
@@ -42,7 +44,7 @@ public class LoginPresenter implements ILoginView.Presenter{
 	@Override
 	public void onLogOutEvent() {
 		_clientFactory.getAccountPersistor().logout();
-		loginView.showSignInUp(true);
+		loginView.setLoginView();
 	}
 
 	@Override
@@ -84,6 +86,8 @@ public class LoginPresenter implements ILoginView.Presenter{
 		if(loginView.getDisplayName().trim().isEmpty())
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Displayname must not be empty", INFOTYPE.ERROR,0));
 
+		if(loginView.getInvitationKey().trim().isEmpty())
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Invite key must not be empty", INFOTYPE.ERROR,0));
 
 
 		if(
@@ -98,11 +102,12 @@ public class LoginPresenter implements ILoginView.Presenter{
 				@Override
 				public void onSuccess(Boolean response) {
 					if(response==true){
-
+						
 						_clientFactory.getLoginService().registerUser(
 								loginView.getDisplayName(),
 								loginView.getEmail(),
 								loginView.getPassword(),
+								loginView.getInvitationKey(),
 								new AsyncCallback<Boolean>() {
 
 									@Override
@@ -112,7 +117,7 @@ public class LoginPresenter implements ILoginView.Presenter{
 											_clientFactory.getEventBus().fireEvent(new InfoBoxDestroyEvent(registerShow));
 											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Juhu. You are registered. Waiting for confirming", INFOTYPE.INFO));
 											//goTo(new StartPlace());
-											loginView.showWaitForConfirmation();
+											loginView.setConfirmationSentView();
 											
 											
 											 t = new Timer() {
@@ -127,7 +132,7 @@ public class LoginPresenter implements ILoginView.Presenter{
 																t.cancel();
 																_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "You are registered and confirmed. Please LogIn", INFOTYPE.SUCCESS,0));
 																//onLoginEvent();
-																loginView.showSignInUp(true);
+																loginView.setLoginView();
 															}
 														}
 														
@@ -154,8 +159,15 @@ public class LoginPresenter implements ILoginView.Presenter{
 									}
 
 									@Override
-									public void onFailure(Throwable e) {
-										Log.error(e.getMessage());
+									public void onFailure(Throwable caught) {
+										try {
+											throw caught;
+										} catch (InvitationKeyUsedOrInvalidException e) {
+											_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Invitation key already in use or not valid.", INFOTYPE.ERROR,0));
+											Log.warn("Login problem: " + e);
+										} catch (Throwable e) {
+											Log.error("Unexpected error: " + e);
+										}
 
 									}
 								});
@@ -169,8 +181,15 @@ public class LoginPresenter implements ILoginView.Presenter{
 				}
 
 				@Override
-				public void onFailure(Throwable e) {
-					Log.error(e.getMessage());
+				public void onFailure(Throwable caught) {
+					try {
+						throw caught;
+					} catch (InvitationKeyUsedOrInvalidException e) {
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Invitation key already in use or not valid.", INFOTYPE.ERROR,0));
+						Log.warn("Login problem: " + e);
+					} catch (Throwable e) {
+						Log.error("Unexpected error: " + e);
+					}
 				}
 			});
 		}

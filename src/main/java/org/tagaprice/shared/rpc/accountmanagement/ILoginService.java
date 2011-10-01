@@ -1,7 +1,9 @@
 package org.tagaprice.shared.rpc.accountmanagement;
 
 import org.tagaprice.shared.entities.accountmanagement.User;
+import org.tagaprice.shared.exceptions.InvitationKeyUsedOrInvalidException;
 import org.tagaprice.shared.exceptions.UserAlreadyLoggedInException;
+import org.tagaprice.shared.exceptions.UserNotConfirmedException;
 import org.tagaprice.shared.exceptions.UserNotLoggedInException;
 import org.tagaprice.shared.exceptions.WrongEmailOrPasswordException;
 import org.tagaprice.shared.exceptions.dao.DaoException;
@@ -21,7 +23,7 @@ public interface ILoginService extends RemoteService {
 	 * @throws DaoException if something went wrong at the database backend
 	 */
 	public User setLogin(String email, String password) throws WrongEmailOrPasswordException,
-	UserAlreadyLoggedInException, DaoException;
+	UserAlreadyLoggedInException, DaoException, UserNotConfirmedException;
 
 
 	/**
@@ -52,10 +54,12 @@ public interface ILoginService extends RemoteService {
 	 * @param displayName The users display name. Don't have to be unique
 	 * @param email email that should be registered
 	 * @param password password
+	 * @param invitationKey 
 	 * @return true if everything was ok.
 	 * @throws DaoException
 	 */
-	public boolean registerUser(String displayName, String email, String password) throws DaoException;
+	public boolean registerUser(String displayName, String email, String password, String invitationKey) 
+	throws InvitationKeyUsedOrInvalidException, DaoException;
 
 	/**
 	 * Set new password.
