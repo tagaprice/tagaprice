@@ -23,6 +23,7 @@ import org.tagaprice.shared.entities.Document;
 import org.tagaprice.shared.exceptions.dao.DaoException;
 import org.tagaprice.shared.exceptions.dao.TypeMismatchException;
 import com.allen_sauer.gwt.log.client.Log;
+import com.ibm.icu.util.Calendar;
 
 /**
  * Base class for all the other CouchDB DAO classes
@@ -112,6 +113,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T create(T document) throws DaoException {
 		document._setDocType(m_docType);
+		document.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());
@@ -236,6 +238,7 @@ public class DaoClass<T extends Document> implements IDaoClass<T> {
 	@Override
 	public T update(T document) throws DaoException {
 		document._setDocType(m_docType);
+		document.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
 		// check if the creator exists
 		_checkCreatorId(document.getCreatorId());
