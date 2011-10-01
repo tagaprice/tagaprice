@@ -80,29 +80,34 @@ public class InviteFriendsActivity implements Activity, Presenter {
 
 	@Override
 	public void onSendInvitation() {
-		_clientFactory.getLoginService().sendInviteToFriend("",new AsyncCallback<Long>() {
-			
-			@Override
-			public void onSuccess(Long response) {
-				_view.setInviteCount(response);
+		if(_view.getInviteMailAddress()!=null && _view.getInviteMailAddress().toLowerCase().trim().matches(".+@.+\\.[a-z][a-z]+")){
+			_clientFactory.getLoginService().sendInviteToFriend(_view.getInviteMailAddress(),new AsyncCallback<Long>() {
 				
-				_clientFactory.getAccountPersistor().getUser().setProperty("inviteCount",response);
-				_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(InviteFriendsActivity.class, "Thx. You have successfully sent the invitation!", INFOTYPE.SUCCESS));
+				@Override
+				public void onSuccess(Long response) {
+					_view.setInviteCount(response);
+					
+					_clientFactory.getAccountPersistor().getUser().setProperty("inviteCount",response);
+					if(response>0)
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(InviteFriendsActivity.class, "Thx. You have successfully sent the invitation!", INFOTYPE.SUCCESS));
+					else
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(InviteFriendsActivity.class, "Sorry. But you have no more invitations.", INFOTYPE.INFO));
 
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				try {
-					throw caught;
-				} catch (UserNotLoggedInException e) {
-					_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(InviteFriendsActivity.class, "User Not Logged In", INFOTYPE.ERROR,0));
-				} catch (Throwable e) {
-					Log.error("Unexpected error: " + e);
 				}
 				
-			}
-		});
+				@Override
+				public void onFailure(Throwable caught) {
+					try {
+						throw caught;
+					} catch (UserNotLoggedInException e) {
+						_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(InviteFriendsActivity.class, "User Not Logged In", INFOTYPE.ERROR,0));
+					} catch (Throwable e) {
+						Log.error("Unexpected error: " + e);
+					}
+					
+				}
+			});
+		}
 		
 	}
 
