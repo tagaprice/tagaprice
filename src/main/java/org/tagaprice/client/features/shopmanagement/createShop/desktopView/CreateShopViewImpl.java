@@ -116,7 +116,8 @@ public class CreateShopViewImpl extends Composite implements ICreateShopView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				setReadOnly(false);
+				_presenter.onEditEvent();
+				//setReadOnly(false);
 			}
 		});
 	

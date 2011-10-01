@@ -146,6 +146,12 @@ public interface ICreateShopView extends IsWidget {
 		 *            shop.
 		 */
 		public void onSaveEvent();
+		
+		
+		/**
+		 * check if user is logged in an set view editable
+		 */
+		public void onEditEvent();
 
 		/**
 		 * 	This event is called when the user has changed something at the statistic widget

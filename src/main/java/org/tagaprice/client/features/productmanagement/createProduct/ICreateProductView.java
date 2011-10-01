@@ -172,6 +172,12 @@ public interface ICreateProductView extends IsWidget {
 		 */
 		public void onSaveEvent();
 
+		
+		/**
+		 * check if user is logged in an set view editable
+		 */
+		public void onEditEvent();
+		
 		/**
 		 * This event is called when the user has CHANCED the title
 		 * 
