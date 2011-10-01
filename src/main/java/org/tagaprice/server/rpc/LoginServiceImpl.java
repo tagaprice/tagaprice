@@ -134,13 +134,14 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 	@Override
 	public boolean registerUser(String diplayName, String email, String password, String invitationKey) 
-	throws InvitationKeyUsedOrInvalidException, DaoException {
+	throws InvitationKeyUsedOrInvalidException, UserAlreadyLoggedInException, DaoException {
 		Log.debug("Try to register: email: " + email + ", password: " + password);
 
 		
 		
 		if(!_invitationDao.checkKey(invitationKey.trim()))throw new InvitationKeyUsedOrInvalidException();
 
+		if(_userDao.getByMail(email)!=null) throw new UserAlreadyLoggedInException("This user has been registered");
 		
 		password=password.trim();
 		email=email.trim();
@@ -206,6 +207,8 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 
 	@Override
 	public boolean addEmailToInviteQueue(String email) throws DaoException {
+		return false;
+		/*
 		if (!isEmailAvailable(email)) return false;
 		
 		User user = new User(email); 
@@ -222,6 +225,7 @@ public class LoginServiceImpl extends ASessionService implements ILoginService {
 			return true;
 		
 		return false;
+		*/
 	}
 
 }

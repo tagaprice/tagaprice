@@ -67,7 +67,7 @@ public interface ILoginService extends RemoteService {
 	 * @throws DaoException
 	 */
 	public boolean registerUser(String displayName, String email, String password, String invitationKey) 
-	throws InvitationKeyUsedOrInvalidException, DaoException;
+	throws InvitationKeyUsedOrInvalidException, DaoException, UserAlreadyLoggedInException;
 
 	/**
 	 * Set new password.
