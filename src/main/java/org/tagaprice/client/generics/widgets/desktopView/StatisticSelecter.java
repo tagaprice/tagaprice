@@ -179,21 +179,25 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 			shopList.put(sr.getShop().getId(), sr);
 			
 			//product
-			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId())==null){
-				shopSortList.get(sr.getShop().getId()).put(sr.getProduct().getId(), new HashMap<String, StatisticResult>());
+			if(sr.getProduct()!=null){
+				if( shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId())==null){
+					shopSortList.get(sr.getShop().getId()).put(sr.getProduct().getId(), new HashMap<String, StatisticResult>());
+				}
+				productList.put(sr.getProduct().getId(), sr);
 			}
-			productList.put(sr.getProduct().getId(), sr);
 						
 			//package
-			if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
-				shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
-			}else{
-				//Overwrite old date
-				if(sr.getDate() != null && shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
+			if(sr.getProduct()!=null && sr.getPackage()!=null){
+			
+				if(shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId())==null){
 					shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
+				}else{
+					//Overwrite old date
+					if(sr.getDate() != null && shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).get(sr.getPackage().getId()).getDate().before(sr.getDate())){
+						shopSortList.get(sr.getShop().getId()).get(sr.getProduct().getId()).put(sr.getPackage().getId(), sr);
+					}
 				}
 			}
-			
 		}
 		
 		
@@ -275,6 +279,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 				shopFlex.getCellFormatter().setStyleName(rk, 2+shopProductC, "statisticTable-cell");
 				shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 				rk++;
+				
 				for(String paK: shopSortList.get(sk).get(prK).keySet()){
 					StatisticResult statistics = shopSortList.get(sk).get(prK).get(paK);
 					String unitTitle = statistics.getUnit() != null ? statistics.getUnit().getTitle() : null;
@@ -291,6 +296,7 @@ public class StatisticSelecter extends Composite implements IStatisticSelecter {
 					shopFlex.getCellFormatter().setStyleName(rk, 3+shopProductC, "statisticTable-cell");
 					rk++;
 				}
+				
 			}
 		}
 		
