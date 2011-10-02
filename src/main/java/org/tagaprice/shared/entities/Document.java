@@ -234,7 +234,7 @@ public class Document implements IsSerializable, DynamicProperties {
 	 * by the DAO
 	 * @param lastModified New modification time (in msecs since epoch)
 	 */
-	public void setLastModified(long lastModified) {
+	public void setLastModified(Long lastModified) {
 		_modificationDate = new Date(lastModified);
 	}
 
