@@ -81,7 +81,7 @@ public class StartActivity implements Activity, Presenter {
 
 	@Override
 	public void onRegisterWithKey() {
-		if(!_startView.getInviteKey().equals("your invite key"))
+		if(!_startView.getInviteKey().equals("Your Invitation Code"))
 			_clientFactory.getEventBus().fireEvent(new DisplayLoginEvent(LoginType.register, _startView.getInviteKey()));				
 	}
 

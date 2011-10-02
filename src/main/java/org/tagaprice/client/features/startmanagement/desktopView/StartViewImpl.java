@@ -52,7 +52,7 @@ public class StartViewImpl extends Composite implements IStartView {
 		HorizontalPanel inviteKeyHoPa = new HorizontalPanel();
 		inviteationKeyText.setStyleName("startRegisterKeyText");
 
-		inviteationKeyText.setText("your invite key");
+		inviteationKeyText.setText("Your Invitation Code");
 		inviteKeyHoPa.add(inviteationKeyText);
 		Button startRegisterButton = new Button("Register",new ClickHandler() {
 			
@@ -73,7 +73,7 @@ public class StartViewImpl extends Composite implements IStartView {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				if(inviteationKeyText.getText().equals("your invite key"))
+				if(inviteationKeyText.getText().equals("Your Invitation Code"))
 					inviteationKeyText.setText("");
 				
 			}

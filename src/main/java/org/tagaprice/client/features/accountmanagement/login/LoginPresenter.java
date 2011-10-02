@@ -87,7 +87,7 @@ public class LoginPresenter implements ILoginView.Presenter{
 			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Displayname must not be empty", INFOTYPE.ERROR,0));
 
 		if(loginView.getInvitationKey().trim().isEmpty())
-			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Invite key must not be empty", INFOTYPE.ERROR,0));
+			_clientFactory.getEventBus().fireEvent(new InfoBoxShowEvent(LoginPresenter.class, "Invitation code must not be empty", INFOTYPE.ERROR,0));
 
 
 		if(

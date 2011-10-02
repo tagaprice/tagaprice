@@ -129,7 +129,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 		
 		
 		//invite Key
-		Label inviteKeyLabel = new Label("Invite key");
+		Label inviteKeyLabel = new Label("Invitation Code");
 		loginViewVePa.add(inviteKeyLabel);
 		inviteKey.setValue(key);
 		loginViewVePa.add(inviteKey);
