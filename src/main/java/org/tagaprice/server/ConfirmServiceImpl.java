@@ -44,7 +44,8 @@ public class ConfirmServiceImpl extends HttpServlet {
 							_userDao.update(user);
 								//info = "You are now registered. Please go back to your (open) TagAPrice window.";
 								response.sendRedirect("#start:/null/redirect/true");
-							return;
+								info="You are now registered. Please go back to your (open) TagAPrice window.";
+							//return;
 						}else{
 							info="something went wrong";
 						}
