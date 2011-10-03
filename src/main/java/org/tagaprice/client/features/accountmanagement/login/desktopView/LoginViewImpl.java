@@ -33,7 +33,7 @@ public class LoginViewImpl extends Composite implements ILoginView {
 	private Button signInButton = new Button("Log in");
 	private Button signUpButton = new Button("Sign up!");
 	private Presenter _presenter;
-	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a>terms of service</a>.");
+	private HTML terms = new HTML("By clicking 'Sign up!' above, you confirm that you accept the <a href=\"/contributor_terms.html\" target=\"_blank\">terms of service</a>.");
 	private MorphWidget inviteKey = new MorphWidget();
 
 	private Label headLine = new Label("Login");
