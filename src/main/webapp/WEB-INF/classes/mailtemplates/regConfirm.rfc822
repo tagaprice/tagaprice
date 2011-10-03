@@ -6,7 +6,7 @@ you've just registered an account at tagaprice.org.
 
 To confirm your registration you have to open this link in your browser:
 
-http://{host}/{link}?conf={conf}
+http://{host}/{link}?conf={conf}&mail={mail} 
 
 If you didn't register an account at tagaprice.org using this mail address, please ignore this mail.
 
