@@ -6,6 +6,8 @@ import org.tagaprice.client.features.accountmanagement.login.LoginPresenter;
 import org.tagaprice.client.features.receiptmanagement.createReceipt.CreateReceiptPlace;
 import org.tagaprice.client.features.receiptmanagement.listReceipts.ListReceiptsPlace;
 import org.tagaprice.client.features.searchmanagement.SearchPlace;
+import org.tagaprice.client.features.startmanagement.StartActivity;
+import org.tagaprice.client.features.startmanagement.StartPlace;
 import org.tagaprice.client.generics.events.DisplayLoginEvent;
 import org.tagaprice.client.generics.events.DisplayLoginEvent.LoginType;
 import org.tagaprice.client.generics.events.DisplayLoginEventHandler;
@@ -16,7 +18,9 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -64,12 +68,20 @@ public class UIDesktop implements IUi {
 		//vePa1.setCellHorizontalAlignment(menu, HorizontalPanel.ALIGN_CENTER);
 		
 		
-		//titel
-		HTML _logo = new HTML("<a href=\"#\">&lt;Tag&gt;A&lt;/Price&gt;</a>");
-		_logo.setStyleName("logo");
-		menu.add(_logo);
+		// Logo
+		Image logo = new Image("logo.png");
+		logo.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				_clientFactory.getPlaceController().goTo(new StartPlace());
+			}
+		});
+
+		logo.setStyleName("logo");
+
+		menu.add(logo);
 		menu.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
-		menu.setCellWidth(_logo, "1%");
+		menu.setCellWidth(logo, "1%");
 		
 		
 		//SearchText

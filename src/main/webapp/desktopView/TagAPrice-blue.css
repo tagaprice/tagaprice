@@ -47,17 +47,8 @@ a:HOVER {
     height: 60px;
 }
 
-.logo a {
-    color: white;
-    font-family: 'Passero One', cursive;
-    font-size: 40px;
-    text-shadow: 0px 0px 10px white;
-}
-
-.logo a:hover {
-    color: white;
-    text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
+.logo {
+    padding: 5px;
 }
 
 .header-search {
