@@ -16,6 +16,7 @@
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
